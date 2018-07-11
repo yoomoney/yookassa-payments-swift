@@ -1,0 +1,89 @@
+/*По неизвестным нам причинам экран ApplePay не отобразился*/
+"ApplePayUnavailable.title" = "Apple Pay not available";
+
+/*Подсказка под текстовым полем для ввода номера телефона*/
+"Contract.bottomHint.sberbank" = "For text message with code from Sberbank";
+
+"Contract.bottomHint.smsCode.invalidAnswer" = "Incorrect text message password";
+
+"Contract.bottomHint.totp.invalidAnswer" = "Incorrect one-time password";
+
+/*Placeholder текстового поля для ввода номера телефона*/
+"Contract.placeholder.sberbank" = "Phone number for Mobile Bank";
+
+/*В процессе токенизации ApplePay произошла ошибка*/
+"Error.ApplePayStrategy.failTokenizeData" = "An error occurred during ApplePay tokenization";
+
+/*Пользователь потратил все попытки ввода. Создаем новую сессию на авторизацию*/
+"Error.endedAttemptsToEnterStartOver" = "Too many attempts. Try again later";
+
+/*Пользователь ввел верный код, но возникла ошибка. Создаем новую сессию на авторизацию*/
+"Error.resendAuthCodeAndStartOver" = "Error, try again";
+
+/*С сервера пришел неподдерживаемый способ прохождения платежной авторизации.*/
+"Error.unsupportedAuthType" = "This method of receiving passwords is not supported";
+
+/*Способ оплаты сбербанк онлайн*/
+"PaymentMethod.sberbank" = "Sberbank Online";
+
+/* https://yadi.sk/i/e-y9WwBb3VwYzm Текст на кнопке, рядом с текстом ошибки, когда пользователь успешно авторизовался в аккаунте Яндекса и у него нет кошелька.*/
+"PaymentOptionsNoWallet.buttonTitle" = "Continue without wallet";
+
+/*https://yadi.sk/i/e-y9WwBb3VwYzm Текст ошибки, когда пользователь успешно авторизовался в аккаунте Яндекса и у него нет кошелька.*/
+"PaymentOptionsNoWallet.title" = "You don't have a Yandex.Money Wallet";
+
+"PaymentMethods.paymentMethods" = "PAYMENT METHODS";
+
+"PaymentMethod.wallet" = "Yandex.Money";
+
+"PaymentMethod.applePay" = "Apple Pay";
+
+"PaymentMethod.bankCard" = "Bank card";
+
+"Error.Button.repeat" = "Try again";
+
+"Error.internet" = "Connection error. Try again once you're online.";
+
+"Error.emptyPaymentOptions" = "No available payment methods";
+
+"Contract.changePaymentMethod" = "Change";
+
+"Contract.next" = "Next";
+
+"Contract.price" = "To be paid";
+
+"Contract.resendSms" = "Send again";
+
+"Contract.format.resendSmsAfter" = "New password can be issued in %d";
+
+"Contract.placeholder.smsCode" = "Enter a text message password";
+
+"Contract.placeholder.totp" = "Enter a one-time password";
+
+"Contract.topHint.smsCode" = "Text message password";
+
+"Contract.topHint.totp" = "One-time password";
+
+"Contract.format.saveAuthInApp" = "Save the Wallet in the %@ app";
+
+"LogoutConfirmation.format.title" = "Are you sure you want to sign out of account '%@'?";
+
+"BankCardDataInput.navigationBarTitle" = "Bank card";
+
+"BankCardDataInput.panInput" = "Card number";
+
+"BankCardDataInput.expiryDate" = "MM / YY";
+
+"BankCardDataInput.cvc" = "CVC";
+
+"BankCardDataInput.confirmButtonTitle" = "Pay";
+
+"image.logo" = "logo.kassa.en";
+
+"Common.PlaceholderView.buttonTitle" = "Try again";
+
+"Common.button.ok" = "ОК";
+
+"Common.button.cancel" = "Cancel";
+
+"Common.Error.unknown" = "Something went wrong";

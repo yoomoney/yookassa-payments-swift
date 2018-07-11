@@ -1,0 +1,53 @@
+PODS:
+  - CardIO (5.4.1)
+  - FunctionalSwift (1.0.5)
+  - When (3.0.2):
+    - When/Core (= 3.0.2)
+  - When/Core (3.0.2)
+  - YandexCheckoutPayments (1.3.0):
+    - FunctionalSwift
+    - When
+    - YandexCheckoutPaymentsApi
+    - YandexCheckoutShowcaseApi
+    - YandexCheckoutWalletApi
+    - YandexLoginSDK
+    - YandexMobileMetrica/Dynamic (~> 3.1.2)
+    - YandexMoneyCoreApi
+  - YandexCheckoutPaymentsApi (1.0.1):
+    - FunctionalSwift (~> 1.0.5)
+    - YandexMoneyCoreApi (~> 1.0.0)
+  - YandexCheckoutShowcaseApi (1.0.0):
+    - FunctionalSwift (~> 1.0.5)
+    - YandexMoneyCoreApi (~> 1.0.0)
+  - YandexCheckoutWalletApi (1.0.2):
+    - FunctionalSwift (~> 1.0.5)
+    - YandexMoneyCoreApi (~> 1.0.0)
+  - YandexLoginSDK (2.0.1)
+  - YandexMobileMetrica/Dynamic (3.1.2)
+  - YandexMoneyCoreApi (1.0.1):
+    - FunctionalSwift (~> 1.0.5)
+
+DEPENDENCIES:
+  - CardIO
+  - FunctionalSwift
+  - YandexCheckoutPayments (from `./`)
+
+EXTERNAL SOURCES:
+  YandexCheckoutPayments:
+    :path: ./
+
+SPEC CHECKSUMS:
+  CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
+  FunctionalSwift: 89cef31016cbc9fcdd49ec04e5831ed5f51244bb
+  When: 4e5fda6952dd6e2714bafc329cb288b4637b6cc9
+  YandexCheckoutPayments: 0372de4265bc0e76d4cca8b789552e360ace8429
+  YandexCheckoutPaymentsApi: 83564a6dae2c74f942cbfcec84afa45b1230872b
+  YandexCheckoutShowcaseApi: c7fda3e27adf4f73fb14c1d6d4b9077703313405
+  YandexCheckoutWalletApi: 304601e48205c4dc0568a1018134eed3bb47547c
+  YandexLoginSDK: 37ba7f22e2f7d1f72d880081878cbbf7545bfce5
+  YandexMobileMetrica: ff500f48d993433fc9b30ffbf611b7502518aceb
+  YandexMoneyCoreApi: fdb12aa2f53bf31dd0c9a9d50c399d69e79a149f
+
+PODFILE CHECKSUM: 85466678c6e040a9cd11d558ef2719ef5c31bdaf
+
+COCOAPODS: 1.4.0

@@ -1,0 +1,33 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Atomic Design/Molecules/UIKit+Styles/UIButton+Style.swift",
+      "line": 184,
+      "symbol": "UIButton.tintColorDidChange()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Atomic Design/Molecules/UIKit+Styles/UIButton+Style.swift",
+      "line": 189,
+      "symbol": "UIButton.intrinsicContentSize",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Models/Public/PaymentMethodTypes.swift",
+      "line": 16,
+      "symbol": "PaymentMethodTypes.applePay",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Modules/ApplePay/View/PKPaymentAuthorizationViewController+Presentable.swift",
+      "line": 15,
+      "symbol": "PKPaymentAuthorizationViewController.hasNavigationBar",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift"
+}

@@ -1,0 +1,25 @@
+language: objective-c
+osx_image: xcode9.2
+xcode_workspace: YandexCheckoutPayments.xcworkspace
+xcode_scheme: ExamplePods
+cache:
+  bundler: true
+  cocoapods: true
+  directories:
+  - Carthage
+notifications:
+  slack:
+    secure: uYDg6FoH4UOjWo5h2JUjGkfP/xDbo7jTPOqH+ww8jMMMC8SiexUH68D9UzRhauuoUz4Q3C/Kyh5ghbNQ3k19bu6dTI1oQ/8HYLjcFaVqHEuuB9+ywQvv12UGzJb48d8ddw17wl0eIhpYf7dytOzVv/hdCvNByg5B9Q2aWrNsG8NzYLpy8vY1IwEQo3/4ieWA8BPWsWUHBBdPbFlH9nJr0bElk7vne4fpvfiQUL26aiAdCvSXFJ16JkCvUIgcM8MGv0kYLjp3AgmQnx6IUy2EtETEiSebECil8KvRDZPkKabHoks4V1k1/nyX3QjAliV3R0zfD9Z09PNOdt6JUDDIq8zDTprBLDKJaEBGAbqXD3M4JtglylBGYiY1y5hgWRYyDKMBq/Mchxsw1q6JRtvTS8uWzrHRvGcRQca6gqrrNCfenSN75VPAIpGa9ncwLXjl8mNJzkCHDhaohxvhcbWwrx0SCBno4/yPUb6w7OP2yW+7LLRucI6J4YFfDnmyl4Z/sMX1wgTS4s4qaST6F3iHnPo66y9+60vQ4KHVMH4RVgJWprpwkOrRds1H2YNnyBfmeav2K6Z+Y9iE9y9poJaEvYRfqIc0QodaMqzASwsdRAOLxVGrLegS+T6RUtZKa+eac/0pSkMVC9wgbt1ob8rkbWDfg6j3JvockMAkmE28e0s=
+before_install:
+- brew update && brew bundle
+- bundle install --jobs=3 --retry=3 --deployment
+- pushd .
+- bundle exec pod repo update
+- bundle exec pod install
+install: true
+before_script:
+- carthage bootstrap --platform iOS --cache-builds
+script:
+- swiftlint
+- bundle exec fastlane build
+- bundle exec fastlane scan

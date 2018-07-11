@@ -1,0 +1,89 @@
+/*По неизвестным нам причинам экран ApplePay не отобразился*/
+"ApplePayUnavailable.title" = "Apple Pay недоступен";
+
+/*Подсказка под текстовым полем для ввода номера телефона*/
+"Contract.bottomHint.sberbank" = "Для смс от Сбербанка с кодом для оплаты";
+
+"Contract.bottomHint.smsCode.invalidAnswer" = "Неправильный код из смс";
+
+"Contract.bottomHint.totp.invalidAnswer" = "Неправильный одноразовый пароль";
+
+/*Placeholder текстового поля для ввода номера телефона*/
+"Contract.placeholder.sberbank" = "Телефон для мобильного банка";
+
+/*В процессе токенизации ApplePay произошла ошибка*/
+"Error.ApplePayStrategy.failTokenizeData" = "В процессе токенизации ApplePay произошла ошибка";
+
+/*Пользователь потратил все попытки ввода. Создаем новую сессию на авторизацию*/
+"Error.endedAttemptsToEnterStartOver" = "Слишком много попыток. Попробуйте позже";
+
+/*Пользователь ввел верный код, но возникла ошибка. Создаем новую сессию на авторизацию*/
+"Error.resendAuthCodeAndStartOver" = "Не получилось, попробуйте заново";
+
+/*С сервера пришел неподдерживаемый способ прохождения платежной авторизации.*/
+"Error.unsupportedAuthType" = "Этот способ получения паролей не поддерживается. Поменять можно в настройках кошелька на сайте Яндекс.Денег";
+
+/*Способ оплаты сбербанк онлайн*/
+"PaymentMethod.sberbank" = "Сбербанк Онлайн";
+
+/* https://yadi.sk/i/e-y9WwBb3VwYzm Текст на кнопке, рядом с текстом ошибки, когда пользователь успешно авторизовался в аккаунте Яндекса и у него нет кошелька.*/
+"PaymentOptionsNoWallet.buttonTitle" = "Продолжить без кошелька";
+
+/*https://yadi.sk/i/e-y9WwBb3VwYzm Текст ошибки, когда пользователь успешно авторизовался в аккаунте Яндекса и у него нет кошелька.*/
+"PaymentOptionsNoWallet.title" = "У вас нет кошелька на Яндексе";
+
+"PaymentMethods.paymentMethods" = "СПОСОБЫ ОПЛАТЫ";
+
+"PaymentMethod.wallet" = "Яндекс.Деньги";
+
+"PaymentMethod.applePay" = "Apple Pay";
+
+"PaymentMethod.bankCard" = "Банковская карта";
+
+"Error.Button.repeat" = "Повторить попытку";
+
+"Error.internet" = "Проблема с интернетом. Попробуйте еще раз, когда будете онлайн";
+
+"Error.emptyPaymentOptions" = "Нет доступных способов оплаты";
+
+"Contract.changePaymentMethod" = "Изменить";
+
+"Contract.next" = "Продолжить";
+
+"Contract.price" = "К оплате";
+
+"Contract.resendSms" = "Отправить снова";
+
+"Contract.format.resendSmsAfter" = "Новый пароль можно получить через %d";
+
+"Contract.placeholder.smsCode" = "Введите пароль из смс";
+
+"Contract.placeholder.totp" = "Введите одноразовый пароль";
+
+"Contract.topHint.smsCode" = "Пароль из смс";
+
+"Contract.topHint.totp" = "Одноразовый пароль";
+
+"Contract.format.saveAuthInApp" = "Сохранить кошелёк в приложении %@";
+
+"LogoutConfirmation.format.title" = "Уверены, что хотите выйти из аккаунта '%@'?";
+
+"BankCardDataInput.navigationBarTitle" = "Банковская карта";
+
+"BankCardDataInput.panInput" = "Номер карты";
+
+"BankCardDataInput.expiryDate" = "ММ / ГГ";
+
+"BankCardDataInput.cvc" = "CVC";
+
+"BankCardDataInput.confirmButtonTitle" = "Заплатить";
+
+"image.logo" = "logo.kassa.ru";
+
+"Common.PlaceholderView.buttonTitle" = "Повторить попытку";
+
+"Common.button.ok" = "ОК";
+
+"Common.button.cancel" = "Отменить";
+
+"Common.Error.unknown" = "Что то пошло не так";

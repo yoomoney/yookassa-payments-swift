@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>YandexCheckoutPayments  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="YandexCheckoutPayments  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">YandexCheckoutPayments Docs</a> (93% documented)</p>
+        <p class="header-right"><a href="https://github.com/yandex-money/yandex-checkout-payments-swift"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fyandex%2Dmoney%2Egithub%2Eio%2Fdocsets%2FYandexCheckoutPayments%2Exml"><img src="img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">YandexCheckoutPayments Reference</a>
+        <img id="carat" src="img/carat.png" />
+        YandexCheckoutPayments  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/YandexLoginService.html">YandexLoginService</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/Currency.html">Currency</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/TokenizationAssembly.html">TokenizationAssembly</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/PKPaymentAuthorizationViewController.html">PKPaymentAuthorizationViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/UIButton.html">UIButton</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/CardScanning.html">CardScanning</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/CardScanningDelegate.html">CardScanningDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/TokenizationModuleInput.html">TokenizationModuleInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/TokenizationModuleOutput.html">TokenizationModuleOutput</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/Amount.html">Amount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PaymentMethodTypes.html">PaymentMethodTypes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ScannedCardInfo.html">ScannedCardInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TestModeSettings.html">TestModeSettings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TokenizationModuleInputData.html">TokenizationModuleInputData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TokenizationSettings.html">TokenizationSettings</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:22YandexCheckoutPayments38ThreatMetrixProfilingCompletionHandlera">ThreatMetrixProfilingCompletionHandler</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h1 id='yandex-checkout-payments-sdk' class='heading'>Yandex Checkout Payments SDK</h1>
+
+<p><a href="https://travis-ci.org/yandex-money/yandex-checkout-payments-swift"><img src="https://travis-ci.org/yandex-money/yandex-checkout-payments-swift.svg?branch=master" alt="Build Status"></a>
+<a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage Compatible"></a>
+<a href="https://img.shields.io/github/tag/yandex-money/yandex-checkout-payments-swift.svg"><img src="https://img.shields.io/github/tag/yandex-money/yandex-checkout-payments-swift.svg" alt="GitHub tag"></a>
+<a href="https://img.shields.io/cocoapods/v/yandex-money/yandex-checkout-payments-swift.svg"><img src="https://img.shields.io/cocoapods/v/yandex-money/yandex-checkout-payments-swift.svg" alt="CocoaPods"></a>
+<a href="https://img.shields.io/cocoapods/at/yandex-money/yandex-checkout-payments-swift.svg"><img src="https://img.shields.io/cocoapods/at/yandex-money/yandex-checkout-payments-swift.svg" alt="CocoaPods"></a>
+<a href="https://img.shields.io/github/license/yandex-money/yandex-checkout-payments-swift.svg"><img src="https://img.shields.io/github/license/yandex-money/yandex-checkout-payments-swift.svg" alt="license"></a></p>
+<h2 id='overview' class='heading'>Overview</h2>
+
+<p>This library allows you to make payments via Yandex.Money APIv3 easily with our incredible UI.</p>
+<h2 id='usage' class='heading'>Usage</h2>
+<h3 id='setup-yandex-login' class='heading'>Setup Yandex.Login</h3>
+
+<ul>
+<li>Register your App at <a href="https://oauth.yandex.ru/">OAuth Yandex</a> and save your <strong>ID</strong>.</li>
+<li>Add to yor <strong>info.plist</strong>:</li>
+</ul>
+<pre class="highlight plaintext"><code>&lt;key&gt;LSApplicationQueriesSchemes&lt;/key&gt;
+&lt;array&gt;
+    &lt;string&gt;yandexauth&lt;/string&gt;
+    &lt;string&gt;yandexauth2&lt;/string&gt;
+&lt;/array&gt;
+</code></pre>
+
+<ul>
+<li>In <em>Capabilities</em> section of you Project enable <em>Associated Domains</em> and add domain: <code>applinks:yx&lt;ID&gt;.oauth.yandex.ru</code> where <code>&lt;ID&gt;</code> is <strong>ID</strong> from first step. For instance if your App <strong>ID</strong> is 333, the domain is <code>applinks:yx333.oauth.yandex.ru</code></li>
+<li>Add into <em>AppDelegate</em>:</li>
+</ul>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">_</span> <span class="nv">application</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span>
+                 <span class="n">didFinishLaunchingWithOptions</span> <span class="nv">launchOptions</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIApplicationLaunchOptionsKey</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="kt">YandexLoginService</span><span class="o">.</span><span class="nf">activate</span><span class="p">(</span><span class="nv">withAppId</span><span class="p">:</span> <span class="cm">/* Your App ID */</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+        <span class="c1">// process error</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">_</span> <span class="nv">application</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span>
+                 <span class="k">continue</span> <span class="nv">userActivity</span><span class="p">:</span> <span class="kt">NSUserActivity</span><span class="p">,</span>
+                 <span class="nv">restorationHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">([</span><span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+    <span class="kt">YandexLoginService</span><span class="o">.</span><span class="nf">processUserActivity</span><span class="p">(</span><span class="n">userActivity</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">_</span> <span class="nv">app</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span>
+                 <span class="kd">open</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
+                 <span class="nv">options</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIApplicationOpenURLOptionsKey</span><span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kt">YandexLoginService</span><span class="o">.</span><span class="nf">handleOpen</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nv">sourceApplication</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="o">.</span><span class="n">sourceApplication</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">String</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='payments' class='heading'>Payments</h3>
+
+<p>First you need to get <a href="https://money.yandex.ru/my/tunes">client application key</a> and create <code><a href="Structs/TokenizationModuleInputData.html">TokenizationModuleInputData</a></code>.</p>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">YandexCheckoutPayments</span>
+
+<span class="c1">// Your clientId and clientSecret</span>
+<span class="k">let</span> <span class="nv">clientApplicationKey</span> <span class="o">=</span> <span class="s">"&lt;Past your client application key here&gt;"</span>
+<span class="k">let</span> <span class="nv">amount</span> <span class="o">=</span> <span class="kt">Amount</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="o">&lt;</span><span class="kt">Past</span> <span class="n">price</span> <span class="n">of</span> <span class="n">purchase</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">currency</span><span class="p">:</span> <span class="o">&lt;</span><span class="kt">Past</span> <span class="n">currency</span><span class="o">&gt;</span><span class="p">),</span>
+
+<span class="k">let</span> <span class="nv">inputData</span> <span class="o">=</span> <span class="kt">TokenizationModuleInputData</span><span class="p">(</span><span class="nv">clientApplicationKey</span><span class="p">:</span> <span class="n">clientApplicationKey</span><span class="p">,</span>
+                                            <span class="nv">shopName</span><span class="p">:</span> <span class="s">"&lt;Past your shop name here&gt;"</span><span class="p">,</span>
+                                            <span class="nv">purchaseDescription</span><span class="p">:</span> <span class="s">"""
+                                                    &lt;Past description of purchase here&gt;
+                                                    """</span><span class="p">,</span>
+                                            <span class="nv">amount</span><span class="p">:</span> <span class="n">amount</span><span class="p">)</span>
+</code></pre>
+
+<p>To start tokenization process you need to create Tokenization View controller from Tokenization assembly and present
+received view controller.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">viewController</span> <span class="o">=</span> <span class="kt">TokenizationAssembly</span><span class="o">.</span><span class="nf">makeModule</span><span class="p">(</span><span class="nv">inputData</span><span class="p">:</span> <span class="n">inputData</span><span class="p">,</span>
+                                                     <span class="nv">moduleOutput</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+<span class="nf">present</span><span class="p">(</span><span class="n">viewController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+</code></pre>
+
+<p>When the payment process is complete you should dismiss received view controller and send token to your back-end:</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">tokenizationModule</span><span class="p">(</span><span class="n">_</span> <span class="nv">module</span><span class="p">:</span> <span class="kt">TokenizationModuleInput</span><span class="p">,</span>
+                        <span class="n">didTokenize</span> <span class="nv">token</span><span class="p">:</span> <span class="kt">Tokens</span><span class="p">,</span>
+                        <span class="nv">paymentMethodType</span><span class="p">:</span> <span class="kt">PaymentMethodType</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">strongSelf</span> <span class="o">=</span> <span class="k">self</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+        <span class="n">strongSelf</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="c1">// Send token to your back-end</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">didFinish</span><span class="p">(</span><span class="n">on</span> <span class="nv">module</span><span class="p">:</span> <span class="kt">TokenizationModuleInput</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">strongSelf</span> <span class="o">=</span> <span class="k">self</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+        <span class="n">strongSelf</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='cardscanning' class='heading'>CardScanning</h3>
+
+<p>If you want to use a scan card, you must implement the protocol CardScanning and pass this object to 
+TokenizationModuleInputData. </p>
+<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">CardScannerProvider</span><span class="p">:</span> <span class="kt">CardScanning</span> <span class="p">{</span>
+    <span class="k">weak</span> <span class="k">var</span> <span class="nv">cardScanningDelegate</span><span class="p">:</span> <span class="kt">CardScanningDelegate</span><span class="p">?</span>
+
+    <span class="k">var</span> <span class="nv">cardScanningViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">?</span> <span class="p">{</span>
+
+        <span class="c1">// Create and return scanner view controller</span>
+
+        <span class="n">viewController</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span>
+
+        <span class="k">return</span> <span class="n">viewController</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Next, implement you scanner delegate for <code>CardScanerProvider</code> (for example, CardIO):</p>
+<pre class="highlight swift"><code><span class="c1">// MARK: - CardIOPaymentViewControllerDelegate</span>
+
+<span class="kd">extension</span> <span class="kt">CardScannerProvider</span><span class="p">:</span> <span class="kt">CardIOPaymentViewControllerDelegate</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">userDidProvide</span><span class="p">(</span><span class="n">_</span> <span class="nv">cardInfo</span><span class="p">:</span> <span class="kt">CardIOCreditCardInfo</span><span class="o">!</span><span class="p">,</span>
+                               <span class="k">in</span> <span class="nv">paymentViewController</span><span class="p">:</span> <span class="kt">CardIOPaymentViewController</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">scannedCardInfo</span> <span class="o">=</span> <span class="kt">ScannedCardInfo</span><span class="p">(</span><span class="nv">number</span><span class="p">:</span> <span class="n">cardInfo</span><span class="o">.</span><span class="n">cardNumber</span><span class="p">,</span>
+                                              <span class="nv">expiryMonth</span><span class="p">:</span> <span class="s">"</span><span class="se">\(</span><span class="n">cardInfo</span><span class="o">.</span><span class="n">expiryMonth</span><span class="se">)</span><span class="s">"</span><span class="p">,</span>
+                                              <span class="nv">expiryYear</span><span class="p">:</span> <span class="s">"</span><span class="se">\(</span><span class="n">cardInfo</span><span class="o">.</span><span class="n">expiryYear</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+        <span class="n">cardScanningDelegate</span><span class="p">?</span><span class="o">.</span><span class="nf">cardScannerDidFinish</span><span class="p">(</span><span class="n">scannedCardInfo</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">userDidCancel</span><span class="p">(</span><span class="n">_</span> <span class="nv">paymentViewController</span><span class="p">:</span> <span class="kt">CardIOPaymentViewController</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cardScanningDelegate</span><span class="p">?</span><span class="o">.</span><span class="nf">cardScannerDidFinish</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Then when initialize input data pass <code>CardScannerProvider</code> to <code>cardScanning:</code> argument.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">inputData</span> <span class="o">=</span> <span class="kt">TokenizationModuleInputData</span><span class="p">(</span><span class="nv">clientApplicationKey</span><span class="p">:</span> <span class="n">clientApplicationKey</span><span class="p">,</span>
+                                            <span class="nv">shopName</span><span class="p">:</span> <span class="s">"&lt;Past your shop name here&gt;"</span><span class="p">,</span>
+                                            <span class="nv">purchaseDescription</span><span class="p">:</span> <span class="s">"""
+                                                    &lt;Past description of purchase here&gt;
+                                                    """</span><span class="p">,</span>
+                                            <span class="nv">amount</span><span class="p">:</span> <span class="n">amount</span><span class="p">,</span>
+                                            <span class="nv">cardScanning</span><span class="p">:</span> <span class="kt">CardScannerProvider</span><span class="p">())</span>
+</code></pre>
+<h3 id='3dsecure' class='heading'>3DSecure</h3>
+
+<p>If you want to use our implementation of 3D Secure, you don&rsquo;t have to dismiss our UIViewController after 
+receiving the token. Send the token to your server and after successful payment dismiss UIViewController.
+If your server has reported the need to confirm the payment, call the method 
+<code>start3dsProcess(requestUrl:redirectUrl:)</code></p>
+
+<p>After successful completion of the 3D secure process, the method will be called
+<code>didSuccessfullyPassedCardSec(on module:)</code> which is specified in the protocol <code><a href="Protocols/TokenizationModuleOutput.html">TokenizationModuleOutput</a></code></p>
+
+<ul>
+<li>Store tokenization module</li>
+</ul>
+<pre class="highlight swift"><code><span class="k">self</span><span class="o">.</span><span class="n">tokenizationViewController</span> <span class="o">=</span> <span class="kt">TokenizationAssembly</span><span class="o">.</span><span class="nf">makeModule</span><span class="p">(</span><span class="nv">inputData</span><span class="p">:</span> <span class="n">inputData</span><span class="p">,</span>
+                                                                 <span class="nv">moduleOutput</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+<span class="nf">present</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">tokenizationViewController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+</code></pre>
+
+<ul>
+<li>Doesn&rsquo;t hide tokenization after receive the token</li>
+</ul>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">tokenizationModule</span><span class="p">(</span><span class="n">_</span> <span class="nv">module</span><span class="p">:</span> <span class="kt">TokenizationModuleInput</span><span class="p">,</span>
+                        <span class="n">didTokenize</span> <span class="nv">token</span><span class="p">:</span> <span class="kt">Tokens</span><span class="p">,</span>
+                        <span class="nv">paymentMethodType</span><span class="p">:</span> <span class="kt">PaymentMethodType</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Send token to your back-end</span>
+<span class="p">}</span>
+</code></pre>
+
+<ul>
+<li>Show 3DSecure if need to confirm payment</li>
+</ul>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">needConfirmPayment</span><span class="p">(</span><span class="nv">requestUrl</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">redirectUrl</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">tokenizationViewController</span><span class="o">.</span><span class="nf">start3dsProcess</span><span class="p">(</span><span class="nv">requestUrl</span><span class="p">:</span> <span class="n">requestUrl</span><span class="p">,</span> <span class="nv">redirectUrl</span><span class="p">:</span> <span class="n">redirectUrl</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<ul>
+<li>After success 3DSecure process will be called</li>
+</ul>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">didSuccessfullyPassedCardSec</span><span class="p">(</span><span class="n">on</span> <span class="nv">module</span><span class="p">:</span> <span class="kt">TokenizationModuleInput</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">strongSelf</span> <span class="o">=</span> <span class="k">self</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+
+        <span class="c1">// Now close tokenization module</span>
+        <span class="n">strongSelf</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='apple-pay' class='heading'>Apple Pay</h3>
+
+<p>Follow the steps described in the official 
+<a href="https://developer.apple.com/documentation/passkit/apple_pay/setting_up_apple_pay_requirements">documentation</a> 
+from Apple.</p>
+
+<p>Send merchant 
+<a href="https://help.apple.com/xcode/mac/current/#/deva43983eb7?sub=dev171483d6e">apple pay identifier</a> 
+to msdk.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">moduleData</span> <span class="o">=</span> <span class="kt">TokenizationModuleInputData</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="nv">applePayMerchantIdentifier</span><span class="p">:</span> <span class="s">"&lt;com.example...&gt;"</span><span class="p">)</span>
+</code></pre>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://github.com/yandex-money" target="_blank" rel="external">Yandex Checkout</a>. All rights reserved. (Last updated: 2018-07-11)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
