@@ -78,7 +78,7 @@ extension SimpleIdentificationPresenter: SimpleIdentificationViewOutput {
         let item = currentItems[index]
         guard case .select(let select, let currentOption) = item else { return }
 
-        currentOption?.group.flatMap { $0.name }.forEach { values[$0] = nil }
+        currentOption?.group.compactMap { $0.name }.forEach { values[$0] = nil }
         option.group.forEach {
             guard let name = $0.name else { return }
             let value = OutputValue(value: $0.value ?? "", valid: false, isRequired: $0.isRequired)

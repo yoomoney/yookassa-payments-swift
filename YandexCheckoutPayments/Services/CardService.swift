@@ -70,7 +70,7 @@ class CardService {
         ]
         // swiftlint:enable opening_brace
 
-        let errors = validators.flatMap(collectError)
+        let errors = validators.compactMap(collectError)
 
         return errors.isEmpty ? nil : errors
     }
@@ -152,7 +152,7 @@ extension CardService {
     func validateLuhn(pan: String) throws {
 
         let lengthIsOdd = pan.count % 2 == 0
-        var panNumbers = pan.flatMap { Int(String($0)) }
+        var panNumbers = pan.compactMap { Int(String($0)) }
         for i in stride(from: lengthIsOdd ? 0 : 1, to: panNumbers.count, by: 2) {
             var number = panNumbers[i] * 2
             if number > 9 {
@@ -252,7 +252,7 @@ private extension CardService {
             assertionFailure("Couldn't load CardConfiguration.plist from framework bundle")
             return []
         }
-        return cardDictionary.flatMap(configurationParser)
+        return cardDictionary.compactMap(configurationParser)
     }()
 
     /// Parse configuration dictionary.
@@ -267,11 +267,11 @@ private extension CardService {
               let pansSettings = configuration[Keys.iins] as? [RangeDictionary],
               let lengthSettings = configuration[Keys.length] as? [String: Any] else { return nil }
 
-        let panRanges = pansSettings.flatMap(rangeParser)
+        let panRanges = pansSettings.compactMap(rangeParser)
 
         let lengthValues = lengthSettings[Keys.values] as? [Int]
         let lengthRanges: [CountableClosedRange<Int>]? = (lengthSettings[Keys.ranges] as? [RangeDictionary])?
-            .flatMap(rangeParser)
+            .compactMap(rangeParser)
         return CardConfiguration(type: cardType,
                                  iinRanges: panRanges,
                                  lengthRanges: lengthRanges,
