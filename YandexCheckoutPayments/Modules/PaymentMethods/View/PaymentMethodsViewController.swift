@@ -131,7 +131,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
             return [
                 view.superview?.leading.constraint(equalTo: view.leading),
                 view.superview?.trailing.constraint(equalTo: view.trailing),
-            ].flatMap { $0 }
+            ].compactMap { $0 }
         }
 
         constraints += views.values.flatMap(makeFullwidthConstraints)

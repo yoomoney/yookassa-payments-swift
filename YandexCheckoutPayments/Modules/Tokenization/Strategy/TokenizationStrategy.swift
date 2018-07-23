@@ -8,8 +8,8 @@ enum TokenizationStrategyError: Error {
 
 protocol TokenizationStrategyInput: class {
 
-    weak var output: TokenizationStrategyOutput? { get set }
-    weak var contractStateHandler: ContractStateHandler? { get set }
+    var output: TokenizationStrategyOutput? { get set }
+    var contractStateHandler: ContractStateHandler? { get set }
 
     func beginProcess()
     func didPressSubmitButton(on module: ContractModuleInput)

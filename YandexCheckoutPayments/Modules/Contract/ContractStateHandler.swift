@@ -2,7 +2,7 @@ import Dispatch
 
 protocol ContractStateHandler: class {
 
-    weak var view: ContractViewInput? { get set }
+    var view: ContractViewInput? { get set }
 
     func showActivity()
     func hideActivity()

@@ -62,12 +62,12 @@ extension Stylable {
 
     func appendStyle(_ style: Style) {
         guard styles?.components(separatedBy: " ").contains(style.name) != true else { return }
-        styles = [styles, style.name].flatMap { $0 }.joined(separator: " ")
+        styles = [styles, style.name].compactMap { $0 }.joined(separator: " ")
     }
 
     func applyStyles() {
         styles?.components(separatedBy: " ")
-            .flatMap { StyleStorage.shared.styles[$0] } // remove nil
+            .compactMap { StyleStorage.shared.styles[$0] } // remove nil
             .flatMap { $0 } // Unpack [[]]
             .forEach { $0(self) }
     }
