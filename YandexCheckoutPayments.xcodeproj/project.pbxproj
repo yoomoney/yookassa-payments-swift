@@ -2764,7 +2764,6 @@
 				E06532921FF13B5800831588 /* Frameworks */,
 				E06532931FF13B5800831588 /* Resources */,
 				9C543C2339037E1990ABEA7F /* [CP] Embed Pods Frameworks */,
-				9543FAE455527208F6BF6DAA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2873,21 +2872,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9543FAE455527208F6BF6DAA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YandexCheckoutPaymentsExamplePods/Pods-YandexCheckoutPaymentsExamplePods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9C543C2339037E1990ABEA7F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

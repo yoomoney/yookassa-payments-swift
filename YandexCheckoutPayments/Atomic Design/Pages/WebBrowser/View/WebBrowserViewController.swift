@@ -27,7 +27,7 @@ class WebBrowserViewController: UIViewController {
     fileprivate lazy var backButton: UIBarButtonItem = {
         $0.isEnabled = false
         return $0
-    }(UIBarButtonItem(image: UIImage.named("barButtonItem.prev"),
+    }(UIBarButtonItem(image: UIImage.named("action_back"),
                       style: .plain,
                       target: self.webView,
                       action: #selector(UIWebView.goBack)))
@@ -35,14 +35,14 @@ class WebBrowserViewController: UIViewController {
     fileprivate lazy var forwardButton: UIBarButtonItem = {
         $0.isEnabled = false
         return $0
-    }(UIBarButtonItem(image: UIImage.named("barButtonItem.next"),
+    }(UIBarButtonItem(image: UIImage.named("action_forward"),
                       style: .plain,
                       target: self.webView,
                       action: #selector(UIWebView.goForward)))
 
     fileprivate lazy var reloadButton: UIBarButtonItem = {
         return $0
-    }(UIBarButtonItem(image: UIImage.named("barButtonItem.reload"),
+    }(UIBarButtonItem(image: UIImage.named("action_refresh"),
                       style: .plain,
                       target: self.webView,
                       action: #selector(UIWebView.reload)))
@@ -103,7 +103,7 @@ private extension WebBrowserViewController {
             toolbar.left.constraint(equalTo: view.left),
             toolbar.right.constraint(equalTo: view.right),
             toolbarTopConstraint,
-            ]
+        ]
         NSLayoutConstraint.activate(constraints)
     }
 }
