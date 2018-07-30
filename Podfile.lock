@@ -4,7 +4,7 @@ PODS:
   - When (3.0.2):
     - When/Core (= 3.0.2)
   - When/Core (3.0.2)
-  - YandexCheckoutPayments (1.3.0):
+  - YandexCheckoutPayments (1.3.2):
     - FunctionalSwift
     - When
     - YandexCheckoutPaymentsApi
@@ -32,15 +32,27 @@ DEPENDENCIES:
   - FunctionalSwift
   - YandexCheckoutPayments (from `./`)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - CardIO
+    - FunctionalSwift
+    - When
+    - YandexCheckoutPaymentsApi
+    - YandexCheckoutShowcaseApi
+    - YandexCheckoutWalletApi
+    - YandexLoginSDK
+    - YandexMobileMetrica
+    - YandexMoneyCoreApi
+
 EXTERNAL SOURCES:
   YandexCheckoutPayments:
-    :path: ./
+    :path: "./"
 
 SPEC CHECKSUMS:
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   FunctionalSwift: 89cef31016cbc9fcdd49ec04e5831ed5f51244bb
   When: 4e5fda6952dd6e2714bafc329cb288b4637b6cc9
-  YandexCheckoutPayments: 0372de4265bc0e76d4cca8b789552e360ace8429
+  YandexCheckoutPayments: c0057538f8a2ba1eef73eb697d5d3f4227dbf1a8
   YandexCheckoutPaymentsApi: 83564a6dae2c74f942cbfcec84afa45b1230872b
   YandexCheckoutShowcaseApi: c7fda3e27adf4f73fb14c1d6d4b9077703313405
   YandexCheckoutWalletApi: 304601e48205c4dc0568a1018134eed3bb47547c
@@ -50,4 +62,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 85466678c6e040a9cd11d558ef2719ef5c31bdaf
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3
