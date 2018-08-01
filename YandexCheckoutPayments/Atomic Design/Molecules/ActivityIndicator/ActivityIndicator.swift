@@ -36,17 +36,14 @@ class ActivityIndicator: UIView {
     }
 
     var spinnerSize: CGFloat {
-        get {
-            return spinnerLayer.path?.boundingBox.height ?? 0
-        }
-        set {
-            guard newValue != spinnerSize else { return }
-            invalidateIntrinsicContentSize()
-            spinnerLayer.path = UIBezierPath(arcCenter: CGPoint(x: bounds.midX, y: bounds.midY),
-                                             radius: newValue / 2,
+        didSet {
+            guard spinnerSize != oldValue else { return }
+            spinnerLayer.path = UIBezierPath(arcCenter: CGPoint(x: spinnerSize / 2, y: spinnerSize / 2),
+                                             radius: spinnerSize / 2,
                                              startAngle: 0,
                                              endAngle: CGFloat.pi,
                                              clockwise: false).cgPath
+            invalidateIntrinsicContentSize()
         }
     }
 
@@ -56,12 +53,6 @@ class ActivityIndicator: UIView {
         }
         set {
             spinnerLayer.strokeColor = newValue?.cgColor
-        }
-    }
-
-    override var backgroundColor: UIColor? {
-        didSet {
-            spinnerLayer.fillColor = backgroundColor?.cgColor
         }
     }
 
@@ -83,16 +74,14 @@ class ActivityIndicator: UIView {
         return layer
     }()
 
-    override class var layerClass: AnyClass {
-        return CAShapeLayer.self
-    }
-
     override init(frame: CGRect) {
+        spinnerSize = min(frame.height, frame.width)
         super.init(frame: frame)
         setupView()
     }
 
     required init?(coder aDecoder: NSCoder) {
+        spinnerSize = 0
         super.init(coder: aDecoder)
         setupView()
     }
@@ -107,7 +96,25 @@ class ActivityIndicator: UIView {
         isHidden = true
     }
 
-    // MARK: - TintColor actions
+    // MARK: - Configuring a View’s Visual Appearance
+
+    override var backgroundColor: UIColor? {
+        didSet {
+            spinnerLayer.fillColor = backgroundColor?.cgColor
+        }
+    }
+
+    override class var layerClass: AnyClass {
+        return CAShapeLayer.self
+    }
+
+    // MARK: - Measuring in Auto Layout
+
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: spinnerSize, height: spinnerSize)
+    }
+
+    // MARK: - Drawing and Updating the View
 
     override func tintColorDidChange() {
         applyStyles()

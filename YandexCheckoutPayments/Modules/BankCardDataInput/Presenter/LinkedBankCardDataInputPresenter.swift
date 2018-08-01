@@ -78,6 +78,10 @@ extension LinkedBankCardDataInputPresenter: BankCardDataInputViewOutput {
         view?.focus = .csc
     }
 
+    func viewDidDisappear() {
+        view?.hideActivity()
+    }
+
     func didSetPan(_ pan: String) {}
 
     func didSetExpiryDate(_ expiryDate: String) {}

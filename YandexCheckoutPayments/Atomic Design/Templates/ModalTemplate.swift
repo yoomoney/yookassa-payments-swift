@@ -1,7 +1,13 @@
 import FunctionalSwift
 import UIKit
 
+protocol ModalTemplateDelegate: class {
+    func shouldPopNavigationItem()
+}
+
 class ModalTemplate: UIViewController {
+
+    weak var delegate: ModalTemplateDelegate?
 
     lazy var navigationBar: UINavigationBar = {
         $0.setStyles(UINavigationBar.Styles.default)
@@ -22,6 +28,10 @@ class ModalTemplate: UIViewController {
 
     func pushNavigationItem(_ navigationItem: UINavigationItem, animated: Bool) {
         navigationBar.pushItem(navigationItem, animated: animated)
+    }
+
+    func popNavigationItem(animated: Bool) {
+        navigationBar.popItem(animated: animated)
     }
 
     private var navigationBarConstraint: NSLayoutConstraint?
@@ -92,7 +102,7 @@ class ModalTemplate: UIViewController {
 
     func setContentView(_ view: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
-        self.view.insertSubview(view, belowSubview: navigationBar)
+        self.view.insertSubview(view, at: 0)
 
         let constraints = [
             self.view.leading.constraint(equalTo: view.leading),
@@ -120,5 +130,10 @@ class ModalTemplate: UIViewController {
 extension ModalTemplate: UINavigationBarDelegate {
     func position(for bar: UIBarPositioning) -> UIBarPosition {
         return .topAttached
+    }
+
+    public func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
+        delegate?.shouldPopNavigationItem()
+        return true
     }
 }
