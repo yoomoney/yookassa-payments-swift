@@ -70,78 +70,7 @@ class TokenizationViewController: UIViewController {
         }
     }
 
-    // MARK: - Presenting View Controllers
-
-    // swiftlint:disable cyclomatic_complexity
-    override func show(_ vc: UIViewController, sender: Any?) {
-
-        let style = getStyle(vc)
-
-        if let previous = modules.last,
-           let actionSheet = actionSheetTemplate,
-           case .actionSheet = style {
-            pushActionSheet(actionSheet, previous: previous, next: vc, sender: sender)
-        } else if let previous = modules.last,
-                  let pageSheet = pageSheetTemplate,
-                  case .pageSheet = style {
-            pushPageSheet(pageSheet, previous: previous, next: vc, sender: sender)
-        } else if let previous = modules.last,
-                  let modal = modalTemplate,
-                  case .modal = style {
-            pushModal(modal, previous: previous, next: vc, sender: sender)
-        } else if modules.last != nil,
-                  let actionSheet = actionSheetTemplate,
-                  case .modal = style {
-            hideAnimated(actionSheet: actionSheet) {
-                self.presentModalAnimated(vc)
-            }
-        } else if modules.last != nil,
-                  let actionSheet = actionSheetTemplate,
-                  case .applePay = style {
-            // From ActionSheet to ApplePay
-            hideAnimated(actionSheet: actionSheet) {
-                self.showApplePay(vc)
-            }
-        } else if modules.last != nil,
-                  let pageSheet = pageSheetTemplate,
-                  case .applePay = style {
-            // From PageSheet to ApplePay
-            hideAnimated(pageSheet: pageSheet) {
-                self.showApplePay(vc)
-            }
-        } else if modules.last is PKPaymentAuthorizationViewController,
-                  case .actionSheet = style {
-            // From ApplePay to ActionSheet
-            dismiss(animated: true) {
-                self.presentActionSheetAnimated(vc)
-            }
-        } else if modules.last is PKPaymentAuthorizationViewController,
-                  case .pageSheet = style {
-            // From ApplePay to PageSheet
-            dismiss(animated: true) {
-                self.presentPageSheetAnimated(vc)
-            }
-        } else if modules.last is PKPaymentAuthorizationViewController,
-                  case .modal = style {
-            // From ApplePay to Modal
-            dismiss(animated: true) {
-                self.presentModalAnimated(vc)
-            }
-        } else {
-            // First present. Animation doesn't needed
-            switch style {
-            case .actionSheet:
-                showActionSheet(vc, sender: sender)
-            case .modal:
-                showModal(vc, sender: sender)
-            case .pageSheet:
-                showPageSheet(vc, sender: sender)
-            case .applePay:
-                showApplePay(vc)
-            }
-        }
-    }
-    // swiftlint:enable cyclomatic_complexity
+    // MARK: - Responding to a Change in the Interface Environment
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -185,6 +114,98 @@ class TokenizationViewController: UIViewController {
             }
         }
     }
+
+    // MARK: - Presenting View Controllers
+
+    override func show(_ vc: UIViewController, sender: Any?) {
+        push(vc, sender: sender)
+    }
+
+    // swiftlint:disable cyclomatic_complexity
+
+    func push(_ viewController: UIViewController, sender: Any?) {
+        let style = getStyle(viewController)
+
+        if let previous = modules.last,
+           let actionSheet = actionSheetTemplate,
+           case .actionSheet = style {
+            pushActionSheet(actionSheet, previous: previous, next: viewController, sender: sender)
+        } else if let previous = modules.last,
+                  let pageSheet = pageSheetTemplate,
+                  case .pageSheet = style {
+            pushPageSheet(pageSheet, previous: previous, next: viewController, sender: sender)
+        } else if let previous = modules.last,
+                  let modal = modalTemplate,
+                  case .modal = style {
+            pushModal(modal, previous: previous, next: viewController, sender: sender)
+        } else if modules.last != nil,
+                  let actionSheet = actionSheetTemplate,
+                  case .modal = style {
+            hideAnimated(actionSheet: actionSheet) {
+                self.presentModalAnimated(viewController)
+            }
+        } else if modules.last != nil,
+                  let actionSheet = actionSheetTemplate,
+                  case .applePay = style {
+            // From ActionSheet to ApplePay
+            hideAnimated(actionSheet: actionSheet) {
+                self.showApplePay(viewController)
+            }
+        } else if modules.last != nil,
+                  let pageSheet = pageSheetTemplate,
+                  case .applePay = style {
+            // From PageSheet to ApplePay
+            hideAnimated(pageSheet: pageSheet) {
+                self.showApplePay(viewController)
+            }
+        } else if modules.last is PKPaymentAuthorizationViewController,
+                  case .actionSheet = style {
+            // From ApplePay to ActionSheet
+            dismiss(animated: true) {
+                self.presentActionSheetAnimated(viewController)
+            }
+        } else if modules.last is PKPaymentAuthorizationViewController,
+                  case .pageSheet = style {
+            // From ApplePay to PageSheet
+            dismiss(animated: true) {
+                self.presentPageSheetAnimated(viewController)
+            }
+        } else if modules.last is PKPaymentAuthorizationViewController,
+                  case .modal = style {
+            // From ApplePay to Modal
+            dismiss(animated: true) {
+                self.presentModalAnimated(viewController)
+            }
+        } else {
+            // First present. Animation doesn't needed
+            switch style {
+            case .actionSheet:
+                showActionSheet(viewController, sender: sender)
+            case .modal:
+                showModal(viewController, sender: sender)
+            case .pageSheet:
+                showPageSheet(viewController, sender: sender)
+            case .applePay:
+                showApplePay(viewController)
+            }
+        }
+    }
+
+    func popViewController(animated: Bool) {
+        guard modules.count > 2 else { return }
+
+        let currentViewController = modules[modules.count - 1]
+        let viewController = modules[modules.count - 2]
+        let style = getStyle(viewController)
+
+        if let modalTemplate = modalTemplate,
+            case .modal = style {
+            popModal(modalTemplate, current: currentViewController, previous: viewController, sender: nil)
+        }
+
+    }
+
+    // swiftlint:enable cyclomatic_complexity
 
     func showApplePay(_ vc: UIViewController) {
         modules.append(vc)
@@ -256,6 +277,7 @@ class TokenizationViewController: UIViewController {
 
     private func showModal(_ vc: UIViewController, sender: Any?) {
         let modalTemplate = ModalTemplate()
+        modalTemplate.delegate = self
 
         addChildViewController(modalTemplate)
         modalTemplate.view.translatesAutoresizingMaskIntoConstraints = false
@@ -421,6 +443,7 @@ class TokenizationViewController: UIViewController {
 
     private func presentModalAnimated(_ vc: UIViewController, completion: (() -> Void)? = nil) {
         let modalTemplate = ModalTemplate()
+        modalTemplate.delegate = self
 
         modules.append(vc)
 
@@ -430,7 +453,6 @@ class TokenizationViewController: UIViewController {
         view.addSubview(modalTemplate.view)
 
         modalTemplate.addChildViewController(vc)
-        vc.beginAppearanceTransition(true, animated: true)
         modalTemplate.setContentView(vc.view)
 
         let startConstraints = [
@@ -461,8 +483,8 @@ class TokenizationViewController: UIViewController {
                        },
                        completion: { _ in
                            modalTemplate.endAppearanceTransition()
-                           vc.endAppearanceTransition()
                            modalTemplate.didMove(toParentViewController: self)
+
                            vc.didMove(toParentViewController: modalTemplate)
                            self.modalTemplate = modalTemplate
                            completion?()
@@ -529,8 +551,9 @@ class TokenizationViewController: UIViewController {
         actionSheetTemplate.delegate = self
 
         addChildViewController(actionSheetTemplate)
-        actionSheetTemplate.addChildViewController(vc)
         actionSheetTemplate.beginAppearanceTransition(true, animated: false)
+        actionSheetTemplate.addChildViewController(vc)
+        vc.didMove(toParentViewController: actionSheetTemplate)
 
         view.addSubview(actionSheetTemplate.view)
         actionSheetTemplate.dummyView.addSubview(vc.view)
@@ -574,6 +597,7 @@ class TokenizationViewController: UIViewController {
                        completion: { _ in
                            actionSheetTemplate.endAppearanceTransition()
                            actionSheetTemplate.didMove(toParentViewController: self)
+
                            completion?()
                        })
 
@@ -593,9 +617,6 @@ class TokenizationViewController: UIViewController {
         nvc.view.translatesAutoresizingMaskIntoConstraints = false
 
         actionSheetTemplate.dummyView.addSubview(nvc.view)
-
-        nvc.beginAppearanceTransition(true, animated: true)
-        pvc.beginAppearanceTransition(false, animated: true)
 
         let startConstraints = [
             nvc.view.leading.constraint(equalTo: pvc.view.trailing),
@@ -624,16 +645,8 @@ class TokenizationViewController: UIViewController {
                        },
                        completion: { _ in
                            pvc.view.removeFromSuperview()
-                           pvc.endAppearanceTransition()
-                           UIView.animate(withDuration: timeInterval,
-                                          animations: {
-                                              actionSheetTemplate.view.layoutIfNeeded()
-                                          },
-                                          completion: { _ in
-                                              nvc.endAppearanceTransition()
-                                          })
-
                            pvc.removeFromParentViewController()
+
                            nvc.didMove(toParentViewController: actionSheetTemplate)
 
                            self.modules.append(nvc)
@@ -720,35 +733,94 @@ class TokenizationViewController: UIViewController {
         modal.view.setNeedsLayout()
         modal.view.layoutIfNeeded()
 
-        pvc.beginAppearanceTransition(false, animated: true)
-        nvc.beginAppearanceTransition(true, animated: true)
-
         NSLayoutConstraint.deactivate(startConstraints)
         modal.setContentView(nvc.view)
 
         let hasNavigationBar = (nvc as? Presentable)?.hasNavigationBar ?? true
         modal.pushNavigationItem(nvc.navigationItem, animated: false)
+        modal.setNavigationBarHidden(hasNavigationBar == false, animated: true)
+
+        nvc.view.layer.shadowOffset = CGSize(width: -3, height: 0)
+
+        UIView.animateKeyframes(withDuration: timeInterval,
+                                delay: 0,
+                                options: .calculationModeCubicPaced,
+                                animations: {
+                                    UIView.addKeyframe(withRelativeStartTime: 0,
+                                                       relativeDuration: timeInterval / 2,
+                                                       animations: {
+                                                           nvc.view.layer.shadowOpacity = 1.0
+                                                       })
+                                    UIView.addKeyframe(withRelativeStartTime: timeInterval / 2,
+                                                       relativeDuration: timeInterval / 2,
+                                                       animations: {
+                                                           nvc.view.layer.shadowOpacity = 0.0
+                                                       })
+                                    UIView.addKeyframe(withRelativeStartTime: 0,
+                                                       relativeDuration: timeInterval,
+                                                       animations: {
+                                                           modal.view.layoutIfNeeded()
+                                                       })
+                                },
+                                completion: { _ in
+                                    pvc.view.removeFromSuperview()
+                                    pvc.removeFromParentViewController()
+
+                                    nvc.didMove(toParentViewController: modal)
+
+                                    self.modules.append(nvc)
+                                })
+    }
+
+    // MARK: - Pop without changing container
+
+    private func popModal(_ modal: ModalTemplate,
+                          current cvc: UIViewController,
+                          previous pvc: UIViewController,
+                          sender: Any?) {
+        cvc.willMove(toParentViewController: nil)
+        modal.addChildViewController(pvc)
+
+        pvc.removeKeyboardObservers()
+
+        let previousView: UIView = pvc.view
+
+        modal.setContentView(previousView)
+        modal.view.setNeedsLayout()
+        modal.view.layoutIfNeeded()
+
+        let currentView: UIView = cvc.view
+        let finishConstraints = [
+            currentView.top.constraint(equalTo: previousView.top),
+            currentView.leading.constraint(equalTo: previousView.trailing),
+            currentView.width.constraint(equalTo: previousView.width),
+            currentView.height.constraint(equalTo: previousView.height),
+        ]
+
+        let filter: (NSLayoutConstraint) -> Bool = {
+            let items = [$0.firstItem, $0.secondItem].compactMap { $0 }
+            return items.contains(where: { $0 === modal.view }) && items.contains(where: { $0 === currentView })
+        }
+
+        NSLayoutConstraint.deactivate(modal.view.constraints.filter(filter))
+        NSLayoutConstraint.activate(finishConstraints)
+
+        let hasNavigationBar = (pvc as? Presentable)?.hasNavigationBar ?? true
+
         modal.setNavigationBarHidden(hasNavigationBar == false, animated: false)
 
         UIView.animate(withDuration: timeInterval,
+                       delay: 0,
+                       options: .curveEaseInOut,
                        animations: {
                            modal.view.layoutIfNeeded()
                        },
                        completion: { _ in
-                           pvc.view.removeFromSuperview()
-                           UIView.animate(withDuration: timeInterval,
-                                          animations: {
-                                              modal.view.layoutIfNeeded()
-                                          },
-                                          completion: { _ in
-                                              nvc.endAppearanceTransition()
-                                              nvc.didMove(toParentViewController: modal)
-                                          })
+                           currentView.removeFromSuperview()
+                           cvc.removeFromParentViewController()
+                           pvc.didMove(toParentViewController: modal)
 
-                           pvc.endAppearanceTransition()
-                           pvc.removeFromParentViewController()
-
-                           self.modules.append(nvc)
+                           self.modules.removeLast()
                        })
     }
 }
@@ -762,6 +834,12 @@ extension TokenizationViewController: ActionSheetTemplateDelegate {
 extension TokenizationViewController: PageSheetTemplateDelegate {
     func pageSheetTemplateDidFinish(_ template: PageSheetTemplate) {
         output?.closeDidPress()
+    }
+}
+
+extension TokenizationViewController: ModalTemplateDelegate {
+    func shouldPopNavigationItem() {
+        popViewController(animated: true)
     }
 }
 

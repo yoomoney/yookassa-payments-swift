@@ -123,6 +123,8 @@ class BankCardDataInputViewController: UIViewController, PlaceholderProvider {
         scrollViewController.didMove(toParentViewController: self)
     }
 
+    // MARK: - Responding to View Events
+
     override func viewDidLoad() {
         super.viewDidLoad()
         output.setupView()
@@ -132,6 +134,11 @@ class BankCardDataInputViewController: UIViewController, PlaceholderProvider {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         output.viewDidAppear()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        output.viewDidDisappear()
     }
 }
 
@@ -253,6 +260,7 @@ extension BankCardDataInputViewController: BankCardDataInputViewInput {
         let activityIndicatorView = ActivityIndicatorView()
         activityIndicatorView.setStyles(ActivityIndicatorView.Styles.heavyLight)
         view.addSubview(activityIndicatorView)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         activityIndicatorView.frame = view.bounds
         let constraints = [
             activityIndicatorView.left.constraint(equalTo: view.left),

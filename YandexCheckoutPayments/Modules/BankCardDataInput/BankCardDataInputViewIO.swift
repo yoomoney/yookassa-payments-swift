@@ -67,6 +67,7 @@ protocol BankCardDataInputViewInput: ActivityIndicatorPresenting, PlaceholderPre
 protocol BankCardDataInputViewOutput: ActionTextDialogDelegate {
     func setupView()
     func viewDidAppear()
+    func viewDidDisappear()
     func didSetPan(_ pan: String)
     func didSetExpiryDate(_ expiryDate: String)
     func didSetCsc(_ csc: String)

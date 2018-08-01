@@ -75,6 +75,10 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
         view?.focus = .pan
     }
 
+    func viewDidDisappear() {
+        view?.hideActivity()
+    }
+
     func didSetPan(_ pan: String) {
         cardData.pan = pan
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
