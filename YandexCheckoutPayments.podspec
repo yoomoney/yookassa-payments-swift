@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name      = 'YandexCheckoutPayments'
-  s.version   = '1.3.2'
+  s.version   = '1.3.3'
   s.homepage  = 'https://github.com/yandex-money/yandex-checkout-payments-swift'
   s.license   = {
     :type => "MIT",
