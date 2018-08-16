@@ -155,6 +155,7 @@
 		244F7600CD8EE178F205F6F2 /* String+Split.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7376365480CF0529F79C /* String+Split.swift */; };
 		244F760A47D0DB31F13E06B3 /* PresentableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7703492BE721DA302B99 /* PresentableError.swift */; };
 		244F760C97350B0127170F1B /* UIColor+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F733C189EDD417BCEA603 /* UIColor+Style.swift */; };
+		244F762076269BD7B3CF8032 /* UserAgentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F783764C8A1C6E3F1FCD7 /* UserAgentFactory.swift */; };
 		244F7632AA460C209F125379 /* LargeIconButtonItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F79F00258CF7EE4A0F2AF /* LargeIconButtonItemView.swift */; };
 		244F763A8C3C737FAEB09ED5 /* SwitchItemView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7F58032ED6B812EFE224 /* SwitchItemView+Style.swift */; };
 		244F7684AD060C4EA281632E /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7A6403E130A06A4C7593 /* ListItemView.swift */; };
@@ -378,11 +379,7 @@
 		301D747F20B5D7E60000E394 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301D747E20B5D7E60000E394 /* PassKit.framework */; };
 		30317A9920D81237002263EC /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7583E868309BC1A979EB /* PriceView.swift */; };
 		30317A9A20D81237002263EC /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7583E868309BC1A979EB /* PriceView.swift */; };
-		307D0CEC2061918600CAAAE6 /* CardIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 307D0CEB2061918600CAAAE6 /* CardIO.framework */; };
-		307D0CED2061918600CAAAE6 /* CardIO.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 307D0CEB2061918600CAAAE6 /* CardIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30B24DE1206C2850002C823B /* YandexMobileMetrica.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */; };
-		30B24DE7206C28EE002C823B /* YandexMobileMetrica.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */; };
-		30B24DE8206C28EE002C823B /* YandexMobileMetrica.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30FCAADB1FF3F9BA002C69FF /* BankCardDataInputAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FCAAD21FF3F9BA002C69FF /* BankCardDataInputAssembly.swift */; };
 		30FCAADC1FF3F9BA002C69FF /* BankCardDataInputInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FCAAD31FF3F9BA002C69FF /* BankCardDataInputInteractorIO.swift */; };
 		30FCAADD1FF3F9BA002C69FF /* BankCardDataInputViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FCAAD41FF3F9BA002C69FF /* BankCardDataInputViewIO.swift */; };
@@ -487,8 +484,6 @@
 		D9245C9D203ED5D90086D33F /* TextInputPresenterStyleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9245C9C203ED5D90086D33F /* TextInputPresenterStyleFactory.swift */; };
 		D96947812021D92B00830EA4 /* AttachedCardCountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D969477F2021D92500830EA4 /* AttachedCardCountViewController.swift */; };
 		D96947822021D92C00830EA4 /* AttachedCardCountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D969477F2021D92500830EA4 /* AttachedCardCountViewController.swift */; };
-		D96ABAC320440D8F00CFA062 /* YandexCheckoutShowcaseApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D96ABAC120440D7D00CFA062 /* YandexCheckoutShowcaseApi.framework */; };
-		D96ABAC420440D8F00CFA062 /* YandexCheckoutShowcaseApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D96ABAC120440D7D00CFA062 /* YandexCheckoutShowcaseApi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D96ABAC6204433DC00CFA062 /* MonthInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96ABAC5204433DC00CFA062 /* MonthInputPresenterStyle.swift */; };
 		D96ABAC8204447CA00CFA062 /* DateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96ABAC7204447CA00CFA062 /* DateValidator.swift */; };
 		D96ABACC20446DB700CFA062 /* DateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96ABACB20446DB700CFA062 /* DateFactory.swift */; };
@@ -535,25 +530,17 @@
 		D9DF9D5F2045E00600371792 /* SelectOptionModuleOutputIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF9D5E2045E00600371792 /* SelectOptionModuleOutputIO.swift */; };
 		D9DF9D622045E9FC00371792 /* SelectOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DF9D612045E9FC00371792 /* SelectOptionTableViewCell.swift */; };
 		D9DF9D662049ADF800371792 /* YandexCheckoutWalletApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DF9D652049ADF700371792 /* YandexCheckoutWalletApi.framework */; };
-		D9DF9D692049AE0B00371792 /* YandexCheckoutWalletApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DF9D652049ADF700371792 /* YandexCheckoutWalletApi.framework */; };
-		D9DF9D6A2049AE0B00371792 /* YandexCheckoutWalletApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D9DF9D652049ADF700371792 /* YandexCheckoutWalletApi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E011A09D20725BC200B786B5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E011A09C20725BC200B786B5 /* MessageUI.framework */; };
 		E011A09E20725BCB00B786B5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E011A09C20725BC200B786B5 /* MessageUI.framework */; };
 		E0148CDB1FE958810087CF5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0148CD91FE958810087CF5F /* Main.storyboard */; };
 		E0148CDD1FE958810087CF5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0148CDC1FE958810087CF5F /* Assets.xcassets */; };
 		E0148CE01FE958810087CF5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0148CDE1FE958810087CF5F /* LaunchScreen.storyboard */; };
 		E018BEB9200E1BAD00022396 /* When.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E018BEB8200E1BAD00022396 /* When.framework */; };
-		E018BEBB200E1BEB00022396 /* When.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E018BEB8200E1BAD00022396 /* When.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E018BEBC200E1C0900022396 /* When.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E018BEB8200E1BAD00022396 /* When.framework */; };
 		E01B1F30200E1B050079DD57 /* YandexMoneyCoreApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01B1F2F200E1B050079DD57 /* YandexMoneyCoreApi.framework */; };
-		E01B1F41200E1B390079DD57 /* YandexMoneyCoreApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01B1F2F200E1B050079DD57 /* YandexMoneyCoreApi.framework */; };
-		E01B1F42200E1B390079DD57 /* YandexMoneyCoreApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E01B1F2F200E1B050079DD57 /* YandexMoneyCoreApi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E0321BB020EF9A590050CF65 /* YandexCheckoutPaymentsApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0494C632010980D0059BBD2 /* YandexCheckoutPaymentsApi.framework */; };
 		E0321BB320EF9AA70050CF65 /* YandexCheckoutShowcaseApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D96ABAC120440D7D00CFA062 /* YandexCheckoutShowcaseApi.framework */; };
 		E0321BB420EFA16A0050CF65 /* UIButton+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7ED4504A9FC0195549ED /* UIButton+Style.swift */; };
 		E0321BB520EFA16B0050CF65 /* UIButton+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7ED4504A9FC0195549ED /* UIButton+Style.swift */; };
-		E0494C6820109BA00059BBD2 /* YandexCheckoutPaymentsApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0494C632010980D0059BBD2 /* YandexCheckoutPaymentsApi.framework */; };
-		E0494C6920109BA00059BBD2 /* YandexCheckoutPaymentsApi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0494C632010980D0059BBD2 /* YandexCheckoutPaymentsApi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E04D0C442023174F00162F30 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E04D0C432023174F00162F30 /* libz.tbd */; };
 		E04D0C45202317DF00162F30 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E04D0C432023174F00162F30 /* libz.tbd */; };
 		E065328A1FED318300831588 /* PaymentMethodsViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06532891FED318300831588 /* PaymentMethodsViewIO.swift */; };
@@ -563,16 +550,19 @@
 		E06532A91FF13BA200831588 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0148CDC1FE958810087CF5F /* Assets.xcassets */; };
 		E06532AC1FF13BB500831588 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0148CD91FE958810087CF5F /* Main.storyboard */; };
 		E06532AD1FF13BB500831588 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0148CDE1FE958810087CF5F /* LaunchScreen.storyboard */; };
-		E06532B81FF1453800831588 /* FunctionalSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D529361FE40337005F495F /* FunctionalSwift.framework */; };
-		E06532B91FF1453800831588 /* FunctionalSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0D529361FE40337005F495F /* FunctionalSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E06532BC1FF1453800831588 /* YandexCheckoutPayments.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244F7DBBF9F3523FC00B2357 /* YandexCheckoutPayments.framework */; };
 		E06532BD1FF1453800831588 /* YandexCheckoutPayments.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 244F7DBBF9F3523FC00B2357 /* YandexCheckoutPayments.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E06532C81FF150FE00831588 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E06532CA1FF150FE00831588 /* Localizable.strings */; };
+		E072CCA12121AAE7003D9913 /* FunctionalSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCA02121AAE7003D9913 /* FunctionalSwift.framework */; };
+		E072CCA32121AAE7003D9913 /* When.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCA22121AAE7003D9913 /* When.framework */; };
+		E072CCA52121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCA42121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework */; };
+		E072CCA72121AAE7003D9913 /* YandexCheckoutShowcaseApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCA62121AAE7003D9913 /* YandexCheckoutShowcaseApi.framework */; };
+		E072CCA92121AAE7003D9913 /* YandexCheckoutWalletApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCA82121AAE7003D9913 /* YandexCheckoutWalletApi.framework */; };
+		E072CCAB2121AAE7003D9913 /* YandexLoginSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCAA2121AAE7003D9913 /* YandexLoginSDK.framework */; };
+		E072CCAD2121AAE7003D9913 /* YandexMoneyCoreApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCAC2121AAE7003D9913 /* YandexMoneyCoreApi.framework */; };
 		E073F71D202C4B29007A100C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0148CD51FE958810087CF5F /* AppDelegate.swift */; };
 		E07E0C1B20246E86000DEF25 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E04D0C432023174F00162F30 /* libz.tbd */; };
 		E07ED63B20346C4A009E0737 /* YandexLoginSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07ED63A20346C4A009E0737 /* YandexLoginSDK.framework */; };
-		E07ED63C20346CA0009E0737 /* YandexLoginSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07ED63A20346C4A009E0737 /* YandexLoginSDK.framework */; };
-		E07ED63D20346CA0009E0737 /* YandexLoginSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E07ED63A20346C4A009E0737 /* YandexLoginSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E0D529381FE40337005F495F /* FunctionalSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D529361FE40337005F495F /* FunctionalSwift.framework */; };
 		E0D5293B1FE7C31A005F495F /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0D5293A1FE7C31A005F495F /* Media.xcassets */; };
 		FE5C4D7B200F9BCE004F365E /* TableViewCellDataProviderSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5C4D79200F9BA7004F365E /* TableViewCellDataProviderSupport.swift */; };
@@ -622,16 +612,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E018BEBB200E1BEB00022396 /* When.framework in Embed Frameworks */,
-				307D0CED2061918600CAAAE6 /* CardIO.framework in Embed Frameworks */,
 				E06532BD1FF1453800831588 /* YandexCheckoutPayments.framework in Embed Frameworks */,
-				E06532B91FF1453800831588 /* FunctionalSwift.framework in Embed Frameworks */,
-				D9DF9D6A2049AE0B00371792 /* YandexCheckoutWalletApi.framework in Embed Frameworks */,
-				E01B1F42200E1B390079DD57 /* YandexMoneyCoreApi.framework in Embed Frameworks */,
-				30B24DE8206C28EE002C823B /* YandexMobileMetrica.framework in Embed Frameworks */,
-				D96ABAC420440D8F00CFA062 /* YandexCheckoutShowcaseApi.framework in Embed Frameworks */,
-				E0494C6920109BA00059BBD2 /* YandexCheckoutPaymentsApi.framework in Embed Frameworks */,
-				E07ED63D20346CA0009E0737 /* YandexLoginSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -755,6 +736,7 @@
 		244F78287D537640AB60B6E4 /* IconView+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IconView+Style.swift"; sourceTree = "<group>"; };
 		244F78299848A2048F5CBF65 /* PhoneNumberInputInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberInputInteractor.swift; sourceTree = "<group>"; };
 		244F7833618559557F6B2FBE /* UILabel+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Style.swift"; sourceTree = "<group>"; };
+		244F783764C8A1C6E3F1FCD7 /* UserAgentFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentFactory.swift; sourceTree = "<group>"; };
 		244F783806C106BEB38F9F05 /* UIViewController+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Tools.swift"; sourceTree = "<group>"; };
 		244F7848395E3B36B5DBACBA /* TokenizationAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationAssembly.swift; sourceTree = "<group>"; };
 		244F7848B8C2233B0BE61A09 /* UINavigationBar+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Style.swift"; sourceTree = "<group>"; };
@@ -1017,6 +999,13 @@
 		E06532C91FF150FE00831588 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E06532CB1FF1510200831588 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E06B98CC204828BE008DC7F6 /* YandexCheckoutWalletApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YandexCheckoutWalletApi.framework; path = Carthage/Build/iOS/YandexCheckoutWalletApi.framework; sourceTree = "<group>"; };
+		E072CCA02121AAE7003D9913 /* FunctionalSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FunctionalSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E072CCA22121AAE7003D9913 /* When.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = When.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E072CCA42121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YandexCheckoutPaymentsApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E072CCA62121AAE7003D9913 /* YandexCheckoutShowcaseApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YandexCheckoutShowcaseApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E072CCA82121AAE7003D9913 /* YandexCheckoutWalletApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YandexCheckoutWalletApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E072CCAA2121AAE7003D9913 /* YandexLoginSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YandexLoginSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E072CCAC2121AAE7003D9913 /* YandexMoneyCoreApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YandexMoneyCoreApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E07ED63A20346C4A009E0737 /* YandexLoginSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YandexLoginSDK.framework; path = Carthage/Build/iOS/YandexLoginSDK.framework; sourceTree = "<group>"; };
 		E0D529361FE40337005F495F /* FunctionalSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FunctionalSwift.framework; path = Carthage/Build/iOS/FunctionalSwift.framework; sourceTree = "<group>"; };
 		E0D5293A1FE7C31A005F495F /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -1059,17 +1048,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E072CCA12121AAE7003D9913 /* FunctionalSwift.framework in Frameworks */,
+				E072CCA32121AAE7003D9913 /* When.framework in Frameworks */,
+				E072CCA52121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework in Frameworks */,
+				E072CCA72121AAE7003D9913 /* YandexCheckoutShowcaseApi.framework in Frameworks */,
+				E072CCA92121AAE7003D9913 /* YandexCheckoutWalletApi.framework in Frameworks */,
+				E072CCAB2121AAE7003D9913 /* YandexLoginSDK.framework in Frameworks */,
+				E072CCAD2121AAE7003D9913 /* YandexMoneyCoreApi.framework in Frameworks */,
 				E011A09E20725BCB00B786B5 /* MessageUI.framework in Frameworks */,
-				D96ABAC320440D8F00CFA062 /* YandexCheckoutShowcaseApi.framework in Frameworks */,
-				E07ED63C20346CA0009E0737 /* YandexLoginSDK.framework in Frameworks */,
-				D9DF9D692049AE0B00371792 /* YandexCheckoutWalletApi.framework in Frameworks */,
 				E04D0C45202317DF00162F30 /* libz.tbd in Frameworks */,
-				E06532B81FF1453800831588 /* FunctionalSwift.framework in Frameworks */,
-				30B24DE7206C28EE002C823B /* YandexMobileMetrica.framework in Frameworks */,
-				E018BEBC200E1C0900022396 /* When.framework in Frameworks */,
-				307D0CEC2061918600CAAAE6 /* CardIO.framework in Frameworks */,
-				E01B1F41200E1B390079DD57 /* YandexMoneyCoreApi.framework in Frameworks */,
-				E0494C6820109BA00059BBD2 /* YandexCheckoutPaymentsApi.framework in Frameworks */,
 				E06532BC1FF1453800831588 /* YandexCheckoutPayments.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1988,6 +1975,7 @@
 				244F7E94129123619FABCADD /* MonetaryAmountFactory.swift */,
 				244F7454D84E493A283D373B /* PhoneNumberFormatterAssembly.swift */,
 				402EB620DE3E765002FA511C /* PaymentSystemFactory.swift */,
+				244F783764C8A1C6E3F1FCD7 /* UserAgentFactory.swift */,
 			);
 			path = Factory;
 			sourceTree = "<group>";
@@ -2592,6 +2580,13 @@
 		E0D529341FE40337005F495F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E072CCA02121AAE7003D9913 /* FunctionalSwift.framework */,
+				E072CCA22121AAE7003D9913 /* When.framework */,
+				E072CCA42121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework */,
+				E072CCA62121AAE7003D9913 /* YandexCheckoutShowcaseApi.framework */,
+				E072CCA82121AAE7003D9913 /* YandexCheckoutWalletApi.framework */,
+				E072CCAA2121AAE7003D9913 /* YandexLoginSDK.framework */,
+				E072CCAC2121AAE7003D9913 /* YandexMoneyCoreApi.framework */,
 				301D747E20B5D7E60000E394 /* PassKit.framework */,
 				30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */,
 				E011A09C20725BC200B786B5 /* MessageUI.framework */,
@@ -2744,6 +2739,7 @@
 				E0148CD01FE958810087CF5F /* Frameworks */,
 				E0148CD11FE958810087CF5F /* Resources */,
 				E06532C01FF1453800831588 /* Embed Frameworks */,
+				E072CCAE2121AAF4003D9913 /* Carthage copy */,
 			);
 			buildRules = (
 			);
@@ -2923,6 +2919,38 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		E072CCAE2121AAF4003D9913 /* Carthage copy */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/CardIO.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/FunctionalSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/When.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/YandexCheckoutPaymentsApi.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/YandexCheckoutShowcaseApi.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/YandexCheckoutWalletApi.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/YandexLoginSDK.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/YandexMobileMetrica.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/YandexMoneyCoreApi.framework",
+			);
+			name = "Carthage copy";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CardIO.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/FunctionalSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/When.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexCheckoutPaymentsApi.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexCheckoutShowcaseApi.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexCheckoutWalletApi.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexLoginSDK.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexMobileMetrica.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexMoneyCoreApi.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3252,6 +3280,7 @@
 				244F73809B79FE04A38B5676 /* UIImage+Tools.swift in Sources */,
 				244F77BFD2A5DF3906955A81 /* UISwitch+Style.swift in Sources */,
 				244F744E8FD5A80FCF0905BB /* UIScrollView+Style.swift in Sources */,
+				244F762076269BD7B3CF8032 /* UserAgentFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3577,7 +3606,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.3.4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3603,6 +3632,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CURRENT_PROJECT_VERSION = 1.3.4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -3629,6 +3659,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CURRENT_PROJECT_VERSION = 1.3.4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -3683,7 +3714,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.3.4;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -3744,7 +3775,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.3.4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3770,6 +3801,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CURRENT_PROJECT_VERSION = 1.3.4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
