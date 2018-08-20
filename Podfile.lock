@@ -52,7 +52,7 @@ SPEC CHECKSUMS:
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   FunctionalSwift: 89cef31016cbc9fcdd49ec04e5831ed5f51244bb
   When: 4e5fda6952dd6e2714bafc329cb288b4637b6cc9
-  YandexCheckoutPayments: fd4785ee501434528310c7683821544ff3822dcb
+  YandexCheckoutPayments: 90b5c18b12f1a1f9f918980478e099bc05c42e4a
   YandexCheckoutPaymentsApi: 83564a6dae2c74f942cbfcec84afa45b1230872b
   YandexCheckoutShowcaseApi: c7fda3e27adf4f73fb14c1d6d4b9077703313405
   YandexCheckoutWalletApi: 304601e48205c4dc0568a1018134eed3bb47547c

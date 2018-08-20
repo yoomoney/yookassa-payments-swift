@@ -4,7 +4,9 @@ import UIKit.UIImage
 extension Bundle {
     static var framework: Bundle {
         class Class {}
-        return Bundle(for: Class.self)
+        let frameworkBundle = Bundle(for: Class.self)
+        let resourcesPath = frameworkBundle.path(forResource: "YandexCheckoutPayments", ofType: "bundle")!
+        return Bundle(path: resourcesPath)!
     }
 }
 
