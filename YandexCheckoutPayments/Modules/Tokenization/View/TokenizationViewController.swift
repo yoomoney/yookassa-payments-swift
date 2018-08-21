@@ -238,13 +238,12 @@ class TokenizationViewController: UIViewController {
         actionSheetTemplate.delegate = self
 
         addChildViewController(actionSheetTemplate)
-
         actionSheetTemplate.addChildViewController(vc)
-
-        actionSheetTemplate.beginAppearanceTransition(true, animated: false)
 
         view.addSubview(actionSheetTemplate.view)
         actionSheetTemplate.dummyView.addSubview(vc.view)
+
+        actionSheetTemplate.beginAppearanceTransition(true, animated: false)
 
         actionSheetTemplate.view.translatesAutoresizingMaskIntoConstraints = false
         vc.view.translatesAutoresizingMaskIntoConstraints = false
@@ -267,6 +266,7 @@ class TokenizationViewController: UIViewController {
         ]
         NSLayoutConstraint.activate(constraints)
 
+        actionSheetTemplate.didMove(toParentViewController: self)
         vc.didMove(toParentViewController: actionSheetTemplate)
 
         actionSheetTemplate.endAppearanceTransition()
@@ -286,8 +286,8 @@ class TokenizationViewController: UIViewController {
         modalTemplate.addChildViewController(vc)
         vc.view.translatesAutoresizingMaskIntoConstraints = false
         modalTemplate.setContentView(vc.view)
+
         modalTemplate.beginAppearanceTransition(true, animated: true)
-        vc.beginAppearanceTransition(true, animated: true)
 
         let modalTemplateConstraints = [
             view.leading.constraint(equalTo: modalTemplate.view.leading),
@@ -305,10 +305,10 @@ class TokenizationViewController: UIViewController {
             modalTemplate.view.bottom.constraint(equalTo: vc.view.bottom),
         ]
         NSLayoutConstraint.activate(constraints)
-        modalTemplate.endAppearanceTransition()
-        vc.endAppearanceTransition()
         modalTemplate.didMove(toParentViewController: self)
         vc.didMove(toParentViewController: modalTemplate)
+
+        modalTemplate.endAppearanceTransition()
 
         modalTemplate.navigationBar.setItems([vc.navigationItem], animated: false)
 
@@ -327,8 +327,6 @@ class TokenizationViewController: UIViewController {
         pageSheet.addChildViewController(vc)
         vc.view.translatesAutoresizingMaskIntoConstraints = false
         pageSheet.setContentView(vc.view)
-        pageSheet.beginAppearanceTransition(true, animated: true)
-        vc.beginAppearanceTransition(true, animated: true)
 
         let modalTemplateConstraints = [
             view.leading.constraint(equalTo: pageSheet.view.leading),
@@ -342,8 +340,6 @@ class TokenizationViewController: UIViewController {
         pageSheet.setNavigationItems(modules.map { $0.navigationItem }, animated: false)
         pageSheet.view.layoutIfNeeded()
 
-        pageSheet.endAppearanceTransition()
-        vc.endAppearanceTransition()
         pageSheet.didMove(toParentViewController: self)
         vc.didMove(toParentViewController: pageSheet)
 
@@ -378,17 +374,16 @@ class TokenizationViewController: UIViewController {
         containerConstraints = []
 
         vc.view.removeFromSuperview()
-        vc.endAppearanceTransition()
-
         vc.removeFromParentViewController()
+
+        vc.endAppearanceTransition()
     }
 
     // MARK: - Hide view controller animated
 
     private func hideAnimated(actionSheet: ActionSheetTemplate, completion: (() -> Void)? = nil) {
-        actionSheet.willMove(toParentViewController: nil)
-
         actionSheet.beginAppearanceTransition(false, animated: true)
+        actionSheet.willMove(toParentViewController: nil)
 
         NSLayoutConstraint.deactivate(containerConstraints)
 
@@ -414,8 +409,8 @@ class TokenizationViewController: UIViewController {
     }
 
     private func hideAnimated(pageSheet: PageSheetTemplate, completion: (() -> Void)? = nil) {
-        pageSheet.willMove(toParentViewController: nil)
         pageSheet.beginAppearanceTransition(false, animated: true)
+        pageSheet.willMove(toParentViewController: nil)
         NSLayoutConstraint.deactivate(containerConstraints)
 
         let dismissConstraint = [
@@ -448,12 +443,14 @@ class TokenizationViewController: UIViewController {
         modules.append(vc)
 
         addChildViewController(modalTemplate)
-        modalTemplate.beginAppearanceTransition(true, animated: true)
         modalTemplate.view.translatesAutoresizingMaskIntoConstraints = false
+        modalTemplate.view.frame = view.bounds
         view.addSubview(modalTemplate.view)
 
         modalTemplate.addChildViewController(vc)
         modalTemplate.setContentView(vc.view)
+
+        modalTemplate.beginAppearanceTransition(true, animated: true)
 
         let startConstraints = [
             modalTemplate.view.leading.constraint(equalTo: view.leading),
@@ -482,10 +479,11 @@ class TokenizationViewController: UIViewController {
                            self.view.layoutIfNeeded()
                        },
                        completion: { _ in
-                           modalTemplate.endAppearanceTransition()
                            modalTemplate.didMove(toParentViewController: self)
-
                            vc.didMove(toParentViewController: modalTemplate)
+
+                           modalTemplate.endAppearanceTransition()
+
                            self.modalTemplate = modalTemplate
                            completion?()
                        })
@@ -502,8 +500,8 @@ class TokenizationViewController: UIViewController {
         pageSheet.addChildViewController(vc)
         vc.view.translatesAutoresizingMaskIntoConstraints = false
         pageSheet.setContentView(vc.view)
+
         pageSheet.beginAppearanceTransition(true, animated: true)
-        vc.beginAppearanceTransition(true, animated: true)
 
         let startConstraints = [
             pageSheet.view.leading.constraint(equalTo: view.leading),
@@ -534,16 +532,18 @@ class TokenizationViewController: UIViewController {
                            self.view.layoutIfNeeded()
                        },
                        completion: { _ in
-                           pageSheet.endAppearanceTransition()
-                           vc.endAppearanceTransition()
                            pageSheet.didMove(toParentViewController: self)
                            vc.didMove(toParentViewController: pageSheet)
+
+                           pageSheet.endAppearanceTransition()
+
+                           vc.removeKeyboardObservers()
+
+                           self.pageSheetTemplate = pageSheet
                            completion?()
                        })
 
-        vc.removeKeyboardObservers()
         modules.append(vc)
-        self.pageSheetTemplate = pageSheet
     }
 
     private func presentActionSheetAnimated(_ vc: UIViewController, completion: (() -> Void)? = nil) {
@@ -551,9 +551,10 @@ class TokenizationViewController: UIViewController {
         actionSheetTemplate.delegate = self
 
         addChildViewController(actionSheetTemplate)
-        actionSheetTemplate.beginAppearanceTransition(true, animated: false)
         actionSheetTemplate.addChildViewController(vc)
         vc.didMove(toParentViewController: actionSheetTemplate)
+
+        actionSheetTemplate.beginAppearanceTransition(true, animated: true)
 
         view.addSubview(actionSheetTemplate.view)
         actionSheetTemplate.dummyView.addSubview(vc.view)
@@ -595,8 +596,9 @@ class TokenizationViewController: UIViewController {
                            self.view.layoutIfNeeded()
                        },
                        completion: { _ in
-                           actionSheetTemplate.endAppearanceTransition()
                            actionSheetTemplate.didMove(toParentViewController: self)
+
+                           actionSheetTemplate.endAppearanceTransition()
 
                            completion?()
                        })
@@ -677,9 +679,6 @@ class TokenizationViewController: UIViewController {
         pageSheet.dummyView.setNeedsLayout()
         pageSheet.dummyView.layoutIfNeeded()
 
-        pvc.beginAppearanceTransition(false, animated: true)
-        nvc.beginAppearanceTransition(true, animated: true)
-
         NSLayoutConstraint.deactivate(startConstraints)
         pageSheet.setContentView(nvc.view)
 
@@ -698,11 +697,9 @@ class TokenizationViewController: UIViewController {
                                               pageSheet.view.layoutIfNeeded()
                                           },
                                           completion: { _ in
-                                              nvc.endAppearanceTransition()
                                               nvc.didMove(toParentViewController: pageSheet)
                                           })
 
-                           pvc.endAppearanceTransition()
                            pvc.removeFromParentViewController()
 
                            self.modules.append(nvc)
