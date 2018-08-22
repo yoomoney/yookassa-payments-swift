@@ -45,7 +45,6 @@ extension TextControl {
 
             parent.addSubview(view)
             NSLayoutConstraint.activate(constraints)
-            parent.layoutIfNeeded()
             animation?.perform(for: view)
         }
 
