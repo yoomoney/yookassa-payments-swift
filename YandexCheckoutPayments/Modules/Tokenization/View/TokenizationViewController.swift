@@ -298,13 +298,6 @@ class TokenizationViewController: UIViewController {
         NSLayoutConstraint.activate(modalTemplateConstraints)
         modalTemplate.view.layoutIfNeeded()
 
-        let constraints = [
-            modalTemplate.view.leading.constraint(equalTo: vc.view.leading),
-            modalTemplate.view.trailing.constraint(equalTo: vc.view.trailing),
-            modalTemplate.view.top.constraint(equalTo: vc.view.top),
-            modalTemplate.view.bottom.constraint(equalTo: vc.view.bottom),
-        ]
-        NSLayoutConstraint.activate(constraints)
         modalTemplate.didMove(toParentViewController: self)
         vc.didMove(toParentViewController: modalTemplate)
 
