@@ -34,7 +34,8 @@ final class SuccessViewController: UIViewController {
 
     private lazy var closeBarItem: UIBarButtonItem = {
         let closeBarItem = UIBarButtonItem()
-        closeBarItem.setStyles(UIBarButtonItem.Styles.close)
+        closeBarItem.style = .plain
+        closeBarItem.image = .templatedClose
         closeBarItem.target = self
         closeBarItem.action = #selector(closeDidPress)
         return closeBarItem
