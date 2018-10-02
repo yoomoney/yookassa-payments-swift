@@ -146,11 +146,9 @@
 		244F75953644B40A962AB4B4 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F728E754343D0E18B1664 /* IconView.swift */; };
 		244F75A4513389713D6A4AD5 /* UIView+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7A9946706CC2BDF5B0C6 /* UIView+Tools.swift */; };
 		244F75A7EB06DF1BE5A8B166 /* UIImageView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7BC96E67D8CC94964891 /* UIImageView+Style.swift */; };
-		244F75B1AC6F43D6810EF8F0 /* UIBarButtonItem+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7B654A89F0AC41AF32C5 /* UIBarButtonItem+Style.swift */; };
 		244F75B4C3848FF559D832E7 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7DE00301347B56B67B85 /* ActivityIndicatorView.swift */; };
 		244F75CAAF17AC4622ABCE58 /* TransitionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F740E0FCE484E4B231BA0 /* TransitionHandler.swift */; };
 		244F75CB0153DC81C304DD21 /* IconButtonItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7752AB31DD0F7E7D3E6D /* IconButtonItemTableViewCell.swift */; };
-		244F75CF7BA160A44F73D40E /* UIViewController+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F783806C106BEB38F9F05 /* UIViewController+Tools.swift */; };
 		244F75DD9521E2B7C5AB3C6E /* ActivityIndicatorPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7C6FA178794CE635AA9E /* ActivityIndicatorPresenting.swift */; };
 		244F7600CD8EE178F205F6F2 /* String+Split.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7376365480CF0529F79C /* String+Split.swift */; };
 		244F760A47D0DB31F13E06B3 /* PresentableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7703492BE721DA302B99 /* PresentableError.swift */; };
@@ -306,7 +304,6 @@
 		244F7D0E9D247CBC1ED8DAEE /* LengthTextInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9245C8B203DB5F10086D33F /* LengthTextInputPresenterStyle.swift */; };
 		244F7D10DB777C5CAE11F538 /* SwitchItemViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F79DEB96F4A7B5297F664 /* SwitchItemViewIO.swift */; };
 		244F7D1C3B555D3C97C766D6 /* PhoneNumberFormatterAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7454D84E493A283D373B /* PhoneNumberFormatterAssembly.swift */; };
-		244F7D38B0078FBD05360D06 /* UIViewController+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F783806C106BEB38F9F05 /* UIViewController+Tools.swift */; };
 		244F7D41E377C291BEA3B580 /* TextControl+BottomHintMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F788229FD509014C863BE /* TextControl+BottomHintMode.swift */; };
 		244F7D47EB018C8FF8BF9D13 /* YamoneyAuthModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F73F3F94291B05B8B822C /* YamoneyAuthModuleIO.swift */; };
 		244F7D4EEAA34B0ED00E58DC /* AdditionalCardDataInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7F0E23E8C6EF39601716 /* AdditionalCardDataInputView.swift */; };
@@ -373,7 +370,6 @@
 		244F7FC2B7EF0FAE15CB2EF2 /* UILabel+Stylable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F76FDD4264A30C470AA5F /* UILabel+Stylable.swift */; };
 		244F7FC8B1E6B8B72C1BB9F6 /* PaymentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F722B47C3E0DAA2FC18C8 /* PaymentService.swift */; };
 		244F7FD051D169AAADF6C3C2 /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7A6403E130A06A4C7593 /* ListItemView.swift */; };
-		244F7FD8D5E842E0E6931418 /* UIBarButtonItem+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7B654A89F0AC41AF32C5 /* UIBarButtonItem+Style.swift */; };
 		244F7FEA1D0D0A8300374CEB /* IconButtonItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7752AB31DD0F7E7D3E6D /* IconButtonItemTableViewCell.swift */; };
 		244F7FEDC8B0698C0DF3CC32 /* TextControl+InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F794DCC58D13FC6E0EF9A /* TextControl+InputView.swift */; };
 		301D747F20B5D7E60000E394 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301D747E20B5D7E60000E394 /* PassKit.framework */; };
@@ -3388,7 +3384,6 @@
 				244F7C8A62AE67D276A74ED7 /* Space.swift in Sources */,
 				244F769AEC49BE691F8C160D /* MSDKActionSheetHeaderView.swift in Sources */,
 				244F77E2BC7058F713129925 /* PrefferedContentSizeCategory.swift in Sources */,
-				244F75CF7BA160A44F73D40E /* UIViewController+Tools.swift in Sources */,
 				244F71BB337587488BE11BA3 /* UITableViewHeaderFooterView+Identifier.swift in Sources */,
 				244F793518C8222D62B340A7 /* UIViewController+TransitionHandler.swift in Sources */,
 				244F7E5F2B0FDC9AE049F9BF /* UITableViewCell+Identifier.swift in Sources */,
@@ -3397,7 +3392,6 @@
 				244F71DAA99DBB1E549FA8A8 /* UIScrollView+Style.swift in Sources */,
 				244F7AF3DEF6EA63EFD82031 /* ActionTextDialog.swift in Sources */,
 				244F70F8B12730E5C858482E /* ActionTextDialog+Style.swift in Sources */,
-				244F7FD8D5E842E0E6931418 /* UIBarButtonItem+Style.swift in Sources */,
 				244F75A4513389713D6A4AD5 /* UIView+Tools.swift in Sources */,
 				244F71539A8C21D196323627 /* UIImage+Style.swift in Sources */,
 				244F70C2F06ECCB5E6EFDF75 /* UIImage+Tools.swift in Sources */,
@@ -3509,7 +3503,6 @@
 				244F7BE0C9BF41688C6A0A6C /* Space.swift in Sources */,
 				244F7BD610FBD54917767D8A /* MSDKActionSheetHeaderView.swift in Sources */,
 				244F7C70CD4B7043A68F1654 /* PrefferedContentSizeCategory.swift in Sources */,
-				244F7D38B0078FBD05360D06 /* UIViewController+Tools.swift in Sources */,
 				244F7A5DE03317425C7D3B2C /* UITableViewHeaderFooterView+Identifier.swift in Sources */,
 				244F78520E230B18965FB753 /* UIViewController+TransitionHandler.swift in Sources */,
 				244F77024A1B53871B25283D /* UITableViewCell+Identifier.swift in Sources */,
@@ -3518,7 +3511,6 @@
 				244F73A6D8E5061FA9E2BA13 /* UIScrollView+Style.swift in Sources */,
 				244F7BF8680862B8FB694630 /* ActionTextDialog.swift in Sources */,
 				244F7A0A4C475EE3E5BA62DC /* ActionTextDialog+Style.swift in Sources */,
-				244F75B1AC6F43D6810EF8F0 /* UIBarButtonItem+Style.swift in Sources */,
 				244F78030F84E723F7CDE265 /* UIView+Tools.swift in Sources */,
 				244F7BCD1FB7FFFC492AB9DD /* UIImage+Style.swift in Sources */,
 				244F794BD9A5DD53BA10220B /* UIImage+Tools.swift in Sources */,
