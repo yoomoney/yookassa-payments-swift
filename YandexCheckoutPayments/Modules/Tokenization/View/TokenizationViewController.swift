@@ -634,18 +634,17 @@ class TokenizationViewController: UIViewController {
         NSLayoutConstraint.deactivate(startConstraints)
         NSLayoutConstraint.activate(endConstraints)
 
-        UIView.animate(withDuration: timeInterval,
-                       animations: {
-                           actionSheetTemplate.dummyView.layoutIfNeeded()
-                       },
-                       completion: { _ in
-                           pvc.view.removeFromSuperview()
-                           pvc.removeFromParentViewController()
+        pvc.view.isUserInteractionEnabled = false
+        UIView.animate(withDuration: timeInterval, animations: {
+            actionSheetTemplate.dummyView.layoutIfNeeded()
+        }, completion: { _ in
+            pvc.view.removeFromSuperview()
+            pvc.removeFromParentViewController()
 
-                           nvc.didMove(toParentViewController: actionSheetTemplate)
-
-                           self.modules.append(nvc)
-                       })
+            nvc.didMove(toParentViewController: actionSheetTemplate)
+            pvc.view.isUserInteractionEnabled = true
+            self.modules.append(nvc)
+        })
     }
 
     private func pushPageSheet(_ pageSheet: PageSheetTemplate,
@@ -679,24 +678,20 @@ class TokenizationViewController: UIViewController {
         pageSheet.pushNavigationItem(nvc.navigationItem, animated: false)
         pageSheet.setNavigationBarHidden(hasNavigationBar == false, animated: false)
 
-        UIView.animate(withDuration: timeInterval,
-                       animations: {
-                           pageSheet.dummyView.layoutIfNeeded()
-                       },
-                       completion: { _ in
-                           pvc.view.removeFromSuperview()
-                           UIView.animate(withDuration: timeInterval,
-                                          animations: {
-                                              pageSheet.view.layoutIfNeeded()
-                                          },
-                                          completion: { _ in
-                                              nvc.didMove(toParentViewController: pageSheet)
-                                          })
-
-                           pvc.removeFromParentViewController()
-
-                           self.modules.append(nvc)
-                       })
+        pvc.view.isUserInteractionEnabled = false
+        UIView.animate(withDuration: timeInterval, animations: {
+            pageSheet.dummyView.layoutIfNeeded()
+        }, completion: { _ in
+            pvc.view.removeFromSuperview()
+            UIView.animate(withDuration: timeInterval, animations: {
+                pageSheet.view.layoutIfNeeded()
+            }, completion: { _ in
+                nvc.didMove(toParentViewController: pageSheet)
+            })
+            pvc.removeFromParentViewController()
+            pvc.view.isUserInteractionEnabled = true
+            self.modules.append(nvc)
+        })
     }
 
     private func pushModal(_ modal: ModalTemplate,
@@ -732,6 +727,7 @@ class TokenizationViewController: UIViewController {
 
         nvc.view.layer.shadowOffset = CGSize(width: -3, height: 0)
 
+        pvc.view.isUserInteractionEnabled = false
         UIView.animateKeyframes(withDuration: timeInterval,
                                 delay: 0,
                                 options: .calculationModeCubicPaced,
@@ -757,7 +753,7 @@ class TokenizationViewController: UIViewController {
                                     pvc.removeFromParentViewController()
 
                                     nvc.didMove(toParentViewController: modal)
-
+                                    pvc.view.isUserInteractionEnabled = true
                                     self.modules.append(nvc)
                                 })
     }
