@@ -634,6 +634,7 @@ class TokenizationViewController: UIViewController {
         NSLayoutConstraint.deactivate(startConstraints)
         NSLayoutConstraint.activate(endConstraints)
 
+        pvc.view.isUserInteractionEnabled = false
         UIView.animate(withDuration: timeInterval,
                        animations: {
                            actionSheetTemplate.dummyView.layoutIfNeeded()
@@ -643,7 +644,7 @@ class TokenizationViewController: UIViewController {
                            pvc.removeFromParentViewController()
 
                            nvc.didMove(toParentViewController: actionSheetTemplate)
-
+                           pvc.view.isUserInteractionEnabled = true
                            self.modules.append(nvc)
                        })
     }
@@ -679,6 +680,7 @@ class TokenizationViewController: UIViewController {
         pageSheet.pushNavigationItem(nvc.navigationItem, animated: false)
         pageSheet.setNavigationBarHidden(hasNavigationBar == false, animated: false)
 
+        pvc.view.isUserInteractionEnabled = false
         UIView.animate(withDuration: timeInterval,
                        animations: {
                            pageSheet.dummyView.layoutIfNeeded()
@@ -694,7 +696,7 @@ class TokenizationViewController: UIViewController {
                                           })
 
                            pvc.removeFromParentViewController()
-
+                           pvc.view.isUserInteractionEnabled = true
                            self.modules.append(nvc)
                        })
     }
@@ -732,6 +734,7 @@ class TokenizationViewController: UIViewController {
 
         nvc.view.layer.shadowOffset = CGSize(width: -3, height: 0)
 
+        pvc.view.isUserInteractionEnabled = false
         UIView.animateKeyframes(withDuration: timeInterval,
                                 delay: 0,
                                 options: .calculationModeCubicPaced,
@@ -758,6 +761,7 @@ class TokenizationViewController: UIViewController {
 
                                     nvc.didMove(toParentViewController: modal)
 
+                                    pvc.view.isUserInteractionEnabled = true
                                     self.modules.append(nvc)
                                 })
     }
