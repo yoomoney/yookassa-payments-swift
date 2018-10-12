@@ -6,6 +6,7 @@ use_frameworks!
 target 'YandexCheckoutPaymentsExamplePods' do
     pod 'FunctionalSwift'
     pod 'CardIO'
+    pod 'SwiftLint'
 
     pod 'YandexCheckoutPayments',
         :path => './'

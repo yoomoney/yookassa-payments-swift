@@ -130,12 +130,12 @@ enum ShowcaseDisplayItemFactory {
 
     private static func makeInputTextItem(control: DateControl) -> ShowcaseDisplayItem {
 
-        var min: Date? = nil
+        var min: Date?
         if let minDate = control.min {
             min = DateFactory.makeDate(dateElement: minDate)
         }
 
-        var max: Date? = nil
+        var max: Date?
         if let maxDate = control.max {
             max = DateFactory.makeDate(dateElement: maxDate)
         }
@@ -154,12 +154,12 @@ enum ShowcaseDisplayItemFactory {
 
     private static func makeInputTextItem(control: MonthControl) -> ShowcaseDisplayItem {
 
-        var min: Date? = nil
+        var min: Date?
         if let minDate = control.min {
             min = DateFactory.makeDate(dateElement: minDate)
         }
 
-        var max: Date? = nil
+        var max: Date?
         if let maxDate = control.max {
             max = DateFactory.makeDate(dateElement: maxDate)
         }
