@@ -1,2 +1,0 @@
-scheme("YCPaymentsTests")
-clean(true)

@@ -5,7 +5,8 @@ private class Class { }
 
 enum UserAgentFactory {
     static func makeHeaderValue() -> String {
-        let frameworkVersion = Bundle(for: Class.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+        let frameworkVersion
+            = Bundle(for: Class.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
         let osVersion = UIDevice.current.systemVersion
         let deviceClass: String
 

@@ -8,8 +8,8 @@ final class CellDescriptor {
     let configuration: (UITableViewCell) -> Void
     let selection: ((IndexPath) -> Void)?
 
-    public init<Cell: CellType>(configuration: @escaping (Cell) -> Void,
-                                selection: ((IndexPath) -> Void)? = nil) {
+    init<Cell: CellType>(configuration: @escaping (Cell) -> Void,
+                         selection: ((IndexPath) -> Void)? = nil) {
 
         self.cellClass = Cell.self
 
