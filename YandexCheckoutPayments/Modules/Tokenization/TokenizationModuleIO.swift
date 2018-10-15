@@ -32,6 +32,9 @@ public struct TokenizationModuleInputData {
     /// Apple Pay merchant ID.
     let applePayMerchantIdentifier: String?
 
+    /// Custom url for close 3ds.
+    let customRedirectUrl: String?
+
     /// Creates instance of `TokenizationModuleInputData`.
     ///
     /// - Parameters:
@@ -45,6 +48,7 @@ public struct TokenizationModuleInputData {
     ///   - testModeSettings: Test mode settings.
     ///   - cardScanning: Bank card scanning.
     ///   - applePayMerchantIdentifier: Apple Pay merchant ID.
+    ///   - customRedirectUrl:
     ///
     /// - Returns: Instance of `TokenizationModuleInputData`.
     public init(clientApplicationKey: String,
@@ -55,7 +59,8 @@ public struct TokenizationModuleInputData {
                 tokenizationSettings: TokenizationSettings = TokenizationSettings(),
                 testModeSettings: TestModeSettings? = nil,
                 cardScanning: CardScanning? = nil,
-                applePayMerchantIdentifier: String? = nil) {
+                applePayMerchantIdentifier: String? = nil,
+                customRedirectUrl: String? = nil) {
         self.clientApplicationKey = makeBase64Encoded(clientApplicationKey + ":")
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -65,6 +70,7 @@ public struct TokenizationModuleInputData {
         self.testModeSettings = testModeSettings
         self.cardScanning = cardScanning
         self.applePayMerchantIdentifier = applePayMerchantIdentifier
+        self.customRedirectUrl = customRedirectUrl
     }
 }
 
