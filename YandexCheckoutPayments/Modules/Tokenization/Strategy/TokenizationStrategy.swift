@@ -75,6 +75,8 @@ protocol TokenizationStrategyOutput: class {
 
     func presentErrorWithMessage(_ message: String)
 
+    func didFinish(on module: TokenizationStrategyInput)
+
     // MARK: - ApplePay
 
     func presentApplePay()
