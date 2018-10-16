@@ -79,6 +79,8 @@ class ScrollViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         stopKeyboardObserving()
         super.viewWillDisappear(animated)
+        bottomFooterConstraint?.constant = -footerInsets.bottom
+        currentKeyboardOffset = nil
     }
 }
 
