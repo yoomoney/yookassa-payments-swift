@@ -48,7 +48,7 @@ public struct TokenizationModuleInputData {
     ///   - testModeSettings: Test mode settings.
     ///   - cardScanning: Bank card scanning.
     ///   - applePayMerchantIdentifier: Apple Pay merchant ID.
-    ///   - customRedirectUrl:
+    ///   - customRedirectUrl: Custom url for close 3ds.
     ///
     /// - Returns: Instance of `TokenizationModuleInputData`.
     public init(clientApplicationKey: String,
