@@ -13,8 +13,6 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
     var interactor: TokenizationInteractorInput!
     weak var moduleOutput: TokenizationModuleOutput?
 
-    fileprivate var isPaymentMethodsPresented = false
-
     // MARK: - Data
 
     fileprivate let inputData: TokenizationModuleInputData
