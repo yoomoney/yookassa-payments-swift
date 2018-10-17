@@ -332,6 +332,11 @@ extension TokenizationPresenter: TokenizationModuleInput {
         let inputData = CardSecModuleInputData(requestUrl: requestUrl, redirectUrl: redirectUrl)
         present3dsModule(inputData: inputData)
     }
+
+    func start3dsProcess(requestUrl: String) {
+        let inputData = CardSecModuleInputData(requestUrl: requestUrl, redirectUrl: Constants.redirectUrl)
+        present3dsModule(inputData: inputData)
+    }
 }
 
 // MARK: - PaymentMethodsModuleOutput
@@ -683,4 +688,10 @@ private func makeStrategy(paymentOption: PaymentOption,
     }
     strategy.output = output
     return strategy
+}
+
+// MARK: - Constants
+
+private enum Constants {
+    static let redirectUrl = "yandexcheckout://return"
 }
