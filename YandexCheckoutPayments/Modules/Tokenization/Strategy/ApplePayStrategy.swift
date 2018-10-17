@@ -53,7 +53,7 @@ extension ApplePayStrategy: TokenizationStrategyInput {
 
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         if case .failed = paymentResult {
-            output?.presentPaymentMethodsModule()
+            output?.didFinish(on: self)
         }
     }
 
