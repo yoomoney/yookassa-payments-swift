@@ -6,6 +6,10 @@ enum KeyValueStoringAssembly {
         return KeychainStorage(service: Constants.Keys.serviceId)
     }
 
+    static func makeSettingsStorage() -> KeyValueStoring {
+        return UserDefaultsStorage(userDefaults: .standard)
+    }
+
     static func makeMockKeychainStorage(testModeSettings: TestModeSettings) -> KeyValueStoring {
         let storage: KeyValueStoring
         if let shared = KeyValueStoringAssembly.shared {

@@ -5,6 +5,7 @@ enum AuthorizationProcessingAssembly {
         let yandexLoginService = YandexLoginProcessingAssembly.makeService()
         let yamoneyLoginService = YamoneyLoginAssembly.makeYamoneyLoginService(testModeSettings: testModeSettings)
         let deviceInfoService = DeviceInfoProviderAssembly.makeDeviceInfoProvider()
+        let settingsStorage = KeyValueStoringAssembly.makeSettingsStorage()
 
         let tokenStorage: KeyValueStoring
         switch testModeSettings {
@@ -17,7 +18,8 @@ enum AuthorizationProcessingAssembly {
         let authorizationMediator = AuthorizationMediator(tokenStorage: tokenStorage,
                                                           yandexLoginService: yandexLoginService,
                                                           yamoneyLoginService: yamoneyLoginService,
-                                                          deviceInfoService: deviceInfoService)
+                                                          deviceInfoService: deviceInfoService,
+                                                          settingsStorage: settingsStorage)
         return authorizationMediator
     }
 }

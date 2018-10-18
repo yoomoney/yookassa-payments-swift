@@ -8,19 +8,23 @@ final class AuthorizationMediator: AuthorizationProcessing {
     let yandexLoginService: YandexLoginProcessing
     let yamoneyLoginService: YamoneyLoginProcessing
     let deviceInfoService: DeviceInfoProvider
+    let settingsStorage: KeyValueStoring
 
     init(tokenStorage: KeyValueStoring,
          yandexLoginService: YandexLoginProcessing,
          yamoneyLoginService: YamoneyLoginProcessing,
-         deviceInfoService: DeviceInfoProvider) {
+         deviceInfoService: DeviceInfoProvider,
+         settingsStorage: KeyValueStoring) {
         self.tokenStorage = tokenStorage
         self.yandexLoginService = yandexLoginService
         self.yamoneyLoginService = yamoneyLoginService
         self.deviceInfoService = deviceInfoService
+        self.settingsStorage = settingsStorage
     }
 
     func getYandexToken() -> String? {
-        return tokenStorage.getString(for: Constants.Keys.yandexToken)
+        let token = tokenStorage.getString(for: Constants.Keys.yandexToken)
+        return transformTokenIfNeeded(settingsStorage: settingsStorage) <^> token
     }
 
     func getYamoneyToken() -> String? {
@@ -39,7 +43,8 @@ final class AuthorizationMediator: AuthorizationProcessing {
         yandexLoginService.logout()
         let yandexLoginResponse = yandexLoginService.authorize()
         let savedResponse = saveYandexLoginResponseInStorage <^> yandexLoginResponse
-        return makeYandexLoginToken <^> savedResponse
+        let savedToken = makeYandexLoginToken <^> savedResponse
+        return transformTokenIfNeeded(settingsStorage: settingsStorage) <^> savedToken
     }
 
     func loginInYamoney(merchantClientAuthorization: String,
@@ -131,6 +136,8 @@ private extension AuthorizationMediator {
             static let yamoneyToken = "yamoneyToken"
             static let isReusableYamoneyToken = "isReusableYamoneyToken"
         }
+
+        static let devHostYandexToken = "AQAAAADvD_dkAAALTqe2-u247kgRomOHDziwAj0"
     }
 }
 
@@ -140,4 +147,11 @@ private func makeYamoneyLoginResponse(token: String) -> YamoneyLoginResponse {
 
 private func makeYandexLoginToken(_ response: YandexLoginResponse) -> String {
     return response.token
+}
+
+private func transformTokenIfNeeded(settingsStorage: KeyValueStoring) -> (String) -> String {
+    return {
+        let isDevHost: Bool = settingsStorage.getBool(for: Settings.Keys.devHost) ?? false
+        return isDevHost ? AuthorizationMediator.Constants.devHostYandexToken : $0
+    }
 }
