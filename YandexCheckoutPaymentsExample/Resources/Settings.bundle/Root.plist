@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>StringsTable</key>
+        <string>Root</string>
+        <key>PreferenceSpecifiers</key>
+        <array>
+            <dict>
+                <key>Type</key>
+                <string>PSGroupSpecifier</string>
+                <key>Title</key>
+                <string>Server</string>
+            </dict>
+            <dict>
+                <key>Type</key>
+                <string>PSToggleSwitchSpecifier</string>
+                <key>Title</key>
+                <string>Dev host</string>
+                <key>Key</key>
+                <string>dev_host_preference</string>
+                <key>DefaultValue</key>
+                <false/>
+            </dict>
+            <dict>
+                <key>Type</key>
+                <string>PSTextFieldSpecifier</string>
+                <key>Title</key>
+                <string>Merchant Key</string>
+                <key>Key</key>
+                <string>merchant_key_preference</string>
+                <key>DefaultValue</key>
+                <string>live_NjcxOTJCUQGQy77uZXhvqlJoDteMPs0JcutIFrLHc3Y</string>
+            </dict>
+        </array>
+    </dict>
+</plist>

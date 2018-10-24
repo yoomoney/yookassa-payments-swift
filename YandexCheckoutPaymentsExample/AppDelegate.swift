@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         setupAppearance()
+        registerSettingsBundle()
 
         return true
     }
@@ -44,6 +45,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                           open url: URL,
                           options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
         return YandexLoginService.handleOpen(url, sourceApplication: options[.sourceApplication] as? String)
+    }
+
+    private func registerSettingsBundle() {
+        let userDefaults = UserDefaults.standard
+        userDefaults.synchronize()
+
+        guard let settingsBundlePath = Bundle.main.path(forResource: "Settings", ofType: "bundle"),
+              let settingsBundle = Bundle(path: settingsBundlePath),
+              let rootPath = settingsBundle.path(forResource: "Root", ofType: "plist"),
+              let settings = NSDictionary(contentsOfFile: rootPath),
+              let preferences = settings["PreferenceSpecifiers"] as? [[String: Any]] else {
+            return
+        }
+
+        let defaultPairs = preferences.compactMap { (data) -> (String, Any)? in
+            guard let key = data["Key"] as? String,
+                  let value = data["DefaultValue"] else {
+                return nil
+            }
+
+            return (key, value)
+        }
+
+        let defaultsToRegister = defaultPairs.reduce(into: [:]) { $0[$1.0] = $1.1 }
+
+        userDefaults.register(defaults: defaultsToRegister)
+        userDefaults.synchronize()
     }
 }
 
