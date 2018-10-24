@@ -31,7 +31,8 @@ extension SberbankStrategy: TokenizationStrategyInput {
 
     func sberbankModule(_ module: SberbankModuleInput, didPressConfirmButton phoneNumber: String) {
         contractStateHandler = module
-        let tokenizeData = TokenizeData.sberbank(phoneNumber: phoneNumber)
+        let confirmation = Confirmation(type: .external, returnUrl: nil)
+        let tokenizeData = TokenizeData.sberbank(phoneNumber: phoneNumber, confirmation: confirmation)
         module.showActivity()
         output?.tokenize(tokenizeData)
     }

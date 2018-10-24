@@ -4,20 +4,23 @@ import struct YandexCheckoutWalletApi.AuthTypeState
 import PassKit
 
 final class LinkedBankCardStrategy {
-    let authorizationService: AuthorizationProcessing
-    let paymentOption: PaymentInstrumentYandexMoneyLinkedBankCard
-
     weak var output: TokenizationStrategyOutput?
     weak var contractStateHandler: ContractStateHandler?
-    fileprivate weak var bankCardDataInputModule: BankCardDataInputModuleInput?
+    private weak var bankCardDataInputModule: BankCardDataInputModuleInput?
+
+    private let authorizationService: AuthorizationProcessing
+    private let paymentOption: PaymentInstrumentYandexMoneyLinkedBankCard
+    private let returnUrl: String
 
     init(authorizationService: AuthorizationProcessing,
-         paymentOption: PaymentOption) throws {
+         paymentOption: PaymentOption,
+         returnUrl: String) throws {
         guard let paymentOption = paymentOption as? PaymentInstrumentYandexMoneyLinkedBankCard else {
             throw TokenizationStrategyError.incorrectPaymentOptions
         }
         self.paymentOption = paymentOption
         self.authorizationService = authorizationService
+        self.returnUrl = returnUrl
     }
 }
 
@@ -74,7 +77,8 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
 
     func didPressConfirmButton(on module: BankCardDataInputModuleInput, cvc: String) {
         bankCardDataInputModule = module
-        output?.tokenize(.linkedBankCard(id: paymentOption.cardId, csc: cvc))
+        let confirmation = makeConfirmation(returnUrl: returnUrl)
+        output?.tokenize(.linkedBankCard(id: paymentOption.cardId, csc: cvc, confirmation: confirmation))
     }
 
     func didPressLogout() { }
@@ -90,4 +94,8 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
     func didFailPresentApplePayModule() { }
 
     func didPresentApplePayModule() { }
+}
+
+private func makeConfirmation(returnUrl: String) -> Confirmation {
+    return Confirmation(type: .redirect, returnUrl: returnUrl)
 }

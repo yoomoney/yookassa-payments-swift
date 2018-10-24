@@ -3,17 +3,20 @@ import PassKit
 import YandexCheckoutPaymentsApi
 
 final class BankCardStrategy {
-    let paymentOption: PaymentOption
 
     weak var output: TokenizationStrategyOutput?
     weak var contractStateHandler: ContractStateHandler?
-    fileprivate weak var bankCardDataInputModule: BankCardDataInputModuleInput?
+    private weak var bankCardDataInputModule: BankCardDataInputModuleInput?
 
-    init(paymentOption: PaymentOption) throws {
+    private let paymentOption: PaymentOption
+    private let returnUrl: String
+
+    init(paymentOption: PaymentOption, returnUrl: String) throws {
         guard case .bankCard = paymentOption.paymentMethodType else {
             throw TokenizationStrategyError.incorrectPaymentOptions
         }
         self.paymentOption = paymentOption
+        self.returnUrl = returnUrl
     }
 }
 
@@ -34,7 +37,8 @@ extension BankCardStrategy: TokenizationStrategyInput {
             return
         }
         bankCardDataInputModule = module
-        output?.tokenize(.bankCard(bankCard))
+        let confirmation = makeConfirmation(returnUrl: returnUrl)
+        output?.tokenize(.bankCard(bankCard: bankCard, confirmation: confirmation))
     }
 
     func didPressConfirmButton(on module: BankCardDataInputModuleInput, cvc: String) {
@@ -93,4 +97,8 @@ private func makeBankCard(_ cardData: CardData) -> BankCard? {
 
 private func makeCorrectExpiryMonth(_ month: String) -> String {
     return month.count > 1 ? month : "0" + month
+}
+
+private func makeConfirmation(returnUrl: String) -> Confirmation {
+    return Confirmation(type: .redirect, returnUrl: returnUrl)
 }

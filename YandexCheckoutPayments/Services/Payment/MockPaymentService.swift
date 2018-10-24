@@ -46,6 +46,7 @@ final class MockPaymentService: PaymentProcessing {
 
     func tokenizeBankCard(clientApplicationKey: String,
                           bankCard: BankCard,
+                          confirmation: Confirmation,
                           amount: MonetaryAmount?,
                           tmxSessionId: String) -> Promise<Tokens> {
         return makeTokensPromise()
@@ -53,6 +54,7 @@ final class MockPaymentService: PaymentProcessing {
 
     func tokenizeWallet(clientApplicationKey: String,
                         yamoneyToken: String,
+                        confirmation: Confirmation,
                         amount: MonetaryAmount?,
                         tmxSessionId: String) -> Promise<Tokens> {
         return makeTokensPromise()
@@ -62,6 +64,7 @@ final class MockPaymentService: PaymentProcessing {
                                 yamoneyToken: String,
                                 cardId: String,
                                 csc: String,
+                                confirmation: Confirmation,
                                 amount: MonetaryAmount?,
                                 tmxSessionId: String) -> Promise<Tokens> {
         return makeTokensPromise()
@@ -69,6 +72,7 @@ final class MockPaymentService: PaymentProcessing {
 
     func tokenizeSberbank(clientApplicationKey: String,
                           phoneNumber: String,
+                          confirmation: Confirmation,
                           amount: MonetaryAmount?,
                           tmxSessionId: String) -> Promise<Tokens> {
         return makeTokensPromise()

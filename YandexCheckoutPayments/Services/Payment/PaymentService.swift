@@ -45,18 +45,21 @@ extension PaymentService: PaymentProcessing {
 
     func tokenizeBankCard(clientApplicationKey: String,
                           bankCard: BankCard,
+                          confirmation: Confirmation,
                           amount: MonetaryAmount?,
                           tmxSessionId: String) -> Promise<Tokens> {
         let method = Tokens.Method(oauthToken: clientApplicationKey,
                                    paymentMethodData: PaymentMethodDataBankCard(bankCard: bankCard),
                                    tmxSessionId: tmxSessionId,
-                                   amount: amount)
+                                   amount: amount,
+                                   confirmation: confirmation)
         let tokens = session.perform(apiMethod: method).responseApi()
         return tokens.recover(on: .global(), mapError)
     }
 
     func tokenizeWallet(clientApplicationKey: String,
                         yamoneyToken: String,
+                        confirmation: Confirmation,
                         amount: MonetaryAmount?,
                         tmxSessionId: String) -> Promise<Tokens> {
         let paymentMethodData = PaymentInstrumentDataYandexMoneyWallet(instrumentType: .wallet,
@@ -64,7 +67,8 @@ extension PaymentService: PaymentProcessing {
         let method = Tokens.Method(oauthToken: clientApplicationKey,
                                    paymentMethodData: paymentMethodData,
                                    tmxSessionId: tmxSessionId,
-                                   amount: amount)
+                                   amount: amount,
+                                   confirmation: confirmation)
         let tokens = session.perform(apiMethod: method).responseApi()
         return tokens.recover(on: .global(), mapError)
     }
@@ -73,6 +77,7 @@ extension PaymentService: PaymentProcessing {
                                 yamoneyToken: String,
                                 cardId: String,
                                 csc: String,
+                                confirmation: Confirmation,
                                 amount: MonetaryAmount?,
                                 tmxSessionId: String) -> Promise<Tokens> {
         let paymentMethodData = PaymentInstrumentDataYandexMoneyLinkedBankCard(instrumentType: .linkedBankCard,
@@ -83,7 +88,8 @@ extension PaymentService: PaymentProcessing {
         let method = Tokens.Method(oauthToken: clientApplicationKey,
                                    paymentMethodData: paymentMethodData,
                                    tmxSessionId: tmxSessionId,
-                                   amount: amount)
+                                   amount: amount,
+                                   confirmation: confirmation)
         let tokens = session.perform(apiMethod: method).responseApi()
         return tokens.recover(on: .global(), mapError)
     }
@@ -96,13 +102,15 @@ extension PaymentService: PaymentProcessing {
         let method = Tokens.Method(oauthToken: clientApplicationKey,
                                    paymentMethodData: paymentMethodData,
                                    tmxSessionId: tmxSessionId,
-                                   amount: amount)
+                                   amount: amount,
+                                   confirmation: nil)
         let tokens = session.perform(apiMethod: method).responseApi()
         return tokens.recover(on: .global(), mapError)
     }
 
     func tokenizeSberbank(clientApplicationKey: String,
                           phoneNumber: String,
+                          confirmation: Confirmation,
                           amount: MonetaryAmount?,
                           tmxSessionId: String) -> Promise<Tokens> {
         let paymentMethodData = PaymentMethodDataSberbank(phone: phoneNumber)
@@ -110,7 +118,8 @@ extension PaymentService: PaymentProcessing {
         let method = Tokens.Method(oauthToken: clientApplicationKey,
                                    paymentMethodData: paymentMethodData,
                                    tmxSessionId: tmxSessionId,
-                                   amount: amount)
+                                   amount: amount,
+                                   confirmation: confirmation)
 
         let tokens = session.perform(apiMethod: method).responseApi()
         return tokens.recover(on: .global(), mapError)
