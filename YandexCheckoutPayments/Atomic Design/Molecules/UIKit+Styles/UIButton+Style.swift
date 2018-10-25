@@ -180,18 +180,6 @@ extension UIButton {
 
 extension UIButton {
 
-    // TODO: Remove in ios-1764
-    open override func tintColorDidChange() {
-        applyStyles()
-    }
-
-    // TODO: Remove in ios-1765
-    open override var intrinsicContentSize: CGSize {
-        let size = super.intrinsicContentSize
-        return CGSize(width: size.width + titleEdgeInsets.left + titleEdgeInsets.right,
-                      height: size.height + titleEdgeInsets.top + titleEdgeInsets.bottom)
-    }
-
     private func setColorizedImage(_ image: UIImage,
                                    color: UIColor,
                                    for state: UIControlState) {

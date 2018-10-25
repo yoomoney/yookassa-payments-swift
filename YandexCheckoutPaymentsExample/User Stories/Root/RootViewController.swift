@@ -335,7 +335,7 @@ final class RootViewController: UIViewController {
         }
 
         let amount = Amount(value: settings.price, currency: .rub)
-        let oauthToken = "live_MTkzODU2ScFXd5EXdUIP1HXmGSvpeLO3yMPnaPs2rs0"
+        let oauthToken = "live_MTkzODU2VY5GiyQq2GMPsCQ0PW7f_RSLtJYOT-mp_CA"
         let inputData = TokenizationModuleInputData(clientApplicationKey: oauthToken,
                                                     shopName: translate(Localized.name),
                                                     purchaseDescription: translate(Localized.description),
