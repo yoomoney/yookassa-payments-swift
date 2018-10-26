@@ -168,12 +168,12 @@ final class RootViewController: UIViewController {
         subscribeOnNotifications()
     }
 
-    override public func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         startKeyboardObserving()
     }
 
-    override public func viewWillDisappear(_ animated: Bool) {
+    override open func viewWillDisappear(_ animated: Bool) {
         stopKeyboardObserving()
         super.viewWillDisappear(animated)
     }
