@@ -45,32 +45,33 @@ extension TokenizationInteractor: TokenizationInteractorInput {
         let makeToken: (MonetaryAmount?) -> (String) -> Promise<Tokens>
 
         switch data {
-        case let .bankCard(bankCard):
-            makeToken = curry(paymentService.tokenizeBankCard)(clientApplicationKey)(bankCard)
+        case let .bankCard(bankCard, confirmation):
+            makeToken = curry(paymentService.tokenizeBankCard)(clientApplicationKey)(bankCard)(confirmation)
 
-        case .wallet:
-
-            guard let yamoneyToken = authorizationService.getYamoneyToken() else {
-                assertionFailure("You must be authorized in yamoney")
-                return
-            }
-
-            makeToken = curry(paymentService.tokenizeWallet)(clientApplicationKey)(yamoneyToken)
-
-        case let .linkedBankCard(id, csc):
+        case let .wallet(confirmation):
 
             guard let yamoneyToken = authorizationService.getYamoneyToken() else {
                 assertionFailure("You must be authorized in yamoney")
                 return
             }
 
-            makeToken = curry(paymentService.tokenizeLinkedBankCard)(clientApplicationKey)(yamoneyToken)(id)(csc)
+            makeToken = curry(paymentService.tokenizeWallet)(clientApplicationKey)(yamoneyToken)(confirmation)
+
+        case let .linkedBankCard(id, csc, confirmation):
+
+            guard let yamoneyToken = authorizationService.getYamoneyToken() else {
+                assertionFailure("You must be authorized in yamoney")
+                return
+            }
+
+            makeToken = curry(paymentService
+                                  .tokenizeLinkedBankCard)(clientApplicationKey)(yamoneyToken)(id)(csc)(confirmation)
 
         case let .applePay(paymentData):
             makeToken = curry(paymentService.tokenizeApplePay)(clientApplicationKey)(paymentData)
 
-        case .sberbank(let phoneNumber):
-            makeToken = curry(paymentService.tokenizeSberbank)(clientApplicationKey)(phoneNumber)
+        case let .sberbank(phoneNumber, confirmation):
+            makeToken = curry(paymentService.tokenizeSberbank)(clientApplicationKey)(phoneNumber)(confirmation)
         }
 
         let monetaryAmount = MonetaryAmountFactory.makePaymentsMonetaryAmount(amount)

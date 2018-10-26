@@ -39,7 +39,8 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
                 makeStrategy(paymentOption: $0,
                              output: self,
                              testModeSettings: inputData.testModeSettings,
-                             paymentMethodsModuleInput: paymentMethodsModuleInput)
+                             paymentMethodsModuleInput: paymentMethodsModuleInput,
+                             returnUrl: inputData.returnUrl ?? Constants.returnUrl)
             }
         }
     }
@@ -345,7 +346,7 @@ extension TokenizationPresenter: TokenizationModuleInput {
 
     func start3dsProcess(requestUrl: String) {
         let moduleInputData = CardSecModuleInputData(requestUrl: requestUrl,
-                                                     redirectUrl: inputData.returnUrl ?? Constants.redirectUrl)
+                                                     redirectUrl: inputData.returnUrl ?? Constants.returnUrl)
         present3dsModule(inputData: moduleInputData)
     }
 }
@@ -672,20 +673,21 @@ private func makePriceViewModel(_ paymentOption: PaymentOption) -> PriceViewMode
 private func makeStrategy(paymentOption: PaymentOption,
                           output: TokenizationStrategyOutput?,
                           testModeSettings: TestModeSettings?,
-                          paymentMethodsModuleInput: PaymentMethodsModuleInput?) -> TokenizationStrategyInput {
+                          paymentMethodsModuleInput: PaymentMethodsModuleInput?,
+                          returnUrl: String) -> TokenizationStrategyInput {
 
     let authorizationService = AuthorizationProcessingAssembly.makeService(testModeSettings: testModeSettings)
     let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService()
     let analyticsProvider = AnalyticsProvidingAssembly.makeAnalyticsProvider(testModeSettings: testModeSettings)
 
     let strategy: TokenizationStrategyInput
-    if let bankCard = try? BankCardStrategy(paymentOption: paymentOption) {
+    if let bankCard = try? BankCardStrategy(paymentOption: paymentOption, returnUrl: returnUrl) {
         strategy = bankCard
     } else if let wallet = try? WalletStrategy(authorizationService: authorizationService,
-                                               paymentOption: paymentOption) {
+                                               paymentOption: paymentOption, returnUrl: returnUrl) {
         strategy = wallet
     } else if let linkedBankCard = try? LinkedBankCardStrategy(authorizationService: authorizationService,
-                                                               paymentOption: paymentOption) {
+                                                               paymentOption: paymentOption, returnUrl: returnUrl) {
         strategy = linkedBankCard
     } else if let sberbankStrategy = try? SberbankStrategy(paymentOption: paymentOption) {
         strategy = sberbankStrategy
@@ -704,5 +706,5 @@ private func makeStrategy(paymentOption: PaymentOption,
 // MARK: - Constants
 
 private enum Constants {
-    static let redirectUrl = "yandexcheckout://return"
+    static let returnUrl = "yandexcheckout://return"
 }

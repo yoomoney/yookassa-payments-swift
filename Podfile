@@ -10,6 +10,10 @@ target 'YandexCheckoutPaymentsExamplePods' do
 
     pod 'YandexCheckoutPayments',
         :path => './'
+
+    pod 'YandexCheckoutPaymentsApi',
+        :git => 'git@github.com:oltv00/yandex-checkout-payments-api-swift.git',
+        :branch => 'task/BIOS-641'
 end
 
 post_install do |installer|

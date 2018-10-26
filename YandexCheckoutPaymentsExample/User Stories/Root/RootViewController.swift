@@ -336,7 +336,6 @@ final class RootViewController: UIViewController {
 
         let amount = Amount(value: settings.price, currency: .rub)
 
-
         let devHostService = DevHostService(storage: UserDefaultsStorage(userDefault: .standard))
 
         let oauthToken: String

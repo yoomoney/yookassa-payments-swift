@@ -4,19 +4,22 @@ import struct YandexCheckoutWalletApi.AuthTypeState
 import PassKit
 
 final class WalletStrategy {
-    let authorizationService: AuthorizationProcessing
-    let paymentOption: PaymentInstrumentYandexMoneyWallet
-
     weak var output: TokenizationStrategyOutput?
     weak var contractStateHandler: ContractStateHandler?
 
+    private let authorizationService: AuthorizationProcessing
+    private let paymentOption: PaymentInstrumentYandexMoneyWallet
+    private let returnUrl: String
+
     init(authorizationService: AuthorizationProcessing,
-         paymentOption: PaymentOption) throws {
+         paymentOption: PaymentOption,
+         returnUrl: String) throws {
         guard let paymentOption = paymentOption as? PaymentInstrumentYandexMoneyWallet else {
             throw TokenizationStrategyError.incorrectPaymentOptions
         }
         self.paymentOption = paymentOption
         self.authorizationService = authorizationService
+        self.returnUrl = returnUrl
     }
 }
 
@@ -36,7 +39,7 @@ extension WalletStrategy: TokenizationStrategyInput {
         module.hidePlaceholder()
         module.showActivity()
 
-        output?.tokenize(.wallet)
+        output?.tokenize(.wallet(makeConfirmation(returnUrl: returnUrl)))
     }
 
     func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput,
@@ -52,7 +55,7 @@ extension WalletStrategy: TokenizationStrategyInput {
     func didLoginInYandexMoney(_ response: YamoneyLoginResponse) {
         switch response {
         case .authorized:
-            output?.tokenize(.wallet)
+            output?.tokenize(.wallet(makeConfirmation(returnUrl: returnUrl)))
         case let .notAuthorized(authTypeState: authTypeState, processId: processId, authContextId: authContextId):
             output?.presentYamoneyAuthModule(paymentOption: paymentOption,
                                              processId: processId,
@@ -93,4 +96,8 @@ extension WalletStrategy: TokenizationStrategyInput {
     func didFailPresentApplePayModule() { }
 
     func didPresentApplePayModule() { }
+}
+
+private func makeConfirmation(returnUrl: String) -> Confirmation {
+    return Confirmation(type: .redirect, returnUrl: returnUrl)
 }

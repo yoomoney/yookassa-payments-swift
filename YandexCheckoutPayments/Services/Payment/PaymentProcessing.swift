@@ -35,11 +35,13 @@ protocol PaymentProcessing {
 
     func tokenizeBankCard(clientApplicationKey: String,
                           bankCard: BankCard,
+                          confirmation: Confirmation,
                           amount: MonetaryAmount?,
                           tmxSessionId: String) -> Promise<Tokens>
 
     func tokenizeWallet(clientApplicationKey: String,
                         yamoneyToken: String,
+                        confirmation: Confirmation,
                         amount: MonetaryAmount?,
                         tmxSessionId: String) -> Promise<Tokens>
 
@@ -47,11 +49,13 @@ protocol PaymentProcessing {
                                 yamoneyToken: String,
                                 cardId: String,
                                 csc: String,
+                                confirmation: Confirmation,
                                 amount: MonetaryAmount?,
                                 tmxSessionId: String) -> Promise<Tokens>
 
     func tokenizeSberbank(clientApplicationKey: String,
                           phoneNumber: String,
+                          confirmation: Confirmation,
                           amount: MonetaryAmount?,
                           tmxSessionId: String) -> Promise<Tokens>
 
