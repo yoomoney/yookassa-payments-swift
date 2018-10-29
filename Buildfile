@@ -30,7 +30,7 @@ EXPORT_METHOD_Debug="development"
 EXPORT_METHOD_AdHoc="enterprise"
 EXPORT_METHOD_AppStore="app-store"
 
-BETA_APP_NAME="YandexCheckoutPayments"
+BETA_APP_NAME="yandexcheckoutmsdk"
 
 SHOULD_DEPLOY_LIBRARY=false
 SHOULD_VALIDATE_PODSPEC=false
