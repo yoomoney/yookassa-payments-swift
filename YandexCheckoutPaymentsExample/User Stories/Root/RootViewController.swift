@@ -354,7 +354,7 @@ final class RootViewController: UIViewController {
                                                     tokenizationSettings: makeTokenizationSettings(),
                                                     testModeSettings: testSettings,
                                                     cardScanning: self,
-                                                    applePayMerchantIdentifier: "merchant.ru.yandex.mobile.money.debug")
+                                                    applePayMerchantIdentifier: "merchant.ru.yandex.mobile.msdk.debug")
         let viewController = TokenizationAssembly.makeModule(inputData: inputData,
                                                              moduleOutput: self)
         present(viewController, animated: true, completion: nil)
