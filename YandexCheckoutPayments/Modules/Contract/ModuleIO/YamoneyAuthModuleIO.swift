@@ -14,6 +14,7 @@ struct YamoneyAuthModuleInputData {
     let shouldChangePaymentMethod: Bool
     let testModeSettings: TestModeSettings?
     let tokenizeScheme: AnalyticsEvent.TokenizeScheme
+    let isLoggingEnabled: Bool
 }
 
 protocol YamoneyAuthModuleInput: ContractStateHandler {

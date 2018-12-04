@@ -35,6 +35,9 @@ public struct TokenizationModuleInputData {
     /// Return url for close 3ds.
     let returnUrl: String?
 
+    /// Enable logging
+    let isLoggingEnabled: Bool
+
     /// Creates instance of `TokenizationModuleInputData`.
     ///
     /// - Parameters:
@@ -60,7 +63,8 @@ public struct TokenizationModuleInputData {
                 testModeSettings: TestModeSettings? = nil,
                 cardScanning: CardScanning? = nil,
                 applePayMerchantIdentifier: String? = nil,
-                customRedirectUrl: String? = nil) {
+                returnUrl: String? = nil,
+                isLoggingEnabled: Bool = false) {
         self.clientApplicationKey = makeBase64Encoded(clientApplicationKey + ":")
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -70,7 +74,8 @@ public struct TokenizationModuleInputData {
         self.testModeSettings = testModeSettings
         self.cardScanning = cardScanning
         self.applePayMerchantIdentifier = applePayMerchantIdentifier
-        self.returnUrl = customRedirectUrl
+        self.returnUrl = returnUrl
+        self.isLoggingEnabled = isLoggingEnabled
     }
 }
 

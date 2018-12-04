@@ -6,8 +6,8 @@ enum YandexAuthAssembly {
                            moduleOutput: YandexAuthModuleOutput) -> PaymentMethodsViewController {
         let view = PaymentMethodsViewController()
         return YandexAuthAssembly.makeModule(inputData: inputData,
-                                      moduleOutput: moduleOutput,
-                                      view: view)
+                                             moduleOutput: moduleOutput,
+                                             view: view)
     }
 
     static func makeModule(inputData: YandexAuthModuleInputData,
@@ -16,11 +16,15 @@ enum YandexAuthAssembly {
 
         let presenter = YandexAuthPresenter()
 
-        let authorizationService
-            = AuthorizationProcessingAssembly.makeService(testModeSettings: inputData.testModeSettings)
-        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService()
-        let paymentService = PaymentProcessingAssembly.makeService(tokenizationSettings: inputData.tokenizationSettings,
-                                                                   testModeSettings: inputData.testModeSettings)
+        let authorizationService = AuthorizationProcessingAssembly
+            .makeService(isLoggingEnabled: inputData.isLoggingEnabled,
+                         testModeSettings: inputData.testModeSettings)
+        let analyticsService = AnalyticsProcessingAssembly
+            .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
+        let paymentService = PaymentProcessingAssembly
+            .makeService(tokenizationSettings: inputData.tokenizationSettings,
+                         testModeSettings: inputData.testModeSettings,
+                         isLoggingEnabled: inputData.isLoggingEnabled)
 
         let interactor = YandexAuthInteractor(authorizationService: authorizationService,
                                               analyticsService: analyticsService,

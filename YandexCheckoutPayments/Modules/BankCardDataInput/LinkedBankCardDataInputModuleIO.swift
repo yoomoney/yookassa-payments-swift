@@ -4,6 +4,7 @@ import class YandexCheckoutPaymentsApi.PaymentOption
 struct LinkedBankCardDataInputModuleInputData {
     let paymentOption: PaymentInstrumentYandexMoneyLinkedBankCard
     let testModeSettings: TestModeSettings?
+    let isLoggingEnabled: Bool
 }
 
 protocol LinkedBankCardDataInputModuleOutput: class {

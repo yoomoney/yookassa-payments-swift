@@ -33,9 +33,11 @@ enum LinkedBankCardDataInputAssembly {
         let presenter = LinkedBankCardDataInputPresenter(inputData: inputData)
 
         let cardService = CardService()
-        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService()
+        let analyticsService = AnalyticsProcessingAssembly
+            .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
         let authorizationService
-            = AuthorizationProcessingAssembly.makeService(testModeSettings: inputData.testModeSettings)
+            = AuthorizationProcessingAssembly.makeService(isLoggingEnabled: inputData.isLoggingEnabled,
+                                                          testModeSettings: inputData.testModeSettings)
         let analyticsProvider = AnalyticsProvider(authorizationService: authorizationService)
         let interactor = BankCardDataInputInteractor(cardService: cardService,
                                                      authorizationService: authorizationService,

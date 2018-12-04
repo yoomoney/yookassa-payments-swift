@@ -1,7 +1,10 @@
 enum AnalyticsProvidingAssembly {
 
-    static func makeAnalyticsProvider(testModeSettings: TestModeSettings?) -> AnalyticsProviding {
-        let authorizationService = AuthorizationProcessingAssembly.makeService(testModeSettings: testModeSettings)
+    static func makeAnalyticsProvider(isLoggingEnabled: Bool,
+                                      testModeSettings: TestModeSettings?) -> AnalyticsProviding {
+        let authorizationService = AuthorizationProcessingAssembly
+            .makeService(isLoggingEnabled: isLoggingEnabled,
+                         testModeSettings: testModeSettings)
         let analyticsProvider = AnalyticsProvider(authorizationService: authorizationService)
         return analyticsProvider
     }

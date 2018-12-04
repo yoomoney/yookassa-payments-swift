@@ -5,7 +5,8 @@ enum CardSecAssembly {
                            moduleOutput: CardSecModuleOutput) -> UIViewController {
         let presenter = CardSecPresenter()
 
-        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService()
+        let analyticsService = AnalyticsProcessingAssembly
+            .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
         let interactor = CardSecInteractor(analyticsService: analyticsService,
                                            requestUrl: inputData.requestUrl,
                                            redirectUrl: inputData.redirectUrl)

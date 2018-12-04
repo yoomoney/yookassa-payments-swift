@@ -6,6 +6,7 @@ struct PaymentMethodsModuleInputData {
     let amount: Amount
     let tokenizationSettings: TokenizationSettings
     let testModeSettings: TestModeSettings?
+    let isLoggingEnabled: Bool
 }
 
 protocol PaymentMethodsModuleInput: class {

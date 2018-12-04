@@ -39,7 +39,8 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
                 makeStrategy(paymentOption: $0,
                              output: self,
                              testModeSettings: inputData.testModeSettings,
-                             paymentMethodsModuleInput: paymentMethodsModuleInput)
+                             paymentMethodsModuleInput: paymentMethodsModuleInput,
+                             isLoggingEnabled: inputData.isLoggingEnabled)
             }
         }
     }
@@ -68,7 +69,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                             gatewayId: inputData.gatewayId,
                                             amount: inputData.amount,
                                             tokenizationSettings: inputData.tokenizationSettings,
-                                            testModeSettings: inputData.testModeSettings)
+                                            testModeSettings: inputData.testModeSettings,
+                                            isLoggingEnabled: inputData.isLoggingEnabled)
 
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
@@ -89,7 +91,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                                    shouldChangePaymentMethod: shouldChangePaymentOptions,
                                                    paymentOption: paymentOption,
                                                    testModeSettings: inputData.testModeSettings,
-                                                   tokenizeScheme: tokenizeScheme)
+                                                   tokenizeScheme: tokenizeScheme,
+                                                   isLoggingEnabled: inputData.isLoggingEnabled)
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentYamoneyAuthParameters(inputData: yamoneyAuthParametersInputData,
@@ -113,7 +116,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                                               authTypeState: authTypeState,
                                                               shouldChangePaymentMethod: shouldChangePaymentOptions,
                                                               testModeSettings: inputData.testModeSettings,
-                                                              tokenizeScheme: tokenizeScheme)
+                                                              tokenizeScheme: tokenizeScheme,
+                                                              isLoggingEnabled: inputData.isLoggingEnabled)
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentYamoneyAuth(inputData: yamoneyAuthInputData,
@@ -131,7 +135,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                                       price: makePriceViewModel(paymentOption),
                                                       shouldChangePaymentMethod: shouldChangePaymentOptions,
                                                       testModeSettings: inputData.testModeSettings,
-                                                      tokenizeScheme: tokenizeScheme)
+                                                      tokenizeScheme: tokenizeScheme,
+                                                      isLoggingEnabled: inputData.isLoggingEnabled)
 
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
@@ -142,17 +147,20 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
 
     func presentBankCardDataInput() {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            let inputData = BankCardDataInputModuleInputData(cardScanner: strongSelf.inputData.cardScanning,
-                                                             testModeSettings: strongSelf.inputData.testModeSettings)
-            strongSelf.router.presentBankCardDataInput(inputData: inputData,
-                                                       moduleOutput: strongSelf)
+            guard let self = self else { return }
+            let bankCardDataInputData
+                = BankCardDataInputModuleInputData(cardScanner: self.inputData.cardScanning,
+                                                   testModeSettings: self.inputData.testModeSettings,
+                                                   isLoggingEnabled: self.inputData.isLoggingEnabled)
+            self.router.presentBankCardDataInput(inputData: bankCardDataInputData,
+                                                 moduleOutput: self)
         }
     }
 
     func presentLinkedBankCardDataInput(paymentOption: PaymentInstrumentYandexMoneyLinkedBankCard) {
         let moduleInputData = LinkedBankCardDataInputModuleInputData(paymentOption: paymentOption,
-                                                                     testModeSettings: inputData.testModeSettings)
+                                                                     testModeSettings: inputData.testModeSettings,
+                                                                     isLoggingEnabled: inputData.isLoggingEnabled)
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentLinkedBankCardDataInput(inputData: moduleInputData,
@@ -171,7 +179,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                                       price: priceViewModel,
                                                       shouldChangePaymentMethod: shouldChangePaymentOptions,
                                                       testModeSettings: inputData.testModeSettings,
-                                                      tokenizeScheme: tokenizeScheme)
+                                                      tokenizeScheme: tokenizeScheme,
+                                                      isLoggingEnabled: inputData.isLoggingEnabled)
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentSberbank(inputData: moduleInputData,
@@ -192,7 +201,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                                         testModeSettings: inputData.testModeSettings,
                                                         clientApplicationKey: inputData.clientApplicationKey,
                                                         gatewayId: inputData.gatewayId,
-                                                        amount: inputData.amount)
+                                                        amount: inputData.amount,
+                                                        isLoggingEnabled: inputData.isLoggingEnabled)
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentYandexAuth(inputData: moduleInputData,
@@ -339,13 +349,18 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
 
 extension TokenizationPresenter: TokenizationModuleInput {
     func start3dsProcess(requestUrl: String, redirectUrl: String) {
-        let inputData = CardSecModuleInputData(requestUrl: requestUrl, redirectUrl: redirectUrl)
-        present3dsModule(inputData: inputData)
+        let moduleInputData
+            = CardSecModuleInputData(requestUrl: requestUrl,
+                                     redirectUrl: redirectUrl,
+                                     isLoggingEnabled: inputData.isLoggingEnabled)
+        present3dsModule(inputData: moduleInputData)
     }
 
     func start3dsProcess(requestUrl: String) {
-        let moduleInputData = CardSecModuleInputData(requestUrl: requestUrl,
-                                                     redirectUrl: inputData.returnUrl ?? Constants.redirectUrl)
+        let moduleInputData
+            = CardSecModuleInputData(requestUrl: requestUrl,
+                                     redirectUrl: inputData.returnUrl ?? Constants.redirectUrl,
+                                     isLoggingEnabled: inputData.isLoggingEnabled)
         present3dsModule(inputData: moduleInputData)
     }
 }
@@ -469,7 +484,8 @@ extension TokenizationPresenter: YandexAuthModuleOutput {
         presentPaymentMethodsModule()
     }
 
-    func didFailFetchYamoneyPaymentMethods(on module: YandexAuthModuleInput) {}
+    func didFailFetchYamoneyPaymentMethods(on module: YandexAuthModuleInput) {
+    }
 
     func didCancelAuthorizeInYandex(on module: YandexAuthModuleInput) {
         handleOnePaymentOptionMethodAtReturn()
@@ -672,11 +688,19 @@ private func makePriceViewModel(_ paymentOption: PaymentOption) -> PriceViewMode
 private func makeStrategy(paymentOption: PaymentOption,
                           output: TokenizationStrategyOutput?,
                           testModeSettings: TestModeSettings?,
-                          paymentMethodsModuleInput: PaymentMethodsModuleInput?) -> TokenizationStrategyInput {
+                          paymentMethodsModuleInput: PaymentMethodsModuleInput?,
+                          isLoggingEnabled: Bool) -> TokenizationStrategyInput {
 
-    let authorizationService = AuthorizationProcessingAssembly.makeService(testModeSettings: testModeSettings)
-    let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService()
-    let analyticsProvider = AnalyticsProvidingAssembly.makeAnalyticsProvider(testModeSettings: testModeSettings)
+    let authorizationService = AuthorizationProcessingAssembly
+        .makeService(isLoggingEnabled: isLoggingEnabled,
+                     testModeSettings: testModeSettings)
+
+    let analyticsService = AnalyticsProcessingAssembly
+        .makeAnalyticsService(isLoggingEnabled: isLoggingEnabled)
+
+    let analyticsProvider = AnalyticsProvidingAssembly
+        .makeAnalyticsProvider(isLoggingEnabled: isLoggingEnabled,
+                               testModeSettings: testModeSettings)
 
     let strategy: TokenizationStrategyInput
     if let bankCard = try? BankCardStrategy(paymentOption: paymentOption) {
