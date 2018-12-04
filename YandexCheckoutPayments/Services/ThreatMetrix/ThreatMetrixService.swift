@@ -65,9 +65,6 @@ class ThreatMetrixService {
                 // This will only need to be explicitly specified if you have Enhanced Profiling configured.
                 // This parameter must be specified in a FQDN format, eg: host.domain.com
                 THMFingerprintServer: "s4.money.yandex.net",
-
-                // (OPTIONAL) This key is used to set the SHA1 of the certificate of the FP Server to the SDK
-                THMCertificateHashes: "5A208BCB52EB637F24AD4FF496F6DFD1105DF565",
             ])
             isConfigured = true
         }
