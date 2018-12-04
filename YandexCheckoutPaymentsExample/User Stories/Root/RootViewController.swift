@@ -168,12 +168,12 @@ final class RootViewController: UIViewController {
         subscribeOnNotifications()
     }
 
-    override public func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         startKeyboardObserving()
     }
 
-    override public func viewWillDisappear(_ animated: Bool) {
+    override open func viewWillDisappear(_ animated: Bool) {
         stopKeyboardObserving()
         super.viewWillDisappear(animated)
     }
@@ -353,7 +353,7 @@ final class RootViewController: UIViewController {
                                                     tokenizationSettings: makeTokenizationSettings(),
                                                     testModeSettings: testSettings,
                                                     cardScanning: self,
-                                                    applePayMerchantIdentifier: "merchant.ru.yandex.mobile.money.debug")
+                                                    applePayMerchantIdentifier: "merchant.ru.yandex.mobile.msdk.debug")
         let viewController = TokenizationAssembly.makeModule(inputData: inputData,
                                                              moduleOutput: self)
         present(viewController, animated: true, completion: nil)
