@@ -2,6 +2,12 @@ import YandexMobileMetrica
 
 final class AnalyticsService: AnalyticsProcessing {
 
+    private let isLoggingEnabled: Bool
+
+    init(isLoggingEnabled: Bool) {
+        self.isLoggingEnabled = isLoggingEnabled
+    }
+
     #if DEBUG
     private let yandexMetricaKey = "4f547440-406e-4734-81f4-bb695ef8e3fc"
     #else
@@ -26,7 +32,9 @@ final class AnalyticsService: AnalyticsProcessing {
     }
 
     func trackEventNamed(_ name: String, parameters: [String: String]?) {
-        logAnalyticsEventNamed(name, parameters: parameters)
+        logAnalyticsEventNamed(name,
+                               parameters: parameters,
+                               isLoggingEnabled: isLoggingEnabled)
         reporter?.reportEvent(name, parameters: parameters)
     }
 
@@ -148,7 +156,10 @@ final class AnalyticsService: AnalyticsProcessing {
     }
 }
 
-private func logAnalyticsEventNamed(_ name: String, parameters: [String: String]?) {
+private func logAnalyticsEventNamed(_ name: String,
+                                    parameters: [String: String]?,
+                                    isLoggingEnabled: Bool) {
+    guard isLoggingEnabled == true else { return }
     #if DEBUG
     guard let parameters = parameters else {
         print("YandexMetrica event name: \(name)")

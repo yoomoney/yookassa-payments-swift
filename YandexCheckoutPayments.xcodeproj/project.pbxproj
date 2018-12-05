@@ -2771,6 +2771,7 @@
 			buildConfigurationList = E06532A41FF13B5800831588 /* Build configuration list for PBXNativeTarget "YandexCheckoutPaymentsExamplePods" */;
 			buildPhases = (
 				BE29A0BABD457CBBE5DB9688 /* [CP] Check Pods Manifest.lock */,
+				30B58B7421B6B62E004BC42E /* Run Swiftlint */,
 				E06532911FF13B5800831588 /* Sources */,
 				E06532921FF13B5800831588 /* Frameworks */,
 				E06532931FF13B5800831588 /* Resources */,
@@ -2886,6 +2887,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		30B58B7421B6B62E004BC42E /* Run Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Swiftlint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Run SwiftLint script with autocorrect\"\n\nif [ ${CONFIGURATION} != \"Debug\" ]; then\necho \"Not debug configuration, skipping...\"\nexit 0\nfi\n\n\"${PODS_ROOT}/SwiftLint/swiftlint\" autocorrect\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 		9C543C2339037E1990ABEA7F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

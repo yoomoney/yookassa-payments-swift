@@ -1,6 +1,7 @@
 struct BankCardDataInputModuleInputData {
     let cardScanner: CardScanning?
     let testModeSettings: TestModeSettings?
+    let isLoggingEnabled: Bool
 }
 
 protocol BankCardDataInputModuleInput: class {

@@ -17,11 +17,15 @@ enum PaymentMethodsAssembly {
 
         let presenter = PaymentMethodsPresenter(isLogoVisible: inputData.tokenizationSettings.showYandexCheckoutLogo)
 
-        let paymentService = PaymentProcessingAssembly.makeService(tokenizationSettings: inputData.tokenizationSettings,
-                                                                   testModeSettings: inputData.testModeSettings)
-        let authorizationService
-            = AuthorizationProcessingAssembly.makeService(testModeSettings: inputData.testModeSettings)
-        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService()
+        let paymentService = PaymentProcessingAssembly
+            .makeService(tokenizationSettings: inputData.tokenizationSettings,
+                         testModeSettings: inputData.testModeSettings,
+                         isLoggingEnabled: inputData.isLoggingEnabled)
+        let authorizationService = AuthorizationProcessingAssembly
+            .makeService(isLoggingEnabled: inputData.isLoggingEnabled,
+                         testModeSettings: inputData.testModeSettings)
+        let analyticsService = AnalyticsProcessingAssembly
+            .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
         let analyticsProvider = AnalyticsProvider(authorizationService: authorizationService)
 
         let interactor = PaymentMethodsInteractor(paymentService: paymentService,

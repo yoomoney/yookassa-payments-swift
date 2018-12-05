@@ -10,12 +10,16 @@ public enum TokenizationAssembly {
     public static func makeModule(inputData: TokenizationModuleInputData,
                                   moduleOutput: TokenizationModuleOutput)
             -> UIViewController & TokenizationModuleInput {
-        let paymentService = PaymentProcessingAssembly.makeService(tokenizationSettings: inputData.tokenizationSettings,
-                                                                   testModeSettings: inputData.testModeSettings)
-        let authorizationService
-            = AuthorizationProcessingAssembly.makeService(testModeSettings: inputData.testModeSettings)
+        let paymentService = PaymentProcessingAssembly
+            .makeService(tokenizationSettings: inputData.tokenizationSettings,
+                         testModeSettings: inputData.testModeSettings,
+                         isLoggingEnabled: inputData.isLoggingEnabled)
+        let authorizationService = AuthorizationProcessingAssembly
+            .makeService(isLoggingEnabled: inputData.isLoggingEnabled,
+                         testModeSettings: inputData.testModeSettings)
 
-        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService()
+        let analyticsService = AnalyticsProcessingAssembly
+            .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
         let analyticsProvider = AnalyticsProvider(authorizationService: authorizationService)
 
         let viewController = TokenizationViewController()
@@ -34,7 +38,8 @@ public enum TokenizationAssembly {
                                             gatewayId: inputData.gatewayId,
                                             amount: inputData.amount,
                                             tokenizationSettings: inputData.tokenizationSettings,
-                                            testModeSettings: inputData.testModeSettings)
+                                            testModeSettings: inputData.testModeSettings,
+                                            isLoggingEnabled: inputData.isLoggingEnabled)
 
         let paymentMethods = PaymentMethodsAssembly.makeModule(inputData: paymentMethodsModuleInputData,
                                                                moduleOutput: presenter)
