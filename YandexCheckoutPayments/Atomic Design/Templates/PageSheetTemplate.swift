@@ -3,6 +3,7 @@ import UIKit
 
 protocol PageSheetTemplateDelegate: class {
     func pageSheetTemplateDidFinish(_ template: PageSheetTemplate)
+    func shouldPopNavigationItem()
 }
 
 class PageSheetTemplate: UIViewController {
@@ -199,5 +200,10 @@ extension PageSheetTemplate: KeyboardObserver {
 extension PageSheetTemplate: UINavigationBarDelegate {
     func position(for bar: UIBarPositioning) -> UIBarPosition {
         return .topAttached
+    }
+
+    public func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
+        delegate?.shouldPopNavigationItem()
+        return true
     }
 }

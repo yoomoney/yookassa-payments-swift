@@ -371,6 +371,8 @@ final class RootViewController: UIViewController {
             navigation.navigationBar.prefersLargeTitles = true
         }
 
+        navigation.modalPresentationStyle = .formSheet
+
         present(navigation, animated: true, completion: nil)
     }
 

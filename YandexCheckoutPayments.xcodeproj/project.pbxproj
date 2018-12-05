@@ -3974,6 +3974,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPaymentsExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = "YandexCheckoutPaymentsExample/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4017,7 +4018,7 @@
 				559073941FF3C55E0094AE5D /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AdHoc;
+			defaultConfigurationName = Debug;
 		};
 		244F7E5A366D6304BB18C647 /* Build configuration list for PBXProject "YandexCheckoutPayments" */ = {
 			isa = XCConfigurationList;
@@ -4027,7 +4028,7 @@
 				559073931FF3C55E0094AE5D /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AdHoc;
+			defaultConfigurationName = Debug;
 		};
 		E0148CE21FE958810087CF5F /* Build configuration list for PBXNativeTarget "YandexCheckoutPaymentsExampleCarthage" */ = {
 			isa = XCConfigurationList;
@@ -4037,7 +4038,7 @@
 				559073951FF3C55E0094AE5D /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AdHoc;
+			defaultConfigurationName = Debug;
 		};
 		E06532A41FF13B5800831588 /* Build configuration list for PBXNativeTarget "YandexCheckoutPaymentsExamplePods" */ = {
 			isa = XCConfigurationList;
@@ -4047,7 +4048,7 @@
 				559073961FF3C55E0094AE5D /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AdHoc;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
