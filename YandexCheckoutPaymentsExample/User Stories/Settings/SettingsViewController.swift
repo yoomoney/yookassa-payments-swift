@@ -168,6 +168,9 @@ extension SettingsViewController {
             if #available(iOS 11.0, *) {
                 navigation.navigationBar.prefersLargeTitles = true
             }
+
+            navigation.modalPresentationStyle = .formSheet
+
             self.present(navigation, animated: true, completion: nil)
         })
 

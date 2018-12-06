@@ -195,20 +195,28 @@ class TokenizationViewController: UIViewController {
         guard modules.count > 2 else { return }
 
         let currentViewController = modules[modules.count - 1]
-        let viewController = modules[modules.count - 2]
-        let style = getStyle(viewController)
+        let previousViewController = modules[modules.count - 2]
+        let style = getStyle(previousViewController)
 
         if let modalTemplate = modalTemplate,
-            case .modal = style {
-            popModal(modalTemplate, current: currentViewController, previous: viewController, sender: nil)
+           case .modal = style {
+            popModal(modalTemplate,
+                     current: currentViewController,
+                     previous: previousViewController,
+                     sender: nil)
+        } else if let pageSheetTemplate = pageSheetTemplate,
+                  case .pageSheet = style {
+            popPageSheet(pageSheetTemplate,
+                         current: currentViewController,
+                         previous: previousViewController,
+                         sender: nil)
         }
-
     }
 
     // swiftlint:enable cyclomatic_complexity
 
     func showApplePay(_ vc: UIViewController) {
-        modules.append(vc)
+        appendIfNeeded(vc)
         present(vc, animated: true)
     }
 
@@ -271,7 +279,7 @@ class TokenizationViewController: UIViewController {
 
         actionSheetTemplate.endAppearanceTransition()
 
-        modules.append(vc)
+        appendIfNeeded(vc)
         self.actionSheetTemplate = actionSheetTemplate
     }
 
@@ -303,9 +311,12 @@ class TokenizationViewController: UIViewController {
 
         modalTemplate.endAppearanceTransition()
 
-        modalTemplate.navigationBar.setItems([vc.navigationItem], animated: false)
+        let hasNavigationBar = (vc as? Presentable)?.hasNavigationBar ?? true
+        modalTemplate.setNavigationBarHidden(hasNavigationBar == false, animated: false)
+        modalTemplate.setNavigationItems(modules.map { $0.navigationItem }, animated: false)
+        modalTemplate.view.layoutIfNeeded()
 
-        modules.append(vc)
+        appendIfNeeded(vc)
         self.modalTemplate = modalTemplate
     }
 
@@ -338,7 +349,7 @@ class TokenizationViewController: UIViewController {
 
         vc.removeKeyboardObservers()
 
-        modules.append(vc)
+        appendIfNeeded(vc)
         self.pageSheetTemplate = pageSheet
     }
 
@@ -433,7 +444,7 @@ class TokenizationViewController: UIViewController {
         let modalTemplate = ModalTemplate()
         modalTemplate.delegate = self
 
-        modules.append(vc)
+        appendIfNeeded(vc)
 
         addChildViewController(modalTemplate)
         modalTemplate.view.translatesAutoresizingMaskIntoConstraints = false
@@ -536,7 +547,7 @@ class TokenizationViewController: UIViewController {
                            completion?()
                        })
 
-        modules.append(vc)
+        appendIfNeeded(vc)
     }
 
     private func presentActionSheetAnimated(_ vc: UIViewController, completion: (() -> Void)? = nil) {
@@ -596,7 +607,7 @@ class TokenizationViewController: UIViewController {
                            completion?()
                        })
 
-        modules.append(vc)
+        appendIfNeeded(vc)
         self.actionSheetTemplate = actionSheetTemplate
     }
 
@@ -645,7 +656,7 @@ class TokenizationViewController: UIViewController {
 
                            nvc.didMove(toParentViewController: actionSheetTemplate)
                            pvc.view.isUserInteractionEnabled = true
-                           self.modules.append(nvc)
+                           self.appendIfNeeded(nvc)
                        })
     }
 
@@ -697,7 +708,7 @@ class TokenizationViewController: UIViewController {
 
                            pvc.removeFromParentViewController()
                            pvc.view.isUserInteractionEnabled = true
-                           self.modules.append(nvc)
+                           self.appendIfNeeded(nvc)
                        })
     }
 
@@ -762,7 +773,7 @@ class TokenizationViewController: UIViewController {
                                     nvc.didMove(toParentViewController: modal)
 
                                     pvc.view.isUserInteractionEnabled = true
-                                    self.modules.append(nvc)
+                                    self.appendIfNeeded(nvc)
                                 })
     }
 
@@ -816,6 +827,63 @@ class TokenizationViewController: UIViewController {
 
                            self.modules.removeLast()
                        })
+    }
+
+    private func popPageSheet(_ pageSheet: PageSheetTemplate,
+                              current cvc: UIViewController,
+                              previous pvc: UIViewController,
+                              sender: Any?) {
+        cvc.willMove(toParentViewController: nil)
+        pageSheet.addChildViewController(pvc)
+
+        pvc.removeKeyboardObservers()
+
+        let previousView: UIView = pvc.view
+
+        pageSheet.setContentView(previousView)
+        pageSheet.view.setNeedsLayout()
+        pageSheet.view.layoutIfNeeded()
+
+        let currentView: UIView = cvc.view
+        let finishConstraints = [
+            currentView.top.constraint(equalTo: previousView.top),
+            currentView.leading.constraint(equalTo: previousView.trailing),
+            currentView.width.constraint(equalTo: previousView.width),
+            currentView.height.constraint(equalTo: previousView.height),
+        ]
+
+        let filter: (NSLayoutConstraint) -> Bool = {
+            let items = [$0.firstItem, $0.secondItem].compactMap { $0 }
+            return items.contains(where: { $0 === pageSheet.view }) && items.contains(where: { $0 === currentView })
+        }
+
+        NSLayoutConstraint.deactivate(pageSheet.view.constraints.filter(filter))
+        NSLayoutConstraint.activate(finishConstraints)
+
+        let hasNavigationBar = (pvc as? Presentable)?.hasNavigationBar ?? true
+
+        pageSheet.setNavigationBarHidden(hasNavigationBar == false, animated: false)
+
+        UIView.animate(withDuration: timeInterval,
+                       delay: 0,
+                       options: .curveEaseInOut,
+                       animations: {
+                           pageSheet.view.layoutIfNeeded()
+                       },
+                       completion: { _ in
+                           currentView.removeFromSuperview()
+                           cvc.removeFromParentViewController()
+                           pvc.didMove(toParentViewController: pageSheet)
+
+                           self.modules.removeLast()
+                       })
+    }
+
+    // MARK: - Managing modules
+
+    private func appendIfNeeded(_ module: UIViewController) {
+        guard module !== modules.last else { return }
+        modules.append(module)
     }
 }
 
