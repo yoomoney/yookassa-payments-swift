@@ -45,8 +45,7 @@ class ActionSheetTemplate: UIViewController {
         self.dummyView.height.constraint(lessThanOrEqualTo: self.view.height,
                                          multiplier: Constants.maximumHeightMultiplier)
 
-    fileprivate lazy var dummyViewBottomConstraint: NSLayoutConstraint =
-        self.dummyView.bottom.constraint(equalTo: view.bottom)
+    private var dummyViewBottomConstraint: NSLayoutConstraint?
 
     // MARK: - Gesture recognizers
 
@@ -80,9 +79,13 @@ class ActionSheetTemplate: UIViewController {
     }
 
     private func loadConstraints() {
+
+        let bottomConstraint = dummyView.bottom.constraint(equalTo: view.bottom)
+        bottomConstraint.priority = .highest
+
         let constraints = [
+            bottomConstraint,
             dummyViewHeightConstraint,
-            dummyViewBottomConstraint,
             dummyViewLeadingConstraint,
             dummyView.width.constraint(equalTo: self.view.width),
             dummyView.top.constraint(greaterThanOrEqualTo: view.topMargin),
@@ -123,20 +126,60 @@ class ActionSheetTemplate: UIViewController {
 // MARK: - KeyboardObserver
 
 extension ActionSheetTemplate: KeyboardObserver {
-    func keyboardWillShow(with keyboardInfo: KeyboardNotificationInfo) {}
-    func keyboardWillHide(with keyboardInfo: KeyboardNotificationInfo) {}
+    func keyboardWillShow(with keyboardInfo: KeyboardNotificationInfo) {
+        let viewFrame = view.convert(view.bounds, to: nil)
+        guard viewFrame.isInfinite == false || viewFrame.isNull == false else { return }
+        let intersection = viewFrame.intersection(keyboardInfo.endKeyboardFrame).height
+
+        let bottomConstraint = dummyView.bottom.constraint(lessThanOrEqualTo: view.bottomMargin,
+                                                           constant: -intersection)
+        dummyViewBottomConstraint = bottomConstraint
+        bottomConstraint.isActive = true
+
+        let animation = {
+            self.view.layoutIfNeeded()
+        }
+
+        if let duration = keyboardInfo.animationDuration,
+           let animationCurve = keyboardInfo.animationCurve {
+
+            let options = UIView.AnimationOptions(rawValue: UInt(animationCurve.rawValue))
+
+            UIView.animate(withDuration: duration,
+                           delay: 0,
+                           options: options,
+                           animations: animation)
+        } else {
+            animation()
+        }
+    }
+
+    func keyboardWillHide(with keyboardInfo: KeyboardNotificationInfo) {
+        dummyViewBottomConstraint?.isActive = false
+
+        let animation = {
+            self.view.layoutIfNeeded()
+        }
+
+        if let duration = keyboardInfo.animationDuration,
+           let animationCurve = keyboardInfo.animationCurve {
+
+            let options = UIView.AnimationOptions(rawValue: UInt(animationCurve.rawValue))
+
+            UIView.animate(withDuration: duration,
+                           delay: 0,
+                           options: options,
+                           animations: animation)
+        } else {
+            animation()
+        }
+    }
+
     func keyboardDidShow(with keyboardInfo: KeyboardNotificationInfo) {}
+
     func keyboardDidHide(with keyboardInfo: KeyboardNotificationInfo) {}
 
-    func keyboardDidUpdateFrame(_ keyboardFrame: CGRect) {
-        let convertedKeyboardFrame = view.convert(keyboardFrame, from: nil)
-        let intersectionViewFrame = convertedKeyboardFrame.intersection(view.bounds)
-        let intersectionOffset = intersectionViewFrame.size.height
-        guard convertedKeyboardFrame.minY.isInfinite == false else { return }
-
-        dummyViewBottomConstraint.constant = -intersectionOffset
-        view.layoutIfNeeded()
-    }
+    func keyboardDidUpdateFrame(_ keyboardFrame: CGRect) {}
 }
 
 // MARK: - UIGestureRecognizerDelegate
