@@ -46,7 +46,7 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
     }
 
     fileprivate var shouldChangePaymentOptions: Bool {
-        return paymentOptionsCount > 1
+        return paymentOptionsCount > Constants.minimalRecommendedPaymentsOptions
     }
 
     fileprivate var paymentMethodViewModel: PaymentMethodViewModel? {
@@ -252,7 +252,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
     }
 
     func handleOnePaymentOptionMethodAtReturn() {
-        if paymentOptionsCount == 1 {
+        if paymentOptionsCount == Constants.minimalRecommendedPaymentsOptions {
             close()
         } else {
             presentPaymentMethodsModule()
@@ -450,7 +450,11 @@ extension TokenizationPresenter: BankCardDataInputModuleOutput {
     }
 
     func didPressCloseBarButtonItem(on module: BankCardDataInputModuleInput) {
-        close()
+        if paymentOptionsCount > Constants.minimalRecommendedPaymentsOptions {
+            presentPaymentMethodsModule()
+        } else {
+            close()
+        }
     }
 }
 
@@ -729,4 +733,5 @@ private func makeStrategy(paymentOption: PaymentOption,
 
 private enum Constants {
     static let redirectUrl = "yandexcheckout://return"
+    static let minimalRecommendedPaymentsOptions = 1
 }
