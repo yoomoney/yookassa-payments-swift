@@ -131,7 +131,9 @@ extension ActionSheetTemplate: KeyboardObserver {
         guard viewFrame.isInfinite == false || viewFrame.isNull == false else { return }
         let intersection = viewFrame.intersection(keyboardInfo.endKeyboardFrame).height
 
-        let bottomConstraint = dummyView.bottom.constraint(lessThanOrEqualTo: view.bottomMargin,
+        dummyViewBottomConstraint?.isActive = false
+
+        let bottomConstraint = dummyView.bottom.constraint(lessThanOrEqualTo: view.bottom,
                                                            constant: -intersection)
         dummyViewBottomConstraint = bottomConstraint
         bottomConstraint.isActive = true
