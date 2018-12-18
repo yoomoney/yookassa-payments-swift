@@ -145,6 +145,12 @@ class TokenizationViewController: UIViewController {
                 self.presentModalAnimated(viewController)
             }
         } else if modules.last != nil,
+                  let modalTemplate = modalTemplate,
+                  case .actionSheet = style {
+            hideAnimated(modalTemplate: modalTemplate) {
+                self.presentActionSheetAnimated(viewController)
+            }
+        } else if modules.last != nil,
                   let actionSheet = actionSheetTemplate,
                   case .applePay = style {
             // From ActionSheet to ApplePay
@@ -434,6 +440,35 @@ class TokenizationViewController: UIViewController {
                            pageSheet.view.removeFromSuperview()
                            pageSheet.removeFromParentViewController()
                            self.pageSheetTemplate = nil
+                           completion?()
+                       })
+    }
+
+    private func hideAnimated(modalTemplate: ModalTemplate, completion: (() -> Void)? = nil) {
+        modalTemplate.beginAppearanceTransition(false, animated: true)
+        modalTemplate.willMove(toParentViewController: nil)
+        NSLayoutConstraint.deactivate(containerConstraints)
+
+        let constraints = modalTemplate.view.constraintsAffectingLayout(for: .vertical)
+        NSLayoutConstraint.deactivate(constraints)
+
+        let dismissConstraint = [
+            modalTemplate.view.leading.constraint(equalTo: view.leading),
+            modalTemplate.view.trailing.constraint(equalTo: view.trailing),
+            modalTemplate.view.height.constraint(equalTo: view.height),
+            modalTemplate.view.top.constraint(equalTo: view.bottom),
+        ]
+        NSLayoutConstraint.activate(dismissConstraint)
+
+        UIView.animate(withDuration: timeInterval,
+                       animations: {
+                           self.view.layoutIfNeeded()
+                       },
+                       completion: { _ in
+                           modalTemplate.endAppearanceTransition()
+                           modalTemplate.view.removeFromSuperview()
+                           modalTemplate.removeFromParentViewController()
+                           self.modalTemplate = nil
                            completion?()
                        })
     }
