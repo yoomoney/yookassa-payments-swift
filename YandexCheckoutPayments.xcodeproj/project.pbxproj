@@ -375,6 +375,8 @@
 		301D747F20B5D7E60000E394 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301D747E20B5D7E60000E394 /* PassKit.framework */; };
 		30317A9920D81237002263EC /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7583E868309BC1A979EB /* PriceView.swift */; };
 		30317A9A20D81237002263EC /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7583E868309BC1A979EB /* PriceView.swift */; };
+		303FD05A21B92EC900CE82B4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303FD05D21B92EC900CE82B4 /* InfoPlist.strings */; };
+		303FD05B21B92EC900CE82B4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303FD05D21B92EC900CE82B4 /* InfoPlist.strings */; };
 		30A588242177B792002AFFF1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 30A588232177B792002AFFF1 /* Settings.bundle */; };
 		30A588252177B792002AFFF1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 30A588232177B792002AFFF1 /* Settings.bundle */; };
 		30B24DE1206C2850002C823B /* YandexMobileMetrica.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */; };
@@ -839,6 +841,8 @@
 		302C27FB20B72C86007AFEEA /* YandexCheckoutPaymentsExamplePods.debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexCheckoutPaymentsExamplePods.debug.entitlements; sourceTree = "<group>"; };
 		302C27FC20B72C86007AFEEA /* YandexCheckoutPaymentsExampleCarthage.inhouse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexCheckoutPaymentsExampleCarthage.inhouse.entitlements; sourceTree = "<group>"; };
 		302C27FD20B72C86007AFEEA /* YandexCheckoutPaymentsExampleCarthage.debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YandexCheckoutPaymentsExampleCarthage.debug.entitlements; sourceTree = "<group>"; };
+		303FD05C21B92EC900CE82B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		303FD05E21B92ECD00CE82B4 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		307D0CEB2061918600CAAAE6 /* CardIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CardIO.framework; path = Carthage/Build/iOS/CardIO.framework; sourceTree = "<group>"; };
 		30A588232177B792002AFFF1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YandexMobileMetrica.framework; path = Carthage/Build/iOS/YandexMobileMetrica.framework; sourceTree = "<group>"; };
@@ -2709,6 +2713,7 @@
 			children = (
 				E0148CDC1FE958810087CF5F /* Assets.xcassets */,
 				FEDABFAC200E65600056E0CC /* Localizable.strings */,
+				303FD05D21B92EC900CE82B4 /* InfoPlist.strings */,
 				30A588232177B792002AFFF1 /* Settings.bundle */,
 			);
 			path = Resources;
@@ -2770,6 +2775,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E06532A41FF13B5800831588 /* Build configuration list for PBXNativeTarget "YandexCheckoutPaymentsExamplePods" */;
 			buildPhases = (
+				303FD05F21B953F300CE82B4 /* Run Swiftlint */,
 				BE29A0BABD457CBBE5DB9688 /* [CP] Check Pods Manifest.lock */,
 				30B58B7421B6B62E004BC42E /* Run Swiftlint */,
 				E06532911FF13B5800831588 /* Sources */,
@@ -2869,6 +2875,7 @@
 				30A588242177B792002AFFF1 /* Settings.bundle in Resources */,
 				E0148CDD1FE958810087CF5F /* Assets.xcassets in Resources */,
 				E0148CDB1FE958810087CF5F /* Main.storyboard in Resources */,
+				303FD05A21B92EC900CE82B4 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2881,6 +2888,7 @@
 				30A588252177B792002AFFF1 /* Settings.bundle in Resources */,
 				E06532AD1FF13BB500831588 /* LaunchScreen.storyboard in Resources */,
 				E06532A91FF13BA200831588 /* Assets.xcassets in Resources */,
+				303FD05B21B92EC900CE82B4 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3575,6 +3583,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		303FD05D21B92EC900CE82B4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				303FD05C21B92EC900CE82B4 /* en */,
+				303FD05E21B92ECD00CE82B4 /* ru */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		E0148CD91FE958810087CF5F /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3899,11 +3916,12 @@
 					"\"$PODS_CONFIGURATION_BUILD_DIR/YandexCheckoutPayments\"",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Info.plist";
+				INFOPLIST_FILE = YandexCheckoutPaymentsExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPaymentsExample;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "YandexCheckoutPaymentsExample/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3969,12 +3987,13 @@
 					"\"$PODS_CONFIGURATION_BUILD_DIR/YandexCheckoutPayments\"",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Info.plist";
+				INFOPLIST_FILE = YandexCheckoutPaymentsExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPaymentsExample;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "YandexCheckoutPaymentsExample/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3996,11 +4015,12 @@
 					"\"$PODS_CONFIGURATION_BUILD_DIR/YandexCheckoutPayments\"",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Info.plist";
+				INFOPLIST_FILE = YandexCheckoutPaymentsExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPaymentsExample.inhouse;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.inhouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "YandexCheckoutPaymentsExample/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
