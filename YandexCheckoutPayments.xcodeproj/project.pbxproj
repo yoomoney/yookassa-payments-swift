@@ -35,7 +35,6 @@
 		244F71365CF5D939F99B751C /* UIButton+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7ED4504A9FC0195549ED /* UIButton+Style.swift */; };
 		244F713C485CC9CA7C9CF851 /* UIButton+Stylable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7182F1E8FBABF3201989 /* UIButton+Stylable.swift */; };
 		244F713D4E948C7D92928DBE /* UILabel+Stylable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F76FDD4264A30C470AA5F /* UILabel+Stylable.swift */; };
-		244F71539A8C21D196323627 /* UIImage+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F786C498BA37500D5F9D9 /* UIImage+Style.swift */; };
 		244F7158EE6012F116D180DE /* ActivityIndicatorFullViewPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F706902364F69FAEF003B /* ActivityIndicatorFullViewPresenting.swift */; };
 		244F7182A8A7C18EE5A51D75 /* TextControl+BottomHintMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F788229FD509014C863BE /* TextControl+BottomHintMode.swift */; };
 		244F7185136661C5AFA4CA04 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F75D941410983C27CCBAB /* InputView.swift */; };
@@ -216,7 +215,6 @@
 		244F78DE013107124AE8A952 /* TextControl+LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F709675FC7B22AC91986E /* TextControl+LineView.swift */; };
 		244F78E7602D260286A3BDA8 /* TextControl+PlaceholderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F766784BF601BA72B3C53 /* TextControl+PlaceholderMode.swift */; };
 		244F78E7B09A842D8A03ADCE /* ContractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F71E5483A5326FDC57DBC /* ContractViewController.swift */; };
-		244F78EDAF01168A94C51696 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F77557DAB76DF1A215C2F /* SuccessViewController.swift */; };
 		244F78F755D9D0775EB97D2C /* TokeniztionRouterIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7C9984939E7676DE6916 /* TokeniztionRouterIO.swift */; };
 		244F78FCEDC0E1C45196DF62 /* PhoneNumberInputViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7AC3D5F5E617AD5F4223 /* PhoneNumberInputViewIO.swift */; };
 		244F78FD49B8356E7091A317 /* UIFont+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7EC78B160468CC17AB27 /* UIFont+Style.swift */; };
@@ -266,7 +264,6 @@
 		244F7B06364233F3059B15E5 /* UIViewController+NotificationPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F719B5C3A1DDFAC1CC9A2 /* UIViewController+NotificationPresenting.swift */; };
 		244F7B25D72970D8B9DEAC55 /* DeviceInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F702ED6CBCEEAA24A9FD0 /* DeviceInfoService.swift */; };
 		244F7B3A002A12174DCE40E7 /* Stylable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7701C5A9730C073DAFC8 /* Stylable.swift */; };
-		244F7B3E865289F0FA28D39F /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F77557DAB76DF1A215C2F /* SuccessViewController.swift */; };
 		244F7B4A7C43B8AF3A0F4B46 /* PanInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F71DE5C501C4C07F48F06 /* PanInputPresenterStyle.swift */; };
 		244F7B5F59CAE5EBCF480E47 /* UILayoutPriority+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F77B12543366E53D0F4A8 /* UILayoutPriority+Constants.swift */; };
 		244F7B5F6B605F8D21D3A690 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7AE2653D24D93A4103AB /* ActivityIndicator.swift */; };
@@ -274,7 +271,6 @@
 		244F7B78FEC553A5647CAB2E /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7A6403E130A06A4C7593 /* ListItemView.swift */; };
 		244F7B7D21EE09886C64FFDE /* LargeIconItemViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F75701D1B3AE413F86F86 /* LargeIconItemViewIO.swift */; };
 		244F7BA732683562CD34B77B /* AuthCodeInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F764ABFFCAFB50C3484B6 /* AuthCodeInputViewController.swift */; };
-		244F7BCD1FB7FFFC492AB9DD /* UIImage+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F786C498BA37500D5F9D9 /* UIImage+Style.swift */; };
 		244F7BD610FBD54917767D8A /* MSDKActionSheetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9990BA8201742ED00D4A414 /* MSDKActionSheetHeaderView.swift */; };
 		244F7BE0C9BF41688C6A0A6C /* Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F7AE4A0C251E725CF9F32 /* Space.swift */; };
 		244F7BE2200C58A654BB4C2B /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F784DAFE9E6B3BD496E3B /* PlaceholderView.swift */; };
@@ -395,86 +391,128 @@
 		402EB012BCFC9FEFDE6C12AD /* AnalyticsProvidingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB907C3FA08E3E2920758 /* AnalyticsProvidingAssembly.swift */; };
 		402EB017168B469FB1A15DAB /* ProcessingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7DCEF48751BD1225169 /* ProcessingAssembly.swift */; };
 		402EB06CAE54A1832C1E7B8C /* ApplePayPermissionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB70C828F2AE13254E2E0 /* ApplePayPermissionsHandler.swift */; };
-		402EB140825C17FA024B19E4 /* RootViewController+CardIO+Carthage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCF55D8BBB45FD5DF44B /* RootViewController+CardIO+Carthage.swift */; };
+		402EB08CE3CE0311678B8E3C /* NSLayoutConstraint+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1951B7BDB84585F6D93 /* NSLayoutConstraint+Tools.swift */; };
+		402EB0C25182CDF27CF103F2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB549599D3B7DB0DABEC /* Settings.swift */; };
+		402EB0D6454C36181958F364 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD2572A1A47144B270C3 /* SettingsService.swift */; };
+		402EB16828AAB0E603D5F06B /* DevHostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBC4339005FA80642DBC /* DevHostService.swift */; };
+		402EB16B699BE1490631CD94 /* TextValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7AF716BE8C008EA6059 /* TextValueView.swift */; };
+		402EB1B3893D7061BFCF6D07 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6AB3C97E1E258778D20 /* RootViewController.swift */; };
+		402EB1CF4033150CBD9F841D /* CellDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5DE18F967D1D362AB24 /* CellDescriptor.swift */; };
+		402EB205C1A8B8F415A69FE3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB549599D3B7DB0DABEC /* Settings.swift */; };
 		402EB220725AFF28D8606E27 /* ApplePayModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFB441A716A2BD4C4762 /* ApplePayModuleIO.swift */; };
 		402EB236397F03FB1EE26B44 /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB59E30E9DBE405958248 /* PaymentMethod.swift */; };
 		402EB248D7E098675625BE6F /* LargeIconButtonItemView+PaymentMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB76B415C95CE8941F290 /* LargeIconButtonItemView+PaymentMethodView.swift */; };
-		402EB24BE7E089A8A46F46A3 /* PriceInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB36982468E0BD8E80B90 /* PriceInputPresenterStyle.swift */; };
+		402EB26068B050D8A2FEC842 /* RootViewController+TokenizationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB302A7F71C0A7EA5ACBF /* RootViewController+TokenizationModuleOutput.swift */; };
 		402EB2770852DA1A595C240C /* ProcessingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB42858CF8893C0E1EBF2 /* ProcessingViewController.swift */; };
 		402EB27C6E771EA195589DB5 /* YamoneyLoginProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8933EA1B7024D7E06D7 /* YamoneyLoginProcessing.swift */; };
 		402EB27EC42B8BC81051291E /* YamoneyLoginAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDBFCCB3908449E1CACF /* YamoneyLoginAssembly.swift */; };
+		402EB298F1AE999AFACE7199 /* PriceInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA92F133EF4971067B8F /* PriceInputViewController.swift */; };
 		402EB2C405A7D21BC27925E4 /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB284F66EE120D7C80D30 /* AnalyticsEvent.swift */; };
+		402EB2C82DF79629B7B0B87C /* PriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB59A0AA13970276C2405 /* PriceFormatter.swift */; };
+		402EB2CDFEA5DFD482368CB7 /* PriceInputFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB96235983229B08D616C /* PriceInputFormatter.swift */; };
+		402EB2D7B6AFB39DD6D031EA /* TestSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7D5657B7828E3545FDC /* TestSettings.swift */; };
 		402EB2E2B6C92A80944212FD /* AnalyticsProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5EC69067D7D8EB8CECE /* AnalyticsProviding.swift */; };
+		402EB30AC88400ACC096F153 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 402EBD0134735C09A172FA1A /* Main.storyboard */; };
 		402EB327821696125CB5A710 /* TokenizationModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBADBD4FD26EC4822B55B /* TokenizationModuleIO.swift */; };
 		402EB340165A5A5B3C75F549 /* PaymentMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7AF022447D9E9C0D6E8 /* PaymentMethodHandler.swift */; };
 		402EB3527138D5334A5AB4B5 /* BankCardDataInputModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB2649F3177544CE055F4 /* BankCardDataInputModuleIO.swift */; };
+		402EB359491A435BB90D5F1E /* TextValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7AF716BE8C008EA6059 /* TextValueView.swift */; };
 		402EB36B988DF2CD0194F609 /* LinkedBankCardDataInputAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB2BA956B228FE6347DA8 /* LinkedBankCardDataInputAssembly.swift */; };
 		402EB37CCBEBE11A859F7831 /* LinkedBankCardDataInputModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB34114A68C1DB6841263 /* LinkedBankCardDataInputModuleIO.swift */; };
+		402EB37FABD632D4A895D1E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 402EBCE6D8DD4CCCA85A7592 /* LaunchScreen.storyboard */; };
+		402EB3A7FE79F072DF96E472 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3EA33841DD2B8C1323B /* UserDefaultsStorage.swift */; };
 		402EB3CD9A65135192B8F011 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7E1075981C04B17A06B /* AnalyticsService.swift */; };
 		402EB3D688E89F051BF42694 /* AuthTypeStatesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1D5DCE7CE831CE3A7D5 /* AuthTypeStatesService.swift */; };
 		402EB3FCC8E703ABCDB9BF09 /* ContractInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD3D240DE0D699B41E21 /* ContractInteractor.swift */; };
+		402EB4028594174716848981 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5FD23E637F2CB6C2574 /* SuccessViewController.swift */; };
 		402EB417E4BEC596ABCF4BE9 /* AnalyticsProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB716266E514CEF23F2F1 /* AnalyticsProcessing.swift */; };
+		402EB4369F4F61FF5A99DE06 /* KeyValueStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB91A8FA7B74992FE889C /* KeyValueStoring.swift */; };
 		402EB483E77474C8B1AF9856 /* LinkedBankCardDataInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8B65D40E65B0E83101F /* LinkedBankCardDataInputPresenter.swift */; };
+		402EB4B4D99A60145471D4EC /* PriceInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA92F133EF4971067B8F /* PriceInputViewController.swift */; };
+		402EB4BFFA567B8E04346898 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE4329C16EF4BAF8F641 /* Localization.swift */; };
+		402EB4DC5AAC097E3992B6DE /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5FD23E637F2CB6C2574 /* SuccessViewController.swift */; };
+		402EB4E3354E5CE68468D3AF /* DecimalPriceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD24A8CA2694434FF10B /* DecimalPriceViewModel.swift */; };
+		402EB5908B35DDD04AAED4C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 402EBCE6D8DD4CCCA85A7592 /* LaunchScreen.storyboard */; };
+		402EB5A42353DA754E2EE4AE /* SectionDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD99826BEF036D940985 /* SectionDescriptor.swift */; };
 		402EB5A7BB2DF143643B254C /* AnalyticsTrackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE808D6D9136472905E2 /* AnalyticsTrackable.swift */; };
+		402EB5A987D4AA5A060CB56C /* PriceInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCA4155A33038689C3A6 /* PriceInputPresenterStyle.swift */; };
+		402EB5F1B5DD83054302484E /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB98341C0EAD3DE8902C2 /* TableViewController.swift */; };
 		402EB6070E4126C4709F20DE /* ApplePayAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6DB38CE58DCD11766AC /* ApplePayAssembly.swift */; };
 		402EB61F8DBD89B127C082B8 /* CardSecModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3C9DE50D5321D9AA990 /* CardSecModuleIO.swift */; };
-		402EB6BBB65474249865EAD0 /* PriceInputFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE386CFDFD80E0FF4D50 /* PriceInputFormatter.swift */; };
+		402EB6BCF08F6AC50918B39B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 402EBD0134735C09A172FA1A /* Main.storyboard */; };
+		402EB6BFF3C4303ACB60B4F0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB20893D57BCDD6531F5D /* SettingsViewController.swift */; };
 		402EB6F69F74C4814D61A217 /* YandexAuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA05C1D4D9BC0DDCFE66 /* YandexAuthPresenter.swift */; };
+		402EB71CB04D0F2C80444472 /* RootViewController+CardScanning+Carthage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB90E43119606C39C3A8E /* RootViewController+CardScanning+Carthage.swift */; };
 		402EB736E6C2F643D4E97661 /* YandexAuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCBADE67B7CB77A67988 /* YandexAuthAssembly.swift */; };
+		402EB745758192AE1E7E8950 /* SectionDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD99826BEF036D940985 /* SectionDescriptor.swift */; };
+		402EB75DDF67CEA21BDB7074 /* RootViewController+TokenizationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB302A7F71C0A7EA5ACBF /* RootViewController+TokenizationModuleOutput.swift */; };
 		402EB76092220A69EBC9CA93 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7F44D850D7C49DEDB98 /* Settings.swift */; };
-		402EB79BBC592454E307528B /* PriceInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFCEE5A9A8854AF861A8 /* PriceInputViewController.swift */; };
-		402EB7B846680BEEFB1B7FF3 /* PriceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6D557B18757AD741386 /* PriceConstants.swift */; };
-		402EB816CDD138C37252158E /* RootViewController+CardIO+Pods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB9E4ADE7735010E790FF /* RootViewController+CardIO+Pods.swift */; };
+		402EB780DE3C44ED4F36A735 /* DecimalPriceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD24A8CA2694434FF10B /* DecimalPriceViewModel.swift */; };
+		402EB803F10C69BABE0A82FB /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6AB3C97E1E258778D20 /* RootViewController.swift */; };
+		402EB81409FF906ABC1916E1 /* PriceInputFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB96235983229B08D616C /* PriceInputFormatter.swift */; };
+		402EB818261B19CDDA87A742 /* UIImage+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB35130D8CDC08C740BA1 /* UIImage+Style.swift */; };
 		402EB82BAEC8E31404CFAB53 /* BankCardDataInputRouterIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB881FE18AE86747D2462 /* BankCardDataInputRouterIO.swift */; };
-		402EB8D14A651E98D76C69F1 /* PriceInputFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE386CFDFD80E0FF4D50 /* PriceInputFormatter.swift */; };
+		402EB82DE37467B20D37A0DA /* ContainerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDCA8CE554E9A5B4FFEB /* ContainerTableViewCell.swift */; };
+		402EB85D78BF63024037E1A5 /* TestSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7D5657B7828E3545FDC /* TestSettings.swift */; };
+		402EB8829DE5FC540B216CED /* AttachedCardCountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAE323C34D877DD0F94A /* AttachedCardCountViewController.swift */; };
+		402EB8A44D76CCD5CD082AB6 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3EA33841DD2B8C1323B /* UserDefaultsStorage.swift */; };
 		402EB900E658B4D787E05AD4 /* CardSecInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE5594CD1A8ABEAD39FD /* CardSecInteractorIO.swift */; };
+		402EB9551C1738EA4D59879D /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE4329C16EF4BAF8F641 /* Localization.swift */; };
 		402EB95A8B14DA871F0FEFBE /* YamoneyLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB74A199E0DEFD2C76AC1 /* YamoneyLoginService.swift */; };
 		402EB96B98BDC1624B56438A /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB71ADE555E8BB757D543 /* KeychainStorage.swift */; };
+		402EB9D228B2B517E0F5E64B /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD2572A1A47144B270C3 /* SettingsService.swift */; };
+		402EB9DA344BA27325A3DB1B /* UILayoutPriority+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE5526ACD7CD69283661 /* UILayoutPriority+Tools.swift */; };
+		402EB9E52D424E304CCC2D1C /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB98341C0EAD3DE8902C2 /* TableViewController.swift */; };
+		402EBA116877C3C5EED95200 /* TextHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7A951380D72FF1C56D6 /* TextHeaderFooterView.swift */; };
 		402EBA1DA007D365428A06F1 /* YandexAuthInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA77705C47E2720E5CB9 /* YandexAuthInteractor.swift */; };
+		402EBA28BDEC047ACEC826EB /* TitledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6A48AE583D297E41E9A /* TitledSwitchView.swift */; };
+		402EBA68353901E153AD2BD3 /* AttachedCardCountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAE323C34D877DD0F94A /* AttachedCardCountViewController.swift */; };
+		402EBA77107979D71AC0FB64 /* TitledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6A48AE583D297E41E9A /* TitledSwitchView.swift */; };
 		402EBA7BD119DA7F1859F1A7 /* MockYamoneyLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD6B1278D930849F528C /* MockYamoneyLoginService.swift */; };
+		402EBABF794551F9496FC871 /* ContainerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDCA8CE554E9A5B4FFEB /* ContainerTableViewCell.swift */; };
+		402EBAF9908F2D730ACBAC9C /* PriceInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCA4155A33038689C3A6 /* PriceInputPresenterStyle.swift */; };
 		402EBB102A32098BD14ED084 /* AuthTypeStatesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB272CF2245BD4A15D810 /* AuthTypeStatesProvider.swift */; };
+		402EBB3F73CC2B61B7E4185B /* TestSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC11D69B61F49F3804D0 /* TestSettingsViewController.swift */; };
 		402EBB4FD400656A2400E833 /* ErrorModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB28DE742C90C6275D62F /* ErrorModuleIO.swift */; };
 		402EBB7927F8E15C7CBBB574 /* CardScanning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB76F0D9F6D645C97E56C /* CardScanning.swift */; };
-		402EBB8110DA93651A3C4311 /* DevHostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5C3F4096F08E49B5891 /* DevHostService.swift */; };
-		402EBB9C1D9A109AE09DA847 /* DevHostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5C3F4096F08E49B5891 /* DevHostService.swift */; };
+		402EBB878C743BB839187166 /* DevHostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBC4339005FA80642DBC /* DevHostService.swift */; };
+		402EBB8863A4450D12567A19 /* KeyValueStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB91A8FA7B74992FE889C /* KeyValueStoring.swift */; };
 		402EBBA6154A1CA41066E2C3 /* YandexAuthInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF6ECECFA979E31352AA /* YandexAuthInteractorIO.swift */; };
+		402EBBB363E57F75D5981D1B /* PriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB59A0AA13970276C2405 /* PriceFormatter.swift */; };
 		402EBBB9F11F65CA547D6F03 /* PaymentMethodViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6180BDB70EA6D35C2E8 /* PaymentMethodViewModelFactory.swift */; };
+		402EBBBB59E5A0527DDFF9C7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB20893D57BCDD6531F5D /* SettingsViewController.swift */; };
+		402EBBE45D43FB68B4D751EC /* RootViewController+CardScanning+Pods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB9D4435E4C37E367DF6A /* RootViewController+CardScanning+Pods.swift */; };
 		402EBBF855E78C0812E6789D /* PKPaymentAuthorizationViewController+Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCC5C4DC72D2654A7CED /* PKPaymentAuthorizationViewController+Presentable.swift */; };
-		402EBC023FBBA07E647E487E /* PriceInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB36982468E0BD8E80B90 /* PriceInputPresenterStyle.swift */; };
 		402EBC1A5DFBCABCE5B69174 /* PaymentMethodsModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3CFBB0309CD96A6FB1D /* PaymentMethodsModuleIO.swift */; };
-		402EBC1C5C9BE477ECE4D181 /* PriceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6D557B18757AD741386 /* PriceConstants.swift */; };
 		402EBC51844BE5C2EC5A818C /* CardSecPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFFE36B7674582BF629F /* CardSecPresenter.swift */; };
 		402EBC6AF5DBC4FD1435B489 /* PaymentSystemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB620DE3E765002FA511C /* PaymentSystemFactory.swift */; };
+		402EBC781C638344090C06B5 /* TableViewCellDataProviderSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7B5F823AB4566887F6D /* TableViewCellDataProviderSupport.swift */; };
 		402EBCB6CA6E92857BE63D25 /* AnalyticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8C762F0F470A397D662 /* AnalyticsProvider.swift */; };
 		402EBCC73E583E49CB1B0B18 /* BankCardDataInputRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB0FAEF26E179E8432582 /* BankCardDataInputRouter.swift */; };
+		402EBD401D3EDFB62B1E5DDD /* UILayoutPriority+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE5526ACD7CD69283661 /* UILayoutPriority+Tools.swift */; };
 		402EBDC07E8CD1F940C75FA6 /* ContractInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB9122CE00768DFA03140 /* ContractInteractorIO.swift */; };
 		402EBDCEB78B428E8C09A9B8 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB14D34A15C0430CA7907 /* UserDefaultsStorage.swift */; };
 		402EBDEB38F523D677B4F116 /* AnalyticsProcessingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB45848B2A683D8AD00B3 /* AnalyticsProcessingAssembly.swift */; };
+		402EBE23D1527CC96F9AB000 /* UIImage+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB35130D8CDC08C740BA1 /* UIImage+Style.swift */; };
 		402EBE2ED596F02D50AFC2F2 /* PaymentMethodResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB345873202B2D562697A /* PaymentMethodResources.swift */; };
+		402EBE8781F0829292E715B3 /* CellDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5DE18F967D1D362AB24 /* CellDescriptor.swift */; };
+		402EBEC35B22ED20C4D19064 /* TextHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7A951380D72FF1C56D6 /* TextHeaderFooterView.swift */; };
 		402EBEEE22E6D5381D1F1414 /* HostsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB6B84C32FEDF8D7AF8A /* HostsConfig.swift */; };
+		402EBEF66277DAF519BBBF64 /* TestSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC11D69B61F49F3804D0 /* TestSettingsViewController.swift */; };
 		402EBF15CBA0F36E838821F4 /* TokenizeSchemeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC394D626EC1209D0232 /* TokenizeSchemeFactory.swift */; };
-		402EBF6DB84ED08A4D49C728 /* PriceInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFCEE5A9A8854AF861A8 /* PriceInputViewController.swift */; };
+		402EBF31C60A443E2591A2C2 /* NSLayoutConstraint+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1951B7BDB84585F6D93 /* NSLayoutConstraint+Tools.swift */; };
 		402EBF8C8C94F13FFF9EE1F0 /* UIDevice+Hardware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB07E4A3189AFC7FC1881 /* UIDevice+Hardware.swift */; };
 		402EBF916D1963AAD8503AC9 /* IconButtonItemView+PaymentMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6C3AE869896E5690186 /* IconButtonItemView+PaymentMethodView.swift */; };
 		402EBF9319C5D1DA7CB18B75 /* MockKeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC211CE903BAAA9CAA34 /* MockKeychainStorage.swift */; };
 		402EBF939198EF19708B69E0 /* FunctionalPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB68AD925A975EA6C06FB /* FunctionalPromise.swift */; };
+		402EBFAD72E5EA8E63BEAB3E /* TableViewCellDataProviderSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7B5F823AB4566887F6D /* TableViewCellDataProviderSupport.swift */; };
 		402EBFB558CD7CB834B26653 /* ContractStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB348874A8E269FF6DB29 /* ContractStateHandler.swift */; };
 		559073921FF3C2B90094AE5D /* YandexCheckoutPayments.h in Headers */ = {isa = PBXBuildFile; fileRef = 559073911FF3C2B90094AE5D /* YandexCheckoutPayments.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		559073B71FF4019F0094AE5D /* ErrorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559073B11FF4019F0094AE5D /* ErrorAssembly.swift */; };
 		559073B81FF4019F0094AE5D /* ErrorViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559073B21FF4019F0094AE5D /* ErrorViewIO.swift */; };
 		559073B91FF4019F0094AE5D /* ErrorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559073B41FF4019F0094AE5D /* ErrorPresenter.swift */; };
 		559073BA1FF4019F0094AE5D /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559073B61FF4019F0094AE5D /* ErrorViewController.swift */; };
-		74083238202E05B00079263A /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74083236202E04760079263A /* SettingsService.swift */; };
-		74083239202E05B10079263A /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74083236202E04760079263A /* SettingsService.swift */; };
-		740E46D920361FD1008DAA78 /* DecimalPriceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B5B47220361DF0008DCEB1 /* DecimalPriceViewModel.swift */; };
-		740E46DA20361FD1008DAA78 /* DecimalPriceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B5B47220361DF0008DCEB1 /* DecimalPriceViewModel.swift */; };
 		7411A0F120651EC9003D4A35 /* NonEmptyValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7411A0F020651EC9003D4A35 /* NonEmptyValidator.swift */; };
-		746D7D4020371F56000552CB /* PriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746D7D3E20371E60000552CB /* PriceFormatter.swift */; };
-		746D7D4120371F56000552CB /* PriceFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746D7D3E20371E60000552CB /* PriceFormatter.swift */; };
-		74B7929D202CC21F006BCB41 /* KeyValueStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B7929B202CC21F006BCB41 /* KeyValueStoring.swift */; };
-		74B7929E202CC21F006BCB41 /* KeyValueStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B7929B202CC21F006BCB41 /* KeyValueStoring.swift */; };
-		74B7929F202CC21F006BCB41 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B7929C202CC21F006BCB41 /* UserDefaultsStorage.swift */; };
-		74B792A0202CC21F006BCB41 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B7929C202CC21F006BCB41 /* UserDefaultsStorage.swift */; };
 		C6949D5CB8A33018E3B4A224 /* Pods_YandexCheckoutPaymentsExamplePods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A946BCF3D437D5A6882D433 /* Pods_YandexCheckoutPaymentsExamplePods.framework */; };
 		D9245C79203B23450086D33F /* ShowcaseDisplayItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9245C78203B23450086D33F /* ShowcaseDisplayItemFactory.swift */; };
 		D9245C7D203C074A0086D33F /* ShowcaseCellModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9245C7C203C074A0086D33F /* ShowcaseCellModuleFactory.swift */; };
@@ -488,8 +526,6 @@
 		D9245C93203EC2C90086D33F /* LenghtValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9245C92203EC2C90086D33F /* LenghtValidator.swift */; };
 		D9245C97203EC3DA0086D33F /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9245C96203EC3DA0086D33F /* EmailValidator.swift */; };
 		D9245C9D203ED5D90086D33F /* TextInputPresenterStyleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9245C9C203ED5D90086D33F /* TextInputPresenterStyleFactory.swift */; };
-		D96947812021D92B00830EA4 /* AttachedCardCountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D969477F2021D92500830EA4 /* AttachedCardCountViewController.swift */; };
-		D96947822021D92C00830EA4 /* AttachedCardCountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D969477F2021D92500830EA4 /* AttachedCardCountViewController.swift */; };
 		D96ABAC6204433DC00CFA062 /* MonthInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96ABAC5204433DC00CFA062 /* MonthInputPresenterStyle.swift */; };
 		D96ABAC8204447CA00CFA062 /* DateValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96ABAC7204447CA00CFA062 /* DateValidator.swift */; };
 		D96ABACC20446DB700CFA062 /* DateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96ABACB20446DB700CFA062 /* DateFactory.swift */; };
@@ -511,12 +547,6 @@
 		D98FEB18205ECD6C002F8358 /* PhoneNumberOutputFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98FEB17205ECD6C002F8358 /* PhoneNumberOutputFormatter.swift */; };
 		D98FEB1A205ECDDB002F8358 /* TextInputOutputFormatterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98FEB19205ECDDB002F8358 /* TextInputOutputFormatterFactory.swift */; };
 		D9990BA9201742ED00D4A414 /* MSDKActionSheetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9990BA8201742ED00D4A414 /* MSDKActionSheetHeaderView.swift */; };
-		D9A6C6B9200CD60B00125D21 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A6C6B7200CD5F800125D21 /* RootViewController.swift */; };
-		D9A6C6BA200CD60C00125D21 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A6C6B7200CD5F800125D21 /* RootViewController.swift */; };
-		D9A9138F20208AC70023D316 /* TestSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A9138D2020893A0023D316 /* TestSettingsViewController.swift */; };
-		D9A9139020208AC80023D316 /* TestSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A9138D2020893A0023D316 /* TestSettingsViewController.swift */; };
-		D9A9139220208B840023D316 /* TestSettingsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A9139120208B840023D316 /* TestSettingsEntity.swift */; };
-		D9A9139320208B840023D316 /* TestSettingsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A9139120208B840023D316 /* TestSettingsEntity.swift */; };
 		D9AA01832036DECF00F843C1 /* SimpleIdentificationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AA01822036DECF00F843C1 /* SimpleIdentificationAssembly.swift */; };
 		D9AA018F2036E32000F843C1 /* SimpleIdentificationInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AA018E2036E32000F843C1 /* SimpleIdentificationInteractorIO.swift */; };
 		D9AA01912036E34000F843C1 /* SimpleIdentificationViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AA01902036E34000F843C1 /* SimpleIdentificationViewIO.swift */; };
@@ -538,9 +568,7 @@
 		D9DF9D662049ADF800371792 /* YandexCheckoutWalletApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DF9D652049ADF700371792 /* YandexCheckoutWalletApi.framework */; };
 		E011A09D20725BC200B786B5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E011A09C20725BC200B786B5 /* MessageUI.framework */; };
 		E011A09E20725BCB00B786B5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E011A09C20725BC200B786B5 /* MessageUI.framework */; };
-		E0148CDB1FE958810087CF5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0148CD91FE958810087CF5F /* Main.storyboard */; };
 		E0148CDD1FE958810087CF5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0148CDC1FE958810087CF5F /* Assets.xcassets */; };
-		E0148CE01FE958810087CF5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0148CDE1FE958810087CF5F /* LaunchScreen.storyboard */; };
 		E018BEB9200E1BAD00022396 /* When.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E018BEB8200E1BAD00022396 /* When.framework */; };
 		E01B1F30200E1B050079DD57 /* YandexMoneyCoreApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01B1F2F200E1B050079DD57 /* YandexMoneyCoreApi.framework */; };
 		E0321BB020EF9A590050CF65 /* YandexCheckoutPaymentsApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0494C632010980D0059BBD2 /* YandexCheckoutPaymentsApi.framework */; };
@@ -554,8 +582,6 @@
 		E06532901FED37DC00831588 /* PaymentMethodsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = E065328F1FED37DC00831588 /* PaymentMethodsAssembly.swift */; };
 		E06532A71FF13B9B00831588 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0148CD51FE958810087CF5F /* AppDelegate.swift */; };
 		E06532A91FF13BA200831588 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0148CDC1FE958810087CF5F /* Assets.xcassets */; };
-		E06532AC1FF13BB500831588 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0148CD91FE958810087CF5F /* Main.storyboard */; };
-		E06532AD1FF13BB500831588 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0148CDE1FE958810087CF5F /* LaunchScreen.storyboard */; };
 		E06532BC1FF1453800831588 /* YandexCheckoutPayments.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244F7DBBF9F3523FC00B2357 /* YandexCheckoutPayments.framework */; };
 		E06532BD1FF1453800831588 /* YandexCheckoutPayments.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 244F7DBBF9F3523FC00B2357 /* YandexCheckoutPayments.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E06532C81FF150FE00831588 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E06532CA1FF150FE00831588 /* Localizable.strings */; };
@@ -571,34 +597,8 @@
 		E07ED63B20346C4A009E0737 /* YandexLoginSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07ED63A20346C4A009E0737 /* YandexLoginSDK.framework */; };
 		E0D529381FE40337005F495F /* FunctionalSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D529361FE40337005F495F /* FunctionalSwift.framework */; };
 		E0D5293B1FE7C31A005F495F /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0D5293A1FE7C31A005F495F /* Media.xcassets */; };
-		FE5C4D7B200F9BCE004F365E /* TableViewCellDataProviderSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5C4D79200F9BA7004F365E /* TableViewCellDataProviderSupport.swift */; };
-		FE5C4D7C200F9BCE004F365E /* TableViewCellDataProviderSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5C4D79200F9BA7004F365E /* TableViewCellDataProviderSupport.swift */; };
-		FE5C4D7F200F9D2E004F365E /* SettingsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5C4D7E200F9D2E004F365E /* SettingsEntity.swift */; };
-		FE5C4D80200F9D2E004F365E /* SettingsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5C4D7E200F9D2E004F365E /* SettingsEntity.swift */; };
-		FE5C4D89200FA007004F365E /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5C4D88200FA007004F365E /* Localization.swift */; };
-		FE5C4D8A200FA007004F365E /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5C4D88200FA007004F365E /* Localization.swift */; };
 		FE5C4D8F200FB41F004F365E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FEDABFAC200E65600056E0CC /* Localizable.strings */; };
 		FE5C4D90200FB426004F365E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FEDABFAC200E65600056E0CC /* Localizable.strings */; };
-		FE6F779A2010C42F0030E347 /* SectionDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F77972010C4140030E347 /* SectionDescriptor.swift */; };
-		FE6F779B2010C4300030E347 /* SectionDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F77972010C4140030E347 /* SectionDescriptor.swift */; };
-		FE6F779C2010C4320030E347 /* CellDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F77952010C3F00030E347 /* CellDescriptor.swift */; };
-		FE6F779D2010C4320030E347 /* CellDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F77952010C3F00030E347 /* CellDescriptor.swift */; };
-		FE6F779E2010C4360030E347 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F77932010C3730030E347 /* TableViewController.swift */; };
-		FE6F779F2010C4370030E347 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6F77932010C3730030E347 /* TableViewController.swift */; };
-		FEC44109200F78F900C6B8C7 /* TextHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC44106200F78DC00C6B8C7 /* TextHeaderFooterView.swift */; };
-		FEC4410A200F78FA00C6B8C7 /* TextHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC44106200F78DC00C6B8C7 /* TextHeaderFooterView.swift */; };
-		FEC8296A2014B8B2007EDC99 /* NSLayoutConstraint+mSDKDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB5924020123CCB00BF0C56 /* NSLayoutConstraint+mSDKDemo.swift */; };
-		FEC8296B2014B8B2007EDC99 /* NSLayoutConstraint+mSDKDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB5924020123CCB00BF0C56 /* NSLayoutConstraint+mSDKDemo.swift */; };
-		FEC829732014BF16007EDC99 /* TitledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC829712014BF12007EDC99 /* TitledSwitchView.swift */; };
-		FEC829742014BF16007EDC99 /* TitledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC829712014BF12007EDC99 /* TitledSwitchView.swift */; };
-		FEC829772014C516007EDC99 /* ContainerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC829752014C3F4007EDC99 /* ContainerTableViewCell.swift */; };
-		FEC829792014C518007EDC99 /* ContainerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC829752014C3F4007EDC99 /* ContainerTableViewCell.swift */; };
-		FEDABF8C200E17AE0056E0CC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDABF89200DF5080056E0CC /* SettingsViewController.swift */; };
-		FEDABF8D200E17AE0056E0CC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDABF89200DF5080056E0CC /* SettingsViewController.swift */; };
-		FEDABF9D200E4DA70056E0CC /* TextValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDABF9B200E4D690056E0CC /* TextValueView.swift */; };
-		FEDABF9E200E4DA70056E0CC /* TextValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDABF9B200E4D690056E0CC /* TextValueView.swift */; };
-		FEDABFA2200E64AC0056E0CC /* UILayoutPriority+mSDKDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDABFA0200E645F0056E0CC /* UILayoutPriority+mSDKDemo.swift */; };
-		FEDABFA3200E64AC0056E0CC /* UILayoutPriority+mSDKDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDABFA0200E645F0056E0CC /* UILayoutPriority+mSDKDemo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -727,7 +727,6 @@
 		244F772B10642F166C4D9580 /* UITableViewHeaderFooterView+Identifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewHeaderFooterView+Identifier.swift"; sourceTree = "<group>"; };
 		244F774956D51CBBDA846111 /* PageSheetTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageSheetTemplate.swift; sourceTree = "<group>"; };
 		244F7752AB31DD0F7E7D3E6D /* IconButtonItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButtonItemTableViewCell.swift; sourceTree = "<group>"; };
-		244F77557DAB76DF1A215C2F /* SuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
 		244F776825E3B4F20FCBC796 /* ActionTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionTemplate.swift; sourceTree = "<group>"; };
 		244F7769BD069F86F495CA1D /* UIScreen+SafeAreaInsets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScreen+SafeAreaInsets.swift"; sourceTree = "<group>"; };
 		244F776C9E00C7B20699147D /* TextControl+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextControl+Layout.swift"; sourceTree = "<group>"; };
@@ -750,7 +749,6 @@
 		244F784DAFE9E6B3BD496E3B /* PlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		244F7868464A6D26CCBEB84D /* NotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		244F786C01F080603A11D3E9 /* CscInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CscInputPresenterStyle.swift; sourceTree = "<group>"; };
-		244F786C498BA37500D5F9D9 /* UIImage+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Style.swift"; sourceTree = "<group>"; };
 		244F7873B11A18937B9AAA9E /* KeyValueStoringAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStoringAssembly.swift; sourceTree = "<group>"; };
 		244F788229FD509014C863BE /* TextControl+BottomHintMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextControl+BottomHintMode.swift"; sourceTree = "<group>"; };
 		244F78A7EDE429E4183D6BA0 /* UIScrollView+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Style.swift"; sourceTree = "<group>"; };
@@ -846,7 +844,6 @@
 		307D0CEB2061918600CAAAE6 /* CardIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CardIO.framework; path = Carthage/Build/iOS/CardIO.framework; sourceTree = "<group>"; };
 		30A588232177B792002AFFF1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YandexMobileMetrica.framework; path = Carthage/Build/iOS/YandexMobileMetrica.framework; sourceTree = "<group>"; };
-		30C8C5D0206125DC006207B7 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		30CBA4D7217DD7FD0040F062 /* Hosts.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Hosts.plist; sourceTree = "<group>"; };
 		30FCAAD21FF3F9BA002C69FF /* BankCardDataInputAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardDataInputAssembly.swift; sourceTree = "<group>"; };
 		30FCAAD31FF3F9BA002C69FF /* BankCardDataInputInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardDataInputInteractorIO.swift; sourceTree = "<group>"; };
@@ -863,28 +860,37 @@
 		402EB07E4A3189AFC7FC1881 /* UIDevice+Hardware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Hardware.swift"; sourceTree = "<group>"; };
 		402EB0FAEF26E179E8432582 /* BankCardDataInputRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardDataInputRouter.swift; sourceTree = "<group>"; };
 		402EB14D34A15C0430CA7907 /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
+		402EB1951B7BDB84585F6D93 /* NSLayoutConstraint+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Tools.swift"; sourceTree = "<group>"; };
 		402EB1D5DCE7CE831CE3A7D5 /* AuthTypeStatesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthTypeStatesService.swift; sourceTree = "<group>"; };
+		402EB20893D57BCDD6531F5D /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		402EB2649F3177544CE055F4 /* BankCardDataInputModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardDataInputModuleIO.swift; sourceTree = "<group>"; };
 		402EB272CF2245BD4A15D810 /* AuthTypeStatesProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthTypeStatesProvider.swift; sourceTree = "<group>"; };
 		402EB284F66EE120D7C80D30 /* AnalyticsEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsEvent.swift; sourceTree = "<group>"; };
 		402EB28DE742C90C6275D62F /* ErrorModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorModuleIO.swift; sourceTree = "<group>"; };
 		402EB2BA956B228FE6347DA8 /* LinkedBankCardDataInputAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedBankCardDataInputAssembly.swift; sourceTree = "<group>"; };
+		402EB2C4E930D43B9F39C1E2 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		402EB302A7F71C0A7EA5ACBF /* RootViewController+TokenizationModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RootViewController+TokenizationModuleOutput.swift"; sourceTree = "<group>"; };
 		402EB34114A68C1DB6841263 /* LinkedBankCardDataInputModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedBankCardDataInputModuleIO.swift; sourceTree = "<group>"; };
 		402EB345873202B2D562697A /* PaymentMethodResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodResources.swift; sourceTree = "<group>"; };
 		402EB348874A8E269FF6DB29 /* ContractStateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractStateHandler.swift; sourceTree = "<group>"; };
-		402EB36982468E0BD8E80B90 /* PriceInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceInputPresenterStyle.swift; sourceTree = "<group>"; };
+		402EB35130D8CDC08C740BA1 /* UIImage+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Style.swift"; sourceTree = "<group>"; };
 		402EB3C9DE50D5321D9AA990 /* CardSecModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSecModuleIO.swift; sourceTree = "<group>"; };
 		402EB3CFBB0309CD96A6FB1D /* PaymentMethodsModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsModuleIO.swift; sourceTree = "<group>"; };
+		402EB3EA33841DD2B8C1323B /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		402EB42858CF8893C0E1EBF2 /* ProcessingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessingViewController.swift; sourceTree = "<group>"; };
 		402EB45848B2A683D8AD00B3 /* AnalyticsProcessingAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsProcessingAssembly.swift; sourceTree = "<group>"; };
+		402EB4F728CFBA828884E459 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
+		402EB59A0AA13970276C2405 /* PriceFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceFormatter.swift; sourceTree = "<group>"; };
 		402EB59E30E9DBE405958248 /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
-		402EB5C3F4096F08E49B5891 /* DevHostService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevHostService.swift; sourceTree = "<group>"; };
+		402EB5DE18F967D1D362AB24 /* CellDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellDescriptor.swift; sourceTree = "<group>"; };
 		402EB5EC69067D7D8EB8CECE /* AnalyticsProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsProviding.swift; sourceTree = "<group>"; };
+		402EB5FD23E637F2CB6C2574 /* SuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
 		402EB6180BDB70EA6D35C2E8 /* PaymentMethodViewModelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewModelFactory.swift; sourceTree = "<group>"; };
 		402EB620DE3E765002FA511C /* PaymentSystemFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSystemFactory.swift; sourceTree = "<group>"; };
 		402EB68AD925A975EA6C06FB /* FunctionalPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalPromise.swift; sourceTree = "<group>"; };
+		402EB6A48AE583D297E41E9A /* TitledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledSwitchView.swift; sourceTree = "<group>"; };
+		402EB6AB3C97E1E258778D20 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		402EB6C3AE869896E5690186 /* IconButtonItemView+PaymentMethodView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IconButtonItemView+PaymentMethodView.swift"; sourceTree = "<group>"; };
-		402EB6D557B18757AD741386 /* PriceConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceConstants.swift; sourceTree = "<group>"; };
 		402EB6DB38CE58DCD11766AC /* ApplePayAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayAssembly.swift; sourceTree = "<group>"; };
 		402EB70C828F2AE13254E2E0 /* ApplePayPermissionsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayPermissionsHandler.swift; sourceTree = "<group>"; };
 		402EB716266E514CEF23F2F1 /* AnalyticsProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsProcessing.swift; sourceTree = "<group>"; };
@@ -892,7 +898,11 @@
 		402EB74A199E0DEFD2C76AC1 /* YamoneyLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YamoneyLoginService.swift; sourceTree = "<group>"; };
 		402EB76B415C95CE8941F290 /* LargeIconButtonItemView+PaymentMethodView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LargeIconButtonItemView+PaymentMethodView.swift"; sourceTree = "<group>"; };
 		402EB76F0D9F6D645C97E56C /* CardScanning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardScanning.swift; sourceTree = "<group>"; };
+		402EB7A951380D72FF1C56D6 /* TextHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHeaderFooterView.swift; sourceTree = "<group>"; };
 		402EB7AF022447D9E9C0D6E8 /* PaymentMethodHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodHandler.swift; sourceTree = "<group>"; };
+		402EB7AF716BE8C008EA6059 /* TextValueView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextValueView.swift; sourceTree = "<group>"; };
+		402EB7B5F823AB4566887F6D /* TableViewCellDataProviderSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellDataProviderSupport.swift; sourceTree = "<group>"; };
+		402EB7D5657B7828E3545FDC /* TestSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSettings.swift; sourceTree = "<group>"; };
 		402EB7DCEF48751BD1225169 /* ProcessingAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessingAssembly.swift; sourceTree = "<group>"; };
 		402EB7E1075981C04B17A06B /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		402EB7F44D850D7C49DEDB98 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -901,26 +911,41 @@
 		402EB8B65D40E65B0E83101F /* LinkedBankCardDataInputPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedBankCardDataInputPresenter.swift; sourceTree = "<group>"; };
 		402EB8C762F0F470A397D662 /* AnalyticsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsProvider.swift; sourceTree = "<group>"; };
 		402EB907C3FA08E3E2920758 /* AnalyticsProvidingAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsProvidingAssembly.swift; sourceTree = "<group>"; };
+		402EB90E43119606C39C3A8E /* RootViewController+CardScanning+Carthage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RootViewController+CardScanning+Carthage.swift"; sourceTree = "<group>"; };
 		402EB9122CE00768DFA03140 /* ContractInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractInteractorIO.swift; sourceTree = "<group>"; };
-		402EB9E4ADE7735010E790FF /* RootViewController+CardIO+Pods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RootViewController+CardIO+Pods.swift"; sourceTree = "<group>"; };
+		402EB91A8FA7B74992FE889C /* KeyValueStoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStoring.swift; sourceTree = "<group>"; };
+		402EB96235983229B08D616C /* PriceInputFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceInputFormatter.swift; sourceTree = "<group>"; };
+		402EB98341C0EAD3DE8902C2 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		402EB9D4435E4C37E367DF6A /* RootViewController+CardScanning+Pods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RootViewController+CardScanning+Pods.swift"; sourceTree = "<group>"; };
 		402EBA05C1D4D9BC0DDCFE66 /* YandexAuthPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexAuthPresenter.swift; sourceTree = "<group>"; };
 		402EBA77705C47E2720E5CB9 /* YandexAuthInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexAuthInteractor.swift; sourceTree = "<group>"; };
+		402EBA92F133EF4971067B8F /* PriceInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceInputViewController.swift; sourceTree = "<group>"; };
 		402EBADBD4FD26EC4822B55B /* TokenizationModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationModuleIO.swift; sourceTree = "<group>"; };
+		402EBAE323C34D877DD0F94A /* AttachedCardCountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttachedCardCountViewController.swift; sourceTree = "<group>"; };
+		402EBB549599D3B7DB0DABEC /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		402EBB6B84C32FEDF8D7AF8A /* HostsConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostsConfig.swift; sourceTree = "<group>"; };
+		402EBBC4339005FA80642DBC /* DevHostService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevHostService.swift; sourceTree = "<group>"; };
+		402EBC11D69B61F49F3804D0 /* TestSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSettingsViewController.swift; sourceTree = "<group>"; };
 		402EBC211CE903BAAA9CAA34 /* MockKeychainStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeychainStorage.swift; sourceTree = "<group>"; };
 		402EBC394D626EC1209D0232 /* TokenizeSchemeFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizeSchemeFactory.swift; sourceTree = "<group>"; };
+		402EBCA4155A33038689C3A6 /* PriceInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceInputPresenterStyle.swift; sourceTree = "<group>"; };
 		402EBCBADE67B7CB77A67988 /* YandexAuthAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexAuthAssembly.swift; sourceTree = "<group>"; };
 		402EBCC5C4DC72D2654A7CED /* PKPaymentAuthorizationViewController+Presentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PKPaymentAuthorizationViewController+Presentable.swift"; sourceTree = "<group>"; };
-		402EBCF55D8BBB45FD5DF44B /* RootViewController+CardIO+Carthage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RootViewController+CardIO+Carthage.swift"; sourceTree = "<group>"; };
+		402EBCE6D8DD4CCCA85A7592 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		402EBD0134735C09A172FA1A /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		402EBD24A8CA2694434FF10B /* DecimalPriceViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecimalPriceViewModel.swift; sourceTree = "<group>"; };
+		402EBD2572A1A47144B270C3 /* SettingsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		402EBD3D240DE0D699B41E21 /* ContractInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractInteractor.swift; sourceTree = "<group>"; };
 		402EBD6B1278D930849F528C /* MockYamoneyLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockYamoneyLoginService.swift; sourceTree = "<group>"; };
+		402EBD99826BEF036D940985 /* SectionDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionDescriptor.swift; sourceTree = "<group>"; };
 		402EBDBFCCB3908449E1CACF /* YamoneyLoginAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YamoneyLoginAssembly.swift; sourceTree = "<group>"; };
-		402EBE386CFDFD80E0FF4D50 /* PriceInputFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceInputFormatter.swift; sourceTree = "<group>"; };
+		402EBDCA8CE554E9A5B4FFEB /* ContainerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerTableViewCell.swift; sourceTree = "<group>"; };
+		402EBE4329C16EF4BAF8F641 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
+		402EBE5526ACD7CD69283661 /* UILayoutPriority+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILayoutPriority+Tools.swift"; sourceTree = "<group>"; };
 		402EBE5594CD1A8ABEAD39FD /* CardSecInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSecInteractorIO.swift; sourceTree = "<group>"; };
 		402EBE808D6D9136472905E2 /* AnalyticsTrackable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsTrackable.swift; sourceTree = "<group>"; };
 		402EBF6ECECFA979E31352AA /* YandexAuthInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexAuthInteractorIO.swift; sourceTree = "<group>"; };
 		402EBFB441A716A2BD4C4762 /* ApplePayModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayModuleIO.swift; sourceTree = "<group>"; };
-		402EBFCEE5A9A8854AF861A8 /* PriceInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceInputViewController.swift; sourceTree = "<group>"; };
 		402EBFFE36B7674582BF629F /* CardSecPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSecPresenter.swift; sourceTree = "<group>"; };
 		559073911FF3C2B90094AE5D /* YandexCheckoutPayments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YandexCheckoutPayments.h; sourceTree = "<group>"; };
 		559073AD1FF3CE910094AE5D /* Gemfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gemfile; sourceTree = "<group>"; };
@@ -929,12 +954,7 @@
 		559073B41FF4019F0094AE5D /* ErrorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorPresenter.swift; sourceTree = "<group>"; };
 		559073B61FF4019F0094AE5D /* ErrorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		6A946BCF3D437D5A6882D433 /* Pods_YandexCheckoutPaymentsExamplePods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YandexCheckoutPaymentsExamplePods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		74083236202E04760079263A /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		7411A0F020651EC9003D4A35 /* NonEmptyValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonEmptyValidator.swift; sourceTree = "<group>"; };
-		746D7D3E20371E60000552CB /* PriceFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceFormatter.swift; sourceTree = "<group>"; };
-		74B5B47220361DF0008DCEB1 /* DecimalPriceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalPriceViewModel.swift; sourceTree = "<group>"; };
-		74B7929B202CC21F006BCB41 /* KeyValueStoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStoring.swift; sourceTree = "<group>"; };
-		74B7929C202CC21F006BCB41 /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		A590B2DBDFE769B3D7EB7253 /* Pods-YandexCheckoutPaymentsExamplePods.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexCheckoutPaymentsExamplePods.appstore.xcconfig"; path = "Pods/Target Support Files/Pods-YandexCheckoutPaymentsExamplePods/Pods-YandexCheckoutPaymentsExamplePods.appstore.xcconfig"; sourceTree = "<group>"; };
 		B5CFB398F7BC4C14F83A499F /* Pods-YandexCheckoutPaymentsExamplePods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexCheckoutPaymentsExamplePods.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-YandexCheckoutPaymentsExamplePods/Pods-YandexCheckoutPaymentsExamplePods.adhoc.xcconfig"; sourceTree = "<group>"; };
 		D9245C78203B23450086D33F /* ShowcaseDisplayItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseDisplayItemFactory.swift; sourceTree = "<group>"; };
@@ -952,7 +972,6 @@
 		D9245C96203EC3DA0086D33F /* EmailValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
 		D9245C9A203ED5730086D33F /* TextInputValidatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputValidatorFactory.swift; sourceTree = "<group>"; };
 		D9245C9C203ED5D90086D33F /* TextInputPresenterStyleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputPresenterStyleFactory.swift; sourceTree = "<group>"; };
-		D969477F2021D92500830EA4 /* AttachedCardCountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttachedCardCountViewController.swift; sourceTree = "<group>"; };
 		D96ABAC120440D7D00CFA062 /* YandexCheckoutShowcaseApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YandexCheckoutShowcaseApi.framework; path = Carthage/Build/iOS/YandexCheckoutShowcaseApi.framework; sourceTree = "<group>"; };
 		D96ABAC5204433DC00CFA062 /* MonthInputPresenterStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthInputPresenterStyle.swift; sourceTree = "<group>"; };
 		D96ABAC7204447CA00CFA062 /* DateValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValidator.swift; sourceTree = "<group>"; };
@@ -972,9 +991,6 @@
 		D98FEB17205ECD6C002F8358 /* PhoneNumberOutputFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberOutputFormatter.swift; sourceTree = "<group>"; };
 		D98FEB19205ECDDB002F8358 /* TextInputOutputFormatterFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputOutputFormatterFactory.swift; sourceTree = "<group>"; };
 		D9990BA8201742ED00D4A414 /* MSDKActionSheetHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSDKActionSheetHeaderView.swift; sourceTree = "<group>"; };
-		D9A6C6B7200CD5F800125D21 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		D9A9138D2020893A0023D316 /* TestSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSettingsViewController.swift; sourceTree = "<group>"; };
-		D9A9139120208B840023D316 /* TestSettingsEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSettingsEntity.swift; sourceTree = "<group>"; };
 		D9AA01822036DECF00F843C1 /* SimpleIdentificationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleIdentificationAssembly.swift; sourceTree = "<group>"; };
 		D9AA018E2036E32000F843C1 /* SimpleIdentificationInteractorIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SimpleIdentificationInteractorIO.swift; path = YandexCheckoutPayments/Modules/SimpleIdentification/SimpleIdentificationInteractorIO.swift; sourceTree = SOURCE_ROOT; };
 		D9AA01902036E34000F843C1 /* SimpleIdentificationViewIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SimpleIdentificationViewIO.swift; path = YandexCheckoutPayments/Modules/SimpleIdentification/SimpleIdentificationViewIO.swift; sourceTree = SOURCE_ROOT; };
@@ -997,10 +1013,7 @@
 		E011A09C20725BC200B786B5 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		E0148CD31FE958810087CF5F /* YandexCheckoutPaymentsExampleCarthage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YandexCheckoutPaymentsExampleCarthage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0148CD51FE958810087CF5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E0148CDA1FE958810087CF5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E0148CDC1FE958810087CF5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E0148CDF1FE958810087CF5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		E0148CE11FE958810087CF5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E018BEB8200E1BAD00022396 /* When.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = When.framework; path = Carthage/Build/iOS/When.framework; sourceTree = "<group>"; };
 		E01B1F2D200E15E80079DD57 /* When.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = When.framework; path = ../FunctionalPromise/Carthage/Build/iOS/When.framework; sourceTree = "<group>"; };
 		E01B1F2F200E1B050079DD57 /* YandexMoneyCoreApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YandexMoneyCoreApi.framework; path = Carthage/Build/iOS/YandexMoneyCoreApi.framework; sourceTree = "<group>"; };
@@ -1023,21 +1036,8 @@
 		E07ED63A20346C4A009E0737 /* YandexLoginSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YandexLoginSDK.framework; path = Carthage/Build/iOS/YandexLoginSDK.framework; sourceTree = "<group>"; };
 		E0D529361FE40337005F495F /* FunctionalSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FunctionalSwift.framework; path = Carthage/Build/iOS/FunctionalSwift.framework; sourceTree = "<group>"; };
 		E0D5293A1FE7C31A005F495F /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		FE5C4D79200F9BA7004F365E /* TableViewCellDataProviderSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellDataProviderSupport.swift; sourceTree = "<group>"; };
-		FE5C4D7E200F9D2E004F365E /* SettingsEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEntity.swift; sourceTree = "<group>"; };
-		FE5C4D88200FA007004F365E /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		FE5C4D8B200FA027004F365E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FE5C4D8C200FA02F004F365E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		FE6F77932010C3730030E347 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
-		FE6F77952010C3F00030E347 /* CellDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDescriptor.swift; sourceTree = "<group>"; };
-		FE6F77972010C4140030E347 /* SectionDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDescriptor.swift; sourceTree = "<group>"; };
-		FEB5924020123CCB00BF0C56 /* NSLayoutConstraint+mSDKDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+mSDKDemo.swift"; sourceTree = "<group>"; };
-		FEC44106200F78DC00C6B8C7 /* TextHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextHeaderFooterView.swift; sourceTree = "<group>"; };
-		FEC829712014BF12007EDC99 /* TitledSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledSwitchView.swift; sourceTree = "<group>"; };
-		FEC829752014C3F4007EDC99 /* ContainerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerTableViewCell.swift; sourceTree = "<group>"; };
-		FEDABF89200DF5080056E0CC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		FEDABF9B200E4D690056E0CC /* TextValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextValueView.swift; sourceTree = "<group>"; };
-		FEDABFA0200E645F0056E0CC /* UILayoutPriority+mSDKDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILayoutPriority+mSDKDemo.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1226,14 +1226,6 @@
 				244F7E42485FFF6190F4AD55 /* UIImage+Tools.swift */,
 			);
 			path = Helpers;
-			sourceTree = "<group>";
-		};
-		244F737267C12135A03EBBE1 /* Success */ = {
-			isa = PBXGroup;
-			children = (
-				244F77557DAB76DF1A215C2F /* SuccessViewController.swift */,
-			);
-			path = Success;
 			sourceTree = "<group>";
 		};
 		244F73B6D8ABB77EDE2F5FFE /* Buttons */ = {
@@ -2029,22 +2021,32 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
-		402EB1638469234825D33781 /* Organisms */ = {
+		402EB04DD981C5FC1C5C58A5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				402EBFCEE5A9A8854AF861A8 /* PriceInputViewController.swift */,
+				402EBFA1323F96819BC200C4 /* KeyValueStorage */,
+				402EBD2572A1A47144B270C3 /* SettingsService.swift */,
+				402EBBC4339005FA80642DBC /* DevHostService.swift */,
 			);
-			path = Organisms;
+			path = Services;
 			sourceTree = "<group>";
 		};
-		402EB1B717953F50A36D5650 /* Atomic Design */ = {
+		402EB1120CDE2621591F3CD4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				402EBE6442924EFDDB30FCF3 /* Formatters */,
-				402EB9839741A7D73DAD70D9 /* Styles */,
-				402EB1638469234825D33781 /* Organisms */,
+				402EBE5526ACD7CD69283661 /* UILayoutPriority+Tools.swift */,
+				402EB1951B7BDB84585F6D93 /* NSLayoutConstraint+Tools.swift */,
+				402EBE4329C16EF4BAF8F641 /* Localization.swift */,
 			);
-			path = "Atomic Design";
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		402EB22CA276A9F82F3268E5 /* Test Settings */ = {
+			isa = PBXGroup;
+			children = (
+				402EBC11D69B61F49F3804D0 /* TestSettingsViewController.swift */,
+			);
+			path = "Test Settings";
 			sourceTree = "<group>";
 		};
 		402EB258792467EE6F5AC986 /* Processing */ = {
@@ -2075,12 +2077,75 @@
 			path = YamoneyLogin;
 			sourceTree = "<group>";
 		};
+		402EB320BCE7333EAFCC1093 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				402EBCA4155A33038689C3A6 /* PriceInputPresenterStyle.swift */,
+				402EB35130D8CDC08C740BA1 /* UIImage+Style.swift */,
+			);
+			path = Styles;
+			sourceTree = "<group>";
+		};
+		402EB3EF1A220B8E654BC3ED /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				402EBAE323C34D877DD0F94A /* AttachedCardCountViewController.swift */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
+		402EB45C01B7267C16D87529 /* Organisms */ = {
+			isa = PBXGroup;
+			children = (
+				402EBA92F133EF4971067B8F /* PriceInputViewController.swift */,
+			);
+			path = Organisms;
+			sourceTree = "<group>";
+		};
+		402EB4705F682C8DB207FE85 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				402EB96235983229B08D616C /* PriceInputFormatter.swift */,
+				402EB59A0AA13970276C2405 /* PriceFormatter.swift */,
+			);
+			path = Formatters;
+			sourceTree = "<group>";
+		};
+		402EB56FC0F4030503F712A9 /* Success */ = {
+			isa = PBXGroup;
+			children = (
+				402EB5FD23E637F2CB6C2574 /* SuccessViewController.swift */,
+			);
+			path = Success;
+			sourceTree = "<group>";
+		};
+		402EB5D02E679D19A5E9CFE9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				402EBB549599D3B7DB0DABEC /* Settings.swift */,
+				402EB7D5657B7828E3545FDC /* TestSettings.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		402EB5D593934320CB3F70C4 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
 				402EBA05C1D4D9BC0DDCFE66 /* YandexAuthPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		402EB6F5F5ECFC24A3415F23 /* UserStories */ = {
+			isa = PBXGroup;
+			children = (
+				402EBE7B78B736A4D48B9797 /* Root */,
+				402EBC01AAF87DAB5FB939E1 /* Settings */,
+				402EB3EF1A220B8E654BC3ED /* Cards */,
+				402EB22CA276A9F82F3268E5 /* Test Settings */,
+				402EB56FC0F4030503F712A9 /* Success */,
+			);
+			path = UserStories;
 			sourceTree = "<group>";
 		};
 		402EB77ED5956436CE3C0479 /* Assembly */ = {
@@ -2124,15 +2189,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		402EB9839741A7D73DAD70D9 /* Styles */ = {
-			isa = PBXGroup;
-			children = (
-				402EB36982468E0BD8E80B90 /* PriceInputPresenterStyle.swift */,
-				244F786C498BA37500D5F9D9 /* UIImage+Style.swift */,
-			);
-			path = Styles;
-			sourceTree = "<group>";
-		};
 		402EB9C6542733A23EF2D2F7 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
@@ -2141,11 +2197,40 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
+		402EB9CDA6AF7F7DF6D28AC1 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				402EB98341C0EAD3DE8902C2 /* TableViewController.swift */,
+				402EB5DE18F967D1D362AB24 /* CellDescriptor.swift */,
+				402EBD99826BEF036D940985 /* SectionDescriptor.swift */,
+				402EB7B5F823AB4566887F6D /* TableViewCellDataProviderSupport.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		402EBA381B04727E2CE62CFD /* AtomicDesign */ = {
+			isa = PBXGroup;
+			children = (
+				402EB4705F682C8DB207FE85 /* Formatters */,
+				402EB320BCE7333EAFCC1093 /* Styles */,
+				402EB45C01B7267C16D87529 /* Organisms */,
+			);
+			path = AtomicDesign;
+			sourceTree = "<group>";
+		};
 		402EBB2594D40887751099D1 /* Router */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = Router;
+			sourceTree = "<group>";
+		};
+		402EBC01AAF87DAB5FB939E1 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				402EB20893D57BCDD6531F5D /* SettingsViewController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		402EBCA48FEDF188B54BE8D1 /* Assembly */ = {
@@ -2156,12 +2241,24 @@
 			path = Assembly;
 			sourceTree = "<group>";
 		};
-		402EBE6442924EFDDB30FCF3 /* Formatters */ = {
+		402EBCA75359151330B8EB76 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				402EBE386CFDFD80E0FF4D50 /* PriceInputFormatter.swift */,
+				402EBDCA8CE554E9A5B4FFEB /* ContainerTableViewCell.swift */,
+				402EB6A48AE583D297E41E9A /* TitledSwitchView.swift */,
+				402EB7AF716BE8C008EA6059 /* TextValueView.swift */,
+				402EB7A951380D72FF1C56D6 /* TextHeaderFooterView.swift */,
 			);
-			path = Formatters;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		402EBE7B78B736A4D48B9797 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				402EBD24A8CA2694434FF10B /* DecimalPriceViewModel.swift */,
+				402EB6AB3C97E1E258778D20 /* RootViewController.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 		402EBE7D2A5CFB3064C4D042 /* Analytics */ = {
@@ -2204,6 +2301,30 @@
 				402EB2A3EE07962975E87A92 /* View */,
 			);
 			path = ApplePay;
+			sourceTree = "<group>";
+		};
+		402EBFA1323F96819BC200C4 /* KeyValueStorage */ = {
+			isa = PBXGroup;
+			children = (
+				402EB91A8FA7B74992FE889C /* KeyValueStoring.swift */,
+				402EB3EA33841DD2B8C1323B /* UserDefaultsStorage.swift */,
+			);
+			path = KeyValueStorage;
+			sourceTree = "<group>";
+		};
+		402EBFDB9FF2B3958BDF2C52 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				402EB1120CDE2621591F3CD4 /* Extensions */,
+				402EB04DD981C5FC1C5C58A5 /* Services */,
+				402EB9CDA6AF7F7DF6D28AC1 /* ViewControllers */,
+				402EB6F5F5ECFC24A3415F23 /* UserStories */,
+				402EBCA75359151330B8EB76 /* Views */,
+				402EB5D02E679D19A5E9CFE9 /* Models */,
+				402EBA381B04727E2CE62CFD /* AtomicDesign */,
+				402EB2C4E930D43B9F39C1E2 /* Bridging-Header.h */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 		559073AF1FF4019F0094AE5D /* Error */ = {
@@ -2250,33 +2371,6 @@
 				A590B2DBDFE769B3D7EB7253 /* Pods-YandexCheckoutPaymentsExamplePods.appstore.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		746D7D3D20371E4F000552CB /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				746D7D3E20371E60000552CB /* PriceFormatter.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		74B79299202CC1F8006BCB41 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				74B7929A202CC20F006BCB41 /* KeyValueStorage */,
-				74083236202E04760079263A /* SettingsService.swift */,
-				402EB5C3F4096F08E49B5891 /* DevHostService.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		74B7929A202CC20F006BCB41 /* KeyValueStorage */ = {
-			isa = PBXGroup;
-			children = (
-				74B7929B202CC21F006BCB41 /* KeyValueStoring.swift */,
-				74B7929C202CC21F006BCB41 /* UserDefaultsStorage.swift */,
-			);
-			path = KeyValueStorage;
 			sourceTree = "<group>";
 		};
 		D9245C7A203C055A0086D33F /* Cells */ = {
@@ -2437,22 +2531,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		D9A9138C2020890A0023D316 /* Test Settings */ = {
-			isa = PBXGroup;
-			children = (
-				D9A9138D2020893A0023D316 /* TestSettingsViewController.swift */,
-			);
-			path = "Test Settings";
-			sourceTree = "<group>";
-		};
-		D9A9139B2020974A0023D316 /* Cards */ = {
-			isa = PBXGroup;
-			children = (
-				D969477F2021D92500830EA4 /* AttachedCardCountViewController.swift */,
-			);
-			path = Cards;
-			sourceTree = "<group>";
-		};
 		D9AA01812036DE3D00F843C1 /* SimpleIdentification */ = {
 			isa = PBXGroup;
 			children = (
@@ -2561,20 +2639,12 @@
 		E0148CD41FE958810087CF5F /* YandexCheckoutPaymentsExample */ = {
 			isa = PBXGroup;
 			children = (
-				746D7D3D20371E4F000552CB /* Helpers */,
-				74B79299202CC1F8006BCB41 /* Services */,
-				FE6F77902010C32E0030E347 /* View Controllers */,
-				FEDABF9F200E64440056E0CC /* Extensions */,
-				FEDABF90200E1B7B0056E0CC /* Views */,
-				FE5C4D7D200F9D1F004F365E /* Entities */,
-				FEDABF8F200E1B6E0056E0CC /* User Stories */,
 				E0148CD51FE958810087CF5F /* AppDelegate.swift */,
-				E0148CD91FE958810087CF5F /* Main.storyboard */,
 				FEDABFA4200E651B0056E0CC /* Resources */,
-				E0148CDE1FE958810087CF5F /* LaunchScreen.storyboard */,
-				E0148CE11FE958810087CF5F /* Info.plist */,
-				30C8C5D0206125DC006207B7 /* Bridging-Header.h */,
-				402EB1B717953F50A36D5650 /* Atomic Design */,
+				402EBFDB9FF2B3958BDF2C52 /* Source */,
+				402EB302A7F71C0A7EA5ACBF /* RootViewController+TokenizationModuleOutput.swift */,
+				402EB9D4435E4C37E367DF6A /* RootViewController+CardScanning+Pods.swift */,
+				402EB90E43119606C39C3A8E /* RootViewController+CardScanning+Carthage.swift */,
 			);
 			path = YandexCheckoutPaymentsExample;
 			sourceTree = "<group>";
@@ -2635,79 +2705,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		FE5C4D7D200F9D1F004F365E /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-				FE5C4D7E200F9D2E004F365E /* SettingsEntity.swift */,
-				D9A9139120208B840023D316 /* TestSettingsEntity.swift */,
-				402EB6D557B18757AD741386 /* PriceConstants.swift */,
-			);
-			path = Entities;
-			sourceTree = "<group>";
-		};
-		FE6F7787200FB6CA0030E347 /* Root */ = {
-			isa = PBXGroup;
-			children = (
-				D9A6C6B7200CD5F800125D21 /* RootViewController.swift */,
-				74B5B47220361DF0008DCEB1 /* DecimalPriceViewModel.swift */,
-				402EBCF55D8BBB45FD5DF44B /* RootViewController+CardIO+Carthage.swift */,
-				402EB9E4ADE7735010E790FF /* RootViewController+CardIO+Pods.swift */,
-			);
-			path = Root;
-			sourceTree = "<group>";
-		};
-		FE6F77902010C32E0030E347 /* View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				FE6F77932010C3730030E347 /* TableViewController.swift */,
-				FE6F77952010C3F00030E347 /* CellDescriptor.swift */,
-				FE6F77972010C4140030E347 /* SectionDescriptor.swift */,
-				FE5C4D79200F9BA7004F365E /* TableViewCellDataProviderSupport.swift */,
-			);
-			path = "View Controllers";
-			sourceTree = "<group>";
-		};
-		FEDABF8E200E1B630056E0CC /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				FEDABF89200DF5080056E0CC /* SettingsViewController.swift */,
-			);
-			path = Settings;
-			sourceTree = "<group>";
-		};
-		FEDABF8F200E1B6E0056E0CC /* User Stories */ = {
-			isa = PBXGroup;
-			children = (
-				FE6F7787200FB6CA0030E347 /* Root */,
-				FEDABF8E200E1B630056E0CC /* Settings */,
-				D9A9139B2020974A0023D316 /* Cards */,
-				D9A9138C2020890A0023D316 /* Test Settings */,
-				244F737267C12135A03EBBE1 /* Success */,
-			);
-			path = "User Stories";
-			sourceTree = "<group>";
-		};
-		FEDABF90200E1B7B0056E0CC /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				FEC829752014C3F4007EDC99 /* ContainerTableViewCell.swift */,
-				FEC829712014BF12007EDC99 /* TitledSwitchView.swift */,
-				FEDABF9B200E4D690056E0CC /* TextValueView.swift */,
-				FEC44106200F78DC00C6B8C7 /* TextHeaderFooterView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		FEDABF9F200E64440056E0CC /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				FEDABFA0200E645F0056E0CC /* UILayoutPriority+mSDKDemo.swift */,
-				FEB5924020123CCB00BF0C56 /* NSLayoutConstraint+mSDKDemo.swift */,
-				FE5C4D88200FA007004F365E /* Localization.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		FEDABFA4200E651B0056E0CC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -2715,6 +2712,9 @@
 				FEDABFAC200E65600056E0CC /* Localizable.strings */,
 				303FD05D21B92EC900CE82B4 /* InfoPlist.strings */,
 				30A588232177B792002AFFF1 /* Settings.bundle */,
+				402EBD0134735C09A172FA1A /* Main.storyboard */,
+				402EBCE6D8DD4CCCA85A7592 /* LaunchScreen.storyboard */,
+				402EB4F728CFBA828884E459 /* Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2775,7 +2775,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E06532A41FF13B5800831588 /* Build configuration list for PBXNativeTarget "YandexCheckoutPaymentsExamplePods" */;
 			buildPhases = (
-				303FD05F21B953F300CE82B4 /* Run Swiftlint */,
 				BE29A0BABD457CBBE5DB9688 /* [CP] Check Pods Manifest.lock */,
 				30B58B7421B6B62E004BC42E /* Run Swiftlint */,
 				E06532911FF13B5800831588 /* Sources */,
@@ -2871,11 +2870,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE5C4D8F200FB41F004F365E /* Localizable.strings in Resources */,
-				E0148CE01FE958810087CF5F /* LaunchScreen.storyboard in Resources */,
 				30A588242177B792002AFFF1 /* Settings.bundle in Resources */,
 				E0148CDD1FE958810087CF5F /* Assets.xcassets in Resources */,
-				E0148CDB1FE958810087CF5F /* Main.storyboard in Resources */,
 				303FD05A21B92EC900CE82B4 /* InfoPlist.strings in Resources */,
+				402EB30AC88400ACC096F153 /* Main.storyboard in Resources */,
+				402EB5908B35DDD04AAED4C2 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2884,11 +2883,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE5C4D90200FB426004F365E /* Localizable.strings in Resources */,
-				E06532AC1FF13BB500831588 /* Main.storyboard in Resources */,
 				30A588252177B792002AFFF1 /* Settings.bundle in Resources */,
-				E06532AD1FF13BB500831588 /* LaunchScreen.storyboard in Resources */,
 				E06532A91FF13BA200831588 /* Assets.xcassets in Resources */,
 				303FD05B21B92EC900CE82B4 /* InfoPlist.strings in Resources */,
+				402EB6BCF08F6AC50918B39B /* Main.storyboard in Resources */,
+				402EB37FABD632D4A895D1E8 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3337,36 +3336,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E073F71D202C4B29007A100C /* AppDelegate.swift in Sources */,
-				FEC829732014BF16007EDC99 /* TitledSwitchView.swift in Sources */,
-				740E46DA20361FD1008DAA78 /* DecimalPriceViewModel.swift in Sources */,
-				FEC829792014C518007EDC99 /* ContainerTableViewCell.swift in Sources */,
-				D9A9138F20208AC70023D316 /* TestSettingsViewController.swift in Sources */,
-				FE6F779C2010C4320030E347 /* CellDescriptor.swift in Sources */,
-				74B7929D202CC21F006BCB41 /* KeyValueStoring.swift in Sources */,
-				FE5C4D7B200F9BCE004F365E /* TableViewCellDataProviderSupport.swift in Sources */,
 				E0321BB420EFA16A0050CF65 /* UIButton+Style.swift in Sources */,
-				FEDABF9D200E4DA70056E0CC /* TextValueView.swift in Sources */,
-				FEDABFA2200E64AC0056E0CC /* UILayoutPriority+mSDKDemo.swift in Sources */,
-				74B7929F202CC21F006BCB41 /* UserDefaultsStorage.swift in Sources */,
-				FE5C4D89200FA007004F365E /* Localization.swift in Sources */,
-				D96947812021D92B00830EA4 /* AttachedCardCountViewController.swift in Sources */,
-				D9A9139220208B840023D316 /* TestSettingsEntity.swift in Sources */,
 				30317A9920D81237002263EC /* PriceView.swift in Sources */,
-				FE5C4D7F200F9D2E004F365E /* SettingsEntity.swift in Sources */,
-				FEC4410A200F78FA00C6B8C7 /* TextHeaderFooterView.swift in Sources */,
-				FE6F779B2010C4300030E347 /* SectionDescriptor.swift in Sources */,
-				74083238202E05B00079263A /* SettingsService.swift in Sources */,
-				FEDABF8C200E17AE0056E0CC /* SettingsViewController.swift in Sources */,
-				FE6F779E2010C4360030E347 /* TableViewController.swift in Sources */,
-				746D7D4020371F56000552CB /* PriceFormatter.swift in Sources */,
-				D9A6C6BA200CD60C00125D21 /* RootViewController.swift in Sources */,
-				FEC8296A2014B8B2007EDC99 /* NSLayoutConstraint+mSDKDemo.swift in Sources */,
-				402EB140825C17FA024B19E4 /* RootViewController+CardIO+Carthage.swift in Sources */,
-				244F7B3E865289F0FA28D39F /* SuccessViewController.swift in Sources */,
-				402EB24BE7E089A8A46F46A3 /* PriceInputPresenterStyle.swift in Sources */,
-				402EBF6DB84ED08A4D49C728 /* PriceInputViewController.swift in Sources */,
-				402EB8D14A651E98D76C69F1 /* PriceInputFormatter.swift in Sources */,
-				402EB7B846680BEEFB1B7FF3 /* PriceConstants.swift in Sources */,
 				244F7D8195B22BD6AE5F6D00 /* UIScreen+SafeAreaInsets.swift in Sources */,
 				244F71ACDF272C180EAAA360 /* Anchor.swift in Sources */,
 				244F7554F0071F8F62D2B914 /* UIView+SpecificLayoutGuide.swift in Sources */,
@@ -3445,10 +3416,38 @@
 				244F7AF3DEF6EA63EFD82031 /* ActionTextDialog.swift in Sources */,
 				244F70F8B12730E5C858482E /* ActionTextDialog+Style.swift in Sources */,
 				244F75A4513389713D6A4AD5 /* UIView+Tools.swift in Sources */,
-				244F71539A8C21D196323627 /* UIImage+Style.swift in Sources */,
 				244F70C2F06ECCB5E6EFDF75 /* UIImage+Tools.swift in Sources */,
 				244F751D35822E54118B0966 /* UILabel+Style.swift in Sources */,
-				402EBB9C1D9A109AE09DA847 /* DevHostService.swift in Sources */,
+				402EBD401D3EDFB62B1E5DDD /* UILayoutPriority+Tools.swift in Sources */,
+				402EB08CE3CE0311678B8E3C /* NSLayoutConstraint+Tools.swift in Sources */,
+				402EB4BFFA567B8E04346898 /* Localization.swift in Sources */,
+				402EBB8863A4450D12567A19 /* KeyValueStoring.swift in Sources */,
+				402EB8A44D76CCD5CD082AB6 /* UserDefaultsStorage.swift in Sources */,
+				402EB0D6454C36181958F364 /* SettingsService.swift in Sources */,
+				402EBB878C743BB839187166 /* DevHostService.swift in Sources */,
+				402EB5F1B5DD83054302484E /* TableViewController.swift in Sources */,
+				402EB1CF4033150CBD9F841D /* CellDescriptor.swift in Sources */,
+				402EB5A42353DA754E2EE4AE /* SectionDescriptor.swift in Sources */,
+				402EBFAD72E5EA8E63BEAB3E /* TableViewCellDataProviderSupport.swift in Sources */,
+				402EB4E3354E5CE68468D3AF /* DecimalPriceViewModel.swift in Sources */,
+				402EBBBB59E5A0527DDFF9C7 /* SettingsViewController.swift in Sources */,
+				402EBA68353901E153AD2BD3 /* AttachedCardCountViewController.swift in Sources */,
+				402EBEF66277DAF519BBBF64 /* TestSettingsViewController.swift in Sources */,
+				402EB4028594174716848981 /* SuccessViewController.swift in Sources */,
+				402EBABF794551F9496FC871 /* ContainerTableViewCell.swift in Sources */,
+				402EBA77107979D71AC0FB64 /* TitledSwitchView.swift in Sources */,
+				402EB359491A435BB90D5F1E /* TextValueView.swift in Sources */,
+				402EBA116877C3C5EED95200 /* TextHeaderFooterView.swift in Sources */,
+				402EB0C25182CDF27CF103F2 /* Settings.swift in Sources */,
+				402EB85D78BF63024037E1A5 /* TestSettings.swift in Sources */,
+				402EB81409FF906ABC1916E1 /* PriceInputFormatter.swift in Sources */,
+				402EB5A987D4AA5A060CB56C /* PriceInputPresenterStyle.swift in Sources */,
+				402EBE23D1527CC96F9AB000 /* UIImage+Style.swift in Sources */,
+				402EB4B4D99A60145471D4EC /* PriceInputViewController.swift in Sources */,
+				402EB2C82DF79629B7B0B87C /* PriceFormatter.swift in Sources */,
+				402EB803F10C69BABE0A82FB /* RootViewController.swift in Sources */,
+				402EB26068B050D8A2FEC842 /* RootViewController+TokenizationModuleOutput.swift in Sources */,
+				402EB71CB04D0F2C80444472 /* RootViewController+CardScanning+Carthage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3456,37 +3455,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FEC829742014BF16007EDC99 /* TitledSwitchView.swift in Sources */,
-				740E46D920361FD1008DAA78 /* DecimalPriceViewModel.swift in Sources */,
-				FEC829772014C516007EDC99 /* ContainerTableViewCell.swift in Sources */,
-				D9A9139020208AC80023D316 /* TestSettingsViewController.swift in Sources */,
-				FE6F779D2010C4320030E347 /* CellDescriptor.swift in Sources */,
-				74B7929E202CC21F006BCB41 /* KeyValueStoring.swift in Sources */,
-				FE5C4D7C200F9BCE004F365E /* TableViewCellDataProviderSupport.swift in Sources */,
-				FEDABF9E200E4DA70056E0CC /* TextValueView.swift in Sources */,
 				E0321BB520EFA16B0050CF65 /* UIButton+Style.swift in Sources */,
-				FEDABFA3200E64AC0056E0CC /* UILayoutPriority+mSDKDemo.swift in Sources */,
 				E06532A71FF13B9B00831588 /* AppDelegate.swift in Sources */,
-				74B792A0202CC21F006BCB41 /* UserDefaultsStorage.swift in Sources */,
-				FE5C4D8A200FA007004F365E /* Localization.swift in Sources */,
-				D9A9139320208B840023D316 /* TestSettingsEntity.swift in Sources */,
-				D96947822021D92C00830EA4 /* AttachedCardCountViewController.swift in Sources */,
 				30317A9A20D81237002263EC /* PriceView.swift in Sources */,
-				FE5C4D80200F9D2E004F365E /* SettingsEntity.swift in Sources */,
-				FEC44109200F78F900C6B8C7 /* TextHeaderFooterView.swift in Sources */,
-				FE6F779A2010C42F0030E347 /* SectionDescriptor.swift in Sources */,
-				74083239202E05B10079263A /* SettingsService.swift in Sources */,
-				FEDABF8D200E17AE0056E0CC /* SettingsViewController.swift in Sources */,
-				FE6F779F2010C4370030E347 /* TableViewController.swift in Sources */,
-				746D7D4120371F56000552CB /* PriceFormatter.swift in Sources */,
-				D9A6C6B9200CD60B00125D21 /* RootViewController.swift in Sources */,
-				FEC8296B2014B8B2007EDC99 /* NSLayoutConstraint+mSDKDemo.swift in Sources */,
-				402EB816CDD138C37252158E /* RootViewController+CardIO+Pods.swift in Sources */,
-				244F78EDAF01168A94C51696 /* SuccessViewController.swift in Sources */,
-				402EBC023FBBA07E647E487E /* PriceInputPresenterStyle.swift in Sources */,
-				402EB79BBC592454E307528B /* PriceInputViewController.swift in Sources */,
-				402EB6BBB65474249865EAD0 /* PriceInputFormatter.swift in Sources */,
-				402EBC1C5C9BE477ECE4D181 /* PriceConstants.swift in Sources */,
 				244F7EC783216DF576721558 /* UIScreen+SafeAreaInsets.swift in Sources */,
 				244F7F51C2B8835EE5AF8795 /* Anchor.swift in Sources */,
 				244F72EFDF7DB723428B4354 /* UIView+SpecificLayoutGuide.swift in Sources */,
@@ -3565,10 +3536,38 @@
 				244F7BF8680862B8FB694630 /* ActionTextDialog.swift in Sources */,
 				244F7A0A4C475EE3E5BA62DC /* ActionTextDialog+Style.swift in Sources */,
 				244F78030F84E723F7CDE265 /* UIView+Tools.swift in Sources */,
-				244F7BCD1FB7FFFC492AB9DD /* UIImage+Style.swift in Sources */,
 				244F794BD9A5DD53BA10220B /* UIImage+Tools.swift in Sources */,
 				244F73ACD595FE1CA914AD48 /* UILabel+Style.swift in Sources */,
-				402EBB8110DA93651A3C4311 /* DevHostService.swift in Sources */,
+				402EB9DA344BA27325A3DB1B /* UILayoutPriority+Tools.swift in Sources */,
+				402EBF31C60A443E2591A2C2 /* NSLayoutConstraint+Tools.swift in Sources */,
+				402EB9551C1738EA4D59879D /* Localization.swift in Sources */,
+				402EB4369F4F61FF5A99DE06 /* KeyValueStoring.swift in Sources */,
+				402EB3A7FE79F072DF96E472 /* UserDefaultsStorage.swift in Sources */,
+				402EB9D228B2B517E0F5E64B /* SettingsService.swift in Sources */,
+				402EB16828AAB0E603D5F06B /* DevHostService.swift in Sources */,
+				402EB9E52D424E304CCC2D1C /* TableViewController.swift in Sources */,
+				402EBE8781F0829292E715B3 /* CellDescriptor.swift in Sources */,
+				402EB745758192AE1E7E8950 /* SectionDescriptor.swift in Sources */,
+				402EBC781C638344090C06B5 /* TableViewCellDataProviderSupport.swift in Sources */,
+				402EB780DE3C44ED4F36A735 /* DecimalPriceViewModel.swift in Sources */,
+				402EB6BFF3C4303ACB60B4F0 /* SettingsViewController.swift in Sources */,
+				402EB8829DE5FC540B216CED /* AttachedCardCountViewController.swift in Sources */,
+				402EBB3F73CC2B61B7E4185B /* TestSettingsViewController.swift in Sources */,
+				402EB4DC5AAC097E3992B6DE /* SuccessViewController.swift in Sources */,
+				402EB82DE37467B20D37A0DA /* ContainerTableViewCell.swift in Sources */,
+				402EBA28BDEC047ACEC826EB /* TitledSwitchView.swift in Sources */,
+				402EB16B699BE1490631CD94 /* TextValueView.swift in Sources */,
+				402EBEC35B22ED20C4D19064 /* TextHeaderFooterView.swift in Sources */,
+				402EB205C1A8B8F415A69FE3 /* Settings.swift in Sources */,
+				402EB2D7B6AFB39DD6D031EA /* TestSettings.swift in Sources */,
+				402EB2CDFEA5DFD482368CB7 /* PriceInputFormatter.swift in Sources */,
+				402EBAF9908F2D730ACBAC9C /* PriceInputPresenterStyle.swift in Sources */,
+				402EB818261B19CDDA87A742 /* UIImage+Style.swift in Sources */,
+				402EB298F1AE999AFACE7199 /* PriceInputViewController.swift in Sources */,
+				402EBBB363E57F75D5981D1B /* PriceFormatter.swift in Sources */,
+				402EB1B3893D7061BFCF6D07 /* RootViewController.swift in Sources */,
+				402EB75DDF67CEA21BDB7074 /* RootViewController+TokenizationModuleOutput.swift in Sources */,
+				402EBBE45D43FB68B4D751EC /* RootViewController+CardScanning+Pods.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3590,22 +3589,6 @@
 				303FD05E21B92ECD00CE82B4 /* ru */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		E0148CD91FE958810087CF5F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E0148CDA1FE958810087CF5F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		E0148CDE1FE958810087CF5F /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E0148CDF1FE958810087CF5F /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 		E06532CA1FF150FE00831588 /* Localizable.strings */ = {
@@ -3891,10 +3874,10 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = YandexCheckoutPaymentsExample/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPaymentsExample;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3916,13 +3899,13 @@
 					"\"$PODS_CONFIGURATION_BUILD_DIR/YandexCheckoutPayments\"",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = YandexCheckoutPaymentsExample/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "YandexCheckoutPaymentsExample/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "YandexCheckoutPaymentsExample/Source/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3940,10 +3923,10 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = YandexCheckoutPaymentsExample/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPaymentsExample;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3962,10 +3945,10 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = YandexCheckoutPaymentsExample/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPaymentsExample.inhouse;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3987,14 +3970,14 @@
 					"\"$PODS_CONFIGURATION_BUILD_DIR/YandexCheckoutPayments\"",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = YandexCheckoutPaymentsExample/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_COMPILATION_MODE = wholemodule;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "YandexCheckoutPaymentsExample/Bridging-Header.h";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "YandexCheckoutPaymentsExample/Source/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4015,13 +3998,13 @@
 					"\"$PODS_CONFIGURATION_BUILD_DIR/YandexCheckoutPayments\"",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = YandexCheckoutPaymentsExample/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.inhouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "YandexCheckoutPaymentsExample/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "YandexCheckoutPaymentsExample/Source/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -6,7 +6,7 @@ struct PriceInputPresenterStyle: InputPresenterStyle {
     private let integerPartLength = 6
 
     func removedFormatting(from string: String) -> String {
-        let components = string.components(separatedBy: PriceConstants.decimalSeparator)
+        let components = string.components(separatedBy: PriceFormatter.decimalSeparator)
         var integerPart: String = ""
         var fractionalPart: String = ""
 
@@ -20,7 +20,7 @@ struct PriceInputPresenterStyle: InputPresenterStyle {
         if components.count > 1 {
             let fraction = components[1].components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
             let limitFraction = fraction.prefix(fractionPartLength)
-            fractionalPart = PriceConstants.decimalSeparator + String(limitFraction)
+            fractionalPart = PriceFormatter.decimalSeparator + String(limitFraction)
         }
 
         return integerPart + fractionalPart

@@ -1,16 +1,44 @@
 {
   "warnings": [
     {
-      "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Atomic Design/Molecules/UIKit+Styles/UIButton+Style.swift",
-      "line": 184,
-      "symbol": "UIButton.tintColorDidChange()",
+      "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Atomic Design/Formatters/InputPresenter/InputView.swift",
+      "line": null,
+      "symbol": "InputView",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Atomic Design/Templates/ModalTemplate.swift",
+      "line": null,
+      "symbol": "ModalTemplate",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Atomic Design/Templates/ModalTemplate.swift",
+      "line": 136,
+      "symbol": "ModalTemplate.navigationBar(_:shouldPop:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Atomic Design/Molecules/UIKit+Styles/UIButton+Style.swift",
-      "line": 189,
-      "symbol": "UIButton.intrinsicContentSize",
+      "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Atomic Design/Templates/PageSheetTemplate.swift",
+      "line": null,
+      "symbol": "PageSheetTemplate",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Atomic Design/Templates/PageSheetTemplate.swift",
+      "line": 205,
+      "symbol": "PageSheetTemplate.navigationBar(_:shouldPop:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Models/Public/PaymentMethodTypes.swift",
+      "line": 6,
+      "symbol": "PaymentMethodTypes.rawValue",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
@@ -22,10 +50,31 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Models/Public/PaymentMethodTypes.swift",
+      "line": 30,
+      "symbol": "PaymentMethodTypes.init(rawValue:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Modules/ApplePay/View/PKPaymentAuthorizationViewController+Presentable.swift",
       "line": 15,
       "symbol": "PKPaymentAuthorizationViewController.hasNavigationBar",
       "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Modules/PaymentMethods/PaymentMethodsViewIO.swift",
+      "line": null,
+      "symbol": "PaymentMethodViewModel",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-swift/YandexCheckoutPayments/Services/YamoneyLogin/YamoneyLoginProcessing.swift",
+      "line": null,
+      "symbol": "YamoneyLoginProcessingError",
+      "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     }
   ],

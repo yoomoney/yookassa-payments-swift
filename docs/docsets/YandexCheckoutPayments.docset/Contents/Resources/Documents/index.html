@@ -13,7 +13,7 @@
     <a title="YandexCheckoutPayments  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">YandexCheckoutPayments Docs</a> (93% documented)</p>
+        <p><a href="index.html">YandexCheckoutPayments Docs</a> (82% documented)</p>
         <p class="header-right"><a href="https://github.com/yandex-money/yandex-checkout-payments-swift"><img src="img/gh.png"/>View on GitHub</a></p>
         <p class="header-right"><a href="dash-feed://https%3A%2F%2Fyandex%2Dmoney%2Egithub%2Eio%2Fdocsets%2FYandexCheckoutPayments%2Exml"><img src="img/dash.png"/>Install in Dash</a></p>
       </div>
@@ -51,10 +51,13 @@
             <a href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Extensions/ModalTemplate.html">ModalTemplate</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Extensions/PKPaymentAuthorizationViewController.html">PKPaymentAuthorizationViewController</a>
               </li>
               <li class="nav-group-task">
-                <a href="Extensions/UIButton.html">UIButton</a>
+                <a href="Extensions/PageSheetTemplate.html">PageSheetTemplate</a>
               </li>
             </ul>
           </li>
@@ -98,14 +101,6 @@
               </li>
             </ul>
           </li>
-          <li class="nav-group-name">
-            <a href="Typealiases.html">Type Aliases</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Typealiases.html#/s:22YandexCheckoutPayments38ThreatMetrixProfilingCompletionHandlera">ThreatMetrixProfilingCompletionHandler</a>
-              </li>
-            </ul>
-          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -114,101 +109,521 @@
             
             <h1 id='yandex-checkout-payments-sdk' class='heading'>Yandex Checkout Payments SDK</h1>
 
-<p><a href="https://travis-ci.org/yandex-money/yandex-checkout-payments-swift"><img src="https://travis-ci.org/yandex-money/yandex-checkout-payments-swift.svg?branch=master" alt="Build Status"></a>
-<a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage Compatible"></a>
+<p><a href="https://img.shields.io/badge/Support-iOS%208%2B-brightgreen.svg"><img src="https://img.shields.io/badge/Support-iOS%208%2B-brightgreen.svg" alt="Platform"></a>
 <a href="https://img.shields.io/github/tag/yandex-money/yandex-checkout-payments-swift.svg"><img src="https://img.shields.io/github/tag/yandex-money/yandex-checkout-payments-swift.svg" alt="GitHub tag"></a>
-<a href="https://img.shields.io/cocoapods/v/yandex-money/yandex-checkout-payments-swift.svg"><img src="https://img.shields.io/cocoapods/v/yandex-money/yandex-checkout-payments-swift.svg" alt="CocoaPods"></a>
-<a href="https://img.shields.io/cocoapods/at/yandex-money/yandex-checkout-payments-swift.svg"><img src="https://img.shields.io/cocoapods/at/yandex-money/yandex-checkout-payments-swift.svg" alt="CocoaPods"></a>
+<a href="docs/badge.svg"><img src="docs/badge.svg" alt="Documentation"></a>
 <a href="https://img.shields.io/github/license/yandex-money/yandex-checkout-payments-swift.svg"><img src="https://img.shields.io/github/license/yandex-money/yandex-checkout-payments-swift.svg" alt="license"></a></p>
-<h2 id='overview' class='heading'>Overview</h2>
 
-<p>This library allows you to make payments via Yandex.Money APIv3 easily with our incredible UI.</p>
-<h2 id='usage' class='heading'>Usage</h2>
-<h3 id='setup-yandex-login' class='heading'>Setup Yandex.Login</h3>
+<p>Библиотека позволяет встроить прием платежей в мобильные приложения на iOS и работает как дополнение к API Яндекс.Кассы.\
+В mSDK входят готовые платежные интерфейсы (форма оплаты и всё, что с ней связано).\
+С помощью mSDK можно получать токены для проведения оплаты с банковской карты, Apple Pay, Сбербанка или из кошелька в Яндекс.Деньгах.</p>
 
 <ul>
-<li>Register your App at <a href="https://oauth.yandex.ru/">OAuth Yandex</a> and save your <strong>ID</strong>.</li>
-<li>Add to yor <strong>info.plist</strong>:</li>
+<li><a href="https://github.com/yandex-money/yandex-checkout-payments-swift/tree/master/YandexCheckoutPayments">Код библиотеки</a></li>
+<li><a href="https://github.com/yandex-money/yandex-checkout-payments-swift/tree/master/YandexCheckoutPaymentsExample">Код демо-приложения, которое интегрирует mSDK</a></li>
+<li><a href="https://yandex-money.github.io/yandex-checkout-payments-swift/">Документация</a></li>
 </ul>
-<pre class="highlight plaintext"><code>&lt;key&gt;LSApplicationQueriesSchemes&lt;/key&gt;
-&lt;array&gt;
-    &lt;string&gt;yandexauth&lt;/string&gt;
-    &lt;string&gt;yandexauth2&lt;/string&gt;
-&lt;/array&gt;
+<h2 id='' class='heading'>Содержание</h2>
+
+<ul>
+<li><a href="#%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B7%D0%B0%D0%B2%D0%B8%D1%81%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B5%D0%B9">Подключение зависимостей</a>
+
+<ul>
+<li><a href="#cocoapods">CocoaPods</a></li>
+<li><a href="#carthage">Carthage</a></li>
+<li><a href="#trustdefender.framework">TrustDefender.framework</a></li>
+</ul></li>
+<li><a href="#%D0%B1%D1%8B%D1%81%D1%82%D1%80%D0%B0%D1%8F-%D0%B8%D0%BD%D1%82%D0%B5%D0%B3%D1%80%D0%B0%D1%86%D0%B8%D1%8F">Быстрая интеграция</a></li>
+<li><a href="#%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D1%8B%D0%B5-%D1%81%D0%BF%D0%BE%D1%81%D0%BE%D0%B1%D1%8B-%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D1%8B">Доступные способы оплаты</a></li>
+<li><a href="#%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0-%D1%81%D0%BF%D0%BE%D1%81%D0%BE%D0%B1%D0%BE%D0%B2-%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D1%8B">Настройка способов оплаты</a>
+
+<ul>
+<li><a href="#%D1%8F%D0%BD%D0%B4%D0%B5%D0%BA%D1%81.%D0%B4%D0%B5%D0%BD%D1%8C%D0%B3%D0%B8">Яндекс.Деньги</a></li>
+<li><a href="#%D0%B1%D0%B0%D0%BD%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F-%D0%BA%D0%B0%D1%80%D1%82%D0%B0">Банковская карта</a></li>
+<li><a href="#%D1%81%D0%B1%D0%B5%D1%80%D0%B1%D0%B0%D0%BD%D0%BA-%D0%BE%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD">Сбербанк Онлайн</a></li>
+<li><a href="#apple-pay">Apple Pay</a></li>
+</ul></li>
+<li><a href="#%D0%BE%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B2%D1%85%D0%BE%D0%B4%D0%BD%D1%8B%D1%85-%D0%BF%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D0%BE%D0%B2">Описание входных параметров</a>
+
+<ul>
+<li><a href="#tokenizationModuleInputData">TokenizationModuleInputData</a></li>
+<li><a href="#tokenizationSettings">TokenizationSettings</a></li>
+<li><a href="#testModeSettings">TestModeSettings</a></li>
+<li><a href="#amount">Amount</a></li>
+<li><a href="#currency">Currency</a></li>
+</ul></li>
+<li><a href="#%D1%81%D0%BA%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B1%D0%B0%D0%BD%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85-%D0%BA%D0%B0%D1%80%D1%82">Сканирование банковских карт</a></li>
+<li><a href="#%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0-3d-secure">Настройка 3D Secure</a></li>
+<li><a href="#%D0%BB%D0%BE%D0%B3%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">Логирование</a></li>
+<li><a href="#%D1%82%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D1%8B%D0%B9-%D1%80%D0%B5%D0%B6%D0%B8%D0%BC">Тестовый режим</a></li>
+<li><a href="#%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D0%BA-example">Запуск Example</a></li>
+</ul>
+<h3 id='' class='heading'>Подключение зависимостей</h3>
+<h4 id='cocoapods' class='heading'>CocoaPods</h4>
+
+<ol>
+<li>Установите CocoaPods</li>
+</ol>
+<pre class="highlight shell"><code>  gem install cocoapods
 </code></pre>
 
+<ol>
+<li>Добавьте зависимости в <code>Podfile</code>.\
+<a href="https://github.com/yandex-money/yandex-checkout-payments-swift/tree/master/YandexCheckoutPaymentsExample/Podfile-example">Пример</a> <code>Podfile</code> из демо-приложения.</li>
+</ol>
+<pre class="highlight shell"><code>  <span class="nb">source</span> <span class="s1">'https://github.com/CocoaPods/Specs.git'</span>
+  platform :ios, <span class="s1">'8.0'</span>
+  use_frameworks!
+
+  target <span class="s1">'Your Target Name'</span> <span class="k">do
+    </span>pod <span class="s1">'YandexCheckoutPayments'</span>,
+      :git <span class="o">=</span>&gt; <span class="s1">'https://github.com/yandex-money/yandex-checkout-payments-swift.git'</span>,
+      :tag <span class="o">=</span>&gt; <span class="s1">'tag'</span>
+  end
+</code></pre>
+
+<blockquote>
+<p><code>Your Target Name</code> - название таргета в Xcode для вашего приложения.\
+<code>tag</code> - версия mSDK. Актуальную версию можно узнать на github в разделе <a href="https://github.com/yandex-money/yandex-checkout-payments-swift/releases">releases</a>.</p>
+</blockquote>
+
+<ol>
+<li>Добавьте библиотеку TrustDefender.framework в папку Frameworks.\
+Подробнее про TrustDefender <a href="#trustDefender.framework">тут</a>.</li>
+</ol>
+<pre class="highlight plaintext"><code>  App
+  ├─ Pods
+  └─ Frameworks
+     └─ TrustDefender.framework
+</code></pre>
+<h4 id='carthage' class='heading'>Carthage</h4>
+
+<p>На данный момент Carthage не поддерживается.</p>
+<h4 id='trustdefender-framework' class='heading'>TrustDefender.framework</h4>
+
+<p>Файл <code>.framework</code> можно получить только после подключения <a href="https://kassa.yandex.ru/joinups">Яндекс.Кассы</a>.\
+Необходимо сообщить вашему менеджеру по подключению что вы хотите подключить mSDK.</p>
+<h3 id='' class='heading'>Быстрая интеграция</h3>
+
+<ol>
+<li>Создайте <code><a href="Structs/TokenizationModuleInputData.html">TokenizationModuleInputData</a></code>. Вам понадобится ключ для клиентских приложений из личного кабинета Яндекс.Кассы. В этой модели передаются параметры платежа (валюта и сумма), параметры платежной формы, которые увидит пользователь при оплате (способы оплаты, название магазина и описание заказа).</li>
+</ol>
+
+<blockquote>
+<p>Для работы с сущностями YandexCheckoutPayments необходимо импортировать зависимости в исходный файл.</p>
+</blockquote>
+<pre class="highlight swift"><code>  <span class="kd">import</span> <span class="kt">YandexCheckoutPayments</span>
+  <span class="kd">import</span> <span class="kt">YandexCheckoutPaymentsApi</span>
+</code></pre>
+
+<p>Пример создания <code><a href="Structs/TokenizationModuleInputData.html">TokenizationModuleInputData</a></code>:</p>
+<pre class="highlight swift"><code>  <span class="k">let</span> <span class="nv">clientApplicationKey</span> <span class="o">=</span> <span class="s">"&lt;Ключ для клиентских приложений&gt;"</span>
+  <span class="k">let</span> <span class="nv">amount</span> <span class="o">=</span> <span class="kt">Amount</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mf">999.99</span><span class="p">,</span> <span class="nv">currency</span><span class="p">:</span> <span class="o">.</span><span class="n">rub</span><span class="p">)</span>
+  <span class="k">let</span> <span class="nv">inputData</span> <span class="o">=</span> <span class="kt">TokenizationModuleInputData</span><span class="p">(</span><span class="nv">clientApplicationKey</span><span class="p">:</span> <span class="n">clientApplicationKey</span><span class="p">,</span>
+                                              <span class="nv">shopName</span><span class="p">:</span> <span class="s">"Космические объекты"</span><span class="p">,</span>
+                                              <span class="nv">purchaseDescription</span><span class="p">:</span> <span class="s">"""
+                                                  Комета повышенной яркости, период обращения — 112 лет
+                                                  """</span><span class="p">,</span>
+                                              <span class="nv">amount</span><span class="p">:</span> <span class="n">amount</span><span class="p">)</span>
+</code></pre>
+
+<ol>
+<li>Создайте <code>ViewController</code> из <code><a href="Enums/TokenizationAssembly.html">TokenizationAssembly</a></code> и выведите его на экран.</li>
+</ol>
+<pre class="highlight swift"><code>  <span class="k">let</span> <span class="nv">viewController</span> <span class="o">=</span> <span class="kt">TokenizationAssembly</span><span class="o">.</span><span class="nf">makeModule</span><span class="p">(</span><span class="nv">inputData</span><span class="p">:</span> <span class="n">inputData</span><span class="p">,</span>
+                                                       <span class="nv">moduleOutput</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+  <span class="nf">present</span><span class="p">(</span><span class="n">viewController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+</code></pre>
+
+<p>В <code>moduleOutput</code> необходимо передать объект который реализует протокол <code><a href="Protocols/TokenizationModuleOutput.html">TokenizationModuleOutput</a></code>.</p>
+
+<ol>
+<li>Реализуйте протокол <code><a href="Protocols/TokenizationModuleOutput.html">TokenizationModuleOutput</a></code>.</li>
+</ol>
+<pre class="highlight swift"><code>  <span class="kd">extension</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">TokenizationModuleOutput</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">tokenizationModule</span><span class="p">(</span><span class="n">_</span> <span class="nv">module</span><span class="p">:</span> <span class="kt">TokenizationModuleInput</span><span class="p">,</span>
+                            <span class="n">didTokenize</span> <span class="nv">token</span><span class="p">:</span> <span class="kt">Tokens</span><span class="p">,</span>
+                            <span class="nv">paymentMethodType</span><span class="p">:</span> <span class="kt">PaymentMethodType</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
+          <span class="k">guard</span> <span class="k">let</span> <span class="nv">strongSelf</span> <span class="o">=</span> <span class="k">self</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+          <span class="n">strongSelf</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="c1">// Отправьте токен в вашу систему</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">didFinish</span><span class="p">(</span><span class="n">on</span> <span class="nv">module</span><span class="p">:</span> <span class="kt">TokenizationModuleInput</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
+            <span class="k">guard</span> <span class="k">let</span> <span class="nv">strongSelf</span> <span class="o">=</span> <span class="k">self</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+            <span class="n">strongSelf</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre>
+
+<p>Закройте <code>ViewController</code> и отправьте токен в вашу систему. Затем <a href="https://kassa.yandex.ru/docs/guides/#custom">создайте платеж</a> по API Яндекс.Кассы, в параметре <code>payment_token</code> передайте токен, полученный в SDK. Способ подтверждения при создании платежа зависит от способа оплаты, который выбрал пользователь. Он приходит вместе с токеном в <code>paymentMethodType</code>.</p>
+<h3 id='' class='heading'>Доступные способы оплаты</h3>
+
+<p>Сейчас в SDK для iOS доступны следующие способы оплаты:</p>
+
+<p><code>.yandexMoney</code> — Яндекс.Деньги (платежи из кошелька или привязанной картой);
+<code>.bankCard</code> — банковская карта (карты можно сканировать);
+<code>.sberbank</code> — Сбербанк Онлайн (с подтверждением по смс);
+<code>.applePay</code> — Apple Pay.</p>
+<h3 id='' class='heading'>Настройка способов оплаты</h3>
+
+<p>У вас есть возможность сконфигурировать способы оплаты.\
+Для этого необходимо при создании <code><a href="Structs/TokenizationModuleInputData.html">TokenizationModuleInputData</a></code> в параметр <code>tokenizationSettings</code> передать модель типа <code><a href="Structs/TokenizationSettings.html">TokenizationSettings</a></code>.</p>
+
+<blockquote>
+<p>Для некоторых способ оплаты потребуется дополнительная настройка.\
+По каждому способу оплаты где необходима дополнительная настройка есть инструкция ниже.\
+По умолчанию используются все доступные способы оплаты.</p>
+</blockquote>
+<pre class="highlight swift"><code><span class="c1">// Создайте пустой OptionSet PaymentMethodTypes</span>
+<span class="k">var</span> <span class="nv">paymentMethodTypes</span><span class="p">:</span> <span class="kt">PaymentMethodTypes</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">if</span> <span class="o">&lt;</span><span class="kt">Условие</span> <span class="n">для</span> <span class="n">банковской</span> <span class="n">карты</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="c1">// Добавляем в paymentMethodTypes элемент `.bankCard`</span>
+    <span class="n">paymentMethodTypes</span><span class="o">.</span><span class="nf">insert</span><span class="p">(</span><span class="o">.</span><span class="n">bankCard</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="o">&lt;</span><span class="kt">Условие</span> <span class="n">для</span> <span class="kt">Сбербанка</span> <span class="kt">Онлайн</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="c1">// Добавляем в paymentMethodTypes элемент `.sberbank`</span>
+    <span class="n">paymentMethodTypes</span><span class="o">.</span><span class="nf">insert</span><span class="p">(</span><span class="o">.</span><span class="n">sberbank</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="o">&lt;</span><span class="kt">Условие</span> <span class="n">для</span> <span class="kt">Яндекс</span><span class="o">.</span><span class="kt">Денег</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="c1">// Добавляем в paymentMethodTypes элемент `.yandexMoney`</span>
+    <span class="n">paymentMethodTypes</span><span class="o">.</span><span class="nf">insert</span><span class="p">(</span><span class="o">.</span><span class="n">yandexMoney</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="o">&lt;</span><span class="kt">Условие</span> <span class="n">для</span> <span class="kt">Apple</span> <span class="kt">Pay</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="c1">// Добавляем в paymentMethodTypes элемент `.applePay`</span>
+    <span class="n">paymentMethodTypes</span><span class="o">.</span><span class="nf">insert</span><span class="p">(</span><span class="o">.</span><span class="n">applePay</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">tokenizationSettings</span> <span class="o">=</span> <span class="kt">TokenizationSettings</span><span class="p">(</span><span class="nv">paymentMethodTypes</span><span class="p">:</span> <span class="n">paymentMethodTypes</span><span class="p">)</span>
+</code></pre>
+
+<p>Теперь используйте <code>tokenizationSettings</code> при инициализации <code><a href="Structs/TokenizationModuleInputData.html">TokenizationModuleInputData</a></code>.</p>
+<h4 id='' class='heading'>Яндекс.Деньги</h4>
+
+<p>Чтобы принимать платежи из кошельков в Яндекс.Деньгах, необходима авторизация в Яндексе.</p>
+
+<ol>
+<li><p>Зарегистрируйте свое приложение в <a href="https://oauth.yandex.ru/">Яндекс.OAuth</a> и сохраните <strong>ID</strong>.</p>
+
 <ul>
-<li>In <em>Capabilities</em> section of you Project enable <em>Associated Domains</em> and add domain: <code>applinks:yx&lt;ID&gt;.oauth.yandex.ru</code> where <code>&lt;ID&gt;</code> is <strong>ID</strong> from first step. For instance if your App <strong>ID</strong> is 333, the domain is <code>applinks:yx333.oauth.yandex.ru</code></li>
-<li>Add into <em>AppDelegate</em>:</li>
-</ul>
+<li>Введите название приложения.</li>
+<li>В разделе <strong>API Яндекс.Паспорта</strong> необходимо выбрать <strong>Доступ к логину, имени и фамилии, полу</strong></li>
+</ul></li>
+<li><p>Добавьте в Info.plist следующие строки:</p></li>
+</ol>
+<pre class="highlight plaintext"><code>  &lt;key&gt;LSApplicationQueriesSchemes&lt;/key&gt;
+  &lt;array&gt;
+      &lt;string&gt;yandexauth&lt;/string&gt;
+      &lt;string&gt;yandexauth2&lt;/string&gt;
+  &lt;/array&gt;
+  &lt;key&gt;CFBundleURLTypes&lt;/key&gt;
+  &lt;array&gt;
+      &lt;dict&gt;
+          &lt;key&gt;CFBundleURLName&lt;/key&gt;
+          &lt;string&gt;YandexLoginSDK&lt;/string&gt;
+          &lt;key&gt;CFBundleURLSchemes&lt;/key&gt;
+          &lt;array&gt;
+              &lt;string&gt;yx&lt;ID из Яндекс.OAuth&gt;&lt;/string&gt;
+          &lt;/array&gt;
+      &lt;/dict&gt;
+  &lt;/array&gt;
+</code></pre>
+
+<ol>
+<li>Настройте Entitlements</li>
+</ol>
+
+<p>В своем проекте в разделе <code>Capabilities</code> включите <code>Associated Domains</code> и добавьте домен по шаблону:</p>
+
+<blockquote>
+<p>applinks:yx<ID из Яндекс.OAuth>.oauth.yandex.ru.</p>
+</blockquote>
+
+<p>Например, если ваш ID из Яндекс.OAuth — <code>333</code>, домен будет таким:</p>
+
+<blockquote>
+<p>applinks:yx333.oauth.yandex.ru.</p>
+</blockquote>
+
+<ol>
+<li>Добавьте код из примера в AppDelegate.</li>
+</ol>
 <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">_</span> <span class="nv">application</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span>
-                 <span class="n">didFinishLaunchingWithOptions</span> <span class="nv">launchOptions</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIApplicationLaunchOptionsKey</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+                 <span class="n">didFinishLaunchingWithOptions</span> <span class="nv">launchOptions</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIApplication</span><span class="o">.</span><span class="kt">LaunchOptionsKey</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
     <span class="k">do</span> <span class="p">{</span>
-        <span class="k">try</span> <span class="kt">YandexLoginService</span><span class="o">.</span><span class="nf">activate</span><span class="p">(</span><span class="nv">withAppId</span><span class="p">:</span> <span class="cm">/* Your App ID */</span><span class="p">)</span>
+        <span class="k">try</span> <span class="kt">YandexLoginService</span><span class="o">.</span><span class="nf">activate</span><span class="p">(</span><span class="nv">withAppId</span><span class="p">:</span> <span class="cm">/* ID из Яндекс.OAuth */</span><span class="p">)</span>
     <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
         <span class="c1">// process error</span>
     <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">true</span>
 <span class="p">}</span>
 
 <span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">_</span> <span class="nv">application</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span>
                  <span class="k">continue</span> <span class="nv">userActivity</span><span class="p">:</span> <span class="kt">NSUserActivity</span><span class="p">,</span>
-                 <span class="nv">restorationHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">([</span><span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+                 <span class="nv">restorationHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">([</span><span class="kt">UIUserActivityRestoring</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
     <span class="kt">YandexLoginService</span><span class="o">.</span><span class="nf">processUserActivity</span><span class="p">(</span><span class="n">userActivity</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">true</span>
 <span class="p">}</span>
 
 <span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">_</span> <span class="nv">app</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span>
                  <span class="kd">open</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span>
-                 <span class="nv">options</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIApplicationOpenURLOptionsKey</span><span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+                 <span class="nv">options</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIApplication</span><span class="o">.</span><span class="kt">OpenURLOptionsKey</span><span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
     <span class="k">return</span> <span class="kt">YandexLoginService</span><span class="o">.</span><span class="nf">handleOpen</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="nv">sourceApplication</span><span class="p">:</span> <span class="n">options</span><span class="p">[</span><span class="o">.</span><span class="n">sourceApplication</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">String</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre>
-<h3 id='payments' class='heading'>Payments</h3>
 
-<p>First you need to get <a href="https://money.yandex.ru/my/tunes">client application key</a> and create <code><a href="Structs/TokenizationModuleInputData.html">TokenizationModuleInputData</a></code>.</p>
-<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">YandexCheckoutPayments</span>
+<p>Чтобы провести платеж:</p>
 
-<span class="c1">// Your clientId and clientSecret</span>
-<span class="k">let</span> <span class="nv">clientApplicationKey</span> <span class="o">=</span> <span class="s">"&lt;Past your client application key here&gt;"</span>
-<span class="k">let</span> <span class="nv">amount</span> <span class="o">=</span> <span class="kt">Amount</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="o">&lt;</span><span class="kt">Past</span> <span class="n">price</span> <span class="n">of</span> <span class="n">purchase</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">currency</span><span class="p">:</span> <span class="o">&lt;</span><span class="kt">Past</span> <span class="n">currency</span><span class="o">&gt;</span><span class="p">),</span>
+<ol>
+<li>При создании <code><a href="Structs/TokenizationModuleInputData.html">TokenizationModuleInputData</a></code> передайте значение <code>.yandexMoney</code> в <code>paymentMethodTypes.</code></li>
+<li>Получите токен.</li>
+<li><a href="https://kassa.yandex.ru/docs/guides#custom">Создайте платеж</a> с токеном по API Яндекс.Кассы.</li>
+</ol>
+<h4 id='' class='heading'>Банковская карта</h4>
 
-<span class="k">let</span> <span class="nv">inputData</span> <span class="o">=</span> <span class="kt">TokenizationModuleInputData</span><span class="p">(</span><span class="nv">clientApplicationKey</span><span class="p">:</span> <span class="n">clientApplicationKey</span><span class="p">,</span>
-                                            <span class="nv">shopName</span><span class="p">:</span> <span class="s">"&lt;Past your shop name here&gt;"</span><span class="p">,</span>
-                                            <span class="nv">purchaseDescription</span><span class="p">:</span> <span class="s">"""
-                                                    &lt;Past description of purchase here&gt;
-                                                    """</span><span class="p">,</span>
-                                            <span class="nv">amount</span><span class="p">:</span> <span class="n">amount</span><span class="p">)</span>
+<ol>
+<li>При создании <code><a href="Structs/TokenizationModuleInputData.html">TokenizationModuleInputData</a></code> передайте значение <code>.bankcard</code> в <code>paymentMethodTypes</code>.</li>
+<li>Получите токен.</li>
+<li><a href="https://kassa.yandex.ru/docs/guides#custom">Создайте платеж</a> с токеном по API Яндекс.Кассы.</li>
+</ol>
+<h4 id='' class='heading'>Сбербанк Онлайн</h4>
+
+<p>С помощью SDK можно провести платеж через «Мобильный банк» Сбербанка — с подтверждением оплаты по смс:</p>
+
+<ol>
+<li>При создании <code><a href="Structs/TokenizationModuleInputData.html">TokenizationModuleInputData</a></code> передайте значение <code>.sberbank</code> в <code>paymentMethodTypes</code>.</li>
+<li>Получите токен.</li>
+<li><a href="https://kassa.yandex.ru/docs/guides#custom">Создайте платеж</a> с токеном по API Яндекс.Кассы.</li>
+</ol>
+<h4 id='apple-pay' class='heading'>Apple Pay</h4>
+
+<ol>
+<li>Чтобы подключить Apple Pay, нужно передать Яндекс.Кассе сертификат, с помощью которого Apple будет шифровать данные банковских карт.</li>
+</ol>
+
+<p>Для этого:</p>
+
+<ul>
+<li>Напишите менеджеру и попросите создать для вас запрос на сертификат (<code>.csr</code>).</li>
+<li>Используйте <code>.csr</code> в панели разработчика Apple чтобы создать сертификат.</li>
+<li>Скачайте получившийся сертификат и пришлите менеджеру.</li>
+</ul>
+
+<p><a href="https://kassa.yandex.ru/files/manual_connection_Apple_Pay(website).pdf">Подробная инструкция</a> (см. раздел 2 «Обмен сертификатами с Apple»)</p>
+
+<ol>
+<li>Включите Apple Pay в Xcode.</li>
+</ol>
+
+<p>Чтобы провести платеж:</p>
+
+<ol>
+<li>При инициализации объекта <code><a href="Structs/TokenizationModuleInputData.html">TokenizationModuleInputData</a></code> необходимо передать <a href="https://help.apple.com/xcode/mac/current/#/deva43983eb7?sub=dev171483d6e">apple pay identifier</a> в параметр <code>applePayMerchantIdentifier</code>.</li>
+</ol>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">moduleData</span> <span class="o">=</span> <span class="kt">TokenizationModuleInputData</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="nv">applePayMerchantIdentifier</span><span class="p">:</span> <span class="s">"&lt;com.example...&gt;"</span><span class="p">)</span>
 </code></pre>
 
-<p>To start tokenization process you need to create Tokenization View controller from Tokenization assembly and present
-received view controller.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">viewController</span> <span class="o">=</span> <span class="kt">TokenizationAssembly</span><span class="o">.</span><span class="nf">makeModule</span><span class="p">(</span><span class="nv">inputData</span><span class="p">:</span> <span class="n">inputData</span><span class="p">,</span>
-                                                     <span class="nv">moduleOutput</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
-<span class="nf">present</span><span class="p">(</span><span class="n">viewController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
-</code></pre>
+<ol>
+<li>Получите токен.</li>
+<li><a href="https://kassa.yandex.ru/docs/guides#custom">Создайте платеж</a> с токеном по API Яндекс.Кассы.</li>
+</ol>
+<h3 id='' class='heading'>Описание входных параметров</h3>
+<h4 id='tokenizationmoduleinputdata' class='heading'>TokenizationModuleInputData</h4>
 
-<p>When the payment process is complete you should dismiss received view controller and send token to your back-end:</p>
-<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">tokenizationModule</span><span class="p">(</span><span class="n">_</span> <span class="nv">module</span><span class="p">:</span> <span class="kt">TokenizationModuleInput</span><span class="p">,</span>
-                        <span class="n">didTokenize</span> <span class="nv">token</span><span class="p">:</span> <span class="kt">Tokens</span><span class="p">,</span>
-                        <span class="nv">paymentMethodType</span><span class="p">:</span> <span class="kt">PaymentMethodType</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
-        <span class="k">guard</span> <span class="k">let</span> <span class="nv">strongSelf</span> <span class="o">=</span> <span class="k">self</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
-        <span class="n">strongSelf</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="c1">// Send token to your back-end</span>
-<span class="p">}</span>
+<blockquote>
+<p>Обязательные:</p>
+</blockquote>
 
-<span class="kd">func</span> <span class="nf">didFinish</span><span class="p">(</span><span class="n">on</span> <span class="nv">module</span><span class="p">:</span> <span class="kt">TokenizationModuleInput</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
-        <span class="k">guard</span> <span class="k">let</span> <span class="nv">strongSelf</span> <span class="o">=</span> <span class="k">self</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
-        <span class="n">strongSelf</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre>
-<h3 id='cardscanning' class='heading'>CardScanning</h3>
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>clientApplicationKey</td>
+<td>String</td>
+<td>Ключ для клиентских приложений из личного кабинета Яндекс.Кассы.</td>
+</tr>
+<tr>
+<td>shopName</td>
+<td>String</td>
+<td>Название магазина в форме оплаты</td>
+</tr>
+<tr>
+<td>purchaseDescription</td>
+<td>String</td>
+<td>Описание заказа в форме оплаты</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>Amount</td>
+<td>Объект, содержащий сумму заказа и валюту</td>
+</tr>
+</tbody></table>
 
-<p>If you want to use a scan card, you must implement the protocol CardScanning and pass this object to 
-TokenizationModuleInputData. </p>
+<blockquote>
+<p>Необязательные:</p>
+</blockquote>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>gatewayId</td>
+<td>String</td>
+<td>По умолчанию <code>nil</code>. Идентификатор шлюза, выдается в Яндекс.Кассе. По умолчанию <code>nil</code>. Используется, если у вас несколько платежных шлюзов с разными идентификаторами.</td>
+</tr>
+<tr>
+<td>tokenizationSettings</td>
+<td>TokenizationSettings</td>
+<td>По умолчанию используется стандартный инициализатор со всеми способами оплаты. Параметр отвечает за настройку токенизации (способы оплаты и логотип Яндекс.Кассы).</td>
+</tr>
+<tr>
+<td>testModeSettings</td>
+<td>TestModeSettings</td>
+<td>По умолчанию <code>nil</code>. Настройки тестового режима.</td>
+</tr>
+<tr>
+<td>cardScanning</td>
+<td>CardScanning</td>
+<td>По умолчанию <code>nil</code>. Возможность сканировать банковские карты.</td>
+</tr>
+<tr>
+<td>applePayMerchantIdentifier</td>
+<td>String</td>
+<td>По умолчанию <code>nil</code>. Apple Pay merchant ID (обязательно для платежей через Apple Pay).</td>
+</tr>
+<tr>
+<td>returnUrl</td>
+<td>String</td>
+<td>По умолчанию <code>nil</code>. URL страницы (поддерживается только <code>https</code>), на которую надо вернуться после прохождения 3ds. Должен использоваться только при использовании своей реализации 3ds url. Если вы используете <code>start3dsProcess(requestUrl:)</code>, не задавайте этот параметр.</td>
+</tr>
+<tr>
+<td>isLoggingEnabled</td>
+<td>Bool</td>
+<td>По умолчанию <code>false</code>. Включает логирование сетевых запросов.</td>
+</tr>
+</tbody></table>
+<h4 id='tokenizationsettings' class='heading'>TokenizationSettings</h4>
+
+<p>Можно настроить список способов оплаты и отображение логотипа Яндекс.Кассы в приложении.</p>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>paymentMethodTypes</td>
+<td>PaymentMethodTypes</td>
+<td>По умолчанию <code>.all</code> <a href="#%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0-%D1%81%D0%BF%D0%BE%D1%81%D0%BE%D0%B1%D0%BE%D0%B2-%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D1%8B">Способы оплаты</a>, доступные пользователю в приложении.</td>
+</tr>
+<tr>
+<td>showYandexCheckoutLogo</td>
+<td>Bool</td>
+<td>По умолчанию <code>true</code> Отвечает за отображение логотипа Яндекс.Кассы. По умолчанию логотип отображается.</td>
+</tr>
+</tbody></table>
+<h4 id='testmodesettings' class='heading'>TestModeSettings</h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>paymentAuthorizationPassed</td>
+<td>Bool</td>
+<td>Определяет пройдена ли платежная авторизация при платеже Яндекс.Деньгами.</td>
+</tr>
+<tr>
+<td>cardsCount</td>
+<td>Int</td>
+<td>Количество привязанные карт к Яндекс.Кошельку.</td>
+</tr>
+<tr>
+<td>charge</td>
+<td>Amount</td>
+<td>Сумма и валюта платежа.</td>
+</tr>
+<tr>
+<td>enablePaymentError</td>
+<td>Bool</td>
+<td>Определяет будет ли платеж завершен с ошибкой.</td>
+</tr>
+</tbody></table>
+<h4 id='amount' class='heading'>Amount</h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>value</td>
+<td>Decimal</td>
+<td>Сумма платежа.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>Currency</td>
+<td>Валюта платежа.</td>
+</tr>
+</tbody></table>
+<h4 id='currency' class='heading'>Currency</h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>rub</td>
+<td>String</td>
+<td>₽ - Российский рубль,</td>
+</tr>
+<tr>
+<td>usd</td>
+<td>String</td>
+<td>$ - Американский доллар</td>
+</tr>
+<tr>
+<td>eur</td>
+<td>String</td>
+<td>€ - Евро</td>
+</tr>
+</tbody></table>
+<h3 id='' class='heading'>Сканирование банковских карт</h3>
+
+<p>Если хотите, чтобы пользователи смогли сканировать банковские карты при оплате необходимо:</p>
+
+<ol>
+<li>Создать сущность и реализовать протокол <code><a href="Protocols/CardScanning.html">CardScanning</a></code>.</li>
+</ol>
 <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">CardScannerProvider</span><span class="p">:</span> <span class="kt">CardScanning</span> <span class="p">{</span>
     <span class="k">weak</span> <span class="k">var</span> <span class="nv">cardScanningDelegate</span><span class="p">:</span> <span class="kt">CardScanningDelegate</span><span class="p">?</span>
 
@@ -217,16 +632,16 @@ TokenizationModuleInputData. </p>
         <span class="c1">// Create and return scanner view controller</span>
 
         <span class="n">viewController</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span>
-
         <span class="k">return</span> <span class="n">viewController</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 
-<p>Next, implement you scanner delegate for <code>CardScanerProvider</code> (for example, CardIO):</p>
-<pre class="highlight swift"><code><span class="c1">// MARK: - CardIOPaymentViewControllerDelegate</span>
-
-<span class="kd">extension</span> <span class="kt">CardScannerProvider</span><span class="p">:</span> <span class="kt">CardIOPaymentViewControllerDelegate</span> <span class="p">{</span>
+<ol>
+<li>Настроить получение данных из вашего инструмента для сканирования банковской карты.\
+На примере CardIO:</li>
+</ol>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">CardScannerProvider</span><span class="p">:</span> <span class="kt">CardIOPaymentViewControllerDelegate</span> <span class="p">{</span>
     <span class="kd">public</span> <span class="kd">func</span> <span class="nf">userDidProvide</span><span class="p">(</span><span class="n">_</span> <span class="nv">cardInfo</span><span class="p">:</span> <span class="kt">CardIOCreditCardInfo</span><span class="o">!</span><span class="p">,</span>
                                <span class="k">in</span> <span class="nv">paymentViewController</span><span class="p">:</span> <span class="kt">CardIOPaymentViewController</span><span class="o">!</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">let</span> <span class="nv">scannedCardInfo</span> <span class="o">=</span> <span class="kt">ScannedCardInfo</span><span class="p">(</span><span class="nv">number</span><span class="p">:</span> <span class="n">cardInfo</span><span class="o">.</span><span class="n">cardNumber</span><span class="p">,</span>
@@ -241,81 +656,120 @@ TokenizationModuleInputData. </p>
 <span class="p">}</span>
 </code></pre>
 
-<p>Then when initialize input data pass <code>CardScannerProvider</code> to <code>cardScanning:</code> argument.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">inputData</span> <span class="o">=</span> <span class="kt">TokenizationModuleInputData</span><span class="p">(</span><span class="nv">clientApplicationKey</span><span class="p">:</span> <span class="n">clientApplicationKey</span><span class="p">,</span>
-                                            <span class="nv">shopName</span><span class="p">:</span> <span class="s">"&lt;Past your shop name here&gt;"</span><span class="p">,</span>
-                                            <span class="nv">purchaseDescription</span><span class="p">:</span> <span class="s">"""
-                                                    &lt;Past description of purchase here&gt;
-                                                    """</span><span class="p">,</span>
-                                            <span class="nv">amount</span><span class="p">:</span> <span class="n">amount</span><span class="p">,</span>
-                                            <span class="nv">cardScanning</span><span class="p">:</span> <span class="kt">CardScannerProvider</span><span class="p">())</span>
+<ol>
+<li>Передать экземпляр объекта <code>CardScannerProvider</code> в <code><a href="Structs/TokenizationModuleInputData.html">TokenizationModuleInputData</a></code> в параметр <code>cardScanning:</code>.</li>
+</ol>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">inputData</span> <span class="o">=</span> <span class="kt">TokenizationModuleInputData</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="nv">cardScanning</span><span class="p">:</span> <span class="kt">CardScannerProvider</span><span class="p">())</span>
 </code></pre>
-<h3 id='3dsecure' class='heading'>3DSecure</h3>
+<h3 id='3d-secure' class='heading'>Настройка 3D Secure</h3>
 
-<p>If you want to use our implementation of 3D Secure, you don&rsquo;t have to dismiss our UIViewController after 
-receiving the token. Send the token to your server and after successful payment dismiss UIViewController.
-If your server has reported the need to confirm the payment, call the method 
-<code>start3dsProcess(requestUrl:redirectUrl:)</code></p>
+<p>Если вы хотите использовать нашу реализацию 3D Secure, не закрывайте модуль mSDK после получения токена.\
+Отправьте токен на ваш сервер и после успешной оплаты закройте модуль.\
+Если ваш сервер сообщил о необходимости подтверждения платежа, вызоватие метод <code>start3dsProcess(requestUrl:)</code></p>
 
-<p>After successful completion of the 3D secure process, the method will be called
-<code>didSuccessfullyPassedCardSec(on module:)</code> which is specified in the protocol <code><a href="Protocols/TokenizationModuleOutput.html">TokenizationModuleOutput</a></code></p>
+<p>После успешного прохождения 3D secure будет вызван метод <code>didSuccessfullyPassedCardSec(on module:)</code> протокола <code><a href="Protocols/TokenizationModuleOutput.html">TokenizationModuleOutput</a></code>.</p>
 
-<ul>
-<li>Store tokenization module</li>
-</ul>
+<p>Примеры кода:</p>
+
+<ol>
+<li>Сохраните tokenization модуль.</li>
+</ol>
 <pre class="highlight swift"><code><span class="k">self</span><span class="o">.</span><span class="n">tokenizationViewController</span> <span class="o">=</span> <span class="kt">TokenizationAssembly</span><span class="o">.</span><span class="nf">makeModule</span><span class="p">(</span><span class="nv">inputData</span><span class="p">:</span> <span class="n">inputData</span><span class="p">,</span>
                                                                  <span class="nv">moduleOutput</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
 <span class="nf">present</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">tokenizationViewController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
 </code></pre>
 
-<ul>
-<li>Doesn&rsquo;t hide tokenization after receive the token</li>
-</ul>
+<ol>
+<li>Не закрывайте tokenization модуль после получения токена.</li>
+</ol>
 <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">tokenizationModule</span><span class="p">(</span><span class="n">_</span> <span class="nv">module</span><span class="p">:</span> <span class="kt">TokenizationModuleInput</span><span class="p">,</span>
                         <span class="n">didTokenize</span> <span class="nv">token</span><span class="p">:</span> <span class="kt">Tokens</span><span class="p">,</span>
                         <span class="nv">paymentMethodType</span><span class="p">:</span> <span class="kt">PaymentMethodType</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Send token to your back-end</span>
+    <span class="c1">// Отправьте токен на ваш сервер.</span>
 <span class="p">}</span>
 </code></pre>
 
-<ul>
-<li>Show 3DSecure if need to confirm payment</li>
-</ul>
-<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">needConfirmPayment</span><span class="p">(</span><span class="nv">requestUrl</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">redirectUrl</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">self</span><span class="o">.</span><span class="n">tokenizationViewController</span><span class="o">.</span><span class="nf">start3dsProcess</span><span class="p">(</span><span class="nv">requestUrl</span><span class="p">:</span> <span class="n">requestUrl</span><span class="p">,</span> <span class="nv">redirectUrl</span><span class="p">:</span> <span class="n">redirectUrl</span><span class="p">)</span>
+<ol>
+<li>Покажите 3D secure если необходимо подтвердить платеж.</li>
+</ol>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">needsConfirmPayment</span><span class="p">(</span><span class="nv">requestUrl</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">tokenizationViewController</span><span class="o">.</span><span class="nf">start3dsProcess</span><span class="p">(</span><span class="nv">requestUrl</span><span class="p">:</span> <span class="n">requestUrl</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre>
 
-<ul>
-<li>After success 3DSecure process will be called</li>
-</ul>
+<ol>
+<li>После успешного прохождения 3D secure будет вызван метод.</li>
+</ol>
 <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">didSuccessfullyPassedCardSec</span><span class="p">(</span><span class="n">on</span> <span class="nv">module</span><span class="p">:</span> <span class="kt">TokenizationModuleInput</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
-        <span class="k">guard</span> <span class="k">let</span> <span class="nv">strongSelf</span> <span class="o">=</span> <span class="k">self</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">self</span> <span class="o">=</span> <span class="k">self</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
 
         <span class="c1">// Now close tokenization module</span>
-        <span class="n">strongSelf</span><span class="o">.</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+        <span class="k">self</span><span class="o">..</span><span class="nf">dismiss</span><span class="p">(</span><span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
-<h3 id='apple-pay' class='heading'>Apple Pay</h3>
+<h3 id='' class='heading'>Логирование</h3>
 
-<p>Follow the steps described in the official 
-<a href="https://developer.apple.com/documentation/passkit/apple_pay/setting_up_apple_pay_requirements">documentation</a> 
-from Apple.</p>
-
-<p>Send merchant 
-<a href="https://help.apple.com/xcode/mac/current/#/deva43983eb7?sub=dev171483d6e">apple pay identifier</a> 
-to msdk.</p>
+<p>У вас есть возможность включить логирование всех сетевых запросов.\
+Для этого необходимо при создании <code><a href="Structs/TokenizationModuleInputData.html">TokenizationModuleInputData</a></code> передать <code>isLoggingEnabled: true</code></p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">moduleData</span> <span class="o">=</span> <span class="kt">TokenizationModuleInputData</span><span class="p">(</span>
     <span class="o">...</span>
-    <span class="nv">applePayMerchantIdentifier</span><span class="p">:</span> <span class="s">"&lt;com.example...&gt;"</span><span class="p">)</span>
+    <span class="nv">isLoggingEnabled</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
 </code></pre>
+<h3 id='' class='heading'>Тестовый режим</h3>
+
+<p>У вас есть возможность запустить mSDK в тестовом режиме.\
+Тестовый режим не выполняет никаких сетевых запросов, и имитирует ответ от сервера.</p>
+
+<p>Если вы хотите запустить mSDK в тестовом режиме необходимо:</p>
+
+<ol>
+<li>Cконфигурировать объект с типом <code><a href="Structs/TestModeSettings.html">TestModeSettings</a></code>.</li>
+</ol>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">testModeSettings</span> <span class="o">=</span> <span class="kt">TestModeSettings</span><span class="p">(</span><span class="nv">paymentAuthorizationPassed</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                                        <span class="nv">cardsCount</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                                        <span class="nv">charge</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">999</span><span class="p">,</span> <span class="nv">currency</span><span class="p">:</span> <span class="o">.</span><span class="n">rub</span><span class="p">),</span>
+                                        <span class="nv">enablePaymentError</span><span class="p">:</span> <span class="kc">false</span><span class="p">)</span>
+</code></pre>
+
+<ol>
+<li>Передать его в <code><a href="Structs/TokenizationModuleInputData.html">TokenizationModuleInputData</a></code> в параметре <code>testModeSettings:</code></li>
+</ol>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">moduleData</span> <span class="o">=</span> <span class="kt">TokenizationModuleInputData</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="nv">testModeSettings</span><span class="p">:</span> <span class="n">testModeSettings</span><span class="p">)</span>
+</code></pre>
+<h3 id='example' class='heading'>Запуск Example</h3>
+
+<p>Для того чтобы запустить Example приложение необходимо:</p>
+
+<ol>
+<li>Сделать <code>git clone</code> репозитория.</li>
+</ol>
+<pre class="highlight shell"><code>git clone https://github.com/yandex-money/yandex-checkout-payments-swift.git
+</code></pre>
+
+<ol>
+<li>Добавить <a href="#trustDefender.framework">TrustDefender.framework</a> в папку <code>Frameworks</code>, которая находится на одном уровне с папкой <code>Pods</code></li>
+<li>Выполнить команды в консоли находясь в директории проекта.</li>
+</ol>
+<pre class="highlight shell"><code>gem install bundler
+bundle
+pod install
+</code></pre>
+
+<ol>
+<li>Открыть <code>YandexCheckoutPayments.xcworkspace</code></li>
+<li>Выбрать и запустить схему <code>ExamplePods</code></li>
+</ol>
 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://github.com/yandex-money" target="_blank" rel="external">Yandex Checkout</a>. All rights reserved. (Last updated: 2018-07-11)</p>
+          <p>&copy; 2018 <a class="link" href="https://github.com/yandex-money" target="_blank" rel="external">Yandex Checkout</a>. All rights reserved. (Last updated: 2018-12-28)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

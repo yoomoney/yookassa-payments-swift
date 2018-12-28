@@ -2,12 +2,12 @@ import UIKit
 
 protocol SettingsViewControllerDelegate: class {
     func settingsViewController(_ settingsViewController: SettingsViewController,
-                                didChangeSettings settings: SettingsEntity)
+                                didChangeSettings settings: Settings)
 }
 
 final class SettingsViewController: UIViewController {
 
-    public static func makeModule(settings: SettingsEntity,
+    public static func makeModule(settings: Settings,
                                   delegate: SettingsViewControllerDelegate? = nil) -> UIViewController {
 
         let controller = SettingsViewController(settings: settings)
@@ -29,7 +29,7 @@ final class SettingsViewController: UIViewController {
 
     // MARK: - Private properties
 
-    private var settings: SettingsEntity {
+    private var settings: Settings {
         didSet {
             delegate?.settingsViewController(self, didChangeSettings: settings)
         }
@@ -82,7 +82,7 @@ final class SettingsViewController: UIViewController {
 
     // MARK: - Initialization/Deinitialization
 
-    init(settings: SettingsEntity) {
+    init(settings: Settings) {
         self.settings = settings
 
         super.init(nibName: nil, bundle: nil)
@@ -178,8 +178,8 @@ extension SettingsViewController {
     }
 
     private func switchCellWith(title: String,
-                                initialValue: @escaping (SettingsEntity) -> Bool,
-                                settingHandler: @escaping (inout SettingsEntity, Bool) -> Void)
+                                initialValue: @escaping (Settings) -> Bool,
+                                settingHandler: @escaping (inout Settings, Bool) -> Void)
         -> CellDescriptor {
             return CellDescriptor(configuration: { [unowned self] (cell: ContainerTableViewCell<TitledSwitchView>) in
 
@@ -196,7 +196,7 @@ extension SettingsViewController {
 
 extension SettingsViewController: TestSettingsViewControllerDelegate {
     func testSettingsViewController(_ testSettingsViewController: TestSettingsViewController,
-                                    didChangeSettings settings: TestSettingsEntity) {
+                                    didChangeSettings settings: TestSettings) {
 
         self.settings.testModeSettings = settings
         tableViewController.reloadTable()

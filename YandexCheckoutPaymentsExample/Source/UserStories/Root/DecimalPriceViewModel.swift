@@ -11,7 +11,7 @@ struct DecimalPriceViewModel: PriceViewModel {
 
     init(price: Decimal) {
         currency = PriceFormatter.currencySymbol.first ?? Character("")
-        decimalSeparator = Locale.current.decimalSeparator ?? ","
+        decimalSeparator = PriceFormatter.decimalSeparator
         let priceStringWithCurrency = PriceFormatter.localize(decimal: price) ?? ""
         let priceString = priceStringWithCurrency.replacingOccurrences(of: PriceFormatter.currencySymbol, with: "")
         if let decimalSeparatorCharacter = decimalSeparator.first,

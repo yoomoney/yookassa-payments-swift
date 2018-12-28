@@ -131,10 +131,10 @@ private func makePaymentOptions(_ settings: TestModeSettings,
     return filteredPaymentOptions
 }
 
-private func makeLinkedCard(_ charge: MonetaryAmount) -> PaymentInstrumentYandexMoneyLinkedBankCard {
+private func makeLinkedCard(_ charge: Amount) -> PaymentInstrumentYandexMoneyLinkedBankCard {
     return PaymentInstrumentYandexMoneyLinkedBankCard(paymentMethodType: .yandexMoney,
                                                       confirmationType: nil,
-                                                      charge: charge,
+                                                      charge: MonetaryAmountFactory.makePaymentsMonetaryAmount(charge),
                                                       instrumentType: .linkedBankCard,
                                                       cardId: "123456789",
                                                       cardName: "Привязанная карта",
@@ -143,8 +143,9 @@ private func makeLinkedCard(_ charge: MonetaryAmount) -> PaymentInstrumentYandex
                                                       identificationRequirement: .simplified)
 }
 
-private func makeDefaultPaymentOptions(_ charge: MonetaryAmount, authorized: Bool) -> [PaymentOption] {
+private func makeDefaultPaymentOptions(_ charge: Amount, authorized: Bool) -> [PaymentOption] {
     var response: [PaymentOption] = []
+    let charge = MonetaryAmountFactory.makePaymentsMonetaryAmount(charge)
 
     if authorized {
 

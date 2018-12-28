@@ -52,6 +52,7 @@ public struct TokenizationModuleInputData {
     ///   - cardScanning: Bank card scanning.
     ///   - applePayMerchantIdentifier: Apple Pay merchant ID.
     ///   - returnUrl: Return url for close 3ds.
+    ///   - isLoggingEnabled: Enable logging.
     ///
     /// - Returns: Instance of `TokenizationModuleInputData`.
     public init(clientApplicationKey: String,
@@ -89,7 +90,7 @@ public protocol TokenizationModuleInput: class {
     /// - Parameters:
     ///   - requestUrl: URL string for request website.
     ///   - redirectUrl: URL string for website of the card issuing bank to authorize the transaction.
-    @available(*, deprecated, message: "redirectUrl no longer needed")
+    @available(*, deprecated, message: "redirectUrl no longer needed, will be deleted in next version")
     func start3dsProcess(requestUrl: String, redirectUrl: String)
 
     /// Start 3-D Secure process.

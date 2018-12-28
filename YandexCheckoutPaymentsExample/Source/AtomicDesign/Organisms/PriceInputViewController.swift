@@ -126,7 +126,7 @@ extension PriceInputViewController: TextControlDelegate {
         }
 
         if let text = textControl.text {
-            let onlyPrice = text.replacingOccurrences(of: PriceConstants.currencySymbol, with: "")
+            let onlyPrice = text.replacingOccurrences(of: PriceFormatter.currencySymbol, with: "")
             let resultPrice = PriceInputFormatter.fullLocalizedCurrency(string: onlyPrice)
             priceControl.textView.attributedText = PriceInputFormatter.format(string: resultPrice)
         }

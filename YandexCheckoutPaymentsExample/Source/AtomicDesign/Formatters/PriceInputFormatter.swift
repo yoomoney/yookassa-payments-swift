@@ -3,7 +3,7 @@ import UIKit
 enum PriceInputFormatter {
 
     private static var priceNumberFormatter: NumberFormatter = {
-        $0.currencySymbol = PriceConstants.currencySymbol
+        $0.currencySymbol = PriceFormatter.currencySymbol
         $0.numberStyle = .currency
         return $0
     }(NumberFormatter())
@@ -32,7 +32,7 @@ enum PriceInputFormatter {
         attributedText.append(NSAttributedString(string: string,
                                                  attributes: sumAttributes))
 
-        if let currencyRange = string.range(of: PriceConstants.currencySymbol) {
+        if let currencyRange = string.range(of: PriceFormatter.currencySymbol) {
             attributedText.addAttributes(currencyAttributes, range: NSRange(currencyRange, in: string))
         }
 
@@ -63,13 +63,13 @@ enum PriceInputFormatter {
         let firstSymbol = String(firstCharacter)
 
         var result = string
-        if result.hasPrefix(PriceConstants.decimalSeparator) {
+        if result.hasPrefix(PriceFormatter.decimalSeparator) {
             result.insert("0", at: result.startIndex)
         }
-        if firstSymbol == PriceConstants.currencySymbol {
-            return "\(PriceConstants.currencySymbol)" + result
+        if firstSymbol == PriceFormatter.currencySymbol {
+            return "\(PriceFormatter.currencySymbol)" + result
         } else {
-            return result + " \(PriceConstants.currencySymbol)"
+            return result + " \(PriceFormatter.currencySymbol)"
         }
     }
 }

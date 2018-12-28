@@ -1,7 +1,6 @@
 import Foundation
 
-struct TestSettingsEntity {
-
+struct TestSettings {
     var isTestModeEnadled = true
     var isPaymentAuthorizationPassed = false
     var isPaymentWithError = false

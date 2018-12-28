@@ -2,9 +2,8 @@ import Foundation
 
 enum PriceFormatter {
 
-    static var currencySymbol: String {
-        return "₽"
-    }
+    static let currencySymbol = "₽"
+    static let decimalSeparator = Locale.current.decimalSeparator ?? ","
 
     private static var balanceNumberFormatter: NumberFormatter = {
         $0.currencySymbol = currencySymbol

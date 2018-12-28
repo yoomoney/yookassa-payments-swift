@@ -1,6 +1,6 @@
 import Foundation
 
-struct SettingsEntity {
+struct Settings {
 
     var isYandexMoneyEnabled = true
     var isBankCardEnabled = true
@@ -11,5 +11,5 @@ struct SettingsEntity {
 
     var price = Decimal(5.0)
 
-    var testModeSettings = TestSettingsEntity()
+    var testModeSettings = TestSettings()
 }

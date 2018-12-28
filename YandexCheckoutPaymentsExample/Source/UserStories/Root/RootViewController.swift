@@ -102,11 +102,11 @@ final class RootViewController: UIViewController {
 
     // MARK: - Private properties
 
-    private lazy var settings: SettingsEntity = {
+    private lazy var settings: Settings = {
         if let settings = settingsService.loadSettingsFromStorage() {
             return settings
         } else {
-            let settings = SettingsEntity()
+            let settings = Settings()
             settingsService.saveSettingsToStorage(settings: settings)
 
             return settings
@@ -320,21 +320,18 @@ final class RootViewController: UIViewController {
         settingsService.saveSettingsToStorage(settings: settings)
 
         let testSettings: TestModeSettings?
+        let amount = Amount(value: settings.price, currency: .rub)
 
         if settings.testModeSettings.isTestModeEnadled {
-            let testAmount = MonetaryAmount(value: settings.price,
-                                            currency: .rub)
 
             let paymentAuthorizationPassed = settings.testModeSettings.isPaymentAuthorizationPassed
             testSettings = TestModeSettings(paymentAuthorizationPassed: paymentAuthorizationPassed,
                                             cardsCount: settings.testModeSettings.cardsCount ?? 0,
-                                            charge: testAmount,
+                                            charge: amount,
                                             enablePaymentError: settings.testModeSettings.isPaymentWithError)
         } else {
             testSettings = nil
         }
-
-        let amount = Amount(value: settings.price, currency: .rub)
 
         let devHostService = DevHostService(storage: UserDefaultsStorage(userDefault: .standard))
 
@@ -441,56 +438,14 @@ final class RootViewController: UIViewController {
     }
 }
 
+// MARK: - SettingsViewControllerDelegate
+
 extension RootViewController: SettingsViewControllerDelegate {
     func settingsViewController(_ settingsViewController: SettingsViewController,
-                                didChangeSettings settings: SettingsEntity) {
+                                didChangeSettings settings: Settings) {
 
         self.settings = settings
         settingsService.saveSettingsToStorage(settings: settings)
-    }
-}
-
-// MARK: - TokenizationModuleOutput
-extension RootViewController: TokenizationModuleOutput {
-    func tokenizationModule(_ module: TokenizationModuleInput,
-                            didTokenize token: Tokens,
-                            paymentMethodType: PaymentMethodType) {
-
-        self.token = token
-        self.paymentMethodType = paymentMethodType
-
-        let successViewController = SuccessViewController()
-        successViewController.delegate = self
-
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            if let presentedViewController = strongSelf.presentedViewController {
-                presentedViewController.show(successViewController, sender: self)
-            } else {
-                strongSelf.present(successViewController, animated: true)
-            }
-        }
-    }
-
-    func didFinish(on module: TokenizationModuleInput) {
-
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.dismiss(animated: true)
-        }
-    }
-
-    func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            let alertController = UIAlertController(title: "3D-Sec",
-                                                    message: "Successfully passed 3d-sec",
-                                                    preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default)
-            alertController.addAction(action)
-            strongSelf.dismiss(animated: true)
-            strongSelf.present(alertController, animated: true)
-        }
     }
 }
 
