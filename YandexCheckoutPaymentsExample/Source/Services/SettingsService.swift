@@ -12,14 +12,14 @@ final class SettingsService {
         self.storage = storage
     }
 
-    func loadSettingsFromStorage() -> SettingsEntity? {
+    func loadSettingsFromStorage() -> Settings? {
         if let isTestModeEnadled = storage.getBool(for: Constants.isTestModeEnadledKey),
            let isPaymentAuthorizationPassed = storage.getBool(for: Constants.isPaymentAuthorizationPassedKey),
            let isPaymentWithError = storage.getBool(for: Constants.isPaymentWithErrorKey) {
 
             let cardsCount = storage.getInt(for: Constants.cardsCountKey)
 
-            let testSettings = TestSettingsEntity(isTestModeEnadled: isTestModeEnadled,
+            let testSettings = TestSettings(isTestModeEnadled: isTestModeEnadled,
                                                   isPaymentAuthorizationPassed: isPaymentAuthorizationPassed,
                                                   isPaymentWithError: isPaymentWithError,
                                                   cardsCount: cardsCount)
@@ -31,7 +31,7 @@ final class SettingsService {
                let isShowingYandexLogoEnabled = storage.getBool(for: Constants.isShowingYandexLogoEnabledKey),
                let price = storage.getDecimal(for: Constants.priceKey) {
 
-                return SettingsEntity(isYandexMoneyEnabled: isYandexMoneyEnabled,
+                return Settings(isYandexMoneyEnabled: isYandexMoneyEnabled,
                                       isBankCardEnabled: isBankCardEnabled,
                                       isApplePayEnabled: isApplePayEnabled,
                                       isSberbankEnabled: isSberbankEnabled,
@@ -44,7 +44,7 @@ final class SettingsService {
         return nil
     }
 
-    func saveSettingsToStorage(settings: SettingsEntity) {
+    func saveSettingsToStorage(settings: Settings) {
         storage.setBool(settings.isYandexMoneyEnabled,
                         for: Constants.isYandexMoneyEnabledKey)
         storage.setBool(settings.isBankCardEnabled,

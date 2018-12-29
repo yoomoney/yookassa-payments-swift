@@ -3,12 +3,12 @@ import YandexCheckoutPayments
 
 protocol TestSettingsViewControllerDelegate: class {
     func testSettingsViewController(_ testSettingsViewController: TestSettingsViewController,
-                                    didChangeSettings settings: TestSettingsEntity)
+                                    didChangeSettings settings: TestSettings)
 }
 
 final class TestSettingsViewController: UIViewController {
 
-    public static func makeModule(settings: TestSettingsEntity,
+    public static func makeModule(settings: TestSettings,
                                   delegate: TestSettingsViewControllerDelegate? = nil) -> UIViewController {
 
         let controller = TestSettingsViewController(settings: settings)
@@ -34,7 +34,7 @@ final class TestSettingsViewController: UIViewController {
 
     // MARK: - Private properties
 
-    private var settings: TestSettingsEntity {
+    private var settings: TestSettings {
         willSet {
             needUpdateTable = newValue.isTestModeEnadled != settings.isTestModeEnadled
         }
@@ -96,7 +96,7 @@ final class TestSettingsViewController: UIViewController {
 
     // MARK: - Initialization/Deinitialization
 
-    init(settings: TestSettingsEntity) {
+    init(settings: TestSettings) {
         self.settings = settings
 
         super.init(nibName: nil, bundle: nil)
@@ -177,8 +177,8 @@ extension TestSettingsViewController {
     }
 
     private func switchCellWith(title: String,
-                                initialValue: @escaping (TestSettingsEntity) -> Bool,
-                                settingHandler: @escaping (inout TestSettingsEntity, Bool) -> Void)
+                                initialValue: @escaping (TestSettings) -> Bool,
+                                settingHandler: @escaping (inout TestSettings, Bool) -> Void)
         -> CellDescriptor {
             return CellDescriptor(configuration: { [unowned self] (cell: ContainerTableViewCell<TitledSwitchView>) in
 
