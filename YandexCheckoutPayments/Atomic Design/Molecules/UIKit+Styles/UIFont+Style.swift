@@ -105,7 +105,7 @@ extension UIFont {
         return UIFont.makeFont(size: 64, face: "Bold")
     }
 
-    private static func makeFont(style: UIFontTextStyle, face: String) -> UIFont {
+    private static func makeFont(style: UIFont.TextStyle, face: String) -> UIFont {
         var descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: style)
         let size = descriptor.fontAttributes[UIFontDescriptor.AttributeName.size] as? Float ?? 0
         descriptor = UIFontDescriptor()

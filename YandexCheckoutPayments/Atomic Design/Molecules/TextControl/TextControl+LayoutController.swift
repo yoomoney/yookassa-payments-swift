@@ -119,8 +119,8 @@ private extension TextControl.LayoutController.Animation.Show {
         let cover = UIView(frame: view.frame)
         cover.backgroundColor = parent.backgroundColor
         parent.addSubview(cover)
-        parent.sendSubview(toBack: cover)
-        parent.sendSubview(toBack: view)
+        parent.sendSubviewToBack(cover)
+        parent.sendSubviewToBack(view)
         return cover
     }
 }

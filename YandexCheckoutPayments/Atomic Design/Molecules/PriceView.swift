@@ -158,20 +158,20 @@ final class PriceView: UIView {
 
         let attributedText = NSMutableAttributedString()
 
-        let sumAttributes: [NSAttributedStringKey: Any]
-        let currencyAttributes: [NSAttributedStringKey: Any]
+        let sumAttributes: [NSAttributedString.Key: Any]
+        let currencyAttributes: [NSAttributedString.Key: Any]
 
         if #available(iOS 9.0, *) {
             sumAttributes = [
-                NSAttributedStringKey.font: UIFont.dynamicTitle2,
+                NSAttributedString.Key.font: UIFont.dynamicTitle2,
             ]
             currencyAttributes = [
-                NSAttributedStringKey.font: UIFont.dynamicTitle2Light,
+                NSAttributedString.Key.font: UIFont.dynamicTitle2Light,
             ]
 
         } else {
             sumAttributes = [
-                NSAttributedStringKey.font: UIFont.dynamicHeadline1,
+                NSAttributedString.Key.font: UIFont.dynamicHeadline1,
             ]
             currencyAttributes = sumAttributes
         }
@@ -193,7 +193,7 @@ final class PriceView: UIView {
     private func subscribeOnNotifications() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(accessibilityReapply),
-                                               name: .UIContentSizeCategoryDidChange,
+                                               name: UIContentSizeCategory.didChangeNotification,
                                                object: nil)
     }
 

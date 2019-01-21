@@ -24,14 +24,14 @@ enum YamoneyAuthAssembly {
         let authCodeType = makeAuthCodeType(authTypeState: inputData.authTypeState)
 
         let authCodeInputViewController = AuthCodeInputViewController(authCodeType: authCodeType)
-        viewController.templateViewController.addChildViewController(authCodeInputViewController)
+        viewController.templateViewController.addChild(authCodeInputViewController)
 
         viewController.output = presenter
         viewController.paymentMethodView = itemView
         viewController.additionalView = authCodeInputViewController.view
         viewController.templateViewController.output = presenter
 
-        authCodeInputViewController.didMove(toParentViewController: viewController.templateViewController)
+        authCodeInputViewController.didMove(toParent: viewController.templateViewController)
         authCodeInputViewController.output = presenter
 
         presenter.view = viewController

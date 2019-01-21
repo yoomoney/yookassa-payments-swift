@@ -122,7 +122,7 @@ final class SwitchItemView: UIView {
     private func subscribeOnNotifications() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(contentSizeCategoryDidChange),
-                                               name: .UIContentSizeCategoryDidChange,
+                                               name: UIContentSizeCategory.didChangeNotification,
                                                object: nil)
     }
 

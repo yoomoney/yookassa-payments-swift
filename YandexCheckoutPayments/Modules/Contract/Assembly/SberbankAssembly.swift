@@ -8,7 +8,7 @@ enum SberbankAssembly {
 
         let (phoneController, phoneModuleInput) = PhoneNumberInputAssembly.makeModule(moduleOutput: presenter)
 
-        viewController.templateViewController.addChildViewController(phoneController)
+        viewController.templateViewController.addChild(phoneController)
 
         let authorizationService = AuthorizationProcessingAssembly
             .makeService(isLoggingEnabled: inputData.isLoggingEnabled,

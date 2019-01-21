@@ -45,7 +45,7 @@ extension UIViewController {
             KeyboardObservable.shared.removeKeyboardObserver(observer)
         }
 
-        childViewControllers.forEach {
+        children.forEach {
             $0.removeKeyboardObservers()
         }
     }
@@ -55,7 +55,7 @@ extension UIViewController {
             KeyboardObservable.shared.addKeyboardObserver(observer)
         }
 
-        childViewControllers.forEach {
+        children.forEach {
             $0.appendKeyboardObservers()
         }
     }

@@ -173,7 +173,7 @@ final class MSDKActionSheetHeaderView: UIView {
     private func subscribeOnNotifications() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(accessibilityReapply),
-                                               name: .UIContentSizeCategoryDidChange,
+                                               name: UIContentSizeCategory.didChangeNotification,
                                                object: nil)
     }
 

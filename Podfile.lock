@@ -1,7 +1,7 @@
 PODS:
   - CardIO (5.4.1)
-  - FunctionalSwift (1.0.5)
-  - SwiftLint (0.29.1)
+  - FunctionalSwift (1.1.1)
+  - SwiftLint (0.29.4)
   - When (4.0.0)
   - YandexCheckoutPayments (1.3.7):
     - FunctionalSwift
@@ -10,28 +10,32 @@ PODS:
     - YandexCheckoutShowcaseApi
     - YandexCheckoutWalletApi
     - YandexLoginSDK
-    - YandexMobileMetrica/Dynamic (~> 3.1.2)
+    - YandexMobileMetrica/Dynamic (~> 3.5.0)
     - YandexMoneyCoreApi
-  - YandexCheckoutPaymentsApi (1.1.0):
-    - FunctionalSwift (~> 1.0.5)
-    - YandexMoneyCoreApi (~> 1.0.0)
-  - YandexCheckoutShowcaseApi (1.0.0):
-    - FunctionalSwift (~> 1.0.5)
-    - YandexMoneyCoreApi (~> 1.0.0)
-  - YandexCheckoutWalletApi (1.0.2):
-    - FunctionalSwift (~> 1.0.5)
-    - YandexMoneyCoreApi (~> 1.0.0)
+  - YandexCheckoutPaymentsApi (1.0.3):
+    - FunctionalSwift (~> 1.1.0)
+    - YandexMoneyCoreApi (~> 1.3.0)
+  - YandexCheckoutShowcaseApi (1.0.1):
+    - FunctionalSwift (~> 1.1.0)
+    - YandexMoneyCoreApi (~> 1.3.0)
+  - YandexCheckoutWalletApi (1.0.3):
+    - FunctionalSwift (~> 1.1.0)
+    - YandexMoneyCoreApi (~> 1.3.0)
   - YandexLoginSDK (2.0.2)
-  - YandexMobileMetrica/Dynamic (3.1.2)
-  - YandexMoneyCoreApi (1.0.2):
-    - FunctionalSwift (~> 1.0.5)
+  - YandexMobileMetrica/Dynamic (3.5.0):
+    - YandexMobileMetrica/Dynamic/Core (= 3.5.0)
+    - YandexMobileMetrica/Dynamic/Crashes (= 3.5.0)
+  - YandexMobileMetrica/Dynamic/Core (3.5.0)
+  - YandexMobileMetrica/Dynamic/Crashes (3.5.0):
+    - YandexMobileMetrica/Dynamic/Core
+  - YandexMoneyCoreApi (1.3.1):
+    - FunctionalSwift (~> 1.1.0)
 
 DEPENDENCIES:
   - CardIO
   - FunctionalSwift
   - SwiftLint
   - YandexCheckoutPayments (from `./`)
-  - "YandexCheckoutPaymentsApi (from `git@github.com:oltv00/yandex-checkout-payments-api-swift.git`, branch `task/BIOS-641`)"
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -39,6 +43,7 @@ SPEC REPOS:
     - FunctionalSwift
     - SwiftLint
     - When
+    - YandexCheckoutPaymentsApi
     - YandexCheckoutShowcaseApi
     - YandexCheckoutWalletApi
     - YandexLoginSDK
@@ -48,28 +53,20 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   YandexCheckoutPayments:
     :path: "./"
-  YandexCheckoutPaymentsApi:
-    :branch: task/BIOS-641
-    :git: "git@github.com:oltv00/yandex-checkout-payments-api-swift.git"
-
-CHECKOUT OPTIONS:
-  YandexCheckoutPaymentsApi:
-    :commit: b3221f9b6ed3e836dadc6a409734fac5c716ea9d
-    :git: "git@github.com:oltv00/yandex-checkout-payments-api-swift.git"
 
 SPEC CHECKSUMS:
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
-  FunctionalSwift: 89cef31016cbc9fcdd49ec04e5831ed5f51244bb
-  SwiftLint: 6772320e40b52049053a518c17db9b0634a0b45a
+  FunctionalSwift: ccb7b6b0918f3d189fa12ce1f6ba716d8053b19a
+  SwiftLint: 73f2ecfd0f6d812c8cb9a73c00fe809bc2504585
   When: 4ffc88d535a094ad4bd5eaf2fd187de747e716d1
-  YandexCheckoutPayments: 43ba68282e547ed93065872bdd521f081170c406
-  YandexCheckoutPaymentsApi: d565ac4c2abb23be93c60549740fc9270a565122
-  YandexCheckoutShowcaseApi: c7fda3e27adf4f73fb14c1d6d4b9077703313405
-  YandexCheckoutWalletApi: 304601e48205c4dc0568a1018134eed3bb47547c
+  YandexCheckoutPayments: 05b7a9855eed81c2a8f371d8d4617ac7c4885f91
+  YandexCheckoutPaymentsApi: 575e274c4c1f0e1ded616fcddef91699804e39a6
+  YandexCheckoutShowcaseApi: 48d7e41eafcca525c9a08c247d93e19642835eb1
+  YandexCheckoutWalletApi: 080ef6687efe689668c880c7b69544accc8834e6
   YandexLoginSDK: cd407482207b4b7da75c5f7d7fd2fdd6a604c325
-  YandexMobileMetrica: ff500f48d993433fc9b30ffbf611b7502518aceb
-  YandexMoneyCoreApi: 474c4caa686e21777feaf8d262c7e84e06b850fe
+  YandexMobileMetrica: 811baea0201471d0bc65d5e8017250505cee0cfe
+  YandexMoneyCoreApi: 4992ee490dbce771904df1f4dcdd0dd750bc9599
 
-PODFILE CHECKSUM: c1b6df7d7c15106b45ab40e04379185da00d7d62
+PODFILE CHECKSUM: 0be6cd03b8d44372154d066a14acb08e9ad2edab
 
 COCOAPODS: 1.5.3

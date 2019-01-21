@@ -10,14 +10,14 @@ class KeyboardNotificationInfo: NSObject { // Need NSObject to use in KeyboardOb
     let endKeyboardFrame: CGRect
 
     /// UIViewAnimationCurve constant that defines how the keyboard will be animated onto or off the screen
-    let animationCurve: UIViewAnimationCurve?
+    let animationCurve: UIView.AnimationCurve?
 
     /// Identifies the duration of the animation in seconds
     let animationDuration: TimeInterval?
 
     init(beginKeyboardFrame: CGRect,
          endKeyboardFrame: CGRect,
-         animationCurve: UIViewAnimationCurve?,
+         animationCurve: UIView.AnimationCurve?,
          animationDuration: TimeInterval?) {
         self.beginKeyboardFrame = beginKeyboardFrame
         self.endKeyboardFrame = endKeyboardFrame

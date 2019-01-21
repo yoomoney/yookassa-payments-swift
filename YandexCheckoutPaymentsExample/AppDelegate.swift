@@ -7,7 +7,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         window = UIWindow(frame: UIScreen.main.bounds)
         let viewController = UINavigationController(rootViewController: RootViewController())
@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      continue userActivity: NSUserActivity,
-                     restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+                     restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         YandexLoginService.processUserActivity(userActivity)
         return true
     }
@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     @available(iOS 9, *)
     open func application(_ app: UIApplication,
                           open url: URL,
-                          options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
+                          options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         return YandexLoginService.handleOpen(url, sourceApplication: options[.sourceApplication] as? String)
     }
 

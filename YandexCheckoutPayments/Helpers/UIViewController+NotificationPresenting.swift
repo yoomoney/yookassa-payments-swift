@@ -70,7 +70,7 @@ extension UIViewController: NotificationPresenting {
         bottomConstraint.isActive = true
         UIView.animate(withDuration: Constants.showAnimationDuration,
                        delay: 0,
-                       options: [UIViewAnimationOptions.curveEaseInOut],
+                       options: [UIView.AnimationOptions.curveEaseInOut],
                        animations: { [weak self] in
                            self?.view.layoutIfNeeded()
                        },
@@ -93,7 +93,7 @@ extension UIViewController: NotificationPresenting {
         bottomConstraint.isActive = true
         UIView.animate(withDuration: Constants.hideAnimationDuration,
                        delay: delay,
-                       options: [UIViewAnimationOptions.curveEaseInOut],
+                       options: [UIView.AnimationOptions.curveEaseInOut],
                        animations: { [weak self] in
                             self?.view.layoutIfNeeded()
                        },

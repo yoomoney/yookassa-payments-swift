@@ -135,10 +135,10 @@ private extension KeyboardObservable {
             return
         }
         let keyboardNotifications: [Notification.Name] = [
-            .UIKeyboardWillShow,
-            .UIKeyboardDidShow,
-            .UIKeyboardWillHide,
-            .UIKeyboardDidHide,
+            UIResponder.keyboardWillShowNotification,
+            UIResponder.keyboardDidShowNotification,
+            UIResponder.keyboardWillHideNotification,
+            UIResponder.keyboardDidHideNotification,
         ]
         keyboardNotifications.forEach {
             NotificationCenter.default.addObserver(self,
@@ -168,7 +168,7 @@ private extension KeyboardObservable {
 
         var isLocalUserInfoKey: Bool? = true
         if #available(iOS 9.0, *) {
-            isLocalUserInfoKey = userInfo[UIKeyboardIsLocalUserInfoKey] as? Bool
+            isLocalUserInfoKey = userInfo[UIResponder.keyboardIsLocalUserInfoKey] as? Bool
         }
 
         guard isLocalUserInfoKey == true else {
@@ -177,22 +177,22 @@ private extension KeyboardObservable {
 
         let observerNotification: ((KeyboardObserver) -> Void)?
         switch notification.name {
-        case Notification.Name.UIKeyboardWillShow:
+        case UIResponder.keyboardWillShowNotification:
             observerNotification = {
                 $0.keyboardWillShow(with: keyboardInfo)
             }
 
-        case Notification.Name.UIKeyboardDidShow:
+        case UIResponder.keyboardDidShowNotification:
             observerNotification = {
                 $0.keyboardDidShow(with: keyboardInfo)
             }
 
-        case Notification.Name.UIKeyboardWillHide:
+        case UIResponder.keyboardWillHideNotification:
             observerNotification = {
                 $0.keyboardWillHide(with: keyboardInfo)
             }
 
-        case Notification.Name.UIKeyboardDidHide:
+        case UIResponder.keyboardDidHideNotification:
             observerNotification = {
                 $0.keyboardDidHide(with: keyboardInfo)
             }
@@ -208,13 +208,14 @@ private extension KeyboardObservable {
     }
 
     private func parseNotificationUserInfo(_ userInfo: [AnyHashable: Any]) -> KeyboardNotificationInfo? {
-        guard let beginFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue).map({ $0.cgRectValue }),
-              let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue).map({ $0.cgRectValue })
+        guard let beginFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue).map({ $0.cgRectValue }),
+              let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue).map({ $0.cgRectValue })
                 else {
             return nil
         }
-        let animationCurve = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? Int).flatMap(UIViewAnimationCurve.init)
-        let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval)
+        let animationCurve
+            = (userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int).flatMap(UIView.AnimationCurve.init)
+        let animationDuration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval)
         return KeyboardNotificationInfo(beginKeyboardFrame: beginFrame,
                                         endKeyboardFrame: endFrame,
                                         animationCurve: animationCurve,

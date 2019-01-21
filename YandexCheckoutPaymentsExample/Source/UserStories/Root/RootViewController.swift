@@ -130,7 +130,7 @@ final class RootViewController: UIViewController {
 
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 
-        addChildViewController(priceInputViewController)
+        addChild(priceInputViewController)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -139,7 +139,7 @@ final class RootViewController: UIViewController {
 
         super.init(coder: aDecoder)
 
-        addChildViewController(priceInputViewController)
+        addChild(priceInputViewController)
     }
 
     deinit {
@@ -155,7 +155,7 @@ final class RootViewController: UIViewController {
         loadSubviews()
         loadConstraints()
 
-        priceInputViewController.didMove(toParentViewController: self)
+        priceInputViewController.didMove(toParent: self)
     }
 
     override func viewDidLoad() {
@@ -383,7 +383,7 @@ final class RootViewController: UIViewController {
     private func subscribeOnNotifications() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(accessibilityReapply),
-                                               name: .UIContentSizeCategoryDidChange,
+                                               name: UIContentSizeCategory.didChangeNotification,
                                                object: nil)
     }
 
@@ -457,12 +457,12 @@ extension RootViewController {
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow(_:)),
-                                               name: .UIKeyboardWillShow,
+                                               name: UIResponder.keyboardWillShowNotification,
                                                object: nil)
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillHide(_:)),
-                                               name: .UIKeyboardWillHide,
+                                               name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
     }
 
@@ -486,7 +486,7 @@ extension RootViewController {
 
     private func makeKeyboardEndFrame(from notification: Notification) -> CGRect? {
         let userInfo = notification.userInfo
-        let endFrameValue = userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
+        let endFrameValue = userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
         let endFrame = endFrameValue.map { $0.cgRectValue }
         return endFrame
     }

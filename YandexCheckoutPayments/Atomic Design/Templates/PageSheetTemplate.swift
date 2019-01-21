@@ -52,7 +52,7 @@ class PageSheetTemplate: UIViewController {
         navigationBarConstraint.isActive = true
 
         if animated {
-            UIView.animate(withDuration: TimeInterval(UINavigationControllerHideShowBarDuration),
+            UIView.animate(withDuration: TimeInterval(UINavigationController.hideShowBarDuration),
                            animations: {
                                self.view.layoutIfNeeded()
                            })
