@@ -40,14 +40,14 @@ extension UIButton {
             button.setBackgroundImage(roundedBackground(color: .highlighted(from: tintColor)), for: .highlighted)
             button.setBackgroundImage(roundedBackground(color: .mousegrey), for: .disabled)
 
-            let colorsByStates: [(state: UIControlState, foreground: UIColor)] = [
+            let colorsByStates: [(state: UIControl.State, foreground: UIColor)] = [
                 (.normal, .inverse),
                 (.highlighted, .inverse),
                 (.disabled, .nobel),
             ]
 
             colorsByStates.forEach { (state, color) in
-                let attributes: [NSAttributedStringKey: Any] = [
+                let attributes: [NSAttributedString.Key: Any] = [
                     .font: UIFont.button,
                     .kern: UIFont.Kern.m,
                     .foregroundColor: color,
@@ -71,7 +71,7 @@ extension UIButton {
                                       for: .highlighted)
             button.setBackgroundImage(roundedBackground(color: .mousegrey, cornerRadius: cornerRadius), for: .disabled)
 
-            let attributes: [(state: UIControlState, font: UIFont, kern: Double, foreground: UIColor)] = [
+            let attributes: [(state: UIControl.State, font: UIFont, kern: Double, foreground: UIColor)] = [
                 (.normal, UIFont.button, UIFont.Kern.m, .inverse),
                 (.highlighted, UIFont.button, UIFont.Kern.m, .inverse),
                 (.disabled, UIFont.button, UIFont.Kern.m, .nobel),
@@ -95,13 +95,13 @@ extension UIButton {
         /// Style for flat button.
         static let flat = Style(name: "flat") { (button: UIButton) in
             let tintColor: UIColor = button.tintColor
-            var stateColors: [(UIControlState, UIColor)] = [
+            var stateColors: [(UIControl.State, UIColor)] = [
                 (.normal, tintColor),
                 (.highlighted, .highlighted(from: tintColor)),
                 (.disabled, .nobel),
             ]
             stateColors.forEach { (state, color) in
-                let attributes: [NSAttributedStringKey: Any] = [
+                let attributes: [NSAttributedString.Key: Any] = [
                     .font: UIFont.subhead2,
                     .kern: UIFont.Kern.m,
                     .foregroundColor: color,
@@ -182,7 +182,7 @@ extension UIButton {
 
     private func setColorizedImage(_ image: UIImage,
                                    color: UIColor,
-                                   for state: UIControlState) {
+                                   for state: UIControl.State) {
         let colorizedImage = image.colorizedImage(color: color)
         self.setImage(colorizedImage, for: state)
     }
@@ -199,7 +199,7 @@ extension UIButton {
             let tintColor: UIColor = button.tintColor
             let cornerRadius = UIButton.Styles.cornerRadius
 
-            let colors: [(UIControlState, foreground: UIColor, background: UIColor, backgroundImage: UIImage)] = [
+            let colors: [(UIControl.State, foreground: UIColor, background: UIColor, backgroundImage: UIImage)] = [
                 (.normal,
                  .inverse,
                  tintColor,
@@ -257,7 +257,7 @@ extension UIButton {
             let font = UIFont.dynamicBodyMedium
             let tintColor: UIColor = button.tintColor
 
-            let colors: [(UIControlState, foreground: UIColor)] = [
+            let colors: [(UIControl.State, foreground: UIColor)] = [
                 (.normal, tintColor),
                 (.highlighted, .highlighted(from: tintColor)),
                 (.disabled, .nobel),
@@ -281,7 +281,7 @@ extension UIButton {
             let font = UIFont.dynamicBodyMedium
             let tintColor: UIColor = button.tintColor
 
-            let colors: [(UIControlState, UIColor)] = [
+            let colors: [(UIControl.State, UIColor)] = [
                 (.normal, tintColor),
                 (.highlighted, .highlighted(from: tintColor)),
                 (.disabled, .nobel),
@@ -302,7 +302,7 @@ extension UIButton {
 
             let font = UIFont.dynamicBodyMedium
 
-            let colors: [(UIControlState, UIColor)] = [
+            let colors: [(UIControl.State, UIColor)] = [
                 (.normal, .inverse),
                 (.highlighted, .mousegrey),
                 (.disabled, .nobel),
@@ -329,7 +329,7 @@ extension UIButton {
             let tintColor: UIColor = button.tintColor
 
             let font = UIFont.dynamicBodyMedium
-            let colors: [(UIControlState, UIColor)] = [
+            let colors: [(UIControl.State, UIColor)] = [
                 (.normal, tintColor),
                 (.highlighted, .highlighted(from: tintColor)),
                 (.disabled, .nobel),
@@ -359,7 +359,7 @@ extension UIButton {
             let font = UIFont.caption1
             let tintColor: UIColor = button.tintColor
 
-            let colors: [(UIControlState, foreground: UIColor, backgroundImage: UIImage)] = [
+            let colors: [(UIControl.State, foreground: UIColor, backgroundImage: UIImage)] = [
                 (
                     .normal,
                     .inverse,
@@ -402,7 +402,7 @@ extension UIButton {
                 return NSAttributedString(attributedString: string)
             }
 
-            let titles: [(UIControlState, NSAttributedString?)] = [
+            let titles: [(UIControl.State, NSAttributedString?)] = [
                 (.normal, button.attributedTitle(for: .normal)),
                 (.highlighted, button.attributedTitle(for: .highlighted)),
                 (.disabled, button.attributedTitle(for: .disabled)),

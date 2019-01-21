@@ -91,7 +91,7 @@ private extension UIImage {
         context.fill(rect)
 
         let insets = UIEdgeInsets(top: rect.size.height - config.line.width, left: 0, bottom: 0, right: 0)
-        let underlineRect = UIEdgeInsetsInsetRect(rect, insets)
+        let underlineRect = rect.inset(by: insets)
         context.setFillColor(config.line.color.cgColor)
         context.fill(underlineRect)
 

@@ -71,12 +71,12 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        addChildViewController(tableViewController)
+        addChild(tableViewController)
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        addChildViewController(tableViewController)
+        addChild(tableViewController)
     }
 
     // MARK: - Managing the view
@@ -102,7 +102,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
             separatorView,
             titleView,
         ]
-        tableViewController.didMove(toParentViewController: self)
+        tableViewController.didMove(toParent: self)
         setupTableView()
     }
 
@@ -142,7 +142,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
     private func setupTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.estimatedRowHeight = 69
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorColor = .alto
@@ -262,7 +262,7 @@ extension PaymentMethodsViewController: UITableViewDataSource {
 
 extension PaymentMethodsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

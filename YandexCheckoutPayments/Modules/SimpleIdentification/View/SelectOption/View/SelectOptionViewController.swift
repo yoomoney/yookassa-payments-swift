@@ -31,7 +31,7 @@ final class SelectOptionViewController: UITableViewController {
 
     private func setupTableView() {
         tableView.estimatedRowHeight = 70
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.register(SelectOptionTableViewCell.self)
     }

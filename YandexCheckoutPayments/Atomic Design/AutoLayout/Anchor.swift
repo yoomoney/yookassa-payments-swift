@@ -3,9 +3,9 @@ import UIKit.UIView
 
 class Anchor {
     fileprivate let view: Any
-    fileprivate let attribute: NSLayoutAttribute
+    fileprivate let attribute: NSLayoutConstraint.Attribute
 
-    fileprivate init(view: Any, attribute: NSLayoutAttribute) {
+    fileprivate init(view: Any, attribute: NSLayoutConstraint.Attribute) {
         self.view = view
         self.attribute = attribute
     }

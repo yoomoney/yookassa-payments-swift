@@ -34,9 +34,9 @@ class TableViewController: UITableViewController {
         tableView.register(TextHeaderFooterView.self,
                            forHeaderFooterViewReuseIdentifier: TextHeaderFooterView.identifier)
 
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
-        tableView.sectionFooterHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.sectionFooterHeight = UITableView.automaticDimension
 
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = .never
@@ -131,13 +131,13 @@ class TableViewController: UITableViewController {
     private func subscribeToNotifications() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onUIContentSizeCategoryDidChange),
-                                               name: .UIContentSizeCategoryDidChange,
+                                               name: UIContentSizeCategory.didChangeNotification,
                                                object: nil)
     }
 
     private func cancelNotificationsSubscriptions() {
         NotificationCenter.default.removeObserver(self,
-                                                  name: .UIContentSizeCategoryDidChange,
+                                                  name: UIContentSizeCategory.didChangeNotification,
                                                   object: nil)
     }
 

@@ -557,13 +557,13 @@ final class TextControl: UIView {
     func subscribeToContentSizeCategoryDidChange() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(contentSizeCategoryDidChange),
-                                               name: Notification.Name.UIContentSizeCategoryDidChange,
+                                               name: UIContentSizeCategory.didChangeNotification,
                                                object: nil)
     }
 
     func unsubscribeFromContentSizeCategoryDidChange() {
         NotificationCenter.default.removeObserver(self,
-                                                  name: Notification.Name.UIContentSizeCategoryDidChange,
+                                                  name: UIContentSizeCategory.didChangeNotification,
                                                   object: nil)
     }
 

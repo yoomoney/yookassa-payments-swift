@@ -42,12 +42,12 @@ final class SimpleIdentificationViewController: UIViewController {
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        addChildViewController(tableViewController)
+        addChild(tableViewController)
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        addChildViewController(tableViewController)
+        addChild(tableViewController)
     }
 
     // MARK: - Managing the View
@@ -79,7 +79,7 @@ final class SimpleIdentificationViewController: UIViewController {
     private func loadSubviews() {
         view.addSubview(tableView)
         view.addSubview(submitButton)
-        tableViewController.didMove(toParentViewController: self)
+        tableViewController.didMove(toParent: self)
     }
 
     private func loadConstraints() {
@@ -121,7 +121,7 @@ final class SimpleIdentificationViewController: UIViewController {
     private func setupTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.estimatedRowHeight = 70
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none

@@ -48,7 +48,7 @@ class ActionTemplate: UIControl {
 
     // MARK: - Configuring ActionTemplate Presentation
 
-    private(set) var styledState: UIControlState = .normal {
+    private(set) var styledState: UIControl.State = .normal {
         didSet {
             guard oldValue != styledState else { return }
             updateContent(for: styledState)
@@ -61,7 +61,7 @@ class ActionTemplate: UIControl {
     ///
     /// - Parameter style: The style to use for the specified state.
     ///             state: The state that uses the specified style.
-    func setStyle(_ style: Style, for state: UIControlState) {
+    func setStyle(_ style: Style, for state: UIControl.State) {
         styles[state.rawValue] = style
         if styledState == state {
             updateContent(for: state)
@@ -83,7 +83,7 @@ class ActionTemplate: UIControl {
         }
     }
 
-    private func updateContent(for state: UIControlState) {
+    private func updateContent(for state: UIControl.State) {
         guard let style = styles[state.rawValue],
             let contentView = contentView else { return }
         _ = styles.mapValues(contentView.removeStyle)

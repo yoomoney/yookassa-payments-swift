@@ -66,7 +66,7 @@ final class SettingsViewController: UIViewController {
 
         NSLayoutConstraint.activate(constraints)
 
-        tableViewController.didMove(toParentViewController: self)
+        tableViewController.didMove(toParent: self)
     }
 
     override func viewDidLoad() {
@@ -87,7 +87,7 @@ final class SettingsViewController: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
 
-        addChildViewController(tableViewController)
+        addChild(tableViewController)
     }
 
     @available(*, unavailable, message: "Use init(settings:) instead")
