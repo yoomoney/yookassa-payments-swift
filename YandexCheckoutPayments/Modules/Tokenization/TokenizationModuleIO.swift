@@ -35,6 +35,9 @@ public struct TokenizationModuleInputData {
     /// Return url for close 3ds.
     let returnUrl: String?
 
+    /// Enable logging
+    let isLoggingEnabled: Bool
+
     /// Creates instance of `TokenizationModuleInputData`.
     ///
     /// - Parameters:
@@ -49,6 +52,7 @@ public struct TokenizationModuleInputData {
     ///   - cardScanning: Bank card scanning.
     ///   - applePayMerchantIdentifier: Apple Pay merchant ID.
     ///   - returnUrl: Return url for close 3ds.
+    ///   - isLoggingEnabled: Enable logging.
     ///
     /// - Returns: Instance of `TokenizationModuleInputData`.
     public init(clientApplicationKey: String,
@@ -60,7 +64,8 @@ public struct TokenizationModuleInputData {
                 testModeSettings: TestModeSettings? = nil,
                 cardScanning: CardScanning? = nil,
                 applePayMerchantIdentifier: String? = nil,
-                customRedirectUrl: String? = nil) {
+                returnUrl: String? = nil,
+                isLoggingEnabled: Bool = false) {
         self.clientApplicationKey = makeBase64Encoded(clientApplicationKey + ":")
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -70,7 +75,8 @@ public struct TokenizationModuleInputData {
         self.testModeSettings = testModeSettings
         self.cardScanning = cardScanning
         self.applePayMerchantIdentifier = applePayMerchantIdentifier
-        self.returnUrl = customRedirectUrl
+        self.returnUrl = returnUrl
+        self.isLoggingEnabled = isLoggingEnabled
     }
 }
 
@@ -84,7 +90,7 @@ public protocol TokenizationModuleInput: class {
     /// - Parameters:
     ///   - requestUrl: URL string for request website.
     ///   - redirectUrl: URL string for website of the card issuing bank to authorize the transaction.
-    @available(*, deprecated, message: "redirectUrl no longer needed")
+    @available(*, deprecated, message: "redirectUrl no longer needed, will be deleted in next version")
     func start3dsProcess(requestUrl: String, redirectUrl: String)
 
     /// Start 3-D Secure process.

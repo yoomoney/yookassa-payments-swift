@@ -139,6 +139,7 @@ extension BankCardDataInputPresenter: BankCardDataInputInteractorOutput {
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
             view.setConfirmButtonEnabled(true)
+            view.setPanIsValid(true)
         }
     }
 
@@ -192,8 +193,9 @@ extension BankCardDataInputPresenter: BankCardDataInputModuleInput {
 // MARK: - PlaceholderViewDelegate
 extension BankCardDataInputPresenter: ActionTextDialogDelegate {
     func didPressButton() {
-        view?.hidePlaceholder()
-        view?.showActivity()
+        guard let view = view else { return }
+        view.hidePlaceholder()
+        view.showActivity()
         moduleOutput?.bankCardDataInputModule(self, didPressConfirmButton: cardData)
     }
 }

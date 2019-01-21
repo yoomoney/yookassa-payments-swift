@@ -5,8 +5,11 @@ enum SimpleIdentificationAssembly {
     static func makeModule(inputData: SimpleIdentificationInputData,
                            moduleOutput: SimpleIdentificationModuleOutput?) -> UIViewController {
 
-        let identificationService = IdentificationProcessingAssembly.makeService()
-        let authorizationService = AuthorizationProcessingAssembly.makeService(testModeSettings: nil)
+        let identificationService = IdentificationProcessingAssembly
+            .makeService(isLoggingEnabled: inputData.isLoggingEnabled)
+        let authorizationService = AuthorizationProcessingAssembly
+            .makeService(isLoggingEnabled: inputData.isLoggingEnabled,
+                         testModeSettings: nil)
 
         let view = SimpleIdentificationViewController()
         let presenter = SimpleIdentificationPresenter()

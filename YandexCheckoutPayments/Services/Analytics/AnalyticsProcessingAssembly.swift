@@ -1,5 +1,5 @@
 enum AnalyticsProcessingAssembly {
-    static func makeAnalyticsService() -> AnalyticsProcessing {
-        return AnalyticsService()
+    static func makeAnalyticsService(isLoggingEnabled: Bool) -> AnalyticsProcessing {
+        return AnalyticsService(isLoggingEnabled: isLoggingEnabled)
     }
 }

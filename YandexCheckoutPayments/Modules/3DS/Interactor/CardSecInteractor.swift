@@ -47,7 +47,8 @@ extension CardSecInteractor: WebBrowserInteractorInput {
 
     func shouldProcessRequest(_ request: URLRequest) -> Bool {
         let path = request.url?.absoluteString ?? ""
-        return redirectPaths.contains(path)
+        let availableRedirects = redirectPaths.filter { path.hasPrefix($0) == true }
+        return availableRedirects.isEmpty == false
     }
 
     func processRequest(_ request: URLRequest) {

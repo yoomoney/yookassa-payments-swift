@@ -10,9 +10,11 @@ enum SberbankAssembly {
 
         viewController.templateViewController.addChildViewController(phoneController)
 
-        let authorizationService
-            = AuthorizationProcessingAssembly.makeService(testModeSettings: inputData.testModeSettings)
-        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService()
+        let authorizationService = AuthorizationProcessingAssembly
+            .makeService(isLoggingEnabled: inputData.isLoggingEnabled,
+                         testModeSettings: inputData.testModeSettings)
+        let analyticsService = AnalyticsProcessingAssembly
+            .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
         let analyticsProvider = AnalyticsProvider(authorizationService: authorizationService)
 
         let interactor = ContractInteractor(analyticsService: analyticsService,

@@ -1,5 +1,3 @@
-import struct YandexCheckoutPaymentsApi.MonetaryAmount
-
 /// Test mode settings.
 public struct TestModeSettings {
 
@@ -10,7 +8,7 @@ public struct TestModeSettings {
     public let cardsCount: Int
 
     /// The amount to be paid.
-    public let charge: MonetaryAmount
+    public let charge: Amount
 
     /// A Boolean value that determines whether the payment will end with an error.
     public let enablePaymentError: Bool
@@ -27,7 +25,7 @@ public struct TestModeSettings {
     /// - Returns: Instance of `TestModeSettings`.
     public init(paymentAuthorizationPassed: Bool,
                 cardsCount: Int,
-                charge: MonetaryAmount,
+                charge: Amount,
                 enablePaymentError: Bool) {
         self.paymentAuthorizationPassed = paymentAuthorizationPassed
         self.cardsCount = cardsCount

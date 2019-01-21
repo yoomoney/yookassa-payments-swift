@@ -1,9 +1,12 @@
 enum PaymentProcessingAssembly {
     static func makeService(tokenizationSettings: TokenizationSettings,
-                            testModeSettings: TestModeSettings?) -> PaymentProcessing {
+                            testModeSettings: TestModeSettings?,
+                            isLoggingEnabled: Bool) -> PaymentProcessing {
         let service: PaymentProcessing
         let paymentMethodHandler = PaymentMethodHandler.makePaymentMethodHandler(tokenizationSettings)
-        let authorizationMediator = AuthorizationProcessingAssembly.makeService(testModeSettings: testModeSettings)
+        let authorizationMediator = AuthorizationProcessingAssembly
+            .makeService(isLoggingEnabled: isLoggingEnabled,
+                         testModeSettings: testModeSettings)
 
         switch testModeSettings {
         case .some(let testModeSettings):
@@ -11,7 +14,8 @@ enum PaymentProcessingAssembly {
                                          testModeSettings: testModeSettings,
                                          authorizationMediator: authorizationMediator)
         case .none:
-            service = PaymentService(session: ApiSessionAssembly.makeApiSession(),
+            let session = ApiSessionAssembly.makeApiSession(isLoggingEnabled: isLoggingEnabled)
+            service = PaymentService(session: session,
                                      paymentMethodHandler: paymentMethodHandler)
         }
 

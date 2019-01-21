@@ -6,6 +6,7 @@ struct YandexAuthModuleInputData {
     let clientApplicationKey: String
     let gatewayId: String?
     let amount: Amount
+    let isLoggingEnabled: Bool
 }
 
 protocol YandexAuthModuleInput: class {}

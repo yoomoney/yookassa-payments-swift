@@ -3,7 +3,7 @@ PODS:
   - FunctionalSwift (1.0.5)
   - SwiftLint (0.29.1)
   - When (4.0.0)
-  - YandexCheckoutPayments (1.3.6):
+  - YandexCheckoutPayments (1.3.7):
     - FunctionalSwift
     - When
     - YandexCheckoutPaymentsApi
@@ -62,7 +62,7 @@ SPEC CHECKSUMS:
   FunctionalSwift: 89cef31016cbc9fcdd49ec04e5831ed5f51244bb
   SwiftLint: 6772320e40b52049053a518c17db9b0634a0b45a
   When: 4ffc88d535a094ad4bd5eaf2fd187de747e716d1
-  YandexCheckoutPayments: 6fa815dcdfa5a93583fd3ea47aac2e0f03e55630
+  YandexCheckoutPayments: 43ba68282e547ed93065872bdd521f081170c406
   YandexCheckoutPaymentsApi: d565ac4c2abb23be93c60549740fc9270a565122
   YandexCheckoutShowcaseApi: c7fda3e27adf4f73fb14c1d6d4b9077703313405
   YandexCheckoutWalletApi: 304601e48205c4dc0568a1018134eed3bb47547c
