@@ -25,7 +25,7 @@ import UIKit
 
 extension UIButton {
 
-    func setStyledTitle(_ text: String?, for state: UIControlState) {
+    func setStyledTitle(_ text: String?, for state: UIControl.State) {
         guard text != nil else {
             setTitle(nil, for: state)
             setAttributedTitle(nil, for: state)
@@ -35,7 +35,7 @@ extension UIButton {
         applyStyles()
     }
 
-    func styledTitle(for state: UIControlState) -> String? {
+    func styledTitle(for state: UIControl.State) -> String? {
         return attributedTitle(for: state)?.string ?? title(for: state)
     }
 }

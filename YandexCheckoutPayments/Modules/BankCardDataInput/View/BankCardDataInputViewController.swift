@@ -118,9 +118,9 @@ class BankCardDataInputViewController: UIViewController, PlaceholderProvider {
     override func loadView() {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
-        addChildViewController(scrollViewController)
+        addChild(scrollViewController)
         setupView()
-        scrollViewController.didMove(toParentViewController: self)
+        scrollViewController.didMove(toParent: self)
     }
 
     // MARK: - Responding to View Events

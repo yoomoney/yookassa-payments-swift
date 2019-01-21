@@ -349,7 +349,7 @@ extension UILabel {
     }
 }
 
-private func makeStyle(name: String, attributes: [NSAttributedStringKey: Any]) -> Style {
+private func makeStyle(name: String, attributes: [NSAttributedString.Key: Any]) -> Style {
     return Style(name: name) { (label: UILabel) in
         label.attributedText = liftA2(makeAttributedString, label.attributedText, attributes)
     }
@@ -372,7 +372,7 @@ private func makeStyle(name: String,
 }
 
 private func makeAttributedString(attributedString: NSAttributedString,
-                                  attributes: [NSAttributedStringKey: Any]) -> NSAttributedString {
+                                  attributes: [NSAttributedString.Key: Any]) -> NSAttributedString {
 
     let range = NSRange(location: 0, length: (attributedString.string as NSString).length)
     let attributedString = NSMutableAttributedString(attributedString: attributedString)

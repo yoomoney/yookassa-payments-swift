@@ -102,13 +102,13 @@ class TextValueView: UIView {
     private func subscribeToNotifications() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onUIContentSizeCategoryDidChange),
-                                               name: .UIContentSizeCategoryDidChange,
+                                               name: UIContentSizeCategory.didChangeNotification,
                                                object: nil)
     }
 
     private func cancelNotificationsSubscriptions() {
         NotificationCenter.default.removeObserver(self,
-                                                  name: .UIContentSizeCategoryDidChange,
+                                                  name: UIContentSizeCategory.didChangeNotification,
                                                   object: nil)
     }
 

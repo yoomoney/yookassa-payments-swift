@@ -33,12 +33,12 @@ class ContractViewController: UIViewController, PlaceholderProvider {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        addChildViewController(templateViewController)
+        addChild(templateViewController)
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        addChildViewController(templateViewController)
+        addChild(templateViewController)
     }
 
     // MARK: - PlaceholderProvider

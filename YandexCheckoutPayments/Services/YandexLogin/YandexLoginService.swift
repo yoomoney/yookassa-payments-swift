@@ -48,7 +48,7 @@ public final class YandexLoginService: YandexLoginProcessing, YandexLoginSdkProc
     private func subscribeOnNotifications() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(applicationDidBecomeActive),
-                                               name: .UIApplicationDidBecomeActive,
+                                               name: UIApplication.didBecomeActiveNotification,
                                                object: nil)
     }
 

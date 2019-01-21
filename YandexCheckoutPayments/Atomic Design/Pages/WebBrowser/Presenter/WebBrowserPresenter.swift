@@ -25,7 +25,7 @@ class WebBrowserPresenter: NSObject, WebBrowserViewOutput {
 
     func webView(_ webView: UIWebView,
                  shouldStartLoadWith request: URLRequest,
-                 navigationType: UIWebViewNavigationType) -> Bool {
+                 navigationType: UIWebView.NavigationType) -> Bool {
         let interactorShouldProcessRequest = interactor.shouldProcessRequest(request)
         if interactorShouldProcessRequest {
             interactor.processRequest(request)
