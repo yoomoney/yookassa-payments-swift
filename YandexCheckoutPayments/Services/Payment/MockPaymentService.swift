@@ -137,7 +137,7 @@ private func makePaymentOptions(_ settings: TestModeSettings,
 
 private func makeLinkedCard(_ charge: Amount) -> PaymentInstrumentYandexMoneyLinkedBankCard {
     return PaymentInstrumentYandexMoneyLinkedBankCard(paymentMethodType: .yandexMoney,
-                                                      confirmationType: nil,
+                                                      confirmationTypes: nil,
                                                       charge: MonetaryAmountFactory.makePaymentsMonetaryAmount(charge),
                                                       instrumentType: .linkedBankCard,
                                                       cardId: "123456789",
@@ -155,7 +155,7 @@ private func makeDefaultPaymentOptions(_ charge: Amount, authorized: Bool) -> [P
 
         response += [
             PaymentInstrumentYandexMoneyWallet(paymentMethodType: .yandexMoney,
-                                               confirmationType: [],
+                                               confirmationTypes: [],
                                                charge: charge,
                                                instrumentType: .wallet,
                                                accountId: "2736482364872",
@@ -167,7 +167,7 @@ private func makeDefaultPaymentOptions(_ charge: Amount, authorized: Bool) -> [P
 
         response += [
             PaymentOption(paymentMethodType: .yandexMoney,
-                          confirmationType: [],
+                          confirmationTypes: [],
                           charge: charge,
                           identificationRequirement: nil),
         ]
@@ -175,15 +175,15 @@ private func makeDefaultPaymentOptions(_ charge: Amount, authorized: Bool) -> [P
 
     response += [
         PaymentOption(paymentMethodType: .sberbank,
-                      confirmationType: [],
+                      confirmationTypes: [],
                       charge: charge,
                       identificationRequirement: nil),
         PaymentOption(paymentMethodType: .bankCard,
-                      confirmationType: [],
+                      confirmationTypes: [],
                       charge: charge,
                       identificationRequirement: nil),
         PaymentOption(paymentMethodType: .applePay,
-                      confirmationType: [],
+                      confirmationTypes: [],
                       charge: charge,
                       identificationRequirement: nil),
     ]
