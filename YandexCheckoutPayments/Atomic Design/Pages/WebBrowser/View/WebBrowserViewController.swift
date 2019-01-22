@@ -9,6 +9,7 @@ class WebBrowserViewController: UIViewController {
 
     fileprivate lazy var webView: UIWebView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.scrollView.showsHorizontalScrollIndicator = false
         return $0
     }(UIWebView())
 
@@ -56,6 +57,10 @@ class WebBrowserViewController: UIViewController {
         webView.isOpaque = false
         addSubviews()
         setupConstraints()
+
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+        }
     }
 
     override func viewDidLoad() {
