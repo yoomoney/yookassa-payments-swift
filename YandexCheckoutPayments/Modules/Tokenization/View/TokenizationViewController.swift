@@ -309,6 +309,9 @@ class TokenizationViewController: UIViewController {
             view.top.constraint(equalTo: modalTemplate.view.top),
             view.bottom.constraint(equalTo: modalTemplate.view.bottom),
         ]
+
+        modalTemplateConstraints.forEach { $0.priority = .highest }
+
         NSLayoutConstraint.activate(modalTemplateConstraints)
         modalTemplate.view.layoutIfNeeded()
 
@@ -449,9 +452,6 @@ class TokenizationViewController: UIViewController {
         modalTemplate.willMove(toParent: nil)
         NSLayoutConstraint.deactivate(containerConstraints)
 
-        let constraints = modalTemplate.view.constraintsAffectingLayout(for: .vertical)
-        NSLayoutConstraint.deactivate(constraints)
-
         let dismissConstraint = [
             modalTemplate.view.leading.constraint(equalTo: view.leading),
             modalTemplate.view.trailing.constraint(equalTo: view.trailing),
@@ -507,6 +507,8 @@ class TokenizationViewController: UIViewController {
             modalTemplate.view.top.constraint(equalTo: view.top),
             modalTemplate.view.bottom.constraint(equalTo: view.bottom),
         ]
+
+        endConstraints.forEach { $0.priority = .highest }
 
         NSLayoutConstraint.deactivate(startConstraints)
         NSLayoutConstraint.activate(endConstraints)
