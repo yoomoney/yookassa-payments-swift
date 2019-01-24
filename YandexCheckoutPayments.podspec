@@ -30,13 +30,13 @@ Pod::Spec.new do |s|
     'FRAMEWORK_SEARCH_PATHS' => '"${PODS_ROOT}/../Frameworks"'
   }
 
-  s.ios.dependency 'FunctionalSwift'
-  s.ios.dependency 'When'
+  s.ios.dependency 'FunctionalSwift', '~> 1.1.0'
+  s.ios.dependency 'When', '~> 4.0.0'
 
-  s.ios.dependency 'YandexLoginSDK'
-  s.ios.dependency 'YandexMoneyCoreApi'
-  s.ios.dependency 'YandexCheckoutPaymentsApi'
-  s.ios.dependency 'YandexCheckoutShowcaseApi'
-  s.ios.dependency 'YandexCheckoutWalletApi'
+  s.ios.dependency 'YandexLoginSDK', '~> 2.0.0'
+  s.ios.dependency 'YandexMoneyCoreApi', '~> 1.3.0'
+  s.ios.dependency 'YandexCheckoutPaymentsApi', '~> 1.1.0'
+  s.ios.dependency 'YandexCheckoutShowcaseApi', '~> 1.0.0'
+  s.ios.dependency 'YandexCheckoutWalletApi', '~> 1.0.0'
   s.ios.dependency 'YandexMobileMetrica/Dynamic', '~> 3.5.0'
 end
