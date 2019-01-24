@@ -450,7 +450,7 @@ func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
         guard let self = self else { return }
 
         // Now close tokenization module
-        self..dismiss(animated: true)
+        self.dismiss(animated: true)
     }
 }
 ```
