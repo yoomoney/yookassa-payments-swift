@@ -270,6 +270,7 @@ extension TokenizationPresenter: TokenizationViewOutput {
 
     func setupView() {
         interactor.startAnalyticsService()
+        presentPaymentMethodsModule()
     }
 }
 
