@@ -33,17 +33,6 @@ public enum TokenizationAssembly {
                                                 clientApplicationKey: inputData.clientApplicationKey,
                                                 amount: inputData.amount)
 
-        let paymentMethodsModuleInputData
-            = PaymentMethodsModuleInputData(clientApplicationKey: inputData.clientApplicationKey,
-                                            gatewayId: inputData.gatewayId,
-                                            amount: inputData.amount,
-                                            tokenizationSettings: inputData.tokenizationSettings,
-                                            testModeSettings: inputData.testModeSettings,
-                                            isLoggingEnabled: inputData.isLoggingEnabled)
-
-        let paymentMethods = PaymentMethodsAssembly.makeModule(inputData: paymentMethodsModuleInputData,
-                                                               moduleOutput: presenter)
-
         viewController.output = presenter
         viewController.transitioningDelegate = router
         viewController.modalPresentationStyle = .custom
@@ -55,8 +44,6 @@ public enum TokenizationAssembly {
         interactor.output = presenter
 
         router.transitionHandler = viewController
-
-        viewController.show(paymentMethods, sender: nil)
 
         return viewController
     }
