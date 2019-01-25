@@ -27,9 +27,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         view.showActivity()
         view.setLogoVisible(isLogoVisible)
         view.setPlaceholderViewButtonTitle(§Localized.PlaceholderView.buttonTitle)
-    }
 
-    func viewDidAppear() {
         DispatchQueue.global().async { [weak self] in
             self?.interactor.fetchPaymentMethods()
         }

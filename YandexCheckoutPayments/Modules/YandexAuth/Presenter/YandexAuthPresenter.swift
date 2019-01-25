@@ -31,7 +31,6 @@ extension YandexAuthPresenter: PaymentMethodsViewOutput {
         }
     }
 
-    func viewDidAppear() {}
     func didSelectViewModel(_ viewModel: PaymentMethodViewModel, at indexPath: IndexPath) {}
     func logoutDidPress(at indexPath: IndexPath) {}
 }
