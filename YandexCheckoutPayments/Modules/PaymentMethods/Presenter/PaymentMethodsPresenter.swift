@@ -72,6 +72,16 @@ extension PaymentMethodsPresenter: PaymentMethodsModuleInput {
             view.showPlaceholder(message: message)
         }
     }
+
+    func reloadData() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.setupView()
+            DispatchQueue.global().async {
+                self.interactor.fetchPaymentMethods()
+            }
+        }
+    }
 }
 
 // MARK: - PaymentMethodsInteractorOutput
