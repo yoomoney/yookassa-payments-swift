@@ -49,6 +49,7 @@ protocol PaymentMethodsViewInput: ActivityIndicatorFullViewPresenting {
 
 protocol PaymentMethodsViewOutput: ActionTextDialogDelegate {
     func setupView()
+    func viewDidAppear()
     func didSelectViewModel(_ viewModel: PaymentMethodViewModel, at indexPath: IndexPath)
     func logoutDidPress(at indexPath: IndexPath)
 }
