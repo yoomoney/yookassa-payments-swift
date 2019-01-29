@@ -412,7 +412,6 @@
 		402EB2CDFEA5DFD482368CB7 /* PriceInputFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB96235983229B08D616C /* PriceInputFormatter.swift */; };
 		402EB2D7B6AFB39DD6D031EA /* TestSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7D5657B7828E3545FDC /* TestSettings.swift */; };
 		402EB2E2B6C92A80944212FD /* AnalyticsProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5EC69067D7D8EB8CECE /* AnalyticsProviding.swift */; };
-		402EB30AC88400ACC096F153 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 402EBD0134735C09A172FA1A /* Main.storyboard */; };
 		402EB327821696125CB5A710 /* TokenizationModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBADBD4FD26EC4822B55B /* TokenizationModuleIO.swift */; };
 		402EB340165A5A5B3C75F549 /* PaymentMethodHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7AF022447D9E9C0D6E8 /* PaymentMethodHandler.swift */; };
 		402EB3527138D5334A5AB4B5 /* BankCardDataInputModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB2649F3177544CE055F4 /* BankCardDataInputModuleIO.swift */; };
@@ -439,7 +438,6 @@
 		402EB5F1B5DD83054302484E /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB98341C0EAD3DE8902C2 /* TableViewController.swift */; };
 		402EB6070E4126C4709F20DE /* ApplePayAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6DB38CE58DCD11766AC /* ApplePayAssembly.swift */; };
 		402EB61F8DBD89B127C082B8 /* CardSecModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3C9DE50D5321D9AA990 /* CardSecModuleIO.swift */; };
-		402EB6BCF08F6AC50918B39B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 402EBD0134735C09A172FA1A /* Main.storyboard */; };
 		402EB6BFF3C4303ACB60B4F0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB20893D57BCDD6531F5D /* SettingsViewController.swift */; };
 		402EB6F69F74C4814D61A217 /* YandexAuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA05C1D4D9BC0DDCFE66 /* YandexAuthPresenter.swift */; };
 		402EB71CB04D0F2C80444472 /* RootViewController+CardScanning+Carthage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB90E43119606C39C3A8E /* RootViewController+CardScanning+Carthage.swift */; };
@@ -932,7 +930,6 @@
 		402EBCBADE67B7CB77A67988 /* YandexAuthAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexAuthAssembly.swift; sourceTree = "<group>"; };
 		402EBCC5C4DC72D2654A7CED /* PKPaymentAuthorizationViewController+Presentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PKPaymentAuthorizationViewController+Presentable.swift"; sourceTree = "<group>"; };
 		402EBCE6D8DD4CCCA85A7592 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		402EBD0134735C09A172FA1A /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		402EBD24A8CA2694434FF10B /* DecimalPriceViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecimalPriceViewModel.swift; sourceTree = "<group>"; };
 		402EBD2572A1A47144B270C3 /* SettingsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		402EBD3D240DE0D699B41E21 /* ContractInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractInteractor.swift; sourceTree = "<group>"; };
@@ -2712,7 +2709,6 @@
 				FEDABFAC200E65600056E0CC /* Localizable.strings */,
 				303FD05D21B92EC900CE82B4 /* InfoPlist.strings */,
 				30A588232177B792002AFFF1 /* Settings.bundle */,
-				402EBD0134735C09A172FA1A /* Main.storyboard */,
 				402EBCE6D8DD4CCCA85A7592 /* LaunchScreen.storyboard */,
 				402EB4F728CFBA828884E459 /* Info.plist */,
 			);
@@ -2873,7 +2869,6 @@
 				30A588242177B792002AFFF1 /* Settings.bundle in Resources */,
 				E0148CDD1FE958810087CF5F /* Assets.xcassets in Resources */,
 				303FD05A21B92EC900CE82B4 /* InfoPlist.strings in Resources */,
-				402EB30AC88400ACC096F153 /* Main.storyboard in Resources */,
 				402EB5908B35DDD04AAED4C2 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2886,7 +2881,6 @@
 				30A588252177B792002AFFF1 /* Settings.bundle in Resources */,
 				E06532A91FF13BA200831588 /* Assets.xcassets in Resources */,
 				303FD05B21B92EC900CE82B4 /* InfoPlist.strings in Resources */,
-				402EB6BCF08F6AC50918B39B /* Main.storyboard in Resources */,
 				402EB37FABD632D4A895D1E8 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
