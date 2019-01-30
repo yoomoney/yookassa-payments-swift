@@ -3,7 +3,7 @@ import FunctionalSwift
 
 class CardSecInteractor {
 
-    fileprivate let options = WebBrowserOptions.all
+    private let options = WebBrowserOptions.all
 
     // MARK: - VIPER module
 
@@ -12,18 +12,23 @@ class CardSecInteractor {
 
     // MARK: - VIPER module properties
 
-    fileprivate let analyticsService: AnalyticsProcessing
-    fileprivate let requestUrl: String
-    fileprivate let redirectUrl: String
+    private let analyticsService: AnalyticsProcessing
+    private let requestUrl: String
+    private let redirectUrl: String
+    private let logger: WebLogger
 
     fileprivate lazy var redirectPaths = [
         redirectUrl,
     ]
 
-    init(analyticsService: AnalyticsProcessing, requestUrl: String, redirectUrl: String) {
+    init(analyticsService: AnalyticsProcessing,
+         requestUrl: String,
+         redirectUrl: String,
+         logger: WebLogger) {
         self.analyticsService = analyticsService
         self.requestUrl = requestUrl
         self.redirectUrl = redirectUrl
+        self.logger = logger
     }
 }
 
@@ -46,6 +51,7 @@ extension CardSecInteractor: WebBrowserInteractorInput {
     }
 
     func shouldProcessRequest(_ request: URLRequest) -> Bool {
+        logger.trace(request)
         let path = request.url?.absoluteString ?? ""
         let availableRedirects = redirectPaths.filter { path.hasPrefix($0) == true }
         return availableRedirects.isEmpty == false

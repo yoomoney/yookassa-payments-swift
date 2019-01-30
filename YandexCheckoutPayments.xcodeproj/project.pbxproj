@@ -432,6 +432,7 @@
 		402EB4BFFA567B8E04346898 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE4329C16EF4BAF8F641 /* Localization.swift */; };
 		402EB4DC5AAC097E3992B6DE /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5FD23E637F2CB6C2574 /* SuccessViewController.swift */; };
 		402EB4E3354E5CE68468D3AF /* DecimalPriceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD24A8CA2694434FF10B /* DecimalPriceViewModel.swift */; };
+		402EB52E513DDF34548895F4 /* WebLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB434CF76B1697BB9CE69 /* WebLogger.swift */; };
 		402EB5908B35DDD04AAED4C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 402EBCE6D8DD4CCCA85A7592 /* LaunchScreen.storyboard */; };
 		402EB5A42353DA754E2EE4AE /* SectionDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD99826BEF036D940985 /* SectionDescriptor.swift */; };
 		402EB5A7BB2DF143643B254C /* AnalyticsTrackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE808D6D9136472905E2 /* AnalyticsTrackable.swift */; };
@@ -878,6 +879,7 @@
 		402EB3CFBB0309CD96A6FB1D /* PaymentMethodsModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsModuleIO.swift; sourceTree = "<group>"; };
 		402EB3EA33841DD2B8C1323B /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		402EB42858CF8893C0E1EBF2 /* ProcessingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessingViewController.swift; sourceTree = "<group>"; };
+		402EB434CF76B1697BB9CE69 /* WebLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebLogger.swift; sourceTree = "<group>"; };
 		402EB45848B2A683D8AD00B3 /* AnalyticsProcessingAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsProcessingAssembly.swift; sourceTree = "<group>"; };
 		402EB4F728CFBA828884E459 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		402EB59A0AA13970276C2405 /* PriceFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceFormatter.swift; sourceTree = "<group>"; };
@@ -1967,6 +1969,7 @@
 				402EB76F0D9F6D645C97E56C /* CardScanning.swift */,
 				402EBE7D2A5CFB3064C4D042 /* Analytics */,
 				402EB70C828F2AE13254E2E0 /* ApplePayPermissionsHandler.swift */,
+				402EB434CF76B1697BB9CE69 /* WebLogger.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -3330,6 +3333,7 @@
 				402EBDCEB78B428E8C09A9B8 /* UserDefaultsStorage.swift in Sources */,
 				402EB76092220A69EBC9CA93 /* Settings.swift in Sources */,
 				402EBEEE22E6D5381D1F1414 /* HostsConfig.swift in Sources */,
+				402EB52E513DDF34548895F4 /* WebLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
