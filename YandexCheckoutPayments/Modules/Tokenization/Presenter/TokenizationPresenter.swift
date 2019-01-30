@@ -733,6 +733,6 @@ private func makeStrategy(paymentOption: PaymentOption,
 // MARK: - Constants
 
 private enum Constants {
-    static let returnUrl = "yandexcheckout://return"
+    static let returnUrl = "https://custom.redirect.url/"
     static let minimalRecommendedPaymentsOptions = 1
 }
