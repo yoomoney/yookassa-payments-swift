@@ -27,7 +27,9 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         view.showActivity()
         view.setLogoVisible(isLogoVisible)
         view.setPlaceholderViewButtonTitle(§Localized.PlaceholderView.buttonTitle)
+    }
 
+    func viewDidAppear() {
         DispatchQueue.global().async { [weak self] in
             self?.interactor.fetchPaymentMethods()
         }
@@ -68,6 +70,16 @@ extension PaymentMethodsPresenter: PaymentMethodsModuleInput {
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self, let view = strongSelf.view else { return }
             view.showPlaceholder(message: message)
+        }
+    }
+
+    func reloadData() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.setupView()
+            DispatchQueue.global().async {
+                self.interactor.fetchPaymentMethods()
+            }
         }
     }
 }

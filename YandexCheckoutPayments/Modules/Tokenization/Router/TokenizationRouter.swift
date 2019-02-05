@@ -13,10 +13,10 @@ extension TokenizationRouter: TokenizationRouterInput {
     func presentPaymentMethods(inputData: PaymentMethodsModuleInputData,
                                moduleOutput: PaymentMethodsModuleOutput) {
         if let module = transitionHandler?.modules.last as? PaymentMethodsViewController {
-            let paymentMethodsModule = PaymentMethodsAssembly.makeModule(inputData: inputData,
+            let (_, moduleInput) = PaymentMethodsAssembly.makeModule(inputData: inputData,
                                                                          moduleOutput: moduleOutput,
                                                                          view: module)
-            paymentMethodsModule.output.setupView()
+            moduleInput.reloadData()
         } else {
             let paymentMethodsModule = PaymentMethodsAssembly.makeModule(inputData: inputData,
                                                                          moduleOutput: moduleOutput)

@@ -5,15 +5,16 @@ enum PaymentMethodsAssembly {
 
     static func makeModule(inputData: PaymentMethodsModuleInputData,
                            moduleOutput: PaymentMethodsModuleOutput?) -> UIViewController {
-        let view = PaymentMethodsViewController()
-        return PaymentMethodsAssembly.makeModule(inputData: inputData,
-                                                 moduleOutput: moduleOutput,
-                                                 view: view)
+        let (view, _) = PaymentMethodsAssembly.makeModule(inputData: inputData,
+                                                          moduleOutput: moduleOutput,
+                                                          view: PaymentMethodsViewController())
+        return view
     }
 
     static func makeModule(inputData: PaymentMethodsModuleInputData,
                            moduleOutput: PaymentMethodsModuleOutput?,
-                           view: PaymentMethodsViewController) -> PaymentMethodsViewController {
+                           view: PaymentMethodsViewController) -> (view: PaymentMethodsViewController,
+                                                                   moduleInput: PaymentMethodsModuleInput) {
 
         let presenter = PaymentMethodsPresenter(isLogoVisible: inputData.tokenizationSettings.showYandexCheckoutLogo)
 
@@ -45,6 +46,6 @@ enum PaymentMethodsAssembly {
         view.output = presenter
         view.actionTextDialog.delegate = presenter
 
-        return view
+        return (view: view, moduleInput: presenter)
     }
 }

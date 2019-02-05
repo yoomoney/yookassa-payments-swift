@@ -11,6 +11,7 @@ struct PaymentMethodsModuleInputData {
 
 protocol PaymentMethodsModuleInput: class {
     func showPlaceholder(message: String)
+    func reloadData()
 }
 
 protocol PaymentMethodsModuleOutput: class {
