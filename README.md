@@ -10,19 +10,20 @@
 С помощью SDK можно получать токены для проведения оплаты с банковской карты, через Apple Pay, Сбербанк Онлайн или из кошелька в Яндекс.Деньгах.
 
 - [Код библиотеки](https://github.com/yandex-money/yandex-checkout-payments-swift/tree/master/YandexCheckoutPayments)
-- [Код демо-приложения, которое интегрирует mSDK](https://github.com/yandex-money/yandex-checkout-payments-swift/tree/master/YandexCheckoutPaymentsExample)
+- [Код демо-приложения, которое интегрирует SDK](https://github.com/yandex-money/yandex-checkout-payments-swift/tree/master/YandexCheckoutPaymentsExample)
 - [Документация](https://yandex-money.github.io/yandex-checkout-payments-swift/)
 
 ## Содержание
 
+* [Changelog](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/CHANGELOG.md)
 * [Подключение зависимостей](#подключение-зависимостей)
   * [CocoaPods](#cocoapods)
   * [Carthage](#carthage)
-  * [TrustDefender.framework](#trustdefender.framework)
+  * [TrustDefender.framework](#trustdefender)
 * [Быстрая интеграция](#быстрая-интеграция)
 * [Доступные способы оплаты](#доступные-способы-оплаты)
 * [Настройка способов оплаты](#настройка-способов-оплаты)
-  * [Яндекс.Деньги](#яндекс.деньги)
+  * [Яндекс.Деньги](#яндекс-деньги)
   * [Банковская карта](#банковская-карта)
   * [Сбербанк Онлайн](#сбербанк-онлайн)
   * [Apple Pay](#apple-pay)
@@ -67,7 +68,7 @@
   > `tag` - версия SDK. Актуальную версию можно узнать на github в разделе [releases](https://github.com/yandex-money/yandex-checkout-payments-swift/releases).
 
 3. Добавьте библиотеку TrustDefender.framework в папку Frameworks.\
-  [Подробнее про TrustDefender](#trustDefender.framework).
+  [Подробнее про TrustDefender](#trustdefender).
 
   ```txt
   App
@@ -80,7 +81,7 @@
 
 Пока Carthage не поддерживается.
 
-#### TrustDefender.framework
+#### TrustDefender
 
 Чтобы получить файл `.framework`,  [зарегистрируйтесь в Яндекс.Кассе](https://kassa.yandex.ru/joinups)
 и сообщите вашему менеджеру, что хотите подключить мобильный SDK.
@@ -190,7 +191,7 @@ let tokenizationSettings = TokenizationSettings(paymentMethodTypes: paymentMetho
 
 Теперь используйте `tokenizationSettings` при инициализации `TokenizationModuleInputData`.
 
-#### Яндекс.Деньги
+#### Яндекс Деньги
 
 Чтобы принимать платежи из кошельков в Яндекс.Деньгах, необходима авторизация в Яндексе.
 
@@ -406,7 +407,7 @@ let inputData = TokenizationModuleInputData(
     cardScanning: CardScannerProvider())
 ```
 
-### Настройка 3-D Secure
+### Настройка 3D Secure
 
 Если вы хотите использовать нашу реализацию 3-D Secure, не закрывайте модуль SDK после получения токена.\
 Отправьте токен на ваш сервер и после успешной оплаты закройте модуль.\
@@ -500,7 +501,7 @@ let moduleData = TokenizationModuleInputData(
 git clone https://github.com/yandex-money/yandex-checkout-payments-swift.git
 ```
 
-2. Добавить [TrustDefender.framework](#trustDefender.framework) в папку `Frameworks`, которая находится на одном уровне с папкой `Pods`.
+2. Добавить [TrustDefender.framework](#trustdefender) в папку `Frameworks`, которая находится на одном уровне с папкой `Pods`.
 3. В консоли перейти в папку с проектом и выполнить следующие команды:
 
 ```shell

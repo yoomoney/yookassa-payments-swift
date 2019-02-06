@@ -353,7 +353,7 @@ extension TokenizationPresenter: TokenizationModuleInput {
     func start3dsProcess(requestUrl: String, redirectUrl: String) {
         let moduleInputData
             = CardSecModuleInputData(requestUrl: requestUrl,
-                                     redirectUrl: redirectUrl,
+                                     redirectUrl: inputData.returnUrl ?? Constants.returnUrl,
                                      isLoggingEnabled: inputData.isLoggingEnabled)
         present3dsModule(inputData: moduleInputData)
     }
