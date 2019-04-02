@@ -129,9 +129,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
     func presentContract(paymentOption: PaymentOption) {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
-
         let moduleInputData = ContractModuleInputData(shopName: inputData.shopName,
-                                                      purchaseDescription: self.inputData.purchaseDescription,
+                                                      purchaseDescription: inputData.purchaseDescription,
                                                       paymentMethod: viewModel,
                                                       price: makePriceViewModel(paymentOption),
                                                       shouldChangePaymentMethod: shouldChangePaymentOptions,
@@ -181,7 +180,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                                       shouldChangePaymentMethod: shouldChangePaymentOptions,
                                                       testModeSettings: inputData.testModeSettings,
                                                       tokenizeScheme: tokenizeScheme,
-                                                      isLoggingEnabled: inputData.isLoggingEnabled)
+                                                      isLoggingEnabled: inputData.isLoggingEnabled,
+                                                      phoneNumber: inputData.userPhoneNumber)
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentSberbank(inputData: moduleInputData,

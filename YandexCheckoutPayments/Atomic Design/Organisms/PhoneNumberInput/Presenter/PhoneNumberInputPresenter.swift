@@ -16,12 +16,7 @@ final class PhoneNumberInputPresenter {
 extension PhoneNumberInputPresenter: PhoneNumberInputViewOutput {
     func phoneNumberDidChange(on phoneNumber: String) {
         self.phoneNumber = phoneNumber
-        if interactor.isValidPhoneNumber(phoneNumber) {
-            view?.markTextFieldValid(true)
-            moduleOutput?.didChangePhoneNumber(phoneNumber)
-        } else {
-            moduleOutput?.didChangePhoneNumber("")
-        }
+        validatePhoneNumber()
     }
 
     func didFinishChangePhoneNumber() {
@@ -34,7 +29,6 @@ extension PhoneNumberInputPresenter: PhoneNumberInputViewOutput {
 // MARK: - PhoneNumberInputInteractorOutput
 
 extension PhoneNumberInputPresenter: PhoneNumberInputInteractorOutput {
-
 }
 
 // MARK: - PhoneNumberInputModuleInput
@@ -49,6 +43,17 @@ extension PhoneNumberInputPresenter: PhoneNumberInputModuleInput {
     }
 
     func setValue(_ value: String) {
+        phoneNumber = value
         view?.setValue(value)
     }
+
+    func validatePhoneNumber() {
+        if interactor.isValidPhoneNumber(phoneNumber) {
+            view?.markTextFieldValid(true)
+            moduleOutput?.didChangePhoneNumber(phoneNumber)
+        } else {
+            moduleOutput?.didChangePhoneNumber("")
+        }
+    }
+
 }

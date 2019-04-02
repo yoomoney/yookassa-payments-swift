@@ -38,6 +38,9 @@ public struct TokenizationModuleInputData {
     /// Enable logging
     let isLoggingEnabled: Bool
 
+    /// User phone number.
+    let userPhoneNumber: String?
+
     /// Creates instance of `TokenizationModuleInputData`.
     ///
     /// - Parameters:
@@ -53,6 +56,7 @@ public struct TokenizationModuleInputData {
     ///   - applePayMerchantIdentifier: Apple Pay merchant ID.
     ///   - returnUrl: Return url for close 3ds.
     ///   - isLoggingEnabled: Enable logging.
+    ///   - userPhoneNumber: User phone number.
     ///
     /// - Returns: Instance of `TokenizationModuleInputData`.
     public init(clientApplicationKey: String,
@@ -65,7 +69,8 @@ public struct TokenizationModuleInputData {
                 cardScanning: CardScanning? = nil,
                 applePayMerchantIdentifier: String? = nil,
                 returnUrl: String? = nil,
-                isLoggingEnabled: Bool = false) {
+                isLoggingEnabled: Bool = false,
+                userPhoneNumber: String? = nil) {
         self.clientApplicationKey = makeBase64Encoded(clientApplicationKey + ":")
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -77,6 +82,7 @@ public struct TokenizationModuleInputData {
         self.applePayMerchantIdentifier = applePayMerchantIdentifier
         self.returnUrl = returnUrl
         self.isLoggingEnabled = isLoggingEnabled
+        self.userPhoneNumber = userPhoneNumber
     }
 }
 

@@ -69,7 +69,7 @@ extension PhoneNumberInputViewController: PhoneNumberInputViewInput {
     }
 
     func setValue(_ value: String) {
-        textControl.text = value
+        textControl.text = textInputStyle.appendedFormatting(to: value)
     }
 }
 
