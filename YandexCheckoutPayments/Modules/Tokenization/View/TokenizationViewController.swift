@@ -916,3 +916,20 @@ extension TokenizationViewController: TokenizationModuleInput {
         output.start3dsProcess(requestUrl: requestUrl)
     }
 }
+
+// MARK: - PKPaymentAuthorizationViewController - Presentable
+
+extension PKPaymentAuthorizationViewController: Presentable {
+
+    var iPhonePresentationStyle: PresentationStyle {
+        return .applePay
+    }
+
+    var iPadPresentationStyle: PresentationStyle {
+        return .applePay
+    }
+
+    public var hasNavigationBar: Bool {
+        return false
+    }
+}
