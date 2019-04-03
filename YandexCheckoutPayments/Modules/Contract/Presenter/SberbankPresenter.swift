@@ -37,7 +37,8 @@ extension SberbankPresenter: ContractViewOutput {
         paymentMethodView.setPaymentMethodViewModel(inputData.paymentMethod)
         phoneInputView.setPlaceholder(§Localized.inputPlaceholder)
         phoneInputView.setHint(§Localized.inputHint)
-        phoneInputView.setValue("+7")
+        phoneInputView.setValue(inputData.phoneNumber ?? "7")
+        phoneInputView.validatePhoneNumber()
 
         DispatchQueue.global().async { [weak self] in
             guard let strongSelf = self,

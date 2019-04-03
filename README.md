@@ -326,6 +326,7 @@ let moduleData = TokenizationModuleInputData(
 | applePayMerchantIdentifier | String               | По умолчанию `nil`. Apple Pay merchant ID (обязательно для платежей через Apple Pay). |
 | returnUrl                  | String               | По умолчанию `nil`. URL страницы (поддерживается только `https`), на которую надо вернуться после прохождения 3-D Secure. Необходим только при кастомной реализации 3-D Secure. Если вы используете `start3dsProcess(requestUrl:)`, не задавайте этот параметр. |
 | isLoggingEnabled           | Bool                 | По умолчанию `false`. Включает логирование сетевых запросов. |
+| userPhoneNumber            | String               | По умолчанию `nil`. Телефонный номер пользователя. |
 
 #### TokenizationSettings
 
