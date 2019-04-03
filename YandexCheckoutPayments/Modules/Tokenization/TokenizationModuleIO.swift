@@ -39,6 +39,8 @@ public struct TokenizationModuleInputData {
     let isLoggingEnabled: Bool
 
     /// User phone number.
+    /// Phone number must be in clean format.
+    /// Example: XXXXXXXXXXX
     let userPhoneNumber: String?
 
     /// Creates instance of `TokenizationModuleInputData`.
@@ -57,6 +59,8 @@ public struct TokenizationModuleInputData {
     ///   - returnUrl: Return url for close 3ds.
     ///   - isLoggingEnabled: Enable logging.
     ///   - userPhoneNumber: User phone number.
+    ///                      Phone number must be in clean format.
+    ///                      Example: XXXXXXXXXXX
     ///
     /// - Returns: Instance of `TokenizationModuleInputData`.
     public init(clientApplicationKey: String,
