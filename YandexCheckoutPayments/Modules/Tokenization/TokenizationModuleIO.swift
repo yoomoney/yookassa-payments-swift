@@ -58,7 +58,7 @@ public struct TokenizationModuleInputData {
     ///   - returnUrl: Return url for close 3ds.
     ///   - isLoggingEnabled: Enable logging.
     ///   - userPhoneNumber: User phone number.
-    ///                      Example: Example: +X XXX XXX XX XX
+    ///                      Example: +X XXX XXX XX XX
     ///
     /// - Returns: Instance of `TokenizationModuleInputData`.
     public init(clientApplicationKey: String,
