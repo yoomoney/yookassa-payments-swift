@@ -1,4 +1,14 @@
-typealias SberbankModuleInputData = ContractModuleInputData
+struct SberbankModuleInputData {
+    let shopName: String
+    let purchaseDescription: String
+    let paymentMethod: PaymentMethodViewModel
+    let price: PriceViewModel
+    let shouldChangePaymentMethod: Bool
+    let testModeSettings: TestModeSettings?
+    let tokenizeScheme: AnalyticsEvent.TokenizeScheme
+    let isLoggingEnabled: Bool
+    let phoneNumber: String?
+}
 
 protocol SberbankModuleInput: ContractStateHandler { }
 

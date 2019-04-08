@@ -37,7 +37,8 @@ extension SberbankPresenter: ContractViewOutput {
         paymentMethodView.setPaymentMethodViewModel(inputData.paymentMethod)
         phoneInputView.setPlaceholder(§Localized.inputPlaceholder)
         phoneInputView.setHint(§Localized.inputHint)
-        phoneInputView.setValue("+7")
+        phoneInputView.setValue(clearPhoneNumber(inputData.phoneNumber) ?? "7")
+        phoneInputView.validatePhoneNumber()
 
         DispatchQueue.global().async { [weak self] in
             guard let strongSelf = self,
@@ -47,6 +48,11 @@ extension SberbankPresenter: ContractViewOutput {
                                                                scheme: strongSelf.inputData.tokenizeScheme)
             interactor.trackEvent(event)
         }
+    }
+
+    private func clearPhoneNumber(_ phoneNumber: String?) -> String? {
+        guard let phoneNumber = phoneNumber else { return nil }
+        return phoneNumber.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
     }
 }
 
