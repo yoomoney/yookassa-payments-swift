@@ -887,11 +887,15 @@ class TokenizationViewController: UIViewController {
     }
 }
 
+// MARK: - ActionSheetTemplateDelegate
+
 extension TokenizationViewController: ActionSheetTemplateDelegate {
     func actionSheetTemplateDidFinish(_ template: ActionSheetTemplate) {
         output?.closeDidPress()
     }
 }
+
+// MARK: - PageSheetTemplateDelegate
 
 extension TokenizationViewController: PageSheetTemplateDelegate {
     func pageSheetTemplateDidFinish(_ template: PageSheetTemplate) {
@@ -899,9 +903,19 @@ extension TokenizationViewController: PageSheetTemplateDelegate {
     }
 }
 
+// MARK: - ModalTemplateDelegate
+
 extension TokenizationViewController: ModalTemplateDelegate {
     func shouldPopNavigationItem() {
         popViewController(animated: true)
+    }
+}
+
+// MARK: - TokenizationViewInput
+
+extension TokenizationViewController: TokenizationViewInput {
+    func setCustomizationSettings(_ customizationSettings: CustomizationSettings) {
+        view.tintColor = customizationSettings.mainScheme
     }
 }
 

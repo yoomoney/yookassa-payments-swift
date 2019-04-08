@@ -100,13 +100,15 @@ final class AdditionalCardDataInputView: UIView {
 
     private lazy var expiryDateTextControl: TextControl = {
         $0.delegate = self
-        $0.setStyles(TextControl.Styles.cardDataInput)
+        $0.setStyles(TextControl.Styles.cardDataInput,
+                     TextControl.Styles.tintLine)
         return $0
     }(TextControl())
 
     private lazy var cvcTextControl: TextControl = {
         $0.delegate = self
-        $0.setStyles(TextControl.Styles.cardDataInput)
+        $0.setStyles(TextControl.Styles.cardDataInput,
+                     TextControl.Styles.tintLine)
         return $0
     }(TextControl())
 
