@@ -38,7 +38,7 @@ extension ActivityIndicator {
         /// Secondary style
         ///
         /// Mustard color, extra extra large, large stroke
-        static let secondary = Styles.mustard + Styles.extraExtraLarge + Styles.largeStroke
+        static let secondary = Styles.primary + Styles.extraExtraLarge + Styles.largeStroke
 
         /// Primary style
         ///

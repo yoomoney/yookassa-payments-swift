@@ -129,13 +129,13 @@ final class ContractTemplate: UIViewController {
 
     fileprivate var footerViewSeparatorLeading: NSLayoutConstraint?
 
-    fileprivate lazy var submitButton: UIButton = {
+    fileprivate lazy var submitButton: Button = {
         $0.setStyles(UIButton.DynamicStyle.primary,
                      UIView.Styles.heightAsContent)
         $0.setStyledTitle(§Localized.continue, for: .normal)
         $0.addTarget(self, action: #selector(submitButtonDidPress), for: .touchUpInside)
         return $0
-    }(UIButton(type: .custom))
+    }(Button(type: .custom))
 
     fileprivate var descriptionLabelBottomConstraint: NSLayoutConstraint?
 

@@ -14,12 +14,12 @@ final class SimpleIdentificationViewController: UIViewController {
 
     // MARK: - Subviews properties
 
-    fileprivate lazy var submitButton: UIButton = {
+    fileprivate lazy var submitButton: Button = {
         $0.setStyles(UIButton.DynamicStyle.primary)
         $0.addTarget(self, action: #selector(submitDidPress), for: .touchUpInside)
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
-    }(UIButton(type: .custom))
+    }(Button(type: .custom))
 
     fileprivate var tableView: UITableView {
         return tableViewController.tableView

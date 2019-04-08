@@ -352,7 +352,8 @@ final class RootViewController: UIViewController {
                                                     cardScanning: self,
                                                     applePayMerchantIdentifier: "merchant.ru.yandex.mobile.msdk.debug",
                                                     isLoggingEnabled: true,
-                                                    userPhoneNumber: "7")
+                                                    userPhoneNumber: "7",
+                                                    customizationSettings: CustomizationSettings(mainScheme: .blueRibbon))
         let viewController = TokenizationAssembly.makeModule(inputData: inputData,
                                                              moduleOutput: self)
         present(viewController, animated: true, completion: nil)

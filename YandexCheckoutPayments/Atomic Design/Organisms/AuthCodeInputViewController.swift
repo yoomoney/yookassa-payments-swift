@@ -103,7 +103,8 @@ final class AuthCodeInputViewController: UIViewController {
     // MARK: - UI properties
 
     fileprivate lazy var textControl: TextControl = {
-        $0.setStyles(TextControl.Styles.cardDataInput)
+        $0.setStyles(TextControl.Styles.cardDataInput,
+                     TextControl.Styles.tintLine)
         switch authCodeType {
         case .sms:
             $0.topHint = §Localized.smsCodeTopHint

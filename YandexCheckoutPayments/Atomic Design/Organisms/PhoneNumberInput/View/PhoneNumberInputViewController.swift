@@ -12,7 +12,8 @@ final class PhoneNumberInputViewController: UIViewController {
     fileprivate lazy var textControl: TextControl = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setStyles(TextControl.Styles.`default`,
-                     TextControl.Styles.cardDataInput)
+                     TextControl.Styles.cardDataInput,
+                     TextControl.Styles.tintLine)
         $0.delegate = self
         return $0
     }(TextControl())

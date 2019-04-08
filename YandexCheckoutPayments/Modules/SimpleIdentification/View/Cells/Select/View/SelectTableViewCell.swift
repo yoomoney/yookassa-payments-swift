@@ -22,7 +22,8 @@ final class SelectTableViewCell: UITableViewCell {
     private lazy var inputControl: TextControl = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.isUserInteractionEnabled = false
-        $0.setStyles(TextControl.Styles.default)
+        $0.setStyles(TextControl.Styles.default,
+                     TextControl.Styles.tintLine)
         $0.textView.tintColor = UIColor.black
         return $0
     }(TextControl())

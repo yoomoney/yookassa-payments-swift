@@ -46,7 +46,9 @@ class BankCardDataInputViewController: UIViewController, PlaceholderProvider {
 
     fileprivate lazy var panInputTextControl: TextControl = {
         $0.delegate = self
-        $0.setStyles(TextControl.Styles.cardDataInput, TextControl.Styles.leftIconVisible)
+        $0.setStyles(TextControl.Styles.cardDataInput,
+                     TextControl.Styles.leftIconVisible,
+                     TextControl.Styles.tintLine)
         $0.leftIcon.image = UIImage.PaymentSystem.TextControl.bankCard
         return $0
     }(TextControl())
@@ -56,12 +58,12 @@ class BankCardDataInputViewController: UIViewController, PlaceholderProvider {
         return $0
     }(AdditionalCardDataInputView())
 
-    fileprivate lazy var confirmButton: UIButton = {
+    fileprivate lazy var confirmButton: Button = {
         $0.setStyles(UIButton.DynamicStyle.primary)
         $0.addTarget(self, action: #selector(confirmButtonDidPress), for: .touchUpInside)
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
-    }(UIButton(type: .custom))
+    }(Button(type: .custom))
 
     fileprivate lazy var contentView: UIView = {
         $0.setStyles(UIView.Styles.grayBackground)

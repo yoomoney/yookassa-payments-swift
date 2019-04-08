@@ -42,6 +42,9 @@ public struct TokenizationModuleInputData {
     /// Example: +X XXX XXX XX XX
     let userPhoneNumber: String?
 
+    /// Settings to customize SDK interface.
+    let customizationSettings: CustomizationSettings
+
     /// Creates instance of `TokenizationModuleInputData`.
     ///
     /// - Parameters:
@@ -59,6 +62,7 @@ public struct TokenizationModuleInputData {
     ///   - isLoggingEnabled: Enable logging.
     ///   - userPhoneNumber: User phone number.
     ///                      Example: +X XXX XXX XX XX
+    ///   - customizationSettings: Settings to customize SDK interface.
     ///
     /// - Returns: Instance of `TokenizationModuleInputData`.
     public init(clientApplicationKey: String,
@@ -72,7 +76,8 @@ public struct TokenizationModuleInputData {
                 applePayMerchantIdentifier: String? = nil,
                 returnUrl: String? = nil,
                 isLoggingEnabled: Bool = false,
-                userPhoneNumber: String? = nil) {
+                userPhoneNumber: String? = nil,
+                customizationSettings: CustomizationSettings = CustomizationSettings()) {
         self.clientApplicationKey = makeBase64Encoded(clientApplicationKey + ":")
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -85,6 +90,7 @@ public struct TokenizationModuleInputData {
         self.returnUrl = returnUrl
         self.isLoggingEnabled = isLoggingEnabled
         self.userPhoneNumber = userPhoneNumber
+        self.customizationSettings = customizationSettings
     }
 }
 

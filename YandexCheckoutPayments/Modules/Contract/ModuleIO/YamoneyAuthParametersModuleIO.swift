@@ -12,6 +12,7 @@ struct YamoneyAuthParametersModuleInputData {
     let testModeSettings: TestModeSettings?
     let tokenizeScheme: AnalyticsEvent.TokenizeScheme
     let isLoggingEnabled: Bool
+    let customizationSettings: CustomizationSettings
 }
 
 protocol YamoneyAuthParametersModuleInput: ContractStateHandler {}
