@@ -231,6 +231,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         let moduleInputData = ApplePayModuleInputData(merchantIdentifier: inputData.applePayMerchantIdentifier,
                                                       amount: inputData.amount,
                                                       shopName: inputData.shopName,
+                                                      purchaseDescription: inputData.purchaseDescription,
                                                       supportedNetworks: ApplePayConstants.paymentNetworks)
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
