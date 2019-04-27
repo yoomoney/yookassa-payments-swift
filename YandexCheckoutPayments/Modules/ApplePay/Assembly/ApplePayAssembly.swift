@@ -5,6 +5,7 @@ struct ApplePayModuleInputData {
     let merchantIdentifier: String?
     let amount: Amount
     let shopName: String
+    let purchaseDescription: String
     let supportedNetworks: [PKPaymentNetwork]
 }
 
@@ -27,8 +28,9 @@ enum ApplePayAssembly {
         paymentRequest.merchantCapabilities = .capability3DS
 
         let amountValue = inputData.amount.value as NSDecimalNumber
-        let amount = PKPaymentSummaryItem(label: inputData.shopName, amount: amountValue)
-        paymentRequest.paymentSummaryItems = [amount]
+        let shopNameAmount = PKPaymentSummaryItem(label: inputData.shopName, amount: amountValue)
+        let purchaseDescriptionAmount = PKPaymentSummaryItem(label: inputData.purchaseDescription, amount: amountValue)
+        paymentRequest.paymentSummaryItems = [purchaseDescriptionAmount, shopNameAmount]
 
         let authorizationViewController = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
         authorizationViewController?.delegate = moduleOutput
