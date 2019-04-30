@@ -40,7 +40,8 @@ final class PriceInputViewController: UIViewController {
                      TextControl.Styles.noAutocorrection,
                      TextControl.Styles.noSpellChecking,
                      TextControl.Styles.noAutoCapitalization,
-                     UIView.Styles.defaultBackground)
+                     UIView.Styles.defaultBackground,
+                     TextControl.Styles.tintLine)
         $0.textView.setStyles(UIView.Styles.defaultBackground)
         $0.textView.keyboardType = .decimalPad
         $0.textView.tintColor = UIColor.black

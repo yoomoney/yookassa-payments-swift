@@ -40,6 +40,7 @@ public enum TokenizationAssembly {
         presenter.router = router
         presenter.interactor = interactor
         presenter.moduleOutput = moduleOutput
+        presenter.view = viewController
 
         interactor.output = presenter
 

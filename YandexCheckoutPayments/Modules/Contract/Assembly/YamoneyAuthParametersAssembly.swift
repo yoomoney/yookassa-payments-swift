@@ -22,7 +22,7 @@ enum YamoneyAuthParametersAssembly {
                                                         viewOutput: presenter,
                                                         shouldChangePaymentMethod: inputData.shouldChangePaymentMethod)
 
-        let saveAuthInAppView = ContractViewFactory.makeSwitchItemView()
+        let saveAuthInAppView = ContractViewFactory.makeSwitchItemView(inputData.customizationSettings)
 
         viewController.output = presenter
         viewController.paymentMethodView = itemView

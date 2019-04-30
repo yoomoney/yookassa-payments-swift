@@ -38,6 +38,7 @@
 * [Логирование](#логирование)
 * [Тестовый режим](#тестовый-режим)
 * [Запуск Example](#запуск-example)
+* [Кастомизация интерфейса](#кастомизация-интерфейса)
 
 ### Подключение зависимостей
 
@@ -317,16 +318,17 @@ let moduleData = TokenizationModuleInputData(
 
 >Необязательные:
 
-| Параметр                   | Тип                  | Описание |
-| -------------------------- | -------------------- | -------- |
-| gatewayId                  | String               | По умолчанию `nil`. Используется, если у вас несколько платежных шлюзов с разными идентификаторами. |
-| tokenizationSettings       | TokenizationSettings | По умолчанию используется стандартный инициализатор со всеми способами оплаты. Параметр отвечает за настройку токенизации (способы оплаты и логотип Яндекс.Кассы). |
-| testModeSettings           | TestModeSettings     | По умолчанию `nil`. Настройки тестового режима. |
-| cardScanning               | CardScanning         | По умолчанию `nil`. Возможность сканировать банковские карты. |
-| applePayMerchantIdentifier | String               | По умолчанию `nil`. Apple Pay merchant ID (обязательно для платежей через Apple Pay). |
-| returnUrl                  | String               | По умолчанию `nil`. URL страницы (поддерживается только `https`), на которую надо вернуться после прохождения 3-D Secure. Необходим только при кастомной реализации 3-D Secure. Если вы используете `start3dsProcess(requestUrl:)`, не задавайте этот параметр. |
-| isLoggingEnabled           | Bool                 | По умолчанию `false`. Включает логирование сетевых запросов. |
-| userPhoneNumber            | String               | По умолчанию `nil`. Телефонный номер пользователя. |
+| Параметр                   | Тип                   | Описание |
+| -------------------------- | --------------------- | -------- |
+| gatewayId                  | String                | По умолчанию `nil`. Используется, если у вас несколько платежных шлюзов с разными идентификаторами. |
+| tokenizationSettings       | TokenizationSettings  | По умолчанию используется стандартный инициализатор со всеми способами оплаты. Параметр отвечает за настройку токенизации (способы оплаты и логотип Яндекс.Кассы). |
+| testModeSettings           | TestModeSettings      | По умолчанию `nil`. Настройки тестового режима. |
+| cardScanning               | CardScanning          | По умолчанию `nil`. Возможность сканировать банковские карты. |
+| applePayMerchantIdentifier | String                | По умолчанию `nil`. Apple Pay merchant ID (обязательно для платежей через Apple Pay). |
+| returnUrl                  | String                | По умолчанию `nil`. URL страницы (поддерживается только `https`), на которую надо вернуться после прохождения 3-D Secure. Необходим только при кастомной реализации 3-D Secure. Если вы используете `start3dsProcess(requestUrl:)`, не задавайте этот параметр. |
+| isLoggingEnabled           | Bool                  | По умолчанию `false`. Включает логирование сетевых запросов. |
+| userPhoneNumber            | String                | По умолчанию `nil`. Телефонный номер пользователя. |
+| customizationSettings      | CustomizationSettings | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
 
 #### TokenizationSettings
 
@@ -360,6 +362,12 @@ let moduleData = TokenizationModuleInputData(
 | rub      | String   | ₽ - Российский рубль |
 | usd      | String   | $ - Американский доллар |
 | eur      | String   | € - Евро |
+
+#### CustomizationSettings
+
+| Параметр   | Тип     | Описание |
+| ---------- | ------- | -------- |
+| mainScheme | UIColor | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
 
 ### Сканирование банковских карт
 
@@ -412,7 +420,7 @@ let inputData = TokenizationModuleInputData(
 
 Если вы хотите использовать нашу реализацию 3-D Secure, не закрывайте модуль SDK после получения токена.\
 Отправьте токен на ваш сервер и после успешной оплаты закройте модуль.\
-Если ваш сервер сообщил о необходимости подтверждения платежа, вызоватие метод `start3dsProcess(requestUrl:)`
+Если ваш сервер сообщил о необходимости подтверждения платежа, вызовите метод `start3dsProcess(requestUrl:)`
 
 После успешного прохождения 3-D Secure будет вызван метод `didSuccessfullyPassedCardSec(on module:)` протокола `TokenizationModuleOutput`.
 
@@ -475,7 +483,7 @@ let moduleData = TokenizationModuleInputData(
 
 Если вы хотите запустить SDK в тестовом режиме, необходимо:
 
-1. Cконфигурировать объект с типом `TestModeSettings`.
+1. Сконфигурировать объект с типом `TestModeSettings`.
 
 ```swift
 let testModeSettings = TestModeSettings(paymentAuthorizationPassed: false,
@@ -513,3 +521,13 @@ pod install
 
 4. Открыть `YandexCheckoutPayments.xcworkspace`.
 5. Выбрать и запустить схему `ExamplePods`.
+
+### Кастомизация интерфейса
+
+1. Сконфигурировать объект `CustomizationSettings` и передать его в параметр `customizationSettings` объекта `TokenizationModuleInputData`.
+
+```swift
+let moduleData = TokenizationModuleInputData(
+    ...
+    customizationSettings: CustomizationSettings(mainScheme: /* UIColor */ ))
+```

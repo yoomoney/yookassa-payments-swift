@@ -12,6 +12,7 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
     var router: TokenizationRouterInput!
     var interactor: TokenizationInteractorInput!
     weak var moduleOutput: TokenizationModuleOutput?
+    weak var view: TokenizationViewInput?
 
     // MARK: - Data
 
@@ -93,7 +94,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                                    paymentOption: paymentOption,
                                                    testModeSettings: inputData.testModeSettings,
                                                    tokenizeScheme: tokenizeScheme,
-                                                   isLoggingEnabled: inputData.isLoggingEnabled)
+                                                   isLoggingEnabled: inputData.isLoggingEnabled,
+                                                   customizationSettings: inputData.customizationSettings)
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentYamoneyAuthParameters(inputData: yamoneyAuthParametersInputData,
@@ -270,6 +272,7 @@ extension TokenizationPresenter: TokenizationViewOutput {
     }
 
     func setupView() {
+        view?.setCustomizationSettings(inputData.customizationSettings)
         interactor.startAnalyticsService()
         presentPaymentMethodsModule()
     }
