@@ -59,7 +59,7 @@ SPEC CHECKSUMS:
   FunctionalSwift: ccb7b6b0918f3d189fa12ce1f6ba716d8053b19a
   SwiftLint: 4e37cb5cd33435170dfd09fba089f41fdbf64d53
   When: 4ffc88d535a094ad4bd5eaf2fd187de747e716d1
-  YandexCheckoutPayments: 5f153f6f29db77d960b8b679c2ffb763281da6ac
+  YandexCheckoutPayments: 4b3765bb62f0442f9c68d0a03ae96ff40cdb06e5
   YandexCheckoutPaymentsApi: cf4c39a8245d10816fb63a112b662b92634bc3a8
   YandexCheckoutShowcaseApi: 48d7e41eafcca525c9a08c247d93e19642835eb1
   YandexCheckoutWalletApi: 080ef6687efe689668c880c7b69544accc8834e6
@@ -69,4 +69,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 91c63f13d471c68bdf0bb064e11dc31460e9bc56
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.7.1
