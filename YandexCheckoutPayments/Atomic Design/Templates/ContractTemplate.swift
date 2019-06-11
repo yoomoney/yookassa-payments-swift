@@ -10,6 +10,7 @@ protocol ContractTemplateViewInput: class {
     func setShopName(_ shopName: String)
     func setPurchaseDescription(_ purchaseDescription: String)
     func setPrice(_ price: PriceViewModel)
+    func setFee(_ fee: PriceViewModel?)
     func setSubmitButtonEnabled(_ isEnabled: Bool)
 }
 
@@ -41,6 +42,18 @@ final class ContractTemplate: UIViewController {
         }
         get {
             return priceView.price
+        }
+    }
+
+    var fee: PriceViewModel? {
+        set {
+            feeView.price = newValue
+            newValue == nil
+                ? configurePriceView()
+                : configureFeeView()
+        }
+        get {
+            return feeView.price
         }
     }
 
@@ -109,6 +122,15 @@ final class ContractTemplate: UIViewController {
         $0.text = §Localized.price
         return $0
     }(PriceView())
+
+    private lazy var feeView: PriceView = {
+        let view = PriceView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layoutMargins = .zero
+        view.setStyles(backgroundStyle, UIView.Styles.heightAsContent)
+        view.text = §Localized.fee
+        return view
+    }()
 
     var footerView: UIView? {
         didSet {
@@ -226,7 +248,7 @@ final class ContractTemplate: UIViewController {
             "[submitButton]",
         ].joined()
 
-        let bottomFormat = "V:[priceView]|"
+        let bottomFormat = "V:[priceView]"
 
         let formats = [
             titleFormat,
@@ -361,7 +383,7 @@ final class ContractTemplate: UIViewController {
 
     // MARK: - Configuring optional subviews
 
-    func configurePaymentMethodView() {
+    private func configurePaymentMethodView() {
         guard let paymentMethodView = paymentMethodView else { return }
 
         paymentMethodView.translatesAutoresizingMaskIntoConstraints = false
@@ -410,7 +432,7 @@ final class ContractTemplate: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
 
-    func configureFooterView() {
+    private func configureFooterView() {
         guard let footerView = footerView else { return }
         footerView.translatesAutoresizingMaskIntoConstraints = false
         footerView.appendStyle(UIView.Styles.heightAsContent)
@@ -461,6 +483,26 @@ final class ContractTemplate: UIViewController {
 
         NSLayoutConstraint.activate(constraints)
     }
+
+    private func configurePriceView() {
+        let constraints = [
+            priceView.bottomMargin.constraint(equalTo: contentView.bottomMargin),
+        ]
+        NSLayoutConstraint.activate(constraints)
+    }
+
+    private func configureFeeView() {
+        contentView.addSubview(feeView)
+
+        let constraints = [
+            feeView.topMargin.constraint(equalTo: priceView.bottom, constant: Space.single),
+            feeView.bottomMargin.constraint(equalTo: contentView.bottomMargin),
+            feeView.leadingMargin.constraint(equalTo: contentView.leadingMargin, constant: Space.single),
+            feeView.trailingMargin.constraint(equalTo: contentView.trailingMargin, constant: -Space.single),
+        ]
+
+        NSLayoutConstraint.activate(constraints)
+    }
 }
 
 // MARK: - UIGestureRecognizerDelegate
@@ -491,6 +533,10 @@ extension ContractTemplate: ContractTemplateViewInput {
         self.price = price
     }
 
+    func setFee(_ fee: PriceViewModel?) {
+        self.fee = fee
+    }
+
     func setSubmitButtonEnabled(_ isEnabled: Bool) {
         submitButton.isEnabled = isEnabled
     }
@@ -501,5 +547,6 @@ private extension ContractTemplate {
     enum Localized: String {
         case `continue` = "Contract.next"
         case price = "Contract.price"
+        case fee = "Contract.fee"
     }
 }

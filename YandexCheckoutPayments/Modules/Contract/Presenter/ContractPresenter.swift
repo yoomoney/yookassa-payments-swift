@@ -29,6 +29,7 @@ extension ContractPresenter: ContractViewOutput {
         contractView.setShopName(inputData.shopName)
         contractView.setPurchaseDescription(inputData.purchaseDescription)
         contractView.setPrice(inputData.price)
+        contractView.setFee(inputData.fee)
         paymentMethodView.setPaymentMethodViewModel(inputData.paymentMethod)
 
         DispatchQueue.global().async { [weak self] in

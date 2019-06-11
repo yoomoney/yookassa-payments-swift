@@ -30,8 +30,7 @@ public enum TokenizationAssembly {
                                                 authorizationService: authorizationService,
                                                 analyticsService: analyticsService,
                                                 analyticsProvider: analyticsProvider,
-                                                clientApplicationKey: inputData.clientApplicationKey,
-                                                amount: inputData.amount)
+                                                clientApplicationKey: inputData.clientApplicationKey)
 
         viewController.output = presenter
         viewController.transitioningDelegate = router

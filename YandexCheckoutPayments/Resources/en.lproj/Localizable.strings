@@ -52,6 +52,8 @@
 
 "Contract.price" = "To be paid";
 
+"Contract.fee" = "Including fees";
+
 "Contract.resendSms" = "Send again";
 
 "Contract.format.resendSmsAfter" = "New password can be issued in %d";

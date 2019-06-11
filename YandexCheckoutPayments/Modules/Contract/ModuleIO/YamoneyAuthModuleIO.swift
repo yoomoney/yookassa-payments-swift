@@ -8,6 +8,7 @@ struct YamoneyAuthModuleInputData {
     let purchaseDescription: String
     let paymentMethod: PaymentMethodViewModel
     let price: PriceViewModel
+    let fee: PriceViewModel?
     let processId: String
     let authContextId: String
     let authTypeState: AuthTypeState

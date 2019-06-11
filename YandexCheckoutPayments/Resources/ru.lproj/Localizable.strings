@@ -52,6 +52,8 @@
 
 "Contract.price" = "К оплате";
 
+"Contract.fee" = "Включая комиссию";
+
 "Contract.resendSms" = "Отправить снова";
 
 "Contract.format.resendSmsAfter" = "Новый пароль можно получить через %d";
