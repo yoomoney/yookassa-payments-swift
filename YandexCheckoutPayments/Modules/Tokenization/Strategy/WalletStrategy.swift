@@ -39,7 +39,8 @@ extension WalletStrategy: TokenizationStrategyInput {
         module.hidePlaceholder()
         module.showActivity()
 
-        output?.tokenize(.wallet(makeConfirmation(returnUrl: returnUrl)))
+        let tokenizeData: TokenizeData = .wallet(makeConfirmation(returnUrl: returnUrl))
+        output?.tokenize(tokenizeData, paymentOption: paymentOption)
     }
 
     func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput,
@@ -49,13 +50,14 @@ extension WalletStrategy: TokenizationStrategyInput {
         module.hidePlaceholder()
         module.showActivity()
 
-        output?.loginInYandexMoney(reusableToken: isReusableToken)
+        output?.loginInYandexMoney(reusableToken: isReusableToken, paymentOption: paymentOption)
     }
 
     func didLoginInYandexMoney(_ response: YamoneyLoginResponse) {
         switch response {
         case .authorized:
-            output?.tokenize(.wallet(makeConfirmation(returnUrl: returnUrl)))
+            let tokenizeData: TokenizeData = .wallet(makeConfirmation(returnUrl: returnUrl))
+            output?.tokenize(tokenizeData, paymentOption: paymentOption)
         case let .notAuthorized(authTypeState: authTypeState, processId: processId, authContextId: authContextId):
             output?.presentYamoneyAuthModule(paymentOption: paymentOption,
                                              processId: processId,

@@ -34,7 +34,7 @@ extension SberbankStrategy: TokenizationStrategyInput {
         let confirmation = Confirmation(type: .external, returnUrl: nil)
         let tokenizeData = TokenizeData.sberbank(phoneNumber: phoneNumber, confirmation: confirmation)
         module.showActivity()
-        output?.tokenize(tokenizeData)
+        output?.tokenize(tokenizeData, paymentOption: paymentOption)
     }
 
     func failTokenizeData(_ error: Error) {

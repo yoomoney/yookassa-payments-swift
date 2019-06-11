@@ -38,7 +38,7 @@ final class ApplePayStrategy: NSObject {
 extension ApplePayStrategy: TokenizationStrategyInput {
 
     func beginProcess() {
-        output?.presentApplePay()
+        output?.presentApplePay(paymentOption)
     }
 
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController,
@@ -47,7 +47,7 @@ extension ApplePayStrategy: TokenizationStrategyInput {
         paymentResult = .success
 
         let tokenizeData: TokenizeData = .applePay(paymentData: payment.token.paymentData.base64EncodedString())
-        output?.tokenize(tokenizeData)
+        output?.tokenize(tokenizeData, paymentOption: paymentOption)
         completion(.success)
     }
 

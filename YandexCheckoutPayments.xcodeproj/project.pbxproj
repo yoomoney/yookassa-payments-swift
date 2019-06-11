@@ -829,7 +829,7 @@
 		244F7F19E7C0BCD9448D8778 /* UISwitch+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISwitch+Style.swift"; sourceTree = "<group>"; };
 		244F7F20C3AB7D2AA23DE553 /* SberbankAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SberbankAssembly.swift; sourceTree = "<group>"; };
 		244F7F2EDA66F5958033DA77 /* YamoneyAuthAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YamoneyAuthAssembly.swift; sourceTree = "<group>"; };
-		244F7F4FDAEC4CA756655499 /* YandexCheckoutPayments.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = YandexCheckoutPayments.podspec; sourceTree = "<group>"; };
+		244F7F4FDAEC4CA756655499 /* YandexCheckoutPayments.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = YandexCheckoutPayments.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		244F7F519F57BE04AA18873F /* SberbankStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SberbankStrategy.swift; sourceTree = "<group>"; };
 		244F7F58032ED6B812EFE224 /* SwitchItemView+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwitchItemView+Style.swift"; sourceTree = "<group>"; };
 		244F7F66B606AB740EBF52C7 /* HostProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostProvider.swift; sourceTree = "<group>"; };
@@ -2934,6 +2934,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-YandexCheckoutPaymentsExamplePods/Pods-YandexCheckoutPaymentsExamplePods-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FunctionalSwift/FunctionalSwift.framework",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer/iOS/RevealServer.framework",
 				"${BUILT_PRODUCTS_DIR}/When/When.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutPayments/YandexCheckoutPayments.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutPaymentsApi/YandexCheckoutPaymentsApi.framework",
@@ -2947,6 +2948,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FunctionalSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/When.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutPayments.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutPaymentsApi.framework",

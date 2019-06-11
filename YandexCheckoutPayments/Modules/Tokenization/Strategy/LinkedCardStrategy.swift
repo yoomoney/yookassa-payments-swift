@@ -45,7 +45,7 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
         module.hidePlaceholder()
         module.showActivity()
 
-        output?.loginInYandexMoney(reusableToken: isReusableToken)
+        output?.loginInYandexMoney(reusableToken: isReusableToken, paymentOption: paymentOption)
     }
 
     func didLoginInYandexMoney(_ response: YamoneyLoginResponse) {
@@ -78,7 +78,12 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
     func didPressConfirmButton(on module: BankCardDataInputModuleInput, cvc: String) {
         bankCardDataInputModule = module
         let confirmation = makeConfirmation(returnUrl: returnUrl)
-        output?.tokenize(.linkedBankCard(id: paymentOption.cardId, csc: cvc, confirmation: confirmation))
+        let tokenizeData: TokenizeData = .linkedBankCard(
+            id: paymentOption.cardId,
+            csc: cvc,
+            confirmation: confirmation
+        )
+        output?.tokenize(tokenizeData, paymentOption: paymentOption)
     }
 
     func didPressLogout() { }

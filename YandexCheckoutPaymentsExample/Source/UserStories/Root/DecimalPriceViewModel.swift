@@ -6,6 +6,7 @@ struct DecimalPriceViewModel: PriceViewModel {
     var integerPart: String
     var fractionalPart: String
     var decimalSeparator: String
+    var style: PriceViewStyle = .amount
 
     // MARK: - Initialization/Deinitialization
 

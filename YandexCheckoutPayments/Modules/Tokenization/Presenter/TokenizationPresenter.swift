@@ -90,6 +90,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                                    purchaseDescription: inputData.purchaseDescription,
                                                    paymentMethod: viewModel,
                                                    price: makePriceViewModel(paymentOption),
+                                                   fee: makeFeePriceViewModel(paymentOption),
                                                    shouldChangePaymentMethod: shouldChangePaymentOptions,
                                                    paymentOption: paymentOption,
                                                    testModeSettings: inputData.testModeSettings,
@@ -114,6 +115,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                                               purchaseDescription: inputData.purchaseDescription,
                                                               paymentMethod: viewModel,
                                                               price: makePriceViewModel(paymentOption),
+                                                              fee: makeFeePriceViewModel(paymentOption),
                                                               processId: processId,
                                                               authContextId: authContextId,
                                                               authTypeState: authTypeState,
@@ -135,6 +137,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                                       purchaseDescription: inputData.purchaseDescription,
                                                       paymentMethod: viewModel,
                                                       price: makePriceViewModel(paymentOption),
+                                                      fee: makeFeePriceViewModel(paymentOption),
                                                       shouldChangePaymentMethod: shouldChangePaymentOptions,
                                                       testModeSettings: inputData.testModeSettings,
                                                       tokenizeScheme: tokenizeScheme,
@@ -179,6 +182,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                                       purchaseDescription: inputData.purchaseDescription,
                                                       paymentMethod: viewModel,
                                                       price: priceViewModel,
+                                                      fee: makeFeePriceViewModel(paymentOption),
                                                       shouldChangePaymentMethod: shouldChangePaymentOptions,
                                                       testModeSettings: inputData.testModeSettings,
                                                       tokenizeScheme: tokenizeScheme,
@@ -199,12 +203,12 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         }
     }
 
-    func presentYandexAuthModule() {
+    func presentYandexAuthModule(_ paymentOption: PaymentOption) {
         let moduleInputData = YandexAuthModuleInputData(tokenizationSettings: inputData.tokenizationSettings,
                                                         testModeSettings: inputData.testModeSettings,
                                                         clientApplicationKey: inputData.clientApplicationKey,
                                                         gatewayId: inputData.gatewayId,
-                                                        amount: inputData.amount,
+                                                        amount: MonetaryAmountFactory.makeAmount(paymentOption.charge),
                                                         isLoggingEnabled: inputData.isLoggingEnabled)
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
@@ -213,13 +217,13 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         }
     }
 
-    func tokenize(_ data: TokenizeData) {
+    func tokenize(_ data: TokenizeData, paymentOption: PaymentOption) {
         tokenizeData = data
-        interactor.tokenize(data)
+        interactor.tokenize(data, paymentOption: paymentOption)
     }
 
-    func loginInYandexMoney(reusableToken: Bool) {
-        interactor.loginInYandexMoney(reusableToken: reusableToken)
+    func loginInYandexMoney(reusableToken: Bool, paymentOption: PaymentOption) {
+        interactor.loginInYandexMoney(reusableToken: reusableToken, paymentOption: paymentOption)
     }
 
     func logout(accountId: String) {
@@ -229,12 +233,13 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                          moduleOutput: self)
     }
 
-    func presentApplePay() {
+    func presentApplePay(_ paymentOption: PaymentOption) {
         let moduleInputData = ApplePayModuleInputData(merchantIdentifier: inputData.applePayMerchantIdentifier,
-                                                      amount: inputData.amount,
+                                                      amount: MonetaryAmountFactory.makeAmount(paymentOption.charge),
                                                       shopName: inputData.shopName,
                                                       purchaseDescription: inputData.purchaseDescription,
-                                                      supportedNetworks: ApplePayConstants.paymentNetworks)
+                                                      supportedNetworks: ApplePayConstants.paymentNetworks,
+                                                      fee: paymentOption.fee)
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentApplePay(inputData: moduleInputData,
@@ -390,7 +395,7 @@ extension TokenizationPresenter: PaymentMethodsModuleOutput {
             strategy?.beginProcess()
 
         } else if paymentOption.paymentMethodType == .yandexMoney {
-            presentYandexAuthModule()
+            presentYandexAuthModule(paymentOption)
         }
     }
 
@@ -584,8 +589,12 @@ extension TokenizationPresenter: YamoneyAuthModuleOutput {
     }
 
     func yamoneyAuth(_ module: YamoneyAuthModuleInput, didFinishWithError error: Error) {
-        guard let isReusableToken = isReusableToken else { return }
-        loginInYandexMoney(reusableToken: isReusableToken)
+        guard let isReusableToken = isReusableToken,
+              let paymentOption = paymentOption else { return }
+        loginInYandexMoney(
+            reusableToken: isReusableToken,
+            paymentOption: paymentOption
+        )
     }
 }
 
@@ -691,7 +700,28 @@ private func makePriceViewModel(_ paymentOption: PaymentOption) -> PriceViewMode
     }
     return TempAmount(currency: paymentOption.charge.currency.currencySymbol,
                       integerPart: integerPart,
-                      fractionalPart: fractionalPart)
+                      fractionalPart: fractionalPart,
+                      style: .amount)
+}
+
+private func makeFeePriceViewModel(_ paymentOption: PaymentOption) -> PriceViewModel? {
+    guard let fee = paymentOption.fee, let service = fee.service else { return nil }
+
+    let amountString = service.charge.value.description
+    var integerPart = ""
+    var fractionalPart = ""
+
+    if let separatorIndex = amountString.index(of: ".") {
+        integerPart = String(amountString[amountString.startIndex..<separatorIndex])
+        fractionalPart = String(amountString[amountString.index(after: separatorIndex)..<amountString.endIndex])
+    } else {
+        integerPart = amountString
+    }
+
+    return TempAmount(currency: service.charge.currency.currencySymbol,
+                      integerPart: integerPart,
+                      fractionalPart: fractionalPart,
+                      style: .fee)
 }
 
 private func makeStrategy(paymentOption: PaymentOption,

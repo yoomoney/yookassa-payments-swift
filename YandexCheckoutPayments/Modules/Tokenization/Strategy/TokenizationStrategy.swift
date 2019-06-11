@@ -67,9 +67,9 @@ protocol TokenizationStrategyOutput: class {
 
     func presentSberbankContract(paymentOption: PaymentOption)
 
-    func tokenize(_ data: TokenizeData)
+    func tokenize(_ data: TokenizeData, paymentOption: PaymentOption)
 
-    func loginInYandexMoney(reusableToken: Bool)
+    func loginInYandexMoney(reusableToken: Bool, paymentOption: PaymentOption)
 
     func logout(accountId: String)
 
@@ -79,5 +79,5 @@ protocol TokenizationStrategyOutput: class {
 
     // MARK: - ApplePay
 
-    func presentApplePay()
+    func presentApplePay(_ paymentOption: PaymentOption)
 }

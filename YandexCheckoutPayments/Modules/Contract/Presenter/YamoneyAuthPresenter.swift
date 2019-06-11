@@ -41,6 +41,7 @@ extension YamoneyAuthPresenter: ContractViewOutput {
         contractView.setShopName(inputData.shopName)
         contractView.setPurchaseDescription(inputData.purchaseDescription)
         contractView.setPrice(inputData.price)
+        contractView.setFee(inputData.fee)
         contractView.setSubmitButtonEnabled(false)
         paymentMethodView.setPaymentMethodViewModel(inputData.paymentMethod)
 

@@ -7,6 +7,7 @@ struct YamoneyAuthParametersModuleInputData {
     let purchaseDescription: String
     let paymentMethod: PaymentMethodViewModel
     let price: PriceViewModel
+    let fee: PriceViewModel?
     let shouldChangePaymentMethod: Bool
     let paymentOption: PaymentOption
     let testModeSettings: TestModeSettings?

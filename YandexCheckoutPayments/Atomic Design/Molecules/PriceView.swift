@@ -1,11 +1,17 @@
 import FunctionalSwift
 import UIKit
 
+enum PriceViewStyle {
+    case amount
+    case fee
+}
+
 protocol PriceViewModel {
     var currency: Character { get }
     var integerPart: String { get }
     var fractionalPart: String { get }
     var decimalSeparator: String { get }
+    var style: PriceViewStyle { get }
 }
 
 final class PriceView: UIView {
@@ -150,11 +156,30 @@ final class PriceView: UIView {
 
     }
 
-    func rebuildPriceLabel() {
+    private func rebuildPriceLabel() {
         guard let price = price else {
             priceLabel.text = nil
             return
         }
+
+        switch price.style {
+        case .amount:
+            configureAmount(price)
+        case .fee:
+            configureFee(price)
+        }
+    }
+
+    private func configureFee(_ price: PriceViewModel) {
+        priceLabel.setStyles(UILabel.DynamicStyle.body)
+        priceLabel.styledText
+            = price.integerPart
+            + String(price.decimalSeparator)
+            + price.fractionalPart
+            + String(price.currency)
+    }
+
+    private func configureAmount(_ price: PriceViewModel) {
 
         let attributedText = NSMutableAttributedString()
 
@@ -185,7 +210,6 @@ final class PriceView: UIView {
         attributedText.append(NSAttributedString(string: String(price.currency),
                                                  attributes: currencyAttributes))
         priceLabel.attributedText = attributedText
-
     }
 
     // MARK: - Notifications

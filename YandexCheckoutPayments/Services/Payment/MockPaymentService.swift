@@ -127,15 +127,31 @@ private let mockTokens = Tokens(paymentToken: "mock_token")
 
 private func makePaymentOptions(_ settings: TestModeSettings,
                                 handler: PaymentMethodHandler, authorized: Bool) -> [PaymentOption] {
-    let linkedCards = authorized ?
-        Array(repeating: makeLinkedCard(settings.charge), count: settings.cardsCount) : []
 
-    let paymentOptions = makeDefaultPaymentOptions(settings.charge, authorized: authorized) + linkedCards.map { $0 }
+    let fee = Fee(service: Service(charge: MonetaryAmount(value: 3.14, currency: .rub)), counterparty: nil)
+
+    let charge = makeCharge(charge: settings.charge, fee: fee)
+
+    let linkedCards = authorized ?
+        Array(repeating: makeLinkedCard(charge, fee: fee), count: settings.cardsCount) : []
+
+    let paymentOptions = makeDefaultPaymentOptions(
+        charge,
+        fee: fee,
+        authorized: authorized
+        ) + linkedCards.map { $0 }
+
     let filteredPaymentOptions = handler.filterPaymentMethods(paymentOptions)
+
     return filteredPaymentOptions
 }
 
-private func makeLinkedCard(_ charge: Amount) -> PaymentInstrumentYandexMoneyLinkedBankCard {
+private func makeCharge(charge: Amount, fee: Fee?) -> Amount {
+    guard let fee = fee, let service = fee.service else { return charge }
+    return Amount(value: charge.value + service.charge.value, currency: charge.currency)
+}
+
+private func makeLinkedCard(_ charge: Amount, fee: Fee?) -> PaymentInstrumentYandexMoneyLinkedBankCard {
     return PaymentInstrumentYandexMoneyLinkedBankCard(paymentMethodType: .yandexMoney,
                                                       confirmationTypes: nil,
                                                       charge: MonetaryAmountFactory.makePaymentsMonetaryAmount(charge),
@@ -144,10 +160,11 @@ private func makeLinkedCard(_ charge: Amount) -> PaymentInstrumentYandexMoneyLin
                                                       cardName: "Привязанная карта",
                                                       cardMask: "518901******0446",
                                                       cardType: .masterCard,
-                                                      identificationRequirement: .simplified)
+                                                      identificationRequirement: .simplified,
+                                                      fee: fee)
 }
 
-private func makeDefaultPaymentOptions(_ charge: Amount, authorized: Bool) -> [PaymentOption] {
+private func makeDefaultPaymentOptions(_ charge: Amount, fee: Fee?, authorized: Bool) -> [PaymentOption] {
     var response: [PaymentOption] = []
     let charge = MonetaryAmountFactory.makePaymentsMonetaryAmount(charge)
 
@@ -160,7 +177,8 @@ private func makeDefaultPaymentOptions(_ charge: Amount, authorized: Bool) -> [P
                                                instrumentType: .wallet,
                                                accountId: "2736482364872",
                                                balance: MonetaryAmount(value: 40_000, currency: .rub),
-                                               identificationRequirement: .simplified),
+                                               identificationRequirement: .simplified,
+                                               fee: fee),
         ]
 
     } else {
@@ -169,7 +187,8 @@ private func makeDefaultPaymentOptions(_ charge: Amount, authorized: Bool) -> [P
             PaymentOption(paymentMethodType: .yandexMoney,
                           confirmationTypes: [],
                           charge: charge,
-                          identificationRequirement: nil),
+                          identificationRequirement: nil,
+                          fee: fee),
         ]
     }
 
@@ -177,15 +196,18 @@ private func makeDefaultPaymentOptions(_ charge: Amount, authorized: Bool) -> [P
         PaymentOption(paymentMethodType: .sberbank,
                       confirmationTypes: [],
                       charge: charge,
-                      identificationRequirement: nil),
+                      identificationRequirement: nil,
+                      fee: fee),
         PaymentOption(paymentMethodType: .bankCard,
                       confirmationTypes: [],
                       charge: charge,
-                      identificationRequirement: nil),
+                      identificationRequirement: nil,
+                      fee: fee),
         PaymentOption(paymentMethodType: .applePay,
                       confirmationTypes: [],
                       charge: charge,
-                      identificationRequirement: nil),
+                      identificationRequirement: nil,
+                      fee: fee),
     ]
 
     return response
