@@ -37,29 +37,10 @@ public final class YandexLoginService: YandexLoginProcessing, YandexLoginSdkProc
     }
 
     func authorize() -> Promise<YandexLoginResponse> {
-        subscribeOnNotifications()
-
         let observer = Observer()
         self.observer = observer
         YXLSdk.shared.authorize()
         return observer.promise
-    }
-
-    private func subscribeOnNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(applicationDidBecomeActive),
-                                               name: UIApplication.didBecomeActiveNotification,
-                                               object: nil)
-    }
-
-    private func unsubscribeFromNotifications() {
-        NotificationCenter.default.removeObserver(self)
-    }
-
-    @objc
-    private func applicationDidBecomeActive() {
-        unsubscribeFromNotifications()
-        observer?.promise.reject(YandexLoginProcessingError.applicationDidBecomeActive)
     }
 
     func logout() {

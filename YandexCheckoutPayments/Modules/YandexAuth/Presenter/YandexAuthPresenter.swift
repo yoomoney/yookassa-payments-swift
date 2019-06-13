@@ -66,23 +66,18 @@ extension YandexAuthPresenter: YandexAuthInteractorOutput {
     }
 
     func didAuthorizeInYandex(error: Error) {
-        if case YandexLoginProcessingError.applicationDidBecomeActive = error {
-            moduleOutput?.didCancelAuthorizeInYandex(on: self)
-
-        } else if case YandexLoginProcessingError.accessDenied = error {
-            moduleOutput?.didCancelAuthorizeInYandex(on: self)
-
-            DispatchQueue.global().async { [weak self] in
-                guard let interactor = self?.interactor else { return }
-                interactor.trackEvent(.actionYaLoginAuthorization(.canceled))
-            }
-
+        let event: AnalyticsEvent
+        if case YandexLoginProcessingError.accessDenied = error {
+            event = .actionYaLoginAuthorization(.canceled)
         } else {
-            DispatchQueue.global().async { [weak self] in
-                guard let interactor = self?.interactor else { return }
-                interactor.trackEvent(.actionYaLoginAuthorization(.fail))
-            }
+            event = .actionYaLoginAuthorization(.fail)
         }
+
+        DispatchQueue.global().async { [weak self] in
+            guard let interactor = self?.interactor else { return }
+            interactor.trackEvent(event)
+        }
+        moduleOutput?.didCancelAuthorizeInYandex(on: self)
     }
 
     func didFetchYamoneyPaymentMethods(_ paymentMethods: [PaymentOption]) {
