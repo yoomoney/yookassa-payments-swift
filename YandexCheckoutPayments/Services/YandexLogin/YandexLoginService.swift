@@ -4,6 +4,8 @@ import YandexLoginSDK
 /// Service for authorization with Yandex account
 public final class YandexLoginService: YandexLoginProcessing, YandexLoginSdkProcessing {
 
+    // MARK: - YandexLoginSdkProcessing
+
     /// Activates the Service. Should be called from applicationDidFinishLaunching.
     ///
     /// - Parameter appId: Application ID received on `https://oauth.yandex.ru`
@@ -25,8 +27,31 @@ public final class YandexLoginService: YandexLoginProcessing, YandexLoginSdkProc
     ///   - url: Parameter received from `application(:open:options:)`
     ///   - sourceApplication: Parameter received from `application(:open:options:)`
     public static func handleOpen(_ url: URL, sourceApplication: String?) -> Bool {
+        YandexLoginService.shared.shouldRejectAuthorization = false
         return YXLSdk.shared.handleOpen(url, sourceApplication: sourceApplication)
     }
+
+    // MARK: - YandexLoginProcessing
+
+    func authorize() -> Promise<YandexLoginResponse> {
+        YandexLoginService.shared.shouldRejectAuthorization = true
+        subscribeOnNotifications()
+
+        let observer = Observer()
+        self.observer = observer
+        YXLSdk.shared.authorize()
+        return observer.promise
+    }
+
+    func logout() {
+        YXLSdk.shared.logout()
+    }
+
+    // MARK: - Private
+
+    private static var shared = YandexLoginService()
+
+    private var shouldRejectAuthorization: Bool?
 
     private var observer: Observer? {
         didSet {
@@ -36,15 +61,23 @@ public final class YandexLoginService: YandexLoginProcessing, YandexLoginSdkProc
         }
     }
 
-    func authorize() -> Promise<YandexLoginResponse> {
-        let observer = Observer()
-        self.observer = observer
-        YXLSdk.shared.authorize()
-        return observer.promise
+    private func subscribeOnNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(applicationDidBecomeActive),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: nil)
     }
 
-    func logout() {
-        YXLSdk.shared.logout()
+    private func unsubscribeFromNotifications() {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc
+    private func applicationDidBecomeActive() {
+        unsubscribeFromNotifications()
+        if YandexLoginService.shared.shouldRejectAuthorization == true {
+            observer?.promise.reject(YandexLoginProcessingError.applicationDidBecomeActive)
+        }
     }
 
     private final class Observer: NSObject, YXLObserver {
@@ -90,11 +123,11 @@ private func makeDisplayNameFromJwt(_ jwt: String) -> String? {
           let data = base64UrlDecode(components[payloadJwtFragment]),
           let json = try? JSONSerialization.jsonObject(with: data),
           let payloadJson = json as? [String: Any],
-          let dispayName = payloadJson[displayNameKey] as? String else {
+          let displayName = payloadJson[displayNameKey] as? String else {
         return nil
     }
 
-    return dispayName
+    return displayName
 }
 
 private func base64UrlDecode(_ value: String) -> Data? {
