@@ -11,6 +11,7 @@ enum YandexLoginProcessingError: Error {
     case common(Error)
     case wasCanceled
     case accessDenied
+    case applicationDidBecomeActive
 }
 
 protocol YandexLoginSdkProcessing {
