@@ -716,6 +716,7 @@ private func makeFeePriceViewModel(_ paymentOption: PaymentOption) -> PriceViewM
         fractionalPart = String(amountString[amountString.index(after: separatorIndex)..<amountString.endIndex])
     } else {
         integerPart = amountString
+        fractionalPart = "00"
     }
 
     return TempAmount(currency: service.charge.currency.currencySymbol,
