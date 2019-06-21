@@ -39,6 +39,7 @@ enum ApplePayAssembly {
 
             let chargeValue = service.charge.value as NSDecimalNumber
             feePaymentSummaryItem = PKPaymentSummaryItem(label: §Localized.fee, amount: chargeValue)
+            purchaseDescriptionAmount.amount = (inputData.amount.value - service.charge.value) as NSDecimalNumber
         }
 
         paymentRequest.paymentSummaryItems = [
