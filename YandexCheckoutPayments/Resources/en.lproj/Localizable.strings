@@ -54,6 +54,8 @@
 
 "Contract.fee" = "Including fees";
 
+"ApplePayContract.fee" = "Fee";
+
 "Contract.resendSms" = "Send again";
 
 "Contract.format.resendSmsAfter" = "New password can be issued in %d";
