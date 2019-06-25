@@ -54,6 +54,8 @@
 
 "Contract.fee" = "Включая комиссию";
 
+"ApplePayContract.fee" = "Комиссия";
+
 "Contract.resendSms" = "Отправить снова";
 
 "Contract.format.resendSmsAfter" = "Новый пароль можно получить через %d";

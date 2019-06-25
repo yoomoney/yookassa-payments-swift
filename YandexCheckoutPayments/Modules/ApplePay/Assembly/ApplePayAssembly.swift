@@ -58,6 +58,6 @@ enum ApplePayAssembly {
 private extension ApplePayAssembly {
 
     enum Localized: String {
-        case fee = "Contract.fee"
+        case fee = "ApplePayContract.fee"
     }
 }
