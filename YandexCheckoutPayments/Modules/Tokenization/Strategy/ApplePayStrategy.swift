@@ -38,7 +38,13 @@ final class ApplePayStrategy: NSObject {
 extension ApplePayStrategy: TokenizationStrategyInput {
 
     func beginProcess() {
-        output?.presentApplePay(paymentOption)
+        guard let output = output else { return }
+
+        if paymentOption.fee != nil {
+            output.presentApplePayContract(paymentOption)
+        } else {
+            output.presentApplePay(paymentOption)
+        }
     }
 
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController,
@@ -75,6 +81,10 @@ extension ApplePayStrategy: TokenizationStrategyInput {
     func failTokenizeData(_ error: Error) {
         trackScreenErrorAnalytics()
         output?.presentErrorWithMessage(§Localized.Error.failTokenizeData)
+    }
+
+    func didPressSubmitButton(on module: ApplePayContractModuleInput) {
+        output?.presentApplePay(paymentOption)
     }
 
     private func trackScreenErrorAnalytics() {

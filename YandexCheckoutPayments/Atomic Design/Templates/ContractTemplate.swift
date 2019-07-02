@@ -4,6 +4,7 @@ import UIKit
 protocol ContractTemplateViewOutput: class {
     func didPressSubmitButton(in contractTemplate: ContractTemplateViewInput)
     func didTapContract(_ contractTemplate: ContractTemplateViewInput)
+    func didTapTermsOfService(_ url: URL)
 }
 
 protocol ContractTemplateViewInput: class {
@@ -12,6 +13,7 @@ protocol ContractTemplateViewInput: class {
     func setPrice(_ price: PriceViewModel)
     func setFee(_ fee: PriceViewModel?)
     func setSubmitButtonEnabled(_ isEnabled: Bool)
+    func setTermsOfService(text: String, hyperlink: String, url: URL)
 }
 
 final class ContractTemplate: UIViewController {
@@ -132,6 +134,15 @@ final class ContractTemplate: UIViewController {
         return view
     }()
 
+    private lazy var termsOfServiceTextView: LinkedTextView = {
+        let view = LinkedTextView()
+        view.setStyles(backgroundStyle,
+                       UITextView.Styles.linked)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.delegate = self
+        return view
+    }()
+
     var footerView: UIView? {
         didSet {
             if let oldView = oldValue, footerView !== oldView {
@@ -213,6 +224,7 @@ final class ContractTemplate: UIViewController {
             descriptionLabel,
             descriptionLabelSeparator,
             priceView,
+            termsOfServiceTextView,
         ]
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -260,6 +272,7 @@ final class ContractTemplate: UIViewController {
             "scrollView": scrollView,
             "descriptionLabel": descriptionLabel,
             "priceView": priceView,
+            "termsOfService": termsOfServiceTextView,
             "submitButton": submitButton,
             "headerView": headerView,
         ]
@@ -332,7 +345,8 @@ final class ContractTemplate: UIViewController {
             return self.scrollViewHeightConstraint
         }
 
-        let newValue = contentView.bounds.height + UIScreen.safeAreaInsets.bottom + scrollView.contentInset.top
+        let newValue = contentView.bounds.height
+            + scrollView.contentInset.top
 
         if self.scrollViewHeightConstraint == nil {
             view.setNeedsLayout()
@@ -486,7 +500,8 @@ final class ContractTemplate: UIViewController {
 
     private func configurePriceView() {
         let constraints = [
-            priceView.bottomMargin.constraint(equalTo: contentView.bottomMargin),
+            priceView.bottomMargin.constraint(equalTo: termsOfServiceTextView.topMargin, constant: -Space.quadruple),
+            termsOfServiceTextView.bottomMargin.constraint(equalTo: contentView.bottomMargin),
         ]
         NSLayoutConstraint.activate(constraints)
     }
@@ -496,9 +511,10 @@ final class ContractTemplate: UIViewController {
 
         let constraints = [
             feeView.topMargin.constraint(equalTo: priceView.bottom, constant: Space.single),
-            feeView.bottomMargin.constraint(equalTo: contentView.bottomMargin),
+            feeView.bottomMargin.constraint(equalTo: termsOfServiceTextView.topMargin, constant: -Space.quadruple),
             feeView.leadingMargin.constraint(equalTo: contentView.leadingMargin, constant: Space.single),
             feeView.trailingMargin.constraint(equalTo: contentView.trailingMargin, constant: -Space.single),
+            termsOfServiceTextView.bottomMargin.constraint(equalTo: contentView.bottomMargin),
         ]
 
         NSLayoutConstraint.activate(constraints)
@@ -514,6 +530,17 @@ extension ContractTemplate: UIGestureRecognizerDelegate {
               touch.view is UIControl else {
             return true
         }
+        return false
+    }
+}
+
+// MARK: - UITextViewDelegate
+
+extension ContractTemplate: UITextViewDelegate {
+    public func textView(_ textView: UITextView,
+                         shouldInteractWith URL: URL,
+                         in characterRange: NSRange) -> Bool {
+        output?.didTapTermsOfService(URL)
         return false
     }
 }
@@ -539,6 +566,23 @@ extension ContractTemplate: ContractTemplateViewInput {
 
     func setSubmitButtonEnabled(_ isEnabled: Bool) {
         submitButton.isEnabled = isEnabled
+    }
+
+    func setTermsOfService(text: String, hyperlink: String, url: URL) {
+        let attributedText: NSMutableAttributedString
+
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.dynamicCaption1,
+            .foregroundColor: UIColor.doveGray,
+        ]
+        attributedText = NSMutableAttributedString(string: "\(text) ", attributes: attributes)
+
+        let linkAttributedText = NSMutableAttributedString(string: hyperlink, attributes: attributes)
+        let linkRange = NSRange(location: 0, length: hyperlink.count)
+        linkAttributedText.addAttribute(.link, value: url, range: linkRange)
+        attributedText.append(linkAttributedText)
+
+        termsOfServiceTextView.attributedText = attributedText
     }
 }
 

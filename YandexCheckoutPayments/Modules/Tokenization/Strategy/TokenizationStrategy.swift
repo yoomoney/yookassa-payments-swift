@@ -46,6 +46,10 @@ protocol TokenizationStrategyInput: class {
     func didPresentApplePayModule()
 
     func didFailPresentApplePayModule()
+
+    // MARK: - ApplePayContract
+
+    func didPressSubmitButton(on module: ApplePayContractModuleInput)
 }
 
 protocol TokenizationStrategyOutput: class {
@@ -80,4 +84,6 @@ protocol TokenizationStrategyOutput: class {
     // MARK: - ApplePay
 
     func presentApplePay(_ paymentOption: PaymentOption)
+
+    func presentApplePayContract(_ paymentOption: PaymentOption)
 }

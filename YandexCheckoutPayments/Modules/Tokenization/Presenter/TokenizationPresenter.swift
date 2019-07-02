@@ -16,7 +16,7 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
 
     // MARK: - Data
 
-    fileprivate let inputData: TokenizationModuleInputData
+    private let inputData: TokenizationModuleInputData
 
     init(inputData: TokenizationModuleInputData) {
         self.inputData = inputData
@@ -24,17 +24,17 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
 
     // MARK: - Modules
 
-    fileprivate weak var yamoneyAuthModule: YamoneyAuthModuleInput?
-    fileprivate weak var paymentMethodsModuleInput: PaymentMethodsModuleInput?
+    private weak var yamoneyAuthModule: YamoneyAuthModuleInput?
+    private weak var paymentMethodsModuleInput: PaymentMethodsModuleInput?
 
     // MARK: - Module data
 
-    fileprivate var paymentOptionsCount: Int = 0
-    fileprivate var strategy: TokenizationStrategyInput?
-    fileprivate var tokenizeData: TokenizeData?
-    fileprivate var isReusableToken: Bool?
+    private var paymentOptionsCount: Int = 0
+    private var strategy: TokenizationStrategyInput?
+    private var tokenizeData: TokenizeData?
+    private var isReusableToken: Bool?
 
-    fileprivate var paymentOption: PaymentOption? {
+    private var paymentOption: PaymentOption? {
         didSet {
             strategy = paymentOption.map {
                 makeStrategy(paymentOption: $0,
@@ -47,15 +47,21 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
         }
     }
 
-    fileprivate var shouldChangePaymentOptions: Bool {
+    private var shouldChangePaymentOptions: Bool {
         return paymentOptionsCount > Constants.minimalRecommendedPaymentsOptions
     }
 
-    fileprivate var paymentMethodViewModel: PaymentMethodViewModel? {
+    private var paymentMethodViewModel: PaymentMethodViewModel? {
         return makePaymentMethodViewModel <^> paymentOption
     }
 
-    fileprivate func makePaymentMethodViewModel(paymentOption: PaymentOption) -> PaymentMethodViewModel {
+    private lazy var termsOfService: TermsOfService = {
+        return TermsOfService(text: §Localized.TermsOfService.text,
+                              hyperlink: §Localized.TermsOfService.hyperlink,
+                              url: Constants.termsOfServiceUrl)
+    }()
+
+    private func makePaymentMethodViewModel(paymentOption: PaymentOption) -> PaymentMethodViewModel {
         let yandexLogin = interactor.getYandexDisplayName()
         return PaymentMethodViewModelFactory.makePaymentMethodViewModel(paymentOption: paymentOption,
                                                                         yandexDisplayName: yandexLogin)
@@ -96,7 +102,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                                    testModeSettings: inputData.testModeSettings,
                                                    tokenizeScheme: tokenizeScheme,
                                                    isLoggingEnabled: inputData.isLoggingEnabled,
-                                                   customizationSettings: inputData.customizationSettings)
+                                                   customizationSettings: inputData.customizationSettings,
+                                                   termsOfService: termsOfService)
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentYamoneyAuthParameters(inputData: yamoneyAuthParametersInputData,
@@ -122,7 +129,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                                               shouldChangePaymentMethod: shouldChangePaymentOptions,
                                                               testModeSettings: inputData.testModeSettings,
                                                               tokenizeScheme: tokenizeScheme,
-                                                              isLoggingEnabled: inputData.isLoggingEnabled)
+                                                              isLoggingEnabled: inputData.isLoggingEnabled,
+                                                              termsOfService: termsOfService)
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentYamoneyAuth(inputData: yamoneyAuthInputData,
@@ -141,7 +149,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                                       shouldChangePaymentMethod: shouldChangePaymentOptions,
                                                       testModeSettings: inputData.testModeSettings,
                                                       tokenizeScheme: tokenizeScheme,
-                                                      isLoggingEnabled: inputData.isLoggingEnabled)
+                                                      isLoggingEnabled: inputData.isLoggingEnabled,
+                                                      termsOfService: termsOfService)
 
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
@@ -187,7 +196,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
                                                       testModeSettings: inputData.testModeSettings,
                                                       tokenizeScheme: tokenizeScheme,
                                                       isLoggingEnabled: inputData.isLoggingEnabled,
-                                                      phoneNumber: inputData.userPhoneNumber)
+                                                      phoneNumber: inputData.userPhoneNumber,
+                                                      termsOfService: termsOfService)
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentSberbank(inputData: moduleInputData,
@@ -247,6 +257,27 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         }
     }
 
+    func presentApplePayContract(_ paymentOption: PaymentOption) {
+        let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
+        let moduleInputData = ApplePayContractModuleInputData(
+            shopName: inputData.shopName,
+            purchaseDescription: inputData.purchaseDescription,
+            paymentMethod: viewModel,
+            price: makePriceViewModel(paymentOption),
+            fee: makeFeePriceViewModel(paymentOption),
+            shouldChangePaymentMethod: shouldChangePaymentOptions,
+            testModeSettings: inputData.testModeSettings,
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            termsOfService: termsOfService
+        )
+
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.router.presentApplePayContract(inputData: moduleInputData,
+                                                      moduleOutput: strongSelf)
+        }
+    }
+
     func presentErrorWithMessage(_ message: String) {
         let moduleInputData = ErrorModuleInputData(errorTitle: message)
         DispatchQueue.main.async { [weak self] in
@@ -266,6 +297,10 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         } else {
             presentPaymentMethodsModule()
         }
+    }
+
+    func presentTermsOfServiceModule(_ url: URL) {
+        router.presentTermsOfServiceModule(url)
     }
 }
 
@@ -429,6 +464,10 @@ extension TokenizationPresenter: ContractModuleOutput {
     func didPressLogoutButton(on module: ContractModuleInput) {
         strategy?.didPressLogout()
     }
+
+    func contractModule(_ module: ContractModuleInput, didTapTermsOfService url: URL) {
+        presentTermsOfServiceModule(url)
+    }
 }
 
 // MARK: - SberbankModuleOutput
@@ -446,6 +485,10 @@ extension TokenizationPresenter: SberbankModuleOutput {
     func didPressChangeAction(on module: SberbankModuleInput) {
         interactor.trackEvent(.actionChangePaymentMethod)
         presentPaymentMethodsModule()
+    }
+
+    func sberbank(_ module: SberbankModuleInput, didTapTermsOfService url: URL) {
+        presentTermsOfServiceModule(url)
     }
 }
 
@@ -536,6 +579,10 @@ extension TokenizationPresenter: YamoneyAuthParametersModuleOutput {
 
         presentPaymentMethodsModule()
     }
+
+    func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput, didTapTermsOfService url: URL) {
+        presentTermsOfServiceModule(url)
+    }
 }
 
 // MARK: - YamoneyAuthModuleOutput
@@ -595,6 +642,10 @@ extension TokenizationPresenter: YamoneyAuthModuleOutput {
             reusableToken: isReusableToken,
             paymentOption: paymentOption
         )
+    }
+
+    func yamoneyAuth(_ module: YamoneyAuthModuleInput, didTapTermsOfService url: URL) {
+        presentTermsOfServiceModule(url)
     }
 }
 
@@ -664,6 +715,31 @@ extension TokenizationPresenter: ApplePayModuleOutput {
 
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         strategy?.paymentAuthorizationViewControllerDidFinish(controller)
+    }
+}
+
+// MARK: - ApplePayContractModuleOutput
+
+extension TokenizationPresenter: ApplePayContractModuleOutput {
+    func didFinish(on module: ApplePayContractModuleInput) {
+        close()
+    }
+
+    func didPressChangeAction(on module: ApplePayContractModuleInput) {
+        DispatchQueue.global().async { [weak self] in
+            guard let interactor = self?.interactor else { return }
+            interactor.trackEvent(.actionChangePaymentMethod)
+        }
+
+        presentPaymentMethodsModule()
+    }
+
+    func didPressSubmitButton(on module: ApplePayContractModuleInput) {
+         strategy?.didPressSubmitButton(on: module)
+    }
+
+    func applePayContractModule(_ module: ApplePayContractModuleInput, didTapTermsOfService url: URL) {
+        presentTermsOfServiceModule(url)
     }
 }
 
@@ -766,9 +842,20 @@ private func makeStrategy(paymentOption: PaymentOption,
     return strategy
 }
 
+// MARK: - Localized
+
+private enum Localized {
+    enum TermsOfService: String {
+        case text = "TermsOfService.Text"
+        case hyperlink = "TermsOfService.Hyperlink"
+    }
+}
+
 // MARK: - Constants
 
 private enum Constants {
     static let returnUrl = "https://custom.redirect.url/"
     static let minimalRecommendedPaymentsOptions = 1
+
+    static let termsOfServiceUrl = URL(string: "https://money.yandex.ru/page?id=526623")!
 }

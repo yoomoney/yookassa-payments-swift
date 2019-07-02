@@ -91,3 +91,7 @@
 "Common.button.cancel" = "Cancel";
 
 "Common.Error.unknown" = "Something went wrong";
+
+"TermsOfService.Text" = "By pressing the button, you accept";
+
+"TermsOfService.Hyperlink" = "terms of service";

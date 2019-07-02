@@ -1,3 +1,5 @@
+import Foundation
+
 struct ContractModuleInputData {
     let shopName: String
     let purchaseDescription: String
@@ -8,6 +10,7 @@ struct ContractModuleInputData {
     let testModeSettings: TestModeSettings?
     let tokenizeScheme: AnalyticsEvent.TokenizeScheme
     let isLoggingEnabled: Bool
+    let termsOfService: TermsOfService
 }
 
 protocol ContractModuleInput: ContractStateHandler {}
@@ -17,4 +20,7 @@ protocol ContractModuleOutput: class {
     func didPressChangeAction(on module: ContractModuleInput)
     func didPressLogoutButton(on module: ContractModuleInput)
     func didFinish(on module: ContractModuleInput)
+
+    func contractModule(_ module: ContractModuleInput,
+                        didTapTermsOfService url: URL)
 }

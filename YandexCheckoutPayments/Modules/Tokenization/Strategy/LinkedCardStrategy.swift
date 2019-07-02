@@ -99,6 +99,8 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
     func didFailPresentApplePayModule() { }
 
     func didPresentApplePayModule() { }
+
+    func didPressSubmitButton(on module: ApplePayContractModuleInput) {}
 }
 
 private func makeConfirmation(returnUrl: String) -> Confirmation {

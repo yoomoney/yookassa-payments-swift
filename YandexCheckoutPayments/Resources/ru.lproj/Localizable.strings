@@ -91,3 +91,7 @@
 "Common.button.cancel" = "Отменить";
 
 "Common.Error.unknown" = "Что то пошло не так";
+
+"TermsOfService.Text" = "Нажимая кнопку, вы принимаете";
+
+"TermsOfService.Hyperlink" = "условия сервиса";

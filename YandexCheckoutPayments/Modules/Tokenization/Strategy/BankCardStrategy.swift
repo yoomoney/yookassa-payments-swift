@@ -78,6 +78,8 @@ extension BankCardStrategy: TokenizationStrategyInput {
     func didFailPresentApplePayModule() { }
 
     func didPresentApplePayModule() { }
+
+    func didPressSubmitButton(on module: ApplePayContractModuleInput) {}
 }
 
 private func makeBankCard(_ cardData: CardData) -> BankCard? {
