@@ -43,6 +43,11 @@ extension YamoneyAuthPresenter: ContractViewOutput {
         contractView.setPrice(inputData.price)
         contractView.setFee(inputData.fee)
         contractView.setSubmitButtonEnabled(false)
+        contractView.setTermsOfService(
+            text: inputData.termsOfService.text,
+            hyperlink: inputData.termsOfService.hyperlink,
+            url: inputData.termsOfService.url
+        )
         paymentMethodView.setPaymentMethodViewModel(inputData.paymentMethod)
 
         setSmsTimer(authTypeState: inputData.authTypeState)
@@ -136,6 +141,10 @@ extension YamoneyAuthPresenter: ContractTemplateViewOutput {
 
     func didTapContract(_ contractTemplate: ContractTemplateViewInput) {
         view?.endEditing(true)
+    }
+
+    func didTapTermsOfService(_ url: URL) {
+        moduleOutput?.yamoneyAuth(self, didTapTermsOfService: url)
     }
 }
 

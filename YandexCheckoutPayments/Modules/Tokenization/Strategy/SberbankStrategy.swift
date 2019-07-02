@@ -66,4 +66,6 @@ extension SberbankStrategy: TokenizationStrategyInput {
 
     func didFailPresentApplePayModule() {
     }
+
+    func didPressSubmitButton(on module: ApplePayContractModuleInput) {}
 }

@@ -1,5 +1,6 @@
 import UIKit
 import protocol PassKit.PKPaymentAuthorizationViewControllerDelegate
+import SafariServices
 
 class TokenizationRouter: NSObject {
 
@@ -113,6 +114,21 @@ extension TokenizationRouter: TokenizationRouterInput {
                       moduleOutput: ErrorModuleOutput) {
         let viewController = ErrorAssembly.makeModule(inputData: inputData,
                                                       moduleOutput: moduleOutput)
+        transitionHandler?.show(viewController, sender: self)
+    }
+
+    func presentTermsOfServiceModule(_ url: URL) {
+        if #available(iOS 9, *) {
+            let viewController = SFSafariViewController(url: url)
+            viewController.modalPresentationStyle = .currentContext
+            transitionHandler?.present(viewController, animated: true)
+        }
+    }
+
+    func presentApplePayContract(inputData: ApplePayContractModuleInputData,
+                                 moduleOutput: ApplePayContractModuleOutput) {
+        let viewController = ApplePayContractAssembly.makeModule(inputData: inputData,
+                                                                 moduleOutput: moduleOutput)
         transitionHandler?.show(viewController, sender: self)
     }
 }

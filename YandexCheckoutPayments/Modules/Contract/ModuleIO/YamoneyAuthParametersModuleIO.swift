@@ -14,6 +14,7 @@ struct YamoneyAuthParametersModuleInputData {
     let tokenizeScheme: AnalyticsEvent.TokenizeScheme
     let isLoggingEnabled: Bool
     let customizationSettings: CustomizationSettings
+    let termsOfService: TermsOfService
 }
 
 protocol YamoneyAuthParametersModuleInput: ContractStateHandler {}
@@ -24,4 +25,7 @@ protocol YamoneyAuthParametersModuleOutput: class {
     func didPressLogoutButton(on module: YamoneyAuthParametersModuleInput)
     func didPressChangeAction(on module: YamoneyAuthParametersModuleInput)
     func didFinish(on module: YamoneyAuthParametersModuleInput)
+
+    func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput,
+                               didTapTermsOfService url: URL)
 }

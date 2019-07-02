@@ -33,6 +33,11 @@ extension YamoneyAuthParametersPresenter: ContractViewOutput {
         contractView.setPurchaseDescription(inputData.purchaseDescription)
         contractView.setPrice(inputData.price)
         contractView.setFee(inputData.fee)
+        contractView.setTermsOfService(
+            text: inputData.termsOfService.text,
+            hyperlink: inputData.termsOfService.hyperlink,
+            url: inputData.termsOfService.url
+        )
         paymentMethodView.setPaymentMethodViewModel(inputData.paymentMethod)
         saveAuthInAppView.title = String.localizedStringWithFormat(§Localized.saveAuthInApp, inputData.shopName)
         saveAuthInAppView.state = isReusableToken
@@ -65,6 +70,10 @@ extension YamoneyAuthParametersPresenter: ContractTemplateViewOutput {
     }
 
     func didTapContract(_ contractTemplate: ContractTemplateViewInput) { }
+
+    func didTapTermsOfService(_ url: URL) {
+        moduleOutput?.yamoneyAuthParameters(self, didTapTermsOfService: url)
+    }
 }
 
 // MARK: - SwitchItemViewDelegate
