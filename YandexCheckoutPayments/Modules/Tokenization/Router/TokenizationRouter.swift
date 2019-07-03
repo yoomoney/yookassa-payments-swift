@@ -120,7 +120,7 @@ extension TokenizationRouter: TokenizationRouterInput {
     func presentTermsOfServiceModule(_ url: URL) {
         if #available(iOS 9, *) {
             let viewController = SFSafariViewController(url: url)
-            viewController.modalPresentationStyle = .currentContext
+            viewController.modalPresentationStyle = .overFullScreen
             transitionHandler?.present(viewController, animated: true)
         }
     }
