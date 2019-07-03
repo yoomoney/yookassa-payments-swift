@@ -45,7 +45,7 @@ extension UIImage {
     }
 
     static var templatedClose: UIImage {
-        return named("button.templatedClose").withRenderingMode(.alwaysTemplate)
+        return named("Common.close").withRenderingMode(.alwaysTemplate)
     }
 
     enum NotificationView {

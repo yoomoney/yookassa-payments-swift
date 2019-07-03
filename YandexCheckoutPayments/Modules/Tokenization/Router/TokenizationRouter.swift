@@ -122,6 +122,16 @@ extension TokenizationRouter: TokenizationRouterInput {
             let viewController = SFSafariViewController(url: url)
             viewController.modalPresentationStyle = .currentContext
             transitionHandler?.present(viewController, animated: true)
+        } else {
+            let presenter = WebBrowserPresenter()
+            let interactor = WebBrowserInteractor(url: url)
+            interactor.output = presenter
+            let viewController = WebBrowserAssembly.makeModule(
+                presenter: presenter,
+                interactor: interactor
+            )
+            let navigationController = UINavigationController(rootViewController: viewController)
+            transitionHandler?.present(navigationController, animated: true)
         }
     }
 
