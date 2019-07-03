@@ -52,9 +52,9 @@
 
 "Contract.price" = "To be paid";
 
-"Contract.fee" = "Including commission";
+"Contract.fee" = "Including fee";
 
-"ApplePayContract.fee" = "Commission";
+"ApplePayContract.fee" = "Fee";
 
 "Contract.resendSms" = "Send again";
 
