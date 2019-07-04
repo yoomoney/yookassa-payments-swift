@@ -39,7 +39,9 @@ public final class YandexLoginService: YandexLoginProcessing, YandexLoginSdkProc
 
         let observer = Observer()
         self.observer = observer
-        YXLSdk.shared.authorize()
+        DispatchQueue.main.async {
+            YXLSdk.shared.authorize()
+        }
         return observer.promise
     }
 
