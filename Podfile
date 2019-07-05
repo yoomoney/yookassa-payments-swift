@@ -7,6 +7,7 @@ target 'YandexCheckoutPaymentsExamplePods' do
     pod 'FunctionalSwift'
     pod 'CardIO'
     pod 'SwiftLint'
+    pod 'Reveal-SDK', :configurations => ['Debug']
 
     pod 'YandexCheckoutPayments',
         :path => './'

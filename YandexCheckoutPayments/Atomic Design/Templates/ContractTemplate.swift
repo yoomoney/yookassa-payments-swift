@@ -4,13 +4,16 @@ import UIKit
 protocol ContractTemplateViewOutput: class {
     func didPressSubmitButton(in contractTemplate: ContractTemplateViewInput)
     func didTapContract(_ contractTemplate: ContractTemplateViewInput)
+    func didTapTermsOfService(_ url: URL)
 }
 
 protocol ContractTemplateViewInput: class {
     func setShopName(_ shopName: String)
     func setPurchaseDescription(_ purchaseDescription: String)
     func setPrice(_ price: PriceViewModel)
+    func setFee(_ fee: PriceViewModel?)
     func setSubmitButtonEnabled(_ isEnabled: Bool)
+    func setTermsOfService(text: String, hyperlink: String, url: URL)
 }
 
 final class ContractTemplate: UIViewController {
@@ -41,6 +44,18 @@ final class ContractTemplate: UIViewController {
         }
         get {
             return priceView.price
+        }
+    }
+
+    var fee: PriceViewModel? {
+        set {
+            feeView.price = newValue
+            newValue == nil
+                ? configurePriceView()
+                : configureFeeView()
+        }
+        get {
+            return feeView.price
         }
     }
 
@@ -109,6 +124,24 @@ final class ContractTemplate: UIViewController {
         $0.text = §Localized.price
         return $0
     }(PriceView())
+
+    private lazy var feeView: PriceView = {
+        let view = PriceView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layoutMargins = .zero
+        view.setStyles(backgroundStyle, UIView.Styles.heightAsContent)
+        view.text = §Localized.fee
+        return view
+    }()
+
+    private lazy var termsOfServiceTextView: LinkedTextView = {
+        let view = LinkedTextView()
+        view.setStyles(backgroundStyle,
+                       UITextView.Styles.linked)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.delegate = self
+        return view
+    }()
 
     var footerView: UIView? {
         didSet {
@@ -191,6 +224,7 @@ final class ContractTemplate: UIViewController {
             descriptionLabel,
             descriptionLabelSeparator,
             priceView,
+            termsOfServiceTextView,
         ]
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -226,7 +260,7 @@ final class ContractTemplate: UIViewController {
             "[submitButton]",
         ].joined()
 
-        let bottomFormat = "V:[priceView]|"
+        let bottomFormat = "V:[priceView]"
 
         let formats = [
             titleFormat,
@@ -238,6 +272,7 @@ final class ContractTemplate: UIViewController {
             "scrollView": scrollView,
             "descriptionLabel": descriptionLabel,
             "priceView": priceView,
+            "termsOfService": termsOfServiceTextView,
             "submitButton": submitButton,
             "headerView": headerView,
         ]
@@ -310,7 +345,8 @@ final class ContractTemplate: UIViewController {
             return self.scrollViewHeightConstraint
         }
 
-        let newValue = contentView.bounds.height + UIScreen.safeAreaInsets.bottom + scrollView.contentInset.top
+        let newValue = contentView.bounds.height
+            + scrollView.contentInset.top
 
         if self.scrollViewHeightConstraint == nil {
             view.setNeedsLayout()
@@ -361,7 +397,7 @@ final class ContractTemplate: UIViewController {
 
     // MARK: - Configuring optional subviews
 
-    func configurePaymentMethodView() {
+    private func configurePaymentMethodView() {
         guard let paymentMethodView = paymentMethodView else { return }
 
         paymentMethodView.translatesAutoresizingMaskIntoConstraints = false
@@ -410,7 +446,7 @@ final class ContractTemplate: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
 
-    func configureFooterView() {
+    private func configureFooterView() {
         guard let footerView = footerView else { return }
         footerView.translatesAutoresizingMaskIntoConstraints = false
         footerView.appendStyle(UIView.Styles.heightAsContent)
@@ -461,6 +497,28 @@ final class ContractTemplate: UIViewController {
 
         NSLayoutConstraint.activate(constraints)
     }
+
+    private func configurePriceView() {
+        let constraints = [
+            priceView.bottomMargin.constraint(equalTo: termsOfServiceTextView.topMargin, constant: -Space.quadruple),
+            termsOfServiceTextView.bottomMargin.constraint(equalTo: contentView.bottomMargin),
+        ]
+        NSLayoutConstraint.activate(constraints)
+    }
+
+    private func configureFeeView() {
+        contentView.addSubview(feeView)
+
+        let constraints = [
+            feeView.topMargin.constraint(equalTo: priceView.bottom, constant: Space.single),
+            feeView.bottomMargin.constraint(equalTo: termsOfServiceTextView.topMargin, constant: -Space.quadruple),
+            feeView.leadingMargin.constraint(equalTo: contentView.leadingMargin, constant: Space.single),
+            feeView.trailingMargin.constraint(equalTo: contentView.trailingMargin, constant: -Space.single),
+            termsOfServiceTextView.bottomMargin.constraint(equalTo: contentView.bottomMargin),
+        ]
+
+        NSLayoutConstraint.activate(constraints)
+    }
 }
 
 // MARK: - UIGestureRecognizerDelegate
@@ -472,6 +530,17 @@ extension ContractTemplate: UIGestureRecognizerDelegate {
               touch.view is UIControl else {
             return true
         }
+        return false
+    }
+}
+
+// MARK: - UITextViewDelegate
+
+extension ContractTemplate: UITextViewDelegate {
+    public func textView(_ textView: UITextView,
+                         shouldInteractWith URL: URL,
+                         in characterRange: NSRange) -> Bool {
+        output?.didTapTermsOfService(URL)
         return false
     }
 }
@@ -491,8 +560,29 @@ extension ContractTemplate: ContractTemplateViewInput {
         self.price = price
     }
 
+    func setFee(_ fee: PriceViewModel?) {
+        self.fee = fee
+    }
+
     func setSubmitButtonEnabled(_ isEnabled: Bool) {
         submitButton.isEnabled = isEnabled
+    }
+
+    func setTermsOfService(text: String, hyperlink: String, url: URL) {
+        let attributedText: NSMutableAttributedString
+
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.dynamicCaption1,
+            .foregroundColor: UIColor.doveGray,
+        ]
+        attributedText = NSMutableAttributedString(string: "\(text) ", attributes: attributes)
+
+        let linkAttributedText = NSMutableAttributedString(string: hyperlink, attributes: attributes)
+        let linkRange = NSRange(location: 0, length: hyperlink.count)
+        linkAttributedText.addAttribute(.link, value: url, range: linkRange)
+        attributedText.append(linkAttributedText)
+
+        termsOfServiceTextView.attributedText = attributedText
     }
 }
 
@@ -501,5 +591,6 @@ private extension ContractTemplate {
     enum Localized: String {
         case `continue` = "Contract.next"
         case price = "Contract.price"
+        case fee = "Contract.fee"
     }
 }

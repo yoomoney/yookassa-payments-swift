@@ -1,5 +1,6 @@
 import PassKit
 import UIKit
+import YandexCheckoutPaymentsApi
 
 struct ApplePayModuleInputData {
     let merchantIdentifier: String?
@@ -7,6 +8,7 @@ struct ApplePayModuleInputData {
     let shopName: String
     let purchaseDescription: String
     let supportedNetworks: [PKPaymentNetwork]
+    let fee: YandexCheckoutPaymentsApi.Fee?
 }
 
 enum ApplePayAssembly {
@@ -29,12 +31,33 @@ enum ApplePayAssembly {
 
         let amountValue = inputData.amount.value as NSDecimalNumber
         let shopNameAmount = PKPaymentSummaryItem(label: inputData.shopName, amount: amountValue)
+        var feePaymentSummaryItem: PKPaymentSummaryItem?
         let purchaseDescriptionAmount = PKPaymentSummaryItem(label: inputData.purchaseDescription, amount: amountValue)
-        paymentRequest.paymentSummaryItems = [purchaseDescriptionAmount, shopNameAmount]
+
+        if let fee = inputData.fee,
+            let service = fee.service {
+
+            let chargeValue = service.charge.value as NSDecimalNumber
+            feePaymentSummaryItem = PKPaymentSummaryItem(label: §Localized.fee, amount: chargeValue)
+            purchaseDescriptionAmount.amount = (inputData.amount.value - service.charge.value) as NSDecimalNumber
+        }
+
+        paymentRequest.paymentSummaryItems = [
+            purchaseDescriptionAmount, feePaymentSummaryItem, shopNameAmount,
+        ].compactMap { $0 }
 
         let authorizationViewController = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
         authorizationViewController?.delegate = moduleOutput
 
         return authorizationViewController
+    }
+}
+
+// MARK: - Localized
+
+private extension ApplePayAssembly {
+
+    enum Localized: String {
+        case fee = "ApplePayContract.fee"
     }
 }

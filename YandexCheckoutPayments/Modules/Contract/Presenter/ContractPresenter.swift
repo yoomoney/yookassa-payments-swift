@@ -29,6 +29,12 @@ extension ContractPresenter: ContractViewOutput {
         contractView.setShopName(inputData.shopName)
         contractView.setPurchaseDescription(inputData.purchaseDescription)
         contractView.setPrice(inputData.price)
+        contractView.setFee(inputData.fee)
+        contractView.setTermsOfService(
+            text: inputData.termsOfService.text,
+            hyperlink: inputData.termsOfService.hyperlink,
+            url: inputData.termsOfService.url
+        )
         paymentMethodView.setPaymentMethodViewModel(inputData.paymentMethod)
 
         DispatchQueue.global().async { [weak self] in
@@ -83,6 +89,10 @@ extension ContractPresenter: ContractTemplateViewOutput {
     }
 
     func didTapContract(_ contractTemplate: ContractTemplateViewInput) { }
+
+    func didTapTermsOfService(_ url: URL) {
+        moduleOutput?.contractModule(self, didTapTermsOfService: url)
+    }
 }
 
 // MARK: - LargeIconItemViewOutput

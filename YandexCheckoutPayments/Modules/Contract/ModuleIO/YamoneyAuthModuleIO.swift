@@ -8,6 +8,7 @@ struct YamoneyAuthModuleInputData {
     let purchaseDescription: String
     let paymentMethod: PaymentMethodViewModel
     let price: PriceViewModel
+    let fee: PriceViewModel?
     let processId: String
     let authContextId: String
     let authTypeState: AuthTypeState
@@ -15,6 +16,7 @@ struct YamoneyAuthModuleInputData {
     let testModeSettings: TestModeSettings?
     let tokenizeScheme: AnalyticsEvent.TokenizeScheme
     let isLoggingEnabled: Bool
+    let termsOfService: TermsOfService
 }
 
 protocol YamoneyAuthModuleInput: ContractStateHandler {
@@ -36,4 +38,6 @@ protocol YamoneyAuthModuleOutput: class {
     func didPressLogoutButton(on module: YamoneyAuthModuleInput)
     func didFinish(on module: YamoneyAuthModuleInput)
     func didPressChangeAction(on module: YamoneyAuthModuleInput)
+    func yamoneyAuth(_ module: YamoneyAuthModuleInput,
+                     didTapTermsOfService url: URL)
 }
