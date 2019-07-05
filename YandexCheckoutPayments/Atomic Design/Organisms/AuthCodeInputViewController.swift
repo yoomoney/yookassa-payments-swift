@@ -109,11 +109,12 @@ final class AuthCodeInputViewController: UIViewController {
         case .sms:
             $0.topHint = §Localized.smsCodeTopHint
             $0.placeholder = §Localized.smsCodePlaceholder
+            $0.set(bottomHintText: §Localized.smsInvalidAnswer, for: .error)
         case .totp:
             $0.topHint = §Localized.totpTopHint
             $0.placeholder = §Localized.totpPlaceholder
+            $0.set(bottomHintText: §Localized.totpInvalidAnswer, for: .error)
         }
-        $0.set(bottomHintText: §Localized.invalidAnswer, for: .error)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.delegate = self
         return $0
@@ -291,6 +292,7 @@ extension AuthCodeInputViewController {
         case smsCodeTopHint = "Contract.topHint.smsCode"
         case totpTopHint = "Contract.topHint.totp"
 
-        case invalidAnswer = "Contract.bottomHint.invalidAnswer"
+        case smsInvalidAnswer = "Contract.bottomHint.smsCode.invalidAnswer"
+        case totpInvalidAnswer = "Contract.bottomHint.totp.invalidAnswer"
     }
 }
