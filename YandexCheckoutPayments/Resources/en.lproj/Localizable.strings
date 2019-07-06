@@ -52,6 +52,10 @@
 
 "Contract.price" = "To be paid";
 
+"Contract.fee" = "Including fee";
+
+"ApplePayContract.fee" = "Fee";
+
 "Contract.resendSms" = "Send again";
 
 "Contract.format.resendSmsAfter" = "New password can be issued in %d";
@@ -87,3 +91,7 @@
 "Common.button.cancel" = "Cancel";
 
 "Common.Error.unknown" = "Something went wrong";
+
+"TermsOfService.Text" = "By clicking this button, you accept";
+
+"TermsOfService.Hyperlink" = "terms and conditions of the service";

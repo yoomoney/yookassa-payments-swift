@@ -12,8 +12,16 @@ enum MonetaryAmountFactory {
         return WalletMonetaryAmount(value: amount.value, currency: makeCurrency(amount.currency))
     }
 
+    static func makeWalletMonetaryAmount(_ amount: PaymentsMonetaryAmount) -> WalletMonetaryAmount {
+        return WalletMonetaryAmount(value: amount.value, currency: makeCurrency(amount.currency))
+    }
+
     static func makePaymentsMonetaryAmount(_ amount: Amount) -> PaymentsMonetaryAmount {
         return PaymentsMonetaryAmount(value: amount.value, currency: makeCurrency(amount.currency))
+    }
+
+    static func makeAmount(_ amount: PaymentsMonetaryAmount) -> Amount {
+        return Amount(value: amount.value, currency: makeCurrency(amount.currency))
     }
 
     private static func makeCurrency(_ currency: Currency) -> WalletCurrency {
@@ -40,5 +48,31 @@ enum MonetaryAmountFactory {
             paymentsCurrency = .usd
         }
         return paymentsCurrency
+    }
+
+    private static func makeCurrency(_ paymentsCurrency: PaymentsCurrency) -> Currency {
+        let currency: Currency
+        switch paymentsCurrency {
+        case .rub:
+            currency = .rub
+        case .eur:
+            currency = .eur
+        case .usd:
+            currency = .usd
+        }
+        return currency
+    }
+
+    private static func makeCurrency(_ paymentsCurrency: PaymentsCurrency) -> WalletCurrency {
+        let currency: WalletCurrency
+        switch paymentsCurrency {
+        case .rub:
+            currency = .rub
+        case .eur:
+            currency = .eur
+        case .usd:
+            currency = .usd
+        }
+        return currency
     }
 }

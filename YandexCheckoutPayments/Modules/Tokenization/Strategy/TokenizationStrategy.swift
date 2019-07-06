@@ -46,6 +46,10 @@ protocol TokenizationStrategyInput: class {
     func didPresentApplePayModule()
 
     func didFailPresentApplePayModule()
+
+    // MARK: - ApplePayContract
+
+    func didPressSubmitButton(on module: ApplePayContractModuleInput)
 }
 
 protocol TokenizationStrategyOutput: class {
@@ -67,9 +71,9 @@ protocol TokenizationStrategyOutput: class {
 
     func presentSberbankContract(paymentOption: PaymentOption)
 
-    func tokenize(_ data: TokenizeData)
+    func tokenize(_ data: TokenizeData, paymentOption: PaymentOption)
 
-    func loginInYandexMoney(reusableToken: Bool)
+    func loginInYandexMoney(reusableToken: Bool, paymentOption: PaymentOption)
 
     func logout(accountId: String)
 
@@ -79,5 +83,7 @@ protocol TokenizationStrategyOutput: class {
 
     // MARK: - ApplePay
 
-    func presentApplePay()
+    func presentApplePay(_ paymentOption: PaymentOption)
+
+    func presentApplePayContract(_ paymentOption: PaymentOption)
 }

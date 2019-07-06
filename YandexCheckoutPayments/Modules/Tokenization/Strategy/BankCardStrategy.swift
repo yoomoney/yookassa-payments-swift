@@ -38,7 +38,8 @@ extension BankCardStrategy: TokenizationStrategyInput {
         }
         bankCardDataInputModule = module
         let confirmation = makeConfirmation(returnUrl: returnUrl)
-        output?.tokenize(.bankCard(bankCard: bankCard, confirmation: confirmation))
+        let tokenizeData: TokenizeData = .bankCard(bankCard: bankCard, confirmation: confirmation)
+        output?.tokenize(tokenizeData, paymentOption: paymentOption)
     }
 
     func didPressConfirmButton(on module: BankCardDataInputModuleInput, cvc: String) {
@@ -77,6 +78,8 @@ extension BankCardStrategy: TokenizationStrategyInput {
     func didFailPresentApplePayModule() { }
 
     func didPresentApplePayModule() { }
+
+    func didPressSubmitButton(on module: ApplePayContractModuleInput) {}
 }
 
 private func makeBankCard(_ cardData: CardData) -> BankCard? {

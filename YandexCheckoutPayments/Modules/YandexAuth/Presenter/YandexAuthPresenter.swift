@@ -20,14 +20,11 @@ extension YandexAuthPresenter: PaymentMethodsViewOutput {
     func setupView() {
 
         DispatchQueue.main.async { [weak self] in
-            guard let view = self?.view else { return }
+            guard let view = self?.view, let interactor = self?.interactor else { return }
             view.showActivity()
             view.setPlaceholderViewButtonTitle(§Localized.noWalletButtonTitle)
 
-            DispatchQueue.global().async { [weak self] in
-                guard let interactor = self?.interactor else { return }
-                interactor.authorizeInYandex()
-            }
+            interactor.authorizeInYandex()
         }
     }
 

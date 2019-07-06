@@ -8,22 +8,20 @@ final class TokenizationInteractor {
     // MARK: - VIPER module
 
     weak var output: TokenizationInteractorOutput?
-    fileprivate let paymentService: PaymentProcessing
-    fileprivate let authorizationService: AuthorizationProcessing
-    fileprivate let analyticsService: AnalyticsProcessing
-    fileprivate let analyticsProvider: AnalyticsProviding
+    private let paymentService: PaymentProcessing
+    private let authorizationService: AuthorizationProcessing
+    private let analyticsService: AnalyticsProcessing
+    private let analyticsProvider: AnalyticsProviding
 
     // MARK: - Data properties
 
-    fileprivate let clientApplicationKey: String
-    fileprivate let amount: Amount
+    private let clientApplicationKey: String
 
     init(paymentService: PaymentProcessing,
          authorizationService: AuthorizationProcessing,
          analyticsService: AnalyticsProcessing,
          analyticsProvider: AnalyticsProviding,
-         clientApplicationKey: String,
-         amount: Amount) {
+         clientApplicationKey: String) {
         ThreatMetrixService.configure()
 
         self.clientApplicationKey = clientApplicationKey
@@ -31,14 +29,14 @@ final class TokenizationInteractor {
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
-        self.amount = amount
     }
 }
 
 // MARK: - TokenizationInteractorInput
+
 extension TokenizationInteractor: TokenizationInteractorInput {
 
-    func tokenize(_ data: TokenizeData) {
+    func tokenize(_ data: TokenizeData, paymentOption: PaymentOption) {
 
         let tmxSessionId = ThreatMetrixService.profileApp()
 
@@ -74,7 +72,7 @@ extension TokenizationInteractor: TokenizationInteractorInput {
             makeToken = curry(paymentService.tokenizeSberbank)(clientApplicationKey)(phoneNumber)(confirmation)
         }
 
-        let monetaryAmount = MonetaryAmountFactory.makePaymentsMonetaryAmount(amount)
+        let monetaryAmount = paymentOption.charge
         let tokens = makeToken(monetaryAmount) -<< tmxSessionId
         let tokensWithError = tokens.recover(on: .global(), mapError)
 
@@ -91,8 +89,8 @@ extension TokenizationInteractor: TokenizationInteractorInput {
         return authorizationService.getYandexDisplayName()
     }
 
-    func loginInYandexMoney(reusableToken: Bool) {
-        let walletMonetaryAmount = MonetaryAmountFactory.makeWalletMonetaryAmount(amount)
+    func loginInYandexMoney(reusableToken: Bool, paymentOption: PaymentOption) {
+        let walletMonetaryAmount = MonetaryAmountFactory.makeWalletMonetaryAmount(paymentOption.charge)
 
         let response = authorizationService.loginInYamoney(merchantClientAuthorization: clientApplicationKey,
                                                            amount: walletMonetaryAmount,

@@ -35,4 +35,9 @@ protocol TokenizationRouterInput: class {
 
     func presentError(inputData: ErrorModuleInputData,
                       moduleOutput: ErrorModuleOutput)
+
+    func presentTermsOfServiceModule(_ url: URL)
+
+    func presentApplePayContract(inputData: ApplePayContractModuleInputData,
+                                 moduleOutput: ApplePayContractModuleOutput)
 }
