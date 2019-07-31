@@ -49,7 +49,7 @@ class BankCardDataInputViewController: UIViewController, PlaceholderProvider {
         $0.setStyles(TextControl.Styles.cardDataInput,
                      TextControl.Styles.leftIconVisible,
                      TextControl.Styles.tintLine)
-        $0.leftIcon.image = UIImage.PaymentSystem.TextControl.bankCard
+        $0.leftIcon.image = UIImage.Bank.unknown
         return $0
     }(TextControl())
 
@@ -240,7 +240,7 @@ extension BankCardDataInputViewController: BankCardDataInputViewInput {
             : panInputTextControl.appendStyle(TextControl.Styles.cardDataInputWithoutScan)
     }
 
-    func setBankCardPaymentSystemImage(_ image: UIImage) {
+    func setBankLogoImage(_ image: UIImage) {
         panInputTextControl.leftIcon.image = image
     }
 

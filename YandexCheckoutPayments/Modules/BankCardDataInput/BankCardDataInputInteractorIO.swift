@@ -28,12 +28,13 @@ import Foundation
 protocol BankCardDataInputInteractorInput: AnalyticsTrackable, AnalyticsProviding {
     func validate(cardData: CardData)
     func validate(csc: String)
-    func determineCardTypeForPan(_ pan: String)
+    func fetchBankCardSettings(_ pan: String)
 }
 
 /// Interactor output protocol
 protocol BankCardDataInputInteractorOutput: class {
     func successValidateCardData()
     func failValidateCardData(errors: [CardService.ValidationError])
-    func didDetermineCardType(_ cardType: CardType?)
+    func didFetchBankSettings(_ bankCardSettings: BankSettings)
+    func didFailFetchBankSettings()
 }

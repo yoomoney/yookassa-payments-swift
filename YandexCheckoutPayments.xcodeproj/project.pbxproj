@@ -441,6 +441,7 @@
 		402EB5A42353DA754E2EE4AE /* SectionDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD99826BEF036D940985 /* SectionDescriptor.swift */; };
 		402EB5A7BB2DF143643B254C /* AnalyticsTrackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE808D6D9136472905E2 /* AnalyticsTrackable.swift */; };
 		402EB5A987D4AA5A060CB56C /* PriceInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCA4155A33038689C3A6 /* PriceInputPresenterStyle.swift */; };
+		402EB5AECEEAD0045B264F00 /* BankSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB160EE77F946686B7A16 /* BankSettings.swift */; };
 		402EB5F1B5DD83054302484E /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB98341C0EAD3DE8902C2 /* TableViewController.swift */; };
 		402EB6070E4126C4709F20DE /* ApplePayAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6DB38CE58DCD11766AC /* ApplePayAssembly.swift */; };
 		402EB61F8DBD89B127C082B8 /* CardSecModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3C9DE50D5321D9AA990 /* CardSecModuleIO.swift */; };
@@ -452,6 +453,7 @@
 		402EB745758192AE1E7E8950 /* SectionDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD99826BEF036D940985 /* SectionDescriptor.swift */; };
 		402EB75364A4958A2ECEADE5 /* CustomizationColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB97A78993C8B3BAB7080 /* CustomizationColors.swift */; };
 		402EB75DDF67CEA21BDB7074 /* RootViewController+TokenizationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB302A7F71C0A7EA5ACBF /* RootViewController+TokenizationModuleOutput.swift */; };
+		402EB76069CEDCC4F10C4488 /* banks.json in Resources */ = {isa = PBXBuildFile; fileRef = 402EB29D788CFA2063F8B8AF /* banks.json */; };
 		402EB76092220A69EBC9CA93 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7F44D850D7C49DEDB98 /* Settings.swift */; };
 		402EB780DE3C44ED4F36A735 /* DecimalPriceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD24A8CA2694434FF10B /* DecimalPriceViewModel.swift */; };
 		402EB803F10C69BABE0A82FB /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6AB3C97E1E258778D20 /* RootViewController.swift */; };
@@ -465,7 +467,9 @@
 		402EB900E658B4D787E05AD4 /* CardSecInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE5594CD1A8ABEAD39FD /* CardSecInteractorIO.swift */; };
 		402EB9551C1738EA4D59879D /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE4329C16EF4BAF8F641 /* Localization.swift */; };
 		402EB95A8B14DA871F0FEFBE /* YamoneyLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB74A199E0DEFD2C76AC1 /* YamoneyLoginService.swift */; };
+		402EB96624E23AF1B3E52576 /* BankSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC8A193969E516D70114 /* BankSettingsService.swift */; };
 		402EB96B98BDC1624B56438A /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB71ADE555E8BB757D543 /* KeychainStorage.swift */; };
+		402EB9B31C3589400A714562 /* BankSettingsServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB024584D77552B06C423 /* BankSettingsServiceImpl.swift */; };
 		402EB9D228B2B517E0F5E64B /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD2572A1A47144B270C3 /* SettingsService.swift */; };
 		402EB9DA344BA27325A3DB1B /* UILayoutPriority+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE5526ACD7CD69283661 /* UILayoutPriority+Tools.swift */; };
 		402EB9E52D424E304CCC2D1C /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB98341C0EAD3DE8902C2 /* TableViewController.swift */; };
@@ -494,7 +498,6 @@
 		402EBC51844BE5C2EC5A818C /* CardSecPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFFE36B7674582BF629F /* CardSecPresenter.swift */; };
 		402EBC5DE0C7F14F470A106E /* ApplePayContractAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB29F2A0F7BC532A2FD78 /* ApplePayContractAssembly.swift */; };
 		402EBC6063B12972DA4FB8E4 /* TermsOfService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB44710C6607764E5F302 /* TermsOfService.swift */; };
-		402EBC6AF5DBC4FD1435B489 /* PaymentSystemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB620DE3E765002FA511C /* PaymentSystemFactory.swift */; };
 		402EBC781C638344090C06B5 /* TableViewCellDataProviderSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7B5F823AB4566887F6D /* TableViewCellDataProviderSupport.swift */; };
 		402EBCB6CA6E92857BE63D25 /* AnalyticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8C762F0F470A397D662 /* AnalyticsProvider.swift */; };
 		402EBCC73E583E49CB1B0B18 /* BankCardDataInputRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB0FAEF26E179E8432582 /* BankCardDataInputRouter.swift */; };
@@ -867,9 +870,11 @@
 		30FCAAEA1FF3F9E8002C69FF /* CardType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
 		30FCAAF51FF3FD39002C69FF /* CardConfiguration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CardConfiguration.plist; sourceTree = "<group>"; };
 		3613164D10E60C57E3B2E8D5 /* Pods-YandexCheckoutPaymentsExamplePods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexCheckoutPaymentsExamplePods.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YandexCheckoutPaymentsExamplePods/Pods-YandexCheckoutPaymentsExamplePods.debug.xcconfig"; sourceTree = "<group>"; };
+		402EB024584D77552B06C423 /* BankSettingsServiceImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankSettingsServiceImpl.swift; sourceTree = "<group>"; };
 		402EB07E4A3189AFC7FC1881 /* UIDevice+Hardware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Hardware.swift"; sourceTree = "<group>"; };
 		402EB0FAEF26E179E8432582 /* BankCardDataInputRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardDataInputRouter.swift; sourceTree = "<group>"; };
 		402EB14D34A15C0430CA7907 /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
+		402EB160EE77F946686B7A16 /* BankSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankSettings.swift; sourceTree = "<group>"; };
 		402EB1951B7BDB84585F6D93 /* NSLayoutConstraint+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Tools.swift"; sourceTree = "<group>"; };
 		402EB1D5DCE7CE831CE3A7D5 /* AuthTypeStatesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthTypeStatesService.swift; sourceTree = "<group>"; };
 		402EB20893D57BCDD6531F5D /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -877,6 +882,7 @@
 		402EB272CF2245BD4A15D810 /* AuthTypeStatesProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthTypeStatesProvider.swift; sourceTree = "<group>"; };
 		402EB284F66EE120D7C80D30 /* AnalyticsEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsEvent.swift; sourceTree = "<group>"; };
 		402EB28DE742C90C6275D62F /* ErrorModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorModuleIO.swift; sourceTree = "<group>"; };
+		402EB29D788CFA2063F8B8AF /* banks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = banks.json; sourceTree = "<group>"; };
 		402EB29F2A0F7BC532A2FD78 /* ApplePayContractAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayContractAssembly.swift; sourceTree = "<group>"; };
 		402EB2BA956B228FE6347DA8 /* LinkedBankCardDataInputAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedBankCardDataInputAssembly.swift; sourceTree = "<group>"; };
 		402EB2C4E930D43B9F39C1E2 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
@@ -900,7 +906,6 @@
 		402EB5EC69067D7D8EB8CECE /* AnalyticsProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsProviding.swift; sourceTree = "<group>"; };
 		402EB5FD23E637F2CB6C2574 /* SuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
 		402EB6180BDB70EA6D35C2E8 /* PaymentMethodViewModelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewModelFactory.swift; sourceTree = "<group>"; };
-		402EB620DE3E765002FA511C /* PaymentSystemFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSystemFactory.swift; sourceTree = "<group>"; };
 		402EB68AD925A975EA6C06FB /* FunctionalPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalPromise.swift; sourceTree = "<group>"; };
 		402EB6A48AE583D297E41E9A /* TitledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledSwitchView.swift; sourceTree = "<group>"; };
 		402EB6AB3C97E1E258778D20 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -944,6 +949,7 @@
 		402EBC11D69B61F49F3804D0 /* TestSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSettingsViewController.swift; sourceTree = "<group>"; };
 		402EBC211CE903BAAA9CAA34 /* MockKeychainStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeychainStorage.swift; sourceTree = "<group>"; };
 		402EBC394D626EC1209D0232 /* TokenizeSchemeFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizeSchemeFactory.swift; sourceTree = "<group>"; };
+		402EBC8A193969E516D70114 /* BankSettingsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankSettingsService.swift; sourceTree = "<group>"; };
 		402EBCA4155A33038689C3A6 /* PriceInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceInputPresenterStyle.swift; sourceTree = "<group>"; };
 		402EBCBADE67B7CB77A67988 /* YandexAuthAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexAuthAssembly.swift; sourceTree = "<group>"; };
 		402EBCE6D8DD4CCCA85A7592 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -1994,6 +2000,7 @@
 				402EBE7D2A5CFB3064C4D042 /* Analytics */,
 				402EB70C828F2AE13254E2E0 /* ApplePayPermissionsHandler.swift */,
 				402EB434CF76B1697BB9CE69 /* WebLogger.swift */,
+				402EBF8C895328D5AE95E37A /* BankSettingsService */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -2008,7 +2015,6 @@
 				D96ABACB20446DB700CFA062 /* DateFactory.swift */,
 				244F7E94129123619FABCADD /* MonetaryAmountFactory.swift */,
 				244F7454D84E493A283D373B /* PhoneNumberFormatterAssembly.swift */,
-				402EB620DE3E765002FA511C /* PaymentSystemFactory.swift */,
 				244F783764C8A1C6E3F1FCD7 /* UserAgentFactory.swift */,
 			);
 			path = Factory;
@@ -2028,6 +2034,7 @@
 				402EB7F44D850D7C49DEDB98 /* Settings.swift */,
 				402EBB6B84C32FEDF8D7AF8A /* HostsConfig.swift */,
 				402EB44710C6607764E5F302 /* TermsOfService.swift */,
+				402EB160EE77F946686B7A16 /* BankSettings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2037,6 +2044,7 @@
 			children = (
 				30FCAAF51FF3FD39002C69FF /* CardConfiguration.plist */,
 				30CBA4D7217DD7FD0040F062 /* Hosts.plist */,
+				402EB29D788CFA2063F8B8AF /* banks.json */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -2353,6 +2361,15 @@
 				402EBFB441A716A2BD4C4762 /* ApplePayModuleIO.swift */,
 			);
 			path = ApplePay;
+			sourceTree = "<group>";
+		};
+		402EBF8C895328D5AE95E37A /* BankSettingsService */ = {
+			isa = PBXGroup;
+			children = (
+				402EBC8A193969E516D70114 /* BankSettingsService.swift */,
+				402EB024584D77552B06C423 /* BankSettingsServiceImpl.swift */,
+			);
+			path = BankSettingsService;
 			sourceTree = "<group>";
 		};
 		402EBFA1323F96819BC200C4 /* KeyValueStorage */ = {
@@ -2915,6 +2932,7 @@
 				E06532C81FF150FE00831588 /* Localizable.strings in Resources */,
 				30CBA4D8217DD7FD0040F062 /* Hosts.plist in Resources */,
 				30FCAAF71FF3FE86002C69FF /* CardConfiguration.plist in Resources */,
+				402EB76069CEDCC4F10C4488 /* banks.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3254,7 +3272,6 @@
 				402EB6F69F74C4814D61A217 /* YandexAuthPresenter.swift in Sources */,
 				402EBA1DA007D365428A06F1 /* YandexAuthInteractor.swift in Sources */,
 				402EBBA6154A1CA41066E2C3 /* YandexAuthInteractorIO.swift in Sources */,
-				402EBC6AF5DBC4FD1435B489 /* PaymentSystemFactory.swift in Sources */,
 				402EB6070E4126C4709F20DE /* ApplePayAssembly.swift in Sources */,
 				402EB220725AFF28D8606E27 /* ApplePayModuleIO.swift in Sources */,
 				402EBB4FD400656A2400E833 /* ErrorModuleIO.swift in Sources */,
@@ -3393,6 +3410,9 @@
 				402EB658810B95DBC11EEDAB /* ApplePayContractPresenter.swift in Sources */,
 				402EBC5DE0C7F14F470A106E /* ApplePayContractAssembly.swift in Sources */,
 				402EB49A117F9649913A7B76 /* WebBrowserInteractor.swift in Sources */,
+				402EB5AECEEAD0045B264F00 /* BankSettings.swift in Sources */,
+				402EB96624E23AF1B3E52576 /* BankSettingsService.swift in Sources */,
+				402EB9B31C3589400A714562 /* BankSettingsServiceImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

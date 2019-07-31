@@ -58,7 +58,7 @@ protocol BankCardDataInputViewInput: ActivityIndicatorPresenting, PlaceholderPre
 
     func showPlaceholder(message: String)
 
-    func setBankCardPaymentSystemImage(_ image: UIImage)
+    func setBankLogoImage(_ image: UIImage)
 
     var focus: BankCardFocus? { get set }
 }

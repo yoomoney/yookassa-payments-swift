@@ -84,7 +84,7 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.interactor.validate(cardData: strongSelf.cardData)
-            strongSelf.interactor.determineCardTypeForPan(pan)
+            strongSelf.interactor.fetchBankCardSettings(pan)
         }
     }
 
@@ -162,11 +162,18 @@ extension BankCardDataInputPresenter: BankCardDataInputInteractorOutput {
         }
     }
 
-    func didDetermineCardType(_ cardType: CardType?) {
-        let image = PaymentSystemFactory.makePaymentSystemImageFromCardType(cardType)
+    func didFetchBankSettings(_ bankSettings: BankSettings) {
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
-            view.setBankCardPaymentSystemImage(image)
+            let image = UIImage.named(bankSettings.logoName)
+            view.setBankLogoImage(image)
+        }
+    }
+
+    func didFailFetchBankSettings() {
+        DispatchQueue.main.async { [weak self] in
+            guard let view = self?.view else { return }
+            view.setBankLogoImage(UIImage.Bank.unknown)
         }
     }
 }
@@ -209,9 +216,9 @@ extension BankCardDataInputPresenter: BankCardDataInputRouterOutput {
         setExpiryDateAndMoveFocusNext <^> scannedCardInfo.expiryDate
 
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.interactor.validate(cardData: strongSelf.cardData)
-            strongSelf.interactor.determineCardTypeForPan <^> strongSelf.cardData.pan
+            guard let self = self else { return }
+            self.interactor.validate(cardData: self.cardData)
+            self.interactor.fetchBankCardSettings <^> self.cardData.pan
         }
     }
 

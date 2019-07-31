@@ -28,19 +28,22 @@ class BankCardDataInputInteractor {
     weak var output: BankCardDataInputInteractorOutput?
 
     // MARK: - Module interaction properties
-    fileprivate let cardService: CardService
-    fileprivate let authorizationService: AuthorizationProcessing
-    fileprivate let analyticsService: AnalyticsProcessing
-    fileprivate let analyticsProvider: AnalyticsProviding
+    private let cardService: CardService
+    private let authorizationService: AuthorizationProcessing
+    private let analyticsService: AnalyticsProcessing
+    private let analyticsProvider: AnalyticsProviding
+    private let bankSettingsService: BankSettingsService
 
     init(cardService: CardService,
          authorizationService: AuthorizationProcessing,
          analyticsService: AnalyticsProcessing,
-         analyticsProvider: AnalyticsProviding) {
+         analyticsProvider: AnalyticsProviding,
+         bankSettingsService: BankSettingsService) {
         self.cardService = cardService
         self.analyticsService = analyticsService
         self.authorizationService = authorizationService
         self.analyticsProvider = analyticsProvider
+        self.bankSettingsService = bankSettingsService
     }
 }
 
@@ -66,9 +69,12 @@ extension BankCardDataInputInteractor: BankCardDataInputInteractorInput {
         output?.successValidateCardData()
     }
 
-    func determineCardTypeForPan(_ pan: String) {
-        let cardType = cardService.cardType(for: pan)
-        output?.didDetermineCardType(cardType)
+    func fetchBankCardSettings(_ pan: String) {
+        guard let bankSettings = bankSettingsService.bankSettings(pan) else {
+            output?.didFailFetchBankSettings()
+            return
+        }
+        output?.didFetchBankSettings(bankSettings)
     }
 
     func trackEvent(_ event: AnalyticsEvent) {
