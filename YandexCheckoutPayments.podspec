@@ -18,7 +18,12 @@ Pod::Spec.new do |s|
   s.swift_version = '4.2'
 
   s.ios.source_files  = 'YandexCheckoutPayments/**/*.{h,swift}', 'YandexCheckoutPayments/*.{h,swift}'
-  s.ios.resources = 'YandexCheckoutPayments/Resources/*.xcassets', 'YandexCheckoutPayments/Resources/**/*.plist', 'YandexCheckoutPayments/Resources/*.lproj/*.strings'
+  s.ios.resources = [
+    'YandexCheckoutPayments/Resources/*.xcassets',
+    'YandexCheckoutPayments/Resources/**/*.plist',
+    'YandexCheckoutPayments/Resources/**/*.json',
+    'YandexCheckoutPayments/Resources/*.lproj/*.strings'
+  ]
 
   s.ios.framework  = 'UIKit'
   s.ios.framework  = 'PassKit'

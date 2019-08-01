@@ -67,10 +67,14 @@ extension LinkedBankCardDataInputPresenter: BankCardDataInputViewOutput {
         view.setExpiryDateTextControlIsEnabled(false)
 
         DispatchQueue.global().async { [weak self] in
-            guard let strongSelf = self,
-                  let interactor = strongSelf.interactor else { return }
+            guard let self = self,
+                  let interactor = self.interactor else { return }
             interactor.trackEvent(.screenLinkedCardForm)
-            interactor.determineCardTypeForPan(makePanFromCardMask(strongSelf.inputData.paymentOption.cardMask))
+            interactor.fetchBankCardSettings(
+                makePanFromCardMask(
+                    self.inputData.paymentOption.cardMask
+                )
+            )
         }
     }
 
@@ -126,11 +130,18 @@ extension LinkedBankCardDataInputPresenter: BankCardDataInputInteractorOutput {
                                             cvc: cvc)
     }
 
-    func didDetermineCardType(_ cardType: CardType?) {
-        let image = PaymentSystemFactory.makePaymentSystemImageFromCardType(cardType)
+    func didFetchBankSettings(_ bankSettings: BankSettings) {
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
-            view.setBankCardPaymentSystemImage(image)
+            let image = UIImage.named(bankSettings.logoName)
+            view.setBankLogoImage(image)
+        }
+    }
+
+    func didFailFetchBankSettings() {
+        DispatchQueue.main.async { [weak self] in
+            guard let view = self?.view else { return }
+            view.setBankLogoImage(UIImage.Bank.unknown)
         }
     }
 }

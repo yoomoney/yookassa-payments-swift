@@ -69,27 +69,17 @@ extension UIImage {
     enum PaymentSystem {
 
         enum TextControl {
-            static var bankCard: UIImage {
-                return named("paymentSystem_unknownCard_textControl")
-            }
-            static var maestro: UIImage {
-                return named("paymentSystem_maestro_textControl")
-            }
-            static var mir: UIImage {
-                return named("paymentSystem_mir_textControl")
-            }
-            static var visa: UIImage {
-                return named("paymentSystem_visa_textControl")
-            }
-            static var masterCard: UIImage {
-                return named("paymentSystem_masterCard_textControl")
-            }
             static var scan: UIImage {
                 return named("BankCardDataInput.Scan")
             }
         }
     }
 
+    enum Bank {
+        static var unknown: UIImage {
+            return named("unknown_list")
+        }
+    }
 }
 
 // MARK: - UIImage: Images factory

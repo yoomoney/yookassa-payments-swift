@@ -43,7 +43,8 @@ enum BankCardDataInputAssembly {
         let interactor = BankCardDataInputInteractor(cardService: cardService,
                                                      authorizationService: authorizationService,
                                                      analyticsService: analyticsService,
-                                                     analyticsProvider: analyticsProvider)
+                                                     analyticsProvider: analyticsProvider,
+                                                     bankSettingsService: BankServiceSettingsImpl.shared)
 
         view.output = presenter
 
