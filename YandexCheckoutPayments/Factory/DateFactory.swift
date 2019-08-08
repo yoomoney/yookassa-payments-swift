@@ -54,19 +54,19 @@ enum DateFactory {
 
         var curIndex = period.index(after: period.startIndex)
 
-        if let yearIndex = period.index(of: "Y"),
+        if let yearIndex = period.firstIndex(of: "Y"),
             let year = Int(period[curIndex..<yearIndex]) {
             components.year = negative ? -year : year
             curIndex = period.index(after: yearIndex)
         }
 
-        if let monthIndex = period.index(of: "M"),
+        if let monthIndex = period.firstIndex(of: "M"),
             let month = Int(period[curIndex..<monthIndex]) {
             components.month = negative ? -month : month
             curIndex = period.index(after: monthIndex)
         }
 
-        if let dayIndex = period.index(of: "D"),
+        if let dayIndex = period.firstIndex(of: "D"),
             let day = Int(period[curIndex..<dayIndex]) {
             components.day = negative ? -day : day
         }
