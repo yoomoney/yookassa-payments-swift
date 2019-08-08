@@ -16,7 +16,7 @@ struct DecimalPriceViewModel: PriceViewModel {
         let priceStringWithCurrency = PriceFormatter.localize(decimal: price) ?? ""
         let priceString = priceStringWithCurrency.replacingOccurrences(of: PriceFormatter.currencySymbol, with: "")
         if let decimalSeparatorCharacter = decimalSeparator.first,
-           let separatorIndex = priceString.index(of: decimalSeparatorCharacter) {
+           let separatorIndex = priceString.firstIndex(of: decimalSeparatorCharacter) {
 
             let fractionalPartStartIndex = priceString.index(after: separatorIndex)
             let fractionalPartEndIndex = priceString.index(after: fractionalPartStartIndex)

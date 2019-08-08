@@ -85,7 +85,7 @@ extension SimpleIdentificationPresenter: SimpleIdentificationViewOutput {
             values[name] = value
         }
 
-        if let index = initialItems.index(of: item) {
+        if let index = initialItems.firstIndex(of: item) {
             initialItems[index] = .select(select, currentOption: option)
         }
         values[select.name]?.value = option.value
