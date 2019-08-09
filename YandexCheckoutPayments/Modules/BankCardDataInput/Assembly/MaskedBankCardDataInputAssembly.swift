@@ -24,13 +24,13 @@
 
 import class UIKit.UIViewController
 
-enum LinkedBankCardDataInputAssembly {
+enum MaskedBankCardDataInputAssembly {
 
-    static func makeModule(inputData: LinkedBankCardDataInputModuleInputData,
-                           moduleOutput: LinkedBankCardDataInputModuleOutput?) -> UIViewController {
+    static func makeModule(inputData: MaskedBankCardDataInputModuleInputData,
+                           moduleOutput: MaskedBankCardDataInputModuleOutput?) -> UIViewController {
 
         let view = BankCardDataInputViewController()
-        let presenter = LinkedBankCardDataInputPresenter(inputData: inputData)
+        let presenter = MaskedBankCardDataInputPresenter(inputData: inputData)
 
         let cardService = CardService()
         let analyticsService = AnalyticsProcessingAssembly

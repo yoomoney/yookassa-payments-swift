@@ -537,9 +537,9 @@ extension ContractTemplate: UIGestureRecognizerDelegate {
 // MARK: - UITextViewDelegate
 
 extension ContractTemplate: UITextViewDelegate {
-    public func textView(_ textView: UITextView,
-                         shouldInteractWith URL: URL,
-                         in characterRange: NSRange) -> Bool {
+    func textView(_ textView: UITextView,
+                  shouldInteractWith URL: URL,
+                  in characterRange: NSRange) -> Bool {
         output?.didTapTermsOfService(URL)
         return false
     }

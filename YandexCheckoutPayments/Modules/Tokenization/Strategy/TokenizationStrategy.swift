@@ -67,7 +67,7 @@ protocol TokenizationStrategyOutput: class {
 
     func presentBankCardDataInput()
 
-    func presentLinkedBankCardDataInput(paymentOption: PaymentInstrumentYandexMoneyLinkedBankCard)
+    func presentMaskedBankCardDataInput(paymentOption: PaymentInstrumentYandexMoneyLinkedBankCard)
 
     func presentSberbankContract(paymentOption: PaymentOption)
 

@@ -83,7 +83,7 @@ enum PaymentMethodViewModelFactory {
 
     // MARK: - Making ViewModel from PaymentMethodType
 
-    private static func makePaymentMethodViewModel(_ paymentMethodType: PaymentMethodType) -> PaymentMethodViewModel {
+    static func makePaymentMethodViewModel(_ paymentMethodType: PaymentMethodType) -> PaymentMethodViewModel {
         return PaymentMethod(name: makePaymentMethodViewModelName(paymentMethodType),
                              image: makePaymentMethodViewModelImage(paymentMethodType),
                              balance: nil)

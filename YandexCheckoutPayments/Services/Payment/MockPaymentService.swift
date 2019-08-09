@@ -5,11 +5,13 @@ import YandexCheckoutPaymentsApi
 final class MockPaymentService: PaymentProcessing {
 
     // MARK: - Initial parameters
+
     private let paymentMethodHandler: PaymentMethodHandler
     private let testModeSettings: TestModeSettings
     private let authorizationMediator: AuthorizationProcessing
 
     // MARK: - Creating object
+
     init(paymentMethodHandler: PaymentMethodHandler,
          testModeSettings: TestModeSettings,
          authorizationMediator: AuthorizationProcessing) {
@@ -42,6 +44,30 @@ final class MockPaymentService: PaymentProcessing {
 
         let promise = response <^ timeout
         return handleResponse <^> promise
+    }
+
+    func fetchPaymentMethod(
+        clientApplicationKey: String,
+        paymentMethodId: String
+    ) -> Promise<YandexCheckoutPaymentsApi.PaymentMethod> {
+        let timeout = makeTimeoutPromise()
+        let response = YandexCheckoutPaymentsApi.PaymentMethod(
+            type: .bankCard,
+            id: "id_value",
+            saved: false,
+            title: "title_value",
+            cscRequired: true,
+            card: .some(.init(
+                first6: "123456",
+                last4: "0987",
+                expiryYear: "2020",
+                expiryMonth: "11",
+                cardType: .masterCard
+            ))
+        )
+
+        let promise = timeout.then { _ in response }
+        return promise
     }
 
     func tokenizeBankCard(clientApplicationKey: String,
@@ -85,6 +111,15 @@ final class MockPaymentService: PaymentProcessing {
         return makeTokensPromise()
     }
 
+    func tokenizeRepeatBankCard(clientApplicationKey: String,
+                                amount: MonetaryAmount,
+                                tmxSessionId: String,
+                                confirmation: Confirmation,
+                                paymentMethodId: String,
+                                csc: String) -> Promise<Tokens> {
+        return makeTokensPromise()
+    }
+
     private func makeTokensPromise() -> Promise<Tokens> {
         let timeout = makeTimeoutPromise()
 
@@ -117,7 +152,7 @@ private func makeTimeoutPromise() -> Promise<()> {
 
 // MARK: - Data for Error
 
-private struct MockError: Error { }
+private struct MockError: Error {}
 
 private let mockError = MockError()
 
@@ -139,7 +174,7 @@ private func makePaymentOptions(_ settings: TestModeSettings,
         charge,
         fee: fee,
         authorized: authorized
-        ) + linkedCards.map { $0 }
+    ) + linkedCards.map { $0 }
 
     let filteredPaymentOptions = handler.filterPaymentMethods(paymentOptions)
 

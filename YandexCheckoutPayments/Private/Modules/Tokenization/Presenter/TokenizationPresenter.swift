@@ -56,9 +56,7 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
     }
 
     private lazy var termsOfService: TermsOfService = {
-        return TermsOfService(text: §Localized.TermsOfService.text,
-                              hyperlink: §Localized.TermsOfService.hyperlink,
-                              url: Constants.termsOfServiceUrl)
+        TermsOfServiceFactory.makeTermsOfService()
     }()
 
     private func makePaymentMethodViewModel(paymentOption: PaymentOption) -> PaymentMethodViewModel {
@@ -171,14 +169,19 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         }
     }
 
-    func presentLinkedBankCardDataInput(paymentOption: PaymentInstrumentYandexMoneyLinkedBankCard) {
-        let moduleInputData = LinkedBankCardDataInputModuleInputData(paymentOption: paymentOption,
-                                                                     testModeSettings: inputData.testModeSettings,
-                                                                     isLoggingEnabled: inputData.isLoggingEnabled)
+    func presentMaskedBankCardDataInput(paymentOption: PaymentInstrumentYandexMoneyLinkedBankCard) {
+        let moduleInputData = MaskedBankCardDataInputModuleInputData(
+            cardMask: paymentOption.cardMask,
+            testModeSettings: inputData.testModeSettings,
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            analyticsEvent: .screenLinkedCardForm
+        )
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.router.presentLinkedBankCardDataInput(inputData: moduleInputData,
-                                                             moduleOutput: strongSelf)
+            guard let self = self else { return }
+            self.router.presenMaskedBankCardDataInput(
+                inputData: moduleInputData,
+                moduleOutput: self
+            )
         }
     }
 
@@ -512,9 +515,9 @@ extension TokenizationPresenter: BankCardDataInputModuleOutput {
     }
 }
 
-// MARK: - LinkedBankCardDataInputModuleOutput
+// MARK: - MaskedBankCardDataInputModuleOutput
 
-extension TokenizationPresenter: LinkedBankCardDataInputModuleOutput {
+extension TokenizationPresenter: MaskedBankCardDataInputModuleOutput {
     func didPressConfirmButton(on module: BankCardDataInputModuleInput,
                                cvc: String) {
         DispatchQueue.global().async { [weak self] in
@@ -758,7 +761,7 @@ private extension TokenizationPresenter {
 
     func close() {
         interactor?.stopAnalyticsService()
-        moduleOutput?.didFinish(on: self)
+        moduleOutput?.didFinish(on: self, with: nil)
     }
 }
 
@@ -842,20 +845,9 @@ private func makeStrategy(paymentOption: PaymentOption,
     return strategy
 }
 
-// MARK: - Localized
-
-private enum Localized {
-    enum TermsOfService: String {
-        case text = "TermsOfService.Text"
-        case hyperlink = "TermsOfService.Hyperlink"
-    }
-}
-
 // MARK: - Constants
 
 private enum Constants {
     static let returnUrl = "https://custom.redirect.url/"
     static let minimalRecommendedPaymentsOptions = 1
-
-    static let termsOfServiceUrl = URL(string: "https://money.yandex.ru/page?id=526623")!
 }

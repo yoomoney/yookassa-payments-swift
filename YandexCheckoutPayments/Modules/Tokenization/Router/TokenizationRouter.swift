@@ -46,9 +46,9 @@ extension TokenizationRouter: TokenizationRouterInput {
         transitionHandler?.show(viewController, sender: self)
     }
 
-    func presentLinkedBankCardDataInput(inputData: LinkedBankCardDataInputModuleInputData,
-                                        moduleOutput: LinkedBankCardDataInputModuleOutput) {
-        let viewController = LinkedBankCardDataInputAssembly.makeModule(inputData: inputData,
+    func presenMaskedBankCardDataInput(inputData: MaskedBankCardDataInputModuleInputData,
+                                       moduleOutput: MaskedBankCardDataInputModuleOutput) {
+        let viewController = MaskedBankCardDataInputAssembly.makeModule(inputData: inputData,
                                                                         moduleOutput: moduleOutput)
         transitionHandler?.show(viewController, sender: self)
     }

@@ -44,6 +44,18 @@ extension PaymentService: PaymentProcessing {
         return itemsWithEmptyError
     }
 
+    func fetchPaymentMethod(
+        clientApplicationKey: String,
+        paymentMethodId: String
+    ) -> Promise<YandexCheckoutPaymentsApi.PaymentMethod> {
+        let method = YandexCheckoutPaymentsApi.PaymentMethod.Method(
+            oauthToken: clientApplicationKey,
+            paymentMethodId: paymentMethodId
+        )
+        let response = session.perform(apiMethod: method).responseApi()
+        return response.recover(on: .global(), mapError)
+    }
+
     func tokenizeBankCard(clientApplicationKey: String,
                           bankCard: BankCard,
                           confirmation: Confirmation,
@@ -155,6 +167,29 @@ extension PaymentService: PaymentProcessing {
         )
         let tokens = session.perform(apiMethod: method).responseApi()
         return tokens.recover(on: .global(), mapError)
+    }
+
+    func tokenizeRepeatBankCard(
+        clientApplicationKey: String,
+        amount: MonetaryAmount,
+        tmxSessionId: String,
+        confirmation: Confirmation,
+        paymentMethodId: String,
+        csc: String
+    ) -> Promise<Tokens> {
+        let tokensRequest = TokensRequestPaymentMethodId(
+            amount: amount,
+            tmxSessionId: tmxSessionId,
+            confirmation: confirmation,
+            paymentMethodId: paymentMethodId,
+            csc: csc
+        )
+        let method = Tokens.Method(
+            oauthToken: clientApplicationKey,
+            tokensRequest: tokensRequest
+        )
+        let response = session.perform(apiMethod: method).responseApi()
+        return response.recover(on: .global(), mapError)
     }
 }
 

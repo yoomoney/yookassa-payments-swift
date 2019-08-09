@@ -18,7 +18,7 @@ enum TokenizeSchemeFactory {
         return scheme
     }
 
-    private static func makeTokenizeScheme(_ paymentMethodType: PaymentMethodType)
+    static func makeTokenizeScheme(_ paymentMethodType: PaymentMethodType)
             -> AnalyticsEvent.TokenizeScheme {
 
         let scheme: AnalyticsEvent.TokenizeScheme

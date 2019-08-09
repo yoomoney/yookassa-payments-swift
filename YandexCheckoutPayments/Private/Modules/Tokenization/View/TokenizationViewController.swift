@@ -17,7 +17,7 @@ enum PresentationStyle {
 
 private let timeInterval = TimeInterval(UINavigationController.hideShowBarDuration)
 
-class TokenizationViewController: UIViewController {
+final class TokenizationViewController: UIViewController {
 
     // MARK: - VIPER module properties
 
@@ -943,7 +943,7 @@ extension PKPaymentAuthorizationViewController: Presentable {
         return .applePay
     }
 
-    public var hasNavigationBar: Bool {
+    var hasNavigationBar: Bool {
         return false
     }
 }

@@ -7,9 +7,55 @@ public enum TokenizationAssembly {
     /// Creates tokenization view controller.
     ///
     /// - Returns: Tokenization view controller which implements the protocol `TokenizationModuleInput`.
-    public static func makeModule(inputData: TokenizationModuleInputData,
+    public static func makeModule(inputData: TokenizationFlow,
                                   moduleOutput: TokenizationModuleOutput)
             -> UIViewController & TokenizationModuleInput {
+        switch inputData {
+        case .tokenization(let tokenizationModuleInputData):
+            return makeTokenizationModule(tokenizationModuleInputData, moduleOutput: moduleOutput)
+        case .bankCardRepeat(let bankCardRepeatModuleInputData):
+            return makeBankCardRepeatModule(bankCardRepeatModuleInputData, moduleOutput: moduleOutput)
+        }
+    }
+
+    private static func makeBankCardRepeatModule(
+        _ inputData: BankCardRepeatModuleInputData,
+        moduleOutput: TokenizationModuleOutput
+    ) -> UIViewController & TokenizationModuleInput {
+        let view = TokenizationViewController()
+        let presenter = BankCardRepeatPresenter(inputData: inputData)
+
+        let paymentService = PaymentProcessingAssembly
+            .makeService(tokenizationSettings: TokenizationSettings(),
+                         testModeSettings: inputData.testModeSettings,
+                         isLoggingEnabled: inputData.isLoggingEnabled)
+
+        let interactor = BankCardRepeatInteractor(
+            clientApplicationKey: inputData.clientApplicationKey,
+            paymentService: paymentService
+        )
+        let router = TokenizationRouter()
+
+        view.output = presenter
+        view.transitioningDelegate = router
+        view.modalPresentationStyle = .custom
+
+        presenter.view = view
+        presenter.moduleOutput = moduleOutput
+        presenter.interactor = interactor
+        presenter.router = router
+
+        interactor.output = presenter
+
+        router.transitionHandler = view
+
+        return view
+    }
+
+    private static func makeTokenizationModule(
+        _ inputData: TokenizationModuleInputData,
+        moduleOutput: TokenizationModuleOutput
+    ) -> UIViewController & TokenizationModuleInput {
         let paymentService = PaymentProcessingAssembly
             .makeService(tokenizationSettings: inputData.tokenizationSettings,
                          testModeSettings: inputData.testModeSettings,

@@ -11,10 +11,6 @@ target 'YandexCheckoutPaymentsExamplePods' do
 
     pod 'YandexCheckoutPayments',
         :path => './'
-
-    pod 'YandexCheckoutPaymentsApi',
-        :path => '/Users/tverdokhleb/Documents/dev-yamoney/yandex-checkout-payments-api-swift'
-
 end
 
 post_install do |installer|

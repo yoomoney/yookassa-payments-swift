@@ -35,7 +35,7 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
     }
 
     func didPressSubmitButton(on module: ContractModuleInput) {
-        output?.presentLinkedBankCardDataInput(paymentOption: paymentOption)
+        output?.presentMaskedBankCardDataInput(paymentOption: paymentOption)
     }
 
     func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput,
@@ -51,7 +51,7 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
     func didLoginInYandexMoney(_ response: YamoneyLoginResponse) {
         switch response {
         case .authorized:
-            output?.presentLinkedBankCardDataInput(paymentOption: paymentOption)
+            output?.presentMaskedBankCardDataInput(paymentOption: paymentOption)
         case let .notAuthorized(authTypeState: authTypeState, processId: processId, authContextId: authContextId):
             output?.presentYamoneyAuthModule(paymentOption: paymentOption,
                                              processId: processId,

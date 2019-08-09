@@ -33,6 +33,11 @@ protocol PaymentProcessing {
                              amount: String?,
                              currency: String?) -> Promise<[PaymentOption]>
 
+    func fetchPaymentMethod(
+        clientApplicationKey: String,
+        paymentMethodId: String
+    ) -> Promise<YandexCheckoutPaymentsApi.PaymentMethod>
+
     func tokenizeBankCard(clientApplicationKey: String,
                           bankCard: BankCard,
                           confirmation: Confirmation,
@@ -63,6 +68,15 @@ protocol PaymentProcessing {
                           paymentData: String,
                           amount: MonetaryAmount?,
                           tmxSessionId: String) -> Promise<Tokens>
+
+    func tokenizeRepeatBankCard(
+        clientApplicationKey: String,
+        amount: MonetaryAmount,
+        tmxSessionId: String,
+        confirmation: Confirmation,
+        paymentMethodId: String,
+        csc: String
+    ) -> Promise<Tokens>
 }
 
 // MARK: - Localized

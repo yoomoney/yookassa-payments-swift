@@ -21,8 +21,8 @@ protocol TokenizationRouterInput: class {
     func presentBankCardDataInput(inputData: BankCardDataInputModuleInputData,
                                   moduleOutput: BankCardDataInputModuleOutput)
 
-    func presentLinkedBankCardDataInput(inputData: LinkedBankCardDataInputModuleInputData,
-                                        moduleOutput: LinkedBankCardDataInputModuleOutput)
+    func presenMaskedBankCardDataInput(inputData: MaskedBankCardDataInputModuleInputData,
+                                       moduleOutput: MaskedBankCardDataInputModuleOutput)
 
     func presentLogoutConfirmation(inputData: LogoutConfirmationModuleInputData,
                                    moduleOutput: LogoutConfirmationModuleOutput)

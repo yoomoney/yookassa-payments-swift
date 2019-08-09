@@ -27,25 +27,25 @@ import Dispatch
 import Foundation
 import class UIKit.UIImage
 
-final class LinkedBankCardDataInputPresenter {
+final class MaskedBankCardDataInputPresenter {
 
     // MARK: - VIPER module properties
     weak var view: BankCardDataInputViewInput?
-    weak var moduleOutput: LinkedBankCardDataInputModuleOutput?
+    weak var moduleOutput: MaskedBankCardDataInputModuleOutput?
     var interactor: BankCardDataInputInteractorInput!
 
     // MARK: - Module interaction properties
     fileprivate var csc: String?
 
     // MARK: - Module data
-    fileprivate let inputData: LinkedBankCardDataInputModuleInputData
-    init(inputData: LinkedBankCardDataInputModuleInputData) {
+    fileprivate let inputData: MaskedBankCardDataInputModuleInputData
+    init(inputData: MaskedBankCardDataInputModuleInputData) {
         self.inputData = inputData
     }
 }
 
 // MARK: - BankCardDataInputViewOutput
-extension LinkedBankCardDataInputPresenter: BankCardDataInputViewOutput {
+extension MaskedBankCardDataInputPresenter: BankCardDataInputViewOutput {
     func setupView() {
         guard let view = self.view else { return }
 
@@ -59,7 +59,7 @@ extension LinkedBankCardDataInputPresenter: BankCardDataInputViewOutput {
         view.setConfirmButtonEnabled(false)
 
         view.setPanInputTextControlDisabledStyle()
-        view.setPanInputTextControlValue(PaymentMethodViewModelFactory.replaceBullets(inputData.paymentOption.cardMask))
+        view.setPanInputTextControlValue(PaymentMethodViewModelFactory.replaceBullets(inputData.cardMask))
         view.setPanInputTextControlIsEnabled(false)
 
         view.setExpiryDateTextControlDisabledStyle()
@@ -69,10 +69,10 @@ extension LinkedBankCardDataInputPresenter: BankCardDataInputViewOutput {
         DispatchQueue.global().async { [weak self] in
             guard let self = self,
                   let interactor = self.interactor else { return }
-            interactor.trackEvent(.screenLinkedCardForm)
+            self.inputData.analyticsEvent.flatMap(interactor.trackEvent)
             interactor.fetchBankCardSettings(
                 makePanFromCardMask(
-                    self.inputData.paymentOption.cardMask
+                    self.inputData.cardMask
                 )
             )
         }
@@ -106,7 +106,7 @@ extension LinkedBankCardDataInputPresenter: BankCardDataInputViewOutput {
 }
 
 // MARK: - BankCardDataInputInteractorOutput
-extension LinkedBankCardDataInputPresenter: BankCardDataInputInteractorOutput {
+extension MaskedBankCardDataInputPresenter: BankCardDataInputInteractorOutput {
     func successValidateCardData() {
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
@@ -147,7 +147,7 @@ extension LinkedBankCardDataInputPresenter: BankCardDataInputInteractorOutput {
 }
 
 // MARK: - BankCardDataInputModuleInput
-extension LinkedBankCardDataInputPresenter: BankCardDataInputModuleInput {
+extension MaskedBankCardDataInputPresenter: BankCardDataInputModuleInput {
     func bankCardDidTokenize(_ error: Error) {
         let message = makeMessage(error)
 
@@ -166,7 +166,7 @@ extension LinkedBankCardDataInputPresenter: BankCardDataInputModuleInput {
 }
 
 // MARK: - PlaceholderViewDelegate
-extension LinkedBankCardDataInputPresenter: ActionTextDialogDelegate {
+extension MaskedBankCardDataInputPresenter: ActionTextDialogDelegate {
     // This is button in placeholder view. Need fix in UI library
     func didPressButton() {
         guard let cvc = csc else { return }
@@ -178,7 +178,7 @@ extension LinkedBankCardDataInputPresenter: ActionTextDialogDelegate {
 }
 
 // MARK: - Localized
-private extension LinkedBankCardDataInputPresenter {
+private extension MaskedBankCardDataInputPresenter {
     enum Localized: String {
         case navigationBarTitle = "BankCardDataInput.navigationBarTitle"
         case panInput = "BankCardDataInput.panInput"
@@ -189,7 +189,7 @@ private extension LinkedBankCardDataInputPresenter {
 }
 
 // MARK: - Constants
-private extension LinkedBankCardDataInputPresenter {
+private extension MaskedBankCardDataInputPresenter {
     enum Constants {
         static let expiryDateValue = "•• / ••"
     }

@@ -133,7 +133,7 @@ extension ModalTemplate: UINavigationBarDelegate {
         return .topAttached
     }
 
-    public func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
+    func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
         delegate?.shouldPopNavigationItem()
         return true
     }
