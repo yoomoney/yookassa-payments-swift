@@ -767,7 +767,7 @@ private func makePriceViewModel(_ paymentOption: PaymentOption) -> PriceViewMode
     var integerPart = ""
     var fractionalPart = ""
 
-    if let separatorIndex = amountString.index(of: ".") {
+    if let separatorIndex = amountString.firstIndex(of: ".") {
         integerPart = String(amountString[amountString.startIndex..<separatorIndex])
         fractionalPart = String(amountString[amountString.index(after: separatorIndex)..<amountString.endIndex])
     } else {
@@ -787,7 +787,7 @@ private func makeFeePriceViewModel(_ paymentOption: PaymentOption) -> PriceViewM
     var integerPart = ""
     var fractionalPart = ""
 
-    if let separatorIndex = amountString.index(of: ".") {
+    if let separatorIndex = amountString.firstIndex(of: ".") {
         integerPart = String(amountString[amountString.startIndex..<separatorIndex])
         fractionalPart = String(amountString[amountString.index(after: separatorIndex)..<amountString.endIndex])
     } else {
