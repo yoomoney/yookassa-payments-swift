@@ -3,12 +3,12 @@ import When
 import YandexCheckoutPaymentsApi
 import YandexMoneyCoreApi
 
-class PaymentService {
+final class PaymentService {
 
     // MARK: - Services
 
-    fileprivate let session: ApiSession
-    fileprivate let paymentMethodHandler: PaymentMethodHandler
+    private let session: ApiSession
+    private let paymentMethodHandler: PaymentMethodHandler
 
     // MARK: - Initializers
 
@@ -20,6 +20,7 @@ class PaymentService {
 }
 
 // MARK: - PaymentProcessing
+
 extension PaymentService: PaymentProcessing {
     func fetchPaymentOptions(clientApplicationKey: String,
                              passportToken: String?,
@@ -48,11 +49,17 @@ extension PaymentService: PaymentProcessing {
                           confirmation: Confirmation,
                           amount: MonetaryAmount?,
                           tmxSessionId: String) -> Promise<Tokens> {
-        let method = Tokens.Method(oauthToken: clientApplicationKey,
-                                   paymentMethodData: PaymentMethodDataBankCard(bankCard: bankCard),
-                                   tmxSessionId: tmxSessionId,
-                                   amount: amount,
-                                   confirmation: confirmation)
+        let paymentMethodData = PaymentMethodDataBankCard(bankCard: bankCard)
+        let tokensRequest = TokensRequestPaymentMethodData(
+            amount: amount,
+            tmxSessionId: tmxSessionId,
+            confirmation: confirmation,
+            paymentMethodData: paymentMethodData
+        )
+        let method = Tokens.Method(
+            oauthToken: clientApplicationKey,
+            tokensRequest: tokensRequest
+        )
         let tokens = session.perform(apiMethod: method).responseApi()
         return tokens.recover(on: .global(), mapError)
     }
@@ -62,13 +69,20 @@ extension PaymentService: PaymentProcessing {
                         confirmation: Confirmation,
                         amount: MonetaryAmount?,
                         tmxSessionId: String) -> Promise<Tokens> {
-        let paymentMethodData = PaymentInstrumentDataYandexMoneyWallet(instrumentType: .wallet,
-                                                                       walletAuthorization: yamoneyToken)
-        let method = Tokens.Method(oauthToken: clientApplicationKey,
-                                   paymentMethodData: paymentMethodData,
-                                   tmxSessionId: tmxSessionId,
-                                   amount: amount,
-                                   confirmation: confirmation)
+        let paymentMethodData = PaymentInstrumentDataYandexMoneyWallet(
+            instrumentType: .wallet,
+            walletAuthorization: yamoneyToken
+        )
+        let tokensRequest = TokensRequestPaymentMethodData(
+            amount: amount,
+            tmxSessionId: tmxSessionId,
+            confirmation: confirmation,
+            paymentMethodData: paymentMethodData
+        )
+        let method = Tokens.Method(
+            oauthToken: clientApplicationKey,
+            tokensRequest: tokensRequest
+        )
         let tokens = session.perform(apiMethod: method).responseApi()
         return tokens.recover(on: .global(), mapError)
     }
@@ -80,16 +94,22 @@ extension PaymentService: PaymentProcessing {
                                 confirmation: Confirmation,
                                 amount: MonetaryAmount?,
                                 tmxSessionId: String) -> Promise<Tokens> {
-        let paymentMethodData = PaymentInstrumentDataYandexMoneyLinkedBankCard(instrumentType: .linkedBankCard,
-                                                                               cardId: cardId,
-                                                                               csc: csc,
-                                                                               walletAuthorization: yamoneyToken)
-
-        let method = Tokens.Method(oauthToken: clientApplicationKey,
-                                   paymentMethodData: paymentMethodData,
-                                   tmxSessionId: tmxSessionId,
-                                   amount: amount,
-                                   confirmation: confirmation)
+        let paymentMethodData = PaymentInstrumentDataYandexMoneyLinkedBankCard(
+            instrumentType: .linkedBankCard,
+            cardId: cardId,
+            csc: csc,
+            walletAuthorization: yamoneyToken
+        )
+        let tokensRequest = TokensRequestPaymentMethodData(
+            amount: amount,
+            tmxSessionId: tmxSessionId,
+            confirmation: confirmation,
+            paymentMethodData: paymentMethodData
+        )
+        let method = Tokens.Method(
+            oauthToken: clientApplicationKey,
+            tokensRequest: tokensRequest
+        )
         let tokens = session.perform(apiMethod: method).responseApi()
         return tokens.recover(on: .global(), mapError)
     }
@@ -98,12 +118,19 @@ extension PaymentService: PaymentProcessing {
                           paymentData: String,
                           amount: MonetaryAmount?,
                           tmxSessionId: String) -> Promise<Tokens> {
-        let paymentMethodData = PaymentMethodDataApplePay(paymentData: paymentData)
-        let method = Tokens.Method(oauthToken: clientApplicationKey,
-                                   paymentMethodData: paymentMethodData,
-                                   tmxSessionId: tmxSessionId,
-                                   amount: amount,
-                                   confirmation: nil)
+        let paymentMethodData = PaymentMethodDataApplePay(
+            paymentData: paymentData
+        )
+        let tokensRequest = TokensRequestPaymentMethodData(
+            amount: amount,
+            tmxSessionId: tmxSessionId,
+            confirmation: nil,
+            paymentMethodData: paymentMethodData
+        )
+        let method = Tokens.Method(
+            oauthToken: clientApplicationKey,
+            tokensRequest: tokensRequest
+        )
         let tokens = session.perform(apiMethod: method).responseApi()
         return tokens.recover(on: .global(), mapError)
     }
@@ -113,14 +140,19 @@ extension PaymentService: PaymentProcessing {
                           confirmation: Confirmation,
                           amount: MonetaryAmount?,
                           tmxSessionId: String) -> Promise<Tokens> {
-        let paymentMethodData = PaymentMethodDataSberbank(phone: phoneNumber)
-
-        let method = Tokens.Method(oauthToken: clientApplicationKey,
-                                   paymentMethodData: paymentMethodData,
-                                   tmxSessionId: tmxSessionId,
-                                   amount: amount,
-                                   confirmation: confirmation)
-
+        let paymentMethodData = PaymentMethodDataSberbank(
+            phone: phoneNumber
+        )
+        let tokensRequest = TokensRequestPaymentMethodData(
+            amount: amount,
+            tmxSessionId: tmxSessionId,
+            confirmation: confirmation,
+            paymentMethodData: paymentMethodData
+        )
+        let method = Tokens.Method(
+            oauthToken: clientApplicationKey,
+            tokensRequest: tokensRequest
+        )
         let tokens = session.perform(apiMethod: method).responseApi()
         return tokens.recover(on: .global(), mapError)
     }
