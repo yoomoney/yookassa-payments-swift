@@ -19,10 +19,10 @@ Pod::Spec.new do |s|
 
   s.ios.source_files  = 'YandexCheckoutPayments/**/*.{h,swift}', 'YandexCheckoutPayments/*.{h,swift}'
   s.ios.resources = [
-    'YandexCheckoutPayments/Resources/*.xcassets',
-    'YandexCheckoutPayments/Resources/**/*.plist',
-    'YandexCheckoutPayments/Resources/**/*.json',
-    'YandexCheckoutPayments/Resources/*.lproj/*.strings'
+    'YandexCheckoutPayments/Public/Resources/*.xcassets',
+    'YandexCheckoutPayments/Public/Resources/**/*.plist',
+    'YandexCheckoutPayments/Public/Resources/**/*.json',
+    'YandexCheckoutPayments/Public/Resources/*.lproj/*.strings'
   ]
 
   s.ios.framework  = 'UIKit'
@@ -40,7 +40,7 @@ Pod::Spec.new do |s|
 
   s.ios.dependency 'YandexLoginSDK', '~> 2.0.0'
   s.ios.dependency 'YandexMoneyCoreApi', '~> 1.7.0'
-  s.ios.dependency 'YandexCheckoutPaymentsApi', '~> 1.3.0'
+  s.ios.dependency 'YandexCheckoutPaymentsApi', '~> 1.5.0'
   s.ios.dependency 'YandexCheckoutShowcaseApi', '~> 1.2.0'
   s.ios.dependency 'YandexCheckoutWalletApi', '~> 1.2.0'
   s.ios.dependency 'YandexMobileMetrica/Dynamic', '~> 3.7.0'

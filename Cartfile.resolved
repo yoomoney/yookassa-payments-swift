@@ -1,7 +1,7 @@
 github "MetalheadSanya/When" "8bfe92be1a00a44ef26fa13669d25a21b2d92a98"
 github "yandex-money/core-api-swift" "1.7.0"
 github "yandex-money/functional-swift" "1.1.2"
-github "yandex-money/yandex-checkout-payments-api-swift" "1.3.0"
+github "yandex-money/yandex-checkout-payments-api-swift" "1.5.0"
 github "yandex-money/yandex-checkout-showcase-api-swift" "1.2.0"
 github "yandex-money/yandex-checkout-wallet-api-swift" "1.2.0"
 github "yandexmobile/metrica-sdk-ios" "3.7.1"
