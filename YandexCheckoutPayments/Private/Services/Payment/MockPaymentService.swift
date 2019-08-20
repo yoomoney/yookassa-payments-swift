@@ -51,6 +51,19 @@ final class MockPaymentService: PaymentProcessing {
         paymentMethodId: String
     ) -> Promise<YandexCheckoutPaymentsApi.PaymentMethod> {
         let timeout = makeTimeoutPromise()
+        let error = PaymentsApiError(
+            id: "id_value",
+            type: .error,
+            description: "description",
+            parameter: "parameter",
+            retryAfter: nil,
+            errorCode: .invalidRequest
+        )
+
+        let errorHandler: (YandexCheckoutPaymentsApi.PaymentMethod) throws -> YandexCheckoutPaymentsApi.PaymentMethod = { _ in
+            throw error
+        }
+
         let response = YandexCheckoutPaymentsApi.PaymentMethod(
             type: .bankCard,
             id: "id_value",
@@ -68,6 +81,8 @@ final class MockPaymentService: PaymentProcessing {
 
         let promise = timeout.then { _ in response }
         return promise
+//        let promiseWithError = errorHandler <^> promise
+//        return promiseWithError
     }
 
     func tokenizeBankCard(clientApplicationKey: String,

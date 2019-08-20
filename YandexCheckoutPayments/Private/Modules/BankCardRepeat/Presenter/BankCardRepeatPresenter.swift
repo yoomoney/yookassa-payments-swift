@@ -64,7 +64,9 @@ extension BankCardRepeatPresenter: TokenizationViewOutput {
 extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
     func didFetchPaymentMethod(
         _ paymentMethod: YandexCheckoutPaymentsApi.PaymentMethod) {
-        guard let card = paymentMethod.card else {
+        guard let card = paymentMethod.card,
+              card.first6.isEmpty == false,
+              card.last4.isEmpty == false else {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.moduleOutput?.didFinish(on: self, with: .paymentMethodNotFound)
@@ -89,9 +91,19 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
     }
 
     func didFailFetchPaymentMethod(_ error: Error) {
-        let message = makeMessage(error)
-        contractModuleInput?.hideActivity()
-        contractModuleInput?.showPlaceholder(message: message)
+        if let error = error as? PaymentsApiError {
+            switch error.errorCode {
+            case .invalidRequest, .notSupported:
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.moduleOutput?.didFinish(on: self, with: .paymentMethodNotFound)
+                }
+            default:
+                showError(error)
+            }
+        } else {
+            showError(error)
+        }
     }
 
     func didTokenize(_ tokens: Tokens) {
@@ -104,6 +116,12 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
 
     func didFailTokenize(_ error: Error) {
         bankCardDataInputModuleInput?.bankCardDidTokenize(error)
+    }
+
+    private func showError(_ error: Error) {
+        let message = makeMessage(error)
+        contractModuleInput?.hideActivity()
+        contractModuleInput?.showPlaceholder(message: message)
     }
 }
 
