@@ -12,13 +12,16 @@ final class BankCardRepeatInteractor {
 
     private let clientApplicationKey: String
     private let paymentService: PaymentProcessing
+    private let analyticsService: AnalyticsProcessing
 
     init(clientApplicationKey: String,
-         paymentService: PaymentProcessing) {
+         paymentService: PaymentProcessing,
+         analyticsService: AnalyticsProcessing) {
         ThreatMetrixService.configure()
 
         self.clientApplicationKey = clientApplicationKey
         self.paymentService = paymentService
+        self.analyticsService = analyticsService
     }
 }
 
@@ -65,6 +68,10 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
 
         let tmxSessionIdWithError = tmxSessionId.recover(on: .global(), mapError)
         tmxSessionIdWithError.fail(output.didFailTokenize)
+    }
+
+    func trackEvent(_ event: AnalyticsEvent) {
+        analyticsService.trackEvent(event)
     }
 }
 

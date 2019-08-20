@@ -20,6 +20,9 @@ enum AnalyticsEvent {
     /// The opening pages 3DS.
     case screen3ds
 
+    /// Open Bank Card screen with screen recurring
+    case screenRecurringCardForm
+
     // MARK: - Actions
 
     /// Create a payment token with the payment method selected.
@@ -66,6 +69,7 @@ enum AnalyticsEvent {
         case bankCard = "bank-card"
         case smsSbol = "sms-sbol"
         case applePay = "apple-pay"
+        case recurringCard = "recurring-card"
 
         var key: String {
             return Key.tokenizeScheme.rawValue

@@ -55,6 +55,8 @@ final class AnalyticsService: AnalyticsProcessing {
             eventName = EventKey.screenError.rawValue
         case .screen3ds:
             eventName = EventKey.screen3ds.rawValue
+        case .screenRecurringCardForm:
+            eventName = EventKey.screenRecurringCardForm.rawValue
         case .actionTokenize:
             eventName = EventKey.actionTokenize.rawValue
         case .actionYaLoginAuthorization:
@@ -107,6 +109,9 @@ final class AnalyticsService: AnalyticsProcessing {
         case .screen3ds:
             parameters = nil
 
+        case .screenRecurringCardForm:
+            parameters = nil
+
         case .actionTokenize(let scheme, let authType, let tokenType):
             parameters = [
                 scheme.key: scheme.rawValue,
@@ -147,6 +152,7 @@ final class AnalyticsService: AnalyticsProcessing {
         case screenBankCardForm
         case screenError
         case screen3ds
+        case screenRecurringCardForm
         case actionTokenize
         case actionYaLoginAuthorization
         case actionPaymentAuthorization

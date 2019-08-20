@@ -159,7 +159,8 @@ extension MaskedBankCardDataInputPresenter: BankCardDataInputModuleInput {
             DispatchQueue.global().async { [weak self] in
                 guard let interactor = self?.interactor else { return }
                 let (authType, _) = interactor.makeTypeAnalyticsParameters()
-                interactor.trackEvent(.screenError(authType: authType, scheme: .linkedCard))
+                let scheme = self?.inputData.tokenizeScheme
+                interactor.trackEvent(.screenError(authType: authType, scheme: scheme))
             }
         }
     }
