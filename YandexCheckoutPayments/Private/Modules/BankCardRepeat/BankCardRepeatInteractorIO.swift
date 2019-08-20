@@ -1,6 +1,6 @@
 import YandexCheckoutPaymentsApi
 
-protocol BankCardRepeatInteractorInput: class {
+protocol BankCardRepeatInteractorInput: AnalyticsTrackable {
     func fetchPaymentMethod(paymentMethodId: String)
     func tokenize(amount: MonetaryAmount,
                   confirmation: Confirmation,

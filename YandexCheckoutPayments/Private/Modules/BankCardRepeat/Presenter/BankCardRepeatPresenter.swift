@@ -36,7 +36,7 @@ extension BankCardRepeatPresenter: TokenizationViewOutput {
     private func presentContract() {
 
         let viewModel = PaymentMethodViewModelFactory.makePaymentMethodViewModel(.bankCard)
-        let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(.bankCard)
+        let tokenizeScheme = AnalyticsEvent.TokenizeScheme.recurringCard
 
         let moduleInputData = ContractModuleInputData(
             shopName: inputData.shopName,
@@ -78,7 +78,8 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
             cardMask: cardMask,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
-            analyticsEvent: nil
+            analyticsEvent: .screenRecurringCardForm,
+            tokenizeScheme: .recurringCard
         )
 
         DispatchQueue.main.async { [weak self] in
@@ -119,6 +120,11 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
     }
 
     private func showError(_ error: Error) {
+        let authType = AnalyticsEvent.AuthType.withoutAuth
+        let scheme = AnalyticsEvent.TokenizeScheme.recurringCard
+        let event = AnalyticsEvent.screenError(authType: authType, scheme: scheme)
+        interactor.trackEvent(event)
+
         let message = makeMessage(error)
         contractModuleInput?.hideActivity()
         contractModuleInput?.showPlaceholder(message: message)

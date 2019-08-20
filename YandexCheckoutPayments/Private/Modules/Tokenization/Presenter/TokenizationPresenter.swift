@@ -174,7 +174,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             cardMask: paymentOption.cardMask,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
-            analyticsEvent: .screenLinkedCardForm
+            analyticsEvent: .screenLinkedCardForm,
+            tokenizeScheme: .linkedCard
         )
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }

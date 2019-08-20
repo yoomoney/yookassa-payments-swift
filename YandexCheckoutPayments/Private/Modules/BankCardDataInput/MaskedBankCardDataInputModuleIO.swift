@@ -3,6 +3,7 @@ struct MaskedBankCardDataInputModuleInputData {
     let testModeSettings: TestModeSettings?
     let isLoggingEnabled: Bool
     let analyticsEvent: AnalyticsEvent?
+    let tokenizeScheme: AnalyticsEvent.TokenizeScheme?
 }
 
 protocol MaskedBankCardDataInputModuleOutput: class {

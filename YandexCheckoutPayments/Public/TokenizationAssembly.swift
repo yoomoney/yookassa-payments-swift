@@ -30,9 +30,13 @@ public enum TokenizationAssembly {
                          testModeSettings: inputData.testModeSettings,
                          isLoggingEnabled: inputData.isLoggingEnabled)
 
+        let analyticsService = AnalyticsProcessingAssembly
+            .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
+
         let interactor = BankCardRepeatInteractor(
             clientApplicationKey: inputData.clientApplicationKey,
-            paymentService: paymentService
+            paymentService: paymentService,
+            analyticsService: analyticsService
         )
         let router = TokenizationRouter()
 
