@@ -364,7 +364,8 @@ final class RootViewController: UIViewController {
 //            paymentMethodId: "24e4eca6-000f-5000-9000-10a7bb3cfdb2",
 //            amount: amount,
 //            testModeSettings: testSettings,
-//            isLoggingEnabled: true
+//            isLoggingEnabled: true,
+//            customizationSettings: CustomizationSettings(mainScheme: .blueRibbon)
 //        ))
 
         let viewController = TokenizationAssembly.makeModule(

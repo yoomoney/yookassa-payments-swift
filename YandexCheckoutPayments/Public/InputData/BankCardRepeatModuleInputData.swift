@@ -22,6 +22,9 @@ public struct BankCardRepeatModuleInputData {
     /// Enable logging
     let isLoggingEnabled: Bool
 
+    /// Settings to customize SDK interface.
+    let customizationSettings: CustomizationSettings
+
     /// Creates instance of `BankCardRepeatModuleInputData`.
     ///
     /// - Parameters:
@@ -32,6 +35,7 @@ public struct BankCardRepeatModuleInputData {
     ///   - amount: Amount of payment.
     ///   - testModeSettings: Test mode settings.
     ///   - isLoggingEnabled: Enable logging
+    ///   - customizationSettings: Settings to customize SDK interface.
     ///
     /// - Returns: Instance of `BankCardRepeatModuleInputData`.
     public init(
@@ -41,7 +45,8 @@ public struct BankCardRepeatModuleInputData {
         paymentMethodId: String,
         amount: Amount,
         testModeSettings: TestModeSettings? = nil,
-        isLoggingEnabled: Bool = false
+        isLoggingEnabled: Bool = false,
+        customizationSettings: CustomizationSettings = CustomizationSettings()
     ) {
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
@@ -50,5 +55,6 @@ public struct BankCardRepeatModuleInputData {
         self.amount = amount
         self.testModeSettings = testModeSettings
         self.isLoggingEnabled = isLoggingEnabled
+        self.customizationSettings = customizationSettings
     }
 }

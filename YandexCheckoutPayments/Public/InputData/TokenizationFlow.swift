@@ -5,6 +5,6 @@ public enum TokenizationFlow {
     /// Bank card, YandexMoney, Sberbank-Online, Apple Pay.
     case tokenization(TokenizationModuleInputData)
 
-    /// Flow for tokenization saved payment methods by payment method id.
+    /// Flow for tokenization stored payment methods by payment method id.
     case bankCardRepeat(BankCardRepeatModuleInputData)
 }
