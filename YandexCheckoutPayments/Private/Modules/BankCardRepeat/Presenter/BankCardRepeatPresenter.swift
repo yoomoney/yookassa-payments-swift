@@ -26,6 +26,7 @@ final class BankCardRepeatPresenter {
 
 extension BankCardRepeatPresenter: TokenizationViewOutput {
     func setupView() {
+        view?.setCustomizationSettings(inputData.customizationSettings)
         presentContract()
     }
 

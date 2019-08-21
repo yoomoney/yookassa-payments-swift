@@ -62,19 +62,21 @@ public struct TokenizationModuleInputData {
     ///   - customizationSettings: Settings to customize SDK interface.
     ///
     /// - Returns: Instance of `TokenizationModuleInputData`.
-    public init(clientApplicationKey: String,
-                shopName: String,
-                purchaseDescription: String,
-                amount: Amount,
-                gatewayId: String? = nil,
-                tokenizationSettings: TokenizationSettings = TokenizationSettings(),
-                testModeSettings: TestModeSettings? = nil,
-                cardScanning: CardScanning? = nil,
-                applePayMerchantIdentifier: String? = nil,
-                returnUrl: String? = nil,
-                isLoggingEnabled: Bool = false,
-                userPhoneNumber: String? = nil,
-                customizationSettings: CustomizationSettings = CustomizationSettings()) {
+    public init(
+        clientApplicationKey: String,
+        shopName: String,
+        purchaseDescription: String,
+        amount: Amount,
+        gatewayId: String? = nil,
+        tokenizationSettings: TokenizationSettings = TokenizationSettings(),
+        testModeSettings: TestModeSettings? = nil,
+        cardScanning: CardScanning? = nil,
+        applePayMerchantIdentifier: String? = nil,
+        returnUrl: String? = nil,
+        isLoggingEnabled: Bool = false,
+        userPhoneNumber: String? = nil,
+        customizationSettings: CustomizationSettings = CustomizationSettings()
+    ) {
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
