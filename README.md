@@ -13,36 +13,49 @@
 - [Код демо-приложения, которое интегрирует SDK](https://github.com/yandex-money/yandex-checkout-payments-swift/tree/master/YandexCheckoutPaymentsExample)
 - [Документация](https://yandex-money.github.io/yandex-checkout-payments-swift/)
 
-## Содержание
+- [Yandex Checkout Payments SDK](#yandex-checkout-payments-sdk)
+  - [Changelog](#changelog)
+  - [Migration guide](#migration-guide)
+  - [Подключение зависимостей](#%d0%9f%d0%be%d0%b4%d0%ba%d0%bb%d1%8e%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b7%d0%b0%d0%b2%d0%b8%d1%81%d0%b8%d0%bc%d0%be%d1%81%d1%82%d0%b5%d0%b9)
+    - [CocoaPods](#cocoapods)
+    - [Carthage](#carthage)
+    - [TrustDefender](#trustdefender)
+  - [Быстрая интеграция](#%d0%91%d1%8b%d1%81%d1%82%d1%80%d0%b0%d1%8f-%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d1%8f)
+  - [Доступные способы оплаты](#%d0%94%d0%be%d1%81%d1%82%d1%83%d0%bf%d0%bd%d1%8b%d0%b5-%d1%81%d0%bf%d0%be%d1%81%d0%be%d0%b1%d1%8b-%d0%be%d0%bf%d0%bb%d0%b0%d1%82%d1%8b)
+  - [Настройка способов оплаты](#%d0%9d%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-%d1%81%d0%bf%d0%be%d1%81%d0%be%d0%b1%d0%be%d0%b2-%d0%be%d0%bf%d0%bb%d0%b0%d1%82%d1%8b)
+    - [Яндекс Деньги](#%d0%af%d0%bd%d0%b4%d0%b5%d0%ba%d1%81-%d0%94%d0%b5%d0%bd%d1%8c%d0%b3%d0%b8)
+    - [Банковская карта](#%d0%91%d0%b0%d0%bd%d0%ba%d0%be%d0%b2%d1%81%d0%ba%d0%b0%d1%8f-%d0%ba%d0%b0%d1%80%d1%82%d0%b0)
+    - [Сбербанк Онлайн](#%d0%a1%d0%b1%d0%b5%d1%80%d0%b1%d0%b0%d0%bd%d0%ba-%d0%9e%d0%bd%d0%bb%d0%b0%d0%b9%d0%bd)
+    - [Apple Pay](#apple-pay)
+  - [Описание публичных параметров](#%d0%9e%d0%bf%d0%b8%d1%81%d0%b0%d0%bd%d0%b8%d0%b5-%d0%bf%d1%83%d0%b1%d0%bb%d0%b8%d1%87%d0%bd%d1%8b%d1%85-%d0%bf%d0%b0%d1%80%d0%b0%d0%bc%d0%b5%d1%82%d1%80%d0%be%d0%b2)
+    - [TokenizationFlow](#tokenizationflow)
+    - [YandexCheckoutPaymentsError](#yandexcheckoutpaymentserror)
+    - [TokenizationModuleInputData](#tokenizationmoduleinputdata)
+    - [BankCardRepeatModuleInputData](#bankcardrepeatmoduleinputdata)
+    - [TokenizationSettings](#tokenizationsettings)
+    - [TestModeSettings](#testmodesettings)
+    - [Amount](#amount)
+    - [Currency](#currency)
+    - [CustomizationSettings](#customizationsettings)
+  - [Сканирование банковских карт](#%d0%a1%d0%ba%d0%b0%d0%bd%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5-%d0%b1%d0%b0%d0%bd%d0%ba%d0%be%d0%b2%d1%81%d0%ba%d0%b8%d1%85-%d0%ba%d0%b0%d1%80%d1%82)
+  - [Настройка 3D Secure](#%d0%9d%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-3d-secure)
+  - [Логирование](#%d0%9b%d0%be%d0%b3%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5)
+  - [Тестовый режим](#%d0%a2%d0%b5%d1%81%d1%82%d0%be%d0%b2%d1%8b%d0%b9-%d1%80%d0%b5%d0%b6%d0%b8%d0%bc)
+  - [Запуск Example](#%d0%97%d0%b0%d0%bf%d1%83%d1%81%d0%ba-example)
+  - [Кастомизация интерфейса](#%d0%9a%d0%b0%d1%81%d1%82%d0%be%d0%bc%d0%b8%d0%b7%d0%b0%d1%86%d0%b8%d1%8f-%d0%b8%d0%bd%d1%82%d0%b5%d1%80%d1%84%d0%b5%d0%b9%d1%81%d0%b0)
+  - [Платёж привязанной к магазину картой с дозапросом CVC/CVV](#%d0%9f%d0%bb%d0%b0%d1%82%d1%91%d0%b6-%d0%bf%d1%80%d0%b8%d0%b2%d1%8f%d0%b7%d0%b0%d0%bd%d0%bd%d0%be%d0%b9-%d0%ba-%d0%bc%d0%b0%d0%b3%d0%b0%d0%b7%d0%b8%d0%bd%d1%83-%d0%ba%d0%b0%d1%80%d1%82%d0%be%d0%b9-%d1%81-%d0%b4%d0%be%d0%b7%d0%b0%d0%bf%d1%80%d0%be%d1%81%d0%be%d0%bc-cvccvv)
 
-* [Changelog](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/CHANGELOG.md)
-* [Подключение зависимостей](#подключение-зависимостей)
-  * [CocoaPods](#cocoapods)
-  * [Carthage](#carthage)
-  * [TrustDefender.framework](#trustdefender)
-* [Быстрая интеграция](#быстрая-интеграция)
-* [Доступные способы оплаты](#доступные-способы-оплаты)
-* [Настройка способов оплаты](#настройка-способов-оплаты)
-  * [Яндекс.Деньги](#яндекс-деньги)
-  * [Банковская карта](#банковская-карта)
-  * [Сбербанк Онлайн](#сбербанк-онлайн)
-  * [Apple Pay](#apple-pay)
-* [Описание входных параметров](#описание-входных-параметров)
-  * [TokenizationModuleInputData](#tokenizationModuleInputData)
-  * [TokenizationSettings](#tokenizationSettings)
-  * [TestModeSettings](#testModeSettings)
-  * [Amount](#amount)
-  * [Currency](#currency)
-* [Сканирование банковских карт](#сканирование-банковских-карт)
-* [Настройка 3D Secure](#настройка-3d-secure)
-* [Логирование](#логирование)
-* [Тестовый режим](#тестовый-режим)
-* [Запуск Example](#запуск-example)
-* [Кастомизация интерфейса](#кастомизация-интерфейса)
+## Changelog
 
-### Подключение зависимостей
+[Ссылка на Changelog](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/CHANGELOG.md)
 
-#### CocoaPods
+## Migration guide
+
+[Ссылка на Migration guide](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/MIGRATION.md)
+
+## Подключение зависимостей
+
+### CocoaPods
 
 1. Установите CocoaPods
 
@@ -78,16 +91,16 @@
      └─ TrustDefender.framework
   ```
 
-#### Carthage
+### Carthage
 
-Пока Carthage не поддерживается.
+На текущий момент Carthage не поддерживается.
 
-#### TrustDefender
+### TrustDefender
 
 Чтобы получить файл `.framework`,  [зарегистрируйтесь в Яндекс.Кассе](https://kassa.yandex.ru/joinups)
 и сообщите вашему менеджеру, что хотите подключить мобильный SDK.
 
-### Быстрая интеграция
+## Быстрая интеграция
 
 1. Создайте `TokenizationModuleInputData` (понадобится [ключ для клиентских приложений](https://kassa.yandex.ru/my/tunes) из личного кабинета Яндекс.Кассы). В этой модели передаются параметры платежа (валюта и сумма) и параметры платежной формы, которые увидит пользователь при оплате (способы оплаты, название магазина и описание заказа).
 
@@ -103,15 +116,24 @@
   ```swift
   let clientApplicationKey = "<Ключ для клиентских приложений>"
   let amount = Amount(value: 999.99, currency: .rub)
-  let inputData = TokenizationModuleInputData(clientApplicationKey: clientApplicationKey,
-                                              shopName: "Космические объекты",
-                                              purchaseDescription: """
-                                                  Комета повышенной яркости, период обращения — 112 лет
-                                                  """,
-                                              amount: amount)
+  let tokenizationModuleInputData =
+            TokenizationModuleInputData(clientApplicationKey: clientApplicationKey,
+                                        shopName: "Космические объекты",
+                                        purchaseDescription: """
+                                                             Комета повышенной яркости, период обращения — 112 лет
+                                                             """,
+                                        amount: amount)
   ```
 
-2. Создайте `ViewController` из `TokenizationAssembly` и выведите его на экран.
+2. Создайте `TokenizationFlow` с кейсом `.tokenization` и передайте `TokenizationModuleInputData`.
+
+Пример создания `TokenizationFlow`:
+
+  ```swift
+  let inputData: TokenizationFlow = .tokenization(tokenizationModuleInputData)
+  ```
+
+3. Создайте `ViewController` из `TokenizationAssembly` и выведите его на экран.
 
   ```swift
   let viewController = TokenizationAssembly.makeModule(inputData: inputData,
@@ -121,7 +143,7 @@
 
 В `moduleOutput` необходимо передать объект, который реализует протокол `TokenizationModuleOutput`.
 
-3. Реализуйте протокол `TokenizationModuleOutput`.
+4. Реализуйте протокол `TokenizationModuleOutput`.
 
   ```swift
   extension ViewController: TokenizationModuleOutput {
@@ -129,16 +151,17 @@
                             didTokenize token: Tokens,
                             paymentMethodType: PaymentMethodType) {
       DispatchQueue.main.async { [weak self] in
-          guard let strongSelf = self else { return }
-          strongSelf.dismiss(animated: true)
+          guard let self = self else { return }
+          self.dismiss(animated: true)
       }
       // Отправьте токен в вашу систему
     }
 
-    func didFinish(on module: TokenizationModuleInput) {
+    func didFinish(on module: TokenizationModuleInput,
+                   with error: YandexCheckoutPaymentsError?) {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.dismiss(animated: true)
+            guard let self = self else { return }
+            self.dismiss(animated: true)
         }
     }
   }
@@ -146,7 +169,7 @@
 
 Закройте `ViewController` и отправьте токен в вашу систему. Затем [создайте платеж](https://kassa.yandex.ru/docs/guides/#custom) по API Яндекс.Кассы, в параметре `payment_token` передайте токен, полученный в SDK. Способ подтверждения при создании платежа зависит от способа оплаты, который выбрал пользователь. Он приходит вместе с токеном в `paymentMethodType`.
 
-### Доступные способы оплаты
+## Доступные способы оплаты
 
 Сейчас в SDK для iOS доступны следующие способы оплаты:
 
@@ -155,7 +178,7 @@
 `.sberbank` — Сбербанк Онлайн (с подтверждением по смс)\
 `.applePay` — Apple Pay
 
-### Настройка способов оплаты
+## Настройка способов оплаты
 
 У вас есть возможность сконфигурировать способы оплаты.\
 Для этого необходимо при создании `TokenizationModuleInputData` в параметре `tokenizationSettings` передать модель типа `TokenizationSettings`.
@@ -192,7 +215,7 @@ let tokenizationSettings = TokenizationSettings(paymentMethodTypes: paymentMetho
 
 Теперь используйте `tokenizationSettings` при инициализации `TokenizationModuleInputData`.
 
-#### Яндекс Деньги
+### Яндекс Деньги
 
 Чтобы принимать платежи из кошельков в Яндекс.Деньгах, необходима авторизация в Яндексе.
 
@@ -262,13 +285,13 @@ func application(_ app: UIApplication,
 2. Получите токен.
 3. [Создайте платеж](https://kassa.yandex.ru/docs/guides#custom) с токеном по API Яндекс.Кассы.
 
-#### Банковская карта
+### Банковская карта
 
 1. При создании `TokenizationModuleInputData` передайте значение `.bankcard` в `paymentMethodTypes`.
 2. Получите токен.
 3. [Создайте платеж](https://kassa.yandex.ru/docs/guides#custom) с токеном по API Яндекс.Кассы.
 
-#### Сбербанк Онлайн
+### Сбербанк Онлайн
 
 С помощью SDK можно провести платеж через «Мобильный банк» Сбербанка — с подтверждением оплаты по смс:
 
@@ -276,7 +299,7 @@ func application(_ app: UIApplication,
 2. Получите токен.
 3. [Создайте платеж](https://kassa.yandex.ru/docs/guides#custom) с токеном по API Яндекс.Кассы.
 
-#### Apple Pay
+### Apple Pay
 
 1. Чтобы подключить Apple Pay, нужно передать Яндекс.Кассе сертификат, с помощью которого Apple будет шифровать данные банковских карт.
 
@@ -303,9 +326,26 @@ let moduleData = TokenizationModuleInputData(
 2. Получите токен.
 3. [Создайте платеж](https://kassa.yandex.ru/docs/guides#custom) с токеном по API Яндекс.Кассы.
 
-### Описание входных параметров
+## Описание публичных параметров
 
-#### TokenizationModuleInputData
+### TokenizationFlow
+
+`Enum`, который определяет логику работы SDK.
+
+| Case           | Тип              | Описание |
+| -------------- | ---------------- | -------- |
+| tokenization   | TokenizationFlow | Принимает на вход модель `TokenizationModuleInputData`. Логика для токенизации несколько способов оплаты на выбор: Банковская карта, Яндекс Деньги, Сбербанк-Онлайн, Apple Pay |
+| bankCardRepeat | TokenizationFlow | Принимает на вход модель `BankCardRepeatModuleInputData`. Логика для токенизации сохраненных способов оплаты по идентификатору способа оплаты |
+
+### YandexCheckoutPaymentsError
+
+`Enum` с возможными ошибками, которые можно обработать в методе `func didFinish(on module:, with error:)`
+
+| Case                  | Тип   | Описание |
+| --------------------- | ----- | -------- |
+| paymentMethodNotFound | Error | По paymentMethodId не было найдено ни одного сохраненного способа оплаты. |
+
+### TokenizationModuleInputData
 
 >Обязательные:
 
@@ -330,7 +370,27 @@ let moduleData = TokenizationModuleInputData(
 | userPhoneNumber            | String                | По умолчанию `nil`. Телефонный номер пользователя. |
 | customizationSettings      | CustomizationSettings | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
 
-#### TokenizationSettings
+### BankCardRepeatModuleInputData
+
+>Обязательные:
+
+| Параметр             | Тип    | Описание |
+| -------------------- | ------ | -------- |
+| clientApplicationKey | String | Ключ для клиентских приложений из личного кабинета Яндекс.Кассы |
+| shopName             | String | Название магазина в форме оплаты |
+| purchaseDescription  | String | Описание заказа в форме оплаты |
+| paymentMethodId      | String | Идентификатор сохраненного способа оплаты |
+| amount               | Amount | Объект, содержащий сумму заказа и валюту |
+
+>Необязательные:
+
+| Параметр                   | Тип                   | Описание |
+| -------------------------- | --------------------- | -------- |
+| testModeSettings           | TestModeSettings      | По умолчанию `nil`. Настройки тестового режима. |
+| isLoggingEnabled           | Bool                  | По умолчанию `false`. Включает логирование сетевых запросов. |
+| customizationSettings      | CustomizationSettings | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
+
+### TokenizationSettings
 
 Можно настроить список способов оплаты и отображение логотипа Яндекс.Кассы в приложении.
 
@@ -339,7 +399,7 @@ let moduleData = TokenizationModuleInputData(
 | paymentMethodTypes     | PaymentMethodTypes | По умолчанию `.all`. [Способы оплаты](#настройка-способов-оплаты), доступные пользователю в приложении. |
 | showYandexCheckoutLogo | Bool               | По умолчанию `true`. Отвечает за отображение логотипа Яндекс.Кассы. По умолчанию логотип отображается. |
 
-#### TestModeSettings
+### TestModeSettings
 
 | Параметр                   | Тип    | Описание |
 | -------------------------- | ------ | -------- |
@@ -348,14 +408,14 @@ let moduleData = TokenizationModuleInputData(
 | charge                     | Amount | Сумма и валюта платежа. |
 | enablePaymentError         | Bool   | Определяет, будет ли платеж завершен с ошибкой. |
 
-#### Amount
+### Amount
 
 | Параметр | Тип      | Описание |
 | -------- | -------- | -------- |
 | value    | Decimal  | Сумма платежа |
 | currency | Currency | Валюта платежа |
 
-#### Currency
+### Currency
 
 | Параметр | Тип      | Описание |
 | -------- | -------- | -------- |
@@ -363,13 +423,13 @@ let moduleData = TokenizationModuleInputData(
 | usd      | String   | $ - Американский доллар |
 | eur      | String   | € - Евро |
 
-#### CustomizationSettings
+### CustomizationSettings
 
 | Параметр   | Тип     | Описание |
 | ---------- | ------- | -------- |
 | mainScheme | UIColor | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
 
-### Сканирование банковских карт
+## Сканирование банковских карт
 
 Если хотите, чтобы пользователи смогли сканировать банковские карты при оплате, необходимо:
 
@@ -416,7 +476,7 @@ let inputData = TokenizationModuleInputData(
     cardScanning: CardScannerProvider())
 ```
 
-### Настройка 3D Secure
+## Настройка 3D Secure
 
 Если вы хотите использовать нашу реализацию 3-D Secure, не закрывайте модуль SDK после получения токена.\
 Отправьте токен на ваш сервер и после успешной оплаты закройте модуль.\
@@ -465,7 +525,7 @@ func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
 }
 ```
 
-### Логирование
+## Логирование
 
 У вас есть возможность включить логирование всех сетевых запросов.\
 Для этого необходимо при создании `TokenizationModuleInputData` передать `isLoggingEnabled: true`
@@ -476,7 +536,7 @@ let moduleData = TokenizationModuleInputData(
     isLoggingEnabled: true)
 ```
 
-### Тестовый режим
+## Тестовый режим
 
 У вас есть возможность запустить мобильный SDK в тестовом режиме.\
 Тестовый режим не выполняет никаких сетевых запросов и имитирует ответ от сервера.
@@ -500,7 +560,7 @@ let moduleData = TokenizationModuleInputData(
     testModeSettings: testModeSettings)
 ```
 
-### Запуск Example
+## Запуск Example
 
 Чтобы запустить Example приложение, необходимо:
 
@@ -522,7 +582,7 @@ pod install
 4. Открыть `YandexCheckoutPayments.xcworkspace`.
 5. Выбрать и запустить схему `ExamplePods`.
 
-### Кастомизация интерфейса
+## Кастомизация интерфейса
 
 1. Сконфигурировать объект `CustomizationSettings` и передать его в параметр `customizationSettings` объекта `TokenizationModuleInputData`.
 
@@ -530,4 +590,37 @@ pod install
 let moduleData = TokenizationModuleInputData(
     ...
     customizationSettings: CustomizationSettings(mainScheme: /* UIColor */ ))
+```
+
+## Платёж привязанной к магазину картой с дозапросом CVC/CVV
+
+1. Создайте `BankCardRepeatModuleInputData`.
+
+```swift
+let bankCardRepeatModuleInputData = BankCardRepeatModuleInputData(
+            clientApplicationKey: oauthToken,
+            shopName: translate(Localized.name),
+            purchaseDescription: translate(Localized.description),
+            paymentMethodId: "24e4eca6-000f-5000-9000-10a7bb3cfdb2",
+            amount: amount,
+            testModeSettings: testSettings,
+            isLoggingEnabled: true,
+            customizationSettings: CustomizationSettings(mainScheme: .blueRibbon)
+        )
+```
+
+2. Создайте `TokenizationFlow` с кейсом `.bankCardRepeat` и передайте `BankCardRepeatModuleInputData`.
+
+```swift
+let inputData: TokenizationFlow = .bankCardRepeat(bankCardRepeatModuleInputData)
+```
+
+3. Создайте `ViewController` из `TokenizationAssembly` и выведите его на экран.
+
+```swift
+let viewController = TokenizationAssembly.makeModule(
+    inputData: inputData,
+    moduleOutput: self
+)
+present(viewController, animated: true, completion: nil)
 ```

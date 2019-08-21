@@ -1,5 +1,9 @@
 ## Changelog
 
+### 2.2.0
+
+// TODO: Fix after merge to dev
+
 ### 2.1.0
 
 1. Починили вызов авторизации в Яндекс.Деньгах из background потока.
