@@ -61,6 +61,7 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
         view.setCvcTextControlHint(§Localized.cvc)
         view.setConfirmButtonTitle(§Localized.confirmButtonTitle)
         view.setConfirmButtonEnabled(false)
+        view.setBankLogoImage(UIImage.Bank.unknown)
 
         view.setPanInputScanModeIsEnabled(inputData.cardScanner != nil)
 

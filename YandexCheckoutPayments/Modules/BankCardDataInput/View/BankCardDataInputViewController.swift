@@ -49,7 +49,6 @@ class BankCardDataInputViewController: UIViewController, PlaceholderProvider {
         $0.setStyles(TextControl.Styles.cardDataInput,
                      TextControl.Styles.leftIconVisible,
                      TextControl.Styles.tintLine)
-        $0.leftIcon.image = UIImage.Bank.unknown
         return $0
     }(TextControl())
 
@@ -242,6 +241,7 @@ extension BankCardDataInputViewController: BankCardDataInputViewInput {
 
     func setBankLogoImage(_ image: UIImage) {
         panInputTextControl.leftIcon.image = image
+            .scaled(to: CGSize(width: 24, height: 24))
     }
 
     var focus: BankCardFocus? {
