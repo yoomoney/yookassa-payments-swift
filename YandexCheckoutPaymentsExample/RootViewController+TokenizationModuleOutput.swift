@@ -24,8 +24,8 @@ extension RootViewController: TokenizationModuleOutput {
         }
     }
 
-    func didFinish(on module: TokenizationModuleInput) {
-
+    func didFinish(on module: TokenizationModuleInput,
+                   with error: YandexCheckoutPaymentsError?) {
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.dismiss(animated: true)

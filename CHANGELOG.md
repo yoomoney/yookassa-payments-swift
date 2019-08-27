@@ -1,5 +1,15 @@
 ## Changelog
 
+### 2.2.0
+
+1. Добавили поддержку Swift 5.
+2. Добавили возможность совершить платёж привязанной к магазину картой с дозапросом CVC/CVV.\
+   Подробнее с повтором платежа можно ознакомиться в 
+   [документации](https://kassa.yandex.ru/developers/payments/recurring-payments) и в 
+   [README.md](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/README.md). 
+3. Добавили файл [MIGRATION.md](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/MIGRATION.md).
+4. Теперь на экране ввода данных банковской карты отображатеся логотип банка.
+
 ### 2.1.0
 
 1. Починили вызов авторизации в Яндекс.Деньгах из background потока.

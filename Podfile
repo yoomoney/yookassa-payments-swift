@@ -11,7 +11,6 @@ target 'YandexCheckoutPaymentsExamplePods' do
 
     pod 'YandexCheckoutPayments',
         :path => './'
-
 end
 
 post_install do |installer|

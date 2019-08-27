@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name      = 'YandexCheckoutPayments'
-  s.version   = '2.1.0'
+  s.version   = '2.2.0'
   s.homepage  = 'https://github.com/yandex-money/yandex-checkout-payments-swift'
   s.license   = {
     :type => "MIT",
@@ -15,10 +15,15 @@ Pod::Spec.new do |s|
   }
 
   s.ios.deployment_target = '8.0'
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
 
   s.ios.source_files  = 'YandexCheckoutPayments/**/*.{h,swift}', 'YandexCheckoutPayments/*.{h,swift}'
-  s.ios.resources = 'YandexCheckoutPayments/Resources/*.xcassets', 'YandexCheckoutPayments/Resources/**/*.plist', 'YandexCheckoutPayments/Resources/*.lproj/*.strings'
+  s.ios.resources = [
+    'YandexCheckoutPayments/Public/Resources/*.xcassets',
+    'YandexCheckoutPayments/Public/Resources/**/*.plist',
+    'YandexCheckoutPayments/Public/Resources/**/*.json',
+    'YandexCheckoutPayments/Public/Resources/*.lproj/*.strings'
+  ]
 
   s.ios.framework  = 'UIKit'
   s.ios.framework  = 'PassKit'
@@ -34,9 +39,9 @@ Pod::Spec.new do |s|
   s.ios.dependency 'When', '~> 4.0.0'
 
   s.ios.dependency 'YandexLoginSDK', '~> 2.0.0'
-  s.ios.dependency 'YandexMoneyCoreApi', '~> 1.6.0'
-  s.ios.dependency 'YandexCheckoutPaymentsApi', '~> 1.2.0'
-  s.ios.dependency 'YandexCheckoutShowcaseApi', '~> 1.1.0'
-  s.ios.dependency 'YandexCheckoutWalletApi', '~> 1.1.0'
-  s.ios.dependency 'YandexMobileMetrica/Dynamic', '~> 3.5.0'
+  s.ios.dependency 'YandexMoneyCoreApi', '~> 1.7.0'
+  s.ios.dependency 'YandexCheckoutPaymentsApi', '~> 1.5.0'
+  s.ios.dependency 'YandexCheckoutShowcaseApi', '~> 1.2.0'
+  s.ios.dependency 'YandexCheckoutWalletApi', '~> 1.2.0'
+  s.ios.dependency 'YandexMobileMetrica/Dynamic', '~> 3.7.0'
 end

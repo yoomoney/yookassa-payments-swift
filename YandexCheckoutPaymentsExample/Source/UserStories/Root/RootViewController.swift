@@ -343,19 +343,35 @@ final class RootViewController: UIViewController {
             oauthToken = "live_MTkzODU2VY5GiyQq2GMPsCQ0PW7f_RSLtJYOT-mp_CA"
         }
 
-        let inputData = TokenizationModuleInputData(clientApplicationKey: oauthToken,
-                                                    shopName: translate(Localized.name),
-                                                    purchaseDescription: translate(Localized.description),
-                                                    amount: amount,
-                                                    tokenizationSettings: makeTokenizationSettings(),
-                                                    testModeSettings: testSettings,
-                                                    cardScanning: self,
-                                                    applePayMerchantIdentifier: "merchant.ru.yandex.mobile.msdk.debug",
-                                                    isLoggingEnabled: true,
-                                                    userPhoneNumber: "7",
-                                                    customizationSettings: CustomizationSettings(mainScheme: .blueRibbon))
-        let viewController = TokenizationAssembly.makeModule(inputData: inputData,
-                                                             moduleOutput: self)
+        let inputData: TokenizationFlow = .tokenization(TokenizationModuleInputData(
+            clientApplicationKey: oauthToken,
+            shopName: translate(Localized.name),
+            purchaseDescription: translate(Localized.description),
+            amount: amount,
+            tokenizationSettings: makeTokenizationSettings(),
+            testModeSettings: testSettings,
+            cardScanning: self,
+            applePayMerchantIdentifier: "merchant.ru.yandex.mobile.msdk.debug",
+            isLoggingEnabled: true,
+            userPhoneNumber: "7",
+            customizationSettings: CustomizationSettings(mainScheme: .blueRibbon)
+        ))
+
+//        let inputData: TokenizationFlow = .bankCardRepeat(BankCardRepeatModuleInputData(
+//            clientApplicationKey: oauthToken,
+//            shopName: translate(Localized.name),
+//            purchaseDescription: translate(Localized.description),
+//            paymentMethodId: "24e4eca6-000f-5000-9000-10a7bb3cfdb2",
+//            amount: amount,
+//            testModeSettings: testSettings,
+//            isLoggingEnabled: true,
+//            customizationSettings: CustomizationSettings(mainScheme: .blueRibbon)
+//        ))
+
+        let viewController = TokenizationAssembly.makeModule(
+            inputData: inputData,
+            moduleOutput: self
+        )
         present(viewController, animated: true, completion: nil)
     }
 
