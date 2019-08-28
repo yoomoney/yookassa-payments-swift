@@ -8,7 +8,7 @@
    [документации](https://kassa.yandex.ru/developers/payments/recurring-payments) и в 
    [README.md](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/README.md). 
 3. Добавили файл [MIGRATION.md](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/MIGRATION.md).
-4. Теперь на экране ввода данных банковской карты отображатеся логотип банка.
+4. Теперь на экране ввода данных банковской карты отображается логотип банка.
 
 ### 2.1.0
 
