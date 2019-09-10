@@ -1,6 +1,8 @@
 import Dispatch
 import FunctionalSwift
 import UIKit
+import WebKit.WKNavigationDelegate
+import WebKit.WKUIDelegate
 
 class WebBrowserPresenter: NSObject, WebBrowserViewOutput {
     var interactor: WebBrowserInteractorInput!
@@ -23,23 +25,13 @@ class WebBrowserPresenter: NSObject, WebBrowserViewOutput {
 
     // MARK: - WebBrowserViewOutput
 
-    func webView(_ webView: UIWebView,
-                 shouldStartLoadWith request: URLRequest,
-                 navigationType: UIWebView.NavigationType) -> Bool {
-        let interactorShouldProcessRequest = interactor.shouldProcessRequest(request)
-        if interactorShouldProcessRequest {
-            interactor.processRequest(request)
-        }
-        return interactorShouldProcessRequest == false
-    }
-
-    func webViewDidStartLoad(_ webView: UIWebView) {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         DispatchQueue.main.async { [weak self] in
             self?.view?.showActivity()
         }
     }
 
-    func webViewDidFinishLoad(_ webView: UIWebView) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self, let view = strongSelf.view else { return }
             view.updateToolBar()
@@ -47,10 +39,44 @@ class WebBrowserPresenter: NSObject, WebBrowserViewOutput {
         }
     }
 
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         DispatchQueue.main.async { [weak self] in
             self?.view?.hideActivity()
         }
+    }
+
+    func webView(_ webView: WKWebView,
+                      didFailProvisionalNavigation navigation: WKNavigation!,
+                      withError error: Error) {
+
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.hideActivity()
+        }
+    }
+
+    func webView(_ webView: WKWebView,
+                      decidePolicyFor navigationAction: WKNavigationAction,
+                      decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+
+        let request = navigationAction.request
+        let interactorShouldProcessRequest = interactor.shouldProcessRequest(request)
+        if interactorShouldProcessRequest {
+            interactor.processRequest(request)
+            decisionHandler(.cancel)
+        } else {
+            decisionHandler(.allow)
+        }
+    }
+
+    func webView(_ webView: WKWebView,
+                      createWebViewWith configuration: WKWebViewConfiguration,
+                      for navigationAction: WKNavigationAction,
+                      windowFeatures: WKWindowFeatures) -> WKWebView? {
+
+        if (navigationAction.targetFrame?.isMainFrame ?? false) == false {
+            webView.load(navigationAction.request)
+        }
+        return nil
     }
 
     func didPressCloseButton() {

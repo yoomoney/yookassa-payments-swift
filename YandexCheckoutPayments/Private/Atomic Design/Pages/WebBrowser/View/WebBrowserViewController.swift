@@ -1,17 +1,19 @@
 import UIKit
+import WebKit.WKWebView
 
 class WebBrowserViewController: UIViewController {
     var output: WebBrowserViewOutput! {
         didSet {
-            webView.delegate = output
+            webView.navigationDelegate = output
+            webView.uiDelegate = output
         }
     }
 
-    fileprivate lazy var webView: UIWebView = {
+    fileprivate lazy var webView: WKWebView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.scrollView.showsHorizontalScrollIndicator = false
         return $0
-    }(UIWebView())
+    }(WKWebView())
 
     fileprivate lazy var toolbar: UIToolbar = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +33,7 @@ class WebBrowserViewController: UIViewController {
     }(UIBarButtonItem(image: UIImage.named("action_back"),
                       style: .plain,
                       target: self.webView,
-                      action: #selector(UIWebView.goBack)))
+                      action: #selector(WKWebView.goBack)))
 
     fileprivate lazy var forwardButton: UIBarButtonItem = {
         $0.isEnabled = false
@@ -39,14 +41,14 @@ class WebBrowserViewController: UIViewController {
     }(UIBarButtonItem(image: UIImage.named("action_forward"),
                       style: .plain,
                       target: self.webView,
-                      action: #selector(UIWebView.goForward)))
+                      action: #selector(WKWebView.goForward)))
 
     fileprivate lazy var reloadButton: UIBarButtonItem = {
         return $0
     }(UIBarButtonItem(image: UIImage.named("action_refresh"),
                       style: .plain,
                       target: self.webView,
-                      action: #selector(UIWebView.reload)))
+                      action: #selector(WKWebView.reload)))
 
     // MARK: - Managing the View
 
@@ -70,9 +72,7 @@ class WebBrowserViewController: UIViewController {
     }
 
     override func viewDidDisappear(_ animated: Bool) {
-        if webView.isLoading {
-            webView.stopLoading()
-        }
+        webView.stopLoading()
         super.viewDidDisappear(animated)
     }
 
@@ -122,7 +122,7 @@ extension WebBrowserViewController: WebBrowserViewInput {
     }
 
     func showRequest(_ request: URLRequest) {
-        webView.loadRequest(request)
+        webView.load(request)
     }
 
     func updateToolBar() {

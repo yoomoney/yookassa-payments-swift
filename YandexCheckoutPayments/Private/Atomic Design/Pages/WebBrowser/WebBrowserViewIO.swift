@@ -22,6 +22,8 @@
  */
 
 import UIKit
+import WebKit.WKNavigationDelegate
+import WebKit.WKUIDelegate
 
 protocol WebBrowserViewInput: NotificationPresenting, ActivityIndicatorPresenting {
     func showRequest(_ request: URLRequest)
@@ -31,7 +33,7 @@ protocol WebBrowserViewInput: NotificationPresenting, ActivityIndicatorPresentin
     func setScreenName(_ screenName: String?)
 }
 
-protocol WebBrowserViewOutput: class, UIWebViewDelegate {
+protocol WebBrowserViewOutput: class, WKNavigationDelegate, WKUIDelegate {
     func setupView()
     func didPressCloseButton()
 }
