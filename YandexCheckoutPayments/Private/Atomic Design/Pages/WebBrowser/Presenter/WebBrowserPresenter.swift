@@ -46,8 +46,8 @@ class WebBrowserPresenter: NSObject, WebBrowserViewOutput {
     }
 
     func webView(_ webView: WKWebView,
-                      didFailProvisionalNavigation navigation: WKNavigation!,
-                      withError error: Error) {
+                 didFailProvisionalNavigation navigation: WKNavigation!,
+                 withError error: Error) {
 
         DispatchQueue.main.async { [weak self] in
             self?.view?.hideActivity()
@@ -55,8 +55,8 @@ class WebBrowserPresenter: NSObject, WebBrowserViewOutput {
     }
 
     func webView(_ webView: WKWebView,
-                      decidePolicyFor navigationAction: WKNavigationAction,
-                      decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+                 decidePolicyFor navigationAction: WKNavigationAction,
+                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
 
         let request = navigationAction.request
         let interactorShouldProcessRequest = interactor.shouldProcessRequest(request)
@@ -69,9 +69,9 @@ class WebBrowserPresenter: NSObject, WebBrowserViewOutput {
     }
 
     func webView(_ webView: WKWebView,
-                      createWebViewWith configuration: WKWebViewConfiguration,
-                      for navigationAction: WKNavigationAction,
-                      windowFeatures: WKWindowFeatures) -> WKWebView? {
+                 createWebViewWith configuration: WKWebViewConfiguration,
+                 for navigationAction: WKNavigationAction,
+                 windowFeatures: WKWindowFeatures) -> WKWebView? {
 
         if (navigationAction.targetFrame?.isMainFrame ?? false) == false {
             webView.load(navigationAction.request)
