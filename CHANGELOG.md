@@ -1,5 +1,9 @@
 ## Changelog
 
+### 2.2.1
+
+1. Обновили `UIWebView` на `WKWebView`
+
 ### 2.2.0
 
 1. Добавили поддержку Swift 5.
