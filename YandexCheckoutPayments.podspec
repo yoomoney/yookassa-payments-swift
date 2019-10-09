@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name      = 'YandexCheckoutPayments'
-  s.version   = '2.2.1'
+  s.version   = '2.2.2'
   s.homepage  = 'https://github.com/yandex-money/yandex-checkout-payments-swift'
   s.license   = {
     :type => "MIT",
@@ -32,7 +32,8 @@ Pod::Spec.new do |s|
 
   s.pod_target_xcconfig = {
     'OTHER_LDFLAGS' => '-framework "TrustDefender"',
-    'FRAMEWORK_SEARCH_PATHS' => '"${PODS_ROOT}/../Frameworks"'
+    'FRAMEWORK_SEARCH_PATHS' => '"${PODS_ROOT}/../Frameworks"',
+    'ENABLE_BITCODE' => 'NO'
   }
 
   s.ios.dependency 'FunctionalSwift', '~> 1.1.0'
