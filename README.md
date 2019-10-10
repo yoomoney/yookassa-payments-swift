@@ -13,6 +13,8 @@
 - [Код демо-приложения, которое интегрирует SDK](https://github.com/yandex-money/yandex-checkout-payments-swift/tree/master/YandexCheckoutPaymentsExample)
 - [Документация](https://yandex-money.github.io/yandex-checkout-payments-swift/)
 
+---
+
 - [Yandex Checkout Payments SDK](#yandex-checkout-payments-sdk)
   - [Changelog](#changelog)
   - [Migration guide](#migration-guide)
@@ -81,16 +83,6 @@
   > `Your Target Name` - название таргета в Xcode для вашего приложения.\
   > `tag` - версия SDK. Актуальную версию можно узнать на github в разделе [releases](https://github.com/yandex-money/yandex-checkout-payments-swift/releases).
 
-3. Добавьте библиотеку TrustDefender.framework в папку Frameworks.\
-  [Подробнее про TrustDefender](#trustdefender).
-
-  ```txt
-  App
-  ├─ Pods
-  └─ Frameworks
-     └─ TrustDefender.framework
-  ```
-
 ### Carthage
 
 На текущий момент Carthage не поддерживается.
@@ -99,6 +91,21 @@
 
 Чтобы получить файл `.framework`,  [зарегистрируйтесь в Яндекс.Кассе](https://kassa.yandex.ru/joinups)
 и сообщите вашему менеджеру, что хотите подключить мобильный SDK.
+
+1. Добавьте библиотеку `TrustDefender.framework` в папку `Frameworks`.
+
+  ```txt
+  App
+  ├─ Pods
+  └─ Frameworks
+     └─ TrustDefender.framework
+  ```
+
+2. Если во время запуска проекта вы видите ошибку `dyld: Library not loaded: @rpath/TrustDefender.framework/TrustDefender`, добавьте TrustDefender.framework в `Embedded Binaries`(в Xcode 10.3 или меньше), или в `Frameworks, Libraries, and Embedded Content`(в Xcode 11)
+
+3. Добавьте в `Build Phases` -> `New Run Script Phase`, и добавьте скрипт из файла `strip_framework.sh`
+
+4. Если во время сборки проекта вы видите сообщение с ошибкой о `TrustDefender.framework/TrustDefender' does not contain bitcode`, необходимо выключить bitcode у основного таргета проекта.
 
 ## Быстрая интеграция
 
