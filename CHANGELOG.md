@@ -1,5 +1,9 @@
 ## Changelog
 
+### 2.2.2
+
+1. Добавили поддержку Xcode 11, iOS 13, ThreatMetrix iOS SDK 5.4-84
+
 ### 2.2.1
 
 1. Обновили `UIWebView` на `WKWebView`
