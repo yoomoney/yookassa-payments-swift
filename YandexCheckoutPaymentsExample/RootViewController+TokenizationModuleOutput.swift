@@ -11,11 +11,12 @@ extension RootViewController: TokenizationModuleOutput {
         self.token = token
         self.paymentMethodType = paymentMethodType
 
-        let successViewController = SuccessViewController()
-        successViewController.delegate = self
-
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
+
+            let successViewController = SuccessViewController()
+            successViewController.delegate = self
+
             if let presentedViewController = strongSelf.presentedViewController {
                 presentedViewController.show(successViewController, sender: self)
             } else {

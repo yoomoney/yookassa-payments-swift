@@ -658,6 +658,7 @@
 		307D0CEB2061918600CAAAE6 /* CardIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CardIO.framework; path = Carthage/Build/iOS/CardIO.framework; sourceTree = "<group>"; };
 		30A588232177B792002AFFF1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YandexMobileMetrica.framework; path = Carthage/Build/iOS/YandexMobileMetrica.framework; sourceTree = "<group>"; };
+		30FFA679234E63EA00B09847 /* TrustDefender.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TrustDefender.framework; path = Frameworks/TrustDefender.framework; sourceTree = "<group>"; };
 		3613164D10E60C57E3B2E8D5 /* Pods-YandexCheckoutPaymentsExamplePods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexCheckoutPaymentsExamplePods.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YandexCheckoutPaymentsExamplePods/Pods-YandexCheckoutPaymentsExamplePods.debug.xcconfig"; sourceTree = "<group>"; };
 		402EB008C23528C30EA581DE /* BankCardDataInputRouterIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardDataInputRouterIO.swift; sourceTree = "<group>"; };
 		402EB009CEDEC5DB870537E1 /* KeyValueStoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStoring.swift; sourceTree = "<group>"; };
@@ -2837,6 +2838,7 @@
 		E0D529341FE40337005F495F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30FFA679234E63EA00B09847 /* TrustDefender.framework */,
 				E072CCA02121AAE7003D9913 /* FunctionalSwift.framework */,
 				E072CCA22121AAE7003D9913 /* When.framework */,
 				E072CCA42121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework */,
@@ -3080,6 +3082,7 @@
 				"${BUILT_PRODUCTS_DIR}/FunctionalSwift/FunctionalSwift.framework",
 				"${PODS_ROOT}/Reveal-SDK/RevealServer/iOS/RevealServer.framework",
 				"${BUILT_PRODUCTS_DIR}/When/When.framework",
+				"${PODS_ROOT}/../Frameworks/TrustDefender.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutPayments/YandexCheckoutPayments.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutPaymentsApi/YandexCheckoutPaymentsApi.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutShowcaseApi/YandexCheckoutShowcaseApi.framework",
@@ -3094,6 +3097,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FunctionalSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/When.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrustDefender.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutPayments.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutPaymentsApi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutShowcaseApi.framework",
@@ -4084,6 +4088,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.entitlements;
 				DEVELOPMENT_TEAM = 2752592HU5;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/FunctionalSwift\"",
@@ -4155,6 +4160,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.debug.entitlements;
 				DEVELOPMENT_TEAM = 2752592HU5;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/FunctionalSwift\"",
@@ -4183,6 +4189,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.inhouse.entitlements;
 				DEVELOPMENT_TEAM = 2752592HU5;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/FunctionalSwift\"",
