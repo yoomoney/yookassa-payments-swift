@@ -72,7 +72,21 @@ final class ContractTemplate: UIViewController {
 
     private var backgroundStyle = UIView.Styles.grayBackground
 
-    fileprivate lazy var headerView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    private lazy var blurEffectStyle: UIBlurEffect.Style = {
+        let style: UIBlurEffect.Style
+        if #available(iOS 13.0, *) {
+            style = .systemUltraThinMaterial
+        } else {
+            style = .light
+        }
+        return style
+    }()
+
+    fileprivate lazy var headerView: UIVisualEffectView = {
+        let view = UIVisualEffectView(effect: UIBlurEffect(style: blurEffectStyle))
+        view.backgroundColor = .clear
+        return view
+    }()
 
     fileprivate lazy var titleLabel: UILabel = {
         let style: Style
@@ -120,7 +134,11 @@ final class ContractTemplate: UIViewController {
 
     fileprivate lazy var priceView: PriceView = {
         $0.layoutMargins = .zero
-        $0.setStyles(backgroundStyle, UIView.Styles.heightAsContent)
+        $0.setStyles(
+            backgroundStyle,
+            UIView.Styles.heightAsContent,
+            PriceView.Styles.primary
+        )
         $0.text = §Localized.price
         return $0
     }(PriceView())
@@ -129,7 +147,11 @@ final class ContractTemplate: UIViewController {
         let view = PriceView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layoutMargins = .zero
-        view.setStyles(backgroundStyle, UIView.Styles.heightAsContent)
+        view.setStyles(
+            backgroundStyle,
+            UIView.Styles.heightAsContent,
+            PriceView.Styles.secondary
+        )
         view.text = §Localized.fee
         return view
     }()
@@ -298,7 +320,7 @@ final class ContractTemplate: UIViewController {
             scrollView.trailing.constraint(equalTo: view.trailing),
             headerView.leading.constraint(equalTo: view.leading),
             headerView.trailing.constraint(equalTo: view.trailing),
-            contentView.top.constraint(equalTo: descriptionLabel.top),
+            contentView.top.constraint(equalTo: descriptionLabel.top, constant: -Space.double),
 
             descriptionLabelSeparator.top.constraint(equalTo: descriptionLabel.bottom, constant: Space.double),
             descriptionLabelSeparator.leading.constraint(equalTo: descriptionLabel.leading),
@@ -570,10 +592,17 @@ extension ContractTemplate: ContractTemplateViewInput {
 
     func setTermsOfService(text: String, hyperlink: String, url: URL) {
         let attributedText: NSMutableAttributedString
+        let foregroundColor: UIColor
+
+        if #available(iOS 13.0, *) {
+            foregroundColor = .secondaryLabel
+        } else {
+            foregroundColor = .doveGray
+        }
 
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.dynamicCaption1,
-            .foregroundColor: UIColor.doveGray,
+            .foregroundColor: foregroundColor,
         ]
         attributedText = NSMutableAttributedString(string: "\(text) ", attributes: attributes)
 

@@ -267,7 +267,6 @@ final class RootViewController: UIViewController {
     }
 
     private func updatePayButtonBottomConstraint() {
-        view.layoutIfNeeded()
         UIView.animate(withDuration: CATransaction.animationDuration()) {
             if self.traitCollection.horizontalSizeClass == .regular {
                 self.payButtonBottomConstraint.constant = Space.fivefold + self.currentKeyboardOffset

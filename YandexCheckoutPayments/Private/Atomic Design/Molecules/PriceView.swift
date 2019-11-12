@@ -32,13 +32,13 @@ final class PriceView: UIView {
 
     // MARK: - UI properties
 
-    private lazy var textLabel: UILabel = {
+    lazy var textLabel: UILabel = {
         $0.setStyles(UILabel.DynamicStyle.body, UILabel.Styles.multiline)
         return $0
 
     }(UILabel())
 
-    private lazy var priceLabel: UILabel = {
+    lazy var priceLabel: UILabel = {
         $0.setContentHuggingPriority(.required, for: .horizontal)
         return $0
     }(UILabel())

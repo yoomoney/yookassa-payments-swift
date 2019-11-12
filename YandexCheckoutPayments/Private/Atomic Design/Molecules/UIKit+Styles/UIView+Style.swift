@@ -33,7 +33,11 @@ extension UIView {
         ///
         /// mercury background color, 1pt height with natural scale factor associated with the screen.
         static let separator = Style(name: "separator") { (view: UIView) in
-            view.backgroundColor = .alto
+            if #available(iOS 13.0, *) {
+                view.backgroundColor = .separator
+            } else {
+                view.backgroundColor = .alto
+            }
             view.height.constraint(equalToConstant: 1 / UIScreen.main.scale).isActive = true
         }
 
@@ -41,7 +45,11 @@ extension UIView {
         ///
         /// cararra background color.
         static let defaultBackground = Style(name: "defaultBackground") { (view: UIView) in
-            view.backgroundColor = .cararra
+            if #available(iOS 13.0, *) {
+                view.backgroundColor = .systemBackground
+            } else {
+                view.backgroundColor = .cararra
+            }
         }
 
         /// Style for view with tint background.
