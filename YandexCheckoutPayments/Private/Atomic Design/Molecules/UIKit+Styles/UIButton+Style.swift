@@ -199,6 +199,13 @@ extension UIButton {
             let tintColor: UIColor = button.tintColor
             let cornerRadius = UIButton.Styles.cornerRadius
 
+            let disabledBackgroundColor: UIColor
+            if #available(iOS 13.0, *) {
+                disabledBackgroundColor = .systemGray2
+            } else {
+                disabledBackgroundColor = .mousegrey
+            }
+
             let colors: [(UIControl.State, foreground: UIColor, background: UIColor, backgroundImage: UIImage)] = [
                 (.normal,
                  .inverse,
@@ -211,9 +218,9 @@ extension UIButton {
                  UIButton.Styles.roundedBackground(color: .highlighted(from: tintColor),
                                                    cornerRadius: cornerRadius)),
                 (.disabled,
-                 .nobel,
-                 .mousegrey,
-                 UIButton.Styles.roundedBackground(color: .mousegrey,
+                 UIColor.AdaptiveColors.secondary,
+                 .clear,
+                 UIButton.Styles.roundedBackground(color: disabledBackgroundColor,
                                                    cornerRadius: cornerRadius)),
             ]
             colors.forEach { (state, foreground, background, backgroundImage) in
