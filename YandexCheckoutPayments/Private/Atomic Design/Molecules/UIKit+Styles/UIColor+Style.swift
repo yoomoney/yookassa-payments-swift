@@ -103,4 +103,29 @@ extension UIColor {
         brightness *= 0.9
         return UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: alpha)
     }
+
+    // MARK: - Adaptive colors
+
+    enum AdaptiveColors {
+        static var secondary: UIColor = {
+            let color: UIColor
+            if #available(iOS 13.0, *) {
+                color = .init(dynamicProvider: { (trait) -> UIColor in
+                    let dynamicProviderColor: UIColor
+                    switch trait.userInterfaceStyle {
+                    case .dark, .light:
+                        dynamicProviderColor = .secondaryLabel
+                    case .unspecified:
+                        dynamicProviderColor = .doveGray
+                    @unknown default:
+                        dynamicProviderColor = .doveGray
+                    }
+                    return dynamicProviderColor
+                })
+            } else {
+                color = .doveGray
+            }
+            return color
+        }()
+    }
 }

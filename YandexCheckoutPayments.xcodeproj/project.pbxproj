@@ -10,6 +10,7 @@
 		301D747F20B5D7E60000E394 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301D747E20B5D7E60000E394 /* PassKit.framework */; };
 		303FD05A21B92EC900CE82B4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303FD05D21B92EC900CE82B4 /* InfoPlist.strings */; };
 		303FD05B21B92EC900CE82B4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303FD05D21B92EC900CE82B4 /* InfoPlist.strings */; };
+		309CECE7237D62BC002010DD /* PriceView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309CECE6237D62BC002010DD /* PriceView+Style.swift */; };
 		30A588242177B792002AFFF1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 30A588232177B792002AFFF1 /* Settings.bundle */; };
 		30A588252177B792002AFFF1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 30A588232177B792002AFFF1 /* Settings.bundle */; };
 		30B24DE1206C2850002C823B /* YandexMobileMetrica.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */; };
@@ -656,6 +657,7 @@
 		303FD05C21B92EC900CE82B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		303FD05E21B92ECD00CE82B4 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		307D0CEB2061918600CAAAE6 /* CardIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CardIO.framework; path = Carthage/Build/iOS/CardIO.framework; sourceTree = "<group>"; };
+		309CECE6237D62BC002010DD /* PriceView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PriceView+Style.swift"; sourceTree = "<group>"; };
 		30A588232177B792002AFFF1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YandexMobileMetrica.framework; path = Carthage/Build/iOS/YandexMobileMetrica.framework; sourceTree = "<group>"; };
 		30FFA679234E63EA00B09847 /* TrustDefender.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TrustDefender.framework; path = Frameworks/TrustDefender.framework; sourceTree = "<group>"; };
@@ -1145,8 +1147,8 @@
 			children = (
 				559073911FF3C2B90094AE5D /* YandexCheckoutPayments.h */,
 				244F7D88849ACD598FFD45ED /* Info.plist */,
-				402EB13ECBDC29975E13A501 /* Public */,
 				402EB5FB503B7E55FB658855 /* Private */,
+				402EB13ECBDC29975E13A501 /* Public */,
 			);
 			path = YandexCheckoutPayments;
 			sourceTree = "<group>";
@@ -1485,18 +1487,18 @@
 			isa = PBXGroup;
 			children = (
 				402EB0D91B5AEDF9532119F1 /* MSDKActionSheetHeaderView.swift */,
-				402EB918DF3B063B9DFC9AD9 /* Styles */,
-				402EBA8DACAA2FAC35017032 /* Formatters */,
-				402EB384CB68D21365AFC6BC /* Organisms */,
-				402EB634BAF3BC404B10B86D /* Molecules */,
-				402EB434378916092B3D1A75 /* Templates */,
 				402EB71B3FA4CE37A176F38D /* Space.swift */,
-				402EBFE44EA0B8EB4A229E2B /* Stylist */,
-				402EB88C7730B769B35F7B95 /* Protocols */,
-				402EBFD02C24C5B853406E19 /* Pages */,
 				402EB07E3A4A08B7FA0C352C /* AutoLayout */,
+				402EBA8DACAA2FAC35017032 /* Formatters */,
 				402EBB48E92A6C120529260B /* Keyboard */,
+				402EB634BAF3BC404B10B86D /* Molecules */,
+				402EB384CB68D21365AFC6BC /* Organisms */,
+				402EBFD02C24C5B853406E19 /* Pages */,
 				402EBF96800334C9DF5EFC45 /* PresentationTransitions */,
+				402EB88C7730B769B35F7B95 /* Protocols */,
+				402EB918DF3B063B9DFC9AD9 /* Styles */,
+				402EBFE44EA0B8EB4A229E2B /* Stylist */,
+				402EB434378916092B3D1A75 /* Templates */,
 				402EB152B4911AB058FF53B1 /* Views */,
 			);
 			path = "Atomic Design";
@@ -1839,19 +1841,20 @@
 		402EB634BAF3BC404B10B86D /* Molecules */ = {
 			isa = PBXGroup;
 			children = (
-				402EBB761608F1C750B0D45F /* PriceView.swift */,
 				402EBE34DAB5E4AE1FC8E6B1 /* AdditionalCardDataInputView.swift */,
-				402EBC8C494983AD7DA811B5 /* PaymentMethodView */,
 				402EB3C27AB9FBDF54BD39ED /* PaymentMethodViewFactory.swift */,
-				402EB5955724BED0443AEBC5 /* ItemViews */,
+				402EBB761608F1C750B0D45F /* PriceView.swift */,
+				309CECE6237D62BC002010DD /* PriceView+Style.swift */,
 				402EB20C58086E203F50942D /* ActionTextDialog */,
-				402EB95D4399B06C5C92280B /* IconView */,
-				402EB55BA4ECB1C0470B054F /* UIKit+Styles */,
-				402EB66D490EE34B6298F44F /* ActivityIndicatorView */,
 				402EBB02AE37900695528473 /* ActivityIndicator */,
-				402EBF6C8C9339744A871AA8 /* TextControl */,
-				402EBCC197FE30C498F5E43B /* NotificationView */,
+				402EB66D490EE34B6298F44F /* ActivityIndicatorView */,
 				402EB12114BA5FBF04075BAB /* Button */,
+				402EB95D4399B06C5C92280B /* IconView */,
+				402EB5955724BED0443AEBC5 /* ItemViews */,
+				402EBCC197FE30C498F5E43B /* NotificationView */,
+				402EBC8C494983AD7DA811B5 /* PaymentMethodView */,
+				402EBF6C8C9339744A871AA8 /* TextControl */,
+				402EB55BA4ECB1C0470B054F /* UIKit+Styles */,
 			);
 			path = Molecules;
 			sourceTree = "<group>";
@@ -3267,6 +3270,7 @@
 				402EBB63E95FBBA1BA1B59BE /* Style.swift in Sources */,
 				402EBB0D7303FCBCDB26B74B /* Stylable.swift in Sources */,
 				402EBE993BF501D9158671E4 /* StyleStorage.swift in Sources */,
+				309CECE7237D62BC002010DD /* PriceView+Style.swift in Sources */,
 				402EB760A3EDD767C76A1AE9 /* UILabel+Stylable.swift in Sources */,
 				402EBBB3276C2F6BC3AC5827 /* UIButton+Stylable.swift in Sources */,
 				402EB6F495D788A1A3FE0194 /* PlaceholderProvider.swift in Sources */,

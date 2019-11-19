@@ -64,7 +64,8 @@ final class LargeIconButtonItemView: UIView {
 
     private(set) lazy var titleLabel: UILabel = {
         $0.setStyles(UILabel.DynamicStyle.bodySemibold,
-                     UILabel.Styles.multiline)
+                     UILabel.Styles.multiline,
+                     UILabel.ColorStyle.primary)
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
         $0.setContentHuggingPriority(.required, for: .vertical)
         return $0
