@@ -37,6 +37,10 @@ extension ContractPresenter: ContractViewOutput {
         )
         paymentMethodView.setPaymentMethodViewModel(inputData.paymentMethod)
 
+        if let recurringViewModel = inputData.recurringViewModel {
+            contractView.setRecurringViewModel(recurringViewModel)
+        }
+
         DispatchQueue.global().async { [weak self] in
             guard let strongSelf = self,
                   let interactor = strongSelf.interactor else { return }
@@ -96,6 +100,14 @@ extension ContractPresenter: ContractTemplateViewOutput {
     func didTapTermsOfService(_ url: URL) {
         moduleOutput?.contractModule(self, didTapTermsOfService: url)
     }
+
+    func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) {
+        // TODO: BIOS-1289
+    }
+
+    func didTapOnRecurring() {
+        // TODO: BIOS-1292
+    }
 }
 
 // MARK: - LargeIconItemViewOutput
@@ -115,6 +127,7 @@ extension ContractPresenter: IconButtonItemViewOutput {
 }
 
 // MARK: - LargeIconButtonItemViewOutput
+
 extension ContractPresenter: LargeIconButtonItemViewOutput {
     func didPressLeftButton(in itemView: LargeIconButtonItemViewInput) {
         moduleOutput?.didPressLogoutButton(on: self)

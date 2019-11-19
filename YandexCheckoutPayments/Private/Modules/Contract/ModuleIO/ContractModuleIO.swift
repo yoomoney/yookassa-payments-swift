@@ -11,6 +11,7 @@ struct ContractModuleInputData {
     let tokenizeScheme: AnalyticsEvent.TokenizeScheme
     let isLoggingEnabled: Bool
     let termsOfService: TermsOfService
+    let recurringViewModel: RecurringViewModel?
 }
 
 protocol ContractModuleInput: ContractStateHandler {}

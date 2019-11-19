@@ -22,8 +22,8 @@ extension SwitchItemView {
             UIView.Styles.defaultBackground +
             Style(name: "SwitchItemView.secondary") { (item: SwitchItemView) in
                 item.titleLabel.setStyles(UILabel.DynamicStyle.caption1,
-                                          UILabel.Styles.secondary,
-                                          UILabel.Styles.multiline)
+                                          UILabel.Styles.multiline,
+                                          UILabel.ColorStyle.secondary)
                 item.switchControl.onTintColor = item.tintColor
             }
     }

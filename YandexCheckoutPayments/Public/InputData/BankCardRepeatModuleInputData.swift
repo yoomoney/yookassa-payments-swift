@@ -1,4 +1,4 @@
-// Input data for repeat bank card tokenization flow.
+/// Input data for repeat bank card tokenization flow.
 public struct BankCardRepeatModuleInputData {
 
     /// Client application key.
@@ -25,6 +25,8 @@ public struct BankCardRepeatModuleInputData {
     /// Settings to customize SDK interface.
     let customizationSettings: CustomizationSettings
 
+    let recurring: Recurring
+
     /// Creates instance of `BankCardRepeatModuleInputData`.
     ///
     /// - Parameters:
@@ -46,7 +48,8 @@ public struct BankCardRepeatModuleInputData {
         amount: Amount,
         testModeSettings: TestModeSettings? = nil,
         isLoggingEnabled: Bool = false,
-        customizationSettings: CustomizationSettings = CustomizationSettings()
+        customizationSettings: CustomizationSettings = CustomizationSettings(),
+        recurring: Recurring
     ) {
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
@@ -56,5 +59,6 @@ public struct BankCardRepeatModuleInputData {
         self.testModeSettings = testModeSettings
         self.isLoggingEnabled = isLoggingEnabled
         self.customizationSettings = customizationSettings
+        self.recurring = recurring
     }
 }

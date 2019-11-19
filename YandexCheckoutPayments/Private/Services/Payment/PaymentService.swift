@@ -22,17 +22,21 @@ final class PaymentService {
 // MARK: - PaymentProcessing
 
 extension PaymentService: PaymentProcessing {
-    func fetchPaymentOptions(clientApplicationKey: String,
-                             passportToken: String?,
-                             gatewayId: String?,
-                             amount: String?,
-                             currency: String?) -> Promise<[PaymentOption]> {
+    func fetchPaymentOptions(
+        clientApplicationKey: String,
+        passportToken: String?,
+        gatewayId: String?,
+        amount: String?,
+        currency: String?,
+        savePaymentMethod: Bool?
+    ) -> Promise<[PaymentOption]> {
 
         let method = PaymentOptions.Method(oauthToken: clientApplicationKey,
                                            passportAuthorization: passportToken,
                                            gatewayId: gatewayId,
                                            amount: amount,
-                                           currency: currency)
+                                           currency: currency,
+                                           savePaymentMethod: savePaymentMethod)
 
         let paymentOptions = session.perform(apiMethod: method).responseApi()
 
@@ -56,11 +60,13 @@ extension PaymentService: PaymentProcessing {
         return response.recover(on: .global(), mapError)
     }
 
-    func tokenizeBankCard(clientApplicationKey: String,
-                          bankCard: BankCard,
-                          confirmation: Confirmation,
-                          amount: MonetaryAmount?,
-                          tmxSessionId: String) -> Promise<Tokens> {
+    func tokenizeBankCard(
+        clientApplicationKey: String,
+        bankCard: BankCard,
+        confirmation: Confirmation,
+        amount: MonetaryAmount?,
+        tmxSessionId: String
+    ) -> Promise<Tokens> {
         let paymentMethodData = PaymentMethodDataBankCard(bankCard: bankCard)
         let tokensRequest = TokensRequestPaymentMethodData(
             amount: amount,
@@ -76,11 +82,13 @@ extension PaymentService: PaymentProcessing {
         return tokens.recover(on: .global(), mapError)
     }
 
-    func tokenizeWallet(clientApplicationKey: String,
-                        yamoneyToken: String,
-                        confirmation: Confirmation,
-                        amount: MonetaryAmount?,
-                        tmxSessionId: String) -> Promise<Tokens> {
+    func tokenizeWallet(
+        clientApplicationKey: String,
+        yamoneyToken: String,
+        confirmation: Confirmation,
+        amount: MonetaryAmount?,
+        tmxSessionId: String
+    ) -> Promise<Tokens> {
         let paymentMethodData = PaymentInstrumentDataYandexMoneyWallet(
             instrumentType: .wallet,
             walletAuthorization: yamoneyToken
@@ -99,13 +107,15 @@ extension PaymentService: PaymentProcessing {
         return tokens.recover(on: .global(), mapError)
     }
 
-    func tokenizeLinkedBankCard(clientApplicationKey: String,
-                                yamoneyToken: String,
-                                cardId: String,
-                                csc: String,
-                                confirmation: Confirmation,
-                                amount: MonetaryAmount?,
-                                tmxSessionId: String) -> Promise<Tokens> {
+    func tokenizeLinkedBankCard(
+        clientApplicationKey: String,
+        yamoneyToken: String,
+        cardId: String,
+        csc: String,
+        confirmation: Confirmation,
+        amount: MonetaryAmount?,
+        tmxSessionId: String
+    ) -> Promise<Tokens> {
         let paymentMethodData = PaymentInstrumentDataYandexMoneyLinkedBankCard(
             instrumentType: .linkedBankCard,
             cardId: cardId,
@@ -126,10 +136,12 @@ extension PaymentService: PaymentProcessing {
         return tokens.recover(on: .global(), mapError)
     }
 
-    func tokenizeApplePay(clientApplicationKey: String,
-                          paymentData: String,
-                          amount: MonetaryAmount?,
-                          tmxSessionId: String) -> Promise<Tokens> {
+    func tokenizeApplePay(
+        clientApplicationKey: String,
+        paymentData: String,
+        amount: MonetaryAmount?,
+        tmxSessionId: String
+    ) -> Promise<Tokens> {
         let paymentMethodData = PaymentMethodDataApplePay(
             paymentData: paymentData
         )
@@ -147,11 +159,13 @@ extension PaymentService: PaymentProcessing {
         return tokens.recover(on: .global(), mapError)
     }
 
-    func tokenizeSberbank(clientApplicationKey: String,
-                          phoneNumber: String,
-                          confirmation: Confirmation,
-                          amount: MonetaryAmount?,
-                          tmxSessionId: String) -> Promise<Tokens> {
+    func tokenizeSberbank(
+        clientApplicationKey: String,
+        phoneNumber: String,
+        confirmation: Confirmation,
+        amount: MonetaryAmount?,
+        tmxSessionId: String
+    ) -> Promise<Tokens> {
         let paymentMethodData = PaymentMethodDataSberbank(
             phone: phoneNumber
         )

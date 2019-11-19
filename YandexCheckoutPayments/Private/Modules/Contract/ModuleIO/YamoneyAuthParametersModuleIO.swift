@@ -15,6 +15,7 @@ struct YamoneyAuthParametersModuleInputData {
     let isLoggingEnabled: Bool
     let customizationSettings: CustomizationSettings
     let termsOfService: TermsOfService
+    let recurringViewModel: RecurringViewModel?
 }
 
 protocol YamoneyAuthParametersModuleInput: ContractStateHandler {}

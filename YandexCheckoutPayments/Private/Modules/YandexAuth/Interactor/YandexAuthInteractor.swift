@@ -4,28 +4,31 @@ final class YandexAuthInteractor {
 
     weak var output: YandexAuthInteractorOutput?
 
-    fileprivate let authorizationService: AuthorizationProcessing
-    fileprivate let analyticsService: AnalyticsProcessing
-    fileprivate let paymentService: PaymentProcessing
+    private let authorizationService: AuthorizationProcessing
+    private let analyticsService: AnalyticsProcessing
+    private let paymentService: PaymentProcessing
 
     // MARK: - Data properties
 
-    fileprivate let clientApplicationKey: String
-    fileprivate let gatewayId: String?
-    fileprivate let amount: Amount
+    private let clientApplicationKey: String
+    private let gatewayId: String?
+    private let amount: Amount
+    private let savePaymentMethod: Bool?
 
     init(authorizationService: AuthorizationProcessing,
          analyticsService: AnalyticsProcessing,
          paymentService: PaymentProcessing,
          clientApplicationKey: String,
          gatewayId: String?,
-         amount: Amount) {
+         amount: Amount,
+         savePaymentMethod: Bool?) {
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
         self.paymentService = paymentService
         self.clientApplicationKey = clientApplicationKey
         self.gatewayId = gatewayId
         self.amount = amount
+        self.savePaymentMethod = savePaymentMethod
     }
 }
 
@@ -46,11 +49,14 @@ extension YandexAuthInteractor: YandexAuthInteractorInput {
 
         let passportToken = authorizationService.getYandexToken()
 
-        let paymentMethods = paymentService.fetchPaymentOptions(clientApplicationKey: clientApplicationKey,
-                                                                passportToken: passportToken,
-                                                                gatewayId: gatewayId,
-                                                                amount: amount.value.description,
-                                                                currency: amount.currency.rawValue)
+        let paymentMethods = paymentService.fetchPaymentOptions(
+            clientApplicationKey: clientApplicationKey,
+            passportToken: passportToken,
+            gatewayId: gatewayId,
+            amount: amount.value.description,
+            currency: amount.currency.rawValue,
+            savePaymentMethod: savePaymentMethod
+        )
 
         let yamoneyPaymentMethods = paymentMethods.map { $0.filter { $0.paymentMethodType == .yandexMoney } }
 

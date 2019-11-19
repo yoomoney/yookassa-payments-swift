@@ -68,7 +68,7 @@
 
 "Contract.topHint.totp" = "One-time password";
 
-"Contract.format.saveAuthInApp" = "Save the Wallet in the %@ app";
+"Contract.format.saveAuthInApp" = "Запомнить кошелёк в этом приложении для быстрых платежей";
 
 "LogoutConfirmation.format.title" = "Are you sure you want to sign out of account '%@'?";
 
@@ -95,3 +95,19 @@
 "TermsOfService.Text" = "By clicking this button, you accept";
 
 "TermsOfService.Hyperlink" = "terms and conditions of the service";
+
+"Recurring.Wallet.UserPriority.Text" = "Разрешить магазину";
+
+"Recurring.Wallet.UserPriority.hyperText" = "списывать деньги без моего участия";
+
+"Recurring.Wallet.Force.Text" = "После оплаты привяжем кошелёк —";
+
+"Recurring.Wallet.Force.hyperText" = "для платежей без подтверждения";
+
+"Recurring.BankCard.UserPriority.Text" = "Привязать карту";
+
+"Recurring.BankCard.UserPriority.hyperText" = "для платежей без подтверждения";
+
+"Recurring.BankCard.Force.Text" = "После оплаты привяжем карту —";
+
+"Recurring.BankCard.Force.hyperText" = "для платежей без подтверждения";
