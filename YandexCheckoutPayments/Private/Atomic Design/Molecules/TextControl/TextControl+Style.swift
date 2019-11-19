@@ -37,7 +37,12 @@ extension TextControl {
                 item.textView.textContainer.lineFragmentPadding = 0
 
                 item.textView.font = .dynamicBody
-                item.textView.textColor = .black
+
+                if #available(iOS 13.0, *) {
+                    item.textView.textColor = .label
+                } else {
+                    item.textView.textColor = .black
+                }
 
                 item.topHintLabel.font = .dynamicCaption2
                 item.topHintLabel.textColor = .nobel
@@ -48,14 +53,13 @@ extension TextControl {
                 item.set(bottomHintColor: .nobel, for: .normal)
                 item.set(bottomHintColor: .redOrange, for: .error)
 
-                item.lineView.backgroundColor = .black5
-
+                item.placeholderLabel.textColor = UIColor.AdaptiveColors.secondary
                 item.placeholderLabel.font = .dynamicBody
-                item.placeholderLabel.textColor = .nobel
                 item.placeholderLabel.numberOfLines = 0
 
                 item.set(lineState: .filled(color: .mustard, height: 1), for: .normal)
                 item.set(lineState: .filled(color: .redOrange, height: 1), for: .error)
+                item.lineView.backgroundColor = UIColor.AdaptiveColors.secondary
 
                 item.clearMode = .default
                 item.placeholderMode = .default

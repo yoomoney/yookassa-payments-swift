@@ -310,15 +310,27 @@ extension UILabel {
 
     enum ColorStyle {
         private static let black = Style(name: "color.black") { (label: UILabel) in
-            label.textColor = .black
+            if #available(iOS 13.0, *) {
+                label.textColor = .label
+            } else {
+                label.textColor = .black
+            }
         }
 
         private static let doveGray = Style(name: "color.doveGray") { (label: UILabel) in
-            label.textColor = .doveGray
+            if #available(iOS 13.0, *) {
+                label.textColor = .secondaryLabel
+            } else {
+                label.textColor = .doveGray
+            }
         }
 
         private static let nobel = Style(name: "color.nobel") { (label: UILabel) in
-            label.textColor = .nobel
+            if #available(iOS 13.0, *) {
+                label.textColor = .tertiaryLabel
+            } else {
+                label.textColor = .nobel
+            }
         }
 
         static let primary = black
