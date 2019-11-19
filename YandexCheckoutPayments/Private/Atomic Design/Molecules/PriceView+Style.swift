@@ -1,6 +1,6 @@
 /* The MIT License
  *
- * Copyright (c) 2017 NBCO Yandex.Money LLC
+ * Copyright (c) 2019 NBCO Yandex.Money LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,27 +24,19 @@
 import UIKit
 
 // MARK: - Styles
-extension UINavigationBar {
+
+extension PriceView {
 
     enum Styles {
 
-        // MARK: - Main styles
+        static let primary = Style(name: "PriceView.primary") { (view: PriceView) in
+            view.textLabel.setStyles(UILabel.ColorStyle.primary)
+            view.priceLabel.setStyles(UILabel.ColorStyle.primary)
+        }
 
-        static let `default` = Style(name: "default") { (view: UINavigationBar) in
-
-            let barTintColor: UIColor
-            if #available(iOS 13, *) {
-                barTintColor = .systemBackground
-            } else {
-                barTintColor = .cararra
-            }
-
-            view.isTranslucent = false
-            view.barTintColor = barTintColor
-            view.shadowImage = UIImage()
-            view.clipsToBounds = true
-            view.layoutMargins = UIEdgeInsets(top: 0, left: Space.double, bottom: 0, right: Space.double)
-            view.preservesSuperviewLayoutMargins = true
+        static let secondary = Style(name: "PriceView.secondary") { (view: PriceView) in
+            view.textLabel.setStyles(UILabel.ColorStyle.secondary)
+            view.priceLabel.setStyles(UILabel.ColorStyle.secondary)
         }
     }
 }

@@ -9,10 +9,20 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
 
     // MARK: - Subviews properties
 
+    private lazy var blurEffectStyle: UIBlurEffect.Style = {
+        let style: UIBlurEffect.Style
+        if #available(iOS 13.0, *) {
+            style = .systemUltraThinMaterial
+        } else {
+            style = .light
+        }
+        return style
+    }()
+
     fileprivate lazy var titleView: UIVisualEffectView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
-    }(UIVisualEffectView(effect: UIBlurEffect(style: .light)))
+    }(UIVisualEffectView(effect: UIBlurEffect(style: blurEffectStyle)))
 
     fileprivate lazy var headerView: MSDKActionSheetHeaderView = {
         $0.title = §Localized.paymentMethods
@@ -150,10 +160,16 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.separatorColor = .alto
+        tableView.tableFooterView = UIView()
         tableView.appendStyle(UIView.Styles.grayBackground)
         tableView.register(IconButtonItemTableViewCell.self)
         tableView.register(LargeIconButtonItemViewCell.self)
+
+        if #available(iOS 13.0, *) {
+            tableView.separatorColor = .separator
+        } else {
+            tableView.separatorColor = .alto
+        }
     }
 
     // MARK: - Configuring the View’s Layout Behavior

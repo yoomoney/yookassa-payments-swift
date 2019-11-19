@@ -3,6 +3,16 @@
     {
       "idiom" : "universal",
       "filename" : "PaymentMethod.ApplePay.pdf"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "PaymentMethod.ApplePay-dark-mode.pdf",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ]
     }
   ],
   "info" : {
