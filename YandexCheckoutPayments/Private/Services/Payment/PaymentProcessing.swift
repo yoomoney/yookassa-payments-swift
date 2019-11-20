@@ -45,6 +45,7 @@ protocol PaymentProcessing {
         clientApplicationKey: String,
         bankCard: BankCard,
         confirmation: Confirmation,
+        savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens>
@@ -53,6 +54,7 @@ protocol PaymentProcessing {
         clientApplicationKey: String,
         yamoneyToken: String,
         confirmation: Confirmation,
+        savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens>
@@ -63,6 +65,7 @@ protocol PaymentProcessing {
         cardId: String,
         csc: String,
         confirmation: Confirmation,
+        savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens>
@@ -71,6 +74,7 @@ protocol PaymentProcessing {
         clientApplicationKey: String,
         phoneNumber: String,
         confirmation: Confirmation,
+        savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens>
@@ -78,6 +82,7 @@ protocol PaymentProcessing {
     func tokenizeApplePay(
         clientApplicationKey: String,
         paymentData: String,
+        savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens>
@@ -87,6 +92,7 @@ protocol PaymentProcessing {
         amount: MonetaryAmount,
         tmxSessionId: String,
         confirmation: Confirmation,
+        savePaymentMethod: Bool,
         paymentMethodId: String,
         csc: String
     ) -> Promise<Tokens>

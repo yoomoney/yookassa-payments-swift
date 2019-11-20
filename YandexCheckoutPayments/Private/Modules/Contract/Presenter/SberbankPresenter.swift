@@ -90,9 +90,7 @@ extension SberbankPresenter: ContractTemplateViewOutput {
         moduleOutput?.sberbank(self, didTapTermsOfService: url)
     }
 
-    func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) {
-        // TODO: BIOS-1289
-    }
+    func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) {}
 
     func didTapOnRecurring() {
         // TODO: BIOS-1292

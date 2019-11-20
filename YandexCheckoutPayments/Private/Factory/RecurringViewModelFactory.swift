@@ -86,7 +86,6 @@ enum RecurringViewModelFactory {
                     hyperText: §Localized.Wallet.Force.hyperText
                 )
             default:
-                assertionFailure("Unsupported `Recurring` for text value")
                 return nil
             }
         } else if paymentOption.paymentMethodType == .bankCard {
@@ -102,11 +101,9 @@ enum RecurringViewModelFactory {
                     hyperText: §Localized.BankCard.Force.hyperText
                 )
             default:
-                assertionFailure("Unsupported `Recurring` for text value")
                 return nil
             }
         } else {
-            assertionFailure("Unsupported PaymentMethodType for RecurringViewModel text")
             return nil
         }
     }

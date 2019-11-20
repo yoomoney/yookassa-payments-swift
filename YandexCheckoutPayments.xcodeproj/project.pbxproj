@@ -2767,14 +2767,14 @@
 		402EBF72972A19D06F3E5EC5 /* Tokenization */ = {
 			isa = PBXGroup;
 			children = (
-				402EBB3574F3919819BFFB70 /* Presenter */,
-				402EB5E5CA1C19195E60B4BF /* View */,
+				402EB9B6F518386701DB0C8F /* TokenizationInteractorIO.swift */,
 				402EBF7443BB33CCD95DBC82 /* TokenizationViewIO.swift */,
-				402EBEDFCDFC9732AEC0E737 /* Router */,
 				402EB6BFFFBAFB3489F33615 /* TokeniztionRouterIO.swift */,
 				402EBC3DAE08C921CA6E2640 /* Interactor */,
-				402EB9B6F518386701DB0C8F /* TokenizationInteractorIO.swift */,
+				402EBB3574F3919819BFFB70 /* Presenter */,
+				402EBEDFCDFC9732AEC0E737 /* Router */,
 				402EB34C0D0E4DC024654EA2 /* Strategy */,
+				402EB5E5CA1C19195E60B4BF /* View */,
 			);
 			path = Tokenization;
 			sourceTree = "<group>";

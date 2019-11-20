@@ -21,12 +21,25 @@ struct YamoneyAuthParametersModuleInputData {
 protocol YamoneyAuthParametersModuleInput: ContractStateHandler {}
 
 protocol YamoneyAuthParametersModuleOutput: class {
-    func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput,
-                               loginWithReusableToken isReusableToken: Bool)
-    func didPressLogoutButton(on module: YamoneyAuthParametersModuleInput)
-    func didPressChangeAction(on module: YamoneyAuthParametersModuleInput)
-    func didFinish(on module: YamoneyAuthParametersModuleInput)
-
-    func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput,
-                               didTapTermsOfService url: URL)
+    func yamoneyAuthParameters(
+        _ module: YamoneyAuthParametersModuleInput,
+        loginWithReusableToken isReusableToken: Bool
+    )
+    func didPressLogoutButton(
+        on module: YamoneyAuthParametersModuleInput
+    )
+    func didPressChangeAction(
+        on module: YamoneyAuthParametersModuleInput
+    )
+    func didFinish(
+        on module: YamoneyAuthParametersModuleInput
+    )
+    func yamoneyAuthParameters(
+        _ module: YamoneyAuthParametersModuleInput,
+        didTapTermsOfService url: URL
+    )
+    func yamoneyAuthParameters(
+        _ module: YamoneyAuthParametersModuleInput,
+        didChangeRecurringState state: Bool
+    )
 }
