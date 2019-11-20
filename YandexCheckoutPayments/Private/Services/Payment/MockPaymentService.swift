@@ -91,10 +91,11 @@ final class MockPaymentService: PaymentProcessing {
 //        return promiseWithError
     }
 
-    func tokenizeBankCard(
+        func tokenizeBankCard(
         clientApplicationKey: String,
         bankCard: BankCard,
         confirmation: Confirmation,
+        savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens> {
@@ -105,6 +106,7 @@ final class MockPaymentService: PaymentProcessing {
         clientApplicationKey: String,
         yamoneyToken: String,
         confirmation: Confirmation,
+        savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens> {
@@ -117,6 +119,7 @@ final class MockPaymentService: PaymentProcessing {
         cardId: String,
         csc: String,
         confirmation: Confirmation,
+        savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens> {
@@ -127,6 +130,7 @@ final class MockPaymentService: PaymentProcessing {
         clientApplicationKey: String,
         phoneNumber: String,
         confirmation: Confirmation,
+        savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens> {
@@ -136,6 +140,7 @@ final class MockPaymentService: PaymentProcessing {
     func tokenizeApplePay(
         clientApplicationKey: String,
         paymentData: String,
+        savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens> {
@@ -147,6 +152,7 @@ final class MockPaymentService: PaymentProcessing {
         amount: MonetaryAmount,
         tmxSessionId: String,
         confirmation: Confirmation,
+        savePaymentMethod: Bool,
         paymentMethodId: String,
         csc: String
     ) -> Promise<Tokens> {

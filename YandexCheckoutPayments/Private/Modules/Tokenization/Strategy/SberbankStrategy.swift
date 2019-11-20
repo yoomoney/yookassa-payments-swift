@@ -8,6 +8,8 @@ final class SberbankStrategy {
     weak var output: TokenizationStrategyOutput?
     weak var contractStateHandler: ContractStateHandler?
 
+    var savePaymentMethod = false
+
     init(paymentOption: PaymentOption) throws {
         guard case .sberbank = paymentOption.paymentMethodType else {
             throw TokenizationStrategyError.incorrectPaymentOptions
@@ -22,17 +24,17 @@ extension SberbankStrategy: TokenizationStrategyInput {
         output?.presentSberbankContract(paymentOption: paymentOption)
     }
 
-    func didPressSubmitButton(on module: ContractModuleInput) { }
-
-    func didLoginInYandexMoney(_ response: YamoneyLoginResponse) { }
-
-    func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput,
-                               loginWithReusableToken isReusableToken: Bool) { }
-
-    func sberbankModule(_ module: SberbankModuleInput, didPressConfirmButton phoneNumber: String) {
+    func sberbankModule(
+        _ module: SberbankModuleInput,
+        didPressConfirmButton phoneNumber: String
+    ) {
         contractStateHandler = module
         let confirmation = Confirmation(type: .external, returnUrl: nil)
-        let tokenizeData = TokenizeData.sberbank(phoneNumber: phoneNumber, confirmation: confirmation)
+        let tokenizeData = TokenizeData.sberbank(
+            phoneNumber: phoneNumber,
+            confirmation: confirmation,
+            savePaymentMethod: savePaymentMethod
+        )
         module.showActivity()
         output?.tokenize(tokenizeData, paymentOption: paymentOption)
     }
@@ -41,31 +43,19 @@ extension SberbankStrategy: TokenizationStrategyInput {
         contractStateHandler?.failTokenizeData(error)
     }
 
-    func failLoginInYandexMoney(_ error: Error) { }
-
-    func failResendSmsCode(_ error: Error) { }
-
-    func bankCardDataInputModule(_ module: BankCardDataInputModuleInput,
-                                 didPressConfirmButton bankCardData: CardData) { }
-
-    func didPressConfirmButton(on module: BankCardDataInputModuleInput, cvc: String) { }
-
-    func didPressLogout() { }
-
+    func bankCardDataInputModule(_ module: BankCardDataInputModuleInput, didPressConfirmButton bankCardData: CardData) {}
+    func failLoginInYandexMoney(_ error: Error) {}
+    func failResendSmsCode(_ error: Error) {}
+    func didPressConfirmButton(on module: BankCardDataInputModuleInput, cvc: String) {}
+    func didPressLogout() {}
     func paymentAuthorizationViewController(_ controller: PassKit.PKPaymentAuthorizationViewController,
                                             didAuthorizePayment payment: PassKit.PKPayment,
-                                            completion: @escaping (PassKit.PKPaymentAuthorizationStatus) -> Void) {
-
-    }
-
-    func paymentAuthorizationViewControllerDidFinish(_ controller: PassKit.PKPaymentAuthorizationViewController) {
-    }
-
-    func didPresentApplePayModule() {
-    }
-
-    func didFailPresentApplePayModule() {
-    }
-
+                                            completion: @escaping (PassKit.PKPaymentAuthorizationStatus) -> Void) {}
+    func paymentAuthorizationViewControllerDidFinish(_ controller: PassKit.PKPaymentAuthorizationViewController) {}
+    func didPresentApplePayModule() {}
+    func didFailPresentApplePayModule() {}
     func didPressSubmitButton(on module: ApplePayContractModuleInput) {}
+    func didPressSubmitButton(on module: ContractModuleInput) {}
+    func didLoginInYandexMoney(_ response: YamoneyLoginResponse) {}
+    func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput, loginWithReusableToken isReusableToken: Bool) {}
 }

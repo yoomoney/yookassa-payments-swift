@@ -13,6 +13,10 @@ final class BankCardRepeatPresenter {
     weak var contractModuleInput: ContractModuleInput?
     weak var bankCardDataInputModuleInput: BankCardDataInputModuleInput?
 
+    // MARK: - Stored Data
+
+    private var savePaymentMethod = true
+
     // MARK: - Initialization
 
     private let inputData: BankCardRepeatModuleInputData
@@ -163,6 +167,10 @@ extension BankCardRepeatPresenter: ContractModuleOutput {
     func contractModule(_ module: ContractModuleInput, didTapTermsOfService url: URL) {
         router.presentTermsOfServiceModule(url)
     }
+
+    func contractModule(_ module: ContractModuleInput, didChangeRecurringState state: Bool) {
+        savePaymentMethod = state
+    }
 }
 
 // MARK: - MaskedBankCardDataInputModuleOutput
@@ -185,6 +193,7 @@ extension BankCardRepeatPresenter: MaskedBankCardDataInputModuleOutput {
             self.interactor.tokenize(
                 amount: MonetaryAmountFactory.makePaymentsMonetaryAmount(self.inputData.amount),
                 confirmation: confirmation,
+                savePaymentMethod: self.savePaymentMethod,
                 paymentMethodId: self.inputData.paymentMethodId,
                 csc: cvc
             )

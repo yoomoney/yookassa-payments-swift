@@ -80,7 +80,10 @@ extension YamoneyAuthParametersPresenter: ContractTemplateViewOutput {
     }
 
     func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) {
-        // TODO: BIOS-1289
+        moduleOutput?.yamoneyAuthParameters(
+            self,
+            didChangeRecurringState: state
+        )
     }
 
     func didTapOnRecurring() {

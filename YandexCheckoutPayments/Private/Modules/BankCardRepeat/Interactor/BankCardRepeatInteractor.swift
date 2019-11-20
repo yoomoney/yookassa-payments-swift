@@ -43,6 +43,7 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
     func tokenize(
         amount: MonetaryAmount,
         confirmation: Confirmation,
+        savePaymentMethod: Bool,
         paymentMethodId: String,
         csc: String
     ) {
@@ -56,6 +57,7 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
                 amount: amount,
                 tmxSessionId: tmxSessionId,
                 confirmation: confirmation,
+                savePaymentMethod: savePaymentMethod,
                 paymentMethodId: paymentMethodId,
                 csc: csc
             )

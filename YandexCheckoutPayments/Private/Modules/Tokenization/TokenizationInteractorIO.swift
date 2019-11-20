@@ -3,11 +3,11 @@ import enum YandexCheckoutWalletApi.AuthType
 import struct YandexCheckoutWalletApi.AuthTypeState
 
 enum TokenizeData {
-    case bankCard(bankCard: BankCard, confirmation: Confirmation)
-    case wallet(Confirmation)
-    case linkedBankCard(id: String, csc: String, confirmation: Confirmation)
-    case applePay(paymentData: String)
-    case sberbank(phoneNumber: String, confirmation: Confirmation)
+    case bankCard(bankCard: BankCard, confirmation: Confirmation, savePaymentMethod: Bool)
+    case wallet(confirmation: Confirmation, savePaymentMethod: Bool)
+    case linkedBankCard(id: String, csc: String, confirmation: Confirmation, savePaymentMethod: Bool)
+    case applePay(paymentData: String, savePaymentMethod: Bool)
+    case sberbank(phoneNumber: String, confirmation: Confirmation, savePaymentMethod: Bool)
 }
 
 protocol TokenizationInteractorInput: AnalyticsTrackable, AnalyticsProviding {

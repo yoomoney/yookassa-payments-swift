@@ -21,7 +21,12 @@ protocol ContractModuleOutput: class {
     func didPressChangeAction(on module: ContractModuleInput)
     func didPressLogoutButton(on module: ContractModuleInput)
     func didFinish(on module: ContractModuleInput)
-
-    func contractModule(_ module: ContractModuleInput,
-                        didTapTermsOfService url: URL)
+    func contractModule(
+        _ module: ContractModuleInput,
+        didTapTermsOfService url: URL
+    )
+    func contractModule(
+        _ module: ContractModuleInput,
+        didChangeRecurringState state: Bool
+    )
 }

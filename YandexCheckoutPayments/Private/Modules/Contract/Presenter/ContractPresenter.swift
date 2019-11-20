@@ -91,18 +91,28 @@ extension ContractPresenter: ContractInteractorOutput {}
 // MARK: - ContractTemplateViewOutput
 
 extension ContractPresenter: ContractTemplateViewOutput {
-    func didPressSubmitButton(in contractTemplate: ContractTemplateViewInput) {
+    func didPressSubmitButton(
+        in contractTemplate: ContractTemplateViewInput
+    ) {
         moduleOutput?.didPressSubmitButton(on: self)
     }
 
-    func didTapContract(_ contractTemplate: ContractTemplateViewInput) { }
+    func didTapContract(
+        _ contractTemplate: ContractTemplateViewInput
+    ) { }
 
     func didTapTermsOfService(_ url: URL) {
         moduleOutput?.contractModule(self, didTapTermsOfService: url)
     }
 
-    func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) {
-        // TODO: BIOS-1289
+    func linkedSwitchItemView(
+        _ itemView: LinkedSwitchItemViewInput,
+        didChangeState state: Bool
+    ) {
+        moduleOutput?.contractModule(
+            self,
+            didChangeRecurringState: state
+        )
     }
 
     func didTapOnRecurring() {

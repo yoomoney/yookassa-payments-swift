@@ -210,10 +210,6 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
         let priceViewModel = makePriceViewModel(paymentOption)
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
-        let recurringViewModel = RecurringViewModelFactory.makeRecurringViewModel(
-            paymentOption,
-            inputData.recurring
-        )
         let moduleInputData = SberbankModuleInputData(
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
@@ -226,7 +222,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             isLoggingEnabled: inputData.isLoggingEnabled,
             phoneNumber: inputData.userPhoneNumber,
             termsOfService: termsOfService,
-            recurringViewModel: recurringViewModel
+            recurringViewModel: nil
         )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
@@ -292,10 +288,6 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
 
     func presentApplePayContract(_ paymentOption: PaymentOption) {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
-        let recurringViewModel = RecurringViewModelFactory.makeRecurringViewModel(
-            paymentOption,
-            inputData.recurring
-        )
         let moduleInputData = ApplePayContractModuleInputData(
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
@@ -306,7 +298,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
             termsOfService: termsOfService,
-            recurringViewModel: recurringViewModel
+            recurringViewModel: nil
         )
 
         DispatchQueue.main.async { [weak self] in
@@ -487,7 +479,9 @@ extension TokenizationPresenter: PaymentMethodsModuleOutput {
 
 extension TokenizationPresenter: ContractModuleOutput {
     func didPressSubmitButton(on module: ContractModuleInput) {
-        strategy?.didPressSubmitButton(on: module)
+        strategy?.didPressSubmitButton(
+            on: module
+        )
     }
 
     func didPressChangeAction(on module: ContractModuleInput) {
@@ -505,6 +499,13 @@ extension TokenizationPresenter: ContractModuleOutput {
 
     func contractModule(_ module: ContractModuleInput, didTapTermsOfService url: URL) {
         presentTermsOfServiceModule(url)
+    }
+
+    func contractModule(
+        _ module: ContractModuleInput,
+        didChangeRecurringState state: Bool
+    ) {
+        strategy?.savePaymentMethod = state
     }
 }
 
@@ -536,8 +537,12 @@ extension TokenizationPresenter: BankCardDataInputModuleOutput {
     func bankCardDataInputModule(_ module: BankCardDataInputModuleInput,
                                  didPressConfirmButton bankCardData: CardData) {
         DispatchQueue.global().async { [weak self] in
-            guard let strategy = self?.strategy else { return }
-            strategy.bankCardDataInputModule(module, didPressConfirmButton: bankCardData)
+            guard let self = self,
+                let strategy = self.strategy else { return }
+            strategy.bankCardDataInputModule(
+                module,
+                didPressConfirmButton: bankCardData
+            )
         }
     }
 
@@ -620,6 +625,13 @@ extension TokenizationPresenter: YamoneyAuthParametersModuleOutput {
 
     func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput, didTapTermsOfService url: URL) {
         presentTermsOfServiceModule(url)
+    }
+
+    func yamoneyAuthParameters(
+        _ module: YamoneyAuthParametersModuleInput,
+        didChangeRecurringState state: Bool
+    ) {
+        strategy?.savePaymentMethod = state
     }
 }
 
