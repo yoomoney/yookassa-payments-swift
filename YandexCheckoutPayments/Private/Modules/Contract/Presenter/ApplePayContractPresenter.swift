@@ -36,6 +36,10 @@ extension ApplePayContractPresenter: ContractViewOutput {
             url: inputData.termsOfService.url
         )
         paymentMethodView.setPaymentMethodViewModel(inputData.paymentMethod)
+
+        if let recurringViewModel = inputData.recurringViewModel {
+            contractView.setRecurringViewModel(recurringViewModel)
+        }
     }
 }
 
@@ -66,6 +70,14 @@ extension ApplePayContractPresenter: ContractTemplateViewOutput {
 
     func didTapTermsOfService(_ url: URL) {
         moduleOutput?.applePayContractModule(self, didTapTermsOfService: url)
+    }
+
+    func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) {
+        // TODO: BIOS-1289
+    }
+
+    func didTapOnRecurring() {
+        // TODO: BIOS-1292
     }
 }
 

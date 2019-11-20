@@ -353,7 +353,8 @@ final class RootViewController: UIViewController {
             applePayMerchantIdentifier: "merchant.ru.yandex.mobile.msdk.debug",
             isLoggingEnabled: true,
             userPhoneNumber: "7",
-            customizationSettings: CustomizationSettings(mainScheme: .blueRibbon)
+            customizationSettings: CustomizationSettings(mainScheme: .blueRibbon),
+            recurring: .userPriority
         ))
 
 //        let inputData: TokenizationFlow = .bankCardRepeat(BankCardRepeatModuleInputData(
@@ -364,7 +365,8 @@ final class RootViewController: UIViewController {
 //            amount: amount,
 //            testModeSettings: testSettings,
 //            isLoggingEnabled: true,
-//            customizationSettings: CustomizationSettings(mainScheme: .blueRibbon)
+//            customizationSettings: CustomizationSettings(mainScheme: .blueRibbon),
+//            recurring: .disable
 //        ))
 
         let viewController = TokenizationAssembly.makeModule(

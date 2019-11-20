@@ -10,6 +10,7 @@ struct SberbankModuleInputData {
     let isLoggingEnabled: Bool
     let phoneNumber: String?
     let termsOfService: TermsOfService
+    let recurringViewModel: RecurringViewModel?
 }
 
 protocol SberbankModuleInput: ContractStateHandler { }

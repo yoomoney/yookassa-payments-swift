@@ -38,7 +38,9 @@ extension BankCardRepeatPresenter: TokenizationViewOutput {
 
         let viewModel = PaymentMethodViewModelFactory.makePaymentMethodViewModel(.bankCard)
         let tokenizeScheme = AnalyticsEvent.TokenizeScheme.recurringCard
-
+        let recurringViewModel = RecurringViewModelFactory.makeRecurringViewModel(
+            inputData.recurring
+        )
         let moduleInputData = ContractModuleInputData(
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
@@ -49,7 +51,8 @@ extension BankCardRepeatPresenter: TokenizationViewOutput {
             testModeSettings: inputData.testModeSettings,
             tokenizeScheme: tokenizeScheme,
             isLoggingEnabled: inputData.isLoggingEnabled,
-            termsOfService: TermsOfServiceFactory.makeTermsOfService()
+            termsOfService: TermsOfServiceFactory.makeTermsOfService(),
+            recurringViewModel: recurringViewModel
         )
 
         DispatchQueue.main.async { [weak self] in

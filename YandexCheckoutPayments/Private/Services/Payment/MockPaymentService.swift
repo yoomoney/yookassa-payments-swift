@@ -22,11 +22,14 @@ final class MockPaymentService: PaymentProcessing {
 
     // MARK: - PaymentProcessing
 
-    func fetchPaymentOptions(clientApplicationKey: String,
-                             passportToken: String?,
-                             gatewayId: String?,
-                             amount: String?,
-                             currency: String?) -> Promise<[PaymentOption]> {
+    func fetchPaymentOptions(
+        clientApplicationKey: String,
+        passportToken: String?,
+        gatewayId: String?,
+        amount: String?,
+        currency: String?,
+        savePaymentMethod: Bool?
+    ) -> Promise<[PaymentOption]> {
         let timeout = makeTimeoutPromise()
 
         let authorized = authorizationMediator.getYandexToken() != nil
@@ -60,7 +63,10 @@ final class MockPaymentService: PaymentProcessing {
             errorCode: .invalidRequest
         )
 
-        let errorHandler: (YandexCheckoutPaymentsApi.PaymentMethod) throws -> YandexCheckoutPaymentsApi.PaymentMethod = { _ in
+        let errorHandler: (
+            YandexCheckoutPaymentsApi.PaymentMethod
+            ) throws -> YandexCheckoutPaymentsApi.PaymentMethod = {
+            _ in
             throw error
         }
 
@@ -85,53 +91,65 @@ final class MockPaymentService: PaymentProcessing {
 //        return promiseWithError
     }
 
-    func tokenizeBankCard(clientApplicationKey: String,
-                          bankCard: BankCard,
-                          confirmation: Confirmation,
-                          amount: MonetaryAmount?,
-                          tmxSessionId: String) -> Promise<Tokens> {
+    func tokenizeBankCard(
+        clientApplicationKey: String,
+        bankCard: BankCard,
+        confirmation: Confirmation,
+        amount: MonetaryAmount?,
+        tmxSessionId: String
+    ) -> Promise<Tokens> {
         return makeTokensPromise()
     }
 
-    func tokenizeWallet(clientApplicationKey: String,
-                        yamoneyToken: String,
-                        confirmation: Confirmation,
-                        amount: MonetaryAmount?,
-                        tmxSessionId: String) -> Promise<Tokens> {
+    func tokenizeWallet(
+        clientApplicationKey: String,
+        yamoneyToken: String,
+        confirmation: Confirmation,
+        amount: MonetaryAmount?,
+        tmxSessionId: String
+    ) -> Promise<Tokens> {
         return makeTokensPromise()
     }
 
-    func tokenizeLinkedBankCard(clientApplicationKey: String,
-                                yamoneyToken: String,
-                                cardId: String,
-                                csc: String,
-                                confirmation: Confirmation,
-                                amount: MonetaryAmount?,
-                                tmxSessionId: String) -> Promise<Tokens> {
+    func tokenizeLinkedBankCard(
+        clientApplicationKey: String,
+        yamoneyToken: String,
+        cardId: String,
+        csc: String,
+        confirmation: Confirmation,
+        amount: MonetaryAmount?,
+        tmxSessionId: String
+    ) -> Promise<Tokens> {
         return makeTokensPromise()
     }
 
-    func tokenizeSberbank(clientApplicationKey: String,
-                          phoneNumber: String,
-                          confirmation: Confirmation,
-                          amount: MonetaryAmount?,
-                          tmxSessionId: String) -> Promise<Tokens> {
+    func tokenizeSberbank(
+        clientApplicationKey: String,
+        phoneNumber: String,
+        confirmation: Confirmation,
+        amount: MonetaryAmount?,
+        tmxSessionId: String
+    ) -> Promise<Tokens> {
         return makeTokensPromise()
     }
 
-    func tokenizeApplePay(clientApplicationKey: String,
-                          paymentData: String,
-                          amount: MonetaryAmount?,
-                          tmxSessionId: String) -> Promise<Tokens> {
+    func tokenizeApplePay(
+        clientApplicationKey: String,
+        paymentData: String,
+        amount: MonetaryAmount?,
+        tmxSessionId: String
+    ) -> Promise<Tokens> {
         return makeTokensPromise()
     }
 
-    func tokenizeRepeatBankCard(clientApplicationKey: String,
-                                amount: MonetaryAmount,
-                                tmxSessionId: String,
-                                confirmation: Confirmation,
-                                paymentMethodId: String,
-                                csc: String) -> Promise<Tokens> {
+    func tokenizeRepeatBankCard(
+        clientApplicationKey: String,
+        amount: MonetaryAmount,
+        tmxSessionId: String,
+        confirmation: Confirmation,
+        paymentMethodId: String,
+        csc: String
+    ) -> Promise<Tokens> {
         return makeTokensPromise()
     }
 
@@ -167,7 +185,8 @@ private func makeTimeoutPromise() -> Promise<()> {
 
 // MARK: - Data for Error
 
-private struct MockError: Error {}
+private struct MockError: Error {
+}
 
 private let mockError = MockError()
 
@@ -175,10 +194,13 @@ private let mockError = MockError()
 
 private let mockTokens = Tokens(paymentToken: "mock_token")
 
-private func makePaymentOptions(_ settings: TestModeSettings,
-                                handler: PaymentMethodHandler, authorized: Bool) -> [PaymentOption] {
+private func makePaymentOptions(
+    _ settings: TestModeSettings,
+    handler: PaymentMethodHandler, authorized: Bool
+) -> [PaymentOption] {
 
-    let fee = Fee(service: Service(charge: MonetaryAmount(value: 3.14, currency: .rub)), counterparty: nil)
+    let service = Service(charge: MonetaryAmount(value: 3.14, currency: .rub))
+    let fee = Fee(service: service, counterparty: nil)
 
     let charge = makeCharge(charge: settings.charge, fee: fee)
 
@@ -196,68 +218,92 @@ private func makePaymentOptions(_ settings: TestModeSettings,
     return filteredPaymentOptions
 }
 
-private func makeCharge(charge: Amount, fee: Fee?) -> Amount {
+private func makeCharge(
+    charge: Amount, fee: Fee?
+) -> Amount {
     guard let fee = fee, let service = fee.service else { return charge }
     return Amount(value: charge.value + service.charge.value, currency: charge.currency)
 }
 
-private func makeLinkedCard(_ charge: Amount, fee: Fee?) -> PaymentInstrumentYandexMoneyLinkedBankCard {
-    return PaymentInstrumentYandexMoneyLinkedBankCard(paymentMethodType: .yandexMoney,
-                                                      confirmationTypes: nil,
-                                                      charge: MonetaryAmountFactory.makePaymentsMonetaryAmount(charge),
-                                                      instrumentType: .linkedBankCard,
-                                                      cardId: "123456789",
-                                                      cardName: "Привязанная карта",
-                                                      cardMask: "518901******0446",
-                                                      cardType: .masterCard,
-                                                      identificationRequirement: .simplified,
-                                                      fee: fee)
+private func makeLinkedCard(
+    _ charge: Amount, fee: Fee?
+) -> PaymentInstrumentYandexMoneyLinkedBankCard {
+    return PaymentInstrumentYandexMoneyLinkedBankCard(
+        paymentMethodType: .yandexMoney,
+        confirmationTypes: nil,
+        charge: MonetaryAmountFactory.makePaymentsMonetaryAmount(charge),
+        instrumentType: .linkedBankCard,
+        cardId: "123456789",
+        cardName: "Привязанная карта",
+        cardMask: "518901******0446",
+        cardType: .masterCard,
+        identificationRequirement: .simplified,
+        fee: fee,
+        savePaymentMethodAllowed: true
+    )
 }
 
-private func makeDefaultPaymentOptions(_ charge: Amount, fee: Fee?, authorized: Bool) -> [PaymentOption] {
+private func makeDefaultPaymentOptions(
+    _ charge: Amount, fee: Fee?, authorized: Bool
+) -> [PaymentOption] {
     var response: [PaymentOption] = []
     let charge = MonetaryAmountFactory.makePaymentsMonetaryAmount(charge)
 
     if authorized {
 
         response += [
-            PaymentInstrumentYandexMoneyWallet(paymentMethodType: .yandexMoney,
-                                               confirmationTypes: [],
-                                               charge: charge,
-                                               instrumentType: .wallet,
-                                               accountId: "2736482364872",
-                                               balance: MonetaryAmount(value: 40_000, currency: .rub),
-                                               identificationRequirement: .simplified,
-                                               fee: fee),
+            PaymentInstrumentYandexMoneyWallet(
+                paymentMethodType: .yandexMoney,
+                confirmationTypes: [],
+                charge: charge,
+                instrumentType: .wallet,
+                accountId: "2736482364872",
+                balance: MonetaryAmount(value: 40_000, currency: .rub),
+                identificationRequirement: .simplified,
+                fee: fee,
+                savePaymentMethodAllowed: true
+            ),
         ]
 
     } else {
 
         response += [
-            PaymentOption(paymentMethodType: .yandexMoney,
-                          confirmationTypes: [],
-                          charge: charge,
-                          identificationRequirement: nil,
-                          fee: fee),
+            PaymentOption(
+                paymentMethodType: .yandexMoney,
+                confirmationTypes: [],
+                charge: charge,
+                identificationRequirement: nil,
+                fee: fee,
+                savePaymentMethodAllowed: true
+            ),
         ]
     }
 
     response += [
-        PaymentOption(paymentMethodType: .sberbank,
-                      confirmationTypes: [],
-                      charge: charge,
-                      identificationRequirement: nil,
-                      fee: fee),
-        PaymentOption(paymentMethodType: .bankCard,
-                      confirmationTypes: [],
-                      charge: charge,
-                      identificationRequirement: nil,
-                      fee: fee),
-        PaymentOption(paymentMethodType: .applePay,
-                      confirmationTypes: [],
-                      charge: charge,
-                      identificationRequirement: nil,
-                      fee: fee),
+        PaymentOption(
+            paymentMethodType: .sberbank,
+            confirmationTypes: [],
+            charge: charge,
+            identificationRequirement: nil,
+            fee: fee,
+            savePaymentMethodAllowed: true
+        ),
+        PaymentOption(
+            paymentMethodType: .bankCard,
+            confirmationTypes: [],
+            charge: charge,
+            identificationRequirement: nil,
+            fee: fee,
+            savePaymentMethodAllowed: true
+        ),
+        PaymentOption(
+            paymentMethodType: .applePay,
+            confirmationTypes: [],
+            charge: charge,
+            identificationRequirement: nil,
+            fee: fee,
+            savePaymentMethodAllowed: true
+        ),
     ]
 
     return response

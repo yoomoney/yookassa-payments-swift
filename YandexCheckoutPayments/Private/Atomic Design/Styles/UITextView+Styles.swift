@@ -37,8 +37,7 @@ extension UITextView {
         static let linked = Style(name: "linked") { (textView: UITextView) in
             textView.isEditable = false
             textView.isScrollEnabled = false
-            textView.textColor = .black60
-            textView.font = .caption
+            textView.font = .systemFont(ofSize: 13)
             textView.textContainerInset = .zero
             textView.textContainer.lineFragmentPadding = 0
             textView.linkTextAttributes = [

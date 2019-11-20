@@ -7,16 +7,17 @@ class PaymentMethodsInteractor {
 
     weak var output: PaymentMethodsInteractorOutput?
 
-    fileprivate let paymentService: PaymentProcessing
-    fileprivate let authorizationService: AuthorizationProcessing
-    fileprivate let analyticsService: AnalyticsProcessing
-    fileprivate let analyticsProvider: AnalyticsProviding
+    private let paymentService: PaymentProcessing
+    private let authorizationService: AuthorizationProcessing
+    private let analyticsService: AnalyticsProcessing
+    private let analyticsProvider: AnalyticsProviding
 
     // MARK: - Data properties
 
-    fileprivate let clientApplicationKey: String
-    fileprivate let gatewayId: String?
-    fileprivate let amount: Amount
+    private let clientApplicationKey: String
+    private let gatewayId: String?
+    private let amount: Amount
+    private let savePaymentMethod: Bool?
 
     init(paymentService: PaymentProcessing,
          authorizationService: AuthorizationProcessing,
@@ -24,7 +25,8 @@ class PaymentMethodsInteractor {
          analyticsProvider: AnalyticsProviding,
          clientApplicationKey: String,
          gatewayId: String?,
-         amount: Amount) {
+         amount: Amount,
+         savePaymentMethod: Bool?) {
 
         self.paymentService = paymentService
         self.authorizationService = authorizationService
@@ -34,6 +36,7 @@ class PaymentMethodsInteractor {
         self.clientApplicationKey = clientApplicationKey
         self.gatewayId = gatewayId
         self.amount = amount
+        self.savePaymentMethod = savePaymentMethod
     }
 }
 
@@ -42,11 +45,14 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
 
         let passportToken = authorizationService.getYandexToken()
 
-        let paymentMethods = paymentService.fetchPaymentOptions(clientApplicationKey: clientApplicationKey,
-                                                                passportToken: passportToken,
-                                                                gatewayId: gatewayId,
-                                                                amount: amount.value.description,
-                                                                currency: amount.currency.rawValue)
+        let paymentMethods = paymentService.fetchPaymentOptions(
+            clientApplicationKey: clientApplicationKey,
+            passportToken: passportToken,
+            gatewayId: gatewayId,
+            amount: amount.value.description,
+            currency: amount.currency.rawValue,
+            savePaymentMethod: savePaymentMethod
+        )
 
         guard let output = output else { return }
 

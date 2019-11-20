@@ -5,6 +5,9 @@ protocol ContractTemplateViewOutput: class {
     func didPressSubmitButton(in contractTemplate: ContractTemplateViewInput)
     func didTapContract(_ contractTemplate: ContractTemplateViewInput)
     func didTapTermsOfService(_ url: URL)
+    func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput,
+                              didChangeState state: Bool)
+    func didTapOnRecurring()
 }
 
 protocol ContractTemplateViewInput: class {
@@ -14,6 +17,7 @@ protocol ContractTemplateViewInput: class {
     func setFee(_ fee: PriceViewModel?)
     func setSubmitButtonEnabled(_ isEnabled: Bool)
     func setTermsOfService(text: String, hyperlink: String, url: URL)
+    func setRecurringViewModel(_ recurringViewModel: RecurringViewModel)
 }
 
 final class ContractTemplate: UIViewController {
@@ -183,6 +187,35 @@ final class ContractTemplate: UIViewController {
     }(UIView())
 
     fileprivate var footerViewSeparatorLeading: NSLayoutConstraint?
+
+    private var recurringView: UIView? {
+        didSet {
+            if let oldView = oldValue, recurringView !== oldView {
+                oldView.removeFromSuperview()
+            }
+            if recurringView !== oldValue {
+                configureRecurringView()
+            }
+        }
+    }
+
+    private lazy var recurringSwitchItemView: LinkedSwitchItemView = {
+        let view = LinkedSwitchItemView()
+        view.layoutMargins = .zero
+        view.appendStyle(UIView.Styles.heightAsContent)
+        view.delegate = self
+        return view
+    }()
+
+    private lazy var recurringStrictView: LinkedTextView = {
+        let view = LinkedTextView()
+        view.layoutMargins = UIEdgeInsets(top: Space.double, left: 0, bottom: Space.double, right: 0)
+        view.setStyles(backgroundStyle,
+                       UITextView.Styles.linked)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.delegate = self
+        return view
+    }()
 
     fileprivate lazy var submitButton: Button = {
         $0.setStyles(UIButton.DynamicStyle.primary,
@@ -520,6 +553,48 @@ final class ContractTemplate: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
 
+    private func configureRecurringView() {
+        guard let recurringView = recurringView else { return }
+        recurringView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(recurringView)
+
+        let topViewAnchor: YAxisAnchor
+        if footerView != nil {
+            topViewAnchor = footerViewSeparator.bottom
+        } else if paymentMethodView != nil {
+            topViewAnchor = paymentMethodViewSeparator.bottom
+        } else {
+            topViewAnchor = contentView.top
+        }
+
+        let priceViewTopConstraint = priceView.top.constraint(
+            equalTo: recurringView.bottom,
+            constant: Space.quadruple
+        )
+
+        let topViewConstraint = recurringView.top.constraint(
+            equalTo: topViewAnchor,
+            constant: Space.double
+        )
+
+        var constraints = [
+            recurringView.leading.constraint(equalTo: contentView.leading, constant: Space.double),
+            contentView.trailing.constraint(equalTo: recurringView.trailing, constant: Space.double),
+            priceViewTopConstraint,
+            topViewConstraint,
+        ]
+
+        self.priceViewTopConstraint?.isActive = false
+        self.priceViewTopConstraint = priceViewTopConstraint
+
+        if paymentMethodView == nil {
+            self.descriptionLabelBottomConstraint?.isActive = false
+            self.descriptionLabelBottomConstraint = topViewConstraint
+        }
+
+        NSLayoutConstraint.activate(constraints)
+    }
+
     private func configurePriceView() {
         let constraints = [
             priceView.bottomMargin.constraint(equalTo: termsOfServiceTextView.topMargin, constant: -Space.quadruple),
@@ -562,8 +637,28 @@ extension ContractTemplate: UITextViewDelegate {
     func textView(_ textView: UITextView,
                   shouldInteractWith URL: URL,
                   in characterRange: NSRange) -> Bool {
-        output?.didTapTermsOfService(URL)
+
+        switch textView {
+        case termsOfServiceTextView:
+            output?.didTapTermsOfService(URL)
+        case recurringStrictView:
+            output?.didTapOnRecurring()
+        default:
+            assertionFailure("Unsupported textView")
+        }
         return false
+    }
+}
+
+// MARK: - LinkedSwitchItemViewInput
+
+extension ContractTemplate: LinkedSwitchItemViewOutput {
+    func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) {
+        output?.linkedSwitchItemView(itemView, didChangeState: state)
+    }
+
+    func didTapOnLinkedView(on itemView: LinkedSwitchItemViewInput) {
+        output?.didTapOnRecurring()
     }
 }
 
@@ -612,6 +707,53 @@ extension ContractTemplate: ContractTemplateViewInput {
         attributedText.append(linkAttributedText)
 
         termsOfServiceTextView.attributedText = attributedText
+    }
+
+    func setRecurringViewModel(_ recurringViewModel: RecurringViewModel) {
+        switch recurringViewModel {
+        case .switcher(let viewModel):
+            recurringSwitchItemView.state = viewModel.state
+            recurringSwitchItemView.attributedString = makeRecurringAttributedString(
+                text: viewModel.text,
+                hyperText: viewModel.hyperText
+            )
+            recurringView = recurringSwitchItemView
+        case .strict(let viewModel):
+            recurringStrictView.attributedText = makeRecurringAttributedString(
+                text: viewModel.text,
+                hyperText: viewModel.hyperText
+            )
+            recurringView = recurringStrictView
+        }
+    }
+
+    private func makeRecurringAttributedString(
+        text: String,
+        hyperText: String
+    ) -> NSAttributedString {
+        let attributedText: NSMutableAttributedString
+
+        let foregroundColor: UIColor
+
+        if #available(iOS 13.0, *) {
+            foregroundColor = .secondaryLabel
+        } else {
+            foregroundColor = .doveGray
+        }
+
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.dynamicCaption1,
+            .foregroundColor: foregroundColor,
+        ]
+        attributedText = NSMutableAttributedString(string: "\(text) ", attributes: attributes)
+
+        let linkAttributedText = NSMutableAttributedString(string: hyperText, attributes: attributes)
+        let linkRange = NSRange(location: 0, length: hyperText.count)
+        let fakeLink = URL(string: "https://yandex.ru")
+        linkAttributedText.addAttribute(.link, value: fakeLink, range: linkRange)
+        attributedText.append(linkAttributedText)
+
+        return attributedText
     }
 }
 

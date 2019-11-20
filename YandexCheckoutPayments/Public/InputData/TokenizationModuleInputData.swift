@@ -1,4 +1,4 @@
-// Input data for tokenization flow.
+/// Input data for tokenization flow.
 public struct TokenizationModuleInputData {
 
     /// Client application key.
@@ -42,6 +42,8 @@ public struct TokenizationModuleInputData {
     /// Settings to customize SDK interface.
     let customizationSettings: CustomizationSettings
 
+    let recurring: Recurring
+
     /// Creates instance of `TokenizationModuleInputData`.
     ///
     /// - Parameters:
@@ -75,7 +77,8 @@ public struct TokenizationModuleInputData {
         returnUrl: String? = nil,
         isLoggingEnabled: Bool = false,
         userPhoneNumber: String? = nil,
-        customizationSettings: CustomizationSettings = CustomizationSettings()
+        customizationSettings: CustomizationSettings = CustomizationSettings(),
+        recurring: Recurring
     ) {
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
@@ -90,5 +93,6 @@ public struct TokenizationModuleInputData {
         self.isLoggingEnabled = isLoggingEnabled
         self.userPhoneNumber = userPhoneNumber
         self.customizationSettings = customizationSettings
+        self.recurring = recurring
     }
 }

@@ -39,8 +39,12 @@ extension YamoneyAuthParametersPresenter: ContractViewOutput {
             url: inputData.termsOfService.url
         )
         paymentMethodView.setPaymentMethodViewModel(inputData.paymentMethod)
-        saveAuthInAppView.title = String.localizedStringWithFormat(§Localized.saveAuthInApp, inputData.shopName)
+        saveAuthInAppView.title = §Localized.saveAuthInApp
         saveAuthInAppView.state = isReusableToken
+
+        if let recurringViewModel = inputData.recurringViewModel {
+            contractView.setRecurringViewModel(recurringViewModel)
+        }
 
         DispatchQueue.global().async { [weak self] in
             guard let strongSelf = self,
@@ -73,6 +77,14 @@ extension YamoneyAuthParametersPresenter: ContractTemplateViewOutput {
 
     func didTapTermsOfService(_ url: URL) {
         moduleOutput?.yamoneyAuthParameters(self, didTapTermsOfService: url)
+    }
+
+    func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) {
+        // TODO: BIOS-1289
+    }
+
+    func didTapOnRecurring() {
+        // TODO: BIOS-1292
     }
 }
 

@@ -70,42 +70,53 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
 
 extension TokenizationPresenter: TokenizationStrategyOutput {
     func presentPaymentMethodsModule() {
-        let paymentMethodsInputData
-            = PaymentMethodsModuleInputData(clientApplicationKey: inputData.clientApplicationKey,
-                                            gatewayId: inputData.gatewayId,
-                                            amount: inputData.amount,
-                                            tokenizationSettings: inputData.tokenizationSettings,
-                                            testModeSettings: inputData.testModeSettings,
-                                            isLoggingEnabled: inputData.isLoggingEnabled)
+        let paymentMethodsInputData = PaymentMethodsModuleInputData(
+            clientApplicationKey: inputData.clientApplicationKey,
+            gatewayId: inputData.gatewayId,
+            amount: inputData.amount,
+            tokenizationSettings: inputData.tokenizationSettings,
+            testModeSettings: inputData.testModeSettings,
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            savePaymentMethod: makeSavePaymentMethod(inputData.recurring)
+        )
 
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.router.presentPaymentMethods(inputData: paymentMethodsInputData,
-                                                    moduleOutput: strongSelf)
+            strongSelf.router.presentPaymentMethods(
+                inputData: paymentMethodsInputData,
+                moduleOutput: strongSelf
+            )
         }
     }
 
     func presentYamoneyAuthParametersModule(paymentOption: PaymentOption) {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
-
-        let yamoneyAuthParametersInputData
-            = YamoneyAuthParametersModuleInputData(shopName: inputData.shopName,
-                                                   purchaseDescription: inputData.purchaseDescription,
-                                                   paymentMethod: viewModel,
-                                                   price: makePriceViewModel(paymentOption),
-                                                   fee: makeFeePriceViewModel(paymentOption),
-                                                   shouldChangePaymentMethod: shouldChangePaymentOptions,
-                                                   paymentOption: paymentOption,
-                                                   testModeSettings: inputData.testModeSettings,
-                                                   tokenizeScheme: tokenizeScheme,
-                                                   isLoggingEnabled: inputData.isLoggingEnabled,
-                                                   customizationSettings: inputData.customizationSettings,
-                                                   termsOfService: termsOfService)
+        let recurringViewModel = RecurringViewModelFactory.makeRecurringViewModel(
+            paymentOption,
+            inputData.recurring
+        )
+        let yamoneyAuthParametersInputData = YamoneyAuthParametersModuleInputData(
+            shopName: inputData.shopName,
+            purchaseDescription: inputData.purchaseDescription,
+            paymentMethod: viewModel,
+            price: makePriceViewModel(paymentOption),
+            fee: makeFeePriceViewModel(paymentOption),
+            shouldChangePaymentMethod: shouldChangePaymentOptions,
+            paymentOption: paymentOption,
+            testModeSettings: inputData.testModeSettings,
+            tokenizeScheme: tokenizeScheme,
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            customizationSettings: inputData.customizationSettings,
+            termsOfService: termsOfService,
+            recurringViewModel: recurringViewModel
+        )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.router.presentYamoneyAuthParameters(inputData: yamoneyAuthParametersInputData,
-                                                           moduleOutput: strongSelf)
+            strongSelf.router.presentYamoneyAuthParameters(
+                inputData: yamoneyAuthParametersInputData,
+                moduleOutput: strongSelf
+            )
         }
     }
 
@@ -139,21 +150,30 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
     func presentContract(paymentOption: PaymentOption) {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
-        let moduleInputData = ContractModuleInputData(shopName: inputData.shopName,
-                                                      purchaseDescription: inputData.purchaseDescription,
-                                                      paymentMethod: viewModel,
-                                                      price: makePriceViewModel(paymentOption),
-                                                      fee: makeFeePriceViewModel(paymentOption),
-                                                      shouldChangePaymentMethod: shouldChangePaymentOptions,
-                                                      testModeSettings: inputData.testModeSettings,
-                                                      tokenizeScheme: tokenizeScheme,
-                                                      isLoggingEnabled: inputData.isLoggingEnabled,
-                                                      termsOfService: termsOfService)
+        let recurringViewModel = RecurringViewModelFactory.makeRecurringViewModel(
+            paymentOption,
+            inputData.recurring
+        )
+        let moduleInputData = ContractModuleInputData(
+            shopName: inputData.shopName,
+            purchaseDescription: inputData.purchaseDescription,
+            paymentMethod: viewModel,
+            price: makePriceViewModel(paymentOption),
+            fee: makeFeePriceViewModel(paymentOption),
+            shouldChangePaymentMethod: shouldChangePaymentOptions,
+            testModeSettings: inputData.testModeSettings,
+            tokenizeScheme: tokenizeScheme,
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            termsOfService: termsOfService,
+            recurringViewModel: recurringViewModel
+        )
 
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.router.presentContract(inputData: moduleInputData,
-                                              moduleOutput: strongSelf)
+            strongSelf.router.presentContract(
+                inputData: moduleInputData,
+                moduleOutput: strongSelf
+            )
         }
     }
 
@@ -190,18 +210,24 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
         let priceViewModel = makePriceViewModel(paymentOption)
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
-
-        let moduleInputData = SberbankModuleInputData(shopName: inputData.shopName,
-                                                      purchaseDescription: inputData.purchaseDescription,
-                                                      paymentMethod: viewModel,
-                                                      price: priceViewModel,
-                                                      fee: makeFeePriceViewModel(paymentOption),
-                                                      shouldChangePaymentMethod: shouldChangePaymentOptions,
-                                                      testModeSettings: inputData.testModeSettings,
-                                                      tokenizeScheme: tokenizeScheme,
-                                                      isLoggingEnabled: inputData.isLoggingEnabled,
-                                                      phoneNumber: inputData.userPhoneNumber,
-                                                      termsOfService: termsOfService)
+        let recurringViewModel = RecurringViewModelFactory.makeRecurringViewModel(
+            paymentOption,
+            inputData.recurring
+        )
+        let moduleInputData = SberbankModuleInputData(
+            shopName: inputData.shopName,
+            purchaseDescription: inputData.purchaseDescription,
+            paymentMethod: viewModel,
+            price: priceViewModel,
+            fee: makeFeePriceViewModel(paymentOption),
+            shouldChangePaymentMethod: shouldChangePaymentOptions,
+            testModeSettings: inputData.testModeSettings,
+            tokenizeScheme: tokenizeScheme,
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            phoneNumber: inputData.userPhoneNumber,
+            termsOfService: termsOfService,
+            recurringViewModel: recurringViewModel
+        )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentSberbank(inputData: moduleInputData,
@@ -218,12 +244,15 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
     }
 
     func presentYandexAuthModule(_ paymentOption: PaymentOption) {
-        let moduleInputData = YandexAuthModuleInputData(tokenizationSettings: inputData.tokenizationSettings,
-                                                        testModeSettings: inputData.testModeSettings,
-                                                        clientApplicationKey: inputData.clientApplicationKey,
-                                                        gatewayId: inputData.gatewayId,
-                                                        amount: MonetaryAmountFactory.makeAmount(paymentOption.charge),
-                                                        isLoggingEnabled: inputData.isLoggingEnabled)
+        let moduleInputData = YandexAuthModuleInputData(
+            tokenizationSettings: inputData.tokenizationSettings,
+            testModeSettings: inputData.testModeSettings,
+            clientApplicationKey: inputData.clientApplicationKey,
+            gatewayId: inputData.gatewayId,
+            amount: MonetaryAmountFactory.makeAmount(paymentOption.charge),
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            savePaymentMethod: makeSavePaymentMethod(inputData.recurring)
+        )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentYandexAuth(inputData: moduleInputData,
@@ -263,6 +292,10 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
 
     func presentApplePayContract(_ paymentOption: PaymentOption) {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
+        let recurringViewModel = RecurringViewModelFactory.makeRecurringViewModel(
+            paymentOption,
+            inputData.recurring
+        )
         let moduleInputData = ApplePayContractModuleInputData(
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
@@ -272,7 +305,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             shouldChangePaymentMethod: shouldChangePaymentOptions,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
-            termsOfService: termsOfService
+            termsOfService: termsOfService,
+            recurringViewModel: recurringViewModel
         )
 
         DispatchQueue.main.async { [weak self] in
@@ -844,6 +878,19 @@ private func makeStrategy(paymentOption: PaymentOption,
     }
     strategy.output = output
     return strategy
+}
+
+private func makeSavePaymentMethod(_ recurring: Recurring) -> Bool? {
+    let savePaymentMethod: Bool?
+    switch recurring {
+    case .force:
+        savePaymentMethod = true
+    case .disable:
+        savePaymentMethod = false
+    case .userPriority:
+        savePaymentMethod = nil
+    }
+    return savePaymentMethod
 }
 
 // MARK: - Constants
