@@ -17,10 +17,18 @@ struct ContractModuleInputData {
 protocol ContractModuleInput: ContractStateHandler {}
 
 protocol ContractModuleOutput: class {
-    func didPressSubmitButton(on module: ContractModuleInput)
-    func didPressChangeAction(on module: ContractModuleInput)
-    func didPressLogoutButton(on module: ContractModuleInput)
-    func didFinish(on module: ContractModuleInput)
+    func didPressSubmitButton(
+        on module: ContractModuleInput
+    )
+    func didPressChangeAction(
+        on module: ContractModuleInput
+    )
+    func didPressLogoutButton(
+        on module: ContractModuleInput
+    )
+    func didFinish(
+        on module: ContractModuleInput
+    )
     func contractModule(
         _ module: ContractModuleInput,
         didTapTermsOfService url: URL
@@ -28,5 +36,8 @@ protocol ContractModuleOutput: class {
     func contractModule(
         _ module: ContractModuleInput,
         didChangeRecurringState state: Bool
+    )
+    func didTapOnRecurringInfo(
+        on module: ContractModuleInput
     )
 }

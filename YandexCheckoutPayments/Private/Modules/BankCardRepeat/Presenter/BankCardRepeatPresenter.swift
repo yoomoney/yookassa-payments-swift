@@ -171,6 +171,15 @@ extension BankCardRepeatPresenter: ContractModuleOutput {
     func contractModule(_ module: ContractModuleInput, didChangeRecurringState state: Bool) {
         savePaymentMethod = state
     }
+
+    func didTapOnRecurringInfo(on module: ContractModuleInput) {
+        let recurringModuleinputData = RecurringInfoModuleInputData(
+            customizationSettings: inputData.customizationSettings,
+            headerValue: §RecurringInfoLocalization.BankCard.header,
+            bodyValue: §RecurringInfoLocalization.BankCard.body
+        )
+        router.presentRecurringInfo(inputData: recurringModuleinputData)
+    }
 }
 
 // MARK: - MaskedBankCardDataInputModuleOutput

@@ -141,6 +141,12 @@ extension TokenizationRouter: TokenizationRouterInput {
                                                                  moduleOutput: moduleOutput)
         transitionHandler?.show(viewController, sender: self)
     }
+
+    func presentRecurringInfo(inputData: RecurringInfoModuleInputData) {
+        let viewController = RecurringInfoAssembly.makeModule(inputData: inputData)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        transitionHandler?.present(navigationController, animated: true, completion: nil)
+    }
 }
 
 extension TokenizationRouter: UIViewControllerTransitioningDelegate {

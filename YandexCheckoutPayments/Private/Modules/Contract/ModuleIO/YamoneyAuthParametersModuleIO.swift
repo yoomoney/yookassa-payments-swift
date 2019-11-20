@@ -42,4 +42,7 @@ protocol YamoneyAuthParametersModuleOutput: class {
         _ module: YamoneyAuthParametersModuleInput,
         didChangeRecurringState state: Bool
     )
+    func didTapOnRecurringInfo(
+        on module: YamoneyAuthParametersModuleInput
+    )
 }

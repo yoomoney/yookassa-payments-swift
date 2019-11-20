@@ -14,6 +14,13 @@
 		3089EF4B23846F6C00CB7319 /* StrictRecurringViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089EF4A23846F6C00CB7319 /* StrictRecurringViewModel.swift */; };
 		3089EF4D23846F7400CB7319 /* RecurringViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089EF4C23846F7400CB7319 /* RecurringViewModel.swift */; };
 		3089EF4F2384700800CB7319 /* Recurring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089EF4E2384700800CB7319 /* Recurring.swift */; };
+		308E417A2385501E00B44490 /* RecurringInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E41792385501E00B44490 /* RecurringInfoViewController.swift */; };
+		308E417C2385818B00B44490 /* RecurringInfoViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E417B2385818B00B44490 /* RecurringInfoViewIO.swift */; };
+		308E4180238581CB00B44490 /* RecurringInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E417F238581CB00B44490 /* RecurringInfoPresenter.swift */; };
+		308E41832385820800B44490 /* RecurringInfoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E41822385820800B44490 /* RecurringInfoAssembly.swift */; };
+		308E41852385822300B44490 /* RecurringInfoModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E41842385822300B44490 /* RecurringInfoModuleIO.swift */; };
+		308E41882385829700B44490 /* RecurringInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E41872385829700B44490 /* RecurringInfoViewModel.swift */; };
+		308E418B23858B4800B44490 /* RecurringInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E418A23858B4800B44490 /* RecurringInfo.swift */; };
 		309CECE7237D62BC002010DD /* PriceView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309CECE6237D62BC002010DD /* PriceView+Style.swift */; };
 		30A588242177B792002AFFF1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 30A588232177B792002AFFF1 /* Settings.bundle */; };
 		30A588252177B792002AFFF1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 30A588232177B792002AFFF1 /* Settings.bundle */; };
@@ -673,6 +680,13 @@
 		3089EF4A23846F6C00CB7319 /* StrictRecurringViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrictRecurringViewModel.swift; sourceTree = "<group>"; };
 		3089EF4C23846F7400CB7319 /* RecurringViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringViewModel.swift; sourceTree = "<group>"; };
 		3089EF4E2384700800CB7319 /* Recurring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recurring.swift; sourceTree = "<group>"; };
+		308E41792385501E00B44490 /* RecurringInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringInfoViewController.swift; sourceTree = "<group>"; };
+		308E417B2385818B00B44490 /* RecurringInfoViewIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringInfoViewIO.swift; sourceTree = "<group>"; };
+		308E417F238581CB00B44490 /* RecurringInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringInfoPresenter.swift; sourceTree = "<group>"; };
+		308E41822385820800B44490 /* RecurringInfoAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringInfoAssembly.swift; sourceTree = "<group>"; };
+		308E41842385822300B44490 /* RecurringInfoModuleIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringInfoModuleIO.swift; sourceTree = "<group>"; };
+		308E41872385829700B44490 /* RecurringInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringInfoViewModel.swift; sourceTree = "<group>"; };
+		308E418A23858B4800B44490 /* RecurringInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringInfo.swift; sourceTree = "<group>"; };
 		309CECE6237D62BC002010DD /* PriceView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PriceView+Style.swift"; sourceTree = "<group>"; };
 		30A588232177B792002AFFF1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		30A83F052383378E00B51BAB /* LinkedSwitchItemView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LinkedSwitchItemView+Style.swift"; sourceTree = "<group>"; };
@@ -1198,6 +1212,59 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		308E41782385500E00B44490 /* RecurringInfo */ = {
+			isa = PBXGroup;
+			children = (
+				308E41842385822300B44490 /* RecurringInfoModuleIO.swift */,
+				308E417B2385818B00B44490 /* RecurringInfoViewIO.swift */,
+				308E4181238581F300B44490 /* Assembly */,
+				308E417D2385819800B44490 /* Presenter */,
+				308E417E238581A900B44490 /* View */,
+			);
+			path = RecurringInfo;
+			sourceTree = "<group>";
+		};
+		308E417D2385819800B44490 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				308E417F238581CB00B44490 /* RecurringInfoPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		308E417E238581A900B44490 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				308E41792385501E00B44490 /* RecurringInfoViewController.swift */,
+				308E41862385828000B44490 /* ViewModel */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		308E4181238581F300B44490 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				308E41822385820800B44490 /* RecurringInfoAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		308E41862385828000B44490 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				308E41872385829700B44490 /* RecurringInfoViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		308E418923858B3A00B44490 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				308E418A23858B4800B44490 /* RecurringInfo.swift */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		30AB5309238333E00098C7C1 /* LinkedSwitchItemView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1626,18 +1693,19 @@
 		402EB350CCF498842EE2FA52 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				402EB453D7BBA31E0EF72BC4 /* SimpleIdentification */,
-				402EB5B369BAB441B6F483B7 /* Error */,
-				402EB0119776A2008F3C9801 /* BankCardDataInput */,
-				402EBA5D1D4920494878050E /* PaymentMethods */,
-				402EB92A56B31303DE7A7151 /* Contract */,
-				402EBE612E4F0B4552181765 /* Processing */,
-				402EBF72972A19D06F3E5EC5 /* Tokenization */,
 				402EBFD0D5D351F93484B633 /* 3DS */,
-				402EBEADF3402FCF4A798D56 /* YandexAuth */,
-				402EB84797D7E864A73001A0 /* LogoutConfirmation */,
 				402EB6ADA278BB94CDCE91CD /* ApplePay */,
+				402EB0119776A2008F3C9801 /* BankCardDataInput */,
 				402EB03AF715BD6339B32F52 /* BankCardRepeat */,
+				402EB92A56B31303DE7A7151 /* Contract */,
+				402EB5B369BAB441B6F483B7 /* Error */,
+				402EB84797D7E864A73001A0 /* LogoutConfirmation */,
+				402EBA5D1D4920494878050E /* PaymentMethods */,
+				402EBE612E4F0B4552181765 /* Processing */,
+				308E41782385500E00B44490 /* RecurringInfo */,
+				402EB453D7BBA31E0EF72BC4 /* SimpleIdentification */,
+				402EBF72972A19D06F3E5EC5 /* Tokenization */,
+				402EBEADF3402FCF4A798D56 /* YandexAuth */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1868,15 +1936,16 @@
 		402EB5FB503B7E55FB658855 /* Private */ = {
 			isa = PBXGroup;
 			children = (
-				3089EF4723846F5700CB7319 /* ViewModels */,
 				402EB2E33A805256B8A101B1 /* Atomic Design */,
 				402EB72FA2F9530A4A971FF5 /* Extensions */,
-				402EBA8BE37B25AAD457F8D1 /* Models */,
 				402EB918F12E85463154D953 /* Factory */,
 				402EB1A92565D100D03BEA47 /* Helpers */,
+				308E418923858B3A00B44490 /* Localization */,
+				402EBA8BE37B25AAD457F8D1 /* Models */,
 				402EB350CCF498842EE2FA52 /* Modules */,
 				402EBF67858F805C0168A633 /* Services */,
 				402EB263A126B88C8C793A71 /* Validators */,
+				3089EF4723846F5700CB7319 /* ViewModels */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -2126,14 +2195,14 @@
 		402EB92A56B31303DE7A7151 /* Contract */ = {
 			isa = PBXGroup;
 			children = (
+				402EBD5D68132AEA412F2BDC /* ContractInteractorIO.swift */,
+				402EB30772856D23A05D839A /* ContractStateHandler.swift */,
+				402EBC561BF33AB5ACBFEFA7 /* ContractViewIO.swift */,
 				402EB8FA335D3FECEC6B96F7 /* Assembly */,
+				402EB02AC3E68400DFF41C6E /* Interactor */,
+				402EB3E58825CB8D1B26063D /* ModuleIO */,
 				402EBEBEBC7008D14BD418B2 /* Presenter */,
 				402EB2FFCC1E562076B88435 /* View */,
-				402EB30772856D23A05D839A /* ContractStateHandler.swift */,
-				402EB02AC3E68400DFF41C6E /* Interactor */,
-				402EBD5D68132AEA412F2BDC /* ContractInteractorIO.swift */,
-				402EBC561BF33AB5ACBFEFA7 /* ContractViewIO.swift */,
-				402EB3E58825CB8D1B26063D /* ModuleIO */,
 			);
 			path = Contract;
 			sourceTree = "<group>";
@@ -3265,6 +3334,7 @@
 				402EB762374D9D4259547825 /* LargeIconButtonItemViewCell.swift in Sources */,
 				402EB6E3FD03B79FD088DD35 /* LargeIconButtonItemView.swift in Sources */,
 				3089EF4B23846F6C00CB7319 /* StrictRecurringViewModel.swift in Sources */,
+				308E41832385820800B44490 /* RecurringInfoAssembly.swift in Sources */,
 				402EB58531C87EFDDE780DF1 /* SwitchItemViewIO.swift in Sources */,
 				402EBB88B7D401A4ED196F88 /* SwitchItemView.swift in Sources */,
 				402EB33EFF6B15F112C8E8AE /* SwitchItemView+Style.swift in Sources */,
@@ -3343,6 +3413,7 @@
 				402EB9B3CD7211752FAD696E /* UIScreen+SafeAreaInsets.swift in Sources */,
 				30AB530D238335560098C7C1 /* LinkedSwitchItemViewInput.swift in Sources */,
 				402EB53AE18A55F18C9BDCA9 /* UIView+SpecificLayoutGuide.swift in Sources */,
+				308E418B23858B4800B44490 /* RecurringInfo.swift in Sources */,
 				402EB948B1832C8B0A29FBC2 /* UILayoutPriority+Constants.swift in Sources */,
 				402EB98DB12EF98B21B32391 /* KeyboardButton.swift in Sources */,
 				402EB3D30195BDD30E548629 /* KeyboardButtonStyle.swift in Sources */,
@@ -3408,6 +3479,7 @@
 				402EBC9F4392D280DFFD0639 /* ShowcaseCellModuleFactory.swift in Sources */,
 				402EBF39BADAEE97EB4F5574 /* SelectTableViewCellAssembly.swift in Sources */,
 				30A83F062383378E00B51BAB /* LinkedSwitchItemView+Style.swift in Sources */,
+				308E417C2385818B00B44490 /* RecurringInfoViewIO.swift in Sources */,
 				402EBABE63EB7956AB9594E8 /* SelectTableViewCellPresenter.swift in Sources */,
 				402EB9F31A405D4CD28EF8BC /* SelectTableViewCellModuleIO.swift in Sources */,
 				402EB5CFBF0D5B68C459F478 /* SelectTableViewCell.swift in Sources */,
@@ -3467,6 +3539,7 @@
 				402EB2791A3B4AC94DDE57BC /* ContractInteractorIO.swift in Sources */,
 				402EB3B4EDE445A005183F1F /* ContractViewIO.swift in Sources */,
 				402EB8E3AB7F9F898BBB856B /* ContractModuleIO.swift in Sources */,
+				308E4180238581CB00B44490 /* RecurringInfoPresenter.swift in Sources */,
 				402EB62CCA48873DB5009D74 /* SberbankModuleIO.swift in Sources */,
 				402EB135450647975B3B1C7B /* YamoneyAuthModuleIO.swift in Sources */,
 				402EB4CE49D2D89E446BD4D1 /* YamoneyAuthParametersModuleIO.swift in Sources */,
@@ -3477,6 +3550,7 @@
 				402EBDB67F4914833185E457 /* TokenizationViewController.swift in Sources */,
 				402EBF41FAE896B1D782FD6A /* TokenizationViewIO.swift in Sources */,
 				402EBFA0AE6572E7F3A68B24 /* TokenizationRouter.swift in Sources */,
+				308E41882385829700B44490 /* RecurringInfoViewModel.swift in Sources */,
 				402EBF4D0D419932E8B0564A /* TokeniztionRouterIO.swift in Sources */,
 				402EBC74D9E916B8E12CB0BC /* TokenizationInteractor.swift in Sources */,
 				402EBE4D50FAA343F627978D /* TokenizationInteractorIO.swift in Sources */,
@@ -3563,9 +3637,11 @@
 				402EB933D69EDDFED2DDAB44 /* Amount.swift in Sources */,
 				402EBDA6F7FFB24269195FFD /* TestModeSettings.swift in Sources */,
 				402EB0FBD2A8AFE719A2A013 /* TokenizationSettings.swift in Sources */,
+				308E417A2385501E00B44490 /* RecurringInfoViewController.swift in Sources */,
 				402EBB5BA886912050991DEC /* PaymentMethodTypes.swift in Sources */,
 				402EB1162640933D8CD20B33 /* Currency.swift in Sources */,
 				402EB32E6A6837771A082A37 /* BankCardRepeatModuleInputData.swift in Sources */,
+				308E41852385822300B44490 /* RecurringInfoModuleIO.swift in Sources */,
 				402EB77D248BF8D00B67D192 /* TokenizationModuleInputData.swift in Sources */,
 				402EB148A4DB43F678C9C993 /* TokenizationFlow.swift in Sources */,
 				402EBD6CBBA4184A4517DD00 /* CardService.swift in Sources */,
