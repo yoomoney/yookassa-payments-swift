@@ -33,7 +33,7 @@ protocol PaymentProcessing {
         gatewayId: String?,
         amount: String?,
         currency: String?,
-        savePaymentMethod: Bool?
+        getSavePaymentMethod: Bool?
     ) -> Promise<[PaymentOption]>
 
     func fetchPaymentMethod(

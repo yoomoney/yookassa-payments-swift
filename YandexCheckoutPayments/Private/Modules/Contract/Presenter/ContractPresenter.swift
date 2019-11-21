@@ -37,8 +37,8 @@ extension ContractPresenter: ContractViewOutput {
         )
         paymentMethodView.setPaymentMethodViewModel(inputData.paymentMethod)
 
-        if let recurringViewModel = inputData.recurringViewModel {
-            contractView.setRecurringViewModel(recurringViewModel)
+        if let savePaymentMethodViewModel = inputData.savePaymentMethodViewModel {
+            contractView.setSavePaymentMethodViewModel(savePaymentMethodViewModel)
         }
 
         DispatchQueue.global().async { [weak self] in
@@ -111,12 +111,12 @@ extension ContractPresenter: ContractTemplateViewOutput {
     ) {
         moduleOutput?.contractModule(
             self,
-            didChangeRecurringState: state
+            didChangeSavePaymentMethodState: state
         )
     }
 
-    func didTapOnRecurring() {
-        moduleOutput?.didTapOnRecurringInfo(on: self)
+    func didTapOnSavePaymentMethod() {
+        moduleOutput?.didTapOnSavePaymentMethodInfo(on: self)
     }
 }
 

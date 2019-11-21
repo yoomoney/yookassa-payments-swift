@@ -17,7 +17,7 @@ class PaymentMethodsInteractor {
     private let clientApplicationKey: String
     private let gatewayId: String?
     private let amount: Amount
-    private let savePaymentMethod: Bool?
+    private let getSavePaymentMethod: Bool?
 
     init(paymentService: PaymentProcessing,
          authorizationService: AuthorizationProcessing,
@@ -26,7 +26,7 @@ class PaymentMethodsInteractor {
          clientApplicationKey: String,
          gatewayId: String?,
          amount: Amount,
-         savePaymentMethod: Bool?) {
+         getSavePaymentMethod: Bool?) {
 
         self.paymentService = paymentService
         self.authorizationService = authorizationService
@@ -36,7 +36,7 @@ class PaymentMethodsInteractor {
         self.clientApplicationKey = clientApplicationKey
         self.gatewayId = gatewayId
         self.amount = amount
-        self.savePaymentMethod = savePaymentMethod
+        self.getSavePaymentMethod = getSavePaymentMethod
     }
 }
 
@@ -51,7 +51,7 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
             gatewayId: gatewayId,
             amount: amount.value.description,
             currency: amount.currency.rawValue,
-            savePaymentMethod: savePaymentMethod
+            getSavePaymentMethod: getSavePaymentMethod
         )
 
         guard let output = output else { return }

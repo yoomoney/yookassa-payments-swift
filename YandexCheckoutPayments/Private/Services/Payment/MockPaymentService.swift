@@ -28,7 +28,7 @@ final class MockPaymentService: PaymentProcessing {
         gatewayId: String?,
         amount: String?,
         currency: String?,
-        savePaymentMethod: Bool?
+        getSavePaymentMethod: Bool?
     ) -> Promise<[PaymentOption]> {
         let timeout = makeTimeoutPromise()
 

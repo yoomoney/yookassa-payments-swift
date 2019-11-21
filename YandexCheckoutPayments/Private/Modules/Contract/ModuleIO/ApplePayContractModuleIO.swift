@@ -8,7 +8,7 @@ struct ApplePayContractModuleInputData {
     let testModeSettings: TestModeSettings?
     let isLoggingEnabled: Bool
     let termsOfService: TermsOfService
-    let recurringViewModel: RecurringViewModel?
+    let savePaymentMethodViewModel: SavePaymentMethodViewModel?
 }
 
 protocol ApplePayContractModuleInput: class {}

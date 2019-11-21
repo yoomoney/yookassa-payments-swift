@@ -77,7 +77,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             tokenizationSettings: inputData.tokenizationSettings,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
-            savePaymentMethod: makeSavePaymentMethod(inputData.recurring)
+            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod)
         )
 
         DispatchQueue.main.async { [weak self] in
@@ -92,9 +92,9 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
     func presentYamoneyAuthParametersModule(paymentOption: PaymentOption) {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
-        let recurringViewModel = RecurringViewModelFactory.makeRecurringViewModel(
+        let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
             paymentOption,
-            inputData.recurring
+            inputData.savePaymentMethod
         )
         let yamoneyAuthParametersInputData = YamoneyAuthParametersModuleInputData(
             shopName: inputData.shopName,
@@ -109,7 +109,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             isLoggingEnabled: inputData.isLoggingEnabled,
             customizationSettings: inputData.customizationSettings,
             termsOfService: termsOfService,
-            recurringViewModel: recurringViewModel
+            savePaymentMethodViewModel: savePaymentMethodViewModel
         )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
@@ -150,9 +150,9 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
     func presentContract(paymentOption: PaymentOption) {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
-        let recurringViewModel = RecurringViewModelFactory.makeRecurringViewModel(
+        let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
             paymentOption,
-            inputData.recurring
+            inputData.savePaymentMethod
         )
         let moduleInputData = ContractModuleInputData(
             shopName: inputData.shopName,
@@ -165,7 +165,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             tokenizeScheme: tokenizeScheme,
             isLoggingEnabled: inputData.isLoggingEnabled,
             termsOfService: termsOfService,
-            recurringViewModel: recurringViewModel
+            savePaymentMethodViewModel: savePaymentMethodViewModel
         )
 
         DispatchQueue.main.async { [weak self] in
@@ -222,7 +222,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             isLoggingEnabled: inputData.isLoggingEnabled,
             phoneNumber: inputData.userPhoneNumber,
             termsOfService: termsOfService,
-            recurringViewModel: nil
+            savePaymentMethodViewModel: nil
         )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
@@ -247,7 +247,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             gatewayId: inputData.gatewayId,
             amount: MonetaryAmountFactory.makeAmount(paymentOption.charge),
             isLoggingEnabled: inputData.isLoggingEnabled,
-            savePaymentMethod: makeSavePaymentMethod(inputData.recurring)
+            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod)
         )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
@@ -298,7 +298,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
             termsOfService: termsOfService,
-            recurringViewModel: nil
+            savePaymentMethodViewModel: nil
         )
 
         DispatchQueue.main.async { [weak self] in
@@ -424,14 +424,6 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
 // MARK: - TokenizationModuleInput
 
 extension TokenizationPresenter: TokenizationModuleInput {
-    func start3dsProcess(requestUrl: String, redirectUrl: String) {
-        let moduleInputData
-            = CardSecModuleInputData(requestUrl: requestUrl,
-                                     redirectUrl: inputData.returnUrl ?? Constants.returnUrl,
-                                     isLoggingEnabled: inputData.isLoggingEnabled)
-        present3dsModule(inputData: moduleInputData)
-    }
-
     func start3dsProcess(requestUrl: String) {
         let moduleInputData
             = CardSecModuleInputData(requestUrl: requestUrl,
@@ -503,34 +495,34 @@ extension TokenizationPresenter: ContractModuleOutput {
 
     func contractModule(
         _ module: ContractModuleInput,
-        didChangeRecurringState state: Bool
+        didChangeSavePaymentMethodState state: Bool
     ) {
         strategy?.savePaymentMethod = state
     }
 
-    func didTapOnRecurringInfo(on module: ContractModuleInput) {
+    func didTapOnSavePaymentMethodInfo(on module: ContractModuleInput) {
         guard let paymentOption = paymentOption else { return }
 
         let headerValue: String
         let bodyValue: String
 
         if paymentOption is PaymentInstrumentYandexMoneyWallet {
-            headerValue = §RecurringInfoLocalization.Wallet.header
-            bodyValue = §RecurringInfoLocalization.Wallet.body
+            headerValue = §SavePaymentMethodInfoLocalization.Wallet.header
+            bodyValue = §SavePaymentMethodInfoLocalization.Wallet.body
         } else if case .bankCard = paymentOption.paymentMethodType {
-            headerValue = §RecurringInfoLocalization.BankCard.header
-            bodyValue = §RecurringInfoLocalization.BankCard.body
+            headerValue = §SavePaymentMethodInfoLocalization.BankCard.header
+            bodyValue = §SavePaymentMethodInfoLocalization.BankCard.body
         } else {
-            assertionFailure("Unsupported paymentMethod to present recurring info")
+            assertionFailure("Unsupported paymentMethod to present savePaymentMethod info")
             return
         }
 
-        let recurringModuleinputData = RecurringInfoModuleInputData(
+        let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
             customizationSettings: inputData.customizationSettings,
             headerValue: headerValue,
             bodyValue: bodyValue
         )
-        router.presentRecurringInfo(inputData: recurringModuleinputData)
+        router.presentSavePaymentMethodInfo(inputData: savePaymentMethodModuleinputData)
     }
 }
 
@@ -654,18 +646,18 @@ extension TokenizationPresenter: YamoneyAuthParametersModuleOutput {
 
     func yamoneyAuthParameters(
         _ module: YamoneyAuthParametersModuleInput,
-        didChangeRecurringState state: Bool
+        didChangeSavePaymentMethodState state: Bool
     ) {
         strategy?.savePaymentMethod = state
     }
 
-    func didTapOnRecurringInfo(on module: YamoneyAuthParametersModuleInput) {
-        let recurringModuleinputData = RecurringInfoModuleInputData(
+    func didTapOnSavePaymentMethodInfo(on module: YamoneyAuthParametersModuleInput) {
+        let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
             customizationSettings: inputData.customizationSettings,
-            headerValue: §RecurringInfoLocalization.Wallet.header,
-            bodyValue: §RecurringInfoLocalization.Wallet.body
+            headerValue: §SavePaymentMethodInfoLocalization.Wallet.header,
+            bodyValue: §SavePaymentMethodInfoLocalization.Wallet.body
         )
-        router.presentRecurringInfo(inputData: recurringModuleinputData)
+        router.presentSavePaymentMethodInfo(inputData: savePaymentMethodModuleinputData)
     }
 }
 
@@ -926,17 +918,17 @@ private func makeStrategy(paymentOption: PaymentOption,
     return strategy
 }
 
-private func makeSavePaymentMethod(_ recurring: Recurring) -> Bool? {
-    let savePaymentMethod: Bool?
-    switch recurring {
-    case .force:
-        savePaymentMethod = true
-    case .disable:
-        savePaymentMethod = false
-    case .userPriority:
-        savePaymentMethod = nil
+private func makeGetSavePaymentMethod(_ savePaymentMethod: SavePaymentMethod) -> Bool? {
+    let getSavePaymentMethod: Bool?
+    switch savePaymentMethod {
+    case .on:
+        getSavePaymentMethod = true
+    case .off:
+        getSavePaymentMethod = false
+    case .userSelects:
+        getSavePaymentMethod = nil
     }
-    return savePaymentMethod
+    return getSavePaymentMethod
 }
 
 // MARK: - Constants

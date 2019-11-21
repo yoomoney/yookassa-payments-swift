@@ -42,7 +42,8 @@ public struct TokenizationModuleInputData {
     /// Settings to customize SDK interface.
     let customizationSettings: CustomizationSettings
 
-    let recurring: Recurring
+    ///
+    let savePaymentMethod: SavePaymentMethod
 
     /// Creates instance of `TokenizationModuleInputData`.
     ///
@@ -78,7 +79,7 @@ public struct TokenizationModuleInputData {
         isLoggingEnabled: Bool = false,
         userPhoneNumber: String? = nil,
         customizationSettings: CustomizationSettings = CustomizationSettings(),
-        recurring: Recurring
+        savePaymentMethod: SavePaymentMethod
     ) {
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
@@ -93,6 +94,6 @@ public struct TokenizationModuleInputData {
         self.isLoggingEnabled = isLoggingEnabled
         self.userPhoneNumber = userPhoneNumber
         self.customizationSettings = customizationSettings
-        self.recurring = recurring
+        self.savePaymentMethod = savePaymentMethod
     }
 }

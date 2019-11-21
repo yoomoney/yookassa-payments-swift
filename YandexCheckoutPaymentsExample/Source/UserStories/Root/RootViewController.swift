@@ -354,7 +354,7 @@ final class RootViewController: UIViewController {
             isLoggingEnabled: true,
             userPhoneNumber: "7",
             customizationSettings: CustomizationSettings(mainScheme: .blueRibbon),
-            recurring: .userPriority
+            savePaymentMethod: .userSelects
         ))
 
 //        let inputData: TokenizationFlow = .bankCardRepeat(BankCardRepeatModuleInputData(
@@ -366,7 +366,7 @@ final class RootViewController: UIViewController {
 //            testModeSettings: testSettings,
 //            isLoggingEnabled: true,
 //            customizationSettings: CustomizationSettings(mainScheme: .blueRibbon),
-//            recurring: .disable
+//            savePaymentMethod: .userSelects
 //        ))
 
         let viewController = TokenizationAssembly.makeModule(

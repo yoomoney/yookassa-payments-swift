@@ -149,7 +149,7 @@ extension YamoneyAuthPresenter: ContractTemplateViewOutput {
 
     func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) { }
 
-    func didTapOnRecurring() { }
+    func didTapOnSavePaymentMethod() { }
 }
 
 extension YamoneyAuthPresenter: AuthCodeInputViewOutput {

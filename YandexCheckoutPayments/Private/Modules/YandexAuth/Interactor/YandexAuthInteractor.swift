@@ -13,7 +13,7 @@ final class YandexAuthInteractor {
     private let clientApplicationKey: String
     private let gatewayId: String?
     private let amount: Amount
-    private let savePaymentMethod: Bool?
+    private let getSavePaymentMethod: Bool?
 
     init(authorizationService: AuthorizationProcessing,
          analyticsService: AnalyticsProcessing,
@@ -21,14 +21,14 @@ final class YandexAuthInteractor {
          clientApplicationKey: String,
          gatewayId: String?,
          amount: Amount,
-         savePaymentMethod: Bool?) {
+         getSavePaymentMethod: Bool?) {
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
         self.paymentService = paymentService
         self.clientApplicationKey = clientApplicationKey
         self.gatewayId = gatewayId
         self.amount = amount
-        self.savePaymentMethod = savePaymentMethod
+        self.getSavePaymentMethod = getSavePaymentMethod
     }
 }
 
@@ -55,7 +55,7 @@ extension YandexAuthInteractor: YandexAuthInteractorInput {
             gatewayId: gatewayId,
             amount: amount.value.description,
             currency: amount.currency.rawValue,
-            savePaymentMethod: savePaymentMethod
+            getSavePaymentMethod: getSavePaymentMethod
         )
 
         let yamoneyPaymentMethods = paymentMethods.map { $0.filter { $0.paymentMethodType == .yandexMoney } }
