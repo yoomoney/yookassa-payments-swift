@@ -42,7 +42,7 @@ public struct TokenizationModuleInputData {
     /// Settings to customize SDK interface.
     let customizationSettings: CustomizationSettings
 
-    ///
+    /// Setting for saving payment method.
     let savePaymentMethod: SavePaymentMethod
 
     /// Creates instance of `TokenizationModuleInputData`.
@@ -63,6 +63,7 @@ public struct TokenizationModuleInputData {
     ///   - userPhoneNumber: User phone number.
     ///                      Example: +X XXX XXX XX XX
     ///   - customizationSettings: Settings to customize SDK interface.
+    ///   - savePaymentMethod: Setting for saving payment method.
     ///
     /// - Returns: Instance of `TokenizationModuleInputData`.
     public init(

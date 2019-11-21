@@ -25,6 +25,7 @@ public struct BankCardRepeatModuleInputData {
     /// Settings to customize SDK interface.
     let customizationSettings: CustomizationSettings
 
+    /// Setting for saving payment method.
     let savePaymentMethod: SavePaymentMethod
 
     /// Creates instance of `BankCardRepeatModuleInputData`.
@@ -38,6 +39,7 @@ public struct BankCardRepeatModuleInputData {
     ///   - testModeSettings: Test mode settings.
     ///   - isLoggingEnabled: Enable logging
     ///   - customizationSettings: Settings to customize SDK interface.
+    ///   - savePaymentMethod: Setting for saving payment method.
     ///
     /// - Returns: Instance of `BankCardRepeatModuleInputData`.
     public init(
