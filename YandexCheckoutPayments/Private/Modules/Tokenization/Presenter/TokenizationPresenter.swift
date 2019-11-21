@@ -507,6 +507,31 @@ extension TokenizationPresenter: ContractModuleOutput {
     ) {
         strategy?.savePaymentMethod = state
     }
+
+    func didTapOnRecurringInfo(on module: ContractModuleInput) {
+        guard let paymentOption = paymentOption else { return }
+
+        let headerValue: String
+        let bodyValue: String
+
+        if paymentOption is PaymentInstrumentYandexMoneyWallet {
+            headerValue = §RecurringInfoLocalization.Wallet.header
+            bodyValue = §RecurringInfoLocalization.Wallet.body
+        } else if case .bankCard = paymentOption.paymentMethodType {
+            headerValue = §RecurringInfoLocalization.BankCard.header
+            bodyValue = §RecurringInfoLocalization.BankCard.body
+        } else {
+            assertionFailure("Unsupported paymentMethod to present recurring info")
+            return
+        }
+
+        let recurringModuleinputData = RecurringInfoModuleInputData(
+            customizationSettings: inputData.customizationSettings,
+            headerValue: headerValue,
+            bodyValue: bodyValue
+        )
+        router.presentRecurringInfo(inputData: recurringModuleinputData)
+    }
 }
 
 // MARK: - SberbankModuleOutput
@@ -632,6 +657,15 @@ extension TokenizationPresenter: YamoneyAuthParametersModuleOutput {
         didChangeRecurringState state: Bool
     ) {
         strategy?.savePaymentMethod = state
+    }
+
+    func didTapOnRecurringInfo(on module: YamoneyAuthParametersModuleInput) {
+        let recurringModuleinputData = RecurringInfoModuleInputData(
+            customizationSettings: inputData.customizationSettings,
+            headerValue: §RecurringInfoLocalization.Wallet.header,
+            bodyValue: §RecurringInfoLocalization.Wallet.body
+        )
+        router.presentRecurringInfo(inputData: recurringModuleinputData)
     }
 }
 

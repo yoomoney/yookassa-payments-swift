@@ -87,7 +87,7 @@ extension YamoneyAuthParametersPresenter: ContractTemplateViewOutput {
     }
 
     func didTapOnRecurring() {
-        // TODO: BIOS-1292
+        moduleOutput?.didTapOnRecurringInfo(on: self)
     }
 }
 
