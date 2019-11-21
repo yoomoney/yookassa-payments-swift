@@ -96,26 +96,26 @@
 
 "TermsOfService.Hyperlink" = "terms and conditions of the service";
 
-"Recurring.Wallet.UserPriority.Text" = "Разрешить магазину";
+"SavePaymentMethod.Wallet.UserPriority.Text" = "Разрешить магазину";
 
-"Recurring.Wallet.UserPriority.hyperText" = "списывать деньги без моего участия";
+"SavePaymentMethod.Wallet.UserPriority.hyperText" = "списывать деньги без моего участия";
 
-"Recurring.Wallet.Force.Text" = "После оплаты привяжем кошелёк: магазин сможет";
+"SavePaymentMethod.Wallet.Force.Text" = "После оплаты привяжем кошелёк: магазин сможет";
 
-"Recurring.Wallet.Force.hyperText" = "списывать деньги без вашего участия";
+"SavePaymentMethod.Wallet.Force.hyperText" = "списывать деньги без вашего участия";
 
-"Recurring.BankCard.UserPriority.Text" = "Разрешить магазину";
+"SavePaymentMethod.BankCard.UserPriority.Text" = "Разрешить магазину";
 
-"Recurring.BankCard.UserPriority.hyperText" = "списывать деньги без моего участия";
+"SavePaymentMethod.BankCard.UserPriority.hyperText" = "списывать деньги без моего участия";
 
-"Recurring.BankCard.Force.Text" = "После оплаты привяжем карту: магазин сможет";
+"SavePaymentMethod.BankCard.Force.Text" = "После оплаты привяжем карту: магазин сможет";
 
-"Recurring.BankCard.Force.hyperText" = "списывать деньги без вашего участия";
+"SavePaymentMethod.BankCard.Force.hyperText" = "списывать деньги без вашего участия";
 
-"RecurringInfo.Wallet.Header" = "Разрешение списывать деньги без вашего участия";
+"SavePaymentMethodInfo.Wallet.Header" = "Разрешение списывать деньги без вашего участия";
 
-"RecurringInfo.Wallet.Body" = "Это значит, что вы даёте Яндекс.Деньгам предварительное согласие списывать деньги с кошелька по запросу магазина — без дополнительного подтверждения с вашей стороны.\n\nОтменить такие списания можно в любой момент: в настройках кошелька (на сайте Яндекс.Денег).";
+"SavePaymentMethodInfo.Wallet.Body" = "Это значит, что вы даёте Яндекс.Деньгам предварительное согласие списывать деньги с кошелька по запросу магазина — без дополнительного подтверждения с вашей стороны.\n\nОтменить такие списания можно в любой момент: в настройках кошелька (на сайте Яндекс.Денег).";
 
-"RecurringInfo.BankCard.Header" = "Разрешение списывать деньги без вашего участия";
+"SavePaymentMethodInfo.BankCard.Header" = "Разрешение списывать деньги без вашего участия";
 
-"RecurringInfo.BankCard.Body" = "Это значит, что предварительно вы разрешаете Яндекс.Деньгам списывать деньги по запросу магазина, без отдельного подтверждения — с этой карты или с новой, при перевыпуске (если ваш банк умеет автоматически обновлять данные).\n\nОтменить привязку можно в любой момент, через службу поддержки магазина.";
+"SavePaymentMethodInfo.BankCard.Body" = "Это значит, что предварительно вы разрешаете Яндекс.Деньгам списывать деньги по запросу магазина, без отдельного подтверждения — с этой карты или с новой, при перевыпуске (если ваш банк умеет автоматически обновлять данные).\n\nОтменить привязку можно в любой момент, через службу поддержки магазина.";

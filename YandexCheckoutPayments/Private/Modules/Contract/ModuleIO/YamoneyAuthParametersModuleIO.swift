@@ -15,7 +15,7 @@ struct YamoneyAuthParametersModuleInputData {
     let isLoggingEnabled: Bool
     let customizationSettings: CustomizationSettings
     let termsOfService: TermsOfService
-    let recurringViewModel: RecurringViewModel?
+    let savePaymentMethodViewModel: SavePaymentMethodViewModel?
 }
 
 protocol YamoneyAuthParametersModuleInput: ContractStateHandler {}
@@ -40,9 +40,9 @@ protocol YamoneyAuthParametersModuleOutput: class {
     )
     func yamoneyAuthParameters(
         _ module: YamoneyAuthParametersModuleInput,
-        didChangeRecurringState state: Bool
+        didChangeSavePaymentMethodState state: Bool
     )
-    func didTapOnRecurringInfo(
+    func didTapOnSavePaymentMethodInfo(
         on module: YamoneyAuthParametersModuleInput
     )
 }

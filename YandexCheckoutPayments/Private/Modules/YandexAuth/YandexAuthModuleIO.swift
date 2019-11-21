@@ -7,7 +7,7 @@ struct YandexAuthModuleInputData {
     let gatewayId: String?
     let amount: Amount
     let isLoggingEnabled: Bool
-    let savePaymentMethod: Bool?
+    let getSavePaymentMethod: Bool?
 }
 
 protocol YandexAuthModuleInput: class {}

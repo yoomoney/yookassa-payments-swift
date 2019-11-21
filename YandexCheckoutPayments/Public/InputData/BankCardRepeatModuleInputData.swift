@@ -25,7 +25,8 @@ public struct BankCardRepeatModuleInputData {
     /// Settings to customize SDK interface.
     let customizationSettings: CustomizationSettings
 
-    let recurring: Recurring
+    /// Setting for saving payment method.
+    let savePaymentMethod: SavePaymentMethod
 
     /// Creates instance of `BankCardRepeatModuleInputData`.
     ///
@@ -38,6 +39,7 @@ public struct BankCardRepeatModuleInputData {
     ///   - testModeSettings: Test mode settings.
     ///   - isLoggingEnabled: Enable logging
     ///   - customizationSettings: Settings to customize SDK interface.
+    ///   - savePaymentMethod: Setting for saving payment method.
     ///
     /// - Returns: Instance of `BankCardRepeatModuleInputData`.
     public init(
@@ -49,7 +51,7 @@ public struct BankCardRepeatModuleInputData {
         testModeSettings: TestModeSettings? = nil,
         isLoggingEnabled: Bool = false,
         customizationSettings: CustomizationSettings = CustomizationSettings(),
-        recurring: Recurring
+        savePaymentMethod: SavePaymentMethod
     ) {
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
@@ -59,6 +61,6 @@ public struct BankCardRepeatModuleInputData {
         self.testModeSettings = testModeSettings
         self.isLoggingEnabled = isLoggingEnabled
         self.customizationSettings = customizationSettings
-        self.recurring = recurring
+        self.savePaymentMethod = savePaymentMethod
     }
 }

@@ -28,15 +28,17 @@ extension PaymentService: PaymentProcessing {
         gatewayId: String?,
         amount: String?,
         currency: String?,
-        savePaymentMethod: Bool?
+        getSavePaymentMethod: Bool?
     ) -> Promise<[PaymentOption]> {
 
-        let method = PaymentOptions.Method(oauthToken: clientApplicationKey,
-                                           passportAuthorization: passportToken,
-                                           gatewayId: gatewayId,
-                                           amount: amount,
-                                           currency: currency,
-                                           savePaymentMethod: savePaymentMethod)
+        let method = PaymentOptions.Method(
+            oauthToken: clientApplicationKey,
+            passportAuthorization: passportToken,
+            gatewayId: gatewayId,
+            amount: amount,
+            currency: currency,
+            savePaymentMethod: getSavePaymentMethod
+        )
 
         let paymentOptions = session.perform(apiMethod: method).responseApi()
 

@@ -142,8 +142,8 @@ extension TokenizationRouter: TokenizationRouterInput {
         transitionHandler?.show(viewController, sender: self)
     }
 
-    func presentRecurringInfo(inputData: RecurringInfoModuleInputData) {
-        let viewController = RecurringInfoAssembly.makeModule(inputData: inputData)
+    func presentSavePaymentMethodInfo(inputData: SavePaymentMethodInfoModuleInputData) {
+        let viewController = SavePaymentMethodInfoAssembly.makeModule(inputData: inputData)
         let navigationController = UINavigationController(rootViewController: viewController)
         transitionHandler?.present(navigationController, animated: true, completion: nil)
     }

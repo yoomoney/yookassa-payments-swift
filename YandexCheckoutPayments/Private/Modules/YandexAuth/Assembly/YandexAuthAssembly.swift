@@ -37,7 +37,7 @@ enum YandexAuthAssembly {
             clientApplicationKey: inputData.clientApplicationKey,
             gatewayId: inputData.gatewayId,
             amount: inputData.amount,
-            savePaymentMethod: inputData.savePaymentMethod
+            getSavePaymentMethod: inputData.getSavePaymentMethod
         )
 
         view.output = presenter

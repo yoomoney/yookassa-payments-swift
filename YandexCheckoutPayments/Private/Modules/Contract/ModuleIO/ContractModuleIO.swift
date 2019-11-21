@@ -11,7 +11,7 @@ struct ContractModuleInputData {
     let tokenizeScheme: AnalyticsEvent.TokenizeScheme
     let isLoggingEnabled: Bool
     let termsOfService: TermsOfService
-    let recurringViewModel: RecurringViewModel?
+    let savePaymentMethodViewModel: SavePaymentMethodViewModel?
 }
 
 protocol ContractModuleInput: ContractStateHandler {}
@@ -35,9 +35,9 @@ protocol ContractModuleOutput: class {
     )
     func contractModule(
         _ module: ContractModuleInput,
-        didChangeRecurringState state: Bool
+        didChangeSavePaymentMethodState state: Bool
     )
-    func didTapOnRecurringInfo(
+    func didTapOnSavePaymentMethodInfo(
         on module: ContractModuleInput
     )
 }

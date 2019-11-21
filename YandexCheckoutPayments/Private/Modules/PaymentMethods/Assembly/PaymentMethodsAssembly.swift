@@ -44,7 +44,7 @@ enum PaymentMethodsAssembly {
             clientApplicationKey: inputData.clientApplicationKey,
             gatewayId: inputData.gatewayId,
             amount: inputData.amount,
-            savePaymentMethod: inputData.savePaymentMethod
+            getSavePaymentMethod: inputData.getSavePaymentMethod
         )
 
         presenter.moduleOutput = moduleOutput

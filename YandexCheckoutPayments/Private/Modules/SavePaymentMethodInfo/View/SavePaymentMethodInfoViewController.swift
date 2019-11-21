@@ -1,10 +1,10 @@
 import UIKit
 
-final class RecurringInfoViewController: UIViewController {
+final class SavePaymentMethodInfoViewController: UIViewController {
 
     // MARK: - VIPER properties
 
-    var output: RecurringInfoViewOutput!
+    var output: SavePaymentMethodInfoViewOutput!
 
     // MARK: - UI properties
 
@@ -79,17 +79,17 @@ final class RecurringInfoViewController: UIViewController {
 
 // MARK: - Actions
 
-private extension RecurringInfoViewController {
+private extension SavePaymentMethodInfoViewController {
     @objc
     func closeBarButtonItemDidPress(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 }
 
-// MARK: - RecurringInfoViewInput
+// MARK: - SavePaymentMethodInfoViewInput
 
-extension RecurringInfoViewController: RecurringInfoViewInput {
-    func setRecurringInfoViewModel(_ viewModel: RecurringInfoViewModel) {
+extension SavePaymentMethodInfoViewController: SavePaymentMethodInfoViewInput {
+    func setSavePaymentMethodInfoViewModel(_ viewModel: SavePaymentMethodInfoViewModel) {
         headerLabel.text = viewModel.headerText
         bodyLabel.text = viewModel.bodyText
     }

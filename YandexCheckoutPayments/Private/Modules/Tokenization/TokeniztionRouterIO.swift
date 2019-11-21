@@ -69,7 +69,7 @@ protocol TokenizationRouterInput: class {
         moduleOutput: ApplePayContractModuleOutput
     )
 
-    func presentRecurringInfo(
-        inputData: RecurringInfoModuleInputData
+    func presentSavePaymentMethodInfo(
+        inputData: SavePaymentMethodInfoModuleInputData
     )
 }

@@ -7,7 +7,7 @@ protocol ContractTemplateViewOutput: class {
     func didTapTermsOfService(_ url: URL)
     func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput,
                               didChangeState state: Bool)
-    func didTapOnRecurring()
+    func didTapOnSavePaymentMethod()
 }
 
 protocol ContractTemplateViewInput: class {
@@ -17,7 +17,7 @@ protocol ContractTemplateViewInput: class {
     func setFee(_ fee: PriceViewModel?)
     func setSubmitButtonEnabled(_ isEnabled: Bool)
     func setTermsOfService(text: String, hyperlink: String, url: URL)
-    func setRecurringViewModel(_ recurringViewModel: RecurringViewModel)
+    func setSavePaymentMethodViewModel(_ savePaymentMethodViewModel: SavePaymentMethodViewModel)
 }
 
 final class ContractTemplate: UIViewController {
@@ -188,18 +188,18 @@ final class ContractTemplate: UIViewController {
 
     fileprivate var footerViewSeparatorLeading: NSLayoutConstraint?
 
-    private var recurringView: UIView? {
+    private var savePaymentMethodView: UIView? {
         didSet {
-            if let oldView = oldValue, recurringView !== oldView {
+            if let oldView = oldValue, savePaymentMethodView !== oldView {
                 oldView.removeFromSuperview()
             }
-            if recurringView !== oldValue {
-                configureRecurringView()
+            if savePaymentMethodView !== oldValue {
+                configureSavePaymentMethodView()
             }
         }
     }
 
-    private lazy var recurringSwitchItemView: LinkedSwitchItemView = {
+    private lazy var savePaymentMethodSwitchItemView: LinkedSwitchItemView = {
         let view = LinkedSwitchItemView()
         view.layoutMargins = .zero
         view.appendStyle(UIView.Styles.heightAsContent)
@@ -207,7 +207,7 @@ final class ContractTemplate: UIViewController {
         return view
     }()
 
-    private lazy var recurringStrictView: LinkedTextView = {
+    private lazy var savePaymentMethodStrictView: LinkedTextView = {
         let view = LinkedTextView()
         view.layoutMargins = UIEdgeInsets(top: Space.double, left: 0, bottom: Space.double, right: 0)
         view.setStyles(backgroundStyle,
@@ -553,10 +553,10 @@ final class ContractTemplate: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
 
-    private func configureRecurringView() {
-        guard let recurringView = recurringView else { return }
-        recurringView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(recurringView)
+    private func configureSavePaymentMethodView() {
+        guard let savePaymentMethodView = savePaymentMethodView else { return }
+        savePaymentMethodView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(savePaymentMethodView)
 
         let topViewAnchor: YAxisAnchor
         if footerView != nil {
@@ -568,18 +568,18 @@ final class ContractTemplate: UIViewController {
         }
 
         let priceViewTopConstraint = priceView.top.constraint(
-            equalTo: recurringView.bottom,
+            equalTo: savePaymentMethodView.bottom,
             constant: Space.quadruple
         )
 
-        let topViewConstraint = recurringView.top.constraint(
+        let topViewConstraint = savePaymentMethodView.top.constraint(
             equalTo: topViewAnchor,
             constant: Space.double
         )
 
         var constraints = [
-            recurringView.leading.constraint(equalTo: contentView.leading, constant: Space.double),
-            contentView.trailing.constraint(equalTo: recurringView.trailing, constant: Space.double),
+            savePaymentMethodView.leading.constraint(equalTo: contentView.leading, constant: Space.double),
+            contentView.trailing.constraint(equalTo: savePaymentMethodView.trailing, constant: Space.double),
             priceViewTopConstraint,
             topViewConstraint,
         ]
@@ -641,8 +641,8 @@ extension ContractTemplate: UITextViewDelegate {
         switch textView {
         case termsOfServiceTextView:
             output?.didTapTermsOfService(URL)
-        case recurringStrictView:
-            output?.didTapOnRecurring()
+        case savePaymentMethodStrictView:
+            output?.didTapOnSavePaymentMethod()
         default:
             assertionFailure("Unsupported textView")
         }
@@ -658,7 +658,7 @@ extension ContractTemplate: LinkedSwitchItemViewOutput {
     }
 
     func didTapOnLinkedView(on itemView: LinkedSwitchItemViewInput) {
-        output?.didTapOnRecurring()
+        output?.didTapOnSavePaymentMethod()
     }
 }
 
@@ -709,25 +709,25 @@ extension ContractTemplate: ContractTemplateViewInput {
         termsOfServiceTextView.attributedText = attributedText
     }
 
-    func setRecurringViewModel(_ recurringViewModel: RecurringViewModel) {
-        switch recurringViewModel {
+    func setSavePaymentMethodViewModel(_ savePaymentMethodViewModel: SavePaymentMethodViewModel) {
+        switch savePaymentMethodViewModel {
         case .switcher(let viewModel):
-            recurringSwitchItemView.state = viewModel.state
-            recurringSwitchItemView.attributedString = makeRecurringAttributedString(
+            savePaymentMethodSwitchItemView.state = viewModel.state
+            savePaymentMethodSwitchItemView.attributedString = makeSavePaymentMethodAttributedString(
                 text: viewModel.text,
                 hyperText: viewModel.hyperText
             )
-            recurringView = recurringSwitchItemView
+            savePaymentMethodView = savePaymentMethodSwitchItemView
         case .strict(let viewModel):
-            recurringStrictView.attributedText = makeRecurringAttributedString(
+            savePaymentMethodStrictView.attributedText = makeSavePaymentMethodAttributedString(
                 text: viewModel.text,
                 hyperText: viewModel.hyperText
             )
-            recurringView = recurringStrictView
+            savePaymentMethodView = savePaymentMethodStrictView
         }
     }
 
-    private func makeRecurringAttributedString(
+    private func makeSavePaymentMethodAttributedString(
         text: String,
         hyperText: String
     ) -> NSAttributedString {

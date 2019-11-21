@@ -42,8 +42,8 @@ extension BankCardRepeatPresenter: TokenizationViewOutput {
 
         let viewModel = PaymentMethodViewModelFactory.makePaymentMethodViewModel(.bankCard)
         let tokenizeScheme = AnalyticsEvent.TokenizeScheme.recurringCard
-        let recurringViewModel = RecurringViewModelFactory.makeRecurringViewModel(
-            inputData.recurring
+        let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
+            inputData.savePaymentMethod
         )
         let moduleInputData = ContractModuleInputData(
             shopName: inputData.shopName,
@@ -56,7 +56,7 @@ extension BankCardRepeatPresenter: TokenizationViewOutput {
             tokenizeScheme: tokenizeScheme,
             isLoggingEnabled: inputData.isLoggingEnabled,
             termsOfService: TermsOfServiceFactory.makeTermsOfService(),
-            recurringViewModel: recurringViewModel
+            savePaymentMethodViewModel: savePaymentMethodViewModel
         )
 
         DispatchQueue.main.async { [weak self] in
@@ -168,17 +168,17 @@ extension BankCardRepeatPresenter: ContractModuleOutput {
         router.presentTermsOfServiceModule(url)
     }
 
-    func contractModule(_ module: ContractModuleInput, didChangeRecurringState state: Bool) {
+    func contractModule(_ module: ContractModuleInput, didChangeSavePaymentMethodState state: Bool) {
         savePaymentMethod = state
     }
 
-    func didTapOnRecurringInfo(on module: ContractModuleInput) {
-        let recurringModuleinputData = RecurringInfoModuleInputData(
+    func didTapOnSavePaymentMethodInfo(on module: ContractModuleInput) {
+        let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
             customizationSettings: inputData.customizationSettings,
-            headerValue: §RecurringInfoLocalization.BankCard.header,
-            bodyValue: §RecurringInfoLocalization.BankCard.body
+            headerValue: §SavePaymentMethodInfoLocalization.BankCard.header,
+            bodyValue: §SavePaymentMethodInfoLocalization.BankCard.body
         )
-        router.presentRecurringInfo(inputData: recurringModuleinputData)
+        router.presentSavePaymentMethodInfo(inputData: savePaymentMethodModuleinputData)
     }
 }
 
@@ -213,7 +213,6 @@ extension BankCardRepeatPresenter: MaskedBankCardDataInputModuleOutput {
 // MARK: - TokenizationModuleInput
 
 extension BankCardRepeatPresenter: TokenizationModuleInput {
-    public func start3dsProcess(requestUrl: String, redirectUrl: String) {}
     public func start3dsProcess(requestUrl: String) {}
 }
 

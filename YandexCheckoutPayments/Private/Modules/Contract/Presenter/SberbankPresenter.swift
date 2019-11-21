@@ -46,8 +46,8 @@ extension SberbankPresenter: ContractViewOutput {
         phoneInputView.setValue(clearPhoneNumber(inputData.phoneNumber) ?? "7")
         phoneInputView.validatePhoneNumber()
 
-        if let recurringViewModel = inputData.recurringViewModel {
-            contractView.setRecurringViewModel(recurringViewModel)
+        if let savePaymentMethodViewModel = inputData.savePaymentMethodViewModel {
+            contractView.setSavePaymentMethodViewModel(savePaymentMethodViewModel)
         }
 
         DispatchQueue.global().async { [weak self] in
@@ -92,7 +92,7 @@ extension SberbankPresenter: ContractTemplateViewOutput {
 
     func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) {}
 
-    func didTapOnRecurring() {}
+    func didTapOnSavePaymentMethod() {}
 }
 
 // MARK: - SberbankModuleInput

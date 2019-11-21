@@ -37,8 +37,8 @@ extension ApplePayContractPresenter: ContractViewOutput {
         )
         paymentMethodView.setPaymentMethodViewModel(inputData.paymentMethod)
 
-        if let recurringViewModel = inputData.recurringViewModel {
-            contractView.setRecurringViewModel(recurringViewModel)
+        if let savePaymentMethodViewModel = inputData.savePaymentMethodViewModel {
+            contractView.setSavePaymentMethodViewModel(savePaymentMethodViewModel)
         }
     }
 }
@@ -74,7 +74,7 @@ extension ApplePayContractPresenter: ContractTemplateViewOutput {
 
     func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) {}
 
-    func didTapOnRecurring() {}
+    func didTapOnSavePaymentMethod() {}
 }
 
 // MARK: - LargeIconItemViewOutput
