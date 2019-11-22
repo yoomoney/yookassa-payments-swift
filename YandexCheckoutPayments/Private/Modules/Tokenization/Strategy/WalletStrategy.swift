@@ -7,21 +7,25 @@ final class WalletStrategy {
     weak var output: TokenizationStrategyOutput?
     weak var contractStateHandler: ContractStateHandler?
 
-    var savePaymentMethod = true
+    var savePaymentMethod: Bool
 
     private let authorizationService: AuthorizationProcessing
     private let paymentOption: PaymentInstrumentYandexMoneyWallet
     private let returnUrl: String
 
-    init(authorizationService: AuthorizationProcessing,
-         paymentOption: PaymentOption,
-         returnUrl: String) throws {
+    init(
+        authorizationService: AuthorizationProcessing,
+        paymentOption: PaymentOption,
+        returnUrl: String,
+        savePaymentMethod: Bool
+    ) throws {
         guard let paymentOption = paymentOption as? PaymentInstrumentYandexMoneyWallet else {
             throw TokenizationStrategyError.incorrectPaymentOptions
         }
         self.paymentOption = paymentOption
         self.authorizationService = authorizationService
         self.returnUrl = returnUrl
+        self.savePaymentMethod = savePaymentMethod
     }
 }
 

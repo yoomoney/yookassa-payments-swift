@@ -12,7 +12,7 @@ final class ApplePayStrategy: NSObject {
     weak var output: TokenizationStrategyOutput?
     weak var contractStateHandler: ContractStateHandler?
 
-    var savePaymentMethod = false
+    var savePaymentMethod: Bool
 
     fileprivate let paymentOption: PaymentOption
     fileprivate let analyticsService: AnalyticsProcessing
@@ -21,10 +21,13 @@ final class ApplePayStrategy: NSObject {
     fileprivate weak var paymentMethodsModuleInput: PaymentMethodsModuleInput?
     fileprivate var paymentResult: PaymentResult = .failed
 
-    init(paymentOption: PaymentOption,
-         paymentMethodsModuleInput: PaymentMethodsModuleInput?,
-         analyticsService: AnalyticsProcessing,
-         analyticsProvider: AnalyticsProviding) throws {
+    init(
+        paymentOption: PaymentOption,
+        paymentMethodsModuleInput: PaymentMethodsModuleInput?,
+        analyticsService: AnalyticsProcessing,
+        analyticsProvider: AnalyticsProviding,
+        savePaymentMethod: Bool
+    ) throws {
         guard case .applePay = paymentOption.paymentMethodType else {
             throw TokenizationStrategyError.incorrectPaymentOptions
         }
@@ -32,6 +35,7 @@ final class ApplePayStrategy: NSObject {
         self.paymentMethodsModuleInput = paymentMethodsModuleInput
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
+        self.savePaymentMethod = savePaymentMethod
     }
 }
 

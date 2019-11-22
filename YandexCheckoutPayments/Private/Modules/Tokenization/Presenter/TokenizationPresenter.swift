@@ -37,12 +37,15 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
     private var paymentOption: PaymentOption? {
         didSet {
             strategy = paymentOption.map {
-                makeStrategy(paymentOption: $0,
-                             output: self,
-                             testModeSettings: inputData.testModeSettings,
-                             paymentMethodsModuleInput: paymentMethodsModuleInput,
-                             returnUrl: inputData.returnUrl ?? Constants.returnUrl,
-                             isLoggingEnabled: inputData.isLoggingEnabled)
+                makeStrategy(
+                    paymentOption: $0,
+                    output: self,
+                    testModeSettings: inputData.testModeSettings,
+                    paymentMethodsModuleInput: paymentMethodsModuleInput,
+                    returnUrl: inputData.returnUrl ?? Constants.returnUrl,
+                    isLoggingEnabled: inputData.isLoggingEnabled,
+                    savePaymentMethod: inputData.savePaymentMethod
+                )
             }
         }
     }
@@ -877,12 +880,15 @@ private func makeFeePriceViewModel(_ paymentOption: PaymentOption) -> PriceViewM
                       style: .fee)
 }
 
-private func makeStrategy(paymentOption: PaymentOption,
-                          output: TokenizationStrategyOutput?,
-                          testModeSettings: TestModeSettings?,
-                          paymentMethodsModuleInput: PaymentMethodsModuleInput?,
-                          returnUrl: String,
-                          isLoggingEnabled: Bool) -> TokenizationStrategyInput {
+private func makeStrategy(
+    paymentOption: PaymentOption,
+    output: TokenizationStrategyOutput?,
+    testModeSettings: TestModeSettings?,
+    paymentMethodsModuleInput: PaymentMethodsModuleInput?,
+    returnUrl: String,
+    isLoggingEnabled: Bool,
+    savePaymentMethod: SavePaymentMethod
+) -> TokenizationStrategyInput {
 
     let authorizationService = AuthorizationProcessingAssembly
         .makeService(isLoggingEnabled: isLoggingEnabled,
@@ -896,29 +902,63 @@ private func makeStrategy(paymentOption: PaymentOption,
                                testModeSettings: testModeSettings)
 
     let strategy: TokenizationStrategyInput
-    if let bankCard = try? BankCardStrategy(paymentOption: paymentOption, returnUrl: returnUrl) {
+    if let bankCard = try? BankCardStrategy(
+        paymentOption: paymentOption,
+        returnUrl: returnUrl,
+        savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
+        ) {
         strategy = bankCard
-    } else if let wallet = try? WalletStrategy(authorizationService: authorizationService,
-                                               paymentOption: paymentOption, returnUrl: returnUrl) {
+    } else if let wallet = try? WalletStrategy(
+        authorizationService: authorizationService,
+        paymentOption: paymentOption,
+        returnUrl: returnUrl,
+        savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
+        ) {
         strategy = wallet
-    } else if let linkedBankCard = try? LinkedBankCardStrategy(authorizationService: authorizationService,
-                                                               paymentOption: paymentOption, returnUrl: returnUrl) {
+    } else if let linkedBankCard = try? LinkedBankCardStrategy(
+        authorizationService: authorizationService,
+        paymentOption: paymentOption,
+        returnUrl: returnUrl,
+        savePaymentMethod: false
+        ) {
         strategy = linkedBankCard
-    } else if let sberbankStrategy = try? SberbankStrategy(paymentOption: paymentOption) {
+    } else if let sberbankStrategy = try? SberbankStrategy(
+        paymentOption: paymentOption,
+        savePaymentMethod: false
+        ) {
         strategy = sberbankStrategy
-    } else if let applePay = try? ApplePayStrategy(paymentOption: paymentOption,
-                                                   paymentMethodsModuleInput: paymentMethodsModuleInput,
-                                                   analyticsService: analyticsService,
-                                                   analyticsProvider: analyticsProvider) {
+    } else if let applePay = try? ApplePayStrategy(
+        paymentOption: paymentOption,
+        paymentMethodsModuleInput: paymentMethodsModuleInput,
+        analyticsService: analyticsService,
+        analyticsProvider: analyticsProvider,
+        savePaymentMethod: false
+        ) {
         strategy = applePay
     } else {
         fatalError("Unsupported strategy")
     }
+
     strategy.output = output
     return strategy
 }
 
-private func makeGetSavePaymentMethod(_ savePaymentMethod: SavePaymentMethod) -> Bool? {
+private func makeInitialSavePaymentMethod(
+    _ savePaymentMethod: SavePaymentMethod
+) -> Bool {
+    let initialSavePaymentMethod: Bool
+    switch savePaymentMethod {
+    case .on, .userSelects:
+        initialSavePaymentMethod = true
+    case .off:
+        initialSavePaymentMethod = false
+    }
+    return initialSavePaymentMethod
+}
+
+private func makeGetSavePaymentMethod(
+    _ savePaymentMethod: SavePaymentMethod
+) -> Bool? {
     let getSavePaymentMethod: Bool?
     switch savePaymentMethod {
     case .on:
