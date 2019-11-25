@@ -9,17 +9,22 @@ final class BankCardStrategy {
 
     private weak var bankCardDataInputModule: BankCardDataInputModuleInput?
 
-    var savePaymentMethod = true
+    var savePaymentMethod: Bool
 
     private let paymentOption: PaymentOption
     private let returnUrl: String
 
-    init(paymentOption: PaymentOption, returnUrl: String) throws {
+    init(
+        paymentOption: PaymentOption,
+        returnUrl: String,
+        savePaymentMethod: Bool
+    ) throws {
         guard case .bankCard = paymentOption.paymentMethodType else {
             throw TokenizationStrategyError.incorrectPaymentOptions
         }
         self.paymentOption = paymentOption
         self.returnUrl = returnUrl
+        self.savePaymentMethod = savePaymentMethod
     }
 }
 

@@ -8,14 +8,18 @@ final class SberbankStrategy {
     weak var output: TokenizationStrategyOutput?
     weak var contractStateHandler: ContractStateHandler?
 
-    var savePaymentMethod = false
+    var savePaymentMethod: Bool
 
-    init(paymentOption: PaymentOption) throws {
+    init(
+        paymentOption: PaymentOption,
+        savePaymentMethod: Bool
+    ) throws {
         guard case .sberbank = paymentOption.paymentMethodType else {
             throw TokenizationStrategyError.incorrectPaymentOptions
         }
 
         self.paymentOption = paymentOption
+        self.savePaymentMethod = savePaymentMethod
     }
 }
 
