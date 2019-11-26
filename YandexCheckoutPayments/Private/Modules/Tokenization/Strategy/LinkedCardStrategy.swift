@@ -18,9 +18,9 @@ final class LinkedBankCardStrategy {
 
     init(
         authorizationService: AuthorizationProcessing,
-         paymentOption: PaymentOption,
-         returnUrl: String,
-         savePaymentMethod: Bool
+        paymentOption: PaymentOption,
+        returnUrl: String,
+        savePaymentMethod: Bool
     ) throws {
         guard let paymentOption = paymentOption as? PaymentInstrumentYandexMoneyLinkedBankCard else {
             throw TokenizationStrategyError.incorrectPaymentOptions
@@ -91,7 +91,7 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
             id: paymentOption.cardId,
             csc: cvc,
             confirmation: confirmation,
-            savePaymentMethod: false
+            savePaymentMethod: savePaymentMethod
         )
         output?.tokenize(tokenizeData, paymentOption: paymentOption)
     }

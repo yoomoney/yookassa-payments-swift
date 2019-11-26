@@ -14,9 +14,24 @@ struct ApplePayContractModuleInputData {
 protocol ApplePayContractModuleInput: class {}
 
 protocol ApplePayContractModuleOutput: class {
-    func didFinish(on module: ApplePayContractModuleInput)
-    func didPressChangeAction(on module: ApplePayContractModuleInput)
-    func didPressSubmitButton(on module: ApplePayContractModuleInput)
-    func applePayContractModule(_ module: ApplePayContractModuleInput,
-                                didTapTermsOfService url: URL)
+    func didFinish(
+        on module: ApplePayContractModuleInput
+    )
+    func didPressChangeAction(
+        on module: ApplePayContractModuleInput
+    )
+    func didPressSubmitButton(
+        on module: ApplePayContractModuleInput
+    )
+    func applePayContractModule(
+        _ module: ApplePayContractModuleInput,
+        didTapTermsOfService url: URL
+    )
+    func applePayContractModule(
+        _ module: ApplePayContractModuleInput,
+        didChangeSavePaymentMethodState state: Bool
+    )
+    func didTapOnSavePaymentMethodInfo(
+        on module: ApplePayContractModuleInput
+    )
 }

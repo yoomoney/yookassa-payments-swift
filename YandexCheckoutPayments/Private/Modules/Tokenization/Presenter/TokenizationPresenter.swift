@@ -293,6 +293,11 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
 
     func presentApplePayContract(_ paymentOption: PaymentOption) {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
+        let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
+            paymentOption,
+            inputData.savePaymentMethod,
+            initialState: makeInitialSavePaymentMethod(inputData.savePaymentMethod)
+        )
         let moduleInputData = ApplePayContractModuleInputData(
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
@@ -303,7 +308,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
             termsOfService: termsOfService,
-            savePaymentMethodViewModel: nil
+            savePaymentMethodViewModel: savePaymentMethodViewModel
         )
 
         DispatchQueue.main.async { [weak self] in
@@ -336,6 +341,20 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
 
     func presentTermsOfServiceModule(_ url: URL) {
         router.presentTermsOfServiceModule(url)
+    }
+
+    func presentSavePaymentMethodInfoModule() {
+        guard let paymentOption = paymentOption,
+            let savePaymentMethodInfoValues = makeSavePaymentMethodInfoValues(
+                paymentOption: paymentOption
+            ) else { return }
+
+        let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
+            customizationSettings: inputData.customizationSettings,
+            headerValue: savePaymentMethodInfoValues.headerValue,
+            bodyValue: savePaymentMethodInfoValues.bodyValue
+        )
+        router.presentSavePaymentMethodInfo(inputData: savePaymentMethodModuleinputData)
     }
 }
 
@@ -505,29 +524,10 @@ extension TokenizationPresenter: ContractModuleOutput {
         strategy?.savePaymentMethod = state
     }
 
-    func didTapOnSavePaymentMethodInfo(on module: ContractModuleInput) {
-        guard let paymentOption = paymentOption else { return }
-
-        let headerValue: String
-        let bodyValue: String
-
-        if paymentOption is PaymentInstrumentYandexMoneyWallet {
-            headerValue = §SavePaymentMethodInfoLocalization.Wallet.header
-            bodyValue = §SavePaymentMethodInfoLocalization.Wallet.body
-        } else if case .bankCard = paymentOption.paymentMethodType {
-            headerValue = §SavePaymentMethodInfoLocalization.BankCard.header
-            bodyValue = §SavePaymentMethodInfoLocalization.BankCard.body
-        } else {
-            assertionFailure("Unsupported paymentMethod to present savePaymentMethod info")
-            return
-        }
-
-        let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
-            customizationSettings: inputData.customizationSettings,
-            headerValue: headerValue,
-            bodyValue: bodyValue
-        )
-        router.presentSavePaymentMethodInfo(inputData: savePaymentMethodModuleinputData)
+    func didTapOnSavePaymentMethodInfo(
+        on module: ContractModuleInput
+    ) {
+        presentSavePaymentMethodInfoModule()
     }
 }
 
@@ -656,13 +656,10 @@ extension TokenizationPresenter: YamoneyAuthParametersModuleOutput {
         strategy?.savePaymentMethod = state
     }
 
-    func didTapOnSavePaymentMethodInfo(on module: YamoneyAuthParametersModuleInput) {
-        let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
-            customizationSettings: inputData.customizationSettings,
-            headerValue: §SavePaymentMethodInfoLocalization.Wallet.header,
-            bodyValue: §SavePaymentMethodInfoLocalization.Wallet.body
-        )
-        router.presentSavePaymentMethodInfo(inputData: savePaymentMethodModuleinputData)
+    func didTapOnSavePaymentMethodInfo(
+        on module: YamoneyAuthParametersModuleInput
+    ) {
+        presentSavePaymentMethodInfoModule()
     }
 }
 
@@ -822,6 +819,19 @@ extension TokenizationPresenter: ApplePayContractModuleOutput {
     func applePayContractModule(_ module: ApplePayContractModuleInput, didTapTermsOfService url: URL) {
         presentTermsOfServiceModule(url)
     }
+
+    func applePayContractModule(
+        _ module: ApplePayContractModuleInput,
+        didChangeSavePaymentMethodState state: Bool
+    ) {
+        strategy?.savePaymentMethod = state
+    }
+
+    func didTapOnSavePaymentMethodInfo(
+        on module: ApplePayContractModuleInput
+    ) {
+        presentSavePaymentMethodInfoModule()
+    }
 }
 
 // MARK: - ErrorModuleOutput
@@ -971,6 +981,27 @@ private func makeGetSavePaymentMethod(
         getSavePaymentMethod = nil
     }
     return getSavePaymentMethod
+}
+
+private func makeSavePaymentMethodInfoValues(
+    paymentOption: PaymentOption
+) -> (headerValue: String, bodyValue: String)? {
+    let headerValue: String
+    let bodyValue: String
+
+    if paymentOption is PaymentInstrumentYandexMoneyWallet {
+        headerValue = §SavePaymentMethodInfoLocalization.Wallet.header
+        bodyValue = §SavePaymentMethodInfoLocalization.Wallet.body
+    } else if paymentOption.paymentMethodType == .bankCard
+        || paymentOption is PaymentInstrumentYandexMoneyLinkedBankCard
+        || paymentOption.paymentMethodType == .applePay {
+        headerValue = §SavePaymentMethodInfoLocalization.BankCard.header
+        bodyValue = §SavePaymentMethodInfoLocalization.BankCard.body
+    } else {
+        assertionFailure("Unsupported paymentMethod to present savePaymentMethod info")
+        return nil
+    }
+    return (headerValue, bodyValue)
 }
 
 // MARK: - Constants

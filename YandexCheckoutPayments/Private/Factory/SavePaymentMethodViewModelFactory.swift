@@ -1,6 +1,8 @@
 import YandexCheckoutPaymentsApi
 
 enum SavePaymentMethodViewModelFactory {
+
+    /// Use for .tokenization TokenizationFlow
     static func makeSavePaymentMethodViewModel(
         _ paymentOption: PaymentOption,
         _ savePaymentMethod: SavePaymentMethod,
@@ -38,6 +40,7 @@ enum SavePaymentMethodViewModelFactory {
         return savePaymentMethodViewModel
     }
 
+    /// Use for .bankCardRepeat TokenizationFlow
     static func makeSavePaymentMethodViewModel(
         _ savePaymentMethod: SavePaymentMethod,
         initialState: Bool
@@ -90,7 +93,9 @@ enum SavePaymentMethodViewModelFactory {
             default:
                 return nil
             }
-        } else if paymentOption.paymentMethodType == .bankCard {
+        } else if paymentOption.paymentMethodType == .bankCard
+            || paymentOption is PaymentInstrumentYandexMoneyLinkedBankCard
+            || paymentOption.paymentMethodType == .applePay {
             switch savePaymentMethod {
             case .userSelects:
                 return (

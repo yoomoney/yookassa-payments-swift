@@ -79,7 +79,10 @@ extension YamoneyAuthParametersPresenter: ContractTemplateViewOutput {
         moduleOutput?.yamoneyAuthParameters(self, didTapTermsOfService: url)
     }
 
-    func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) {
+    func linkedSwitchItemView(
+        _ itemView: LinkedSwitchItemViewInput,
+        didChangeState state: Bool
+    ) {
         moduleOutput?.yamoneyAuthParameters(
             self,
             didChangeSavePaymentMethodState: state

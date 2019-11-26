@@ -72,9 +72,19 @@ extension ApplePayContractPresenter: ContractTemplateViewOutput {
         moduleOutput?.applePayContractModule(self, didTapTermsOfService: url)
     }
 
-    func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) {}
+    func linkedSwitchItemView(
+        _ itemView: LinkedSwitchItemViewInput,
+        didChangeState state: Bool
+    ) {
+        moduleOutput?.applePayContractModule(
+            self,
+            didChangeSavePaymentMethodState: state
+        )
+    }
 
-    func didTapOnSavePaymentMethod() {}
+    func didTapOnSavePaymentMethod() {
+        moduleOutput?.didTapOnSavePaymentMethodInfo(on: self)
+    }
 }
 
 // MARK: - LargeIconItemViewOutput
