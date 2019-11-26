@@ -394,6 +394,7 @@ let moduleData = TokenizationModuleInputData(
 | Параметр                   | Тип                   | Описание |
 | -------------------------- | --------------------- | -------- |
 | testModeSettings           | TestModeSettings      | По умолчанию `nil`. Настройки тестового режима. |
+| returnUrl                  | String                | По умолчанию `nil`. URL страницы (поддерживается только `https`), на которую надо вернуться после прохождения 3-D Secure. Необходим только при кастомной реализации 3-D Secure. Если вы используете `start3dsProcess(requestUrl:)`, не задавайте этот параметр. |
 | isLoggingEnabled           | Bool                  | По умолчанию `false`. Включает логирование сетевых запросов. |
 | customizationSettings      | CustomizationSettings | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
 
