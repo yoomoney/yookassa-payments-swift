@@ -1,5 +1,9 @@
 ## Changelog
 
+### 2.3.1
+
+1. Починили 3DS в `.bankCardRepeat TokenizationFlow`
+
 ### 2.3.0
 
 1. Добавили поддержку темной темы в iOS 13.
