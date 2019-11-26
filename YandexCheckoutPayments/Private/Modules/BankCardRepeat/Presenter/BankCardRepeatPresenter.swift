@@ -43,7 +43,8 @@ extension BankCardRepeatPresenter: TokenizationViewOutput {
         let viewModel = PaymentMethodViewModelFactory.makePaymentMethodViewModel(.bankCard)
         let tokenizeScheme = AnalyticsEvent.TokenizeScheme.recurringCard
         let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
-            inputData.savePaymentMethod
+            inputData.savePaymentMethod,
+            initialState: makeInitialSavePaymentMethod(inputData.savePaymentMethod)
         )
         let moduleInputData = ContractModuleInputData(
             shopName: inputData.shopName,
@@ -234,6 +235,19 @@ private func makePriceViewModel(_ amount: Amount) -> PriceViewModel {
                       integerPart: integerPart,
                       fractionalPart: fractionalPart,
                       style: .amount)
+}
+
+private func makeInitialSavePaymentMethod(
+    _ savePaymentMethod: SavePaymentMethod
+) -> Bool {
+    let initialSavePaymentMethod: Bool
+    switch savePaymentMethod {
+    case .on:
+        initialSavePaymentMethod = true
+    case .off, .userSelects:
+        initialSavePaymentMethod = false
+    }
+    return initialSavePaymentMethod
 }
 
 private func makeMessage(_ error: Error) -> String {

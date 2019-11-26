@@ -97,7 +97,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
         let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
             paymentOption,
-            inputData.savePaymentMethod
+            inputData.savePaymentMethod,
+            initialState: makeInitialSavePaymentMethod(inputData.savePaymentMethod)
         )
         let yamoneyAuthParametersInputData = YamoneyAuthParametersModuleInputData(
             shopName: inputData.shopName,
@@ -155,7 +156,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
         let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
             paymentOption,
-            inputData.savePaymentMethod
+            inputData.savePaymentMethod,
+            initialState: makeInitialSavePaymentMethod(inputData.savePaymentMethod)
         )
         let moduleInputData = ContractModuleInputData(
             shopName: inputData.shopName,
@@ -948,9 +950,9 @@ private func makeInitialSavePaymentMethod(
 ) -> Bool {
     let initialSavePaymentMethod: Bool
     switch savePaymentMethod {
-    case .on, .userSelects:
+    case .on:
         initialSavePaymentMethod = true
-    case .off:
+    case .off, .userSelects:
         initialSavePaymentMethod = false
     }
     return initialSavePaymentMethod

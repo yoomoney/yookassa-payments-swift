@@ -3,7 +3,8 @@ import YandexCheckoutPaymentsApi
 enum SavePaymentMethodViewModelFactory {
     static func makeSavePaymentMethodViewModel(
         _ paymentOption: PaymentOption,
-        _ savePaymentMethod: SavePaymentMethod
+        _ savePaymentMethod: SavePaymentMethod,
+        initialState: Bool
     ) -> SavePaymentMethodViewModel? {
 
         let savePaymentMethodViewModel: SavePaymentMethodViewModel?
@@ -25,7 +26,7 @@ enum SavePaymentMethodViewModelFactory {
                     return nil
                 }
                 let switcherSavePaymentMethodViewModel = SwitcherSavePaymentMethodViewModel(
-                    state: true,
+                    state: initialState,
                     text: textValue.text,
                     hyperText: textValue.hyperText
                 )
@@ -38,7 +39,8 @@ enum SavePaymentMethodViewModelFactory {
     }
 
     static func makeSavePaymentMethodViewModel(
-        _ savePaymentMethod: SavePaymentMethod
+        _ savePaymentMethod: SavePaymentMethod,
+        initialState: Bool
     ) -> SavePaymentMethodViewModel? {
         let savePaymentMethodViewModel: SavePaymentMethodViewModel?
         switch savePaymentMethod {
@@ -48,7 +50,7 @@ enum SavePaymentMethodViewModelFactory {
                 hyperText: §Localized.BankCard.UserPriority.hyperText
             )
             let switcherSavePaymentMethodViewModel = SwitcherSavePaymentMethodViewModel(
-                state: true,
+                state: initialState,
                 text: textValue.text,
                 hyperText: textValue.hyperText
             )
