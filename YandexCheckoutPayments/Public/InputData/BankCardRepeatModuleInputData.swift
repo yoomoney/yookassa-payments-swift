@@ -19,6 +19,9 @@ public struct BankCardRepeatModuleInputData {
     /// Test mode settings.
     let testModeSettings: TestModeSettings?
 
+    /// Return url for close 3ds.
+    let returnUrl: String?
+
     /// Enable logging
     let isLoggingEnabled: Bool
 
@@ -34,6 +37,7 @@ public struct BankCardRepeatModuleInputData {
     ///   - paymentMethodId: The ID of the saved payment method.
     ///   - amount: Amount of payment.
     ///   - testModeSettings: Test mode settings.
+    ///   - returnUrl: Return url for close 3ds.
     ///   - isLoggingEnabled: Enable logging
     ///   - customizationSettings: Settings to customize SDK interface.
     ///
@@ -45,6 +49,7 @@ public struct BankCardRepeatModuleInputData {
         paymentMethodId: String,
         amount: Amount,
         testModeSettings: TestModeSettings? = nil,
+        returnUrl: String? = nil,
         isLoggingEnabled: Bool = false,
         customizationSettings: CustomizationSettings = CustomizationSettings()
     ) {
@@ -54,6 +59,7 @@ public struct BankCardRepeatModuleInputData {
         self.paymentMethodId = paymentMethodId
         self.amount = amount
         self.testModeSettings = testModeSettings
+        self.returnUrl = returnUrl
         self.isLoggingEnabled = isLoggingEnabled
         self.customizationSettings = customizationSettings
     }
