@@ -313,8 +313,10 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
 
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.router.presentApplePayContract(inputData: moduleInputData,
-                                                      moduleOutput: strongSelf)
+            strongSelf.router.presentApplePayContract(
+                inputData: moduleInputData,
+                moduleOutput: strongSelf
+            )
         }
     }
 
@@ -931,7 +933,7 @@ private func makeStrategy(
         authorizationService: authorizationService,
         paymentOption: paymentOption,
         returnUrl: returnUrl,
-        savePaymentMethod: false
+        savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
         ) {
         strategy = linkedBankCard
     } else if let sberbankStrategy = try? SberbankStrategy(
@@ -944,7 +946,8 @@ private func makeStrategy(
         paymentMethodsModuleInput: paymentMethodsModuleInput,
         analyticsService: analyticsService,
         analyticsProvider: analyticsProvider,
-        savePaymentMethod: false
+        savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod),
+        inputSavePaymentMethod: savePaymentMethod
         ) {
         strategy = applePay
     } else {
