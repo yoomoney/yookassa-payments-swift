@@ -214,7 +214,53 @@ extension BankCardRepeatPresenter: MaskedBankCardDataInputModuleOutput {
 // MARK: - TokenizationModuleInput
 
 extension BankCardRepeatPresenter: TokenizationModuleInput {
-    public func start3dsProcess(requestUrl: String) {}
+    func start3dsProcess(requestUrl: String, redirectUrl: String) {
+        let moduleInputData = CardSecModuleInputData(
+            requestUrl: requestUrl,
+            redirectUrl: inputData.returnUrl ?? Constants.returnUrl,
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.router.present3dsModule(
+                inputData: moduleInputData,
+                moduleOutput: strongSelf
+            )
+        }
+    }
+
+    func start3dsProcess(requestUrl: String) {
+        let moduleInputData = CardSecModuleInputData(
+            requestUrl: requestUrl,
+            redirectUrl: inputData.returnUrl ?? Constants.returnUrl,
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.router.present3dsModule(
+                inputData: moduleInputData,
+                moduleOutput: strongSelf
+            )
+        }
+    }
+}
+
+// MARK: - CardSecModuleOutput
+
+extension BankCardRepeatPresenter: CardSecModuleOutput {
+    func didSuccessfullyPassedCardSec(on module: CardSecModuleInput) {
+        moduleOutput?.didSuccessfullyPassedCardSec(on: self)
+    }
+
+    func didPressCloseButton(on module: CardSecModuleInput) {
+        moduleOutput?.didFinish(on: self, with: nil)
+    }
+}
+
+// MARK: - Constants
+
+private enum Constants {
+    static let returnUrl = "https://custom.redirect.url/"
 }
 
 // MARK: - Private global helpers
