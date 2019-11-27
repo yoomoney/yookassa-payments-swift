@@ -4,29 +4,30 @@ import YandexCheckoutPaymentsApi
 
 final class ApplePayStrategy: NSObject {
 
-    fileprivate enum PaymentResult {
+    private enum PaymentResult {
         case success
         case failed
     }
 
+    // MARK: - Outputs
+
     weak var output: TokenizationStrategyOutput?
     weak var contractStateHandler: ContractStateHandler?
 
-    var savePaymentMethod: Bool
+    // MARK: - Initial data
 
-    fileprivate let paymentOption: PaymentOption
-    fileprivate let analyticsService: AnalyticsProcessing
-    fileprivate let analyticsProvider: AnalyticsProviding
-
-    fileprivate weak var paymentMethodsModuleInput: PaymentMethodsModuleInput?
-    fileprivate var paymentResult: PaymentResult = .failed
+    private let paymentOption: PaymentOption
+    private let analyticsService: AnalyticsProcessing
+    private let analyticsProvider: AnalyticsProviding
+    private let inputSavePaymentMethod: SavePaymentMethod
 
     init(
         paymentOption: PaymentOption,
         paymentMethodsModuleInput: PaymentMethodsModuleInput?,
         analyticsService: AnalyticsProcessing,
         analyticsProvider: AnalyticsProviding,
-        savePaymentMethod: Bool
+        savePaymentMethod: Bool,
+        inputSavePaymentMethod: SavePaymentMethod
     ) throws {
         guard case .applePay = paymentOption.paymentMethodType else {
             throw TokenizationStrategyError.incorrectPaymentOptions
@@ -36,7 +37,17 @@ final class ApplePayStrategy: NSObject {
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
         self.savePaymentMethod = savePaymentMethod
+        self.inputSavePaymentMethod = inputSavePaymentMethod
     }
+
+    // MARK: - Stored data
+
+    private weak var paymentMethodsModuleInput: PaymentMethodsModuleInput?
+    private var paymentResult: PaymentResult = .failed
+
+    // MARK: - TokenizationStrategyInput
+
+    var savePaymentMethod: Bool
 }
 
 // MARK: - TokenizationStrategyInput
@@ -46,7 +57,11 @@ extension ApplePayStrategy: TokenizationStrategyInput {
     func beginProcess() {
         guard let output = output else { return }
 
-        if paymentOption.fee != nil {
+        let feeCondition = paymentOption.fee != nil
+        let inputSavePaymentMethodCondition = inputSavePaymentMethod == .userSelects || inputSavePaymentMethod == .on
+        let savePaymentMethodCondition = paymentOption.savePaymentMethodAllowed && inputSavePaymentMethodCondition
+
+        if feeCondition || savePaymentMethodCondition {
             output.presentApplePayContract(paymentOption)
         } else {
             output.presentApplePay(paymentOption)
