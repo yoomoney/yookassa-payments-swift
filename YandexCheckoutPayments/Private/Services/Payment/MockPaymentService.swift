@@ -245,7 +245,7 @@ private func makeLinkedCard(
         cardType: .masterCard,
         identificationRequirement: .simplified,
         fee: fee,
-        savePaymentMethodAllowed: true
+        savePaymentMethod: .allowed
     )
 }
 
@@ -267,7 +267,7 @@ private func makeDefaultPaymentOptions(
                 balance: MonetaryAmount(value: 40_000, currency: .rub),
                 identificationRequirement: .simplified,
                 fee: fee,
-                savePaymentMethodAllowed: true
+                savePaymentMethod: .allowed
             ),
         ]
 
@@ -280,7 +280,7 @@ private func makeDefaultPaymentOptions(
                 charge: charge,
                 identificationRequirement: nil,
                 fee: fee,
-                savePaymentMethodAllowed: true
+                savePaymentMethod: .allowed
             ),
         ]
     }
@@ -292,7 +292,7 @@ private func makeDefaultPaymentOptions(
             charge: charge,
             identificationRequirement: nil,
             fee: fee,
-            savePaymentMethodAllowed: true
+            savePaymentMethod: .forbidden
         ),
         PaymentOption(
             paymentMethodType: .bankCard,
@@ -300,7 +300,7 @@ private func makeDefaultPaymentOptions(
             charge: charge,
             identificationRequirement: nil,
             fee: fee,
-            savePaymentMethodAllowed: true
+            savePaymentMethod: .allowed
         ),
         PaymentOption(
             paymentMethodType: .applePay,
@@ -308,7 +308,7 @@ private func makeDefaultPaymentOptions(
             charge: charge,
             identificationRequirement: nil,
             fee: fee,
-            savePaymentMethodAllowed: true
+            savePaymentMethod: .forbidden
         ),
     ]
 
