@@ -10,7 +10,7 @@ enum SavePaymentMethodViewModelFactory {
     ) -> SavePaymentMethodViewModel? {
 
         let savePaymentMethodViewModel: SavePaymentMethodViewModel?
-        if paymentOption.savePaymentMethodAllowed {
+        if paymentOption.savePaymentMethod == .allowed {
             switch savePaymentMethod {
             case .on:
                 guard let textValue = makeTextValue(paymentOption, savePaymentMethod) else {

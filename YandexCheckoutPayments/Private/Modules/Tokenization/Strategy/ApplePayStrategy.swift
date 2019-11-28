@@ -59,7 +59,7 @@ extension ApplePayStrategy: TokenizationStrategyInput {
 
         let feeCondition = paymentOption.fee != nil
         let inputSavePaymentMethodCondition = inputSavePaymentMethod == .userSelects || inputSavePaymentMethod == .on
-        let savePaymentMethodCondition = paymentOption.savePaymentMethodAllowed && inputSavePaymentMethodCondition
+        let savePaymentMethodCondition = paymentOption.savePaymentMethod == .allowed && inputSavePaymentMethodCondition
 
         if feeCondition || savePaymentMethodCondition {
             output.presentApplePayContract(paymentOption)
