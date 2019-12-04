@@ -33,6 +33,7 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
     private var strategy: TokenizationStrategyInput?
     private var tokenizeData: TokenizeData?
     private var isReusableToken: Bool?
+    private var shouldInvalidateTokenizeData = false
 
     private var paymentOption: PaymentOption? {
         didSet {
@@ -385,9 +386,15 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
         interactor.trackEvent(event)
         interactor.stopAnalyticsService()
 
-        moduleOutput?.tokenizationModule(self,
-                                         didTokenize: token,
-                                         paymentMethodType: paymentOption.paymentMethodType)
+        if shouldInvalidateTokenizeData {
+            shouldInvalidateTokenizeData = false
+        } else {
+            moduleOutput?.tokenizationModule(
+                self,
+                didTokenize: token,
+                paymentMethodType: paymentOption.paymentMethodType
+            )
+        }
     }
 
     func failTokenizeData(_ error: Error) {
@@ -572,6 +579,7 @@ extension TokenizationPresenter: BankCardDataInputModuleOutput {
 
     func didPressCloseBarButtonItem(on module: BankCardDataInputModuleInput) {
         if paymentOptionsCount > Constants.minimalRecommendedPaymentsOptions {
+            shouldInvalidateTokenizeData = true
             presentPaymentMethodsModule()
         } else {
             close()
