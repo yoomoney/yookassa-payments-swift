@@ -107,6 +107,27 @@ extension UIColor {
     // MARK: - Adaptive colors
 
     enum AdaptiveColors {
+        static var primary: UIColor = {
+            let color: UIColor
+            if #available(iOS 13.0, *) {
+                color = .init(dynamicProvider: { (trait) -> UIColor in
+                    let dynamicProviderColor: UIColor
+                    switch trait.userInterfaceStyle {
+                    case .dark, .light:
+                        dynamicProviderColor = .label
+                    case .unspecified:
+                        dynamicProviderColor = .black
+                    @unknown default:
+                        dynamicProviderColor = .black
+                    }
+                    return dynamicProviderColor
+                })
+            } else {
+                color = .black
+            }
+            return color
+        }()
+
         static var secondary: UIColor = {
             let color: UIColor
             if #available(iOS 13.0, *) {

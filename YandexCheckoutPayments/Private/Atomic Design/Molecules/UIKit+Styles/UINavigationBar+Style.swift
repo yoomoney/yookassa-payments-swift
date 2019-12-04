@@ -41,6 +41,9 @@ extension UINavigationBar {
 
             view.isTranslucent = false
             view.barTintColor = barTintColor
+            view.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.AdaptiveColors.primary,
+            ]
             view.shadowImage = UIImage()
             view.clipsToBounds = true
             view.layoutMargins = UIEdgeInsets(top: 0, left: Space.double, bottom: 0, right: Space.double)
