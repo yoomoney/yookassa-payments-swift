@@ -28,8 +28,18 @@ final class TokenizationViewController: UIViewController {
     var modules: [UIViewController] = []
 
     private weak var actionSheetTemplate: ActionSheetTemplate?
-    private weak var modalTemplate: ModalTemplate?
-    private weak var pageSheetTemplate: PageSheetTemplate?
+
+    private weak var pageSheetTemplate: PageSheetTemplate? {
+        didSet {
+            pageSheetTemplate?.navigationBar.tintColor = view.tintColor
+        }
+    }
+
+    private weak var modalTemplate: ModalTemplate? {
+        didSet {
+            modalTemplate?.navigationBar.tintColor = view.tintColor
+        }
+    }
 
     private var containerConstraints: [NSLayoutConstraint] = []
 
