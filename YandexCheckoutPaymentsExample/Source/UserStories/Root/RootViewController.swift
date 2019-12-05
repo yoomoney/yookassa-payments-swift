@@ -11,6 +11,8 @@ final class RootViewController: UIViewController {
         return RootViewController(nibName: nil, bundle: nil)
     }
 
+    weak var tokenizationModuleInput: TokenizationModuleInput?
+
     // MARK: - CardScanningDelegate
 
     weak var cardScanningDelegate: CardScanningDelegate?
@@ -373,6 +375,7 @@ final class RootViewController: UIViewController {
             inputData: inputData,
             moduleOutput: self
         )
+        tokenizationModuleInput = viewController
         present(viewController, animated: true, completion: nil)
     }
 
