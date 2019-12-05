@@ -90,6 +90,7 @@
 
 "Common.button.cancel" = "Отменить";
 
+/*Что то пошло не так, неизвестная ошибка*/
 "Common.Error.unknown" = "Что то пошло не так";
 
 "TermsOfService.Text" = "Нажимая кнопку, вы принимаете";
