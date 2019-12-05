@@ -38,12 +38,12 @@
 		402EB00C3F48C40CA5B60DE3 /* LengthTextInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB86C3387D52C172E36A4 /* LengthTextInputPresenterStyle.swift */; };
 		402EB035A0ADCEA77563BE2B /* YandexLoginProcessingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAC909235F83DCF51E92 /* YandexLoginProcessingAssembly.swift */; };
 		402EB059A64C4ADEB677C006 /* UIImage+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA25F27A2A651AD093D3 /* UIImage+Tools.swift */; };
-		402EB067C41403F60BF6F898 /* UIViewController+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7A74AA0FD29602E4375 /* UIViewController+Keyboard.swift */; };
 		402EB068FD623715284B9D60 /* SberbankStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4E1EF38AE1CD9BCF105 /* SberbankStrategy.swift */; };
 		402EB06BF631E107D84C1D80 /* CustomizationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA4C0B33E4DDCE4D1EB9 /* CustomizationSettings.swift */; };
 		402EB06FC9F381B4EF8B073F /* BankCardDataInputRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE5F748094369D41D15D /* BankCardDataInputRouter.swift */; };
 		402EB07C574BB49E6A3BDAAE /* StyleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1D0205199AC3C6DE886 /* StyleStorage.swift */; };
 		402EB07EF5C9DFE61D96C827 /* InputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8DEF09A97F555305770 /* InputPresenter.swift */; };
+		402EB08025105AA4C816CE32 /* KeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFD5D6BC14E9D08EA642 /* KeyboardButton.swift */; };
 		402EB081707DFFC2F5DF3999 /* UITableView+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFF0B681CB4CC01D83DB /* UITableView+Identifier.swift */; };
 		402EB08CE3CE0311678B8E3C /* NSLayoutConstraint+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1951B7BDB84585F6D93 /* NSLayoutConstraint+Tools.swift */; };
 		402EB0B0E9629833C7DE359A /* UILayoutPriority+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA3026D26E32EFFB6024 /* UILayoutPriority+Constants.swift */; };
@@ -68,7 +68,6 @@
 		402EB135450647975B3B1C7B /* YamoneyAuthModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD6B175EEBD8F8242586 /* YamoneyAuthModuleIO.swift */; };
 		402EB135F272E4A7F5A71687 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB20A7ACB428ADE874F3C /* PlaceholderView.swift */; };
 		402EB137D8537B3909F8D692 /* YamoneyAuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1EEA02E434A344C3EB4 /* YamoneyAuthPresenter.swift */; };
-		402EB140385CA575129515A7 /* KeyboardObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB2238480EA0F800CA9C6 /* KeyboardObservable.swift */; };
 		402EB148A4DB43F678C9C993 /* TokenizationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB9F7D5BE0D247E0A844D /* TokenizationFlow.swift */; };
 		402EB14E8449DB3BE43401DA /* ActivityIndicator+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1CBDA15F4F5C5CF13E0 /* ActivityIndicator+Style.swift */; };
 		402EB15E980B41AA08731E66 /* String+Split.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB95CFDB39CEB4AD76B48 /* String+Split.swift */; };
@@ -112,7 +111,6 @@
 		402EB2791A3B4AC94DDE57BC /* ContractInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD5D68132AEA412F2BDC /* ContractInteractorIO.swift */; };
 		402EB283C063B3BE2707DE6E /* CardSecPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB2A77D9B62DDFA169671 /* CardSecPresenter.swift */; };
 		402EB2849BFADCCC9D3206BC /* PaymentMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB4590024E606203F3FE /* PaymentMethodView.swift */; };
-		402EB28D276E4A85A0CC6F41 /* UIResponder+FirstResponderObserving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB2E47427D676A34B958D /* UIResponder+FirstResponderObserving.swift */; };
 		402EB28E3FB0C69B6288B9BE /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB20A7ACB428ADE874F3C /* PlaceholderView.swift */; };
 		402EB29223A399838FBB01C4 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB14D1CA49B598A9505EA /* InputView.swift */; };
 		402EB298F1AE999AFACE7199 /* PriceInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA92F133EF4971067B8F /* PriceInputViewController.swift */; };
@@ -139,13 +137,13 @@
 		402EB3397345E69677F29347 /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBED6C43E33F60A00D47A /* KeychainStorage.swift */; };
 		402EB33EFF6B15F112C8E8AE /* SwitchItemView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7128379FBEB8C5B5561 /* SwitchItemView+Style.swift */; };
 		402EB3476A58DCBEEA01E316 /* PlaceholderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB331AB2528B523698539 /* PlaceholderProvider.swift */; };
+		402EB34C8185FBEF0E13025B /* UIViewController+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDDFD195BC7733918BA2 /* UIViewController+Keyboard.swift */; };
 		402EB34FC5E319493FC15304 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1EEE3DFE557080259B2 /* Style.swift */; };
 		402EB359491A435BB90D5F1E /* TextValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7AF716BE8C008EA6059 /* TextValueView.swift */; };
 		402EB368C89CDC6C22652262 /* PrefferedContentSizeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB01C01B0045F18C02BE0 /* PrefferedContentSizeCategory.swift */; };
 		402EB36E1B90E51D2957BBAC /* WebBrowserViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE5FF1DF14A2198A90F5 /* WebBrowserViewIO.swift */; };
 		402EB37F76696B7317EEDDF0 /* MonthOutputFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB691B88D70CBB46478E3 /* MonthOutputFormatter.swift */; };
 		402EB37FABD632D4A895D1E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 402EBCE6D8DD4CCCA85A7592 /* LaunchScreen.storyboard */; };
-		402EB37FB5FAA42DA4F73DCF /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC72AA16EB1F871DDE58 /* KeyboardResponder.swift */; };
 		402EB38B0B0D9EA3988F9922 /* PaymentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB9D50FF6F6597287AA66 /* PaymentService.swift */; };
 		402EB38E8A91E6F075E54A78 /* UIViewController+TransitionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFC3A3FDF23F3A7607E3 /* UIViewController+TransitionHandler.swift */; };
 		402EB3942ABCD301CF285927 /* TextControl+RightButtonMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAAF2A837E026D088FCE /* TextControl+RightButtonMode.swift */; };
@@ -157,8 +155,8 @@
 		402EB3C22E3899D86A74F1C0 /* WebBrowserPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB014F96F71429404DC96 /* WebBrowserPresenter.swift */; };
 		402EB3C60AE427521CE73D7E /* LargeIconItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5C88C011D46FCA23C6E /* LargeIconItemView.swift */; };
 		402EB3C8CABD97FDF1E01BF7 /* SelectOptionModuleOutputIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB805E630CB5FFDC295C /* SelectOptionModuleOutputIO.swift */; };
-		402EB3D30195BDD30E548629 /* KeyboardButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3BCE80FA70D259BBF39 /* KeyboardButtonStyle.swift */; };
 		402EB3D6C3EA851FFADBC1DB /* WalletStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAD38C5EB643CD21E0DE /* WalletStrategy.swift */; };
+		402EB3D85D14E3351D0166FC /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB776A6DD755E24BEC5B8 /* KeyboardResponder.swift */; };
 		402EB3FF96557316FD2CBB8B /* YandexAuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7CBA4DC00B146D0AABC /* YandexAuthPresenter.swift */; };
 		402EB4028594174716848981 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5FD23E637F2CB6C2574 /* SuccessViewController.swift */; };
 		402EB40CB6ED57483D5DB57D /* FunctionalPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4E132DE3B37C0A25FC1 /* FunctionalPromise.swift */; };
@@ -197,7 +195,6 @@
 		402EB4DB7D89DA8CBED9BBBB /* AuthTypeStatesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFF57151C710CF91D0E6 /* AuthTypeStatesService.swift */; };
 		402EB4DC5AAC097E3992B6DE /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5FD23E637F2CB6C2574 /* SuccessViewController.swift */; };
 		402EB4E3354E5CE68468D3AF /* DecimalPriceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD24A8CA2694434FF10B /* DecimalPriceViewModel.swift */; };
-		402EB511AED2B7C128E53202 /* KeyboardObservingAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFD9352E7BA7B2913B2C /* KeyboardObservingAccessoryView.swift */; };
 		402EB518DC9CD1F69A6C9F05 /* SwitchItemView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7128379FBEB8C5B5561 /* SwitchItemView+Style.swift */; };
 		402EB51D8B988D695E8DB719 /* ApiSessionAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB572A001C6A59C33858D /* ApiSessionAssembly.swift */; };
 		402EB52500117CC0F9F7337E /* AnalyticsProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC4E71E76A1046320E32 /* AnalyticsProcessing.swift */; };
@@ -205,6 +202,7 @@
 		402EB52D1B69D9D12BA05F02 /* UIFont+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB21194794FB1D5FFEFF9 /* UIFont+Style.swift */; };
 		402EB531E11A4B7AEBF7508C /* UIButton+Stylable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB47DA392DA9D9382598B /* UIButton+Stylable.swift */; };
 		402EB5371BE9F336FC06AA3A /* Anchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB179E2E8A2381A0AEBAD /* Anchor.swift */; };
+		402EB537520CBE10B860077A /* KeyboardPinning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB3ACB67B9FF37010890 /* KeyboardPinning.swift */; };
 		402EB538C925C13B7041B914 /* LinkedCardStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5179EE2C770276844E6 /* LinkedCardStrategy.swift */; };
 		402EB53AE18A55F18C9BDCA9 /* UIView+SpecificLayoutGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB226DE34051D5952382B /* UIView+SpecificLayoutGuide.swift */; };
 		402EB53AEA8F6A640713E70D /* SwitchItemView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7128379FBEB8C5B5561 /* SwitchItemView+Style.swift */; };
@@ -254,6 +252,8 @@
 		402EB66308EC4A515B0B50E5 /* StyleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1D0205199AC3C6DE886 /* StyleStorage.swift */; };
 		402EB66F674895CA46940165 /* UIImage+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA25F27A2A651AD093D3 /* UIImage+Tools.swift */; };
 		402EB66FCD5A001289831B48 /* ApplePayPermissionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4140624A37C315AA60F /* ApplePayPermissionsHandler.swift */; };
+		402EB673123BC9F7BB0EDADE /* KeyboardNotificationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC65C7C9A4599E39EEC2 /* KeyboardNotificationInfo.swift */; };
+		402EB67E391D678EC1816841 /* KeyboardObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB47F288FC29560EE036E /* KeyboardObservable.swift */; };
 		402EB681FE4186E4813E29C5 /* DateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC844321C30955ECCABE /* DateFactory.swift */; };
 		402EB688914B0291A93E8C1F /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCD7E5A2AEB413244F2E /* ListItemView.swift */; };
 		402EB688C6C3773A0DB0C25E /* TextControl+PlaceholderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6DA28A9ED92A6937E11 /* TextControl+PlaceholderMode.swift */; };
@@ -295,9 +295,9 @@
 		402EB7A7C0D8CF6B15F4DF3B /* UIScrollView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8295ED9FF21E41876C2 /* UIScrollView+Style.swift */; };
 		402EB7AEC6AD37A29631A826 /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB0248673E79479E1F9F /* ScrollViewController.swift */; };
 		402EB7B158726C9D36615F9A /* WebLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8953FE1DE599CA97894 /* WebLogger.swift */; };
+		402EB7BF545ED7457A81228C /* KeyboardButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB95615CB4B5DDEF91CA2 /* KeyboardButtonStyle.swift */; };
 		402EB7C3CF2DBEAF200479D6 /* UserAgentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF7AC88FCC8EA3154C56 /* UserAgentFactory.swift */; };
 		402EB7C74860DFA65827A00C /* ApplePayModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB0B47CE4E03EC3DFDA37 /* ApplePayModuleIO.swift */; };
-		402EB7CE1F5ECBB185EC3F9B /* KeyboardPinning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB86CF1328A06C0F64907 /* KeyboardPinning.swift */; };
 		402EB7D0A24AE849FD7BEBD9 /* TextControl+LayoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB76D3F2A96CC05F90D59 /* TextControl+LayoutController.swift */; };
 		402EB7DDDEF0317BDBD63B92 /* ContractAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5B67C5DB141E6CAB9A5 /* ContractAssembly.swift */; };
 		402EB7F8B2DD9079E7752FFD /* UIViewController+TransitionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFC3A3FDF23F3A7607E3 /* UIViewController+TransitionHandler.swift */; };
@@ -332,6 +332,7 @@
 		402EB8A44D76CCD5CD082AB6 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3EA33841DD2B8C1323B /* UserDefaultsStorage.swift */; };
 		402EB8A817993C151449ED52 /* TextControl+LayoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB76D3F2A96CC05F90D59 /* TextControl+LayoutController.swift */; };
 		402EB8A995BCB4859D0FD2F9 /* UIScrollView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8295ED9FF21E41876C2 /* UIScrollView+Style.swift */; };
+		402EB8AAAB378F38A968E0EE /* NumberKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB745043F7722A3F0ACEE /* NumberKeyboardView.swift */; };
 		402EB8AF6D8294EDBEE2F669 /* ErrorModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB019F8D08C919A2D81B8 /* ErrorModuleIO.swift */; };
 		402EB8B7125E040BED9A0565 /* TextControl+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA8E24E3CAD56361581C /* TextControl+Layout.swift */; };
 		402EB8BA1D7B32EFE981B9D0 /* LargeIconButtonItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB86773D53872C76DBA04 /* LargeIconButtonItemView.swift */; };
@@ -364,9 +365,9 @@
 		402EB92CF587914417F2C234 /* LargeIconButtonItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA05316F3F0DD3B541CD /* LargeIconButtonItemViewCell.swift */; };
 		402EB933D69EDDFED2DDAB44 /* Amount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB94E653C072F4708CB50 /* Amount.swift */; };
 		402EB93CBCD22E2621073B60 /* TextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB9AE5975C60711283C2 /* TextTableViewCell.swift */; };
-		402EB9469C82B99B639D9765 /* NumberKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB66A115391DF4BBC3F06 /* NumberKeyboardView.swift */; };
 		402EB948B1832C8B0A29FBC2 /* UILayoutPriority+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA3026D26E32EFFB6024 /* UILayoutPriority+Constants.swift */; };
 		402EB94BC27BC7BD95B0396A /* TextControl+ClearMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB95EDD27C0421EB07A04 /* TextControl+ClearMode.swift */; };
+		402EB952EA7B9CD954D7654E /* KeyboardObservingAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCCE907967D5F3300495 /* KeyboardObservingAccessoryView.swift */; };
 		402EB9551C1738EA4D59879D /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE4329C16EF4BAF8F641 /* Localization.swift */; };
 		402EB966B65E43A98FDE5993 /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBAB27562572D852C400 /* DimmingPresentationController.swift */; };
 		402EB968546403344B5B58B8 /* ContractInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBABEEB6576681EFF55A8 /* ContractInteractor.swift */; };
@@ -376,7 +377,6 @@
 		402EB9740E2A7B0B64A6BA8C /* WebBrowserOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB2DD1B33A81A508DE7C /* WebBrowserOptions.swift */; };
 		402EB98572483EEC2B1B9EC8 /* ContractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB23C955E38F26EECEB1C /* ContractViewController.swift */; };
 		402EB9891535071C937CBBD5 /* DeviceInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB10ECDD105210396D8E9 /* DeviceInfoProvider.swift */; };
-		402EB98DB12EF98B21B32391 /* KeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA4409AB277DEC43D70A /* KeyboardButton.swift */; };
 		402EB99583C03B4D7ED0918B /* MaskedBankCardDataInputAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB022C090F30CC45D7617 /* MaskedBankCardDataInputAssembly.swift */; };
 		402EB9A12072A819B9A76CCE /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB76A45E625C03DFBA017 /* IconView.swift */; };
 		402EB9A26392A90144542FBE /* CardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCCCBA7449C8E5B073FA /* CardType.swift */; };
@@ -520,7 +520,6 @@
 		402EBD313004648FBF307814 /* YandexAuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA9160818E89384630B6 /* YandexAuthAssembly.swift */; };
 		402EBD401D3EDFB62B1E5DDD /* UILayoutPriority+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE5526ACD7CD69283661 /* UILayoutPriority+Tools.swift */; };
 		402EBD40F529781D7C6EFD87 /* CardSecInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC752D3205EAC4BAC8EA /* CardSecInteractorIO.swift */; };
-		402EBD4C78C8C1F3C1393D88 /* KeyboardNotificationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB9A4B0EC2620745A3DA1 /* KeyboardNotificationInfo.swift */; };
 		402EBD4D36B6D5EB56EDF70B /* UITableViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE29E5C87D456DDBE38B /* UITableViewCell+Identifier.swift */; };
 		402EBD50CA9522F54150D2FD /* ThreatMetrixService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7986CB03B6C22D0D00E /* ThreatMetrixService.swift */; };
 		402EBD61AE8F6F0E80140202 /* PhoneNumberInputInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB90DA607ABBDC720DA28 /* PhoneNumberInputInteractor.swift */; };
@@ -549,12 +548,12 @@
 		402EBE0D568598728CD74CDF /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB20A7ACB428ADE874F3C /* PlaceholderView.swift */; };
 		402EBE0F6B5FE7B907C88A53 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA38EC646E32C0BA9D59 /* Button.swift */; };
 		402EBE1723521801694DD291 /* IconItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBDD7911469421B84EDA /* IconItemView.swift */; };
-		402EBE1B528F357B5899DA21 /* KeyboardViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB03B1E340713B91284B6 /* KeyboardViewStyle.swift */; };
 		402EBE1BE753B698DAB812C0 /* PhoneNumberStyleWithAutoCorrection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD3F5BF15C3FEC34A8BE /* PhoneNumberStyleWithAutoCorrection.swift */; };
 		402EBE1E2405F7CA23E19F24 /* BankCardDataInputInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDAFC534306B3677F3CD /* BankCardDataInputInteractor.swift */; };
 		402EBE23D1527CC96F9AB000 /* UIImage+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB35130D8CDC08C740BA1 /* UIImage+Style.swift */; };
 		402EBE2AFE268B7F819B2A45 /* LargeIconButtonItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB86773D53872C76DBA04 /* LargeIconButtonItemView.swift */; };
 		402EBE309FF80B279847B66D /* BankCardRepeatPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB765F8091A5DFF4918EA /* BankCardRepeatPresenter.swift */; };
+		402EBE3CCF837887B8C8FCD1 /* KeyboardViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB09DDBC741FCBC5EEA1B /* KeyboardViewStyle.swift */; };
 		402EBE3D748B1AD41EBD2771 /* PresentableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA7169837B287D88A755 /* PresentableError.swift */; };
 		402EBE498B95915B89855060 /* IconViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA8DB39B24DBE1A6F4B1 /* IconViewIO.swift */; };
 		402EBE4D50FAA343F627978D /* TokenizationInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB9B6F518386701DB0C8F /* TokenizationInteractorIO.swift */; };
@@ -705,12 +704,12 @@
 		402EB031866386A913CE5D31 /* BankCardRepeatInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardRepeatInteractor.swift; sourceTree = "<group>"; };
 		402EB033A1DFDB46B5EBA6D1 /* PhoneNumberFormatterAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberFormatterAssembly.swift; sourceTree = "<group>"; };
 		402EB038F7DDE6B61A9FA5BB /* TokenizationStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationStrategy.swift; sourceTree = "<group>"; };
-		402EB03B1E340713B91284B6 /* KeyboardViewStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewStyle.swift; sourceTree = "<group>"; };
 		402EB03E078236001308568D /* PaymentMethodsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsInteractor.swift; sourceTree = "<group>"; };
 		402EB05336EBFD3E87062C47 /* ErrorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorPresenter.swift; sourceTree = "<group>"; };
 		402EB05B720BE255399C70A1 /* TextInputTableViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCellPresenter.swift; sourceTree = "<group>"; };
 		402EB079FFFDD633F57A082A /* DateValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateValidator.swift; sourceTree = "<group>"; };
 		402EB07F0BCC6F94268A89B6 /* TextControl+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextControl+Style.swift"; sourceTree = "<group>"; };
+		402EB09DDBC741FCBC5EEA1B /* KeyboardViewStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewStyle.swift; sourceTree = "<group>"; };
 		402EB0B47CE4E03EC3DFDA37 /* ApplePayModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayModuleIO.swift; sourceTree = "<group>"; };
 		402EB0CFD146A3D505F73D33 /* SimpleIdentificationModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleIdentificationModuleIO.swift; sourceTree = "<group>"; };
 		402EB0D033CC079B2E741512 /* AnalyticsEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsEvent.swift; sourceTree = "<group>"; };
@@ -747,7 +746,6 @@
 		402EB21194794FB1D5FFEFF9 /* UIFont+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Style.swift"; sourceTree = "<group>"; };
 		402EB21B82A4B349DE1F5D94 /* YandexLoginProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexLoginProcessing.swift; sourceTree = "<group>"; };
 		402EB21CE1BC1C7750971B57 /* TextInputTableViewCellModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCellModuleIO.swift; sourceTree = "<group>"; };
-		402EB2238480EA0F800CA9C6 /* KeyboardObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObservable.swift; sourceTree = "<group>"; };
 		402EB2267FCDA994A8449002 /* AuthTypeStatesProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthTypeStatesProvider.swift; sourceTree = "<group>"; };
 		402EB226DE34051D5952382B /* UIView+SpecificLayoutGuide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+SpecificLayoutGuide.swift"; sourceTree = "<group>"; };
 		402EB227D680A54E76696A72 /* HostProviderAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostProviderAssembly.swift; sourceTree = "<group>"; };
@@ -759,7 +757,6 @@
 		402EB2A77D9B62DDFA169671 /* CardSecPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSecPresenter.swift; sourceTree = "<group>"; };
 		402EB2AE9562BC7116996D7C /* CardScanning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardScanning.swift; sourceTree = "<group>"; };
 		402EB2C4E930D43B9F39C1E2 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		402EB2E47427D676A34B958D /* UIResponder+FirstResponderObserving.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIResponder+FirstResponderObserving.swift"; sourceTree = "<group>"; };
 		402EB302A726A82FE26D8B76 /* LinkedTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedTextView.swift; sourceTree = "<group>"; };
 		402EB302A7F71C0A7EA5ACBF /* RootViewController+TokenizationModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RootViewController+TokenizationModuleOutput.swift"; sourceTree = "<group>"; };
 		402EB30772856D23A05D839A /* ContractStateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractStateHandler.swift; sourceTree = "<group>"; };
@@ -774,7 +771,6 @@
 		402EB371C94C403A2BA9E933 /* UILabel+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Style.swift"; sourceTree = "<group>"; };
 		402EB3A39BAE3C2CE3288E2B /* PaymentMethodsInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsInteractorIO.swift; sourceTree = "<group>"; };
 		402EB3B3E075F5039FB3D646 /* PhoneNumberInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberInputViewController.swift; sourceTree = "<group>"; };
-		402EB3BCE80FA70D259BBF39 /* KeyboardButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardButtonStyle.swift; sourceTree = "<group>"; };
 		402EB3C27AB9FBDF54BD39ED /* PaymentMethodViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentMethodViewFactory.swift; path = Factory/PaymentMethodViewFactory.swift; sourceTree = "<group>"; };
 		402EB3DB2CCC018A9DBE0CAD /* IconView+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IconView+Style.swift"; sourceTree = "<group>"; };
 		402EB3E172491E532B30D64E /* MaskedBankCardDataInputModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskedBankCardDataInputModuleIO.swift; sourceTree = "<group>"; };
@@ -796,6 +792,7 @@
 		402EB4758ADC02DFC4363E15 /* SimpleIdentificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleIdentificationViewController.swift; sourceTree = "<group>"; };
 		402EB47DA392DA9D9382598B /* UIButton+Stylable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Stylable.swift"; sourceTree = "<group>"; };
 		402EB47F1567A31864612F7C /* TokenizationModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationModuleIO.swift; sourceTree = "<group>"; };
+		402EB47F288FC29560EE036E /* KeyboardObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObservable.swift; sourceTree = "<group>"; };
 		402EB487A00F4E5CBA7498D9 /* PaymentMethodTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodTypes.swift; sourceTree = "<group>"; };
 		402EB4A38D1918A8F46B8584 /* SubmitDisplayItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitDisplayItem.swift; sourceTree = "<group>"; };
 		402EB4CB069329DCBDCE0E6D /* PaymentMethodsAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsAssembly.swift; sourceTree = "<group>"; };
@@ -833,7 +830,6 @@
 		402EB63DF912DD54F5D15482 /* TextControl+LeftIconMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextControl+LeftIconMode.swift"; sourceTree = "<group>"; };
 		402EB63E55B21BF12B8CD2C4 /* ActivityIndicatorPresenting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorPresenting.swift; sourceTree = "<group>"; };
 		402EB65F750DFE9F342ECE27 /* BankCardDataInputAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardDataInputAssembly.swift; sourceTree = "<group>"; };
-		402EB66A115391DF4BBC3F06 /* NumberKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberKeyboardView.swift; sourceTree = "<group>"; };
 		402EB66D5255543D831A6E27 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		402EB67FA3DAB78E3CB6C4DF /* UITextView+Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Styles.swift"; sourceTree = "<group>"; };
 		402EB691B88D70CBB46478E3 /* MonthOutputFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthOutputFormatter.swift; sourceTree = "<group>"; };
@@ -859,15 +855,16 @@
 		402EB71B3FA4CE37A176F38D /* Space.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Space.swift; sourceTree = "<group>"; };
 		402EB720E7517F0665D37640 /* SimpleIdentificationViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleIdentificationViewIO.swift; sourceTree = "<group>"; };
 		402EB72D4947CCBA10551A04 /* DeviceInfoProviderAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoProviderAssembly.swift; sourceTree = "<group>"; };
+		402EB745043F7722A3F0ACEE /* NumberKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberKeyboardView.swift; sourceTree = "<group>"; };
 		402EB75BC9578F08A4096984 /* YacardPanInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YacardPanInputPresenterStyle.swift; sourceTree = "<group>"; };
 		402EB765F8091A5DFF4918EA /* BankCardRepeatPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardRepeatPresenter.swift; sourceTree = "<group>"; };
 		402EB76A45E625C03DFBA017 /* IconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		402EB76D3F2A96CC05F90D59 /* TextControl+LayoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextControl+LayoutController.swift"; sourceTree = "<group>"; };
 		402EB76EF21372E0F2FCE202 /* PlaceholderPresenting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderPresenting.swift; sourceTree = "<group>"; };
+		402EB776A6DD755E24BEC5B8 /* KeyboardResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		402EB781316D04E093AADDDB /* ActionTextDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionTextDialog.swift; sourceTree = "<group>"; };
 		402EB7986CB03B6C22D0D00E /* ThreatMetrixService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreatMetrixService.swift; sourceTree = "<group>"; };
 		402EB79D2DD94FB29077768C /* ExpiryDateInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpiryDateInputPresenterStyle.swift; sourceTree = "<group>"; };
-		402EB7A74AA0FD29602E4375 /* UIViewController+Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Keyboard.swift"; sourceTree = "<group>"; };
 		402EB7A78F543998219DB89F /* TokenizationSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationSettings.swift; sourceTree = "<group>"; };
 		402EB7A7C7AD7AC90990E199 /* TextControl+TopHintMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextControl+TopHintMode.swift"; sourceTree = "<group>"; };
 		402EB7A951380D72FF1C56D6 /* TextHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextHeaderFooterView.swift; sourceTree = "<group>"; };
@@ -889,7 +886,6 @@
 		402EB8687A4ED5C4230E8AF0 /* YandexCheckoutPaymentsExamplePods.inhouse.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = YandexCheckoutPaymentsExamplePods.inhouse.entitlements; sourceTree = "<group>"; };
 		402EB86ACD628DEFC6B4DFD7 /* AuthorizationProcessingAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationProcessingAssembly.swift; sourceTree = "<group>"; };
 		402EB86C3387D52C172E36A4 /* LengthTextInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LengthTextInputPresenterStyle.swift; sourceTree = "<group>"; };
-		402EB86CF1328A06C0F64907 /* KeyboardPinning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardPinning.swift; sourceTree = "<group>"; };
 		402EB8953FE1DE599CA97894 /* WebLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebLogger.swift; sourceTree = "<group>"; };
 		402EB89857DD2BF2E27D5ECE /* SelectOptionModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectOptionModuleAssembly.swift; sourceTree = "<group>"; };
 		402EB8AB97D677AA9E36B2C8 /* MonetaryAmountFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonetaryAmountFactory.swift; sourceTree = "<group>"; };
@@ -908,6 +904,7 @@
 		402EB91A8FA7B74992FE889C /* KeyValueStoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStoring.swift; sourceTree = "<group>"; };
 		402EB94E653C072F4708CB50 /* Amount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Amount.swift; sourceTree = "<group>"; };
 		402EB95572117E0F7D1D666E /* CompoundValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompoundValidator.swift; sourceTree = "<group>"; };
+		402EB95615CB4B5DDEF91CA2 /* KeyboardButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardButtonStyle.swift; sourceTree = "<group>"; };
 		402EB95CFDB39CEB4AD76B48 /* String+Split.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Split.swift"; sourceTree = "<group>"; };
 		402EB95EDD27C0421EB07A04 /* TextControl+ClearMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextControl+ClearMode.swift"; sourceTree = "<group>"; };
 		402EB96235983229B08D616C /* PriceInputFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceInputFormatter.swift; sourceTree = "<group>"; };
@@ -917,7 +914,6 @@
 		402EB977EB9DF11150D0F0A7 /* YandexCheckoutPaymentsExampleCarthage.debug.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = YandexCheckoutPaymentsExampleCarthage.debug.entitlements; sourceTree = "<group>"; };
 		402EB981744457B0C02CFAE7 /* ApplePayContractPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayContractPresenter.swift; sourceTree = "<group>"; };
 		402EB98341C0EAD3DE8902C2 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
-		402EB9A4B0EC2620745A3DA1 /* KeyboardNotificationInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardNotificationInfo.swift; sourceTree = "<group>"; };
 		402EB9A7A40CA9B174A2736B /* ShowcaseDisplayItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowcaseDisplayItem.swift; sourceTree = "<group>"; };
 		402EB9B6F518386701DB0C8F /* TokenizationInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationInteractorIO.swift; sourceTree = "<group>"; };
 		402EB9CB53DAB7D15EB12891 /* AuthorizationProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationProcessing.swift; sourceTree = "<group>"; };
@@ -936,7 +932,6 @@
 		402EBA3026D26E32EFFB6024 /* UILayoutPriority+Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILayoutPriority+Constants.swift"; sourceTree = "<group>"; };
 		402EBA38EC646E32C0BA9D59 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		402EBA3F8618D17FB47AC873 /* BankSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankSettings.swift; sourceTree = "<group>"; };
-		402EBA4409AB277DEC43D70A /* KeyboardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardButton.swift; sourceTree = "<group>"; };
 		402EBA44464C238E00928819 /* AnalyticsProvidingAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsProvidingAssembly.swift; sourceTree = "<group>"; };
 		402EBA4C0B33E4DDCE4D1EB9 /* CustomizationSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizationSettings.swift; sourceTree = "<group>"; };
 		402EBA599B2479B086E7EC2A /* PanInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanInputPresenterStyle.swift; sourceTree = "<group>"; };
@@ -975,6 +970,7 @@
 		402EBB285BCDB1A5478CBCE5 /* WebBrowserInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebBrowserInteractor.swift; sourceTree = "<group>"; };
 		402EBB2DD1B33A81A508DE7C /* WebBrowserOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebBrowserOptions.swift; sourceTree = "<group>"; };
 		402EBB2E2AFE4B180DCBF726 /* UIDevice+Hardware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Hardware.swift"; sourceTree = "<group>"; };
+		402EBB3ACB67B9FF37010890 /* KeyboardPinning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardPinning.swift; sourceTree = "<group>"; };
 		402EBB4590024E606203F3FE /* PaymentMethodView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodView.swift; sourceTree = "<group>"; };
 		402EBB4CE8123B54AD76D8CC /* PhoneNumberFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberFormatter.swift; sourceTree = "<group>"; };
 		402EBB549599D3B7DB0DABEC /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -1002,8 +998,8 @@
 		402EBC5278F1B7CBEE0256A1 /* CscInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CscInputPresenterStyle.swift; sourceTree = "<group>"; };
 		402EBC561BF33AB5ACBFEFA7 /* ContractViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractViewIO.swift; sourceTree = "<group>"; };
 		402EBC5C5CE9B835352D3C54 /* IdentificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentificationService.swift; sourceTree = "<group>"; };
+		402EBC65C7C9A4599E39EEC2 /* KeyboardNotificationInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardNotificationInfo.swift; sourceTree = "<group>"; };
 		402EBC6E1AC8DE3F0701FE15 /* HostsConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostsConfig.swift; sourceTree = "<group>"; };
-		402EBC72AA16EB1F871DDE58 /* KeyboardResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		402EBC752D3205EAC4BAC8EA /* CardSecInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSecInteractorIO.swift; sourceTree = "<group>"; };
 		402EBC844321C30955ECCABE /* DateFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFactory.swift; sourceTree = "<group>"; };
 		402EBC8C5F2E04C722215410 /* MockKeychainStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeychainStorage.swift; sourceTree = "<group>"; };
@@ -1013,6 +1009,7 @@
 		402EBCB4BADAB646A9C1ED4C /* ProcessingAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessingAssembly.swift; sourceTree = "<group>"; };
 		402EBCB9C339CB5A1C289436 /* PaymentMethodsViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsViewIO.swift; sourceTree = "<group>"; };
 		402EBCCCBA7449C8E5B073FA /* CardType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
+		402EBCCE907967D5F3300495 /* KeyboardObservingAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObservingAccessoryView.swift; sourceTree = "<group>"; };
 		402EBCD1E1AD1511D0FE2D98 /* MaskedBankCardDataInputPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskedBankCardDataInputPresenter.swift; sourceTree = "<group>"; };
 		402EBCD7E5A2AEB413244F2E /* ListItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListItemView.swift; sourceTree = "<group>"; };
 		402EBCE6D8DD4CCCA85A7592 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -1039,6 +1036,7 @@
 		402EBDB815101786067EB6B2 /* UIColor+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Style.swift"; sourceTree = "<group>"; };
 		402EBDCA8CE554E9A5B4FFEB /* ContainerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerTableViewCell.swift; sourceTree = "<group>"; };
 		402EBDD36FB9F8BC1F80BFD9 /* TextControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextControl.swift; sourceTree = "<group>"; };
+		402EBDDFD195BC7733918BA2 /* UIViewController+Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Keyboard.swift"; sourceTree = "<group>"; };
 		402EBDE88267ABA661952EEB /* BankCardDataInputViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardDataInputViewIO.swift; sourceTree = "<group>"; };
 		402EBE0540BBB606CFA8207E /* UIBarButtonItem+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Style.swift"; sourceTree = "<group>"; };
 		402EBE1EDB239912F0F80792 /* TextInputTableViewCellIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCellIO.swift; sourceTree = "<group>"; };
@@ -1081,8 +1079,8 @@
 		402EBF9F81B468DF9C631FEC /* TokenizationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationViewController.swift; sourceTree = "<group>"; };
 		402EBFB7B00CE2B4D01875E7 /* BankSettingsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankSettingsService.swift; sourceTree = "<group>"; };
 		402EBFC3A3FDF23F3A7607E3 /* UIViewController+TransitionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+TransitionHandler.swift"; sourceTree = "<group>"; };
+		402EBFD5D6BC14E9D08EA642 /* KeyboardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardButton.swift; sourceTree = "<group>"; };
 		402EBFD655B9723BAFE547FD /* YamoneyAuthParametersPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YamoneyAuthParametersPresenter.swift; sourceTree = "<group>"; };
-		402EBFD9352E7BA7B2913B2C /* KeyboardObservingAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObservingAccessoryView.swift; sourceTree = "<group>"; };
 		402EBFE3042A4A15165F8627 /* ActivityIndicatorFullViewPresenting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorFullViewPresenting.swift; sourceTree = "<group>"; };
 		402EBFE5010BC6AEE6794AAF /* YandexCheckoutPaymentsExamplePods.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = YandexCheckoutPaymentsExamplePods.entitlements; sourceTree = "<group>"; };
 		402EBFF0B681CB4CC01D83DB /* UITableView+Identifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Identifier.swift"; sourceTree = "<group>"; };
@@ -1388,15 +1386,6 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
-		402EB1203E0D00A286976156 /* Buttons */ = {
-			isa = PBXGroup;
-			children = (
-				402EBA4409AB277DEC43D70A /* KeyboardButton.swift */,
-				402EB3BCE80FA70D259BBF39 /* KeyboardButtonStyle.swift */,
-			);
-			path = Buttons;
-			sourceTree = "<group>";
-		};
 		402EB12114BA5FBF04075BAB /* Button */ = {
 			isa = PBXGroup;
 			children = (
@@ -1598,7 +1587,6 @@
 				402EB71B3FA4CE37A176F38D /* Space.swift */,
 				402EB07E3A4A08B7FA0C352C /* AutoLayout */,
 				402EBA8DACAA2FAC35017032 /* Formatters */,
-				402EBB48E92A6C120529260B /* Keyboard */,
 				402EB634BAF3BC404B10B86D /* Molecules */,
 				402EB384CB68D21365AFC6BC /* Organisms */,
 				402EBFD02C24C5B853406E19 /* Pages */,
@@ -1608,6 +1596,7 @@
 				402EBFE44EA0B8EB4A229E2B /* Stylist */,
 				402EB434378916092B3D1A75 /* Templates */,
 				402EB152B4911AB058FF53B1 /* Views */,
+				402EB4AE3241BB57293D5483 /* Keyboard */,
 			);
 			path = "Atomic Design";
 			sourceTree = "<group>";
@@ -1838,6 +1827,31 @@
 				402EBD2D68EF7798A3F9B36D /* CustomizationColors.swift */,
 			);
 			path = Customization;
+			sourceTree = "<group>";
+		};
+		402EB4AE3241BB57293D5483 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				402EB4B91B8F1FC2539558A6 /* Buttons */,
+				402EB846476FB96A6E8E288F /* KeyboardView */,
+				402EBB3ACB67B9FF37010890 /* KeyboardPinning.swift */,
+				402EB776A6DD755E24BEC5B8 /* KeyboardResponder.swift */,
+				402EB09DDBC741FCBC5EEA1B /* KeyboardViewStyle.swift */,
+				402EB47F288FC29560EE036E /* KeyboardObservable.swift */,
+				402EBC65C7C9A4599E39EEC2 /* KeyboardNotificationInfo.swift */,
+				402EBDDFD195BC7733918BA2 /* UIViewController+Keyboard.swift */,
+				402EBCCE907967D5F3300495 /* KeyboardObservingAccessoryView.swift */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		402EB4B91B8F1FC2539558A6 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				402EBFD5D6BC14E9D08EA642 /* KeyboardButton.swift */,
+				402EB95615CB4B5DDEF91CA2 /* KeyboardButtonStyle.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 		402EB4C49146660D4BAFC732 /* View */ = {
@@ -2101,6 +2115,14 @@
 				402EBB9AE5975C60711283C2 /* TextTableViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		402EB846476FB96A6E8E288F /* KeyboardView */ = {
+			isa = PBXGroup;
+			children = (
+				402EB745043F7722A3F0ACEE /* NumberKeyboardView.swift */,
+			);
+			path = KeyboardView;
 			sourceTree = "<group>";
 		};
 		402EB84797D7E864A73001A0 /* LogoutConfirmation */ = {
@@ -2445,23 +2467,6 @@
 			path = IconButtonItemView;
 			sourceTree = "<group>";
 		};
-		402EBB48E92A6C120529260B /* Keyboard */ = {
-			isa = PBXGroup;
-			children = (
-				402EB1203E0D00A286976156 /* Buttons */,
-				402EBEE10B6F588D408CEFD0 /* KeyboardView */,
-				402EB86CF1328A06C0F64907 /* KeyboardPinning.swift */,
-				402EBC72AA16EB1F871DDE58 /* KeyboardResponder.swift */,
-				402EB03B1E340713B91284B6 /* KeyboardViewStyle.swift */,
-				402EB2238480EA0F800CA9C6 /* KeyboardObservable.swift */,
-				402EB9A4B0EC2620745A3DA1 /* KeyboardNotificationInfo.swift */,
-				402EB7A74AA0FD29602E4375 /* UIViewController+Keyboard.swift */,
-				402EBFD9352E7BA7B2913B2C /* KeyboardObservingAccessoryView.swift */,
-				402EB2E47427D676A34B958D /* UIResponder+FirstResponderObserving.swift */,
-			);
-			path = Keyboard;
-			sourceTree = "<group>";
-		};
 		402EBB9797CB4B88CFC7DA23 /* Router */ = {
 			isa = PBXGroup;
 			children = (
@@ -2736,14 +2741,6 @@
 				402EBA06C8D321D1120D4B11 /* TokenizationRouter.swift */,
 			);
 			path = Router;
-			sourceTree = "<group>";
-		};
-		402EBEE10B6F588D408CEFD0 /* KeyboardView */ = {
-			isa = PBXGroup;
-			children = (
-				402EB66A115391DF4BBC3F06 /* NumberKeyboardView.swift */,
-			);
-			path = KeyboardView;
 			sourceTree = "<group>";
 		};
 		402EBEF73FFCD0DA519FCA7C /* Assembly */ = {
@@ -3415,17 +3412,6 @@
 				402EB53AE18A55F18C9BDCA9 /* UIView+SpecificLayoutGuide.swift in Sources */,
 				308E418B23858B4800B44490 /* SavePaymentMethodInfo.swift in Sources */,
 				402EB948B1832C8B0A29FBC2 /* UILayoutPriority+Constants.swift in Sources */,
-				402EB98DB12EF98B21B32391 /* KeyboardButton.swift in Sources */,
-				402EB3D30195BDD30E548629 /* KeyboardButtonStyle.swift in Sources */,
-				402EB9469C82B99B639D9765 /* NumberKeyboardView.swift in Sources */,
-				402EB7CE1F5ECBB185EC3F9B /* KeyboardPinning.swift in Sources */,
-				402EB37FB5FAA42DA4F73DCF /* KeyboardResponder.swift in Sources */,
-				402EBE1B528F357B5899DA21 /* KeyboardViewStyle.swift in Sources */,
-				402EB140385CA575129515A7 /* KeyboardObservable.swift in Sources */,
-				402EBD4C78C8C1F3C1393D88 /* KeyboardNotificationInfo.swift in Sources */,
-				402EB067C41403F60BF6F898 /* UIViewController+Keyboard.swift in Sources */,
-				402EB511AED2B7C128E53202 /* KeyboardObservingAccessoryView.swift in Sources */,
-				402EB28D276E4A85A0CC6F41 /* UIResponder+FirstResponderObserving.swift in Sources */,
 				402EB966B65E43A98FDE5993 /* DimmingPresentationController.swift in Sources */,
 				402EBDB8BED1F76D8731B546 /* LinkedTextView.swift in Sources */,
 				402EB323BE486F65CA1A6105 /* UIDevice+Hardware.swift in Sources */,
@@ -3646,6 +3632,16 @@
 				402EB148A4DB43F678C9C993 /* TokenizationFlow.swift in Sources */,
 				402EBD6CBBA4184A4517DD00 /* CardService.swift in Sources */,
 				402EB481012F5C629D018C8A /* SavePaymentMethodViewModelFactory.swift in Sources */,
+				402EB08025105AA4C816CE32 /* KeyboardButton.swift in Sources */,
+				402EB7BF545ED7457A81228C /* KeyboardButtonStyle.swift in Sources */,
+				402EB8AAAB378F38A968E0EE /* NumberKeyboardView.swift in Sources */,
+				402EB537520CBE10B860077A /* KeyboardPinning.swift in Sources */,
+				402EB3D85D14E3351D0166FC /* KeyboardResponder.swift in Sources */,
+				402EBE3CCF837887B8C8FCD1 /* KeyboardViewStyle.swift in Sources */,
+				402EB67E391D678EC1816841 /* KeyboardObservable.swift in Sources */,
+				402EB673123BC9F7BB0EDADE /* KeyboardNotificationInfo.swift in Sources */,
+				402EB34C8185FBEF0E13025B /* UIViewController+Keyboard.swift in Sources */,
+				402EB952EA7B9CD954D7654E /* KeyboardObservingAccessoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

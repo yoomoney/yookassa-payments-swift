@@ -29,7 +29,7 @@ extension KeyboardObserver where Self: UIViewController {
         guard convertedKeyboardFrame.minY.isInfinite == false else {
             return nil
         }
-        let keyboardOffset = intersectionOffset + safeOffset
+        let keyboardOffset = intersectionOffset - safeOffset
         return keyboardOffset
     }
 
