@@ -141,6 +141,12 @@ extension TokenizationRouter: TokenizationRouterInput {
                                                                  moduleOutput: moduleOutput)
         transitionHandler?.show(viewController, sender: self)
     }
+
+    func presentSavePaymentMethodInfo(inputData: SavePaymentMethodInfoModuleInputData) {
+        let viewController = SavePaymentMethodInfoAssembly.makeModule(inputData: inputData)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        transitionHandler?.present(navigationController, animated: true, completion: nil)
+    }
 }
 
 extension TokenizationRouter: UIViewControllerTransitioningDelegate {

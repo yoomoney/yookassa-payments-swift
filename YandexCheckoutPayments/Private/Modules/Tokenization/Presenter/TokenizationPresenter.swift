@@ -33,16 +33,20 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
     private var strategy: TokenizationStrategyInput?
     private var tokenizeData: TokenizeData?
     private var isReusableToken: Bool?
+    private var shouldInvalidateTokenizeData = false
 
     private var paymentOption: PaymentOption? {
         didSet {
             strategy = paymentOption.map {
-                makeStrategy(paymentOption: $0,
-                             output: self,
-                             testModeSettings: inputData.testModeSettings,
-                             paymentMethodsModuleInput: paymentMethodsModuleInput,
-                             returnUrl: inputData.returnUrl ?? Constants.returnUrl,
-                             isLoggingEnabled: inputData.isLoggingEnabled)
+                makeStrategy(
+                    paymentOption: $0,
+                    output: self,
+                    testModeSettings: inputData.testModeSettings,
+                    paymentMethodsModuleInput: paymentMethodsModuleInput,
+                    returnUrl: inputData.returnUrl ?? Constants.returnUrl,
+                    isLoggingEnabled: inputData.isLoggingEnabled,
+                    savePaymentMethod: inputData.savePaymentMethod
+                )
             }
         }
     }
@@ -70,42 +74,54 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
 
 extension TokenizationPresenter: TokenizationStrategyOutput {
     func presentPaymentMethodsModule() {
-        let paymentMethodsInputData
-            = PaymentMethodsModuleInputData(clientApplicationKey: inputData.clientApplicationKey,
-                                            gatewayId: inputData.gatewayId,
-                                            amount: inputData.amount,
-                                            tokenizationSettings: inputData.tokenizationSettings,
-                                            testModeSettings: inputData.testModeSettings,
-                                            isLoggingEnabled: inputData.isLoggingEnabled)
+        let paymentMethodsInputData = PaymentMethodsModuleInputData(
+            clientApplicationKey: inputData.clientApplicationKey,
+            gatewayId: inputData.gatewayId,
+            amount: inputData.amount,
+            tokenizationSettings: inputData.tokenizationSettings,
+            testModeSettings: inputData.testModeSettings,
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod)
+        )
 
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.router.presentPaymentMethods(inputData: paymentMethodsInputData,
-                                                    moduleOutput: strongSelf)
+            strongSelf.router.presentPaymentMethods(
+                inputData: paymentMethodsInputData,
+                moduleOutput: strongSelf
+            )
         }
     }
 
     func presentYamoneyAuthParametersModule(paymentOption: PaymentOption) {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
-
-        let yamoneyAuthParametersInputData
-            = YamoneyAuthParametersModuleInputData(shopName: inputData.shopName,
-                                                   purchaseDescription: inputData.purchaseDescription,
-                                                   paymentMethod: viewModel,
-                                                   price: makePriceViewModel(paymentOption),
-                                                   fee: makeFeePriceViewModel(paymentOption),
-                                                   shouldChangePaymentMethod: shouldChangePaymentOptions,
-                                                   paymentOption: paymentOption,
-                                                   testModeSettings: inputData.testModeSettings,
-                                                   tokenizeScheme: tokenizeScheme,
-                                                   isLoggingEnabled: inputData.isLoggingEnabled,
-                                                   customizationSettings: inputData.customizationSettings,
-                                                   termsOfService: termsOfService)
+        let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
+            paymentOption,
+            inputData.savePaymentMethod,
+            initialState: makeInitialSavePaymentMethod(inputData.savePaymentMethod)
+        )
+        let yamoneyAuthParametersInputData = YamoneyAuthParametersModuleInputData(
+            shopName: inputData.shopName,
+            purchaseDescription: inputData.purchaseDescription,
+            paymentMethod: viewModel,
+            price: makePriceViewModel(paymentOption),
+            fee: makeFeePriceViewModel(paymentOption),
+            shouldChangePaymentMethod: shouldChangePaymentOptions,
+            paymentOption: paymentOption,
+            testModeSettings: inputData.testModeSettings,
+            tokenizeScheme: tokenizeScheme,
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            customizationSettings: inputData.customizationSettings,
+            termsOfService: termsOfService,
+            savePaymentMethodViewModel: savePaymentMethodViewModel
+        )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.router.presentYamoneyAuthParameters(inputData: yamoneyAuthParametersInputData,
-                                                           moduleOutput: strongSelf)
+            strongSelf.router.presentYamoneyAuthParameters(
+                inputData: yamoneyAuthParametersInputData,
+                moduleOutput: strongSelf
+            )
         }
     }
 
@@ -139,21 +155,31 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
     func presentContract(paymentOption: PaymentOption) {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
-        let moduleInputData = ContractModuleInputData(shopName: inputData.shopName,
-                                                      purchaseDescription: inputData.purchaseDescription,
-                                                      paymentMethod: viewModel,
-                                                      price: makePriceViewModel(paymentOption),
-                                                      fee: makeFeePriceViewModel(paymentOption),
-                                                      shouldChangePaymentMethod: shouldChangePaymentOptions,
-                                                      testModeSettings: inputData.testModeSettings,
-                                                      tokenizeScheme: tokenizeScheme,
-                                                      isLoggingEnabled: inputData.isLoggingEnabled,
-                                                      termsOfService: termsOfService)
+        let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
+            paymentOption,
+            inputData.savePaymentMethod,
+            initialState: makeInitialSavePaymentMethod(inputData.savePaymentMethod)
+        )
+        let moduleInputData = ContractModuleInputData(
+            shopName: inputData.shopName,
+            purchaseDescription: inputData.purchaseDescription,
+            paymentMethod: viewModel,
+            price: makePriceViewModel(paymentOption),
+            fee: makeFeePriceViewModel(paymentOption),
+            shouldChangePaymentMethod: shouldChangePaymentOptions,
+            testModeSettings: inputData.testModeSettings,
+            tokenizeScheme: tokenizeScheme,
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            termsOfService: termsOfService,
+            savePaymentMethodViewModel: savePaymentMethodViewModel
+        )
 
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.router.presentContract(inputData: moduleInputData,
-                                              moduleOutput: strongSelf)
+            strongSelf.router.presentContract(
+                inputData: moduleInputData,
+                moduleOutput: strongSelf
+            )
         }
     }
 
@@ -190,18 +216,20 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
         let priceViewModel = makePriceViewModel(paymentOption)
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
-
-        let moduleInputData = SberbankModuleInputData(shopName: inputData.shopName,
-                                                      purchaseDescription: inputData.purchaseDescription,
-                                                      paymentMethod: viewModel,
-                                                      price: priceViewModel,
-                                                      fee: makeFeePriceViewModel(paymentOption),
-                                                      shouldChangePaymentMethod: shouldChangePaymentOptions,
-                                                      testModeSettings: inputData.testModeSettings,
-                                                      tokenizeScheme: tokenizeScheme,
-                                                      isLoggingEnabled: inputData.isLoggingEnabled,
-                                                      phoneNumber: inputData.userPhoneNumber,
-                                                      termsOfService: termsOfService)
+        let moduleInputData = SberbankModuleInputData(
+            shopName: inputData.shopName,
+            purchaseDescription: inputData.purchaseDescription,
+            paymentMethod: viewModel,
+            price: priceViewModel,
+            fee: makeFeePriceViewModel(paymentOption),
+            shouldChangePaymentMethod: shouldChangePaymentOptions,
+            testModeSettings: inputData.testModeSettings,
+            tokenizeScheme: tokenizeScheme,
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            phoneNumber: inputData.userPhoneNumber,
+            termsOfService: termsOfService,
+            savePaymentMethodViewModel: nil
+        )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentSberbank(inputData: moduleInputData,
@@ -218,12 +246,15 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
     }
 
     func presentYandexAuthModule(_ paymentOption: PaymentOption) {
-        let moduleInputData = YandexAuthModuleInputData(tokenizationSettings: inputData.tokenizationSettings,
-                                                        testModeSettings: inputData.testModeSettings,
-                                                        clientApplicationKey: inputData.clientApplicationKey,
-                                                        gatewayId: inputData.gatewayId,
-                                                        amount: MonetaryAmountFactory.makeAmount(paymentOption.charge),
-                                                        isLoggingEnabled: inputData.isLoggingEnabled)
+        let moduleInputData = YandexAuthModuleInputData(
+            tokenizationSettings: inputData.tokenizationSettings,
+            testModeSettings: inputData.testModeSettings,
+            clientApplicationKey: inputData.clientApplicationKey,
+            gatewayId: inputData.gatewayId,
+            amount: MonetaryAmountFactory.makeAmount(paymentOption.charge),
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod)
+        )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentYandexAuth(inputData: moduleInputData,
@@ -263,6 +294,11 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
 
     func presentApplePayContract(_ paymentOption: PaymentOption) {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
+        let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
+            paymentOption,
+            inputData.savePaymentMethod,
+            initialState: makeInitialSavePaymentMethod(inputData.savePaymentMethod)
+        )
         let moduleInputData = ApplePayContractModuleInputData(
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
@@ -272,13 +308,16 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             shouldChangePaymentMethod: shouldChangePaymentOptions,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
-            termsOfService: termsOfService
+            termsOfService: termsOfService,
+            savePaymentMethodViewModel: savePaymentMethodViewModel
         )
 
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.router.presentApplePayContract(inputData: moduleInputData,
-                                                      moduleOutput: strongSelf)
+            strongSelf.router.presentApplePayContract(
+                inputData: moduleInputData,
+                moduleOutput: strongSelf
+            )
         }
     }
 
@@ -305,6 +344,20 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
 
     func presentTermsOfServiceModule(_ url: URL) {
         router.presentTermsOfServiceModule(url)
+    }
+
+    func presentSavePaymentMethodInfoModule() {
+        guard let paymentOption = paymentOption,
+            let savePaymentMethodInfoValues = makeSavePaymentMethodInfoValues(
+                paymentOption: paymentOption
+            ) else { return }
+
+        let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
+            customizationSettings: inputData.customizationSettings,
+            headerValue: savePaymentMethodInfoValues.headerValue,
+            bodyValue: savePaymentMethodInfoValues.bodyValue
+        )
+        router.presentSavePaymentMethodInfo(inputData: savePaymentMethodModuleinputData)
     }
 }
 
@@ -333,9 +386,15 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
         interactor.trackEvent(event)
         interactor.stopAnalyticsService()
 
-        moduleOutput?.tokenizationModule(self,
-                                         didTokenize: token,
-                                         paymentMethodType: paymentOption.paymentMethodType)
+        if shouldInvalidateTokenizeData {
+            shouldInvalidateTokenizeData = false
+        } else {
+            moduleOutput?.tokenizationModule(
+                self,
+                didTokenize: token,
+                paymentMethodType: paymentOption.paymentMethodType
+            )
+        }
     }
 
     func failTokenizeData(_ error: Error) {
@@ -398,14 +457,6 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
 // MARK: - TokenizationModuleInput
 
 extension TokenizationPresenter: TokenizationModuleInput {
-    func start3dsProcess(requestUrl: String, redirectUrl: String) {
-        let moduleInputData
-            = CardSecModuleInputData(requestUrl: requestUrl,
-                                     redirectUrl: inputData.returnUrl ?? Constants.returnUrl,
-                                     isLoggingEnabled: inputData.isLoggingEnabled)
-        present3dsModule(inputData: moduleInputData)
-    }
-
     func start3dsProcess(requestUrl: String) {
         let moduleInputData
             = CardSecModuleInputData(requestUrl: requestUrl,
@@ -453,7 +504,9 @@ extension TokenizationPresenter: PaymentMethodsModuleOutput {
 
 extension TokenizationPresenter: ContractModuleOutput {
     func didPressSubmitButton(on module: ContractModuleInput) {
-        strategy?.didPressSubmitButton(on: module)
+        strategy?.didPressSubmitButton(
+            on: module
+        )
     }
 
     func didPressChangeAction(on module: ContractModuleInput) {
@@ -471,6 +524,19 @@ extension TokenizationPresenter: ContractModuleOutput {
 
     func contractModule(_ module: ContractModuleInput, didTapTermsOfService url: URL) {
         presentTermsOfServiceModule(url)
+    }
+
+    func contractModule(
+        _ module: ContractModuleInput,
+        didChangeSavePaymentMethodState state: Bool
+    ) {
+        strategy?.savePaymentMethod = state
+    }
+
+    func didTapOnSavePaymentMethodInfo(
+        on module: ContractModuleInput
+    ) {
+        presentSavePaymentMethodInfoModule()
     }
 }
 
@@ -502,13 +568,18 @@ extension TokenizationPresenter: BankCardDataInputModuleOutput {
     func bankCardDataInputModule(_ module: BankCardDataInputModuleInput,
                                  didPressConfirmButton bankCardData: CardData) {
         DispatchQueue.global().async { [weak self] in
-            guard let strategy = self?.strategy else { return }
-            strategy.bankCardDataInputModule(module, didPressConfirmButton: bankCardData)
+            guard let self = self,
+                let strategy = self.strategy else { return }
+            strategy.bankCardDataInputModule(
+                module,
+                didPressConfirmButton: bankCardData
+            )
         }
     }
 
     func didPressCloseBarButtonItem(on module: BankCardDataInputModuleInput) {
         if paymentOptionsCount > Constants.minimalRecommendedPaymentsOptions {
+            shouldInvalidateTokenizeData = true
             presentPaymentMethodsModule()
         } else {
             close()
@@ -586,6 +657,19 @@ extension TokenizationPresenter: YamoneyAuthParametersModuleOutput {
 
     func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput, didTapTermsOfService url: URL) {
         presentTermsOfServiceModule(url)
+    }
+
+    func yamoneyAuthParameters(
+        _ module: YamoneyAuthParametersModuleInput,
+        didChangeSavePaymentMethodState state: Bool
+    ) {
+        strategy?.savePaymentMethod = state
+    }
+
+    func didTapOnSavePaymentMethodInfo(
+        on module: YamoneyAuthParametersModuleInput
+    ) {
+        presentSavePaymentMethodInfoModule()
     }
 }
 
@@ -745,6 +829,19 @@ extension TokenizationPresenter: ApplePayContractModuleOutput {
     func applePayContractModule(_ module: ApplePayContractModuleInput, didTapTermsOfService url: URL) {
         presentTermsOfServiceModule(url)
     }
+
+    func applePayContractModule(
+        _ module: ApplePayContractModuleInput,
+        didChangeSavePaymentMethodState state: Bool
+    ) {
+        strategy?.savePaymentMethod = state
+    }
+
+    func didTapOnSavePaymentMethodInfo(
+        on module: ApplePayContractModuleInput
+    ) {
+        presentSavePaymentMethodInfoModule()
+    }
 }
 
 // MARK: - ErrorModuleOutput
@@ -805,12 +902,15 @@ private func makeFeePriceViewModel(_ paymentOption: PaymentOption) -> PriceViewM
                       style: .fee)
 }
 
-private func makeStrategy(paymentOption: PaymentOption,
-                          output: TokenizationStrategyOutput?,
-                          testModeSettings: TestModeSettings?,
-                          paymentMethodsModuleInput: PaymentMethodsModuleInput?,
-                          returnUrl: String,
-                          isLoggingEnabled: Bool) -> TokenizationStrategyInput {
+private func makeStrategy(
+    paymentOption: PaymentOption,
+    output: TokenizationStrategyOutput?,
+    testModeSettings: TestModeSettings?,
+    paymentMethodsModuleInput: PaymentMethodsModuleInput?,
+    returnUrl: String,
+    isLoggingEnabled: Bool,
+    savePaymentMethod: SavePaymentMethod
+) -> TokenizationStrategyInput {
 
     let authorizationService = AuthorizationProcessingAssembly
         .makeService(isLoggingEnabled: isLoggingEnabled,
@@ -824,26 +924,95 @@ private func makeStrategy(paymentOption: PaymentOption,
                                testModeSettings: testModeSettings)
 
     let strategy: TokenizationStrategyInput
-    if let bankCard = try? BankCardStrategy(paymentOption: paymentOption, returnUrl: returnUrl) {
+    if let bankCard = try? BankCardStrategy(
+        paymentOption: paymentOption,
+        returnUrl: returnUrl,
+        savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
+        ) {
         strategy = bankCard
-    } else if let wallet = try? WalletStrategy(authorizationService: authorizationService,
-                                               paymentOption: paymentOption, returnUrl: returnUrl) {
+    } else if let wallet = try? WalletStrategy(
+        authorizationService: authorizationService,
+        paymentOption: paymentOption,
+        returnUrl: returnUrl,
+        savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
+        ) {
         strategy = wallet
-    } else if let linkedBankCard = try? LinkedBankCardStrategy(authorizationService: authorizationService,
-                                                               paymentOption: paymentOption, returnUrl: returnUrl) {
+    } else if let linkedBankCard = try? LinkedBankCardStrategy(
+        authorizationService: authorizationService,
+        paymentOption: paymentOption,
+        returnUrl: returnUrl,
+        savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
+        ) {
         strategy = linkedBankCard
-    } else if let sberbankStrategy = try? SberbankStrategy(paymentOption: paymentOption) {
+    } else if let sberbankStrategy = try? SberbankStrategy(
+        paymentOption: paymentOption,
+        savePaymentMethod: false
+        ) {
         strategy = sberbankStrategy
-    } else if let applePay = try? ApplePayStrategy(paymentOption: paymentOption,
-                                                   paymentMethodsModuleInput: paymentMethodsModuleInput,
-                                                   analyticsService: analyticsService,
-                                                   analyticsProvider: analyticsProvider) {
+    } else if let applePay = try? ApplePayStrategy(
+        paymentOption: paymentOption,
+        paymentMethodsModuleInput: paymentMethodsModuleInput,
+        analyticsService: analyticsService,
+        analyticsProvider: analyticsProvider,
+        savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod),
+        inputSavePaymentMethod: savePaymentMethod
+        ) {
         strategy = applePay
     } else {
         fatalError("Unsupported strategy")
     }
+
     strategy.output = output
     return strategy
+}
+
+private func makeInitialSavePaymentMethod(
+    _ savePaymentMethod: SavePaymentMethod
+) -> Bool {
+    let initialSavePaymentMethod: Bool
+    switch savePaymentMethod {
+    case .on:
+        initialSavePaymentMethod = true
+    case .off, .userSelects:
+        initialSavePaymentMethod = false
+    }
+    return initialSavePaymentMethod
+}
+
+private func makeGetSavePaymentMethod(
+    _ savePaymentMethod: SavePaymentMethod
+) -> Bool? {
+    let getSavePaymentMethod: Bool?
+    switch savePaymentMethod {
+    case .on:
+        getSavePaymentMethod = true
+    case .off:
+        getSavePaymentMethod = false
+    case .userSelects:
+        getSavePaymentMethod = nil
+    }
+    return getSavePaymentMethod
+}
+
+private func makeSavePaymentMethodInfoValues(
+    paymentOption: PaymentOption
+) -> (headerValue: String, bodyValue: String)? {
+    let headerValue: String
+    let bodyValue: String
+
+    if paymentOption is PaymentInstrumentYandexMoneyWallet {
+        headerValue = §SavePaymentMethodInfoLocalization.Wallet.header
+        bodyValue = §SavePaymentMethodInfoLocalization.Wallet.body
+    } else if paymentOption.paymentMethodType == .bankCard
+        || paymentOption is PaymentInstrumentYandexMoneyLinkedBankCard
+        || paymentOption.paymentMethodType == .applePay {
+        headerValue = §SavePaymentMethodInfoLocalization.BankCard.header
+        bodyValue = §SavePaymentMethodInfoLocalization.BankCard.body
+    } else {
+        assertionFailure("Unsupported paymentMethod to present savePaymentMethod info")
+        return nil
+    }
+    return (headerValue, bodyValue)
 }
 
 // MARK: - Constants

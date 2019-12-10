@@ -68,7 +68,7 @@
 
 "Contract.topHint.totp" = "Одноразовый пароль";
 
-"Contract.format.saveAuthInApp" = "Сохранить кошелёк в приложении %@";
+"Contract.format.saveAuthInApp" = "Запомнить кошелёк в этом приложении для быстрых платежей";
 
 "LogoutConfirmation.format.title" = "Уверены, что хотите выйти из аккаунта '%@'?";
 
@@ -90,8 +90,33 @@
 
 "Common.button.cancel" = "Отменить";
 
+/*Что то пошло не так, неизвестная ошибка*/
 "Common.Error.unknown" = "Что то пошло не так";
 
 "TermsOfService.Text" = "Нажимая кнопку, вы принимаете";
 
 "TermsOfService.Hyperlink" = "условия сервиса";
+
+"SavePaymentMethod.Wallet.UserPriority.Text" = "Разрешить магазину";
+
+"SavePaymentMethod.Wallet.UserPriority.hyperText" = "списывать деньги без моего участия";
+
+"SavePaymentMethod.Wallet.Force.Text" = "После оплаты привяжем кошелёк: магазин сможет";
+
+"SavePaymentMethod.Wallet.Force.hyperText" = "списывать деньги без вашего участия";
+
+"SavePaymentMethod.BankCard.UserPriority.Text" = "Привязать карту и";
+
+"SavePaymentMethod.BankCard.UserPriority.hyperText" = "списывать деньги по запросу магазина";
+
+"SavePaymentMethod.BankCard.Force.Text" = "После оплаты привяжем карту, чтобы";
+
+"SavePaymentMethod.BankCard.Force.hyperText" = "списывать деньги по запросу магазина";
+
+"SavePaymentMethodInfo.Wallet.Header" = "Разрешение списывать деньги без вашего участия";
+
+"SavePaymentMethodInfo.Wallet.Body" = "Это значит, что вы даёте Яндекс.Деньгам предварительное согласие списывать деньги с кошелька по запросу магазина — без дополнительного подтверждения с вашей стороны.\n\nОтменить такие списания можно в любой момент: в настройках кошелька (на сайте Яндекс.Денег).";
+
+"SavePaymentMethodInfo.BankCard.Header" = "Разрешение списывать деньги по запросу магазина";
+
+"SavePaymentMethodInfo.BankCard.Body" = "Это значит, что предварительно вы разрешаете Яндекс.Деньгам списывать деньги по запросу магазина, без отдельного подтверждения — с этой карты или с новой, при перевыпуске (если ваш банк умеет автоматически обновлять данные).\n\nОтменить привязку можно в любой момент, через службу поддержки магазина.";

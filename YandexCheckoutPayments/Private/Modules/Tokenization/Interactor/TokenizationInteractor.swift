@@ -43,33 +43,38 @@ extension TokenizationInteractor: TokenizationInteractorInput {
         let makeToken: (MonetaryAmount?) -> (String) -> Promise<Tokens>
 
         switch data {
-        case let .bankCard(bankCard, confirmation):
-            makeToken = curry(paymentService.tokenizeBankCard)(clientApplicationKey)(bankCard)(confirmation)
+        case let .bankCard(bankCard, confirmation, savePaymentMethod):
+            makeToken = curry(
+                paymentService.tokenizeBankCard)(clientApplicationKey)(
+                    bankCard)(confirmation)(savePaymentMethod)
 
-        case let .wallet(confirmation):
-
-            guard let yamoneyToken = authorizationService.getYamoneyToken() else {
-                assertionFailure("You must be authorized in yamoney")
-                return
-            }
-
-            makeToken = curry(paymentService.tokenizeWallet)(clientApplicationKey)(yamoneyToken)(confirmation)
-
-        case let .linkedBankCard(id, csc, confirmation):
+        case let .wallet(confirmation, savePaymentMethod):
 
             guard let yamoneyToken = authorizationService.getYamoneyToken() else {
                 assertionFailure("You must be authorized in yamoney")
                 return
             }
 
-            makeToken = curry(paymentService
-                                  .tokenizeLinkedBankCard)(clientApplicationKey)(yamoneyToken)(id)(csc)(confirmation)
+            makeToken = curry(paymentService.tokenizeWallet)(clientApplicationKey)(
+                yamoneyToken)(confirmation)(savePaymentMethod)
 
-        case let .applePay(paymentData):
-            makeToken = curry(paymentService.tokenizeApplePay)(clientApplicationKey)(paymentData)
+        case let .linkedBankCard(id, csc, confirmation, savePaymentMethod):
 
-        case let .sberbank(phoneNumber, confirmation):
-            makeToken = curry(paymentService.tokenizeSberbank)(clientApplicationKey)(phoneNumber)(confirmation)
+            guard let yamoneyToken = authorizationService.getYamoneyToken() else {
+                assertionFailure("You must be authorized in yamoney")
+                return
+            }
+
+            makeToken = curry(paymentService.tokenizeLinkedBankCard)(clientApplicationKey)(
+                yamoneyToken)(id)(csc)(confirmation)(savePaymentMethod)
+
+        case let .applePay(paymentData, savePaymentMethod):
+            makeToken = curry(paymentService.tokenizeApplePay)(clientApplicationKey)(
+                paymentData)(savePaymentMethod)
+
+        case let .sberbank(phoneNumber, confirmation, savePaymentMethod):
+            makeToken = curry(paymentService.tokenizeSberbank)(clientApplicationKey)(
+                phoneNumber)(confirmation)(savePaymentMethod)
         }
 
         let monetaryAmount = paymentOption.charge

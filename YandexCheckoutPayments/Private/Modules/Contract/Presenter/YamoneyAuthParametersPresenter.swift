@@ -39,8 +39,12 @@ extension YamoneyAuthParametersPresenter: ContractViewOutput {
             url: inputData.termsOfService.url
         )
         paymentMethodView.setPaymentMethodViewModel(inputData.paymentMethod)
-        saveAuthInAppView.title = String.localizedStringWithFormat(§Localized.saveAuthInApp, inputData.shopName)
+        saveAuthInAppView.title = §Localized.saveAuthInApp
         saveAuthInAppView.state = isReusableToken
+
+        if let savePaymentMethodViewModel = inputData.savePaymentMethodViewModel {
+            contractView.setSavePaymentMethodViewModel(savePaymentMethodViewModel)
+        }
 
         DispatchQueue.global().async { [weak self] in
             guard let strongSelf = self,
@@ -73,6 +77,20 @@ extension YamoneyAuthParametersPresenter: ContractTemplateViewOutput {
 
     func didTapTermsOfService(_ url: URL) {
         moduleOutput?.yamoneyAuthParameters(self, didTapTermsOfService: url)
+    }
+
+    func linkedSwitchItemView(
+        _ itemView: LinkedSwitchItemViewInput,
+        didChangeState state: Bool
+    ) {
+        moduleOutput?.yamoneyAuthParameters(
+            self,
+            didChangeSavePaymentMethodState: state
+        )
+    }
+
+    func didTapOnSavePaymentMethod() {
+        moduleOutput?.didTapOnSavePaymentMethodInfo(on: self)
     }
 }
 

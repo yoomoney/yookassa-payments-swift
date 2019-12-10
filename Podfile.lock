@@ -4,16 +4,16 @@ PODS:
   - Reveal-SDK (24)
   - SwiftLint (0.34.0)
   - When (4.0.0)
-  - YandexCheckoutPayments (2.3.1):
+  - YandexCheckoutPayments (3.0.0):
     - FunctionalSwift (~> 1.1.0)
     - When (~> 4.0.0)
-    - YandexCheckoutPaymentsApi (~> 1.5.0)
+    - YandexCheckoutPaymentsApi (~> 1.8.0)
     - YandexCheckoutShowcaseApi (~> 1.2.0)
     - YandexCheckoutWalletApi (~> 1.2.0)
     - YandexLoginSDK (~> 2.0.0)
     - YandexMobileMetrica/Dynamic (~> 3.7.0)
     - YandexMoneyCoreApi (~> 1.7.0)
-  - YandexCheckoutPaymentsApi (1.5.0):
+  - YandexCheckoutPaymentsApi (1.8.0):
     - FunctionalSwift (~> 1.1.0)
     - YandexMoneyCoreApi (~> 1.7.0)
   - YandexCheckoutShowcaseApi (1.2.0):
@@ -63,8 +63,8 @@ SPEC CHECKSUMS:
   Reveal-SDK: 5d7e56b8f018c0a88b3a2c10bf68d598bbd3b071
   SwiftLint: 79d48a17c6565dc286c37efb8322c7b450f95c67
   When: 4ffc88d535a094ad4bd5eaf2fd187de747e716d1
-  YandexCheckoutPayments: 47ae852ab96031801258e9e1a01dea22b94bfb24
-  YandexCheckoutPaymentsApi: e3f45d08993fc8e67f63c28d194b04d25a31e303
+  YandexCheckoutPayments: 7f8053c09c0ee7f6b2ab8152d29902067cdc2598
+  YandexCheckoutPaymentsApi: fbe102bbfbab08a83da1a428a37f3d4b4bc1c28e
   YandexCheckoutShowcaseApi: 44382163176b3a53692fa1c3b85c0c8d0a82b7e6
   YandexCheckoutWalletApi: 5d2774cd1216ee0ce47d6412184008b37caeaeac
   YandexLoginSDK: cd407482207b4b7da75c5f7d7fd2fdd6a604c325

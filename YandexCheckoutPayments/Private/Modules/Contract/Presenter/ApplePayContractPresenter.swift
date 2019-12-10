@@ -36,6 +36,10 @@ extension ApplePayContractPresenter: ContractViewOutput {
             url: inputData.termsOfService.url
         )
         paymentMethodView.setPaymentMethodViewModel(inputData.paymentMethod)
+
+        if let savePaymentMethodViewModel = inputData.savePaymentMethodViewModel {
+            contractView.setSavePaymentMethodViewModel(savePaymentMethodViewModel)
+        }
     }
 }
 
@@ -66,6 +70,20 @@ extension ApplePayContractPresenter: ContractTemplateViewOutput {
 
     func didTapTermsOfService(_ url: URL) {
         moduleOutput?.applePayContractModule(self, didTapTermsOfService: url)
+    }
+
+    func linkedSwitchItemView(
+        _ itemView: LinkedSwitchItemViewInput,
+        didChangeState state: Bool
+    ) {
+        moduleOutput?.applePayContractModule(
+            self,
+            didChangeSavePaymentMethodState: state
+        )
+    }
+
+    func didTapOnSavePaymentMethod() {
+        moduleOutput?.didTapOnSavePaymentMethodInfo(on: self)
     }
 }
 

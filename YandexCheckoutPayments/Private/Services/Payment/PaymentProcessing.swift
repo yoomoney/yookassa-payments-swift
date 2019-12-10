@@ -27,53 +27,72 @@ enum PaymentProcessingError: PresentableError {
 }
 
 protocol PaymentProcessing {
-    func fetchPaymentOptions(clientApplicationKey: String,
-                             passportToken: String?,
-                             gatewayId: String?,
-                             amount: String?,
-                             currency: String?) -> Promise<[PaymentOption]>
+    func fetchPaymentOptions(
+        clientApplicationKey: String,
+        passportToken: String?,
+        gatewayId: String?,
+        amount: String?,
+        currency: String?,
+        getSavePaymentMethod: Bool?
+    ) -> Promise<[PaymentOption]>
 
     func fetchPaymentMethod(
         clientApplicationKey: String,
         paymentMethodId: String
     ) -> Promise<YandexCheckoutPaymentsApi.PaymentMethod>
 
-    func tokenizeBankCard(clientApplicationKey: String,
-                          bankCard: BankCard,
-                          confirmation: Confirmation,
-                          amount: MonetaryAmount?,
-                          tmxSessionId: String) -> Promise<Tokens>
+    func tokenizeBankCard(
+        clientApplicationKey: String,
+        bankCard: BankCard,
+        confirmation: Confirmation,
+        savePaymentMethod: Bool,
+        amount: MonetaryAmount?,
+        tmxSessionId: String
+    ) -> Promise<Tokens>
 
-    func tokenizeWallet(clientApplicationKey: String,
-                        yamoneyToken: String,
-                        confirmation: Confirmation,
-                        amount: MonetaryAmount?,
-                        tmxSessionId: String) -> Promise<Tokens>
+    func tokenizeWallet(
+        clientApplicationKey: String,
+        yamoneyToken: String,
+        confirmation: Confirmation,
+        savePaymentMethod: Bool,
+        amount: MonetaryAmount?,
+        tmxSessionId: String
+    ) -> Promise<Tokens>
 
-    func tokenizeLinkedBankCard(clientApplicationKey: String,
-                                yamoneyToken: String,
-                                cardId: String,
-                                csc: String,
-                                confirmation: Confirmation,
-                                amount: MonetaryAmount?,
-                                tmxSessionId: String) -> Promise<Tokens>
+    func tokenizeLinkedBankCard(
+        clientApplicationKey: String,
+        yamoneyToken: String,
+        cardId: String,
+        csc: String,
+        confirmation: Confirmation,
+        savePaymentMethod: Bool,
+        amount: MonetaryAmount?,
+        tmxSessionId: String
+    ) -> Promise<Tokens>
 
-    func tokenizeSberbank(clientApplicationKey: String,
-                          phoneNumber: String,
-                          confirmation: Confirmation,
-                          amount: MonetaryAmount?,
-                          tmxSessionId: String) -> Promise<Tokens>
+    func tokenizeSberbank(
+        clientApplicationKey: String,
+        phoneNumber: String,
+        confirmation: Confirmation,
+        savePaymentMethod: Bool,
+        amount: MonetaryAmount?,
+        tmxSessionId: String
+    ) -> Promise<Tokens>
 
-    func tokenizeApplePay(clientApplicationKey: String,
-                          paymentData: String,
-                          amount: MonetaryAmount?,
-                          tmxSessionId: String) -> Promise<Tokens>
+    func tokenizeApplePay(
+        clientApplicationKey: String,
+        paymentData: String,
+        savePaymentMethod: Bool,
+        amount: MonetaryAmount?,
+        tmxSessionId: String
+    ) -> Promise<Tokens>
 
     func tokenizeRepeatBankCard(
         clientApplicationKey: String,
         amount: MonetaryAmount,
         tmxSessionId: String,
         confirmation: Confirmation,
+        savePaymentMethod: Bool,
         paymentMethodId: String,
         csc: String
     ) -> Promise<Tokens>

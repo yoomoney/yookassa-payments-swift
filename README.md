@@ -39,6 +39,7 @@
     - [Amount](#amount)
     - [Currency](#currency)
     - [CustomizationSettings](#customizationsettings)
+    - [SavePaymentMethod](#savepaymentmethod)
   - [Сканирование банковских карт](#%d0%a1%d0%ba%d0%b0%d0%bd%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5-%d0%b1%d0%b0%d0%bd%d0%ba%d0%be%d0%b2%d1%81%d0%ba%d0%b8%d1%85-%d0%ba%d0%b0%d1%80%d1%82)
   - [Настройка 3D Secure](#%d0%9d%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-3d-secure)
   - [Логирование](#%d0%9b%d0%be%d0%b3%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5)
@@ -362,6 +363,7 @@ let moduleData = TokenizationModuleInputData(
 | shopName             | String | Название магазина в форме оплаты |
 | purchaseDescription  | String | Описание заказа в форме оплаты |
 | amount               | Amount | Объект, содержащий сумму заказа и валюту |
+| 
 
 >Необязательные:
 
@@ -436,6 +438,14 @@ let moduleData = TokenizationModuleInputData(
 | Параметр   | Тип     | Описание |
 | ---------- | ------- | -------- |
 | mainScheme | UIColor | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
+
+### SavePaymentMethod
+
+| Параметр    | Тип               | Описание |
+| ----------- | ----------------- | -------- |
+| on          | SavePaymentMethod | Сохранить платёжный метод для проведения рекуррентных платежей. Пользователю будут доступны только способы оплаты, поддерживающие сохранение. На экране контракта будет отображено сообщение о том, что платёжный метод будет сохранён. |
+| off         | SavePaymentMethod | Не сохранять платёжный метод. |
+| userSelects | SavePaymentMethod | Пользователь выбирает, сохранять платёжный метод или нет. Если метод можно сохранить, на экране контракта появится переключатель. |
 
 ## Сканирование банковских карт
 
@@ -591,6 +601,8 @@ pod install
 5. Выбрать и запустить схему `ExamplePods`.
 
 ## Кастомизация интерфейса
+
+По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода.
 
 1. Сконфигурировать объект `CustomizationSettings` и передать его в параметр `customizationSettings` объекта `TokenizationModuleInputData`.
 

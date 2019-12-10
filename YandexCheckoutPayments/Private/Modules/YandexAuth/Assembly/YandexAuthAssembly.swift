@@ -2,17 +2,21 @@ import class UIKit.UIViewController
 
 enum YandexAuthAssembly {
 
-    static func makeModule(inputData: YandexAuthModuleInputData,
-                           moduleOutput: YandexAuthModuleOutput) -> PaymentMethodsViewController {
+    static func makeModule(
+        inputData: YandexAuthModuleInputData,
+        moduleOutput: YandexAuthModuleOutput
+    ) -> PaymentMethodsViewController {
         let view = PaymentMethodsViewController()
         return YandexAuthAssembly.makeModule(inputData: inputData,
                                              moduleOutput: moduleOutput,
                                              view: view)
     }
 
-    static func makeModule(inputData: YandexAuthModuleInputData,
-                           moduleOutput: YandexAuthModuleOutput,
-                           view: PaymentMethodsViewController) -> PaymentMethodsViewController {
+    static func makeModule(
+        inputData: YandexAuthModuleInputData,
+        moduleOutput: YandexAuthModuleOutput,
+        view: PaymentMethodsViewController
+    ) -> PaymentMethodsViewController {
 
         let presenter = YandexAuthPresenter()
 
@@ -26,12 +30,15 @@ enum YandexAuthAssembly {
                          testModeSettings: inputData.testModeSettings,
                          isLoggingEnabled: inputData.isLoggingEnabled)
 
-        let interactor = YandexAuthInteractor(authorizationService: authorizationService,
-                                              analyticsService: analyticsService,
-                                              paymentService: paymentService,
-                                              clientApplicationKey: inputData.clientApplicationKey,
-                                              gatewayId: inputData.gatewayId,
-                                              amount: inputData.amount)
+        let interactor = YandexAuthInteractor(
+            authorizationService: authorizationService,
+            analyticsService: analyticsService,
+            paymentService: paymentService,
+            clientApplicationKey: inputData.clientApplicationKey,
+            gatewayId: inputData.gatewayId,
+            amount: inputData.amount,
+            getSavePaymentMethod: inputData.getSavePaymentMethod
+        )
 
         view.output = presenter
         view.actionTextDialog.delegate = presenter

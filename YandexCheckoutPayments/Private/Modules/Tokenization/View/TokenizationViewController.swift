@@ -28,8 +28,18 @@ final class TokenizationViewController: UIViewController {
     var modules: [UIViewController] = []
 
     private weak var actionSheetTemplate: ActionSheetTemplate?
-    private weak var modalTemplate: ModalTemplate?
-    private weak var pageSheetTemplate: PageSheetTemplate?
+
+    private weak var pageSheetTemplate: PageSheetTemplate? {
+        didSet {
+            pageSheetTemplate?.navigationBar.tintColor = view.tintColor
+        }
+    }
+
+    private weak var modalTemplate: ModalTemplate? {
+        didSet {
+            modalTemplate?.navigationBar.tintColor = view.tintColor
+        }
+    }
 
     private var containerConstraints: [NSLayoutConstraint] = []
 
@@ -922,10 +932,6 @@ extension TokenizationViewController: TokenizationViewInput {
 // MARK: - TokenizationModuleInput
 
 extension TokenizationViewController: TokenizationModuleInput {
-    func start3dsProcess(requestUrl: String, redirectUrl: String) {
-        output.start3dsProcess(requestUrl: requestUrl, redirectUrl: redirectUrl)
-    }
-
     func start3dsProcess(requestUrl: String) {
         output.start3dsProcess(requestUrl: requestUrl)
     }

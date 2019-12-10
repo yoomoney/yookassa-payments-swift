@@ -11,6 +11,8 @@ final class RootViewController: UIViewController {
         return RootViewController(nibName: nil, bundle: nil)
     }
 
+    weak var tokenizationModuleInput: TokenizationModuleInput?
+
     // MARK: - CardScanningDelegate
 
     weak var cardScanningDelegate: CardScanningDelegate?
@@ -353,7 +355,8 @@ final class RootViewController: UIViewController {
             applePayMerchantIdentifier: "merchant.ru.yandex.mobile.msdk.debug",
             isLoggingEnabled: true,
             userPhoneNumber: "7",
-            customizationSettings: CustomizationSettings(mainScheme: .blueRibbon)
+            customizationSettings: CustomizationSettings(mainScheme: .blueRibbon),
+            savePaymentMethod: .userSelects
         ))
 
 //        let inputData: TokenizationFlow = .bankCardRepeat(BankCardRepeatModuleInputData(
@@ -364,13 +367,15 @@ final class RootViewController: UIViewController {
 //            amount: amount,
 //            testModeSettings: testSettings,
 //            isLoggingEnabled: true,
-//            customizationSettings: CustomizationSettings(mainScheme: .blueRibbon)
+//            customizationSettings: CustomizationSettings(mainScheme: .blueRibbon),
+//            savePaymentMethod: .userSelects
 //        ))
 
         let viewController = TokenizationAssembly.makeModule(
             inputData: inputData,
             moduleOutput: self
         )
+        tokenizationModuleInput = viewController
         present(viewController, animated: true, completion: nil)
     }
 

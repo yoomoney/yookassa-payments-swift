@@ -12,6 +12,10 @@ class KeyboardObservingAccessoryView: UIView {
     deinit {
         removeObservers()
     }
+
+    override var intrinsicContentSize: CGSize {
+        return .zero
+    }
 }
 
 // MARK: - Observing View-Related Changes

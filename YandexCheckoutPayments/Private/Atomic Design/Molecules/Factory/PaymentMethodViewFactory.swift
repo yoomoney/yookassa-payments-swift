@@ -21,6 +21,7 @@ enum ContractViewFactory {
 
     static func makeSwitchItemView(_ customizationSettings: CustomizationSettings) -> SwitchItemView {
         let switchItemView = SwitchItemView()
+        switchItemView.setStyles(SwitchItemView.Styles.secondary)
         switchItemView.tintColor = customizationSettings.mainScheme
         switchItemView.layoutMargins = UIEdgeInsets(top: Space.double, left: 0, bottom: Space.double, right: 0)
         return switchItemView
