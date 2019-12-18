@@ -46,6 +46,10 @@ extension SberbankPresenter: ContractViewOutput {
         phoneInputView.setValue(clearPhoneNumber(inputData.phoneNumber) ?? "7")
         phoneInputView.validatePhoneNumber()
 
+        if let savePaymentMethodViewModel = inputData.savePaymentMethodViewModel {
+            contractView.setSavePaymentMethodViewModel(savePaymentMethodViewModel)
+        }
+
         DispatchQueue.global().async { [weak self] in
             guard let strongSelf = self,
                   let interactor = strongSelf.interactor else { return }
@@ -85,6 +89,10 @@ extension SberbankPresenter: ContractTemplateViewOutput {
     func didTapTermsOfService(_ url: URL) {
         moduleOutput?.sberbank(self, didTapTermsOfService: url)
     }
+
+    func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) {}
+
+    func didTapOnSavePaymentMethod() {}
 }
 
 // MARK: - SberbankModuleInput

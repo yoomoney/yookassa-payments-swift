@@ -146,6 +146,10 @@ extension YamoneyAuthPresenter: ContractTemplateViewOutput {
     func didTapTermsOfService(_ url: URL) {
         moduleOutput?.yamoneyAuth(self, didTapTermsOfService: url)
     }
+
+    func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) { }
+
+    func didTapOnSavePaymentMethod() { }
 }
 
 extension YamoneyAuthPresenter: AuthCodeInputViewOutput {

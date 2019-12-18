@@ -13,6 +13,10 @@ final class BankCardRepeatPresenter {
     weak var contractModuleInput: ContractModuleInput?
     weak var bankCardDataInputModuleInput: BankCardDataInputModuleInput?
 
+    // MARK: - Stored Data
+
+    private var savePaymentMethod = true
+
     // MARK: - Initialization
 
     private let inputData: BankCardRepeatModuleInputData
@@ -38,7 +42,10 @@ extension BankCardRepeatPresenter: TokenizationViewOutput {
 
         let viewModel = PaymentMethodViewModelFactory.makePaymentMethodViewModel(.bankCard)
         let tokenizeScheme = AnalyticsEvent.TokenizeScheme.recurringCard
-
+        let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
+            inputData.savePaymentMethod,
+            initialState: makeInitialSavePaymentMethod(inputData.savePaymentMethod)
+        )
         let moduleInputData = ContractModuleInputData(
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
@@ -49,7 +56,8 @@ extension BankCardRepeatPresenter: TokenizationViewOutput {
             testModeSettings: inputData.testModeSettings,
             tokenizeScheme: tokenizeScheme,
             isLoggingEnabled: inputData.isLoggingEnabled,
-            termsOfService: TermsOfServiceFactory.makeTermsOfService()
+            termsOfService: TermsOfServiceFactory.makeTermsOfService(),
+            savePaymentMethodViewModel: savePaymentMethodViewModel
         )
 
         DispatchQueue.main.async { [weak self] in
@@ -160,6 +168,19 @@ extension BankCardRepeatPresenter: ContractModuleOutput {
     func contractModule(_ module: ContractModuleInput, didTapTermsOfService url: URL) {
         router.presentTermsOfServiceModule(url)
     }
+
+    func contractModule(_ module: ContractModuleInput, didChangeSavePaymentMethodState state: Bool) {
+        savePaymentMethod = state
+    }
+
+    func didTapOnSavePaymentMethodInfo(on module: ContractModuleInput) {
+        let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
+            customizationSettings: inputData.customizationSettings,
+            headerValue: §SavePaymentMethodInfoLocalization.BankCard.header,
+            bodyValue: §SavePaymentMethodInfoLocalization.BankCard.body
+        )
+        router.presentSavePaymentMethodInfo(inputData: savePaymentMethodModuleinputData)
+    }
 }
 
 // MARK: - MaskedBankCardDataInputModuleOutput
@@ -182,6 +203,7 @@ extension BankCardRepeatPresenter: MaskedBankCardDataInputModuleOutput {
             self.interactor.tokenize(
                 amount: MonetaryAmountFactory.makePaymentsMonetaryAmount(self.inputData.amount),
                 confirmation: confirmation,
+                savePaymentMethod: self.savePaymentMethod,
                 paymentMethodId: self.inputData.paymentMethodId,
                 csc: cvc
             )
@@ -259,6 +281,19 @@ private func makePriceViewModel(_ amount: Amount) -> PriceViewModel {
                       integerPart: integerPart,
                       fractionalPart: fractionalPart,
                       style: .amount)
+}
+
+private func makeInitialSavePaymentMethod(
+    _ savePaymentMethod: SavePaymentMethod
+) -> Bool {
+    let initialSavePaymentMethod: Bool
+    switch savePaymentMethod {
+    case .on:
+        initialSavePaymentMethod = true
+    case .off, .userSelects:
+        initialSavePaymentMethod = false
+    }
+    return initialSavePaymentMethod
 }
 
 private func makeMessage(_ error: Error) -> String {

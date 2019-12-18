@@ -1,4 +1,4 @@
-// Input data for repeat bank card tokenization flow.
+/// Input data for repeat bank card tokenization flow.
 public struct BankCardRepeatModuleInputData {
 
     /// Client application key.
@@ -28,6 +28,9 @@ public struct BankCardRepeatModuleInputData {
     /// Settings to customize SDK interface.
     let customizationSettings: CustomizationSettings
 
+    /// Setting for saving payment method.
+    let savePaymentMethod: SavePaymentMethod
+
     /// Creates instance of `BankCardRepeatModuleInputData`.
     ///
     /// - Parameters:
@@ -40,6 +43,7 @@ public struct BankCardRepeatModuleInputData {
     ///   - returnUrl: Return url for close 3ds.
     ///   - isLoggingEnabled: Enable logging
     ///   - customizationSettings: Settings to customize SDK interface.
+    ///   - savePaymentMethod: Setting for saving payment method.
     ///
     /// - Returns: Instance of `BankCardRepeatModuleInputData`.
     public init(
@@ -51,7 +55,8 @@ public struct BankCardRepeatModuleInputData {
         testModeSettings: TestModeSettings? = nil,
         returnUrl: String? = nil,
         isLoggingEnabled: Bool = false,
-        customizationSettings: CustomizationSettings = CustomizationSettings()
+        customizationSettings: CustomizationSettings = CustomizationSettings(),
+        savePaymentMethod: SavePaymentMethod
     ) {
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
@@ -62,5 +67,6 @@ public struct BankCardRepeatModuleInputData {
         self.returnUrl = returnUrl
         self.isLoggingEnabled = isLoggingEnabled
         self.customizationSettings = customizationSettings
+        self.savePaymentMethod = savePaymentMethod
     }
 }

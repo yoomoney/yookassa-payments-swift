@@ -79,32 +79,54 @@ class ScrollViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         stopKeyboardObserving()
         super.viewWillDisappear(animated)
-        bottomFooterConstraint?.constant = -footerInsets.bottom
-        currentKeyboardOffset = nil
     }
 }
 
 // MARK: - KeyboardObserving
 extension ScrollViewController: KeyboardObserver {
-    func keyboardWillShow(with keyboardInfo: KeyboardNotificationInfo) {}
+    func keyboardWillShow(with keyboardInfo: KeyboardNotificationInfo) {
+        let keyboardOffset = updateBottomConstraint(keyboardInfo)
+        currentKeyboardOffset = keyboardOffset
+    }
 
-    func keyboardDidShow(with keyboardInfo: KeyboardNotificationInfo) {}
-
-    func keyboardWillHide(with keyboardInfo: KeyboardNotificationInfo) {}
-
-    func keyboardDidHide(with keyboardInfo: KeyboardNotificationInfo) {
+    func keyboardWillHide(with keyboardInfo: KeyboardNotificationInfo) {
+        updateBottomConstraint(keyboardInfo)
         currentKeyboardOffset = nil
     }
 
-    func keyboardDidUpdateFrame(_ keyboardFrame: CGRect) {
-        guard let keyboardOffset = keyboardYOffset(from: keyboardFrame) else { return }
+    func keyboardDidShow(with keyboardInfo: KeyboardNotificationInfo) {}
+    func keyboardDidHide(with keyboardInfo: KeyboardNotificationInfo) {}
+    func keyboardDidUpdateFrame(_ keyboardFrame: CGRect) {}
+
+    @discardableResult
+    private func updateBottomConstraint(
+        _ keyboardInfo: KeyboardNotificationInfo
+    ) -> CGFloat? {
+        guard let keyboardOffset = keyboardYOffset(from: keyboardInfo.endKeyboardFrame) else {
+            return nil
+        }
         if let bottomConstraint = bottomFooterConstraint {
-            bottomConstraint.constant = -keyboardOffset - footerInsets.bottom
-            view.layoutIfNeeded()
+            let duration = keyboardInfo.animationDuration ?? 0.3
+
+            var options: UIView.AnimationOptions = []
+            if let animationCurve = keyboardInfo.animationCurve {
+                options = UIView.AnimationOptions(rawValue: UInt(animationCurve.rawValue))
+            }
+
+            UIView.animate(
+                withDuration: duration,
+                delay: 0,
+                options: options,
+                animations: { [weak self] in
+                    guard let self = self else { return }
+                    bottomConstraint.constant = -keyboardOffset - self.footerInsets.bottom
+                    self.view.layoutIfNeeded()
+                },
+                completion: nil)
         } else {
             updateScrollInsets(byKeyboardOffset: keyboardOffset)
         }
-        currentKeyboardOffset = keyboardOffset
+        return keyboardOffset
     }
 }
 

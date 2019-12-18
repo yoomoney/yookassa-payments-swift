@@ -1,43 +1,75 @@
 protocol TokenizationRouterInput: class {
 
-    func presentPaymentMethods(inputData: PaymentMethodsModuleInputData,
-                               moduleOutput: PaymentMethodsModuleOutput)
+    func presentPaymentMethods(
+        inputData: PaymentMethodsModuleInputData,
+        moduleOutput: PaymentMethodsModuleOutput
+    )
 
-    func presentContract(inputData: ContractModuleInputData,
-                         moduleOutput: ContractModuleOutput)
+    func presentContract(
+        inputData: ContractModuleInputData,
+        moduleOutput: ContractModuleOutput
+    )
 
-    func presentSberbank(inputData: SberbankModuleInputData,
-                         moduleOutput: SberbankModuleOutput)
+    func presentSberbank(
+        inputData: SberbankModuleInputData,
+        moduleOutput: SberbankModuleOutput
+    )
 
-    func presentYandexAuth(inputData: YandexAuthModuleInputData,
-                           moduleOutput: YandexAuthModuleOutput)
+    func presentYandexAuth(
+        inputData: YandexAuthModuleInputData,
+        moduleOutput: YandexAuthModuleOutput
+    )
 
-    func presentYamoneyAuthParameters(inputData: YamoneyAuthParametersModuleInputData,
-                                      moduleOutput: YamoneyAuthParametersModuleOutput)
+    func presentYamoneyAuthParameters(
+        inputData: YamoneyAuthParametersModuleInputData,
+        moduleOutput: YamoneyAuthParametersModuleOutput
+    )
 
-    func presentYamoneyAuth(inputData: YamoneyAuthModuleInputData,
-                            moduleOutput: YamoneyAuthModuleOutput)
+    func presentYamoneyAuth(
+        inputData: YamoneyAuthModuleInputData,
+        moduleOutput: YamoneyAuthModuleOutput
+    )
 
-    func presentBankCardDataInput(inputData: BankCardDataInputModuleInputData,
-                                  moduleOutput: BankCardDataInputModuleOutput)
+    func presentBankCardDataInput(
+        inputData: BankCardDataInputModuleInputData,
+        moduleOutput: BankCardDataInputModuleOutput
+    )
 
-    func presenMaskedBankCardDataInput(inputData: MaskedBankCardDataInputModuleInputData,
-                                       moduleOutput: MaskedBankCardDataInputModuleOutput)
+    func presenMaskedBankCardDataInput(
+        inputData: MaskedBankCardDataInputModuleInputData,
+        moduleOutput: MaskedBankCardDataInputModuleOutput
+    )
 
-    func presentLogoutConfirmation(inputData: LogoutConfirmationModuleInputData,
-                                   moduleOutput: LogoutConfirmationModuleOutput)
+    func presentLogoutConfirmation(
+        inputData: LogoutConfirmationModuleInputData,
+        moduleOutput: LogoutConfirmationModuleOutput
+    )
 
-    func present3dsModule(inputData: CardSecModuleInputData,
-                          moduleOutput: CardSecModuleOutput)
+    func present3dsModule(
+        inputData: CardSecModuleInputData,
+        moduleOutput: CardSecModuleOutput
+    )
 
-    func presentApplePay(inputData: ApplePayModuleInputData,
-                         moduleOutput: ApplePayModuleOutput)
+    func presentApplePay(
+        inputData: ApplePayModuleInputData,
+        moduleOutput: ApplePayModuleOutput
+    )
 
-    func presentError(inputData: ErrorModuleInputData,
-                      moduleOutput: ErrorModuleOutput)
+    func presentError(
+        inputData: ErrorModuleInputData,
+        moduleOutput: ErrorModuleOutput
+    )
 
-    func presentTermsOfServiceModule(_ url: URL)
+    func presentTermsOfServiceModule(
+        _ url: URL
+    )
 
-    func presentApplePayContract(inputData: ApplePayContractModuleInputData,
-                                 moduleOutput: ApplePayContractModuleOutput)
+    func presentApplePayContract(
+        inputData: ApplePayContractModuleInputData,
+        moduleOutput: ApplePayContractModuleOutput
+    )
+
+    func presentSavePaymentMethodInfo(
+        inputData: SavePaymentMethodInfoModuleInputData
+    )
 }

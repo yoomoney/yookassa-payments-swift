@@ -37,6 +37,10 @@ extension ContractPresenter: ContractViewOutput {
         )
         paymentMethodView.setPaymentMethodViewModel(inputData.paymentMethod)
 
+        if let savePaymentMethodViewModel = inputData.savePaymentMethodViewModel {
+            contractView.setSavePaymentMethodViewModel(savePaymentMethodViewModel)
+        }
+
         DispatchQueue.global().async { [weak self] in
             guard let strongSelf = self,
                   let interactor = strongSelf.interactor else { return }
@@ -87,14 +91,32 @@ extension ContractPresenter: ContractInteractorOutput {}
 // MARK: - ContractTemplateViewOutput
 
 extension ContractPresenter: ContractTemplateViewOutput {
-    func didPressSubmitButton(in contractTemplate: ContractTemplateViewInput) {
+    func didPressSubmitButton(
+        in contractTemplate: ContractTemplateViewInput
+    ) {
         moduleOutput?.didPressSubmitButton(on: self)
     }
 
-    func didTapContract(_ contractTemplate: ContractTemplateViewInput) { }
+    func didTapContract(
+        _ contractTemplate: ContractTemplateViewInput
+    ) { }
 
     func didTapTermsOfService(_ url: URL) {
         moduleOutput?.contractModule(self, didTapTermsOfService: url)
+    }
+
+    func linkedSwitchItemView(
+        _ itemView: LinkedSwitchItemViewInput,
+        didChangeState state: Bool
+    ) {
+        moduleOutput?.contractModule(
+            self,
+            didChangeSavePaymentMethodState: state
+        )
+    }
+
+    func didTapOnSavePaymentMethod() {
+        moduleOutput?.didTapOnSavePaymentMethodInfo(on: self)
     }
 }
 
@@ -115,6 +137,7 @@ extension ContractPresenter: IconButtonItemViewOutput {
 }
 
 // MARK: - LargeIconButtonItemViewOutput
+
 extension ContractPresenter: LargeIconButtonItemViewOutput {
     func didPressLeftButton(in itemView: LargeIconButtonItemViewInput) {
         moduleOutput?.didPressLogoutButton(on: self)

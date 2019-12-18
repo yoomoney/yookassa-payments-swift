@@ -1,4 +1,4 @@
-// Input data for tokenization flow.
+/// Input data for tokenization flow.
 public struct TokenizationModuleInputData {
 
     /// Client application key.
@@ -42,6 +42,9 @@ public struct TokenizationModuleInputData {
     /// Settings to customize SDK interface.
     let customizationSettings: CustomizationSettings
 
+    /// Setting for saving payment method.
+    let savePaymentMethod: SavePaymentMethod
+
     /// Creates instance of `TokenizationModuleInputData`.
     ///
     /// - Parameters:
@@ -60,6 +63,7 @@ public struct TokenizationModuleInputData {
     ///   - userPhoneNumber: User phone number.
     ///                      Example: +X XXX XXX XX XX
     ///   - customizationSettings: Settings to customize SDK interface.
+    ///   - savePaymentMethod: Setting for saving payment method.
     ///
     /// - Returns: Instance of `TokenizationModuleInputData`.
     public init(
@@ -75,7 +79,8 @@ public struct TokenizationModuleInputData {
         returnUrl: String? = nil,
         isLoggingEnabled: Bool = false,
         userPhoneNumber: String? = nil,
-        customizationSettings: CustomizationSettings = CustomizationSettings()
+        customizationSettings: CustomizationSettings = CustomizationSettings(),
+        savePaymentMethod: SavePaymentMethod
     ) {
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
@@ -90,5 +95,6 @@ public struct TokenizationModuleInputData {
         self.isLoggingEnabled = isLoggingEnabled
         self.userPhoneNumber = userPhoneNumber
         self.customizationSettings = customizationSettings
+        self.savePaymentMethod = savePaymentMethod
     }
 }

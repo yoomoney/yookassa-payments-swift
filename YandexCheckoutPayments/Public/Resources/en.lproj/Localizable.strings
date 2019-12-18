@@ -1,5 +1,5 @@
 /*По неизвестным нам причинам экран ApplePay не отобразился*/
-"ApplePayUnavailable.title" = "Apple Pay not available";
+"ApplePayUnavailable.title" = "Apple Pay is unavailable";
 
 /*Подсказка под текстовым полем для ввода номера телефона*/
 "Contract.bottomHint.sberbank" = "For text message with code from Sberbank";
@@ -21,7 +21,7 @@
 "Error.resendAuthCodeAndStartOver" = "Error, try again";
 
 /*С сервера пришел неподдерживаемый способ прохождения платежной авторизации.*/
-"Error.unsupportedAuthType" = "This method of receiving passwords is not supported";
+"Error.unsupportedAuthType" = "This method of receiving passwords is not supported. You can change it in the wallet settings on the Yandex.Money website";
 
 /*Способ оплаты сбербанк онлайн*/
 "PaymentMethod.sberbank" = "Sberbank Online";
@@ -52,9 +52,9 @@
 
 "Contract.price" = "To be paid";
 
-"Contract.fee" = "Including fee";
+"Contract.fee" = "Including commission";
 
-"ApplePayContract.fee" = "Fee";
+"ApplePayContract.fee" = "Commission";
 
 "Contract.resendSms" = "Send again";
 
@@ -68,7 +68,7 @@
 
 "Contract.topHint.totp" = "One-time password";
 
-"Contract.format.saveAuthInApp" = "Save the Wallet in the %@ app";
+"Contract.format.saveAuthInApp" = "Save the wallet in this app for faster payments";
 
 "LogoutConfirmation.format.title" = "Are you sure you want to sign out of account '%@'?";
 
@@ -90,8 +90,33 @@
 
 "Common.button.cancel" = "Cancel";
 
+/*Что то пошло не так, неизвестная ошибка*/
 "Common.Error.unknown" = "Something went wrong";
 
 "TermsOfService.Text" = "By clicking this button, you accept";
 
-"TermsOfService.Hyperlink" = "terms and conditions of the service";
+"TermsOfService.Hyperlink" = "the terms and conditions of the service";
+
+"SavePaymentMethod.Wallet.UserPriority.Text" = "Allow the store";
+
+"SavePaymentMethod.Wallet.UserPriority.hyperText" = "to debit money without your participation";
+
+"SavePaymentMethod.Wallet.Force.Text" = "After the payment, we will link the wallet: the store will be able";
+
+"SavePaymentMethod.Wallet.Force.hyperText" = "to debit money without your participation";
+
+"SavePaymentMethod.BankCard.UserPriority.Text" = "Link the card and";
+
+"SavePaymentMethod.BankCard.UserPriority.hyperText" = "debit money upon store's request";
+
+"SavePaymentMethod.BankCard.Force.Text" = "After the payment, we will link the card so that";
+
+"SavePaymentMethod.BankCard.Force.hyperText" = "money could be debited upon store's request";
+
+"SavePaymentMethodInfo.Wallet.Header" = "Permission to debit money without your participation";
+
+"SavePaymentMethodInfo.Wallet.Body" = "It means that you are giving Yandex.Money your prior consent to debit money from your wallet upon store's request without any additional confirmation from your side.\n\nYou can disable this permission at any moment in the wallet settings (on the Yandex.Money website).";
+
+"SavePaymentMethodInfo.BankCard.Header" = "Permission to debit money upon store's request";
+
+"SavePaymentMethodInfo.BankCard.Body" = "It means that you are giving Yandex.Money your prior consent to debit money upon store's request without any additional confirmation from your side from this card or a new one in case it is reissued (if your bank can update the data automatically).\n\nYou can unlink the card at any moment via store's support service.";

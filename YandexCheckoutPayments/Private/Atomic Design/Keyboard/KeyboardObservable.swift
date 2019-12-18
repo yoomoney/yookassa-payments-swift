@@ -51,11 +51,6 @@ final class KeyboardObservable: NSObject { //NSObject to use kvo
     fileprivate let observersSync = DispatchQueue(label: KeyboardObservable.observersSyncLabel,
                                                   attributes: [.concurrent])
 
-    private override init() {
-        super.init()
-        UIResponder.setup()
-    }
-
     /// Add observer to start receiving keyboard notifications in KeyboardObserver
     func addKeyboardObserver(_ observer: KeyboardObserver) {
         observersSync.sync(flags: .barrier) {
@@ -239,7 +234,15 @@ private extension KeyboardObservable {
         }
 
         if let accessoryView = responder.inputAccessoryView {
-            accessoryView.addSubview(observingAccessoryView)
+            responder.inputAccessoryView = observingAccessoryView
+            observingAccessoryView.translatesAutoresizingMaskIntoConstraints = false
+            observingAccessoryView.addSubview(accessoryView)
+            NSLayoutConstraint.activate([
+                accessoryView.top.constraint(equalTo: observingAccessoryView.top),
+                accessoryView.leading.constraint(equalTo: observingAccessoryView.leading),
+                accessoryView.trailing.constraint(equalTo: observingAccessoryView.trailing),
+                accessoryView.bottom.constraint(equalTo: observingAccessoryView.bottom),
+            ])
         } else {
             responder.inputAccessoryView = observingAccessoryView
         }
@@ -248,18 +251,8 @@ private extension KeyboardObservable {
     }
 
     func removeObservingAccessoryView(fromResponder responder: KeyboardResponder) {
-        guard let accessoryView = responder.inputAccessoryView else {
-            return
-        }
-        if accessoryView is KeyboardObservingAccessoryView {
-            responder.inputAccessoryView = nil
-        } else {
-            accessoryView.subviews.forEach {
-                if $0 is KeyboardObservingAccessoryView {
-                    $0.removeFromSuperview()
-                }
-            }
-        }
+        guard let accessoryView = responder.inputAccessoryView as? KeyboardObservingAccessoryView else { return }
+        responder.inputAccessoryView = accessoryView.subviews.first
         responder.reloadInputViews()
     }
 }

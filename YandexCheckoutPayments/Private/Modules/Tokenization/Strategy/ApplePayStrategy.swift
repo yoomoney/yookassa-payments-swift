@@ -4,25 +4,31 @@ import YandexCheckoutPaymentsApi
 
 final class ApplePayStrategy: NSObject {
 
-    fileprivate enum PaymentResult {
+    private enum PaymentResult {
         case success
         case failed
     }
 
+    // MARK: - Outputs
+
     weak var output: TokenizationStrategyOutput?
     weak var contractStateHandler: ContractStateHandler?
 
-    fileprivate let paymentOption: PaymentOption
-    fileprivate let analyticsService: AnalyticsProcessing
-    fileprivate let analyticsProvider: AnalyticsProviding
+    // MARK: - Initial data
 
-    fileprivate weak var paymentMethodsModuleInput: PaymentMethodsModuleInput?
-    fileprivate var paymentResult: PaymentResult = .failed
+    private let paymentOption: PaymentOption
+    private let analyticsService: AnalyticsProcessing
+    private let analyticsProvider: AnalyticsProviding
+    private let inputSavePaymentMethod: SavePaymentMethod
 
-    init(paymentOption: PaymentOption,
-         paymentMethodsModuleInput: PaymentMethodsModuleInput?,
-         analyticsService: AnalyticsProcessing,
-         analyticsProvider: AnalyticsProviding) throws {
+    init(
+        paymentOption: PaymentOption,
+        paymentMethodsModuleInput: PaymentMethodsModuleInput?,
+        analyticsService: AnalyticsProcessing,
+        analyticsProvider: AnalyticsProviding,
+        savePaymentMethod: Bool,
+        inputSavePaymentMethod: SavePaymentMethod
+    ) throws {
         guard case .applePay = paymentOption.paymentMethodType else {
             throw TokenizationStrategyError.incorrectPaymentOptions
         }
@@ -30,7 +36,18 @@ final class ApplePayStrategy: NSObject {
         self.paymentMethodsModuleInput = paymentMethodsModuleInput
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
+        self.savePaymentMethod = savePaymentMethod
+        self.inputSavePaymentMethod = inputSavePaymentMethod
     }
+
+    // MARK: - Stored data
+
+    private weak var paymentMethodsModuleInput: PaymentMethodsModuleInput?
+    private var paymentResult: PaymentResult = .failed
+
+    // MARK: - TokenizationStrategyInput
+
+    var savePaymentMethod: Bool
 }
 
 // MARK: - TokenizationStrategyInput
@@ -40,19 +57,27 @@ extension ApplePayStrategy: TokenizationStrategyInput {
     func beginProcess() {
         guard let output = output else { return }
 
-        if paymentOption.fee != nil {
+        let feeCondition = paymentOption.fee != nil
+        let inputSavePaymentMethodCondition = inputSavePaymentMethod == .userSelects || inputSavePaymentMethod == .on
+        let savePaymentMethodCondition = paymentOption.savePaymentMethod == .allowed && inputSavePaymentMethodCondition
+
+        if feeCondition || savePaymentMethodCondition {
             output.presentApplePayContract(paymentOption)
         } else {
             output.presentApplePay(paymentOption)
         }
     }
 
-    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController,
-                                            didAuthorizePayment payment: PKPayment,
-                                            completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
+    func paymentAuthorizationViewController(
+        _ controller: PKPaymentAuthorizationViewController,
+        didAuthorizePayment payment: PKPayment,
+        completion: @escaping (PKPaymentAuthorizationStatus) -> Void
+    ) {
         paymentResult = .success
-
-        let tokenizeData: TokenizeData = .applePay(paymentData: payment.token.paymentData.base64EncodedString())
+        let tokenizeData: TokenizeData = .applePay(
+            paymentData: payment.token.paymentData.base64EncodedString(),
+            savePaymentMethod: savePaymentMethod
+        )
         output?.tokenize(tokenizeData, paymentOption: paymentOption)
         completion(.success)
     }
@@ -64,7 +89,6 @@ extension ApplePayStrategy: TokenizationStrategyInput {
     }
 
     func didPresentApplePayModule() {
-
         DispatchQueue.global().async { [weak self] in
             guard let strongSelf = self else { return }
             let (authType, _) = strongSelf.analyticsProvider.makeTypeAnalyticsParameters()
@@ -98,19 +122,14 @@ extension ApplePayStrategy: TokenizationStrategyInput {
     }
 
     func didPressSubmitButton(on module: ContractModuleInput) {}
+    func bankCardDataInputModule(_ module: BankCardDataInputModuleInput, didPressConfirmButton bankCardData: CardData) {}
     func didLoginInYandexMoney(_ response: YamoneyLoginResponse) {}
+    func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput, loginWithReusableToken isReusableToken: Bool) {}
     func failLoginInYandexMoney(_ error: Error) {}
     func failResendSmsCode(_ error: Error) {}
+    func sberbankModule(_ module: SberbankModuleInput, didPressConfirmButton phoneNumber: String) {}
+    func didPressConfirmButton(on module: BankCardDataInputModuleInput, cvc: String) {}
     func didPressLogout() {}
-
-    func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput,
-                               loginWithReusableToken isReusableToken: Bool) {}
-    func bankCardDataInputModule(_ module: BankCardDataInputModuleInput,
-                                 didPressConfirmButton bankCardData: CardData) {}
-    func didPressConfirmButton(on module: BankCardDataInputModuleInput,
-                               cvc: String) {}
-
-    func sberbankModule(_ module: SberbankModuleInput, didPressConfirmButton phoneNumber: String) { }
 }
 
 // MARK: - Localized
