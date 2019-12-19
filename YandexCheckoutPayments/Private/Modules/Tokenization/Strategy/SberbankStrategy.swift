@@ -9,6 +9,7 @@ final class SberbankStrategy {
     weak var contractStateHandler: ContractStateHandler?
 
     var savePaymentMethod: Bool
+    var shouldInvalidateTokenizeData = false
 
     init(
         paymentOption: PaymentOption,
@@ -62,4 +63,5 @@ extension SberbankStrategy: TokenizationStrategyInput {
     func didPressSubmitButton(on module: ContractModuleInput) {}
     func didLoginInYandexMoney(_ response: YamoneyLoginResponse) {}
     func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput, loginWithReusableToken isReusableToken: Bool) {}
+    func didTokenizeData() {}
 }

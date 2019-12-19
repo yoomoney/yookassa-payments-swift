@@ -5,8 +5,9 @@ import YandexCheckoutPaymentsApi
 final class ApplePayStrategy: NSObject {
 
     private enum PaymentResult {
+        case idle
         case success
-        case failed
+        case cancel
     }
 
     // MARK: - Outputs
@@ -43,11 +44,13 @@ final class ApplePayStrategy: NSObject {
     // MARK: - Stored data
 
     private weak var paymentMethodsModuleInput: PaymentMethodsModuleInput?
-    private var paymentResult: PaymentResult = .failed
+    private var applePayCompletion: ((PKPaymentAuthorizationStatus) -> Void)?
+    private var paymentResult: PaymentResult = .idle
 
     // MARK: - TokenizationStrategyInput
 
     var savePaymentMethod: Bool
+    var shouldInvalidateTokenizeData = false
 }
 
 // MARK: - TokenizationStrategyInput
@@ -68,22 +71,38 @@ extension ApplePayStrategy: TokenizationStrategyInput {
         }
     }
 
+    func didTokenizeData() {
+        guard paymentResult != .cancel else {
+            shouldInvalidateTokenizeData = true
+            return
+        }
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.applePayCompletion?(.success)
+        }
+    }
+
     func paymentAuthorizationViewController(
         _ controller: PKPaymentAuthorizationViewController,
         didAuthorizePayment payment: PKPayment,
         completion: @escaping (PKPaymentAuthorizationStatus) -> Void
     ) {
+        guard paymentResult != .cancel else { return }
         paymentResult = .success
         let tokenizeData: TokenizeData = .applePay(
             paymentData: payment.token.paymentData.base64EncodedString(),
             savePaymentMethod: savePaymentMethod
         )
+        applePayCompletion = completion
         output?.tokenize(tokenizeData, paymentOption: paymentOption)
-        completion(.success)
     }
 
-    func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
-        if case .failed = paymentResult {
+    func paymentAuthorizationViewControllerDidFinish(
+        _ controller: PKPaymentAuthorizationViewController
+    ) {
+        if paymentResult == .idle
+            || paymentResult == .success {
+            paymentResult = .cancel
             output?.didFinish(on: self)
         }
     }
@@ -98,6 +117,7 @@ extension ApplePayStrategy: TokenizationStrategyInput {
     }
 
     func didFailPresentApplePayModule() {
+        guard paymentResult != .cancel else { return }
         trackScreenErrorAnalytics()
         paymentMethodsModuleInput?.showPlaceholder(message: §Localized.applePayUnavailableTitle)
     }
