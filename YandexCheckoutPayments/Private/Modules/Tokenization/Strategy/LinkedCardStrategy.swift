@@ -11,6 +11,7 @@ final class LinkedBankCardStrategy {
     private weak var bankCardDataInputModule: BankCardDataInputModuleInput?
 
     var savePaymentMethod: Bool
+    var shouldInvalidateTokenizeData = false
 
     private let authorizationService: AuthorizationProcessing
     private let paymentOption: PaymentInstrumentYandexMoneyLinkedBankCard
@@ -106,6 +107,7 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
     func didPresentApplePayModule() {}
     func didPressSubmitButton(on module: ApplePayContractModuleInput) {}
     func bankCardDataInputModule(_ module: BankCardDataInputModuleInput, didPressConfirmButton bankCardData: CardData) {}
+    func didTokenizeData() {}
 }
 
 private func makeConfirmation(returnUrl: String) -> Confirmation {

@@ -11,8 +11,11 @@ protocol TokenizationStrategyInput: class {
     var output: TokenizationStrategyOutput? { get set }
     var contractStateHandler: ContractStateHandler? { get set }
     var savePaymentMethod: Bool { get set }
+    var shouldInvalidateTokenizeData: Bool { get set }
 
     func beginProcess()
+    func didTokenizeData()
+
     func didPressSubmitButton(
         on module: ContractModuleInput
     )

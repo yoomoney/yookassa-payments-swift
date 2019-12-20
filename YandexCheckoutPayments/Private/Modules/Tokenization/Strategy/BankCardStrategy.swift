@@ -9,6 +9,7 @@ final class BankCardStrategy {
 
     private weak var bankCardDataInputModule: BankCardDataInputModuleInput?
 
+    var shouldInvalidateTokenizeData = false
     var savePaymentMethod: Bool
 
     private let paymentOption: PaymentOption
@@ -76,6 +77,7 @@ extension BankCardStrategy: TokenizationStrategyInput {
     func didPressSubmitButton(on module: ApplePayContractModuleInput) {}
     func didLoginInYandexMoney(_ response: YamoneyLoginResponse) {}
     func failLoginInYandexMoney(_ error: Error) {}
+    func didTokenizeData() {}
 }
 
 private func makeBankCard(_ cardData: CardData) -> BankCard? {
