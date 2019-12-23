@@ -123,6 +123,10 @@ extension ApplePayStrategy: TokenizationStrategyInput {
     }
 
     func failTokenizeData(_ error: Error) {
+        guard paymentResult != .cancel else {
+            shouldInvalidateTokenizeData = true
+            return
+        }
         trackScreenErrorAnalytics()
         output?.presentErrorWithMessage(§Localized.Error.failTokenizeData)
     }
