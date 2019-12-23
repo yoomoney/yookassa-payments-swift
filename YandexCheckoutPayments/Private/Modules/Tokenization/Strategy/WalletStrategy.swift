@@ -8,6 +8,7 @@ final class WalletStrategy {
     weak var contractStateHandler: ContractStateHandler?
 
     var savePaymentMethod: Bool
+    var shouldInvalidateTokenizeData = false
 
     private let authorizationService: AuthorizationProcessing
     private let paymentOption: PaymentInstrumentYandexMoneyWallet
@@ -108,6 +109,7 @@ extension WalletStrategy: TokenizationStrategyInput {
     func didFailPresentApplePayModule() {}
     func didPresentApplePayModule() {}
     func didPressSubmitButton(on module: ApplePayContractModuleInput) {}
+    func didTokenizeData() {}
 }
 
 private func makeConfirmation(returnUrl: String) -> Confirmation {

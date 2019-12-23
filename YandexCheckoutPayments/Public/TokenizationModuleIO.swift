@@ -23,8 +23,10 @@ public protocol TokenizationModuleOutput: class {
     ///             In the process of running mSDK, allows you to run processes using the
     ///             `TokenizationModuleInput` protocol methods.
     ///   - error: `YandexCheckoutPaymentsError` error.
-    func didFinish(on module: TokenizationModuleInput,
-                   with error: YandexCheckoutPaymentsError?)
+    func didFinish(
+        on module: TokenizationModuleInput,
+        with error: YandexCheckoutPaymentsError?
+    )
 
     /// Will be called when the 3-D Secure process successfully passes.
     ///
@@ -32,7 +34,9 @@ public protocol TokenizationModuleOutput: class {
     ///   - module: Input for tokenization module.
     ///             In the process of running mSDK, allows you to run processes using the
     ///             `TokenizationModuleInput` protocol methods.
-    func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput)
+    func didSuccessfullyPassedCardSec(
+        on module: TokenizationModuleInput
+    )
 
     /// Will be called when the tokenization process successfully passes.
     ///
@@ -47,16 +51,4 @@ public protocol TokenizationModuleOutput: class {
         didTokenize token: Tokens,
         paymentMethodType: PaymentMethodType
     )
-}
-
-/// Default implementation for `TokenizationModuleOutput`
-public extension TokenizationModuleOutput {
-    func didFinish(on module: TokenizationModuleInput,
-                   with error: YandexCheckoutPaymentsError?) {}
-    func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {}
-    func tokenizationModule(
-        _ module: TokenizationModuleInput,
-        didTokenize token: Tokens,
-        paymentMethodType: PaymentMethodType
-    ) {}
 }
