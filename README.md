@@ -21,7 +21,7 @@
   - [Подключение зависимостей](#%d0%9f%d0%be%d0%b4%d0%ba%d0%bb%d1%8e%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b7%d0%b0%d0%b2%d0%b8%d1%81%d0%b8%d0%bc%d0%be%d1%81%d1%82%d0%b5%d0%b9)
     - [CocoaPods](#cocoapods)
     - [Carthage](#carthage)
-    - [TrustDefender](#trustdefender)
+  - [Подключение TrustDefender](#%D0%9F%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20TrustDefender)
   - [Быстрая интеграция](#%d0%91%d1%8b%d1%81%d1%82%d1%80%d0%b0%d1%8f-%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d1%8f)
   - [Доступные способы оплаты](#%d0%94%d0%be%d1%81%d1%82%d1%83%d0%bf%d0%bd%d1%8b%d0%b5-%d1%81%d0%bf%d0%be%d1%81%d0%be%d0%b1%d1%8b-%d0%be%d0%bf%d0%bb%d0%b0%d1%82%d1%8b)
   - [Настройка способов оплаты](#%d0%9d%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-%d1%81%d0%bf%d0%be%d1%81%d0%be%d0%b1%d0%be%d0%b2-%d0%be%d0%bf%d0%bb%d0%b0%d1%82%d1%8b)
@@ -66,7 +66,11 @@
   gem install cocoapods
   ```
 
-2. Добавьте зависимости в `Podfile`.\
+2. Создайте файл Podfile\
+
+  > CocoaPods предоставляет команду ```pod init``` для создания Podfile с настройками по умолчанию.
+
+3. Добавьте зависимости в `Podfile`.\
   [Пример](https://github.com/yandex-money/yandex-checkout-payments-swift/tree/master/YandexCheckoutPaymentsExample/Podfile-example) `Podfile` из демо-приложения.
 
   ```shell
@@ -84,11 +88,13 @@
   > `Your Target Name` - название таргета в Xcode для вашего приложения.\
   > `tag` - версия SDK. Актуальную версию можно узнать на github в разделе [releases](https://github.com/yandex-money/yandex-checkout-payments-swift/releases).
 
+4. Выполните команду ```pod install```
+
 ### Carthage
 
 На текущий момент Carthage не поддерживается.
 
-### TrustDefender
+## Подключение TrustDefender
 
 Чтобы получить файл `.framework`,  [зарегистрируйтесь в Яндекс.Кассе](https://kassa.yandex.ru/joinups)
 и сообщите вашему менеджеру, что хотите подключить мобильный SDK.
@@ -101,12 +107,13 @@
   └─ Frameworks
      └─ TrustDefender.framework
   ```
+  > Если в проекте отсутствует папка `Frameworks` создайте её вручную.
 
-2. Если во время запуска проекта вы видите ошибку `dyld: Library not loaded: @rpath/TrustDefender.framework/TrustDefender`, добавьте TrustDefender.framework в `Embedded Binaries`(в Xcode 10.3 или меньше), или в `Frameworks, Libraries, and Embedded Content`(в Xcode 11)
+2. Если во время запуска проекта вы видите ошибку `dyld: Library not loaded: @rpath/TrustDefender.framework/TrustDefender`, в разделе `General` у основного таргета проекта добавьте TrustDefender.framework в `Embedded Binaries`(в Xcode 10.3 или меньше), или в `Frameworks, Libraries, and Embedded Content`(в Xcode 11)
 
 3. Добавьте в `Build Phases` -> `New Run Script Phase`, и добавьте скрипт из файла `strip_framework.sh`
 
-4. Если во время сборки проекта вы видите сообщение с ошибкой о `TrustDefender.framework/TrustDefender' does not contain bitcode`, необходимо выключить bitcode у основного таргета проекта.
+4. Если во время сборки проекта вы видите сообщение с ошибкой о `TrustDefender.framework/TrustDefender' does not contain bitcode`, необходимо выключить bitcode в разделе `Build Settings` у основного таргета проекта.
 
 ## Быстрая интеграция
 
@@ -130,7 +137,8 @@
                                         purchaseDescription: """
                                                              Комета повышенной яркости, период обращения — 112 лет
                                                              """,
-                                        amount: amount)
+                                        amount: amount,
+                                        savePaymentMethod: .on)
   ```
 
 2. Создайте `TokenizationFlow` с кейсом `.tokenization` и передайте `TokenizationModuleInputData`.
@@ -175,7 +183,7 @@
   }
   ```
 
-Закройте `ViewController` и отправьте токен в вашу систему. Затем [создайте платеж](https://kassa.yandex.ru/docs/guides/#custom) по API Яндекс.Кассы, в параметре `payment_token` передайте токен, полученный в SDK. Способ подтверждения при создании платежа зависит от способа оплаты, который выбрал пользователь. Он приходит вместе с токеном в `paymentMethodType`.
+Закройте модуль SDK и отправьте токен в вашу систему. Затем [создайте платеж](https://kassa.yandex.ru/docs/guides/#custom) по API Яндекс.Кассы, в параметре `payment_token` передайте токен, полученный в SDK. Способ подтверждения при создании платежа зависит от способа оплаты, который выбрал пользователь. Он приходит вместе с токеном в `paymentMethodType`.
 
 ## Доступные способы оплаты
 
@@ -329,6 +337,13 @@ func application(_ app: UIApplication,
 let moduleData = TokenizationModuleInputData(
     ...
     applePayMerchantIdentifier: "<com.example...>")
+```
+Например, если ваш apple pay identifier — `com.example.identifier`, то код будет следующим:
+  >  
+```swift
+let moduleData = TokenizationModuleInputData(
+    ...
+    applePayMerchantIdentifier: "com.example.identifier")
 ```
 
 2. Получите токен.
@@ -498,7 +513,7 @@ let inputData = TokenizationModuleInputData(
 
 Если вы хотите использовать нашу реализацию 3-D Secure, не закрывайте модуль SDK после получения токена.\
 Отправьте токен на ваш сервер и после успешной оплаты закройте модуль.\
-Если ваш сервер сообщил о необходимости подтверждения платежа, вызовите метод `start3dsProcess(requestUrl:)`
+Если ваш сервер сообщил о необходимости подтверждения платежа (т.е. платёж пришёл со статусом `pending`), вызовите метод `start3dsProcess(requestUrl:)`
 
 После успешного прохождения 3-D Secure будет вызван метод `didSuccessfullyPassedCardSec(on module:)` протокола `TokenizationModuleOutput`.
 
@@ -588,7 +603,7 @@ let moduleData = TokenizationModuleInputData(
 git clone https://github.com/yandex-money/yandex-checkout-payments-swift.git
 ```
 
-2. Добавить [TrustDefender.framework](#trustdefender) в папку `Frameworks`, которая находится на одном уровне с папкой `Pods`.
+2. Добавить [TrustDefender.framework](#trustdefender) в папку `Frameworks`, которая находится на одном уровне с папкой `Pods` (см. [Подключение TrustDefender](#%D0%9F%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20TrustDefender))
 3. В консоли перейти в папку с проектом и выполнить следующие команды:
 
 ```shell
@@ -644,3 +659,7 @@ let viewController = TokenizationAssembly.makeModule(
 )
 present(viewController, animated: true, completion: nil)
 ```
+
+## Лицензия
+
+Yandex Checkout Payments SDK доступна под лицензией MIT. Смотрите [LICENSE](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/LICENSE) файл для получения дополнительной информации.
