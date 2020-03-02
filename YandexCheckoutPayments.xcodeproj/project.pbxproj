@@ -3070,7 +3070,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "NBCO Yandex.Money";
 				TargetAttributes = {
 					244F7FE084FC7E60389BAFAD = {
@@ -3195,7 +3195,6 @@
 				"${BUILT_PRODUCTS_DIR}/FunctionalSwift/FunctionalSwift.framework",
 				"${PODS_ROOT}/Reveal-SDK/RevealServer/iOS/RevealServer.framework",
 				"${BUILT_PRODUCTS_DIR}/When/When.framework",
-				"${PODS_ROOT}/../Frameworks/TrustDefender.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutPayments/YandexCheckoutPayments.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutPaymentsApi/YandexCheckoutPaymentsApi.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutShowcaseApi/YandexCheckoutShowcaseApi.framework",
@@ -3210,7 +3209,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FunctionalSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/When.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrustDefender.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutPayments.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutPaymentsApi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutShowcaseApi.framework",
@@ -4221,7 +4219,7 @@
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.entitlements;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 2752592HU5;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/FunctionalSwift\"",
@@ -4294,7 +4292,7 @@
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.debug.entitlements;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 2752592HU5;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/FunctionalSwift\"",
@@ -4324,7 +4322,7 @@
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.inhouse.entitlements;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 2752592HU5;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/FunctionalSwift\"",

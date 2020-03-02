@@ -33,7 +33,7 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig = {
     'OTHER_LDFLAGS' => '-framework "TrustDefender"',
     'FRAMEWORK_SEARCH_PATHS' => '"${PODS_ROOT}/../Frameworks"',
-    'ENABLE_BITCODE' => 'NO'
+    'ENABLE_BITCODE' => 'YES'
   }
 
   s.ios.dependency 'FunctionalSwift', '~> 1.1.0'
