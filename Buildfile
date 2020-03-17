@@ -4,7 +4,7 @@ SHOULD_INSTALL_COCOAPODS=true
 
 APP_VERSION="1.3.6"
 SCHEME="ExamplePods"
-WORKSPACE="YandexCheckoutPayments.xcworkspace"
+XCODE_WORKSPACE="YandexCheckoutPayments.xcworkspace"
 XCODE_PROJECT="YandexCheckoutPayments.xcodeproj"
 
 PROVISIONG_PROFILE_SPECIFIER_Debug=""
