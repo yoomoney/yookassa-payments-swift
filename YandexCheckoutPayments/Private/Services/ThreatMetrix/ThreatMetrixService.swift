@@ -22,7 +22,7 @@
  */
 
 import FunctionalSwift
-import TrustDefender
+import TMXProfiling
 import When
 
 /// Profiling error or session id
@@ -37,34 +37,28 @@ class ThreatMetrixService {
     fileprivate static var currentProfilingCallback: ThreatMetrixProfilingCompletionHandler?
     fileprivate static let threatMetrixQueue = DispatchQueue(label: "ru.yandex.mobile.money.queue.threatMetrix",
                                                              qos: .userInteractive)
-    fileprivate static var profileHandler: THMProfileHandle?
+    fileprivate static var profileHandler: TMXProfileHandle?
 
     /// Initialize ThreatMetrix SDK
     static func configure() {
         threatMetrixQueue.async {
             guard isConfigured == false else { return }
 
-            THMTrustDefender.sharedInstance().configure([
-
+            TMXProfiling.sharedInstance()?.configure(configData: [
                 // (Mandatory) Specifies the Org ID. NSString
-                THMOrgID: "fsymclue",
+                TMXOrgID: "fsymclue",
 
                 // (OPTIONAL) Set the connection timeout, in seconds
-                THMTimeout: 10,
+                TMXProfileTimeout: 10,
 
                 // (OPTIONAL) Register for location service updates
-                THMLocationServices: false,
-
-                // (OPTIONAL) This key is used to manage the NSURL API that the ThreatMetrix SDK uses.
-                // Pass this option to switch from the default NSURLConnection API to the NSURLSession API.
-                // Customers should set this to match the NSURL APIs in use by their applications.
-                THMUseNSURLSession: true,
+                TMXLocationServices: false,
 
                 // (OPTIONAL) This is the  fully qualified domain name (FQDN) of the server that ThreatMetrix SDK
                 // will communicate with to transmit the collected device attributes.
                 // This will only need to be explicitly specified if you have Enhanced Profiling configured.
                 // This parameter must be specified in a FQDN format, eg: host.domain.com
-                THMFingerprintServer: "s4.money.yandex.net",
+                TMXFingerprintServer: "s4.money.yandex.net",
             ])
             isConfigured = true
         }
@@ -92,11 +86,9 @@ class ThreatMetrixService {
             }
 
             ThreatMetrixService.profileHandler =
-                THMTrustDefender.sharedInstance().doProfileRequest(options: nil) { profilingResult in
-                    threatMetrixQueue.async {
-                        ThreatMetrixService.profileHandler = nil
-                        handleProfilingResult(profilingResult)
-                    }
+                TMXProfiling.sharedInstance()?.profileDevice { profilingResult in
+                    ThreatMetrixService.profileHandler = nil
+                    handleProfilingResult(profilingResult)
                 }
         }
 
@@ -117,15 +109,15 @@ class ThreatMetrixService {
         }
 
         guard let parameters = result,
-              let statusRawValue = parameters[THMProfileStatus] as? NSNumber,
-              let status = THMStatusCode(rawValue: statusRawValue.intValue) else {
+              let statusRawValue = parameters[TMXProfileStatus] as? NSNumber,
+              let status = TMXStatusCode(rawValue: statusRawValue.intValue) else {
             error = .internalError
             return
         }
 
         switch status {
         case .ok:
-            sessionId = parameters[THMSessionID] as? String
+            sessionId = parameters[TMXSessionID] as? String
 
         case .internalError:
             error = .internalError
@@ -133,7 +125,8 @@ class ThreatMetrixService {
         case .connectionError,
              .hostNotFoundError,
              .networkTimeoutError,
-             .partialProfile: //partialProfile called when not all api requests were made, because of bad connection
+             .partialProfile,
+             .profilingTimeoutError: //partialProfile called when not all api requests were made, because of bad connection
             error = .connectionFail
 
         case .interruptedError:
@@ -143,12 +136,8 @@ class ThreatMetrixService {
              .invalidOrgID,
              .notConfigured,
              .invalidParameter,
-             .strongAuthOK,
-             .strongAuthFailed,
-             .strongAuthCancelled,
-             .strongAuthUnsupported,
-             .strongAuthUserNotFound,
-             .certificateMismatch:
+             .certificateMismatch,
+             .notYet:
             error = .invalidConfiguration
         }
     }
