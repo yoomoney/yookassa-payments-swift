@@ -1,5 +1,9 @@
 ## Changelog
 
+### 3.2.0
+
+1. Поддержка `ThreatMetrix iOS SDK 6.0-91 With Bitcode`
+
 ### 3.1.0
 
 1. Улучшили процесс токенизации для способа оплаты Apple Pay.
