@@ -4246,7 +4246,6 @@
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.entitlements;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 2752592HU5;
-				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/FunctionalSwift\"",
@@ -4319,7 +4318,6 @@
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.debug.entitlements;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 2752592HU5;
-				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/FunctionalSwift\"",
@@ -4349,7 +4347,6 @@
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.inhouse.entitlements;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 2752592HU5;
-				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/FunctionalSwift\"",
