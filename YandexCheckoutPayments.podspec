@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name      = 'YandexCheckoutPayments'
-  s.version   = '3.1.0'
+  s.version   = '3.2.0'
   s.homepage  = 'https://github.com/yandex-money/yandex-checkout-payments-swift'
   s.license   = {
     :type => "MIT",
@@ -28,12 +28,14 @@ Pod::Spec.new do |s|
   s.ios.framework  = 'UIKit'
   s.ios.framework  = 'PassKit'
   s.ios.library = 'z'
-  s.ios.vendored_frameworks = 'Frameworks/TrustDefender.framework'
+  s.ios.vendored_frameworks = [
+    'Frameworks/TMXProfiling.framework',
+    'Frameworks/TMXProfilingConnections.framework',
+  ]
 
   s.pod_target_xcconfig = {
-    'OTHER_LDFLAGS' => '-framework "TrustDefender"',
-    'FRAMEWORK_SEARCH_PATHS' => '"${PODS_ROOT}/../Frameworks"',
-    'ENABLE_BITCODE' => 'NO'
+    'OTHER_LDFLAGS' => '-framework "TMXProfiling"',
+    'FRAMEWORK_SEARCH_PATHS' => '"${PODS_ROOT}/../Frameworks"'
   }
 
   s.ios.dependency 'FunctionalSwift', '~> 1.1.0'

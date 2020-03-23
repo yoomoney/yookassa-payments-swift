@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		301D747F20B5D7E60000E394 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301D747E20B5D7E60000E394 /* PassKit.framework */; };
+		3031D7972420EF57002D0EED /* TMXProfiling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3031D7932420EEEF002D0EED /* TMXProfiling.framework */; };
+		3031D7982420EF57002D0EED /* TMXProfiling.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3031D7932420EEEF002D0EED /* TMXProfiling.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3031D79B2420EF79002D0EED /* TMXProfilingConnections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3031D79A2420EF79002D0EED /* TMXProfilingConnections.framework */; };
+		3031D79C2420EF79002D0EED /* TMXProfilingConnections.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3031D79A2420EF79002D0EED /* TMXProfilingConnections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		303FD05A21B92EC900CE82B4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303FD05D21B92EC900CE82B4 /* InfoPlist.strings */; };
 		303FD05B21B92EC900CE82B4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303FD05D21B92EC900CE82B4 /* InfoPlist.strings */; };
 		3089EF4923846F6300CB7319 /* SwitcherSavePaymentMethodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089EF4823846F6300CB7319 /* SwitcherSavePaymentMethodViewModel.swift */; };
@@ -652,6 +656,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		3031D7992420EF57002D0EED /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3031D7982420EF57002D0EED /* TMXProfiling.framework in Embed Frameworks */,
+				3031D79C2420EF79002D0EED /* TMXProfilingConnections.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E06532C01FF1453800831588 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -672,6 +688,8 @@
 		244F7DBBF9F3523FC00B2357 /* YandexCheckoutPayments.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YandexCheckoutPayments.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		244F7F4FDAEC4CA756655499 /* YandexCheckoutPayments.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = YandexCheckoutPayments.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		301D747E20B5D7E60000E394 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
+		3031D7932420EEEF002D0EED /* TMXProfiling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TMXProfiling.framework; path = Frameworks/TMXProfiling.framework; sourceTree = "<group>"; };
+		3031D79A2420EF79002D0EED /* TMXProfilingConnections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TMXProfilingConnections.framework; path = Frameworks/TMXProfilingConnections.framework; sourceTree = "<group>"; };
 		303FD05C21B92EC900CE82B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		303FD05E21B92ECD00CE82B4 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		307D0CEB2061918600CAAAE6 /* CardIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CardIO.framework; path = Carthage/Build/iOS/CardIO.framework; sourceTree = "<group>"; };
@@ -1156,7 +1174,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E011A09D20725BC200B786B5 /* MessageUI.framework in Frameworks */,
+				3031D7972420EF57002D0EED /* TMXProfiling.framework in Frameworks */,
 				E07E0C1B20246E86000DEF25 /* libz.tbd in Frameworks */,
+				3031D79B2420EF79002D0EED /* TMXProfilingConnections.framework in Frameworks */,
 				C6949D5CB8A33018E3B4A224 /* Pods_YandexCheckoutPaymentsExamplePods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2951,6 +2971,8 @@
 		E0D529341FE40337005F495F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3031D79A2420EF79002D0EED /* TMXProfilingConnections.framework */,
+				3031D7932420EEEF002D0EED /* TMXProfiling.framework */,
 				30FFA679234E63EA00B09847 /* TrustDefender.framework */,
 				E072CCA02121AAE7003D9913 /* FunctionalSwift.framework */,
 				E072CCA22121AAE7003D9913 /* When.framework */,
@@ -3053,6 +3075,7 @@
 				E06532921FF13B5800831588 /* Frameworks */,
 				E06532931FF13B5800831588 /* Resources */,
 				9C543C2339037E1990ABEA7F /* [CP] Embed Pods Frameworks */,
+				3031D7992420EF57002D0EED /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3195,7 +3218,8 @@
 				"${BUILT_PRODUCTS_DIR}/FunctionalSwift/FunctionalSwift.framework",
 				"${PODS_ROOT}/Reveal-SDK/RevealServer/iOS/RevealServer.framework",
 				"${BUILT_PRODUCTS_DIR}/When/When.framework",
-				"${PODS_ROOT}/../Frameworks/TrustDefender.framework",
+				"${PODS_ROOT}/../Frameworks/TMXProfiling.framework",
+				"${PODS_ROOT}/../Frameworks/TMXProfilingConnections.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutPayments/YandexCheckoutPayments.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutPaymentsApi/YandexCheckoutPaymentsApi.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutShowcaseApi/YandexCheckoutShowcaseApi.framework",
@@ -3210,7 +3234,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FunctionalSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/When.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrustDefender.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TMXProfiling.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TMXProfilingConnections.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutPayments.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutPaymentsApi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutShowcaseApi.framework",
@@ -4221,7 +4246,6 @@
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.entitlements;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 2752592HU5;
-				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/FunctionalSwift\"",
@@ -4294,7 +4318,6 @@
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.debug.entitlements;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 2752592HU5;
-				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/FunctionalSwift\"",
@@ -4324,7 +4347,6 @@
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.inhouse.entitlements;
 				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 2752592HU5;
-				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/FunctionalSwift\"",

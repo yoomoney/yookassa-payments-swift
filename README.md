@@ -21,7 +21,7 @@
   - [Подключение зависимостей](#%d0%9f%d0%be%d0%b4%d0%ba%d0%bb%d1%8e%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b7%d0%b0%d0%b2%d0%b8%d1%81%d0%b8%d0%bc%d0%be%d1%81%d1%82%d0%b5%d0%b9)
     - [CocoaPods](#cocoapods)
     - [Carthage](#carthage)
-  - [Подключение TrustDefender](#%D0%9F%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20TrustDefender)
+  - [Подключение TMXProfiling и TMXProfilingConnections](#%d0%9f%d0%be%d0%b4%d0%ba%d0%bb%d1%8e%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-tmxprofiling-%d0%b8-tmxprofilingconnections)
   - [Быстрая интеграция](#%d0%91%d1%8b%d1%81%d1%82%d1%80%d0%b0%d1%8f-%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d1%8f)
   - [Доступные способы оплаты](#%d0%94%d0%be%d1%81%d1%82%d1%83%d0%bf%d0%bd%d1%8b%d0%b5-%d1%81%d0%bf%d0%be%d1%81%d0%be%d0%b1%d1%8b-%d0%be%d0%bf%d0%bb%d0%b0%d1%82%d1%8b)
   - [Настройка способов оплаты](#%d0%9d%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-%d1%81%d0%bf%d0%be%d1%81%d0%be%d0%b1%d0%be%d0%b2-%d0%be%d0%bf%d0%bb%d0%b0%d1%82%d1%8b)
@@ -47,6 +47,7 @@
   - [Запуск Example](#%d0%97%d0%b0%d0%bf%d1%83%d1%81%d0%ba-example)
   - [Кастомизация интерфейса](#%d0%9a%d0%b0%d1%81%d1%82%d0%be%d0%bc%d0%b8%d0%b7%d0%b0%d1%86%d0%b8%d1%8f-%d0%b8%d0%bd%d1%82%d0%b5%d1%80%d1%84%d0%b5%d0%b9%d1%81%d0%b0)
   - [Платёж привязанной к магазину картой с дозапросом CVC/CVV](#%d0%9f%d0%bb%d0%b0%d1%82%d1%91%d0%b6-%d0%bf%d1%80%d0%b8%d0%b2%d1%8f%d0%b7%d0%b0%d0%bd%d0%bd%d0%be%d0%b9-%d0%ba-%d0%bc%d0%b0%d0%b3%d0%b0%d0%b7%d0%b8%d0%bd%d1%83-%d0%ba%d0%b0%d1%80%d1%82%d0%be%d0%b9-%d1%81-%d0%b4%d0%be%d0%b7%d0%b0%d0%bf%d1%80%d0%be%d1%81%d0%be%d0%bc-cvccvv)
+  - [Лицензия](#%d0%9b%d0%b8%d1%86%d0%b5%d0%bd%d0%b7%d0%b8%d1%8f)
 
 ## Changelog
 
@@ -94,26 +95,25 @@
 
 На текущий момент Carthage не поддерживается.
 
-## Подключение TrustDefender
+## Подключение TMXProfiling и TMXProfilingConnections
 
 Чтобы получить файл `.framework`,  [зарегистрируйтесь в Яндекс.Кассе](https://kassa.yandex.ru/joinups)
 и сообщите вашему менеджеру, что хотите подключить мобильный SDK.
 
-1. Добавьте библиотеку `TrustDefender.framework` в папку `Frameworks`.
+1. Добавьте библиотеки `TMXProfiling.framework` и `TMXProfilingConnections.framework` в папку `Frameworks`.
 
   ```txt
   App
   ├─ Pods
   └─ Frameworks
-     └─ TrustDefender.framework
+     └─ TMXProfiling.framework
+     └─ TMXProfilingConnections.framework
   ```
   > Если в проекте отсутствует папка `Frameworks` создайте её вручную.
 
-2. Если во время запуска проекта вы видите ошибку `dyld: Library not loaded: @rpath/TrustDefender.framework/TrustDefender`, в разделе `General` у основного таргета проекта добавьте TrustDefender.framework в `Embedded Binaries`(в Xcode 10.3 или меньше), или в `Frameworks, Libraries, and Embedded Content`(в Xcode 11)
+2. В разделе `General` у основного таргета проекта добавьте TMXProfiling.framework и TMXProfilingConnections.framework в `Embedded Binaries`(в Xcode 10.3 или меньше), или в `Frameworks, Libraries, and Embedded Content`(в Xcode 11)
 
 3. Добавьте в `Build Phases` -> `New Run Script Phase`, и добавьте скрипт из файла `strip_framework.sh`
-
-4. Если во время сборки проекта вы видите сообщение с ошибкой о `TrustDefender.framework/TrustDefender' does not contain bitcode`, необходимо выключить bitcode в разделе `Build Settings` у основного таргета проекта.
 
 ## Быстрая интеграция
 
@@ -603,7 +603,7 @@ let moduleData = TokenizationModuleInputData(
 git clone https://github.com/yandex-money/yandex-checkout-payments-swift.git
 ```
 
-2. Добавить [TrustDefender.framework](#trustdefender) в папку `Frameworks`, которая находится на одном уровне с папкой `Pods` (см. [Подключение TrustDefender](#%D0%9F%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20TrustDefender))
+2. Добавить `TMXProfiling.framework` и `TMXProfilingConnections.framework` в папку `Frameworks`, которая находится на одном уровне с папкой `Pods` (см. [Подключение TMXProfiling и TMXProfilingConnections](#%d0%9f%d0%be%d0%b4%d0%ba%d0%bb%d1%8e%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-tmxprofiling-%d0%b8-tmxprofilingconnections))
 3. В консоли перейти в папку с проектом и выполнить следующие команды:
 
 ```shell
