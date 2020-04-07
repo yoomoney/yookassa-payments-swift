@@ -4244,7 +4244,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.entitlements;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = 2752592HU5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4316,7 +4316,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.debug.entitlements;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = 2752592HU5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4345,7 +4345,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.inhouse.entitlements;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = 2752592HU5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
