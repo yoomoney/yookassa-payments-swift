@@ -108,37 +108,45 @@ class ThreatMetrixService {
             ThreatMetrixService.currentProfilingCallback = nil
         }
 
-        guard let parameters = result,
-              let statusRawValue = parameters[TMXProfileStatus] as? NSNumber,
-              let status = TMXStatusCode(rawValue: statusRawValue.intValue) else {
+        guard let parameters = result else {
             error = .internalError
             return
         }
 
-        switch status {
-        case .ok:
-            sessionId = parameters[TMXSessionID] as? String
+        if let parametersSessionId = parameters[TMXSessionID] as? String {
+            sessionId = parametersSessionId
+        } else {
+            guard let statusRawValue = parameters[TMXProfileStatus] as? NSNumber,
+                  let status = TMXStatusCode(rawValue: statusRawValue.intValue) else {
+                error = .internalError
+                return
+            }
 
-        case .internalError:
-            error = .internalError
+            switch status {
+            case .ok:
+                sessionId = parameters[TMXSessionID] as? String
 
-        case .connectionError,
-             .hostNotFoundError,
-             .networkTimeoutError,
-             .partialProfile,
-             .profilingTimeoutError: //partialProfile called when not all api requests were made, because of bad connection
-            error = .connectionFail
+            case .internalError:
+                error = .internalError
 
-        case .interruptedError:
-            error = .interrupted
+            case .connectionError,
+                 .hostNotFoundError,
+                 .networkTimeoutError,
+                 .partialProfile,
+                 .profilingTimeoutError: //partialProfile called when not all api requests were made, because of bad connection
+                error = .connectionFail
 
-        case .hostVerificationError,
-             .invalidOrgID,
-             .notConfigured,
-             .invalidParameter,
-             .certificateMismatch,
-             .notYet:
-            error = .invalidConfiguration
+            case .interruptedError:
+                error = .interrupted
+
+            case .hostVerificationError,
+                 .invalidOrgID,
+                 .notConfigured,
+                 .invalidParameter,
+                 .certificateMismatch,
+                 .notYet:
+                error = .invalidConfiguration
+            }
         }
     }
 
