@@ -96,50 +96,24 @@ class ThreatMetrixService {
     }
 
     private static func handleProfilingResult(_ result: [AnyHashable: Any]?) {
-        var sessionId: String?
-        var error: ProfileError?
+        let profilingResult: String
 
-        defer {
-            if let sessionId = sessionId {
-                ThreatMetrixService.currentProfilingCallback?(.right(sessionId))
-            } else {
-                ThreatMetrixService.currentProfilingCallback?(.left(error ?? ProfileError.internalError))
+        let status = TMXStatusCode.init -<< (result?[TMXProfileStatus] as? Int)
+        if status == .notYet, currentProfilingCallback != nil {
+            TMXProfiling.sharedInstance()?.profileDevice { result in
+                ThreatMetrixService.profileHandler = nil
+                handleProfilingResult(result)
             }
-            ThreatMetrixService.currentProfilingCallback = nil
-        }
-
-        guard let parameters = result,
-              let statusRawValue = parameters[TMXProfileStatus] as? NSNumber,
-              let status = TMXStatusCode(rawValue: statusRawValue.intValue) else {
-            error = .internalError
             return
         }
 
-        switch status {
-        case .ok:
-            sessionId = parameters[TMXSessionID] as? String
-
-        case .internalError:
-            error = .internalError
-
-        case .connectionError,
-             .hostNotFoundError,
-             .networkTimeoutError,
-             .partialProfile,
-             .profilingTimeoutError: //partialProfile called when not all api requests were made, because of bad connection
-            error = .connectionFail
-
-        case .interruptedError:
-            error = .interrupted
-
-        case .hostVerificationError,
-             .invalidOrgID,
-             .notConfigured,
-             .invalidParameter,
-             .certificateMismatch,
-             .notYet:
-            error = .invalidConfiguration
+        if let sessionId = result?[TMXSessionID] as? String, status == .ok {
+            profilingResult = sessionId
+        } else {
+            profilingResult = (status ?? .internalError).thmErrorCode
         }
+        currentProfilingCallback?(.right(profilingResult))
+        currentProfilingCallback = nil
     }
 
     /// Cancel current profiling
@@ -158,5 +132,42 @@ extension ThreatMetrixService {
         case invalidConfiguration
         case internalError
         case interrupted
+    }
+}
+
+extension TMXStatusCode {
+    var thmErrorCode: String {
+        switch self {
+        case .notYet:
+            return "TMX_NOT_YET"
+        case .ok:
+            return "TMX_OK"
+        case .connectionError:
+            return "TMX_CONNECTION_ERROR"
+        case .hostNotFoundError:
+            return "TMX_HOST_NOT_FOUND_ERROR"
+        case .networkTimeoutError:
+            return "TMX_NETWORK_TIMEOUT_ERROR"
+        case .hostVerificationError:
+            return "TMX_HOST_VERIFICATION_ERROR"
+        case .internalError:
+            return "TMX_INTERNAL_ERROR"
+        case .interruptedError:
+            return "TMX_INTERRUPTED_ERROR"
+        case .partialProfile:
+            return "TMX_PARTIAL_PROFILE"
+        case .invalidOrgID:
+            return "TMX_INVALID_ORG_ID"
+        case .notConfigured:
+            return "TMX_NOT_CONFIGURED"
+        case .certificateMismatch:
+            return "TMX_CERTIFICATE_MISMATCH"
+        case .invalidParameter:
+            return "TMX_INVALID_PARAMETER"
+        case .profilingTimeoutError:
+            return "TMX_PROFILING_TIMEOUT_ERROR"
+        default:
+            return "UNKNOWN_ERROR_CODE_\(self.rawValue)"
+        }
     }
 }

@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		301D747F20B5D7E60000E394 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301D747E20B5D7E60000E394 /* PassKit.framework */; };
-		3031D7972420EF57002D0EED /* TMXProfiling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3031D7932420EEEF002D0EED /* TMXProfiling.framework */; };
-		3031D7982420EF57002D0EED /* TMXProfiling.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3031D7932420EEEF002D0EED /* TMXProfiling.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3031D79B2420EF79002D0EED /* TMXProfilingConnections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3031D79A2420EF79002D0EED /* TMXProfilingConnections.framework */; };
-		3031D79C2420EF79002D0EED /* TMXProfilingConnections.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3031D79A2420EF79002D0EED /* TMXProfilingConnections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		303FD05A21B92EC900CE82B4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303FD05D21B92EC900CE82B4 /* InfoPlist.strings */; };
 		303FD05B21B92EC900CE82B4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 303FD05D21B92EC900CE82B4 /* InfoPlist.strings */; };
+		305DF8D2245C2754009CAE58 /* TMXProfiling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3031D7932420EEEF002D0EED /* TMXProfiling.framework */; };
+		305DF8D3245C2754009CAE58 /* TMXProfiling.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3031D7932420EEEF002D0EED /* TMXProfiling.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		305DF8FE245C2FCD009CAE58 /* TMXProfilingConnections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3031D79A2420EF79002D0EED /* TMXProfilingConnections.framework */; };
+		305DF8FF245C2FCD009CAE58 /* TMXProfilingConnections.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3031D79A2420EF79002D0EED /* TMXProfilingConnections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3089EF4923846F6300CB7319 /* SwitcherSavePaymentMethodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089EF4823846F6300CB7319 /* SwitcherSavePaymentMethodViewModel.swift */; };
 		3089EF4B23846F6C00CB7319 /* StrictSavePaymentMethodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089EF4A23846F6C00CB7319 /* StrictSavePaymentMethodViewModel.swift */; };
 		3089EF4D23846F7400CB7319 /* SavePaymentMethodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089EF4C23846F7400CB7319 /* SavePaymentMethodViewModel.swift */; };
@@ -656,14 +656,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3031D7992420EF57002D0EED /* Embed Frameworks */ = {
+		305DF8D4245C2754009CAE58 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3031D7982420EF57002D0EED /* TMXProfiling.framework in Embed Frameworks */,
-				3031D79C2420EF79002D0EED /* TMXProfilingConnections.framework in Embed Frameworks */,
+				305DF8D3245C2754009CAE58 /* TMXProfiling.framework in Embed Frameworks */,
+				305DF8FF245C2FCD009CAE58 /* TMXProfilingConnections.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1174,9 +1174,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E011A09D20725BC200B786B5 /* MessageUI.framework in Frameworks */,
-				3031D7972420EF57002D0EED /* TMXProfiling.framework in Frameworks */,
+				305DF8D2245C2754009CAE58 /* TMXProfiling.framework in Frameworks */,
 				E07E0C1B20246E86000DEF25 /* libz.tbd in Frameworks */,
-				3031D79B2420EF79002D0EED /* TMXProfilingConnections.framework in Frameworks */,
+				305DF8FE245C2FCD009CAE58 /* TMXProfilingConnections.framework in Frameworks */,
 				C6949D5CB8A33018E3B4A224 /* Pods_YandexCheckoutPaymentsExamplePods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3075,7 +3075,8 @@
 				E06532921FF13B5800831588 /* Frameworks */,
 				E06532931FF13B5800831588 /* Resources */,
 				9C543C2339037E1990ABEA7F /* [CP] Embed Pods Frameworks */,
-				3031D7992420EF57002D0EED /* Embed Frameworks */,
+				305DF8D4245C2754009CAE58 /* Embed Frameworks */,
+				305DF8D1245C269B009CAE58 /* strip_framework.sh */,
 			);
 			buildRules = (
 			);
@@ -3190,6 +3191,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		305DF8D1245C269B009CAE58 /* strip_framework.sh */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = strip_framework.sh;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\n#  Created by Samin Pour on 18/6/18.\n#  Copyright © 2018 ThreatMetrix. All rights reserved.\n#\n# ThreatMetrix iOS SDK contains multiple architectures, armv7, armv7s, arm64, x86_64. The arm\n# architectures are for devices, x86_64 is for simulators. When preparing application for publishing\n# Xcode removes simulator architectures from your application, but due to a bug / design flaw it\n# doesn't strip these slices from dynamic frameworks.\n#\n# If these architectures are not removed Apple will reject the binary.\n# http://www.openradar.me/radar?id=6409498411401216#ag9zfm9wZW5yYWRhci1ocmRyFAsSB0NvbW1lbnQYgICAuO-k9QgM\n# Possible error  messages in Xcode are\n# 1. “iTunes Store Operation Failed: Unsupported Architectures. The executable YourApp contains unsupported architectures '[(x86_64, i386)]'”\n# 2. “LC_ENCRYPTION_INFO”\n# 3. “Invalid Segment Alignment”\n# 4. “The binary is invalid.”\n# Removing simulator slices will resolve these issues.\n#\n# This script automatically strips unused architectures from ThreatMetrix framework, to use it please\n# add a new \"Run Script Phase\" to the build phase and add the content of this file there.\n#\n# IMPORTANT NOTE: Please make sure to add this script after \"Embed Frameworks\" / \"Copy File(s)\"  phase\n\n\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\nfind \"$APP_PATH\" -name 'TMX*.framework' -type d | while read -r FRAMEWORK; do\n    FRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\n    FRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\n\n    EXTRACTED_ARCHS=()\n\n    for ARCH in $ARCHS; do\n        lipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\n        EXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\n    done\n\n    lipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\n    rm \"${EXTRACTED_ARCHS[@]}\"\n\n    rm \"$FRAMEWORK_EXECUTABLE_PATH\"\n    mv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone\n";
+		};
 		30B58B7421B6B62E004BC42E /* Run Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4244,7 +4263,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.entitlements;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 2752592HU5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4316,7 +4335,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.debug.entitlements;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 2752592HU5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4345,7 +4364,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ./YandexCheckoutPayments/Public/Resources/Entitlements/YandexCheckoutPaymentsExamplePods.inhouse.entitlements;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 2752592HU5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
