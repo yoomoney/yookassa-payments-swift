@@ -5,6 +5,10 @@ final class CardSecPresenter: WebBrowserPresenter {
     var cardSecInteractor: CardSecInteractorInput!
     weak var cardSecModuleOutput: CardSecModuleOutput?
 
+    // MARK: - Business logic properties
+
+    private var shouldCallDidSuccessfullyPassedCardSec = true
+
     // MARK: - Overridden funcs
 
     override func setupView() {
@@ -26,6 +30,8 @@ final class CardSecPresenter: WebBrowserPresenter {
 extension CardSecPresenter: CardSecInteractorOutput {
 
     func didSuccessfullyPassedCardSec() {
+        guard shouldCallDidSuccessfullyPassedCardSec else { return }
+        shouldCallDidSuccessfullyPassedCardSec = false
         cardSecModuleOutput?.didSuccessfullyPassedCardSec(on: self)
     }
 }

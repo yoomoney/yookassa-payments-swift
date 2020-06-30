@@ -4,7 +4,7 @@ PODS:
   - Reveal-SDK (24)
   - SwiftLint (0.34.0)
   - When (4.0.0)
-  - YandexCheckoutPayments (3.5.0):
+  - YandexCheckoutPayments (3.5.1):
     - FunctionalSwift (~> 1.1.0)
     - When (~> 4.0.0)
     - YandexCheckoutPaymentsApi (~> 1.8.0)
@@ -40,7 +40,7 @@ DEPENDENCIES:
   - YandexCheckoutPayments (from `./`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - CardIO
     - FunctionalSwift
     - Reveal-SDK
@@ -63,7 +63,7 @@ SPEC CHECKSUMS:
   Reveal-SDK: 5d7e56b8f018c0a88b3a2c10bf68d598bbd3b071
   SwiftLint: 79d48a17c6565dc286c37efb8322c7b450f95c67
   When: 4ffc88d535a094ad4bd5eaf2fd187de747e716d1
-  YandexCheckoutPayments: fe888ebd8523848ca83fc51dca10d399e0c163f1
+  YandexCheckoutPayments: 13eba31cc9a0c9d12daa3346dda1bd50a7a8b4cb
   YandexCheckoutPaymentsApi: fbe102bbfbab08a83da1a428a37f3d4b4bc1c28e
   YandexCheckoutShowcaseApi: 44382163176b3a53692fa1c3b85c0c8d0a82b7e6
   YandexCheckoutWalletApi: 5d2774cd1216ee0ce47d6412184008b37caeaeac
@@ -73,4 +73,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 24a3aa931a52a8330400c4c7300eb83d2feda39a
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.9.3
