@@ -38,7 +38,7 @@ enum PaymentMethodViewModelFactory {
                                                    yandexDisplayName: String?) -> PaymentMethodViewModel {
         return PaymentMethod(name: yandexDisplayName ?? paymentOption.accountId,
                              image: PaymentMethodResources.Image.yandexWallet,
-                             balance: paymentOption.balance)
+                             balance: MonetaryAmountFactory.makeAmount(paymentOption.balance))
     }
 
     // MARK: - Making ViewModel from PaymentInstrumentYandexMoneyLinkedBankCard
