@@ -7,7 +7,7 @@ enum PriceViewStyle {
 }
 
 protocol PriceViewModel {
-    var currency: Character { get }
+    var currency: String { get }
     var integerPart: String { get }
     var fractionalPart: String { get }
     var decimalSeparator: String { get }

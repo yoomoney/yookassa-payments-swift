@@ -2,7 +2,7 @@ import YandexCheckoutPayments
 
 struct DecimalPriceViewModel: PriceViewModel {
 
-    var currency: Character
+    var currency: String
     var integerPart: String
     var fractionalPart: String
     var decimalSeparator: String
@@ -11,7 +11,7 @@ struct DecimalPriceViewModel: PriceViewModel {
     // MARK: - Initialization/Deinitialization
 
     init(price: Decimal) {
-        currency = PriceFormatter.currencySymbol.first ?? Character("")
+        currency = PriceFormatter.currencySymbol
         decimalSeparator = PriceFormatter.decimalSeparator
         let priceStringWithCurrency = PriceFormatter.localize(decimal: price) ?? ""
         let priceString = priceStringWithCurrency.replacingOccurrences(of: PriceFormatter.currencySymbol, with: "")

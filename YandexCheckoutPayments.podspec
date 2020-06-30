@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name      = 'YandexCheckoutPayments'
-  s.version   = '3.5.1'
+  s.version   = '3.6.0'
   s.homepage  = 'https://github.com/yandex-money/yandex-checkout-payments-swift'
   s.license   = {
     :type => "MIT",
@@ -43,8 +43,8 @@ Pod::Spec.new do |s|
 
   s.ios.dependency 'YandexLoginSDK', '~> 2.0.0'
   s.ios.dependency 'YandexMoneyCoreApi', '~> 1.7.0'
-  s.ios.dependency 'YandexCheckoutPaymentsApi', '~> 1.8.0'
+  s.ios.dependency 'YandexCheckoutPaymentsApi', '~> 1.9.0'
   s.ios.dependency 'YandexCheckoutShowcaseApi', '~> 1.2.0'
-  s.ios.dependency 'YandexCheckoutWalletApi', '~> 1.2.0'
+  s.ios.dependency 'YandexCheckoutWalletApi', '~> 1.3.0'
   s.ios.dependency 'YandexMobileMetrica/Dynamic', '~> 3.7.0'
 end
