@@ -1,5 +1,4 @@
 import UIKit.UIImage
-import YandexCheckoutPaymentsApi
 
 private enum PaymentMethodViewModelHelper {
     static var balanceNumberFormatter: NumberFormatter = {
@@ -16,7 +15,7 @@ private enum PaymentMethodViewModelHelper {
 protocol PaymentMethodViewModel {
     var name: String { get }
     var image: UIImage { get }
-    var balance: MonetaryAmount? { get }
+    var balance: Amount? { get }
 
 }
 
@@ -28,7 +27,7 @@ extension PaymentMethodViewModel {
 
         let balanceNumberFormatter = PaymentMethodViewModelHelper.balanceNumberFormatter
 
-        balanceNumberFormatter.currencySymbol = String(balance.currency.currencySymbol)
+        balanceNumberFormatter.currencySymbol = balance.currency.symbol
 
         return balanceNumberFormatter.string(for: balance.value)
     }

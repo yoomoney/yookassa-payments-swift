@@ -876,7 +876,10 @@ private func makePriceViewModel(_ paymentOption: PaymentOption) -> PriceViewMode
         integerPart = amountString
         fractionalPart = "00"
     }
-    return TempAmount(currency: paymentOption.charge.currency.currencySymbol,
+    let currency
+        = Currency(rawValue: paymentOption.charge.currency)
+        ?? Currency.custom(paymentOption.charge.currency)
+    return TempAmount(currency: currency.symbol,
                       integerPart: integerPart,
                       fractionalPart: fractionalPart,
                       style: .amount)
@@ -896,8 +899,10 @@ private func makeFeePriceViewModel(_ paymentOption: PaymentOption) -> PriceViewM
         integerPart = amountString
         fractionalPart = "00"
     }
-
-    return TempAmount(currency: service.charge.currency.currencySymbol,
+    let currency
+        = Currency(rawValue: service.charge.currency)
+        ?? Currency.custom(service.charge.currency)
+    return TempAmount(currency: currency.symbol,
                       integerPart: integerPart,
                       fractionalPart: fractionalPart,
                       style: .fee)

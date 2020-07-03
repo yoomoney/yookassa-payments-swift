@@ -205,7 +205,7 @@ private func makePaymentOptions(
     handler: PaymentMethodHandler, authorized: Bool
 ) -> [PaymentOption] {
 
-    let service = Service(charge: MonetaryAmount(value: 3.14, currency: .rub))
+    let service = Service(charge: MonetaryAmount(value: 3.14, currency: settings.charge.currency.rawValue))
     let fee = Fee(service: service, counterparty: nil)
 
     let charge = makeCharge(charge: settings.charge, fee: fee)
@@ -264,7 +264,7 @@ private func makeDefaultPaymentOptions(
                 charge: charge,
                 instrumentType: .wallet,
                 accountId: "2736482364872",
-                balance: MonetaryAmount(value: 40_000, currency: .rub),
+                balance: MonetaryAmount(value: 40_000, currency: charge.currency),
                 identificationRequirement: .simplified,
                 fee: fee,
                 savePaymentMethod: .allowed
