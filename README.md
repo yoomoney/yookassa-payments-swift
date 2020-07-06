@@ -447,7 +447,7 @@ let moduleData = TokenizationModuleInputData(
 | rub      | String   | ₽ - Российский рубль |
 | usd      | String   | $ - Американский доллар |
 | eur      | String   | € - Евро |
-| custom   | String   | Будет отображаться значение которое передали |
+| custom   | String   | Будет отображаться значение, которое передали |
 
 ### CustomizationSettings
 
