@@ -34,7 +34,7 @@ extension UIBarButtonItem {
         /// Close bar button item.
         ///
         /// Image `barButtonItem.close`.
-        static let close = YandexCheckoutPayments.Style(name: "close") { (item: UIBarButtonItem) in
+        static let close = YandexCheckoutPayments.InternalStyle(name: "close") { (item: UIBarButtonItem) in
             item.style = .plain
             item.image = .templatedClose
         }
@@ -42,7 +42,7 @@ extension UIBarButtonItem {
         /// Back bar button item.
         ///
         /// Image `barButtonItem.back`.
-        static let back = YandexCheckoutPayments.Style(name: "back") { (item: UIBarButtonItem) in
+        static let back = YandexCheckoutPayments.InternalStyle(name: "back") { (item: UIBarButtonItem) in
             item.style = .plain
             item.image = .back
         }
@@ -50,7 +50,7 @@ extension UIBarButtonItem {
         /// Close bar button item with ability to set tint color.
         ///
         /// Image `button.templatedClose`.
-        static let templatedClose = YandexCheckoutPayments.Style(name: "templatedClose") { (item: UIBarButtonItem) in
+        static let templatedClose = YandexCheckoutPayments.InternalStyle(name: "templatedClose") { (item: UIBarButtonItem) in
             item.tintColor = nil
             item.style = .plain
             item.image = .templatedClose

@@ -31,7 +31,7 @@ extension ActionTextDialog {
         /// Style for `default` ActionTextDialog.
         static let `default` =
                 UIView.Styles.transparent +
-                        Style(name: "ActionTextDialog.default") { (view: ActionTextDialog) in
+                        InternalStyle(name: "ActionTextDialog.default") { (view: ActionTextDialog) in
                             view.titleLabel.setStyles(UILabel.DynamicStyle.body,
                                                       UILabel.ColorStyle.secondary,
                                                       UILabel.Styles.multiline,
@@ -45,7 +45,7 @@ extension ActionTextDialog {
         /// icon: fail with tintColor
         static let fail =
                 ActionTextDialog.Styles.`default` +
-                        Style(name: "ActionTextDialog.fail") { (view: ActionTextDialog) in
+                        InternalStyle(name: "ActionTextDialog.fail") { (view: ActionTextDialog) in
                             view.iconView.tintColor = nil
                             view.iconView.image = UIImage.PlaceholderView.fail
                         }
@@ -54,7 +54,7 @@ extension ActionTextDialog {
         ///
         /// icon color: for light theme (nobel)
         static let light =
-                Style(name: "ActionTextDialog.light") { (view: ActionTextDialog) in
+                InternalStyle(name: "ActionTextDialog.light") { (view: ActionTextDialog) in
                     view.tintColor = .nobel
                 }
 
@@ -62,12 +62,12 @@ extension ActionTextDialog {
         ///
         /// icon color: for dark theme (doveGray)
         static let dark =
-                Style(name: "ActionTextDialog.dark") { (view: ActionTextDialog) in
+                InternalStyle(name: "ActionTextDialog.dark") { (view: ActionTextDialog) in
                     view.tintColor = .doveGray
                 }
 
         /// Style for ActionTextDialog to represent agreement button
-        static let agreement = Style(name: "agreement") { (view: ActionTextDialog) in
+        static let agreement = InternalStyle(name: "agreement") { (view: ActionTextDialog) in
             view.button.appendStyle(UIButton.DynamicStyle.flat)
             view.button.appendStyle(UIButton.DynamicStyle.small)
             view.spaceBetweenTitleAndButton.constant = Space.triple

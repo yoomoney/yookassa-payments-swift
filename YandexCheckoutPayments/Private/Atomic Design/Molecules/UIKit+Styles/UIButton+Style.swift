@@ -33,7 +33,7 @@ extension UIButton {
         // MARK: - Main styles
 
         /// Style for primary button.
-        static let primary = Style(name: "primary") { (button: UIButton) in
+        static let primary = InternalStyle(name: "primary") { (button: UIButton) in
             let tintColor: UIColor = button.tintColor
 
             button.setBackgroundImage(roundedBackground(color: tintColor), for: .normal)
@@ -62,7 +62,7 @@ extension UIButton {
         }
 
         /// Style for primary rounded button.
-        static let addition = Style(name: "addition") { (button: UIButton) in
+        static let addition = InternalStyle(name: "addition") { (button: UIButton) in
             let tintColor: UIColor = button.tintColor
 
             button.setBackgroundImage(roundedBackground(color: tintColor, cornerRadius: cornerRadius), for: .normal)
@@ -93,7 +93,7 @@ extension UIButton {
         }
 
         /// Style for flat button.
-        static let flat = Style(name: "flat") { (button: UIButton) in
+        static let flat = InternalStyle(name: "flat") { (button: UIButton) in
             let tintColor: UIColor = button.tintColor
             var stateColors: [(UIControl.State, UIColor)] = [
                 (.normal, tintColor),
@@ -115,7 +115,7 @@ extension UIButton {
         }
 
         /// Style for buttons like system button.
-        static let link = Style(name: "link") { (button: UIButton) in
+        static let link = InternalStyle(name: "link") { (button: UIButton) in
             let tintColor: UIColor = button.tintColor
             button.setTitleColor(tintColor, for: .normal)
             button.setTitleColor(.highlighted(from: tintColor), for: .highlighted)
@@ -127,14 +127,14 @@ extension UIButton {
         /// Close button with ability to set tint color.
         ///
         /// Image `button.templatedClose`.
-        static let templatedClose = Style(name: "templatedClose") { (button: UIButton) in
+        static let templatedClose = InternalStyle(name: "templatedClose") { (button: UIButton) in
             button.setImage(.templatedClose, for: .normal)
         }
 
         // MARK: - Control specific styles
 
         /// Clear button style
-        static let clear = Style(name: "clear") { (button: UIButton) in
+        static let clear = InternalStyle(name: "clear") { (button: UIButton) in
             button.setImage(.clear, for: .normal)
         }
 
@@ -190,7 +190,7 @@ extension UIButton {
     enum DynamicStyle {
 
         /// Style for primary button.
-        static let primary = Style(name: "button.dynamic.primary") { (button: UIButton) in
+        static let primary = InternalStyle(name: "button.dynamic.primary") { (button: UIButton) in
             button.titleLabel?.lineBreakMode = .byTruncatingTail
             button.contentEdgeInsets.left = Space.double
             button.contentEdgeInsets.right = Space.double
@@ -238,7 +238,7 @@ extension UIButton {
         }
 
         /// Style for icon button.
-        static let tintImage = Style(name: "button.dynamic.tintImage") { (button: UIButton) in
+        static let tintImage = InternalStyle(name: "button.dynamic.tintImage") { (button: UIButton) in
             let tintColor: UIColor = button.tintColor
             if let image = button.image(for: .normal) {
                 button.setColorizedImage(image, color: tintColor, for: .normal)
@@ -248,7 +248,7 @@ extension UIButton {
         }
 
         /// Style for icon button.
-        static let icon = tintImage + Style(name: "button.dynamic.icon") { (button: UIButton) in
+        static let icon = tintImage + InternalStyle(name: "button.dynamic.icon") { (button: UIButton) in
             NSLayoutConstraint.activate([
                 button.height.constraint(equalToConstant: Space.triple),
                 button.width.constraint(equalTo: button.height),
@@ -256,7 +256,7 @@ extension UIButton {
         }
 
         /// Style for flat button.
-        static let flat = Style(name: "button.dynamic.flat") { (button: UIButton) in
+        static let flat = InternalStyle(name: "button.dynamic.flat") { (button: UIButton) in
             button.titleLabel?.lineBreakMode = .byTruncatingTail
             button.contentEdgeInsets.left = Space.double
             button.contentEdgeInsets.right = Space.double
@@ -282,7 +282,7 @@ extension UIButton {
         }
 
         /// Style for link button.
-        static let link = Style(name: "button.dynamic.link") { (button: UIButton) in
+        static let link = InternalStyle(name: "button.dynamic.link") { (button: UIButton) in
             button.titleLabel?.lineBreakMode = .byTruncatingTail
 
             let font = UIFont.dynamicBodyMedium
@@ -304,7 +304,7 @@ extension UIButton {
             }
         }
 
-        static let inverseLink = Style(name: "button.dynamic.inverseLink") { (button: UIButton) in
+        static let inverseLink = InternalStyle(name: "button.dynamic.inverseLink") { (button: UIButton) in
             button.titleLabel?.lineBreakMode = .byTruncatingTail
 
             let font = UIFont.dynamicBodyMedium
@@ -325,7 +325,7 @@ extension UIButton {
             }
         }
 
-        static let iconLink = Style(name: "button.dynamic.iconLink") { (button: UIButton) in
+        static let iconLink = InternalStyle(name: "button.dynamic.iconLink") { (button: UIButton) in
             button.backgroundColor = .clear
             button.titleLabel?.lineBreakMode = .byTruncatingTail
             button.contentEdgeInsets = UIEdgeInsets(top: Space.single,
@@ -358,7 +358,7 @@ extension UIButton {
             }
         }
 
-        static let tag = Style(name: "button.dynamic.tag") { (button: UIButton) in
+        static let tag = InternalStyle(name: "button.dynamic.tag") { (button: UIButton) in
             button.titleLabel?.lineBreakMode = .byTruncatingTail
             button.contentEdgeInsets.left = Space.single
             button.contentEdgeInsets.right = Space.single
@@ -401,7 +401,7 @@ extension UIButton {
             ])
         }
 
-        static let small = Style(name: "dynamic.small") { (button: UIButton) in
+        static let small = InternalStyle(name: "dynamic.small") { (button: UIButton) in
             func makeCaption1String(_ string: NSAttributedString) -> NSAttributedString {
                 let string = NSMutableAttributedString(attributedString: string)
                 string.addAttributes([.font: UIFont.dynamicCaption1],

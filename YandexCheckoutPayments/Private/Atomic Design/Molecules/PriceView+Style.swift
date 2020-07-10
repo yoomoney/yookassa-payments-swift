@@ -29,12 +29,12 @@ extension PriceView {
 
     enum Styles {
 
-        static let primary = Style(name: "PriceView.primary") { (view: PriceView) in
+        static let primary = InternalStyle(name: "PriceView.primary") { (view: PriceView) in
             view.textLabel.setStyles(UILabel.ColorStyle.primary)
             view.priceLabel.setStyles(UILabel.ColorStyle.primary)
         }
 
-        static let secondary = Style(name: "PriceView.secondary") { (view: PriceView) in
+        static let secondary = InternalStyle(name: "PriceView.secondary") { (view: PriceView) in
             view.textLabel.setStyles(UILabel.ColorStyle.secondary)
             view.priceLabel.setStyles(UILabel.ColorStyle.secondary)
         }

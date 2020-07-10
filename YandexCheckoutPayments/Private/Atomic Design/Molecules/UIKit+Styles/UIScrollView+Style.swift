@@ -33,7 +33,7 @@ extension UIScrollView {
 
         /// Style for scroll view with interactive keyboard dismiss mode
         static let interactiveKeyboardDismissMode =
-            Style(name: "interactiveKeyboardDismissMode") { (scrollView: UIScrollView) in
+            InternalStyle(name: "interactiveKeyboardDismissMode") { (scrollView: UIScrollView) in
                 scrollView.keyboardDismissMode = .interactive
             }
     }

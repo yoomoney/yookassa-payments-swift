@@ -93,7 +93,7 @@ final class ContractTemplate: UIViewController {
     }()
 
     fileprivate lazy var titleLabel: UILabel = {
-        let style: Style
+        let style: InternalStyle
         if #available(iOS 9.0, *) {
             style = UILabel.DynamicStyle.title2
         } else {
