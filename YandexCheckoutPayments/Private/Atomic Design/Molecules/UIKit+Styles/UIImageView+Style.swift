@@ -10,7 +10,7 @@ extension UIImageView {
         /// Style for dynamic size image view.
         ///
         /// scale aspect fill content mode, adjusts image size for accessibility content size category is on.
-        static let dynamicSize = Style(name: "UIImageView.dynamicSize") { (imageView: UIImageView) in
+        static let dynamicSize = InternalStyle(name: "UIImageView.dynamicSize") { (imageView: UIImageView) in
             if #available(iOS 11.0, *) {
                 imageView.adjustsImageSizeForAccessibilityContentSizeCategory = true
             }
@@ -23,7 +23,7 @@ extension UIImageView {
         ///
         /// dynamic size, rounded, triple diameter, white background.
         static let badge = dynamicSize +
-            Style(name: "UIImageView.badge") { (imageView: UIImageView) in
+            InternalStyle(name: "UIImageView.badge") { (imageView: UIImageView) in
                 imageView.backgroundColor = .white
                 imageView.layer.cornerRadius = Space.triple / 2
                 imageView.clipsToBounds = true
