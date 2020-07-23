@@ -559,8 +559,15 @@ extension RootViewController: PriceInputViewControllerDelegate {
 extension RootViewController: SuccessViewControllerDelegate {
     func didPressDocumentationButton(on successViewController: SuccessViewController) {
         dismiss(animated: true) { [weak self] in
+            let documentationPath: String
+            if Locale.current.languageCode == Constants.russianLanguageCode {
+                documentationPath = Constants.documentationPathRu
+            } else {
+                documentationPath = Constants.documentationPathEn
+            }
+
             guard let strongSelf = self,
-                  let url = URL(string: Constants.documentationPath) else {
+                  let url = URL(string: documentationPath) else {
                 return
             }
             if #available(iOS 9.0, *) {
@@ -633,6 +640,8 @@ private extension RootViewController {
         static let priceTitleLabelTopOffset: CGFloat = 37.0
         static let priceInputMinWidth: CGFloat = 156.0
 
-        static let documentationPath: String = "https://kassa.yandex.ru/msdk.html"
+        static let russianLanguageCode = "ru"
+        static let documentationPathRu = "https://kassa.yandex.ru/developers/using-api/using-sdks"
+        static let documentationPathEn = "https://checkout.yandex.com/developers/using-api/using-sdks"
     }
 }

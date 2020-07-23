@@ -100,11 +100,12 @@ extension TokenizationInteractor: TokenizationInteractorInput {
         let response = authorizationService.loginInYamoney(merchantClientAuthorization: clientApplicationKey,
                                                            amount: walletMonetaryAmount,
                                                            reusableToken: reusableToken)
+        let responseWithError = response.recover(on: .global(), mapError)
 
         guard let output = output else { return }
 
-        response.done(output.didLoginInYandexMoney)
-            .fail(output.failLoginInYandexMoney)
+        responseWithError.done(output.didLoginInYandexMoney)
+        responseWithError.fail(output.failLoginInYandexMoney)
     }
 
     func resendSmsCode(authContextId: String, authType: AuthType) {
@@ -125,10 +126,12 @@ extension TokenizationInteractor: TokenizationInteractorInput {
                                                             answer: answer,
                                                             processId: processId)
 
+        let responseWithError = response.recover(on: .global(), mapError)
+
         guard let output = output else { return }
 
-        response.done(output.didLoginInYandexMoney)
-            .fail(output.failLoginInYandexMoney)
+        responseWithError.done(output.didLoginInYandexMoney)
+        responseWithError.fail(output.failLoginInYandexMoney)
     }
 
     func logout() {
@@ -157,6 +160,8 @@ extension TokenizationInteractor: TokenizationInteractorInput {
 private func mapError<T>(_ error: Error) throws -> Promise<T> {
     switch error {
     case ThreatMetrixService.ProfileError.connectionFail:
+        throw PaymentProcessingError.internetConnection
+    case let error as NSError where error.domain == NSURLErrorDomain:
         throw PaymentProcessingError.internetConnection
     default:
         throw error

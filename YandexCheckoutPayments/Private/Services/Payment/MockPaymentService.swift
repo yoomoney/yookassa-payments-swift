@@ -210,8 +210,9 @@ private func makePaymentOptions(
 
     let charge = makeCharge(charge: settings.charge, fee: fee)
 
-    let linkedCards = authorized ?
-        Array(repeating: makeLinkedCard(charge, fee: fee), count: settings.cardsCount) : []
+    let linkedCards = authorized
+        ? makeLinkedCards(count: settings.cardsCount, charge: charge, fee: fee)
+        : []
 
     let paymentOptions = makeDefaultPaymentOptions(
         charge,
@@ -231,8 +232,16 @@ private func makeCharge(
     return Amount(value: charge.value + service.charge.value, currency: charge.currency)
 }
 
+private func makeLinkedCards(
+    count: Int,
+    charge: Amount,
+    fee: Fee?
+) -> [PaymentInstrumentYandexMoneyLinkedBankCard] {
+    return (0..<count).map { _ in makeLinkedCard(charge: charge, fee: fee) }
+}
+
 private func makeLinkedCard(
-    _ charge: Amount, fee: Fee?
+    charge: Amount, fee: Fee?
 ) -> PaymentInstrumentYandexMoneyLinkedBankCard {
     return PaymentInstrumentYandexMoneyLinkedBankCard(
         paymentMethodType: .yandexMoney,
@@ -240,13 +249,19 @@ private func makeLinkedCard(
         charge: MonetaryAmountFactory.makePaymentsMonetaryAmount(charge),
         instrumentType: .linkedBankCard,
         cardId: "123456789",
-        cardName: "Привязанная карта",
-        cardMask: "518901******0446",
+        cardName: nil,
+        cardMask: makeRandomCardMask(),
         cardType: .masterCard,
         identificationRequirement: .simplified,
         fee: fee,
         savePaymentMethod: .allowed
     )
+}
+
+private func makeRandomCardMask() -> String {
+    let firstPart = Int.random(in: 100000..<1000000)
+    let secondPart = Int.random(in: 1000..<10000)
+    return "\(firstPart)******\(secondPart)"
 }
 
 private func makeDefaultPaymentOptions(
