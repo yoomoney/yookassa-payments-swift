@@ -29,7 +29,7 @@ extension UISwitch {
     enum Styles {
 
         /// Mustard onTintColor style
-        static let mustardOnTintColor = Style(name: "mustardOnTintColor") { (switchControl: UISwitch) in
+        static let mustardOnTintColor = YandexCheckoutPayments.Style(name: "mustardOnTintColor") { (switchControl: UISwitch) in
             switchControl.onTintColor = UIColor.mustard
         }
     }
