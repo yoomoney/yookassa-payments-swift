@@ -1,6 +1,6 @@
 # Yandex Checkout Payments SDK
 
-[![Platform](https://img.shields.io/badge/Support-iOS%208%2B-brightgreen.svg)](https://img.shields.io/badge/Support-iOS%208%2B-brightgreen.svg)
+[![Platform](https://img.shields.io/badge/Support-iOS%2010.3+-brightgreen.svg)](https://img.shields.io/badge/Support-iOS%2010.3+-brightgreen.svg)
 [![GitHub tag](https://img.shields.io/github/tag/yandex-money/yandex-checkout-payments-swift.svg)](https://img.shields.io/github/tag/yandex-money/yandex-checkout-payments-swift.svg)
 [![Documentation](docs/badge.svg)](docs/badge.svg)
 [![license](https://img.shields.io/github/license/yandex-money/yandex-checkout-payments-swift.svg)](https://img.shields.io/github/license/yandex-money/yandex-checkout-payments-swift.svg)
@@ -76,7 +76,7 @@
 
   ```shell
   source 'https://github.com/CocoaPods/Specs.git'
-  platform :ios, '8.0'
+  platform :ios, '10.3'
   use_frameworks!
 
   target 'Your Target Name' do
