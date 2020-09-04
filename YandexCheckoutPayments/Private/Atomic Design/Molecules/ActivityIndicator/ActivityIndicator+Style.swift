@@ -44,7 +44,7 @@ extension ActivityIndicator {
         ///
         /// Spinner tint switch.
         static let primary =
-                Style(name: "ActivityIndicator.primary") { (item: ActivityIndicator) in
+                InternalStyle(name: "ActivityIndicator.primary") { (item: ActivityIndicator) in
                     item.spinnerColor = item.tintColor
                 }
 
@@ -53,35 +53,35 @@ extension ActivityIndicator {
         /// Small spinner style.
         ///
         /// 22pt size.
-        static let small = Style(name: "small") { (activity: ActivityIndicator) in
+        static let small = InternalStyle(name: "small") { (activity: ActivityIndicator) in
             activity.spinnerSize = 22
         }
 
         /// Medium spinner style.
         ///
         /// 34pt size.
-        static let medium = Style(name: "medium") { (activity: ActivityIndicator) in
+        static let medium = InternalStyle(name: "medium") { (activity: ActivityIndicator) in
             activity.spinnerSize = 34
         }
 
         /// Large spinner style.
         ///
         /// 52pt size.
-        static let large = Style(name: "large") { (activity: ActivityIndicator) in
+        static let large = InternalStyle(name: "large") { (activity: ActivityIndicator) in
             activity.spinnerSize = 52
         }
 
         /// Extra large spinner style.
         ///
         /// 78pt size.
-        static let extraLarge = Style(name: "extraLarge") { (activity: ActivityIndicator) in
+        static let extraLarge = InternalStyle(name: "extraLarge") { (activity: ActivityIndicator) in
             activity.spinnerSize = 78
         }
 
         /// Extra extra large spinner style.
         ///
         /// 80pt size.
-        static let extraExtraLarge = Style(name: "extraExtraLarge") { (activity: ActivityIndicator) in
+        static let extraExtraLarge = InternalStyle(name: "extraExtraLarge") { (activity: ActivityIndicator) in
             activity.spinnerSize = 80
         }
 
@@ -90,14 +90,14 @@ extension ActivityIndicator {
         /// Medium stroke spinner style.
         ///
         /// 2pt stroke with.
-        static let mediumStroke = Style(name: "mediumStroke") { (activity: ActivityIndicator) in
+        static let mediumStroke = InternalStyle(name: "mediumStroke") { (activity: ActivityIndicator) in
             activity.strokeWidth = 2
         }
 
         /// Large stroke spinner style.
         ///
         /// 4pt stroke with.
-        static let largeStroke = Style(name: "largeStroke") { (activity: ActivityIndicator) in
+        static let largeStroke = InternalStyle(name: "largeStroke") { (activity: ActivityIndicator) in
             activity.strokeWidth = 4
         }
 
@@ -106,21 +106,21 @@ extension ActivityIndicator {
         /// Yellow spinner style.
         ///
         /// BrightSun color.
-        private static let yellow = Style(name: "yellow") { (activity: ActivityIndicator) in
+        private static let yellow = InternalStyle(name: "yellow") { (activity: ActivityIndicator) in
             activity.spinnerColor = .brightSun
         }
 
         /// Mustard spinner style.
         ///
         /// Mustard color.
-        private static let mustard = Style(name: "mustard") { (activity: ActivityIndicator) in
+        private static let mustard = InternalStyle(name: "mustard") { (activity: ActivityIndicator) in
             activity.spinnerColor = .mustard
         }
 
         /// Inverse spinner style.
         ///
         /// Inverse color.
-        static let inverse = Style(name: "inverse") { (activity: ActivityIndicator) in
+        static let inverse = InternalStyle(name: "inverse") { (activity: ActivityIndicator) in
             activity.spinnerColor = .inverse
 
         }

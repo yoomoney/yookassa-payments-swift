@@ -12,7 +12,7 @@ final class SavePaymentMethodInfoViewController: UIViewController {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
 
-        let dynamicStyle: Style
+        let dynamicStyle: InternalStyle
         if #available(iOS 9.0, *) {
             dynamicStyle = UILabel.DynamicStyle.title3
         } else {

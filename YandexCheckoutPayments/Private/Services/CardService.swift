@@ -101,18 +101,9 @@ extension CardService {
         guard let month = components.month, month <= 12, month > 0 else { throw ValidationError.invalidMonth }
         guard let expiryDate = components.date else { throw ValidationError.expiryDateEmpty }
 
-//        let currentDateComponents: DateComponents = Calendar.current.dateComponents([.year, .month], from: Date())
-//        guard let currentDate = Calendar(identifier: .gregorian).date(from: currentDateComponents) else {
-//            throw ValidationError.expirationDateIsExpired
-//        }
-
-        guard let currentDate = DateComponents(
-            calendar: .current,
-            timeZone: .current,
-            year: 2020,
-            month: 1
-        ).date else {
-            throw ValidationError.expiryDateEmpty
+        let currentDateComponents: DateComponents = Calendar.current.dateComponents([.year, .month], from: Date())
+        guard let currentDate = Calendar(identifier: .gregorian).date(from: currentDateComponents) else {
+            throw ValidationError.expirationDateIsExpired
         }
 
         if currentDate > expiryDate {

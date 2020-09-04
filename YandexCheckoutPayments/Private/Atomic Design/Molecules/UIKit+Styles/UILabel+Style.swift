@@ -120,7 +120,7 @@ extension UILabel {
         // MARK: - Modifications
 
         /// Uppercasing all characters
-        static let uppercased = Style(name: "uppercased") { (label: UILabel) in
+        static let uppercased = InternalStyle(name: "uppercased") { (label: UILabel) in
             guard let text = label.text,
                 let attributedText = NSMutableAttributedString.init <^> label.attributedText else { return }
             let range = NSRange(location: 0, length: (text as NSString).length)
@@ -130,7 +130,7 @@ extension UILabel {
 
         /// Appling Ultralight face for fractional part of string representing decimal value
         static let ultralightFractionalPart
-            = Style(name: "UILabel.ultralightFractionalPart") { (label: UILabel) in
+            = InternalStyle(name: "UILabel.ultralightFractionalPart") { (label: UILabel) in
                 guard let text = label.text,
                     let attributedText = NSMutableAttributedString.init <^> label.attributedText else { return }
 
@@ -173,17 +173,17 @@ extension UILabel {
         // MARK: - Lines number styles
 
         /// Style for multiline label.
-        static let multiline = Style(name: "multiline") { (label: UILabel) in
+        static let multiline = InternalStyle(name: "multiline") { (label: UILabel) in
             label.numberOfLines = 0
         }
 
         /// Style for single-line label.
-        static let singleLine = Style(name: "singleLine") { (label: UILabel) in
+        static let singleLine = InternalStyle(name: "singleLine") { (label: UILabel) in
             label.numberOfLines = 1
         }
 
         /// Style for double-line label.
-        static let doubleLine = Style(name: "doubleLine") { (label: UILabel) in
+        static let doubleLine = InternalStyle(name: "doubleLine") { (label: UILabel) in
             label.numberOfLines = 2
         }
 
@@ -248,7 +248,7 @@ extension UILabel {
 
     enum DynamicStyle {
 
-        static let title1 = Style(name: "dynamic.title1") { (label: UILabel) in
+        static let title1 = InternalStyle(name: "dynamic.title1") { (label: UILabel) in
             if #available(iOS 11.0, *) {
                 label.font = .dynamicTitle1
             } else {
@@ -256,7 +256,7 @@ extension UILabel {
             }
         }
 
-        static let title2 = Style(name: "dynamic.title2") { (label: UILabel) in
+        static let title2 = InternalStyle(name: "dynamic.title2") { (label: UILabel) in
             if #available(iOS 9.0, *) {
                 label.font = .dynamicTitle2
             } else {
@@ -265,43 +265,43 @@ extension UILabel {
         }
 
         @available (iOS 9.0, *)
-        static let title3 = Style(name: "dynamic.title3") { (label: UILabel) in
+        static let title3 = InternalStyle(name: "dynamic.title3") { (label: UILabel) in
             label.font = .dynamicTitle3
         }
 
-        static let headline1 = Style(name: "dynamic.headline1") { (label: UILabel) in
+        static let headline1 = InternalStyle(name: "dynamic.headline1") { (label: UILabel) in
             label.font = .dynamicHeadline1
         }
 
-        static let body = Style(name: "dynamic.body") { (label: UILabel) in
+        static let body = InternalStyle(name: "dynamic.body") { (label: UILabel) in
             label.font = .dynamicBody
         }
 
-        static let bodySemibold = Style(name: "dynamic.bodySemibold") { (label: UILabel) in
+        static let bodySemibold = InternalStyle(name: "dynamic.bodySemibold") { (label: UILabel) in
             label.font = .dynamicBodySemibold
         }
 
-        static let bodyMedium = Style(name: "dynamic.bodyMedium") { (label: UILabel) in
+        static let bodyMedium = InternalStyle(name: "dynamic.bodyMedium") { (label: UILabel) in
             label.font = .dynamicBodyMedium
         }
 
-        static let headline2 = Style(name: "dynamic.headline2") { (label: UILabel) in
+        static let headline2 = InternalStyle(name: "dynamic.headline2") { (label: UILabel) in
             label.font = .dynamicHeadline2
         }
 
-        static let headline3 = Style(name: "dynamic.headline3") { (label: UILabel) in
+        static let headline3 = InternalStyle(name: "dynamic.headline3") { (label: UILabel) in
             label.font = .dynamicHeadline3
         }
 
-        static let caption1 = Style(name: "dynamic.caption1") { (label: UILabel) in
+        static let caption1 = InternalStyle(name: "dynamic.caption1") { (label: UILabel) in
             label.font = .dynamicCaption1
         }
 
-        static let caption2 = Style(name: "dynamic.caption2") { (label: UILabel) in
+        static let caption2 = InternalStyle(name: "dynamic.caption2") { (label: UILabel) in
             label.font = .dynamicCaption2
         }
 
-        static let display1 = Style(name: "dynamic.display1") { (label: UILabel) in
+        static let display1 = InternalStyle(name: "dynamic.display1") { (label: UILabel) in
             label.font = .display1
         }
     }
@@ -309,7 +309,7 @@ extension UILabel {
     // MARK: - Colors
 
     enum ColorStyle {
-        private static let black = Style(name: "color.black") { (label: UILabel) in
+        private static let black = InternalStyle(name: "color.black") { (label: UILabel) in
             if #available(iOS 13.0, *) {
                 label.textColor = .label
             } else {
@@ -317,7 +317,7 @@ extension UILabel {
             }
         }
 
-        private static let doveGray = Style(name: "color.doveGray") { (label: UILabel) in
+        private static let doveGray = InternalStyle(name: "color.doveGray") { (label: UILabel) in
             if #available(iOS 13.0, *) {
                 label.textColor = .secondaryLabel
             } else {
@@ -325,7 +325,7 @@ extension UILabel {
             }
         }
 
-        private static let nobel = Style(name: "color.nobel") { (label: UILabel) in
+        private static let nobel = InternalStyle(name: "color.nobel") { (label: UILabel) in
             if #available(iOS 13.0, *) {
                 label.textColor = .tertiaryLabel
             } else {
@@ -339,20 +339,20 @@ extension UILabel {
 
         static let ghost = nobel
 
-        static let inverse = Style(name: "label.colorStyle.inverse") { (label: UILabel) in
+        static let inverse = InternalStyle(name: "label.colorStyle.inverse") { (label: UILabel) in
             label.textColor = .inverse
         }
 
-        static let inverseTranslucent = Style(name: "label.colorStyle.inverseTranslucent") { (label: UILabel) in
+        static let inverseTranslucent = InternalStyle(name: "label.colorStyle.inverseTranslucent") { (label: UILabel) in
             label.textColor = .inverseTranslucent
         }
 
         enum Link {
-            static let normal = Style(name: "color.link.normal") { (label: UILabel) in
+            static let normal = InternalStyle(name: "color.link.normal") { (label: UILabel) in
                 label.textColor = .link
             }
 
-            static let highlighted = Style(name: "color.link.highlighted") { (label: UILabel) in
+            static let highlighted = InternalStyle(name: "color.link.highlighted") { (label: UILabel) in
                 label.textColor = UIColor.link.withAlphaComponent(0.5)
             }
 
@@ -361,15 +361,15 @@ extension UILabel {
     }
 }
 
-private func makeStyle(name: String, attributes: [NSAttributedString.Key: Any]) -> Style {
-    return Style(name: name) { (label: UILabel) in
+private func makeStyle(name: String, attributes: [NSAttributedString.Key: Any]) -> InternalStyle {
+    return InternalStyle(name: name) { (label: UILabel) in
         label.attributedText = liftA2(makeAttributedString, label.attributedText, attributes)
     }
 }
 
 private func makeStyle(name: String,
-                       paragraphModifier: @escaping (NSMutableParagraphStyle) -> NSParagraphStyle) -> Style {
-    return Style(name: name) { (label: UILabel) in
+                       paragraphModifier: @escaping (NSMutableParagraphStyle) -> NSParagraphStyle) -> InternalStyle {
+    return InternalStyle(name: name) { (label: UILabel) in
         guard let attributedText = NSMutableAttributedString.init <^> label.attributedText,
             attributedText.length > 0 else { return }
         let range = NSRange(location: 0, length: (attributedText.string as NSString).length)

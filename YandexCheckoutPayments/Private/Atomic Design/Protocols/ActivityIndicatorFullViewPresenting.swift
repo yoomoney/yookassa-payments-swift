@@ -31,7 +31,7 @@ protocol ActivityIndicatorFullViewPresenting: ActivityIndicatorPresenting {
     var activityContainerView: UIView { get }
 
     /// Show the full view activity indicator with style
-    func showFullViewActivity(style: Style)
+    func showFullViewActivity(style: InternalStyle)
 
     /// Hide the full view activity indicator with style.
     func hideFullViewActivity()
@@ -43,7 +43,7 @@ extension ActivityIndicatorFullViewPresenting where Self: UIViewController {
         return view
     }
 
-    func showFullViewActivity(style: Style) {
+    func showFullViewActivity(style: InternalStyle) {
         guard addedActivityIndicatorView == nil else { return }
         let activityIndicatorView = ActivityIndicatorView()
         activityIndicatorView.setStyles(style)

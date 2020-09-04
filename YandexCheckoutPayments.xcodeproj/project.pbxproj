@@ -142,7 +142,7 @@
 		402EB33EFF6B15F112C8E8AE /* SwitchItemView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7128379FBEB8C5B5561 /* SwitchItemView+Style.swift */; };
 		402EB3476A58DCBEEA01E316 /* PlaceholderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB331AB2528B523698539 /* PlaceholderProvider.swift */; };
 		402EB34C8185FBEF0E13025B /* UIViewController+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDDFD195BC7733918BA2 /* UIViewController+Keyboard.swift */; };
-		402EB34FC5E319493FC15304 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1EEE3DFE557080259B2 /* Style.swift */; };
+		402EB34FC5E319493FC15304 /* InternalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1EEE3DFE557080259B2 /* InternalStyle.swift */; };
 		402EB359491A435BB90D5F1E /* TextValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7AF716BE8C008EA6059 /* TextValueView.swift */; };
 		402EB368C89CDC6C22652262 /* PrefferedContentSizeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB01C01B0045F18C02BE0 /* PrefferedContentSizeCategory.swift */; };
 		402EB36E1B90E51D2957BBAC /* WebBrowserViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE5FF1DF14A2198A90F5 /* WebBrowserViewIO.swift */; };
@@ -187,7 +187,7 @@
 		402EB48F83E25922C42CADAA /* SimpleIdentificationInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1424546160BBA8A05FA /* SimpleIdentificationInteractorIO.swift */; };
 		402EB49AD0186364906878D0 /* PlaceholderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB331AB2528B523698539 /* PlaceholderProvider.swift */; };
 		402EB4A38D9458D726EF2973 /* AnalyticsProvidingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA44464C238E00928819 /* AnalyticsProvidingAssembly.swift */; };
-		402EB4AA589D5590C3FCD2AE /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1EEE3DFE557080259B2 /* Style.swift */; };
+		402EB4AA589D5590C3FCD2AE /* InternalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1EEE3DFE557080259B2 /* InternalStyle.swift */; };
 		402EB4B4D99A60145471D4EC /* PriceInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA92F133EF4971067B8F /* PriceInputViewController.swift */; };
 		402EB4B60277A86038F00CE6 /* PresentableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA7169837B287D88A755 /* PresentableError.swift */; };
 		402EB4B9D31732A29F5F4816 /* TextControl+TopHintMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7A7C7AD7AC90990E199 /* TextControl+TopHintMode.swift */; };
@@ -450,7 +450,7 @@
 		402EBB497962467D32F916F1 /* LargeIconItemView+PaymentMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF2CD9A728A332E07EA6 /* LargeIconItemView+PaymentMethodView.swift */; };
 		402EBB5A5EE86A8B25F41EC9 /* ShowcaseDisplayItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4FF1A09C97F0CD09479 /* ShowcaseDisplayItemFactory.swift */; };
 		402EBB5BA886912050991DEC /* PaymentMethodTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB487A00F4E5CBA7498D9 /* PaymentMethodTypes.swift */; };
-		402EBB63E95FBBA1BA1B59BE /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1EEE3DFE557080259B2 /* Style.swift */; };
+		402EBB63E95FBBA1BA1B59BE /* InternalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1EEE3DFE557080259B2 /* InternalStyle.swift */; };
 		402EBB71A493C705D105349E /* PaymentMethodViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5C4B4F0B06A58C7547E /* PaymentMethodViewModelFactory.swift */; };
 		402EBB74CB98BDB6DE11B17C /* PaymentProcessingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB5972E9BA97E5350DCC /* PaymentProcessingAssembly.swift */; };
 		402EBB78BFF85EEDADA32400 /* CompoundValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB95572117E0F7D1D666E /* CompoundValidator.swift */; };
@@ -757,7 +757,7 @@
 		402EB1DEF2305CEB96462BDC /* ContractModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractModuleIO.swift; sourceTree = "<group>"; };
 		402EB1E94429DDB4E260133C /* YandexCheckoutPaymentsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexCheckoutPaymentsError.swift; sourceTree = "<group>"; };
 		402EB1EEA02E434A344C3EB4 /* YamoneyAuthPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YamoneyAuthPresenter.swift; sourceTree = "<group>"; };
-		402EB1EEE3DFE557080259B2 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		402EB1EEE3DFE557080259B2 /* InternalStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalStyle.swift; sourceTree = "<group>"; };
 		402EB1F6B2E1B5879D2BCCC8 /* Hosts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Hosts.plist; sourceTree = "<group>"; };
 		402EB20893D57BCDD6531F5D /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		402EB20A7ACB428ADE874F3C /* PlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
@@ -2936,7 +2936,7 @@
 		402EBFE44EA0B8EB4A229E2B /* Stylist */ = {
 			isa = PBXGroup;
 			children = (
-				402EB1EEE3DFE557080259B2 /* Style.swift */,
+				402EB1EEE3DFE557080259B2 /* InternalStyle.swift */,
 				402EB607BBBCF0EDB2F7A639 /* Stylable.swift */,
 				402EB1D0205199AC3C6DE886 /* StyleStorage.swift */,
 				402EB4D0C2AEFC68A22F5BA3 /* UILabel+Stylable.swift */,
@@ -3424,7 +3424,7 @@
 				402EB28E3FB0C69B6288B9BE /* PlaceholderView.swift in Sources */,
 				402EB7AEC6AD37A29631A826 /* ScrollViewController.swift in Sources */,
 				402EB763EBCAFA96A2F9352C /* Space.swift in Sources */,
-				402EBB63E95FBBA1BA1B59BE /* Style.swift in Sources */,
+				402EBB63E95FBBA1BA1B59BE /* InternalStyle.swift in Sources */,
 				402EBB0D7303FCBCDB26B74B /* Stylable.swift in Sources */,
 				402EBE993BF501D9158671E4 /* StyleStorage.swift in Sources */,
 				309CECE7237D62BC002010DD /* PriceView+Style.swift in Sources */,
@@ -3783,7 +3783,7 @@
 				402EB3A7EF535BA504E3F5D4 /* ActionTemplate.swift in Sources */,
 				402EB135F272E4A7F5A71687 /* PlaceholderView.swift in Sources */,
 				402EBF10297E7C189CE47025 /* Space.swift in Sources */,
-				402EB34FC5E319493FC15304 /* Style.swift in Sources */,
+				402EB34FC5E319493FC15304 /* InternalStyle.swift in Sources */,
 				402EB635657B70CE050A6EBD /* Stylable.swift in Sources */,
 				402EB66308EC4A515B0B50E5 /* StyleStorage.swift in Sources */,
 				402EBA9C57B601DF353C9B52 /* UILabel+Stylable.swift in Sources */,
@@ -3906,7 +3906,7 @@
 				402EB878684BFD45CC3BEAAD /* ActionTemplate.swift in Sources */,
 				402EBE0D568598728CD74CDF /* PlaceholderView.swift in Sources */,
 				402EB64C16D64190F539C877 /* Space.swift in Sources */,
-				402EB4AA589D5590C3FCD2AE /* Style.swift in Sources */,
+				402EB4AA589D5590C3FCD2AE /* InternalStyle.swift in Sources */,
 				402EBFB96BDD41A4F1291F9F /* Stylable.swift in Sources */,
 				402EB07C574BB49E6A3BDAAE /* StyleStorage.swift in Sources */,
 				402EB166191D2EA6B0FE3313 /* UILabel+Stylable.swift in Sources */,
@@ -4022,7 +4022,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -4050,7 +4050,6 @@
 				);
 				INFOPLIST_FILE = YandexCheckoutPayments/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPayments;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -4077,7 +4076,6 @@
 				);
 				INFOPLIST_FILE = YandexCheckoutPayments/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPayments;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -4139,7 +4137,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -4197,7 +4195,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -4225,7 +4223,6 @@
 				);
 				INFOPLIST_FILE = YandexCheckoutPayments/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPayments;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -4248,7 +4245,6 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4274,7 +4270,6 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4298,7 +4293,6 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4320,7 +4314,6 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4346,7 +4339,6 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4375,7 +4367,6 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.inhouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";

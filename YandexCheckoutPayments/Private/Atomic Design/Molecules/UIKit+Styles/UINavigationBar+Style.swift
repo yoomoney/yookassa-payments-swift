@@ -30,7 +30,7 @@ extension UINavigationBar {
 
         // MARK: - Main styles
 
-        static let `default` = Style(name: "default") { (view: UINavigationBar) in
+        static let `default` = InternalStyle(name: "default") { (view: UINavigationBar) in
 
             let barTintColor: UIColor
             if #available(iOS 13, *) {
