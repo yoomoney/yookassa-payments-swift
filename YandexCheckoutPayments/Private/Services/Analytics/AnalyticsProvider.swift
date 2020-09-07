@@ -15,9 +15,10 @@ struct AnalyticsProvider: AnalyticsProviding {
         if authorizationService.hasReusableYamoneyToken() {
             authType = .paymentAuth
             tokenType = .multiple
-        } else if authorizationService.getYandexToken() != nil {
-            authType = .yandexLogin
-            tokenType = .single
+            // TODO: MOC-762
+//        } else if authorizationService.getYandexToken() != nil {
+//            authType = .yandexLogin
+//            tokenType = .single
         } else {
             authType = .withoutAuth
             tokenType = nil
