@@ -26,6 +26,10 @@
 		308E41882385829700B44490 /* SavePaymentMethodInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E41872385829700B44490 /* SavePaymentMethodInfoViewModel.swift */; };
 		308E418B23858B4800B44490 /* SavePaymentMethodInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E418A23858B4800B44490 /* SavePaymentMethodInfo.swift */; };
 		309CECE7237D62BC002010DD /* PriceView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309CECE6237D62BC002010DD /* PriceView+Style.swift */; };
+		30A161ED25022CF000C8F41E /* AuthCenterClientAuthorization.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A161EB25022CF000C8F41E /* AuthCenterClientAuthorization.framework */; };
+		30A161EE25022CF000C8F41E /* AuthCenterClientAuthorization.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30A161EB25022CF000C8F41E /* AuthCenterClientAuthorization.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		30A161EF25022CF000C8F41E /* MoneyAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A161EC25022CF000C8F41E /* MoneyAuth.framework */; };
+		30A161F025022CF100C8F41E /* MoneyAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30A161EC25022CF000C8F41E /* MoneyAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30A588242177B792002AFFF1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 30A588232177B792002AFFF1 /* Settings.bundle */; };
 		30A588252177B792002AFFF1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 30A588232177B792002AFFF1 /* Settings.bundle */; };
 		30A83F062383378E00B51BAB /* LinkedSwitchItemView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A83F052383378E00B51BAB /* LinkedSwitchItemView+Style.swift */; };
@@ -668,6 +672,18 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		30A161F125022CF100C8F41E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				30A161EE25022CF000C8F41E /* AuthCenterClientAuthorization.framework in Embed Frameworks */,
+				30A161F025022CF100C8F41E /* MoneyAuth.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E06532C01FF1453800831588 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -705,6 +721,8 @@
 		308E41872385829700B44490 /* SavePaymentMethodInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePaymentMethodInfoViewModel.swift; sourceTree = "<group>"; };
 		308E418A23858B4800B44490 /* SavePaymentMethodInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePaymentMethodInfo.swift; sourceTree = "<group>"; };
 		309CECE6237D62BC002010DD /* PriceView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PriceView+Style.swift"; sourceTree = "<group>"; };
+		30A161EB25022CF000C8F41E /* AuthCenterClientAuthorization.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthCenterClientAuthorization.framework; path = Frameworks/AuthCenterClientAuthorization.framework; sourceTree = "<group>"; };
+		30A161EC25022CF000C8F41E /* MoneyAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MoneyAuth.framework; path = Frameworks/MoneyAuth.framework; sourceTree = "<group>"; };
 		30A588232177B792002AFFF1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		30A83F052383378E00B51BAB /* LinkedSwitchItemView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LinkedSwitchItemView+Style.swift"; sourceTree = "<group>"; };
 		30AB530A238334040098C7C1 /* LinkedSwitchItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedSwitchItemView.swift; sourceTree = "<group>"; };
@@ -1144,7 +1162,9 @@
 				301D747F20B5D7E60000E394 /* PassKit.framework in Frameworks */,
 				30B24DE1206C2850002C823B /* YandexMobileMetrica.framework in Frameworks */,
 				E04D0C442023174F00162F30 /* libz.tbd in Frameworks */,
+				30A161EF25022CF000C8F41E /* MoneyAuth.framework in Frameworks */,
 				E0D529381FE40337005F495F /* FunctionalSwift.framework in Frameworks */,
+				30A161ED25022CF000C8F41E /* AuthCenterClientAuthorization.framework in Frameworks */,
 				D9DF9D662049ADF800371792 /* YandexCheckoutWalletApi.framework in Frameworks */,
 				E018BEB9200E1BAD00022396 /* When.framework in Frameworks */,
 				E07ED63B20346C4A009E0737 /* YandexLoginSDK.framework in Frameworks */,
@@ -2971,6 +2991,8 @@
 		E0D529341FE40337005F495F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30A161EB25022CF000C8F41E /* AuthCenterClientAuthorization.framework */,
+				30A161EC25022CF000C8F41E /* MoneyAuth.framework */,
 				3031D79A2420EF79002D0EED /* TMXProfilingConnections.framework */,
 				3031D7932420EEEF002D0EED /* TMXProfiling.framework */,
 				30FFA679234E63EA00B09847 /* TrustDefender.framework */,
@@ -3035,6 +3057,7 @@
 				244F7F2F3BB2B1839FEAD67F /* Frameworks */,
 				244F7F0D1C70A3C37A8190B1 /* Headers */,
 				244F7B427956461A69AAA7BD /* Resources */,
+				30A161F125022CF100C8F41E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3239,6 +3262,9 @@
 				"${BUILT_PRODUCTS_DIR}/When/When.framework",
 				"${PODS_ROOT}/../Frameworks/TMXProfiling.framework",
 				"${PODS_ROOT}/../Frameworks/TMXProfilingConnections.framework",
+				"${PODS_ROOT}/../Frameworks/MoneyAuth.framework",
+				"${PODS_ROOT}/../Frameworks/AuthCenterClientAuthorization.framework",
+				"${PODS_ROOT}/../Frameworks/TrustDefender.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutPayments/YandexCheckoutPayments.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutPaymentsApi/YandexCheckoutPaymentsApi.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutShowcaseApi/YandexCheckoutShowcaseApi.framework",
@@ -3255,6 +3281,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/When.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TMXProfiling.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TMXProfilingConnections.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MoneyAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AuthCenterClientAuthorization.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrustDefender.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutPayments.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutPaymentsApi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutShowcaseApi.framework",

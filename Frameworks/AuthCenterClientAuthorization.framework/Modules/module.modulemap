@@ -1,0 +1,6 @@
+framework module AuthCenterClientAuthorization {
+  umbrella header "AuthCenterClientAuthorization.h"
+
+  export *
+  module * { export * }
+}
