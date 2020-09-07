@@ -44,7 +44,6 @@ Pod::Spec.new do |s|
   s.ios.dependency 'FunctionalSwift', '~> 1.1.0'
   s.ios.dependency 'When', '~> 4.0.0'
 
-  s.ios.dependency 'YandexLoginSDK', '~> 2.0.0'
   s.ios.dependency 'YandexMoneyCoreApi', '~> 1.7.0'
   s.ios.dependency 'YandexCheckoutPaymentsApi', '~> 1.9.0'
   s.ios.dependency 'YandexCheckoutShowcaseApi', '~> 1.2.0'

@@ -86,12 +86,10 @@ extension TokenizationInteractor: TokenizationInteractorInput {
         tokensWithError.fail(output.failTokenizeData)
     }
 
-    func isAuthorizedInYandex() -> Bool {
-        return authorizationService.getYandexToken() != nil
-    }
-
     func getYandexDisplayName() -> String? {
-        return authorizationService.getYandexDisplayName()
+        // TODO: MOC-1012
+        return "YandexDisplayName"
+//        return authorizationService.getYandexDisplayName()
     }
 
     func loginInYandexMoney(reusableToken: Bool, paymentOption: PaymentOption) {

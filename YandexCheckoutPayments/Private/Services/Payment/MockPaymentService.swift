@@ -32,7 +32,9 @@ final class MockPaymentService: PaymentProcessing {
     ) -> Promise<[PaymentOption]> {
         let timeout = makeTimeoutPromise()
 
-        let authorized = authorizationMediator.getYandexToken() != nil
+        // TODO: MOC-1012
+        let authorized = false
+//        let authorized = authorizationMediator.getYandexToken() != nil
         let response = makePaymentOptions(testModeSettings,
                                           handler: paymentMethodHandler,
                                           authorized: authorized)
@@ -202,7 +204,8 @@ private let mockTokens = Tokens(paymentToken: "mock_token")
 
 private func makePaymentOptions(
     _ settings: TestModeSettings,
-    handler: PaymentMethodHandler, authorized: Bool
+    handler: PaymentMethodHandler,
+    authorized: Bool
 ) -> [PaymentOption] {
 
     let service = Service(charge: MonetaryAmount(value: 3.14, currency: settings.charge.currency.rawValue))

@@ -43,7 +43,9 @@ class PaymentMethodsInteractor {
 extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
     func fetchPaymentMethods() {
 
-        let passportToken = authorizationService.getYandexToken()
+        // TODO: MOC-1012
+        let passportToken: String? = nil
+//        let passportToken = authorizationService.getYandexToken()
 
         let paymentMethods = paymentService.fetchPaymentOptions(
             clientApplicationKey: clientApplicationKey,
@@ -61,7 +63,9 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
     }
 
     func getYandexDisplayName() -> String? {
-        return authorizationService.getYandexDisplayName()
+        // TODO: MOC-1012
+        return "YandexDisplayName"
+//        return authorizationService.getYandexDisplayName()
     }
 
     func trackEvent(_ event: AnalyticsEvent) {

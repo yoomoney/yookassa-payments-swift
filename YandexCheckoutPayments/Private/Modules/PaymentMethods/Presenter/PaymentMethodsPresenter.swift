@@ -101,7 +101,9 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
                                                               didSelect: paymentMethod,
                                                               methodsCount: paymentMethods.count)
             } else {
-                let yandexDisplayName = strongSelf.interactor.getYandexDisplayName()
+                // TODO: MOC-1012
+                let yandexDisplayName = "TODO"
+//                let yandexDisplayName = strongSelf.interactor.getYandexDisplayName()
                 let viewModels = { PaymentMethodViewModelFactory
                     .makePaymentMethodViewModel(paymentOption: $0,
                                                 yandexDisplayName: yandexDisplayName) } <^> paymentMethods

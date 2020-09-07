@@ -44,7 +44,6 @@
 		402EB00683336405B2DD9A9B /* TextTableViewCellAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7168A9425556168E384 /* TextTableViewCellAssembly.swift */; };
 		402EB00B9EC9B560D706EC06 /* UIScrollView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8295ED9FF21E41876C2 /* UIScrollView+Style.swift */; };
 		402EB00C3F48C40CA5B60DE3 /* LengthTextInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB86C3387D52C172E36A4 /* LengthTextInputPresenterStyle.swift */; };
-		402EB035A0ADCEA77563BE2B /* YandexLoginProcessingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAC909235F83DCF51E92 /* YandexLoginProcessingAssembly.swift */; };
 		402EB059A64C4ADEB677C006 /* UIImage+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA25F27A2A651AD093D3 /* UIImage+Tools.swift */; };
 		402EB068FD623715284B9D60 /* SberbankStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4E1EF38AE1CD9BCF105 /* SberbankStrategy.swift */; };
 		402EB06BF631E107D84C1D80 /* CustomizationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA4C0B33E4DDCE4D1EB9 /* CustomizationSettings.swift */; };
@@ -545,7 +544,6 @@
 		402EBDB5C4E2965E370EDE25 /* PaymentMethodsInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3A39BAE3C2CE3288E2B /* PaymentMethodsInteractorIO.swift */; };
 		402EBDB67F4914833185E457 /* TokenizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF9F81B468DF9C631FEC /* TokenizationViewController.swift */; };
 		402EBDB8BED1F76D8731B546 /* LinkedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB302A726A82FE26D8B76 /* LinkedTextView.swift */; };
-		402EBDBC070078C10D875164 /* YandexLoginProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB21B82A4B349DE1F5D94 /* YandexLoginProcessing.swift */; };
 		402EBDBD3FC27CD6773C4ACB /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB76A45E625C03DFBA017 /* IconView.swift */; };
 		402EBDC8FF69A47EA7B298A4 /* TextControl+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB69DF6A8F4AD80A4F759 /* TextControl+State.swift */; };
 		402EBDD0CE42FFE5F44F78C3 /* IconButtonItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE38A13053A6EFBC618C /* IconButtonItemView.swift */; };
@@ -583,7 +581,6 @@
 		402EBEC517E43E435F79D679 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA38EC646E32C0BA9D59 /* Button.swift */; };
 		402EBEC728884473D2963D2F /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB14D1CA49B598A9505EA /* InputView.swift */; };
 		402EBECA588F26150A869220 /* TextInputOutputFormatterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB862B369C82A4A9763E0 /* TextInputOutputFormatterFactory.swift */; };
-		402EBEEC03026AD39A703CE1 /* YandexLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD84C81CDAF9DB8216BF /* YandexLoginService.swift */; };
 		402EBEF66277DAF519BBBF64 /* TestSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC11D69B61F49F3804D0 /* TestSettingsViewController.swift */; };
 		402EBEFD045AF8060AD332F4 /* MaskedBankCardDataInputModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3E172491E532B30D64E /* MaskedBankCardDataInputModuleIO.swift */; };
 		402EBEFDB09772BF31E76445 /* DeviceInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB880D971E4B0390BF78 /* DeviceInfoService.swift */; };
@@ -639,11 +636,9 @@
 		E072CCA52121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCA42121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework */; };
 		E072CCA72121AAE7003D9913 /* YandexCheckoutShowcaseApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCA62121AAE7003D9913 /* YandexCheckoutShowcaseApi.framework */; };
 		E072CCA92121AAE7003D9913 /* YandexCheckoutWalletApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCA82121AAE7003D9913 /* YandexCheckoutWalletApi.framework */; };
-		E072CCAB2121AAE7003D9913 /* YandexLoginSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCAA2121AAE7003D9913 /* YandexLoginSDK.framework */; };
 		E072CCAD2121AAE7003D9913 /* YandexMoneyCoreApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCAC2121AAE7003D9913 /* YandexMoneyCoreApi.framework */; };
 		E073F71D202C4B29007A100C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0148CD51FE958810087CF5F /* AppDelegate.swift */; };
 		E07E0C1B20246E86000DEF25 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E04D0C432023174F00162F30 /* libz.tbd */; };
-		E07ED63B20346C4A009E0737 /* YandexLoginSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07ED63A20346C4A009E0737 /* YandexLoginSDK.framework */; };
 		E0D529381FE40337005F495F /* FunctionalSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D529361FE40337005F495F /* FunctionalSwift.framework */; };
 		FE5C4D8F200FB41F004F365E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FEDABFAC200E65600056E0CC /* Localizable.strings */; };
 		FE5C4D90200FB426004F365E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FEDABFAC200E65600056E0CC /* Localizable.strings */; };
@@ -780,7 +775,6 @@
 		402EB20893D57BCDD6531F5D /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		402EB20A7ACB428ADE874F3C /* PlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		402EB21194794FB1D5FFEFF9 /* UIFont+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Style.swift"; sourceTree = "<group>"; };
-		402EB21B82A4B349DE1F5D94 /* YandexLoginProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexLoginProcessing.swift; sourceTree = "<group>"; };
 		402EB21CE1BC1C7750971B57 /* TextInputTableViewCellModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCellModuleIO.swift; sourceTree = "<group>"; };
 		402EB2267FCDA994A8449002 /* AuthTypeStatesProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthTypeStatesProvider.swift; sourceTree = "<group>"; };
 		402EB226DE34051D5952382B /* UIView+SpecificLayoutGuide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+SpecificLayoutGuide.swift"; sourceTree = "<group>"; };
@@ -992,7 +986,6 @@
 		402EBABEEB6576681EFF55A8 /* ContractInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractInteractor.swift; sourceTree = "<group>"; };
 		402EBAC15CD21389AEA84EF6 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		402EBAC288F1B43084EA43BC /* PhoneNumberInputModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberInputModuleOutput.swift; sourceTree = "<group>"; };
-		402EBAC909235F83DCF51E92 /* YandexLoginProcessingAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexLoginProcessingAssembly.swift; sourceTree = "<group>"; };
 		402EBAC997EF833DAC9D3ABF /* IconButtonItemViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButtonItemViewIO.swift; sourceTree = "<group>"; };
 		402EBAD1F924C381F5EF1B45 /* MockYamoneyLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockYamoneyLoginService.swift; sourceTree = "<group>"; };
 		402EBAD38C5EB643CD21E0DE /* WalletStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletStrategy.swift; sourceTree = "<group>"; };
@@ -1060,7 +1053,6 @@
 		402EBD5D68132AEA412F2BDC /* ContractInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractInteractorIO.swift; sourceTree = "<group>"; };
 		402EBD6AC87739A790C03D95 /* ActionTextDialog+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ActionTextDialog+Style.swift"; sourceTree = "<group>"; };
 		402EBD6B175EEBD8F8242586 /* YamoneyAuthModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YamoneyAuthModuleIO.swift; sourceTree = "<group>"; };
-		402EBD84C81CDAF9DB8216BF /* YandexLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexLoginService.swift; sourceTree = "<group>"; };
 		402EBD98D680460920FAFF25 /* AnalyticsTrackable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsTrackable.swift; sourceTree = "<group>"; };
 		402EBD99826BEF036D940985 /* SectionDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionDescriptor.swift; sourceTree = "<group>"; };
 		402EBDA93CCB741604CDF4AF /* TermsOfService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsOfService.swift; sourceTree = "<group>"; };
@@ -1144,9 +1136,7 @@
 		E072CCA42121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YandexCheckoutPaymentsApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E072CCA62121AAE7003D9913 /* YandexCheckoutShowcaseApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YandexCheckoutShowcaseApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E072CCA82121AAE7003D9913 /* YandexCheckoutWalletApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YandexCheckoutWalletApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E072CCAA2121AAE7003D9913 /* YandexLoginSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YandexLoginSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E072CCAC2121AAE7003D9913 /* YandexMoneyCoreApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YandexMoneyCoreApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E07ED63A20346C4A009E0737 /* YandexLoginSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YandexLoginSDK.framework; path = Carthage/Build/iOS/YandexLoginSDK.framework; sourceTree = "<group>"; };
 		E0D529361FE40337005F495F /* FunctionalSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FunctionalSwift.framework; path = Carthage/Build/iOS/FunctionalSwift.framework; sourceTree = "<group>"; };
 		FE5C4D8B200FA027004F365E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FE5C4D8C200FA02F004F365E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1167,7 +1157,6 @@
 				30A161ED25022CF000C8F41E /* AuthCenterClientAuthorization.framework in Frameworks */,
 				D9DF9D662049ADF800371792 /* YandexCheckoutWalletApi.framework in Frameworks */,
 				E018BEB9200E1BAD00022396 /* When.framework in Frameworks */,
-				E07ED63B20346C4A009E0737 /* YandexLoginSDK.framework in Frameworks */,
 				E01B1F30200E1B050079DD57 /* YandexMoneyCoreApi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1181,7 +1170,6 @@
 				E072CCA52121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework in Frameworks */,
 				E072CCA72121AAE7003D9913 /* YandexCheckoutShowcaseApi.framework in Frameworks */,
 				E072CCA92121AAE7003D9913 /* YandexCheckoutWalletApi.framework in Frameworks */,
-				E072CCAB2121AAE7003D9913 /* YandexLoginSDK.framework in Frameworks */,
 				E072CCAD2121AAE7003D9913 /* YandexMoneyCoreApi.framework in Frameworks */,
 				E011A09E20725BCB00B786B5 /* MessageUI.framework in Frameworks */,
 				E04D0C45202317DF00162F30 /* libz.tbd in Frameworks */,
@@ -1454,7 +1442,6 @@
 				402EBA421DDACFD7FFA52F93 /* Models */,
 				402EB74DCCDF522EE5A5624B /* Protocols */,
 				402EB412B667877AE545EBD1 /* Resources */,
-				402EB3858BE173C4759C062A /* Services */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -1756,14 +1743,6 @@
 			path = Organisms;
 			sourceTree = "<group>";
 		};
-		402EB3858BE173C4759C062A /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				402EBD84C81CDAF9DB8216BF /* YandexLoginService.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
 		402EB3E58825CB8D1B26063D /* ModuleIO */ = {
 			isa = PBXGroup;
 			children = (
@@ -1818,15 +1797,6 @@
 				402EBB0248673E79479E1F9F /* ScrollViewController.swift */,
 			);
 			path = Templates;
-			sourceTree = "<group>";
-		};
-		402EB450E1D6E9B241AAE820 /* YandexLogin */ = {
-			isa = PBXGroup;
-			children = (
-				402EB21B82A4B349DE1F5D94 /* YandexLoginProcessing.swift */,
-				402EBAC909235F83DCF51E92 /* YandexLoginProcessingAssembly.swift */,
-			);
-			path = YandexLogin;
 			sourceTree = "<group>";
 		};
 		402EB453D7BBA31E0EF72BC4 /* SimpleIdentification */ = {
@@ -2834,7 +2804,6 @@
 				402EB40E45FD50302AF2C546 /* ApiLogger.swift */,
 				402EBFE0E277B5E418D9A8C0 /* ThreatMetrix */,
 				402EBA65E3F218CA98BD9676 /* PaymentMethodHandler.swift */,
-				402EB450E1D6E9B241AAE820 /* YandexLogin */,
 				402EBEFAE69A8355E0DE0E81 /* Authorization */,
 				402EBAFA3C7BD1906EFDC3BA /* KeyValueStoring */,
 				402EB42B6FF3543C81A7E57C /* YamoneyLogin */,
@@ -3001,7 +2970,6 @@
 				E072CCA42121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework */,
 				E072CCA62121AAE7003D9913 /* YandexCheckoutShowcaseApi.framework */,
 				E072CCA82121AAE7003D9913 /* YandexCheckoutWalletApi.framework */,
-				E072CCAA2121AAE7003D9913 /* YandexLoginSDK.framework */,
 				E072CCAC2121AAE7003D9913 /* YandexMoneyCoreApi.framework */,
 				301D747E20B5D7E60000E394 /* PassKit.framework */,
 				30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */,
@@ -3011,7 +2979,6 @@
 				E0D529361FE40337005F495F /* FunctionalSwift.framework */,
 				E018BEB8200E1BAD00022396 /* When.framework */,
 				E01B1F2D200E15E80079DD57 /* When.framework */,
-				E07ED63A20346C4A009E0737 /* YandexLoginSDK.framework */,
 				E01B1F2F200E1B050079DD57 /* YandexMoneyCoreApi.framework */,
 				E0494C632010980D0059BBD2 /* YandexCheckoutPaymentsApi.framework */,
 				D96ABAC120440D7D00CFA062 /* YandexCheckoutShowcaseApi.framework */,
@@ -3269,7 +3236,6 @@
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutPaymentsApi/YandexCheckoutPaymentsApi.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutShowcaseApi/YandexCheckoutShowcaseApi.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutWalletApi/YandexCheckoutWalletApi.framework",
-				"${BUILT_PRODUCTS_DIR}/YandexLoginSDK/YandexLoginSDK.framework",
 				"${PODS_ROOT}/YandexMobileMetrica/dynamic/YandexMobileMetrica.framework",
 				"${PODS_ROOT}/YandexMobileMetrica/dynamic/YandexMobileMetricaCrashes.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexMoneyCoreApi/YandexMoneyCoreApi.framework",
@@ -3288,7 +3254,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutPaymentsApi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutShowcaseApi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutWalletApi.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexLoginSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexMobileMetrica.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexMobileMetricaCrashes.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexMoneyCoreApi.framework",
@@ -3328,7 +3293,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/YandexCheckoutPaymentsApi.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/YandexCheckoutShowcaseApi.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/YandexCheckoutWalletApi.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/YandexLoginSDK.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/YandexMobileMetrica.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/YandexMoneyCoreApi.framework",
 			);
@@ -3340,13 +3304,12 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexCheckoutPaymentsApi.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexCheckoutShowcaseApi.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexCheckoutWalletApi.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexLoginSDK.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexMobileMetrica.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexMoneyCoreApi.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3649,8 +3612,6 @@
 				402EB70F599439C2EAF90432 /* ApiLogger.swift in Sources */,
 				402EBD50CA9522F54150D2FD /* ThreatMetrixService.swift in Sources */,
 				402EB96B6F077D9807AD790B /* PaymentMethodHandler.swift in Sources */,
-				402EBDBC070078C10D875164 /* YandexLoginProcessing.swift in Sources */,
-				402EB035A0ADCEA77563BE2B /* YandexLoginProcessingAssembly.swift in Sources */,
 				402EB8D9C4C6674F176C1E2C /* AuthorizationProcessing.swift in Sources */,
 				402EBCB6D5E6441798A2DC59 /* AuthorizationMediator.swift in Sources */,
 				402EBC79F23AF96FD348A6DE /* AuthorizationProcessingAssembly.swift in Sources */,
@@ -3692,7 +3653,6 @@
 				402EBF6F0AF3AB32E9C844AC /* TokenizationAssembly.swift in Sources */,
 				402EB337CF8A33565554E71D /* CardScanning.swift in Sources */,
 				402EB10CCFF98C935D4F18FF /* YandexCheckoutPaymentsError.swift in Sources */,
-				402EBEEC03026AD39A703CE1 /* YandexLoginService.swift in Sources */,
 				402EB933D69EDDFED2DDAB44 /* Amount.swift in Sources */,
 				402EBDA6F7FFB24269195FFD /* TestModeSettings.swift in Sources */,
 				402EB0FBD2A8AFE719A2A013 /* TokenizationSettings.swift in Sources */,

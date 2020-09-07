@@ -5,6 +5,5 @@ github "yandex-money/yandex-checkout-showcase-api-swift.git" ~> 1.2.0
 github "yandex-money/functional-swift.git" ~> 1.1.0
 
 github "yandexmobile/metrica-sdk-ios" ~> 3.7.0
-github "yandexmobile/yandex-login-sdk-ios" ~> 2.0.0
 
 github "MetalheadSanya/When" "master"
