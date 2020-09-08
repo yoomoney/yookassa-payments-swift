@@ -50,7 +50,7 @@ extension TokenizationInteractor: TokenizationInteractorInput {
 
         case let .wallet(confirmation, savePaymentMethod):
 
-            guard let yamoneyToken = authorizationService.getYamoneyToken() else {
+            guard let yamoneyToken = authorizationService.getWalletToken() else {
                 assertionFailure("You must be authorized in yamoney")
                 return
             }
@@ -60,7 +60,7 @@ extension TokenizationInteractor: TokenizationInteractorInput {
 
         case let .linkedBankCard(id, csc, confirmation, savePaymentMethod):
 
-            guard let yamoneyToken = authorizationService.getYamoneyToken() else {
+            guard let yamoneyToken = authorizationService.getWalletToken() else {
                 assertionFailure("You must be authorized in yamoney")
                 return
             }
@@ -84,12 +84,6 @@ extension TokenizationInteractor: TokenizationInteractorInput {
         guard let output = output else { return }
         tokensWithError.done(output.didTokenizeData)
         tokensWithError.fail(output.failTokenizeData)
-    }
-
-    func getYandexDisplayName() -> String? {
-        // TODO: MOC-1012
-        return "YandexDisplayName"
-//        return authorizationService.getYandexDisplayName()
     }
 
     func loginInYandexMoney(reusableToken: Bool, paymentOption: PaymentOption) {

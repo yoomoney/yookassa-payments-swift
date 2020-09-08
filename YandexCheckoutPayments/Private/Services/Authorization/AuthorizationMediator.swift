@@ -2,7 +2,7 @@ import class When.Promise
 import FunctionalSwift
 import YandexCheckoutWalletApi
 
-final class AuthorizationMediator: AuthorizationProcessing {
+final class AuthorizationMediator {
 
     let tokenStorage: KeyValueStoring
     let yamoneyLoginService: YamoneyLoginProcessing
@@ -20,31 +20,63 @@ final class AuthorizationMediator: AuthorizationProcessing {
         self.deviceInfoService = deviceInfoService
         self.settingsStorage = settingsStorage
     }
+}
 
-    func getYamoneyToken() -> String? {
-        return tokenStorage.getString(for: Constants.Keys.yamoneyToken)
+// MARK: - AuthorizationProcessing
+
+extension AuthorizationMediator: AuthorizationProcessing {
+    func getMoneyCenterAuthToken() -> String? {
+        let token = tokenStorage.getString(for: Constants.Keys.moneyCenterAuthToken)
+        return transformTokenIfNeeded(settingsStorage: settingsStorage) <^> token
     }
 
-    func hasReusableYamoneyToken() -> Bool {
-        return getYamoneyToken() != nil && tokenStorage.getBool(for: Constants.Keys.isReusableYamoneyToken) == true
+    func setMoneyCenterAuthToken(
+        _ token: String
+    ) {
+        tokenStorage.set(string: token, for: Constants.Keys.moneyCenterAuthToken)
     }
 
+    func getWalletToken() -> String? {
+        return tokenStorage.getString(for: Constants.Keys.walletToken)
+    }
+
+    func setWalletToken(
+        _ token: String
+    ) {
+        tokenStorage.set(string: token, for: Constants.Keys.walletToken)
+    }
+
+    func hasReusableWalletToken() -> Bool {
+        return getWalletToken() != nil
+            && tokenStorage.getBool(
+            for: Constants.Keys.isReusableWalletToken
+        ) == true
+    }
+
+    func logout() {
+        tokenStorage.set(string: nil, for: Constants.Keys.moneyCenterAuthToken)
+        tokenStorage.set(string: nil, for: Constants.Keys.walletToken)
+    }
+}
+
+// MARK: - AuthorizationProcessing Wallet 2FA
+
+extension AuthorizationMediator {
     func loginInYamoney(merchantClientAuthorization: String,
                         amount: MonetaryAmount,
                         reusableToken: Bool) -> Promise<YamoneyLoginResponse> {
 
-        if let token = getYamoneyToken(), hasReusableYamoneyToken() {
+        if let token = getWalletToken(), hasReusableWalletToken() {
             return Promise { return YamoneyLoginResponse.authorized(CheckoutTokenIssueExecute(accessToken: token)) }
         }
 
-        // TODO: MOC-1012
-        let passportAuthorization = "TODO"
-//        guard let passportAuthorization = getYandexToken() else {
-//            return Promise { throw AuthorizationProcessingError.passportNotAuthorized }
-//        }
+        // TODO: MOC-1014 (Change passportAuthorization to moneyCenterAuthToken)
+        guard let passportAuthorization = getMoneyCenterAuthToken() else {
+            return Promise { throw AuthorizationProcessingError.passportNotAuthorized }
+        }
 
-        tokenStorage.set(string: nil, for: Constants.Keys.yamoneyToken)
-        tokenStorage.set(bool: reusableToken, for: Constants.Keys.isReusableYamoneyToken)
+        tokenStorage.set(string: nil, for: Constants.Keys.walletToken)
+        tokenStorage.set(bool: reusableToken, for: Constants.Keys.isReusableWalletToken)
 
         let instanceName = deviceInfoService.getDeviceName()
         let amount = reusableToken ? nil : amount
@@ -62,11 +94,10 @@ final class AuthorizationMediator: AuthorizationProcessing {
     func startNewAuthSession(merchantClientAuthorization: String,
                              contextId: String,
                              authType: AuthType) -> Promise<AuthTypeState> {
-        // TODO: MOC-1012
-        let passportAuthorization = "TODO"
-//        guard let passportAuthorization = getYandexToken() else {
-//            return Promise { throw  AuthorizationProcessingError.passportNotAuthorized }
-//        }
+        // TODO: MOC-1014 (Change passportAuthorization to moneyCenterAuthToken)
+        guard let passportAuthorization = getMoneyCenterAuthToken() else {
+            return Promise { throw  AuthorizationProcessingError.passportNotAuthorized }
+        }
 
         return yamoneyLoginService.startNewSession(passportAuthorization: passportAuthorization,
                                                    merchantClientAuthorization: merchantClientAuthorization,
@@ -79,11 +110,10 @@ final class AuthorizationMediator: AuthorizationProcessing {
                          authType: AuthType,
                          answer: String,
                          processId: String) -> Promise<YamoneyLoginResponse> {
-        // TODO: MOC-1012
-        let passportAuthorization = "TODO"
-//        guard let passportAuthorization = getYandexToken() else {
-//            return Promise { throw  AuthorizationProcessingError.passportNotAuthorized }
-//        }
+        // TODO: MOC-1014 (Change passportAuthorization to moneyCenterAuthToken)
+        guard let passportAuthorization = getMoneyCenterAuthToken() else {
+            return Promise { throw  AuthorizationProcessingError.passportNotAuthorized }
+        }
 
         let token = yamoneyLoginService.checkUserAnswer(passportAuthorization: passportAuthorization,
                                                         merchantClientAuthorization: merchantClientAuthorization,
@@ -94,28 +124,42 @@ final class AuthorizationMediator: AuthorizationProcessing {
         let response = makeYamoneyLoginResponse <^> token
         return saveYamoneyLoginInStorage <^> response
     }
+}
 
-    func logout() {
-        tokenStorage.set(string: nil, for: Constants.Keys.yamoneyToken)
-    }
+// MARK: - Private helpers
 
+private extension AuthorizationMediator {
     func saveYamoneyLoginInStorage(response: YamoneyLoginResponse) -> YamoneyLoginResponse {
         if case .authorized(let data) = response {
-            tokenStorage.set(string: data.accessToken, for: Constants.Keys.yamoneyToken)
+            tokenStorage.set(string: data.accessToken, for: Constants.Keys.walletToken)
         }
         return response
     }
 }
 
+// MARK: - Constants
+
 private extension AuthorizationMediator {
     enum Constants {
         enum Keys {
-            static let yamoneyToken = "yamoneyToken"
-            static let isReusableYamoneyToken = "isReusableYamoneyToken"
+            static let moneyCenterAuthToken = "yandexToken"
+            static let walletToken = "yamoneyToken"
+            static let isReusableWalletToken = "isReusableYamoneyToken"
         }
+
+        static let devHostMoneyCenterAuthToken = "AQAAAADvD_dkAAALTqe2-u247kgRomOHDziwAj0"
     }
 }
 
+// MARK: - Private global helpers
+
 private func makeYamoneyLoginResponse(token: String) -> YamoneyLoginResponse {
     return YamoneyLoginResponse.authorized(.init(accessToken: token))
+}
+
+private func transformTokenIfNeeded(settingsStorage: KeyValueStoring) -> (String) -> String {
+    return {
+        let isDevHost: Bool = settingsStorage.getBool(for: Settings.Keys.devHost) ?? false
+        return isDevHost ? AuthorizationMediator.Constants.devHostMoneyCenterAuthToken : $0
+    }
 }

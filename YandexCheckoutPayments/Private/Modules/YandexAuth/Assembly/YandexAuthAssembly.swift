@@ -18,7 +18,9 @@ enum YandexAuthAssembly {
         view: PaymentMethodsViewController
     ) -> PaymentMethodsViewController {
 
-        let presenter = YandexAuthPresenter()
+        let presenter = YandexAuthPresenter(
+            testModeSettings: inputData.testModeSettings
+        )
 
         let authorizationService = AuthorizationProcessingAssembly
             .makeService(isLoggingEnabled: inputData.isLoggingEnabled,
@@ -40,14 +42,19 @@ enum YandexAuthAssembly {
             getSavePaymentMethod: inputData.getSavePaymentMethod
         )
 
+        let router = YandexAuthRouter()
+
         view.output = presenter
         view.actionTextDialog.delegate = presenter
 
         presenter.view = view
         presenter.interactor = interactor
         presenter.moduleOutput = moduleOutput
+        presenter.router = router
 
         interactor.output = presenter
+
+        router.transitionHandler = view
 
         return view
     }

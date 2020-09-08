@@ -12,7 +12,7 @@ struct AnalyticsProvider: AnalyticsProviding {
         let authType: AnalyticsEvent.AuthType
         let tokenType: AnalyticsEvent.AuthTokenType?
 
-        if authorizationService.hasReusableYamoneyToken() {
+        if authorizationService.hasReusableWalletToken() {
             authType = .paymentAuth
             tokenType = .multiple
             // TODO: MOC-762

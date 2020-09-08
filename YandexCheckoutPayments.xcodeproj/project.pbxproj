@@ -185,6 +185,7 @@
 		402EB47F6CCA4E88344F22C6 /* BankCardStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAF7034B3EE6352760F8 /* BankCardStrategy.swift */; };
 		402EB481012F5C629D018C8A /* SavePaymentMethodViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB96DFA8C9D871DE124D0 /* SavePaymentMethodViewModelFactory.swift */; };
 		402EB48C989D12071B6EAD71 /* MSDKActionSheetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB0D91B5AEDF9532119F1 /* MSDKActionSheetHeaderView.swift */; };
+		402EB48D575905661EA8B3B7 /* YandexAuthRouterIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB699DE84BFFA7FBD61F5 /* YandexAuthRouterIO.swift */; };
 		402EB48E3F3E325F075B9306 /* SubmitDisplayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4A38D1918A8F46B8584 /* SubmitDisplayItem.swift */; };
 		402EB48F4A72EF97617B5690 /* TextInputTableViewCellModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB21CE1BC1C7750971B57 /* TextInputTableViewCellModuleIO.swift */; };
 		402EB48F83E25922C42CADAA /* SimpleIdentificationInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1424546160BBA8A05FA /* SimpleIdentificationInteractorIO.swift */; };
@@ -277,6 +278,7 @@
 		402EB6EEBDAB43E673F7DA36 /* UIView+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA9EBE8B620DE9A915EB /* UIView+Tools.swift */; };
 		402EB6F495D788A1A3FE0194 /* PlaceholderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB331AB2528B523698539 /* PlaceholderProvider.swift */; };
 		402EB6F7E3B4CC73D716C22B /* ActionTextDialog+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD6AC87739A790C03D95 /* ActionTextDialog+Style.swift */; };
+		402EB70696219EA3E035D1CD /* YandexAuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF58955152812C781561 /* YandexAuthRouter.swift */; };
 		402EB70F599439C2EAF90432 /* ApiLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB40E45FD50302AF2C546 /* ApiLogger.swift */; };
 		402EB710ADA34DDC38EDDC1C /* MonthInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDAA5D0FE0E2B30537E9 /* MonthInputPresenterStyle.swift */; };
 		402EB717A2C476C987CA897A /* LargeIconItemViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB2331DE85C1E08CFDE58 /* LargeIconItemViewIO.swift */; };
@@ -863,6 +865,7 @@
 		402EB66D5255543D831A6E27 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		402EB67FA3DAB78E3CB6C4DF /* UITextView+Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Styles.swift"; sourceTree = "<group>"; };
 		402EB691B88D70CBB46478E3 /* MonthOutputFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthOutputFormatter.swift; sourceTree = "<group>"; };
+		402EB699DE84BFFA7FBD61F5 /* YandexAuthRouterIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexAuthRouterIO.swift; sourceTree = "<group>"; };
 		402EB69DF6A8F4AD80A4F759 /* TextControl+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextControl+State.swift"; sourceTree = "<group>"; };
 		402EB6A48AE583D297E41E9A /* TitledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledSwitchView.swift; sourceTree = "<group>"; };
 		402EB6AB3C97E1E258778D20 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -1097,6 +1100,7 @@
 		402EBF30547C0D27015F777A /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		402EBF3A00DEE5F5D61B5F98 /* PhoneNumberInputViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberInputViewIO.swift; sourceTree = "<group>"; };
 		402EBF4B20C030067340B10D /* AnalyticsProcessingAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsProcessingAssembly.swift; sourceTree = "<group>"; };
+		402EBF58955152812C781561 /* YandexAuthRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexAuthRouter.swift; sourceTree = "<group>"; };
 		402EBF5D11080AD50AD7F9B8 /* PhoneNumberOutputFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberOutputFormatter.swift; sourceTree = "<group>"; };
 		402EBF6A37743D45F45F9F0A /* IdentifyCountryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifyCountryService.swift; sourceTree = "<group>"; };
 		402EBF6F8BBA7FD7906B47F6 /* ModalTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalTemplate.swift; sourceTree = "<group>"; };
@@ -1468,13 +1472,6 @@
 				402EBA9160818E89384630B6 /* YandexAuthAssembly.swift */,
 			);
 			path = Assembly;
-			sourceTree = "<group>";
-		};
-		402EB18DE4B1EE457A4ADC58 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Router;
 			sourceTree = "<group>";
 		};
 		402EB1948F279409A289AFEA /* View */ = {
@@ -2718,8 +2715,9 @@
 				402EB17F28E0E61C395AB751 /* Assembly */,
 				402EB317919F7BABAE63CD7A /* Interactor */,
 				402EB931A49EB1A9A2B7EC83 /* Presenter */,
-				402EB18DE4B1EE457A4ADC58 /* Router */,
 				402EB23A27BB831B365784B0 /* YandexAuthInteractorIO.swift */,
+				402EBEDE739441A45065CB04 /* Router */,
+				402EB699DE84BFFA7FBD61F5 /* YandexAuthRouterIO.swift */,
 			);
 			path = YandexAuth;
 			sourceTree = "<group>";
@@ -2743,6 +2741,14 @@
 				402EB5837CE3CE9D1EC03781 /* SelectOptionViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		402EBEDE739441A45065CB04 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				402EBF58955152812C781561 /* YandexAuthRouter.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		402EBEDFCDFC9732AEC0E737 /* Router */ = {
@@ -3675,6 +3681,8 @@
 				402EB673123BC9F7BB0EDADE /* KeyboardNotificationInfo.swift in Sources */,
 				402EB34C8185FBEF0E13025B /* UIViewController+Keyboard.swift in Sources */,
 				402EB952EA7B9CD954D7654E /* KeyboardObservingAccessoryView.swift in Sources */,
+				402EB70696219EA3E035D1CD /* YandexAuthRouter.swift in Sources */,
+				402EB48D575905661EA8B3B7 /* YandexAuthRouterIO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
