@@ -13,8 +13,6 @@ enum TokenizeData {
 protocol TokenizationInteractorInput: AnalyticsTrackable, AnalyticsProviding {
     func tokenize(_ data: TokenizeData, paymentOption: PaymentOption)
 
-    func getYandexDisplayName() -> String?
-
     func loginInYandexMoney(reusableToken: Bool, paymentOption: PaymentOption)
     func resendSmsCode(authContextId: String, authType: AuthType)
     func loginInYandexMoney(authContextId: String,

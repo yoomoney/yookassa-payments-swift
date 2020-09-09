@@ -35,40 +35,27 @@ final class YandexAuthInteractor {
 // MARK: - YandexAuthInteractorInput
 
 extension YandexAuthInteractor: YandexAuthInteractorInput {
+    func fetchYamoneyPaymentMethods(
+        moneyCenterAuthToken: String
+    ) {
+        authorizationService.setMoneyCenterAuthToken(moneyCenterAuthToken)
 
-    func authorizeInYandex() {
-        // TODO: MOC-1012
-        assertionFailure("Implement me")
+        let paymentMethods = paymentService.fetchPaymentOptions(
+            clientApplicationKey: clientApplicationKey,
+            // TODO: MOC-1013 (Change passportToken to moneyCenterAuthToken)
+            passportToken: moneyCenterAuthToken,
+            gatewayId: gatewayId,
+            amount: amount.value.description,
+            currency: amount.currency.rawValue,
+            getSavePaymentMethod: getSavePaymentMethod
+        )
 
-//        let token = authorizationService.loginInYandex()
-//
-//        guard let output = output else { return }
-//        token.done(output.didAuthorizeInYandex)
-//        token.fail(output.didAuthorizeInYandex)
-    }
+        let yamoneyPaymentMethods = paymentMethods.map { $0.filter { $0.paymentMethodType == .yandexMoney } }
 
-    func fetchYamoneyPaymentMethods() {
+        guard let output = output else { return }
 
-        // TODO: MOC-1012
-        assertionFailure("Implement me")
-
-//        let passportToken = authorizationService.getYandexToken()
-//
-//        let paymentMethods = paymentService.fetchPaymentOptions(
-//            clientApplicationKey: clientApplicationKey,
-//            passportToken: passportToken,
-//            gatewayId: gatewayId,
-//            amount: amount.value.description,
-//            currency: amount.currency.rawValue,
-//            getSavePaymentMethod: getSavePaymentMethod
-//        )
-//
-//        let yamoneyPaymentMethods = paymentMethods.map { $0.filter { $0.paymentMethodType == .yandexMoney } }
-//
-//        guard let output = output else { return }
-//
-//        yamoneyPaymentMethods.done(output.didFetchYamoneyPaymentMethods)
-//        yamoneyPaymentMethods.fail(output.didFetchYamoneyPaymentMethods)
+        yamoneyPaymentMethods.done(output.didFetchYamoneyPaymentMethods)
+        yamoneyPaymentMethods.fail(output.didFetchYamoneyPaymentMethods)
     }
 
     func trackEvent(_ event: AnalyticsEvent) {

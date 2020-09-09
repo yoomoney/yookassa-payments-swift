@@ -63,9 +63,8 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
     }()
 
     private func makePaymentMethodViewModel(paymentOption: PaymentOption) -> PaymentMethodViewModel {
-        let yandexLogin = interactor.getYandexDisplayName()
         return PaymentMethodViewModelFactory.makePaymentMethodViewModel(paymentOption: paymentOption,
-                                                                        yandexDisplayName: yandexLogin)
+                                                                        yandexDisplayName: nil)
     }
 }
 
@@ -271,8 +270,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
     }
 
     func logout(accountId: String) {
-        let accountName = interactor.getYandexDisplayName()
-        let inputData = LogoutConfirmationModuleInputData(accountName: accountName ?? accountId)
+        let inputData = LogoutConfirmationModuleInputData(accountName: accountId)
         router.presentLogoutConfirmation(inputData: inputData,
                                          moduleOutput: self)
     }

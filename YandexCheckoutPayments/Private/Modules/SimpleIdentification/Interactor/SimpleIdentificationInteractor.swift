@@ -32,12 +32,11 @@ extension SimpleIdentificationInteractor: SimpleIdentificationInteractorInput {
 
     func sendForm(fields: [String: String]) {
 
-        // TODO: MOC-1012
-        let passportToken = ""
-//        guard let passportToken = authorizationService.getYandexToken() else {
-//            output?.didSendForm(SimpleIdentificationInteractorError.missingPassportToken)
-//            return
-//        }
+        // TODO: MOC-1014 (Change passportAuthorization to moneyCenterAuthToken)
+        guard let passportToken = authorizationService.getMoneyCenterAuthToken() else {
+            output?.didSendForm(SimpleIdentificationInteractorError.missingPassportToken)
+            return
+        }
 
         let requestMethod = identificationService.sendIdentificationRequest(merchantToken: merchantToken,
                                                                             passportToken: passportToken,
@@ -61,12 +60,11 @@ extension SimpleIdentificationInteractor: SimpleIdentificationInteractorInput {
 
     func fetchStatus(requestId: String) {
 
-        // TODO: MOC-1012
-        let passportToken = ""
-//        guard let passportToken = authorizationService.getYandexToken() else {
-//            output?.didSendForm(SimpleIdentificationInteractorError.missingPassportToken)
-//            return
-//        }
+        // TODO: MOC-1014 (Change passportAuthorization to moneyCenterAuthToken)
+        guard let passportToken = authorizationService.getMoneyCenterAuthToken() else {
+            output?.didSendForm(SimpleIdentificationInteractorError.missingPassportToken)
+            return
+        }
 
         let statusMethod = identificationService.fetchIdentificationStatus(merchantToken: merchantToken,
                                                                            passportToken: passportToken,

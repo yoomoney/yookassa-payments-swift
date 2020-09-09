@@ -32,7 +32,7 @@ final class WalletStrategy {
 
 extension WalletStrategy: TokenizationStrategyInput {
     func beginProcess() {
-        if authorizationService.hasReusableYamoneyToken() {
+        if authorizationService.hasReusableWalletToken() {
             output?.presentContract(paymentOption: paymentOption)
         } else {
             output?.presentYamoneyAuthParametersModule(paymentOption: paymentOption)

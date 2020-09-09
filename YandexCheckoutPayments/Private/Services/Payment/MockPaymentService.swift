@@ -32,9 +32,7 @@ final class MockPaymentService: PaymentProcessing {
     ) -> Promise<[PaymentOption]> {
         let timeout = makeTimeoutPromise()
 
-        // TODO: MOC-1012
-        let authorized = false
-//        let authorized = authorizationMediator.getYandexToken() != nil
+        let authorized = authorizationMediator.getMoneyCenterAuthToken() != nil
         let response = makePaymentOptions(testModeSettings,
                                           handler: paymentMethodHandler,
                                           authorized: authorized)

@@ -8,9 +8,23 @@ enum AuthorizationProcessingError: Error {
 }
 
 protocol AuthorizationProcessing {
-    func getYamoneyToken() -> String?
+    func getMoneyCenterAuthToken() -> String?
 
-    func hasReusableYamoneyToken() -> Bool
+    func setMoneyCenterAuthToken(
+        _ token: String
+    )
+
+    func getWalletToken() -> String?
+
+    func setWalletToken(
+        _ token: String
+    )
+
+    func hasReusableWalletToken() -> Bool
+
+    func logout()
+
+    // MARK: - Wallet 2FA
 
     func loginInYamoney(
         merchantClientAuthorization: String,
@@ -31,6 +45,4 @@ protocol AuthorizationProcessing {
         answer: String,
         processId: String
     ) -> Promise<YamoneyLoginResponse>
-
-    func logout()
 }
