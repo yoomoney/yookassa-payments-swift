@@ -34,7 +34,7 @@ extension UITextView {
         /// Linked style
         ///
         /// Text: Light font, 12pt size, Link:
-        static let linked = Style(name: "linked") { (textView: UITextView) in
+        static let linked = InternalStyle(name: "linked") { (textView: UITextView) in
             textView.isEditable = false
             textView.isScrollEnabled = false
             textView.font = .systemFont(ofSize: 13)

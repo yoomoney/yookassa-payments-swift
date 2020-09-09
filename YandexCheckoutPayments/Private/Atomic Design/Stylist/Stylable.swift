@@ -30,19 +30,19 @@ protocol Stylable: NSObjectProtocol {
     /// - note: Use this method for applying styles.
     ///
     /// - parameter styles: styles to apply
-    func setStyles(_ styles: Style...)
+    func setStyles(_ styles: InternalStyle...)
 
     /// Remove styles from element.
     ///
     /// - note: This does not remove style changes. But previous styles reapply.
     ///
     /// - parameter style: style for remove
-    func removeStyle(_ style: Style)
+    func removeStyle(_ style: InternalStyle)
 
     /// Append style to element. If style already exist do nothing.
     ///
     /// - parameter style: style for append
-    func appendStyle(_ style: Style)
+    func appendStyle(_ style: InternalStyle)
 
     /// Apply the set styles.
     func applyStyles()
@@ -50,17 +50,17 @@ protocol Stylable: NSObjectProtocol {
 
 extension Stylable {
 
-    func setStyles(_ styles: Style...) {
+    func setStyles(_ styles: InternalStyle...) {
         self.styles = styles.map { $0.name }.joined(separator: " ")
     }
 
-    func removeStyle(_ style: Style) {
+    func removeStyle(_ style: InternalStyle) {
         styles = styles?.components(separatedBy: " ")
             .filter { $0 != style.name }
             .joined(separator: " ")
     }
 
-    func appendStyle(_ style: Style) {
+    func appendStyle(_ style: InternalStyle) {
         guard styles?.components(separatedBy: " ").contains(style.name) != true else { return }
         styles = [styles, style.name].compactMap { $0 }.joined(separator: " ")
     }

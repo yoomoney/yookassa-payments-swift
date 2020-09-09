@@ -77,7 +77,7 @@ class NotificationView: UIView {
     private var labelBottomSpaceConstraint: NSLayoutConstraint!
     private var buttonsBottomSpaceConstraint: NSLayoutConstraint!
 
-    fileprivate var buttonStyles: [Style] = [] {
+    fileprivate var buttonStyles: [InternalStyle] = [] {
         didSet {
             _ = UIView.appendStyle <^> buttonStackView.subviews <*> buttonStyles
         }
@@ -220,7 +220,7 @@ extension NotificationView {
     // MARK: - Styles
 
     enum Styles {
-        static let `default` = Style(name: "notificationViewDefault") { (view: NotificationView) in
+        static let `default` = InternalStyle(name: "notificationViewDefault") { (view: NotificationView) in
             view.translatesAutoresizingMaskIntoConstraints = false
             view.label.setStyles(UILabel.DynamicStyle.body,
                                  UILabel.ColorStyle.inverse,
@@ -236,7 +236,7 @@ extension NotificationView {
         ///
         /// `.redOrange` background, inverseLink buttons, body inverse multiline text.
         static let error = `default` +
-            Style(name: "error") { (view: NotificationView) in
+            InternalStyle(name: "error") { (view: NotificationView) in
                 view.backgroundColor = .redOrange
                 view.iconImageView.image = UIImage.NotificationView.error
             }
@@ -245,7 +245,7 @@ extension NotificationView {
         ///
         /// `.success` background, inverseLink buttons, body inverse multiline text.
         static let success = `default` +
-            Style(name: "success") { (view: NotificationView) in
+            InternalStyle(name: "success") { (view: NotificationView) in
                 view.backgroundColor = .success
                 view.iconImageView.image = UIImage.NotificationView.success
             }
@@ -254,7 +254,7 @@ extension NotificationView {
         ///
         /// `.codGray` background, inverseLink buttons, body inverse multiline text.
         static let info = `default` +
-            Style(name: "info") { (view: NotificationView) in
+            InternalStyle(name: "info") { (view: NotificationView) in
                 view.backgroundColor = .codGray
                 view.iconImageView.image = UIImage.NotificationView.info
             }

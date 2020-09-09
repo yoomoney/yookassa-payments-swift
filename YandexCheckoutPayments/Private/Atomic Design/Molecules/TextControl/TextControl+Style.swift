@@ -28,7 +28,7 @@ extension TextControl {
     enum Styles {
 
         static let `default` = UIView.Styles.defaultBackground +
-            Style(name: "default") { (item: TextControl) in
+            InternalStyle(name: "default") { (item: TextControl) in
                 item.textView.appendStyle(UIView.Styles.defaultBackground)
                 item.clipsToBounds = true
 
@@ -69,15 +69,15 @@ extension TextControl {
                 item.leftIconMode = .default
             }
 
-        static let noAutocorrection = Style(name: "noAutocorrection") { (item: TextControl) in
+        static let noAutocorrection = InternalStyle(name: "noAutocorrection") { (item: TextControl) in
             item.textView.autocorrectionType = .no
         }
 
-        static let noSpellChecking = Style(name: "noSpellChecking") { (item: TextControl) in
+        static let noSpellChecking = InternalStyle(name: "noSpellChecking") { (item: TextControl) in
             item.textView.spellCheckingType = .no
         }
 
-        static let noAutoCapitalization = Style(name: "noAutoCapitalization") { (item: TextControl) in
+        static let noAutoCapitalization = InternalStyle(name: "noAutoCapitalization") { (item: TextControl) in
             item.textView.autocapitalizationType = .none
         }
 
@@ -86,37 +86,37 @@ extension TextControl {
             TextControl.Styles.noAutocorrection +
             TextControl.Styles.noAutoCapitalization
 
-        static let paddingHorizontal10 = Style(name: "lineNormalState") { (item: TextControl) in
+        static let paddingHorizontal10 = InternalStyle(name: "lineNormalState") { (item: TextControl) in
             item.padding = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         }
 
-        static let bordered = Style(name: "bordered") { (item: TextControl) in
+        static let bordered = InternalStyle(name: "bordered") { (item: TextControl) in
             item.layer.borderColor = UIColor.lightGray.cgColor
             item.layer.borderWidth = 1
         }
 
-        static let rightButtonAsErrorImage = Style(name: "rightButtonAsErrorImage") { (item: TextControl) in
+        static let rightButtonAsErrorImage = InternalStyle(name: "rightButtonAsErrorImage") { (item: TextControl) in
             item.rightButton.setImage(.error, for: .normal)
             item.rightButton.isUserInteractionEnabled = false
         }
 
-        static let rightButtonWithoutImage = Style(name: "rightButtonWithoutImage") { (item: TextControl) in
+        static let rightButtonWithoutImage = InternalStyle(name: "rightButtonWithoutImage") { (item: TextControl) in
             item.rightButton.setImage(nil, for: .normal)
             item.rightButton.isUserInteractionEnabled = true
         }
 
-        static let leftIconVisible = Style(name: "leftIconVisible") { (item: TextControl) in
+        static let leftIconVisible = InternalStyle(name: "leftIconVisible") { (item: TextControl) in
             item.leftIconMode = .always
         }
 
-        static let leftIconHidden = Style(name: "leftIconHidden") { (item: TextControl) in
+        static let leftIconHidden = InternalStyle(name: "leftIconHidden") { (item: TextControl) in
             item.leftIconMode = .never
         }
 
         static let cardDataInput = TextControl.Styles.default +
             TextControl.Styles.password +
             UIView.Styles.grayBackground +
-            Style(name: "cardDataInput") { (item: TextControl) in
+            InternalStyle(name: "cardDataInput") { (item: TextControl) in
                 item.textView.appendStyle(UIView.Styles.grayBackground)
 
                 item.placeholderLabel.appendStyle(UILabel.DynamicStyle.headline1)
@@ -128,16 +128,16 @@ extension TextControl {
             }
 
         static let linkedCardDataInput = cardDataInput +
-            Style(name: "linkedCardDataInput") { (item: TextControl) in
+            InternalStyle(name: "linkedCardDataInput") { (item: TextControl) in
                 item.textView.textColor = .doveGray
             }
 
-        static let cardDataInputWithScan = Style(name: "cardDataInputWithScan") { (item: TextControl) in
+        static let cardDataInputWithScan = InternalStyle(name: "cardDataInputWithScan") { (item: TextControl) in
             item.rightButton.setImage(UIImage.PaymentSystem.TextControl.scan, for: .normal)
             item.rightButtonMode = .whileEmpty
         }
 
-        static let cardDataInputWithoutScan = Style(name: "cardDataInputWithoutScan") { (item: TextControl) in
+        static let cardDataInputWithoutScan = InternalStyle(name: "cardDataInputWithoutScan") { (item: TextControl) in
             item.rightButton.setImage(nil, for: .normal)
             item.rightButtonMode = .default
         }
@@ -145,12 +145,12 @@ extension TextControl {
         // MARK: - The visibility of hints styles
 
         /// Style for text control without top hint.
-        static let withoutTopHint = Style(name: "withoutTopHint") { (item: TextControl) in
+        static let withoutTopHint = InternalStyle(name: "withoutTopHint") { (item: TextControl) in
             item.topHintMode = .never
         }
 
         /// Style for text control without bottom hint.
-        static let withoutBottomHint = Style(name: "withoutBottomHint") { (item: TextControl) in
+        static let withoutBottomHint = InternalStyle(name: "withoutBottomHint") { (item: TextControl) in
             item.bottomHintMode = .never
         }
 
@@ -159,7 +159,7 @@ extension TextControl {
 
         // MARK: - The line styles
 
-        static let tintLine = Style(name: "TextControl.Styles.tintLine") { (item: TextControl) in
+        static let tintLine = InternalStyle(name: "TextControl.Styles.tintLine") { (item: TextControl) in
             item.set(lineState: .filled(color: item.tintColor, height: 1), for: .normal)
         }
     }

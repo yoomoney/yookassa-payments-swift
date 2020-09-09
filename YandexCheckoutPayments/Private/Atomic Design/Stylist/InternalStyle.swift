@@ -23,7 +23,7 @@
 
 import UIKit
 
-struct Style {
+struct InternalStyle {
     /// The name of the style
     let name: String
 
@@ -49,6 +49,6 @@ struct Style {
 ///
 /// - parameter lhs: first style
 /// - parameter rhs: second style
-func + (lhs: Style, rhs: Style) -> Style {
-    return Style(name: lhs.name + " " + rhs.name)
+func + (lhs: InternalStyle, rhs: InternalStyle) -> InternalStyle {
+    return InternalStyle(name: lhs.name + " " + rhs.name)
 }
