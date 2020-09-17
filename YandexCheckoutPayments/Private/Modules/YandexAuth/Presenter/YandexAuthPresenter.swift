@@ -16,7 +16,7 @@ final class YandexAuthPresenter {
 
     // MARK: - Stored properties
 
-    private var moneyAuthCoordinator: MoneyAuth.ProcessCoordinator?
+    private var moneyAuthCoordinator: MoneyAuth.AuthorizationCoordinator?
 
     // MARK: - Initialization
 
@@ -113,9 +113,9 @@ extension YandexAuthPresenter: YandexAuthModuleInput {}
 
 // MARK: - ProcessCoordinatorDelegate
 
-extension YandexAuthPresenter: ProcessCoordinatorDelegate {
-    func processCoordinator(
-        _ coordinator: ProcessCoordinator,
+extension YandexAuthPresenter: AuthorizationCoordinatorDelegate {
+    func authorizationCoordinator(
+        _ coordinator: AuthorizationCoordinator,
         didAcquireAuthorizationToken token: String
     ) {
         self.moneyAuthCoordinator = nil
@@ -132,8 +132,8 @@ extension YandexAuthPresenter: ProcessCoordinatorDelegate {
         }
     }
 
-    func processCoordinatorDidCancel(
-        _ coordinator: ProcessCoordinator
+    func authorizationCoordinatorDidCancel(
+        _ coordinator: AuthorizationCoordinator
     ) {
         self.moneyAuthCoordinator = nil
         DispatchQueue.main.async { [weak self] in
@@ -143,8 +143,8 @@ extension YandexAuthPresenter: ProcessCoordinatorDelegate {
         }
     }
 
-    func processCoordinator(
-        _ coordinator: ProcessCoordinator,
+    func authorizationCoordinator(
+        _ coordinator: AuthorizationCoordinator,
         didFailureWith error: Error
     ) {
         self.moneyAuthCoordinator = nil
@@ -155,8 +155,8 @@ extension YandexAuthPresenter: ProcessCoordinatorDelegate {
         }
     }
 
-    func processCoordinatorDidPrepareProcess(_ coordinator: ProcessCoordinator) {}
-    func processCoordinator(_ coordinator: ProcessCoordinator, didFailPrepareProcessWithError error: Error) {}
+    func authorizationCoordinatorDidPrepareProcess(_ coordinator: AuthorizationCoordinator) {}
+    func authorizationCoordinator(_ coordinator: AuthorizationCoordinator, didFailPrepareProcessWithError error: Error) {}
 }
 
 // MARK: - Private helpers
@@ -174,12 +174,18 @@ private extension YandexAuthPresenter {
         let host = ""
         assert(host.isEmpty == false)
 
+        let clientId = ""
+        assert(clientId.isEmpty == false)
+
         let config = MoneyAuth.Config(
-            origin: .checkout,
+            origin: .wallet,
+            clientId: clientId,
             host: host,
+            isDevHost: true,
             loggingEnabled: true,
             authenticationChallengeHandler: authenticationChallengeHandler,
             setEmailSwitchTitle: nil,
+            setPhoneSwitchTitle: nil,
             userAgreement: nil
         )
         return config

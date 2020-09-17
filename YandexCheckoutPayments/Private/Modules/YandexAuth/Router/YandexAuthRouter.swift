@@ -9,9 +9,10 @@ final class YandexAuthRouter {
 extension YandexAuthRouter: YandexAuthRouterInput {
     func presentAuthorizationModule(
         config: MoneyAuth.Config,
-        output: MoneyAuth.ProcessCoordinatorDelegate
-    ) throws -> MoneyAuth.ProcessCoordinator {
-        let coordinator = MoneyAuth.ProcessCoordinator(
+        output: MoneyAuth.AuthorizationCoordinatorDelegate
+    ) throws -> MoneyAuth.AuthorizationCoordinator {
+
+        let coordinator = MoneyAuth.AuthorizationCoordinator(
             processType: .login,
             config: config
         )

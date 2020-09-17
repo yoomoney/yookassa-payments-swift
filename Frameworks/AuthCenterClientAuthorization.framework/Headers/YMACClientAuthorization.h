@@ -6,7 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 
-- (instancetype)initWithClientId:(NSString *)clientId NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithClientId:(NSString *)clientId isDevHost:(BOOL)isDevHost NS_DESIGNATED_INITIALIZER;
 
 - (NSString *)generateToken;
 
