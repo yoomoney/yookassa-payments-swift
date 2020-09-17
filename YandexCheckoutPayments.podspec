@@ -33,7 +33,6 @@ Pod::Spec.new do |s|
     'Frameworks/TMXProfilingConnections.framework',
     'Frameworks/MoneyAuth.framework',
     'Frameworks/AuthCenterClientAuthorization.framework',
-    'Frameworks/TrustDefender.framework',
   ]
 
   s.pod_target_xcconfig = {
