@@ -31,8 +31,7 @@ Pod::Spec.new do |s|
   s.ios.vendored_frameworks = [
     'Frameworks/TMXProfiling.framework',
     'Frameworks/TMXProfilingConnections.framework',
-    'Frameworks/MoneyAuth.framework',
-    'Frameworks/AuthCenterClientAuthorization.framework',
+    'Frameworks/MoneyAuth.xcframework',
   ]
 
   s.pod_target_xcconfig = {

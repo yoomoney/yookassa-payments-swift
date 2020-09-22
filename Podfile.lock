@@ -60,7 +60,7 @@ SPEC CHECKSUMS:
   Reveal-SDK: 5f94f14aff3d5f2a49f246edcd266fa4472679e9
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
   When: 4ffc88d535a094ad4bd5eaf2fd187de747e716d1
-  YandexCheckoutPayments: 7187d957a2167dfb12461fe2029a445573624b57
+  YandexCheckoutPayments: 73484e32b05d4218930ebe1117ed0788d369bf20
   YandexCheckoutPaymentsApi: 382ebb50d0eb9c83059d3912d584ba2389e53796
   YandexCheckoutShowcaseApi: 44382163176b3a53692fa1c3b85c0c8d0a82b7e6
   YandexCheckoutWalletApi: 29cf601b0bd6e88666b8815b306d785e3c9015b9
@@ -69,4 +69,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: f7e1f7df2e9b9e3c9eb268afa2329a4b145e54ff
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0.rc.1
