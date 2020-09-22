@@ -26,6 +26,8 @@ final class HostProvider: YandexMoneyCoreApi.HostProvider {
                 host = "//money.yandex.ru"
             case YandexCheckoutWalletApi.Constants.walletApiMethodsKey:
                 host = "//money.yandex.ru"
+            case GlobalConstants.Hosts.moneyAuth:
+                host = "//payment.yandex.net"
             default:
                 throw HostProviderError.unknownKey(key)
             }
@@ -48,6 +50,8 @@ final class HostProvider: YandexMoneyCoreApi.HostProvider {
             host = devHosts.personify
         case YandexCheckoutPaymentsApi.Constants.paymentsApiMethodsKey:
             host = devHosts.payments
+        case GlobalConstants.Hosts.moneyAuth:
+            host = devHosts.moneyAuth
         default:
             throw HostProviderError.unknownKey(key)
         }
@@ -57,22 +61,27 @@ final class HostProvider: YandexMoneyCoreApi.HostProvider {
 
     private static var hosts: HostsConfig? = {
         guard let url = Bundle.framework.url(forResource: "Hosts", withExtension: "plist"),
-              let hosts = NSDictionary(contentsOf: url) as? [String: Any],
-              let walletHost = hosts[Keys.wallet.rawValue] as? String,
-              let personifyHost = hosts[Keys.personify.rawValue] as? String,
-              let paymentsHost = hosts[Keys.payments.rawValue] as? String else {
-            assertionFailure("Couldn't load Hosts.plist from framework bundle")
-            return nil
+            let hosts = NSDictionary(contentsOf: url) as? [String: Any],
+            let walletHost = hosts[Keys.wallet.rawValue] as? String,
+            let personifyHost = hosts[Keys.personify.rawValue] as? String,
+            let paymentsHost = hosts[Keys.payments.rawValue] as? String,
+            let moneyAuthHost = hosts[Keys.moneyAuth.rawValue] as? String else {
+                assertionFailure("Couldn't load Hosts.plist from framework bundle")
+                return nil
         }
 
-        return HostsConfig(wallet: walletHost,
-                           personify: personifyHost,
-                           payments: paymentsHost)
+        return HostsConfig(
+            wallet: walletHost,
+            personify: personifyHost,
+            payments: paymentsHost,
+            moneyAuth: moneyAuthHost
+        )
     }()
 
     private enum Keys: String {
         case wallet
         case personify
         case payments
+        case moneyAuth
     }
 }

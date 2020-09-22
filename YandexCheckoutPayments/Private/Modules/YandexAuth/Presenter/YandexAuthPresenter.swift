@@ -21,11 +21,14 @@ final class YandexAuthPresenter {
     // MARK: - Initialization
 
     private let testModeSettings: TestModeSettings?
+    private let moneyAuthConfig: MoneyAuth.Config
 
     init(
-        testModeSettings: TestModeSettings?
+        testModeSettings: TestModeSettings?,
+        moneyAuthConfig: MoneyAuth.Config
     ) {
         self.testModeSettings = testModeSettings
+        self.moneyAuthConfig = moneyAuthConfig
     }
 }
 
@@ -50,7 +53,7 @@ extension YandexAuthPresenter: PaymentMethodsViewOutput {
             } else {
                 do {
                     self.moneyAuthCoordinator = try self.router.presentAuthorizationModule(
-                        config: self.makeMoneyAuthConfig(),
+                        config: self.moneyAuthConfig,
                         output: self
                     )
                 } catch {
@@ -166,39 +169,6 @@ extension YandexAuthPresenter: AuthorizationCoordinatorDelegate {
         _ coordinator: AuthorizationCoordinator,
         didFailPrepareProcessWithError error: Error
     ) {}
-}
-
-// MARK: - Private helpers
-
-private extension YandexAuthPresenter {
-    func makeMoneyAuthConfig() -> MoneyAuth.Config {
-        let authenticationChallengeHandler: AuthenticationChallengeHandler = { session, challenge, completionHandler in
-            guard let serverTrust = challenge.protectionSpace.serverTrust else {
-                completionHandler(.performDefaultHandling, nil)
-                return
-            }
-            completionHandler(.useCredential, URLCredential(trust: serverTrust))
-        }
-
-        let host = ""
-        assert(host.isEmpty == false)
-
-        let clientId = ""
-        assert(clientId.isEmpty == false)
-
-        let config = MoneyAuth.Config(
-            origin: .wallet,
-            clientId: clientId,
-            host: host,
-            isDevHost: true,
-            loggingEnabled: true,
-            authenticationChallengeHandler: authenticationChallengeHandler,
-            setEmailSwitchTitle: nil,
-            setPhoneSwitchTitle: nil,
-            userAgreement: nil
-        )
-        return config
-    }
 }
 
 // MARK: - Localized
