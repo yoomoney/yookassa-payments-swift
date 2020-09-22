@@ -254,7 +254,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             gatewayId: inputData.gatewayId,
             amount: MonetaryAmountFactory.makeAmount(paymentOption.charge),
             isLoggingEnabled: inputData.isLoggingEnabled,
-            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod)
+            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod),
+            moneyAuthClientId: inputData.moneyAuthCliendId
         )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }

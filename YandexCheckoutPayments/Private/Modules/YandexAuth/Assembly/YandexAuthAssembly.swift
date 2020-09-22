@@ -18,7 +18,9 @@ enum YandexAuthAssembly {
         view: PaymentMethodsViewController
     ) -> PaymentMethodsViewController {
 
-        let moneyAuthConfig = MoneyAuthConfigAssembly.makeMoneyAuthConfig()
+        let moneyAuthConfig = MoneyAuthConfigAssembly.makeMoneyAuthConfig(
+            clientId: inputData.moneyAuthClientId
+        )
 
         let presenter = YandexAuthPresenter(
             testModeSettings: inputData.testModeSettings,
