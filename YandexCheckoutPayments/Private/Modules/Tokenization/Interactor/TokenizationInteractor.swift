@@ -86,6 +86,10 @@ extension TokenizationInteractor: TokenizationInteractorInput {
         tokensWithError.fail(output.failTokenizeData)
     }
 
+    func getWalletDisplayName() -> String? {
+        return authorizationService.getWalletDisplayName()
+    }
+
     func loginInYandexMoney(reusableToken: Bool, paymentOption: PaymentOption) {
         let walletMonetaryAmount = MonetaryAmountFactory.makeWalletMonetaryAmount(paymentOption.charge)
 

@@ -2,7 +2,8 @@ import class YandexCheckoutPaymentsApi.PaymentOption
 
 protocol YandexAuthInteractorInput: class, AnalyticsTrackable {
     func fetchYamoneyPaymentMethods(
-        moneyCenterAuthToken: String
+        moneyCenterAuthToken: String,
+        walletDisplayName: String?
     )
 }
 

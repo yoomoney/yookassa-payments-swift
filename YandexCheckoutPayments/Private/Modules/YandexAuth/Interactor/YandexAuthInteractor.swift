@@ -36,9 +36,11 @@ final class YandexAuthInteractor {
 
 extension YandexAuthInteractor: YandexAuthInteractorInput {
     func fetchYamoneyPaymentMethods(
-        moneyCenterAuthToken: String
+        moneyCenterAuthToken: String,
+        walletDisplayName: String?
     ) {
         authorizationService.setMoneyCenterAuthToken(moneyCenterAuthToken)
+        authorizationService.setWalletDisplayName(walletDisplayName)
 
         let paymentMethods = paymentService.fetchPaymentOptions(
             clientApplicationKey: clientApplicationKey,

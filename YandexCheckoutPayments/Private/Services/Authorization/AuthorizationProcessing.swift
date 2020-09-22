@@ -24,6 +24,12 @@ protocol AuthorizationProcessing {
 
     func logout()
 
+    func setWalletDisplayName(
+        _ walletDisplayName: String?
+    )
+
+    func getWalletDisplayName() -> String?
+
     // MARK: - Wallet 2FA
 
     func loginInYamoney(

@@ -57,6 +57,21 @@ extension AuthorizationMediator: AuthorizationProcessing {
         tokenStorage.set(string: nil, for: Constants.Keys.moneyCenterAuthToken)
         tokenStorage.set(string: nil, for: Constants.Keys.walletToken)
     }
+
+    func setWalletDisplayName(
+        _ walletDisplayName: String?
+    ) {
+        tokenStorage.set(
+            string: walletDisplayName,
+            for: Constants.Keys.walletDisplayName
+        )
+    }
+
+    func getWalletDisplayName() -> String? {
+        tokenStorage.getString(
+            for: Constants.Keys.walletDisplayName
+        )
+    }
 }
 
 // MARK: - AuthorizationProcessing Wallet 2FA
@@ -145,6 +160,7 @@ private extension AuthorizationMediator {
             static let moneyCenterAuthToken = "yandexToken"
             static let walletToken = "yamoneyToken"
             static let isReusableWalletToken = "isReusableYamoneyToken"
+            static let walletDisplayName = "walletDisplayName"
         }
 
         static let devHostMoneyCenterAuthToken = "AQAAAADvD_dkAAALTqe2-u247kgRomOHDziwAj0"

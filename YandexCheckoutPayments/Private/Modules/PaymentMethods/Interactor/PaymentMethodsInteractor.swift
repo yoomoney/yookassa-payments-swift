@@ -61,6 +61,10 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
         paymentMethods.fail(output.didFetchPaymentMethods)
     }
 
+    func getWalletDisplayName() -> String? {
+        return authorizationService.getWalletDisplayName()
+    }
+
     func trackEvent(_ event: AnalyticsEvent) {
         analyticsService.trackEvent(event)
     }

@@ -2,6 +2,7 @@ import YandexCheckoutPaymentsApi
 
 protocol PaymentMethodsInteractorInput: AnalyticsTrackable, AnalyticsProviding {
     func fetchPaymentMethods()
+    func getWalletDisplayName() -> String?
 }
 
 protocol PaymentMethodsInteractorOutput: class {

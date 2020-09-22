@@ -19,7 +19,7 @@ protocol TokenizationInteractorInput: AnalyticsTrackable, AnalyticsProviding {
                             authType: AuthType,
                             answer: String,
                             processId: String)
-
+    func getWalletDisplayName() -> String?
     func logout()
     func startAnalyticsService()
     func stopAnalyticsService()
