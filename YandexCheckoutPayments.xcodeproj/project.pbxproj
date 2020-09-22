@@ -26,10 +26,6 @@
 		308E41882385829700B44490 /* SavePaymentMethodInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E41872385829700B44490 /* SavePaymentMethodInfoViewModel.swift */; };
 		308E418B23858B4800B44490 /* SavePaymentMethodInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E418A23858B4800B44490 /* SavePaymentMethodInfo.swift */; };
 		309CECE7237D62BC002010DD /* PriceView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309CECE6237D62BC002010DD /* PriceView+Style.swift */; };
-		30A161ED25022CF000C8F41E /* AuthCenterClientAuthorization.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A161EB25022CF000C8F41E /* AuthCenterClientAuthorization.framework */; };
-		30A161EE25022CF000C8F41E /* AuthCenterClientAuthorization.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30A161EB25022CF000C8F41E /* AuthCenterClientAuthorization.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		30A161EF25022CF000C8F41E /* MoneyAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A161EC25022CF000C8F41E /* MoneyAuth.framework */; };
-		30A161F025022CF100C8F41E /* MoneyAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30A161EC25022CF000C8F41E /* MoneyAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30A588242177B792002AFFF1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 30A588232177B792002AFFF1 /* Settings.bundle */; };
 		30A588252177B792002AFFF1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 30A588232177B792002AFFF1 /* Settings.bundle */; };
 		30A83F062383378E00B51BAB /* LinkedSwitchItemView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A83F052383378E00B51BAB /* LinkedSwitchItemView+Style.swift */; };
@@ -40,6 +36,10 @@
 		30AB530B238334040098C7C1 /* LinkedSwitchItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AB530A238334040098C7C1 /* LinkedSwitchItemView.swift */; };
 		30AB530D238335560098C7C1 /* LinkedSwitchItemViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AB530C238335560098C7C1 /* LinkedSwitchItemViewInput.swift */; };
 		30B24DE1206C2850002C823B /* YandexMobileMetrica.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */; };
+		30C22EF52519FFD100460CC0 /* AuthCenterClientAuthorization.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A161EB25022CF000C8F41E /* AuthCenterClientAuthorization.framework */; };
+		30C22EF62519FFD100460CC0 /* AuthCenterClientAuthorization.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30A161EB25022CF000C8F41E /* AuthCenterClientAuthorization.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		30C22EF72519FFD100460CC0 /* MoneyAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A161EC25022CF000C8F41E /* MoneyAuth.framework */; };
+		30C22EF82519FFD100460CC0 /* MoneyAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30A161EC25022CF000C8F41E /* MoneyAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		402EB002BD1EC142641CB2D4 /* LogoutConfirmationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDB3EFE7969B76F4C0A4 /* LogoutConfirmationAssembly.swift */; };
 		402EB00683336405B2DD9A9B /* TextTableViewCellAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7168A9425556168E384 /* TextTableViewCellAssembly.swift */; };
 		402EB00B9EC9B560D706EC06 /* UIScrollView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8295ED9FF21E41876C2 /* UIScrollView+Style.swift */; };
@@ -669,14 +669,14 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		30A161F125022CF100C8F41E /* Embed Frameworks */ = {
+		30C22EF92519FFD100460CC0 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				30A161EE25022CF000C8F41E /* AuthCenterClientAuthorization.framework in Embed Frameworks */,
-				30A161F025022CF100C8F41E /* MoneyAuth.framework in Embed Frameworks */,
+				30C22EF62519FFD100460CC0 /* AuthCenterClientAuthorization.framework in Embed Frameworks */,
+				30C22EF82519FFD100460CC0 /* MoneyAuth.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1155,11 +1155,11 @@
 				E0321BB020EF9A590050CF65 /* YandexCheckoutPaymentsApi.framework in Frameworks */,
 				301D747F20B5D7E60000E394 /* PassKit.framework in Frameworks */,
 				30B24DE1206C2850002C823B /* YandexMobileMetrica.framework in Frameworks */,
+				30C22EF52519FFD100460CC0 /* AuthCenterClientAuthorization.framework in Frameworks */,
 				E04D0C442023174F00162F30 /* libz.tbd in Frameworks */,
-				30A161EF25022CF000C8F41E /* MoneyAuth.framework in Frameworks */,
 				E0D529381FE40337005F495F /* FunctionalSwift.framework in Frameworks */,
-				30A161ED25022CF000C8F41E /* AuthCenterClientAuthorization.framework in Frameworks */,
 				D9DF9D662049ADF800371792 /* YandexCheckoutWalletApi.framework in Frameworks */,
+				30C22EF72519FFD100460CC0 /* MoneyAuth.framework in Frameworks */,
 				E018BEB9200E1BAD00022396 /* When.framework in Frameworks */,
 				E01B1F30200E1B050079DD57 /* YandexMoneyCoreApi.framework in Frameworks */,
 			);
@@ -3030,7 +3030,7 @@
 				244F7F2F3BB2B1839FEAD67F /* Frameworks */,
 				244F7F0D1C70A3C37A8190B1 /* Headers */,
 				244F7B427956461A69AAA7BD /* Resources */,
-				30A161F125022CF100C8F41E /* Embed Frameworks */,
+				30C22EF92519FFD100460CC0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

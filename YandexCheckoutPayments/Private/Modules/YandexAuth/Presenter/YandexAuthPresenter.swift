@@ -43,7 +43,8 @@ extension YandexAuthPresenter: PaymentMethodsViewOutput {
             if self.testModeSettings != nil {
                 DispatchQueue.global().async {
                     self.interactor.fetchYamoneyPaymentMethods(
-                        moneyCenterAuthToken: "MOCK_TOKEN"
+                        moneyCenterAuthToken: "MOCK_TOKEN",
+                        walletDisplayName: nil
                     )
                 }
             } else {
@@ -116,7 +117,8 @@ extension YandexAuthPresenter: YandexAuthModuleInput {}
 extension YandexAuthPresenter: AuthorizationCoordinatorDelegate {
     func authorizationCoordinator(
         _ coordinator: AuthorizationCoordinator,
-        didAcquireAuthorizationToken token: String
+        didAcquireAuthorizationToken token: String,
+        account: UserAccount
     ) {
         self.moneyAuthCoordinator = nil
         DispatchQueue.main.async { [weak self] in
@@ -126,7 +128,8 @@ extension YandexAuthPresenter: AuthorizationCoordinatorDelegate {
             DispatchQueue.global().async { [weak self] in
                 guard let self = self else { return }
                 self.interactor.fetchYamoneyPaymentMethods(
-                    moneyCenterAuthToken: token
+                    moneyCenterAuthToken: token,
+                    walletDisplayName: account.displayName.title
                 )
             }
         }
@@ -155,8 +158,14 @@ extension YandexAuthPresenter: AuthorizationCoordinatorDelegate {
         }
     }
 
-    func authorizationCoordinatorDidPrepareProcess(_ coordinator: AuthorizationCoordinator) {}
-    func authorizationCoordinator(_ coordinator: AuthorizationCoordinator, didFailPrepareProcessWithError error: Error) {}
+    func authorizationCoordinatorDidPrepareProcess(
+        _ coordinator: AuthorizationCoordinator
+    ) {}
+
+    func authorizationCoordinator(
+        _ coordinator: AuthorizationCoordinator,
+        didFailPrepareProcessWithError error: Error
+    ) {}
 }
 
 // MARK: - Private helpers

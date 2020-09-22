@@ -101,9 +101,10 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
                                                               didSelect: paymentMethod,
                                                               methodsCount: paymentMethods.count)
             } else {
+                let walletDisplayName = strongSelf.interactor.getWalletDisplayName()
                 let viewModels = { PaymentMethodViewModelFactory
                     .makePaymentMethodViewModel(paymentOption: $0,
-                                                yandexDisplayName: nil) } <^> paymentMethods
+                                                yandexDisplayName: walletDisplayName) } <^> paymentMethods
                 view.hideActivity()
                 view.setPaymentMethodViewModels(viewModels)
             }
