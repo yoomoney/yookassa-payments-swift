@@ -8,6 +8,7 @@ struct YandexAuthModuleInputData {
     let amount: Amount
     let isLoggingEnabled: Bool
     let getSavePaymentMethod: Bool?
+    let moneyAuthClientId: String
 }
 
 protocol YandexAuthModuleInput: class {}

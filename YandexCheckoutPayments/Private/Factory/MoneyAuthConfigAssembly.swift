@@ -1,17 +1,18 @@
 import MoneyAuth
 
 enum MoneyAuthConfigAssembly {
-    static func makeMoneyAuthConfig() -> MoneyAuth.Config {
+    static func makeMoneyAuthConfig(
+        clientId: String
+    ) -> MoneyAuth.Config {
+
+        assert(clientId.isEmpty == false, "Money center authorization identifier shouldn't be empty")
+
         let keyValueStorage = KeyValueStoringAssembly.makeSettingsStorage()
         let isDevHost = keyValueStorage.getBool(for: Settings.Keys.devHost) ?? false
 
         let authenticationChallengeHandler = makeAuthenticationChallengeHandler(
             isDevHost: isDevHost
         )
-
-        // TODO: MOC-1080 Move client id to SDK init parameters
-        let clientId = ""
-        assert(clientId.isEmpty == false)
 
         let config = MoneyAuth.Config(
             origin: .wallet,
