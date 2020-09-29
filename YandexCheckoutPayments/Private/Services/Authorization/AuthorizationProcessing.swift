@@ -35,7 +35,8 @@ protocol AuthorizationProcessing {
     func loginInYamoney(
         merchantClientAuthorization: String,
         amount: MonetaryAmount,
-        reusableToken: Bool
+        reusableToken: Bool,
+        tmxSessionId: String?
     ) -> Promise<YamoneyLoginResponse>
 
     func startNewAuthSession(

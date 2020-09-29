@@ -17,6 +17,7 @@ final class YandexAuthPresenter {
     // MARK: - Stored properties
 
     private var moneyAuthCoordinator: MoneyAuth.AuthorizationCoordinator?
+    private var tmxSessionId: String?
 
     // MARK: - Initialization
 
@@ -89,7 +90,11 @@ extension YandexAuthPresenter: YandexAuthInteractorOutput {
         if let paymentOption = paymentMethods.first as? PaymentInstrumentYandexMoneyWallet,
            paymentMethods.count == 1 {
 
-            moduleOutput?.yandexAuthModule(self, didFetchYamoneyPaymentMethod: paymentOption)
+            moduleOutput?.yandexAuthModule(
+                self,
+                didFetchYamoneyPaymentMethod: paymentOption,
+                tmxSessionId: tmxSessionId
+            )
 
         } else if paymentMethods.contains(where: condition) == false {
 
@@ -101,7 +106,10 @@ extension YandexAuthPresenter: YandexAuthInteractorOutput {
 
         } else {
 
-            moduleOutput?.didFetchYamoneyPaymentMethods(on: self)
+            moduleOutput?.didFetchYamoneyPaymentMethods(
+                on: self,
+                tmxSessionId: tmxSessionId
+            )
 
         }
     }
@@ -121,9 +129,14 @@ extension YandexAuthPresenter: AuthorizationCoordinatorDelegate {
     func authorizationCoordinator(
         _ coordinator: AuthorizationCoordinator,
         didAcquireAuthorizationToken token: String,
-        account: UserAccount
+        account: UserAccount,
+        tmxSessionId: String?,
+        phoneOffersAccepted: Bool,
+        emailOffersAccepted: Bool
     ) {
         self.moneyAuthCoordinator = nil
+        self.tmxSessionId = tmxSessionId
+
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.router.closeAuthorizationModule()

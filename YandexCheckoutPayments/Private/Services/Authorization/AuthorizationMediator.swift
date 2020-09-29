@@ -77,9 +77,12 @@ extension AuthorizationMediator: AuthorizationProcessing {
 // MARK: - AuthorizationProcessing Wallet 2FA
 
 extension AuthorizationMediator {
-    func loginInYamoney(merchantClientAuthorization: String,
-                        amount: MonetaryAmount,
-                        reusableToken: Bool) -> Promise<YamoneyLoginResponse> {
+    func loginInYamoney(
+        merchantClientAuthorization: String,
+        amount: MonetaryAmount,
+        reusableToken: Bool,
+        tmxSessionId: String?
+    ) -> Promise<YamoneyLoginResponse> {
 
         if let token = getWalletToken(), hasReusableWalletToken() {
             return Promise { return YamoneyLoginResponse.authorized(CheckoutTokenIssueExecute(accessToken: token)) }
@@ -100,9 +103,14 @@ extension AuthorizationMediator {
         let authorizedRequest = request(passportAuthorization)(merchantClientAuthorization)(instanceName)
         let paymentUsageLimit: PaymentUsageLimit = reusableToken ? .multiple : .single
 
-        let tmxSessionId = ThreatMetrixService.profileApp()
+        var promiseTmxSessionId: Promise<String>
+        if let tmxSessionId = tmxSessionId {
+            promiseTmxSessionId = Promise { return tmxSessionId }
+        } else {
+            promiseTmxSessionId = ThreatMetrixService.profileApp()
+        }
 
-        let response = authorizedRequest(amount)(paymentUsageLimit) -<< tmxSessionId
+        let response = authorizedRequest(amount)(paymentUsageLimit) -<< promiseTmxSessionId
         return saveYamoneyLoginInStorage <^> response
     }
 

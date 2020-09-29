@@ -36,9 +36,17 @@ final class TokenizationInteractor {
 
 extension TokenizationInteractor: TokenizationInteractorInput {
 
-    func tokenize(_ data: TokenizeData, paymentOption: PaymentOption) {
-
-        let tmxSessionId = ThreatMetrixService.profileApp()
+    func tokenize(
+        _ data: TokenizeData,
+        paymentOption: PaymentOption,
+        tmxSessionId: String?
+    ) {
+        let promiseTmxSessionId: Promise<String>
+        if let tmxSessionId = tmxSessionId {
+            promiseTmxSessionId = Promise { return tmxSessionId }
+        } else {
+            promiseTmxSessionId = ThreatMetrixService.profileApp()
+        }
 
         let makeToken: (MonetaryAmount?) -> (String) -> Promise<Tokens>
 
@@ -78,7 +86,7 @@ extension TokenizationInteractor: TokenizationInteractorInput {
         }
 
         let monetaryAmount = paymentOption.charge
-        let tokens = makeToken(monetaryAmount) -<< tmxSessionId
+        let tokens = makeToken(monetaryAmount) -<< promiseTmxSessionId
         let tokensWithError = tokens.recover(on: .global(), mapError)
 
         guard let output = output else { return }
@@ -90,12 +98,19 @@ extension TokenizationInteractor: TokenizationInteractorInput {
         return authorizationService.getWalletDisplayName()
     }
 
-    func loginInYandexMoney(reusableToken: Bool, paymentOption: PaymentOption) {
+    func loginInYandexMoney(
+        reusableToken: Bool,
+        paymentOption: PaymentOption,
+        tmxSessionId: String?
+    ) {
         let walletMonetaryAmount = MonetaryAmountFactory.makeWalletMonetaryAmount(paymentOption.charge)
 
-        let response = authorizationService.loginInYamoney(merchantClientAuthorization: clientApplicationKey,
-                                                           amount: walletMonetaryAmount,
-                                                           reusableToken: reusableToken)
+        let response = authorizationService.loginInYamoney(
+            merchantClientAuthorization: clientApplicationKey,
+            amount: walletMonetaryAmount,
+            reusableToken: reusableToken,
+            tmxSessionId: tmxSessionId
+        )
         let responseWithError = response.recover(on: .global(), mapError)
 
         guard let output = output else { return }
