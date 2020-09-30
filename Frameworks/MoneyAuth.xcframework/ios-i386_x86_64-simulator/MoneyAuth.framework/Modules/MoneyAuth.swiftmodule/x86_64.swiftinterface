@@ -1,0 +1,313 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.2.4 (swiftlang-1103.0.32.9 clang-1103.0.32.53)
+// swift-module-flags: -target x86_64-apple-ios10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name MoneyAuth
+import CommonCrypto
+import Compression
+import CoreGraphics
+import CoreGraphics/*.CGFloat*/
+import Dispatch
+import Foundation
+import FunctionalSwift
+import FunctionalSwift/*.Either*/
+import FunctionalSwift/*.Result*/
+@_exported import MoneyAuth
+import UIKit.NSLayoutConstraint
+import QuartzCore
+import SafariServices
+import Swift
+import TMXProfiling
+import UIKit.UIImage
+import UIKit
+import UIKit/*.UIImage*/
+import UIKit/*.UILayoutGuide*/
+import UIKit/*.UILayoutPriority*/
+import UIKit/*.UITextField*/
+import UIKit/*.UIView*/
+import UIKit.UIResponder
+import UIKit.UITableView
+import UIKit.UITableViewCell
+import UIKit.UITableViewHeaderFooterView
+import UIKit.UIView
+import UIKit.UIViewController
+import WebKit
+import YandexMoneyCoreApi
+import YandexMoneyCoreApi/*.ApiResponse*/
+import YandexMoneyCoreApi/*.ApiSession*/
+import YandexMoneyCoreApi/*.Task*/
+import os
+public protocol LargeItemViewInput : AnyObject {
+  var title: Swift.String { get set }
+  var subtitle: Swift.String { get set }
+}
+@objc @_inheritsConvenienceInitializers final public class LargeItemView : UIKit.UIView {
+  final public var title: Swift.String {
+    get
+    set
+  }
+  final public var subtitle: Swift.String {
+    get
+    set
+  }
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+extension LargeItemView : MoneyAuth.LargeItemViewInput {
+}
+extension LargeItemView {
+  final public var leftSeparatorInset: CoreGraphics.CGFloat {
+    get
+  }
+}
+public enum TestScreenFactory {
+  public static func makeProfileModule(config: MoneyAuth.Config, oauthToken: Swift.String) -> UIKit.UIViewController
+  public static func makeSetUpPhoneModule(withOffers: Swift.Bool) -> UIKit.UIViewController
+  public static func makeConfirmPhoneForEnrollmentModule(codeLength: Swift.Int) -> UIKit.UIViewController
+  public static func makeChoosePhoneForMigrationModule() -> UIKit.UIViewController
+  public static func makeChooseEmailForMigrationModule() -> UIKit.UIViewController
+  public static func makeSetEmailModule(withOffers: Swift.Bool) -> UIKit.UIViewController
+  public static func makeConfirmEmailForEnrollmentModule() -> UIKit.UIViewController
+  public static func makeSetPasswordForEnrollmentModule() -> UIKit.UIViewController
+  public static func makeAccountListModule() -> UIKit.UIViewController
+  public static func makeEnterIdentifierModule() -> UIKit.UIViewController
+  public static func makeConfirmPhoneForLoginModule(codeLength: Swift.Int) -> UIKit.UIViewController
+  public static func makeConfirmEmailForLoginModule() -> UIKit.UIViewController
+  public static func makeEnterPasswordModule(withAccount: Swift.Bool) -> UIKit.UIViewController
+  public static func makeConfirmPhoneForMigrationModule(codeLength: Swift.Int) -> UIKit.UIViewController
+  public static func makeConfirmPhoneForChangeEmailModule(codeLength: Swift.Int) -> UIKit.UIViewController
+  public static func makeSetPasswordForMigrationModule() -> UIKit.UIViewController
+  public static func makeConfirmEmailForMigrationModule() -> UIKit.UIViewController
+  public static func makeConfirmEmailForChangeEmailModule() -> UIKit.UIViewController
+  public static func makeEnterPasswordForChangeEmailModule() -> UIKit.UIViewController
+  public static func makeSetEmailForChangeEmailModule() -> UIKit.UIViewController
+  public static func makeEnterPhoneForPasswordRecoveryModule() -> UIKit.UIViewController
+  public static func makeSimpleInformationModule() -> UIKit.UIViewController
+  public static func initializeModulesOutput(viewController: UIKit.UIViewController)
+}
+extension UIButton {
+  @objc override dynamic open var intrinsicContentSize: CoreGraphics.CGSize {
+    @objc get
+  }
+}
+public protocol TitleItemViewInput : AnyObject {
+  var title: Swift.String { get set }
+}
+public typealias AuthenticationChallengeHandler = ((Foundation.URLSession, Foundation.URLAuthenticationChallenge, @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void) -> Swift.Void)
+public struct Config {
+  public init(origin: MoneyAuth.Origin, clientId: Swift.String, host: Swift.String, isDevHost: Swift.Bool = false, loggingEnabled: Swift.Bool = false, authenticationChallengeHandler: MoneyAuth.AuthenticationChallengeHandler? = nil, isPasswordRecoveryEnabled: Swift.Bool, setEmailSwitchTitle: Swift.String?, setPhoneSwitchTitle: Swift.String?, userAgreement: Swift.String?, userWithEmailAgreement: Swift.String?, setEmailScreenSubtitle: Swift.String, migrationScreenTitle: Swift.String, migrationScreenSubtitle: Swift.String, supportEmail: Swift.String, yxOauthClientId: Swift.String)
+}
+public protocol AvatarViewInput : AnyObject {
+  var userImage: UIKit.UIImage? { get set }
+  var placeholderText: Swift.String { get set }
+}
+@objc @_inheritsConvenienceInitializers final public class TitleItemTableViewCell : UIKit.UITableViewCell {
+  final public var title: Swift.String {
+    get
+    set
+  }
+  final public var itemView: MoneyAuth.TitleItemView {
+    get
+  }
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @objc override final public func layoutSubviews()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers final public class TitleItemView : UIKit.UIView {
+  final public var title: Swift.String {
+    get
+    set
+  }
+  final public let titleLabel: UIKit.UILabel
+  @objc override final public var accessibilityIdentifier: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+extension TitleItemView : MoneyAuth.TitleItemViewInput {
+}
+extension TitleItemView {
+  final public var leftSeparatorInset: CoreGraphics.CGFloat {
+    get
+  }
+}
+infix operator ?< : DefaultPrecedence
+@objc @_inheritsConvenienceInitializers final public class LargeItemTableViewCell : UIKit.UITableViewCell {
+  final public var title: Swift.String {
+    get
+    set
+  }
+  final public var subtitle: Swift.String {
+    get
+    set
+  }
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @objc override final public func layoutSubviews()
+  @objc deinit
+}
+public enum Origin : Swift.String {
+  case wallet
+  case checkout
+  case corporateBanking
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension Origin : Swift.Codable {
+}
+public protocol AuthorizationCoordinatorDelegate : AnyObject {
+  func authorizationCoordinatorDidCancel(_ coordinator: MoneyAuth.AuthorizationCoordinator)
+  func authorizationCoordinatorDidPrepareProcess(_ coordinator: MoneyAuth.AuthorizationCoordinator)
+  func authorizationCoordinator(_ coordinator: MoneyAuth.AuthorizationCoordinator, didFailPrepareProcessWithError error: Swift.Error)
+  func authorizationCoordinator(_ coordinator: MoneyAuth.AuthorizationCoordinator, didFailureWith error: Swift.Error)
+  func authorizationCoordinator(_ coordinator: MoneyAuth.AuthorizationCoordinator, didAcquireAuthorizationToken token: Swift.String, account: MoneyAuth.UserAccount, tmxSessionId: Swift.String?, phoneOffersAccepted: Swift.Bool, emailOffersAccepted: Swift.Bool)
+}
+final public class AuthorizationCoordinator {
+  public init(processType: MoneyAuth.AuthorizationProcessType, config: MoneyAuth.Config)
+  weak final public var delegate: MoneyAuth.AuthorizationCoordinatorDelegate?
+  final public func makeInitialViewController() throws -> UIKit.UIViewController
+  final public func prepareProcess()
+  @objc deinit
+}
+extension AuthorizationCoordinator : MoneyAuth.PasswordRecoveryCoordinatorDelegate {
+  final public func passwordRecoveryCoordinatorDidCancel(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
+  final public func passwordRecoveryCoordinatorDidPrepareProcess(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
+  final public func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailPrepareProcessWithError error: Swift.Error)
+  final public func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailureWith error: Swift.Error)
+}
+public struct UserAccount {
+  public let uid: Swift.String
+  public let email: MoneyAuth.UserAccount.EmailInfo
+  public let phone: MoneyAuth.UserAccount.PhoneInfo
+  public let displayName: MoneyAuth.UserAccount.DisplayNameInfo
+  public let password: MoneyAuth.UserAccount.PasswordInfo
+  public let avatar: MoneyAuth.UserAccount.AvatarInfo
+  public let language: MoneyAuth.UserAccount.LanguageInfo
+  public let services: [MoneyAuth.Service]
+  public struct EmailInfo {
+    public let title: Swift.String?
+    public let modifiable: Swift.Bool
+  }
+  public struct PhoneInfo {
+    public let title: Swift.String?
+    public let modifiable: Swift.Bool
+  }
+  public struct DisplayNameInfo {
+    public let title: Swift.String?
+    public let modifiable: Swift.Bool
+  }
+  public struct PasswordInfo {
+    public let modifiable: Swift.Bool
+  }
+  public struct AvatarInfo {
+    public let url: Foundation.URL?
+  }
+  public struct LanguageInfo {
+    public let value: Swift.String
+    public let modifiable: Swift.Bool
+  }
+}
+extension UserAccount : Swift.Decodable {
+  public init(from decoder: Swift.Decoder) throws
+}
+extension UserAccount.EmailInfo : Swift.Decodable {
+  public init(from decoder: Swift.Decoder) throws
+}
+extension UserAccount.PhoneInfo : Swift.Decodable {
+  public init(from decoder: Swift.Decoder) throws
+}
+extension UserAccount.DisplayNameInfo : Swift.Decodable {
+  public init(from decoder: Swift.Decoder) throws
+}
+extension UserAccount.PasswordInfo : Swift.Decodable {
+  public init(from decoder: Swift.Decoder) throws
+}
+extension UserAccount.AvatarInfo : Swift.Decodable {
+  public init(from decoder: Swift.Decoder) throws
+}
+extension UserAccount.LanguageInfo : Swift.Decodable {
+  public init(from decoder: Swift.Decoder) throws
+}
+public struct Service {
+  public let type: MoneyAuth.Origin?
+  public let title: Swift.String
+  public let logoUrl: Foundation.URL?
+}
+extension Service : Swift.Decodable {
+  public init(from decoder: Swift.Decoder) throws
+}
+public protocol ChangeEmailCoordinatorDelegate : AnyObject {
+  func changeEmailCoordinatorDidCancel(_ coordinator: MoneyAuth.ChangeEmailCoordinator)
+  func changeEmailCoordinatorDidPrepareProcess(_ coordinator: MoneyAuth.ChangeEmailCoordinator)
+  func changeEmailCoordinator(_ coordinator: MoneyAuth.ChangeEmailCoordinator, didFailPrepareProcessWithError error: Swift.Error)
+  func changeEmailCoordinator(_ coordinator: MoneyAuth.ChangeEmailCoordinator, didFailureWith error: Swift.Error)
+}
+final public class ChangeEmailCoordinator {
+  public init(config: MoneyAuth.Config, oauthToken: Swift.String, oldEmailIsEmpty: Swift.Bool)
+  weak final public var delegate: MoneyAuth.ChangeEmailCoordinatorDelegate?
+  final public func makeInitialViewController() throws -> UIKit.UIViewController
+  final public func prepareProcess()
+  @objc deinit
+}
+extension ChangeEmailCoordinator : MoneyAuth.PasswordRecoveryCoordinatorDelegate {
+  final public func passwordRecoveryCoordinatorDidCancel(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
+  final public func passwordRecoveryCoordinatorDidPrepareProcess(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
+  final public func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailPrepareProcessWithError error: Swift.Error)
+  final public func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailureWith error: Swift.Error)
+}
+public enum AuthorizationProcessType {
+  case enrollment
+  case login
+  case migration
+  public static func == (a: MoneyAuth.AuthorizationProcessType, b: MoneyAuth.AuthorizationProcessType) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public enum ProcessCoordinatorError : Swift.Error {
+  case `internal`
+  case alreadyStarted
+  case unsupportedStep
+  public static func == (a: MoneyAuth.ProcessCoordinatorError, b: MoneyAuth.ProcessCoordinatorError) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public enum RevokeTokenResult {
+  case success
+  case error(Swift.Error)
+}
+public protocol RevokeTokenService {
+  func revoke(oauthToken: Swift.String, completion: @escaping (MoneyAuth.RevokeTokenResult) -> Swift.Void)
+}
+public enum RevokeTokenServiceFactory {
+  public static func makeService(config: MoneyAuth.Config) -> MoneyAuth.RevokeTokenService
+}
+public protocol PasswordRecoveryCoordinatorDelegate : AnyObject {
+  func passwordRecoveryCoordinatorDidCancel(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
+  func passwordRecoveryCoordinatorDidPrepareProcess(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
+  func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailPrepareProcessWithError error: Swift.Error)
+  func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailureWith error: Swift.Error)
+}
+final public class PasswordRecoveryCoordinator {
+  public init(config: MoneyAuth.Config)
+  weak final public var delegate: MoneyAuth.PasswordRecoveryCoordinatorDelegate?
+  final public func makeInitialViewController() throws -> UIKit.UIViewController
+  final public func prepareProcess()
+  @objc deinit
+}
+extension MoneyAuth.Origin : Swift.Equatable {}
+extension MoneyAuth.Origin : Swift.Hashable {}
+extension MoneyAuth.Origin : Swift.RawRepresentable {}
+extension MoneyAuth.AuthorizationProcessType : Swift.Equatable {}
+extension MoneyAuth.AuthorizationProcessType : Swift.Hashable {}
+extension MoneyAuth.ProcessCoordinatorError : Swift.Equatable {}
+extension MoneyAuth.ProcessCoordinatorError : Swift.Hashable {}

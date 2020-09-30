@@ -21,9 +21,16 @@ enum MoneyAuthConfigAssembly {
             isDevHost: isDevHost,
             loggingEnabled: true,
             authenticationChallengeHandler: authenticationChallengeHandler,
+            isPasswordRecoveryEnabled: false,
             setEmailSwitchTitle: nil,
             setPhoneSwitchTitle: nil,
-            userAgreement: nil
+            userAgreement: nil,
+            userWithEmailAgreement: nil,
+            setEmailScreenSubtitle: "setEmailScreenSubtitle",
+            migrationScreenTitle: "migrationScreenTitle",
+            migrationScreenSubtitle: "migrationScreenSubtitle",
+            supportEmail: "supportEmail",
+            yxOauthClientId: "7767c737cf5747dca8d3bc4689219013"
         )
         return config
     }

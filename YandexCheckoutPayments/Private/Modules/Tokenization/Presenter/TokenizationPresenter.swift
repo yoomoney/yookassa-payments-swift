@@ -33,6 +33,7 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
     private var strategy: TokenizationStrategyInput?
     private var tokenizeData: TokenizeData?
     private var isReusableToken: Bool?
+    private var tmxSessionId: String?
 
     private var paymentOption: PaymentOption? {
         didSet {
@@ -266,11 +267,27 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
 
     func tokenize(_ data: TokenizeData, paymentOption: PaymentOption) {
         tokenizeData = data
-        interactor.tokenize(data, paymentOption: paymentOption)
+        var tmxSessionId: String?
+        if paymentOption is PaymentInstrumentYandexMoneyWallet {
+            tmxSessionId = self.tmxSessionId
+        }
+        interactor.tokenize(
+            data,
+            paymentOption: paymentOption,
+            tmxSessionId: tmxSessionId
+        )
     }
 
     func loginInYandexMoney(reusableToken: Bool, paymentOption: PaymentOption) {
-        interactor.loginInYandexMoney(reusableToken: reusableToken, paymentOption: paymentOption)
+        var tmxSessionId: String?
+        if paymentOption is PaymentInstrumentYandexMoneyWallet {
+            tmxSessionId = self.tmxSessionId
+        }
+        interactor.loginInYandexMoney(
+            reusableToken: reusableToken,
+            paymentOption: paymentOption,
+            tmxSessionId: tmxSessionId
+        )
     }
 
     func logout(accountId: String) {
@@ -611,12 +628,21 @@ extension TokenizationPresenter: MaskedBankCardDataInputModuleOutput {
 
 extension TokenizationPresenter: YandexAuthModuleOutput {
 
-    func yandexAuthModule(_ module: YandexAuthModuleInput, didFetchYamoneyPaymentMethod paymentMethod: PaymentOption) {
+    func yandexAuthModule(
+        _ module: YandexAuthModuleInput,
+        didFetchYamoneyPaymentMethod paymentMethod: PaymentOption,
+        tmxSessionId: String?
+    ) {
         self.paymentOption = paymentMethod
+        self.tmxSessionId = tmxSessionId
         strategy?.beginProcess()
     }
 
-    func didFetchYamoneyPaymentMethods(on module: YandexAuthModuleInput) {
+    func didFetchYamoneyPaymentMethods(
+        on module: YandexAuthModuleInput,
+        tmxSessionId: String?
+    ) {
+        self.tmxSessionId = tmxSessionId
         presentPaymentMethodsModule()
     }
 

@@ -29,6 +29,7 @@ import UIKit.UITableViewCell
 import UIKit.UITableViewHeaderFooterView
 import UIKit.UIView
 import UIKit.UIViewController
+import WebKit
 import YandexMoneyCoreApi
 import YandexMoneyCoreApi/*.ApiResponse*/
 import YandexMoneyCoreApi/*.ApiSession*/
@@ -59,7 +60,7 @@ extension LargeItemView {
   }
 }
 public enum TestScreenFactory {
-  public static func makeProfileModule(config: MoneyAuth.Config, authorization: Swift.String) -> UIKit.UIViewController
+  public static func makeProfileModule(config: MoneyAuth.Config, oauthToken: Swift.String) -> UIKit.UIViewController
   public static func makeSetUpPhoneModule(withOffers: Swift.Bool) -> UIKit.UIViewController
   public static func makeConfirmPhoneForEnrollmentModule(codeLength: Swift.Int) -> UIKit.UIViewController
   public static func makeChoosePhoneForMigrationModule() -> UIKit.UIViewController
@@ -78,6 +79,8 @@ public enum TestScreenFactory {
   public static func makeConfirmEmailForMigrationModule() -> UIKit.UIViewController
   public static func makeConfirmEmailForChangeEmailModule() -> UIKit.UIViewController
   public static func makeEnterPasswordForChangeEmailModule() -> UIKit.UIViewController
+  public static func makeSetEmailForChangeEmailModule() -> UIKit.UIViewController
+  public static func makeEnterPhoneForPasswordRecoveryModule() -> UIKit.UIViewController
   public static func makeSimpleInformationModule() -> UIKit.UIViewController
   public static func initializeModulesOutput(viewController: UIKit.UIViewController)
 }
@@ -91,10 +94,7 @@ public protocol TitleItemViewInput : AnyObject {
 }
 public typealias AuthenticationChallengeHandler = ((Foundation.URLSession, Foundation.URLAuthenticationChallenge, @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void) -> Swift.Void)
 public struct Config {
-  public init(origin: MoneyAuth.Origin, clientId: Swift.String, host: Swift.String, isDevHost: Swift.Bool = false, loggingEnabled: Swift.Bool = false, authenticationChallengeHandler: MoneyAuth.AuthenticationChallengeHandler? = nil, setEmailSwitchTitle: Swift.String?, setPhoneSwitchTitle: Swift.String?, userAgreement: Swift.String?)
-}
-public enum MoneyUILib {
-  public static func setup()
+  public init(origin: MoneyAuth.Origin, clientId: Swift.String, host: Swift.String, isDevHost: Swift.Bool = false, loggingEnabled: Swift.Bool = false, authenticationChallengeHandler: MoneyAuth.AuthenticationChallengeHandler? = nil, isPasswordRecoveryEnabled: Swift.Bool, setEmailSwitchTitle: Swift.String?, setPhoneSwitchTitle: Swift.String?, userAgreement: Swift.String?, userWithEmailAgreement: Swift.String?, setEmailScreenSubtitle: Swift.String, migrationScreenTitle: Swift.String, migrationScreenSubtitle: Swift.String, supportEmail: Swift.String, yxOauthClientId: Swift.String)
 }
 public protocol AvatarViewInput : AnyObject {
   var userImage: UIKit.UIImage? { get set }
@@ -166,7 +166,7 @@ public protocol AuthorizationCoordinatorDelegate : AnyObject {
   func authorizationCoordinatorDidPrepareProcess(_ coordinator: MoneyAuth.AuthorizationCoordinator)
   func authorizationCoordinator(_ coordinator: MoneyAuth.AuthorizationCoordinator, didFailPrepareProcessWithError error: Swift.Error)
   func authorizationCoordinator(_ coordinator: MoneyAuth.AuthorizationCoordinator, didFailureWith error: Swift.Error)
-  func authorizationCoordinator(_ coordinator: MoneyAuth.AuthorizationCoordinator, didAcquireAuthorizationToken token: Swift.String, account: MoneyAuth.UserAccount)
+  func authorizationCoordinator(_ coordinator: MoneyAuth.AuthorizationCoordinator, didAcquireAuthorizationToken token: Swift.String, account: MoneyAuth.UserAccount, tmxSessionId: Swift.String?, phoneOffersAccepted: Swift.Bool, emailOffersAccepted: Swift.Bool)
 }
 final public class AuthorizationCoordinator {
   public init(processType: MoneyAuth.AuthorizationProcessType, config: MoneyAuth.Config)
@@ -174,6 +174,12 @@ final public class AuthorizationCoordinator {
   final public func makeInitialViewController() throws -> UIKit.UIViewController
   final public func prepareProcess()
   @objc deinit
+}
+extension AuthorizationCoordinator : MoneyAuth.PasswordRecoveryCoordinatorDelegate {
+  final public func passwordRecoveryCoordinatorDidCancel(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
+  final public func passwordRecoveryCoordinatorDidPrepareProcess(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
+  final public func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailPrepareProcessWithError error: Swift.Error)
+  final public func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailureWith error: Swift.Error)
 }
 public struct UserAccount {
   public let uid: Swift.String
@@ -231,7 +237,7 @@ extension UserAccount.LanguageInfo : Swift.Decodable {
 public struct Service {
   public let type: MoneyAuth.Origin?
   public let title: Swift.String
-  public let logoUrl: Foundation.URL
+  public let logoUrl: Foundation.URL?
 }
 extension Service : Swift.Decodable {
   public init(from decoder: Swift.Decoder) throws
@@ -243,11 +249,17 @@ public protocol ChangeEmailCoordinatorDelegate : AnyObject {
   func changeEmailCoordinator(_ coordinator: MoneyAuth.ChangeEmailCoordinator, didFailureWith error: Swift.Error)
 }
 final public class ChangeEmailCoordinator {
-  public init(config: MoneyAuth.Config, authorization: Swift.String, oldEmailIsEmpty: Swift.Bool)
+  public init(config: MoneyAuth.Config, oauthToken: Swift.String, oldEmailIsEmpty: Swift.Bool)
   weak final public var delegate: MoneyAuth.ChangeEmailCoordinatorDelegate?
   final public func makeInitialViewController() throws -> UIKit.UIViewController
   final public func prepareProcess()
   @objc deinit
+}
+extension ChangeEmailCoordinator : MoneyAuth.PasswordRecoveryCoordinatorDelegate {
+  final public func passwordRecoveryCoordinatorDidCancel(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
+  final public func passwordRecoveryCoordinatorDidPrepareProcess(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
+  final public func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailPrepareProcessWithError error: Swift.Error)
+  final public func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailureWith error: Swift.Error)
 }
 public enum AuthorizationProcessType {
   case enrollment
@@ -262,11 +274,35 @@ public enum AuthorizationProcessType {
 public enum ProcessCoordinatorError : Swift.Error {
   case `internal`
   case alreadyStarted
+  case unsupportedStep
   public static func == (a: MoneyAuth.ProcessCoordinatorError, b: MoneyAuth.ProcessCoordinatorError) -> Swift.Bool
   public var hashValue: Swift.Int {
     get
   }
   public func hash(into hasher: inout Swift.Hasher)
+}
+public enum RevokeTokenResult {
+  case success
+  case error(Swift.Error)
+}
+public protocol RevokeTokenService {
+  func revoke(oauthToken: Swift.String, completion: @escaping (MoneyAuth.RevokeTokenResult) -> Swift.Void)
+}
+public enum RevokeTokenServiceFactory {
+  public static func makeService(config: MoneyAuth.Config) -> MoneyAuth.RevokeTokenService
+}
+public protocol PasswordRecoveryCoordinatorDelegate : AnyObject {
+  func passwordRecoveryCoordinatorDidCancel(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
+  func passwordRecoveryCoordinatorDidPrepareProcess(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
+  func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailPrepareProcessWithError error: Swift.Error)
+  func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailureWith error: Swift.Error)
+}
+final public class PasswordRecoveryCoordinator {
+  public init(config: MoneyAuth.Config)
+  weak final public var delegate: MoneyAuth.PasswordRecoveryCoordinatorDelegate?
+  final public func makeInitialViewController() throws -> UIKit.UIViewController
+  final public func prepareProcess()
+  @objc deinit
 }
 extension MoneyAuth.Origin : Swift.Equatable {}
 extension MoneyAuth.Origin : Swift.Hashable {}
