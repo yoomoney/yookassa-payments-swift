@@ -45,8 +45,12 @@ public struct TokenizationModuleInputData {
     /// Setting for saving payment method.
     let savePaymentMethod: SavePaymentMethod
 
-    /// Money center authorization identifier
-    let moneyAuthCliendId: String
+    /// Money center authorization identifier.
+    let moneyAuthClientId: String
+
+    /// Yandex oauth client id.
+    /// Example: 7767c737cf5747dca8d3bc4689219013
+    let yandexLoginOauthClientId: String?
 
     /// Creates instance of `TokenizationModuleInputData`.
     ///
@@ -67,7 +71,7 @@ public struct TokenizationModuleInputData {
     ///                      Example: +X XXX XXX XX XX
     ///   - customizationSettings: Settings to customize SDK interface.
     ///   - savePaymentMethod: Setting for saving payment method.
-    ///   - moneyAuthCliendId: Money center authorization identifier
+    ///   - moneyAuthClientId: Money center authorization identifier
     ///
     /// - Returns: Instance of `TokenizationModuleInputData`.
     public init(
@@ -85,7 +89,8 @@ public struct TokenizationModuleInputData {
         userPhoneNumber: String? = nil,
         customizationSettings: CustomizationSettings = CustomizationSettings(),
         savePaymentMethod: SavePaymentMethod,
-        moneyAuthCliendId: String
+        moneyAuthClientId: String,
+        yandexLoginOauthClientId: String? = nil
     ) {
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
@@ -101,6 +106,7 @@ public struct TokenizationModuleInputData {
         self.userPhoneNumber = userPhoneNumber
         self.customizationSettings = customizationSettings
         self.savePaymentMethod = savePaymentMethod
-        self.moneyAuthCliendId = moneyAuthCliendId
+        self.moneyAuthClientId = moneyAuthClientId
+        self.yandexLoginOauthClientId = yandexLoginOauthClientId
     }
 }
