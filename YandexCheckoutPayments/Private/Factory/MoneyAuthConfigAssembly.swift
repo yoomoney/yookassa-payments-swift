@@ -2,10 +2,9 @@ import MoneyAuth
 
 enum MoneyAuthConfigAssembly {
     static func makeMoneyAuthConfig(
-        clientId: String
+        clientId: String,
+        yxOauthClientId: String?
     ) -> MoneyAuth.Config {
-
-        assert(clientId.isEmpty == false, "Money center authorization identifier shouldn't be empty")
 
         let keyValueStorage = KeyValueStoringAssembly.makeSettingsStorage()
         let isDevHost = keyValueStorage.getBool(for: Settings.Keys.devHost) ?? false
@@ -30,7 +29,8 @@ enum MoneyAuthConfigAssembly {
             migrationScreenTitle: "migrationScreenTitle",
             migrationScreenSubtitle: "migrationScreenSubtitle",
             supportEmail: "supportEmail",
-            yxOauthClientId: "7767c737cf5747dca8d3bc4689219013"
+            // TODO: Make yxOauthClientId optional
+            yxOauthClientId: yxOauthClientId ?? ""
         )
         return config
     }
