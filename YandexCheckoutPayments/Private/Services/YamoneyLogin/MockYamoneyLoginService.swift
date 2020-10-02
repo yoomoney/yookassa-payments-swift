@@ -25,32 +25,40 @@ final class MockYamoneyLoginService {
 // MARK: - YamoneyLoginProcessing
 
 extension MockYamoneyLoginService: YamoneyLoginProcessing {
-    func requestAuthorization(passportAuthorization: String,
-                              merchantClientAuthorization: String,
-                              instanceName: String,
-                              singleAmountMax: MonetaryAmount?,
-                              paymentUsageLimit: PaymentUsageLimit,
-                              tmxSessionId: String) -> Promise<YamoneyLoginResponse> {
+    func requestAuthorization(
+        moneyCenterAuthorization: String,
+        merchantClientAuthorization: String,
+        instanceName: String,
+        singleAmountMax: MonetaryAmount?,
+        paymentUsageLimit: PaymentUsageLimit,
+        tmxSessionId: String
+    ) -> Promise<YamoneyLoginResponse> {
         let timeout = makeTimeoutPromise()
-        let response = makeYamoneyLoginResponse(paymentAuthorizationPassed: self.paymentAuthorizationPassed)
+        let response = makeYamoneyLoginResponse(
+            paymentAuthorizationPassed: self.paymentAuthorizationPassed
+        )
         return response <^ timeout
     }
 
-    func startNewSession(passportAuthorization: String,
-                         merchantClientAuthorization: String,
-                         authContextId: String,
-                         authType: AuthType) -> Promise<AuthTypeState> {
+    func startNewSession(
+        moneyCenterAuthorization: String,
+        merchantClientAuthorization: String,
+        authContextId: String,
+        authType: AuthType
+    ) -> Promise<AuthTypeState> {
         let timeout = makeTimeoutPromise()
         let response = makeAuthTypeState()
         return response <^ timeout
     }
 
-    func checkUserAnswer(passportAuthorization: String,
-                         merchantClientAuthorization: String,
-                         authContextId: String,
-                         authType: AuthType,
-                         answer: String,
-                         processId: String) -> Promise<String> {
+    func checkUserAnswer(
+        moneyCenterAuthorization: String,
+        merchantClientAuthorization: String,
+        authContextId: String,
+        authType: AuthType,
+        answer: String,
+        processId: String
+    ) -> Promise<String> {
         let timeout = makeTimeoutPromise()
         let response = MockYamoneyLoginService.accessToken
 
@@ -71,30 +79,40 @@ extension MockYamoneyLoginService: YamoneyLoginProcessing {
 
 private let correctAnswer = "1111"
 
-private func makeYamoneyLoginResponse(paymentAuthorizationPassed: Bool) -> YamoneyLoginResponse {
+private func makeYamoneyLoginResponse(
+    paymentAuthorizationPassed: Bool
+) -> YamoneyLoginResponse {
     let response: YamoneyLoginResponse
     if paymentAuthorizationPassed {
-        let accessToken = CheckoutTokenIssueExecute(accessToken: MockYamoneyLoginService.accessToken)
+        let accessToken = CheckoutTokenIssueExecute(
+            accessToken: MockYamoneyLoginService.accessToken
+        )
         response = YamoneyLoginResponse.authorized(accessToken)
     } else {
-        response = YamoneyLoginResponse.notAuthorized(authTypeState: makeAuthTypeState(),
-                                                      processId: MockYamoneyLoginService.processId,
-                                                      authContextId: MockYamoneyLoginService.authContextId)
+        response = YamoneyLoginResponse.notAuthorized(
+            authTypeState: makeAuthTypeState(),
+            processId: MockYamoneyLoginService.processId,
+            authContextId: MockYamoneyLoginService.authContextId
+        )
     }
     return response
 }
 
-private  func makeAuthTypeState() -> AuthTypeState {
-    let smsDescription = AuthTypeState.Specific.SmsDescription(codeLength: 4,
-                                                               sessionsLeft: 30,
-                                                               sessionTimeLeft: 30,
-                                                               nextSessionTimeLeft: 30)
+private func makeAuthTypeState() -> AuthTypeState {
+    let smsDescription = AuthTypeState.Specific.SmsDescription(
+        codeLength: 4,
+        sessionsLeft: 30,
+        sessionTimeLeft: 30,
+        nextSessionTimeLeft: 30
+    )
     let specific = AuthTypeState.Specific.sms(smsDescription)
-    let authTypeState = AuthTypeState(specific: specific,
-                                      activeSession: nil,
-                                      canBeIssued: true,
-                                      enabled: true,
-                                      isSessionRequired: true)
+    let authTypeState = AuthTypeState(
+        specific: specific,
+        activeSession: nil,
+        canBeIssued: true,
+        enabled: true,
+        isSessionRequired: true
+    )
     return authTypeState
 }
 

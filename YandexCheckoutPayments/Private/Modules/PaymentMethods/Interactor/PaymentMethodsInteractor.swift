@@ -42,13 +42,11 @@ class PaymentMethodsInteractor {
 
 extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
     func fetchPaymentMethods() {
-
-        // TODO: MOC-1014 (Change passportAuthorization to moneyCenterAuthToken)
-        let passportToken = authorizationService.getMoneyCenterAuthToken()
+        let moneyCenterAuthorization = authorizationService.getMoneyCenterAuthToken()
 
         let paymentMethods = paymentService.fetchPaymentOptions(
             clientApplicationKey: clientApplicationKey,
-            passportToken: passportToken,
+            moneyCenterAuthorization: moneyCenterAuthorization,
             gatewayId: gatewayId,
             amount: amount.value.description,
             currency: amount.currency.rawValue,
@@ -56,7 +54,6 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
         )
 
         guard let output = output else { return }
-
         paymentMethods.done(output.didFetchPaymentMethods)
         paymentMethods.fail(output.didFetchPaymentMethods)
     }
