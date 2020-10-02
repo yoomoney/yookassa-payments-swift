@@ -88,8 +88,7 @@ extension AuthorizationMediator {
             return Promise { return YamoneyLoginResponse.authorized(CheckoutTokenIssueExecute(accessToken: token)) }
         }
 
-        // TODO: MOC-1014 (Change passportAuthorization to moneyCenterAuthToken)
-        guard let passportAuthorization = getMoneyCenterAuthToken() else {
+        guard let moneyCenterAuthorization = getMoneyCenterAuthToken() else {
             return Promise { throw AuthorizationProcessingError.passportNotAuthorized }
         }
 
@@ -100,7 +99,7 @@ extension AuthorizationMediator {
         let amount = reusableToken ? nil : amount
 
         let request = curry(yamoneyLoginService.requestAuthorization)
-        let authorizedRequest = request(passportAuthorization)(merchantClientAuthorization)(instanceName)
+        let authorizedRequest = request(moneyCenterAuthorization)(merchantClientAuthorization)(instanceName)
         let paymentUsageLimit: PaymentUsageLimit = reusableToken ? .multiple : .single
 
         var promiseTmxSessionId: Promise<String>
@@ -117,33 +116,37 @@ extension AuthorizationMediator {
     func startNewAuthSession(merchantClientAuthorization: String,
                              contextId: String,
                              authType: AuthType) -> Promise<AuthTypeState> {
-        // TODO: MOC-1014 (Change passportAuthorization to moneyCenterAuthToken)
-        guard let passportAuthorization = getMoneyCenterAuthToken() else {
+        guard let moneyCenterAuthorization = getMoneyCenterAuthToken() else {
             return Promise { throw  AuthorizationProcessingError.passportNotAuthorized }
         }
 
-        return yamoneyLoginService.startNewSession(passportAuthorization: passportAuthorization,
-                                                   merchantClientAuthorization: merchantClientAuthorization,
-                                                   authContextId: contextId,
-                                                   authType: authType)
+        return yamoneyLoginService.startNewSession(
+            moneyCenterAuthorization: moneyCenterAuthorization,
+            merchantClientAuthorization: merchantClientAuthorization,
+            authContextId: contextId,
+            authType: authType
+        )
     }
 
-    func checkUserAnswer(merchantClientAuthorization: String,
-                         authContextId: String,
-                         authType: AuthType,
-                         answer: String,
-                         processId: String) -> Promise<YamoneyLoginResponse> {
-        // TODO: MOC-1014 (Change passportAuthorization to moneyCenterAuthToken)
-        guard let passportAuthorization = getMoneyCenterAuthToken() else {
+    func checkUserAnswer(
+        merchantClientAuthorization: String,
+        authContextId: String,
+        authType: AuthType,
+        answer: String,
+        processId: String
+    ) -> Promise<YamoneyLoginResponse> {
+        guard let moneyCenterAuthorization = getMoneyCenterAuthToken() else {
             return Promise { throw  AuthorizationProcessingError.passportNotAuthorized }
         }
 
-        let token = yamoneyLoginService.checkUserAnswer(passportAuthorization: passportAuthorization,
-                                                        merchantClientAuthorization: merchantClientAuthorization,
-                                                        authContextId: authContextId,
-                                                        authType: authType,
-                                                        answer: answer,
-                                                        processId: processId)
+        let token = yamoneyLoginService.checkUserAnswer(
+            moneyCenterAuthorization: moneyCenterAuthorization,
+            merchantClientAuthorization: merchantClientAuthorization,
+            authContextId: authContextId,
+            authType: authType,
+            answer: answer,
+            processId: processId
+        )
         let response = makeYamoneyLoginResponse <^> token
         return saveYamoneyLoginInStorage <^> response
     }

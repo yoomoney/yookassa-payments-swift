@@ -44,15 +44,16 @@ extension YandexAuthInteractor: YandexAuthInteractorInput {
 
         let paymentMethods = paymentService.fetchPaymentOptions(
             clientApplicationKey: clientApplicationKey,
-            // TODO: MOC-1013 (Change passportToken to moneyCenterAuthToken)
-            passportToken: moneyCenterAuthToken,
+            moneyCenterAuthorization: moneyCenterAuthToken,
             gatewayId: gatewayId,
             amount: amount.value.description,
             currency: amount.currency.rawValue,
             getSavePaymentMethod: getSavePaymentMethod
         )
 
-        let yamoneyPaymentMethods = paymentMethods.map { $0.filter { $0.paymentMethodType == .yandexMoney } }
+        let yamoneyPaymentMethods = paymentMethods.map {
+            $0.filter { $0.paymentMethodType == .yandexMoney }
+        }
 
         guard let output = output else { return }
 

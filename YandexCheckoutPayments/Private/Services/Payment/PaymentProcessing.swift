@@ -29,7 +29,7 @@ enum PaymentProcessingError: PresentableError {
 protocol PaymentProcessing {
     func fetchPaymentOptions(
         clientApplicationKey: String,
-        passportToken: String?,
+        moneyCenterAuthorization: String?,
         gatewayId: String?,
         amount: String?,
         currency: String?,
@@ -52,7 +52,7 @@ protocol PaymentProcessing {
 
     func tokenizeWallet(
         clientApplicationKey: String,
-        yamoneyToken: String,
+        walletAuthorization: String,
         confirmation: Confirmation,
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
@@ -61,7 +61,7 @@ protocol PaymentProcessing {
 
     func tokenizeLinkedBankCard(
         clientApplicationKey: String,
-        yamoneyToken: String,
+        walletAuthorization: String,
         cardId: String,
         csc: String,
         confirmation: Confirmation,

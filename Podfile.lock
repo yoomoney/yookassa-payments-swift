@@ -9,7 +9,7 @@ PODS:
     - When (~> 4.0.0)
     - YandexCheckoutPaymentsApi (~> 1.9.0)
     - YandexCheckoutShowcaseApi (~> 1.2.0)
-    - YandexCheckoutWalletApi (~> 1.3.0)
+    - YandexCheckoutWalletApi (~> 2.0.0)
     - YandexMobileMetrica/Dynamic (~> 3.7.0)
     - YandexMoneyCoreApi (~> 1.7.0)
   - YandexCheckoutPaymentsApi (1.9.0):
@@ -18,7 +18,7 @@ PODS:
   - YandexCheckoutShowcaseApi (1.2.0):
     - FunctionalSwift (~> 1.1.0)
     - YandexMoneyCoreApi (~> 1.7.0)
-  - YandexCheckoutWalletApi (1.3.0):
+  - YandexCheckoutWalletApi (2.0.0):
     - FunctionalSwift (~> 1.1.0)
     - YandexMoneyCoreApi (~> 1.7.0)
   - YandexMobileMetrica/Dynamic (3.7.1):
@@ -36,6 +36,7 @@ DEPENDENCIES:
   - Reveal-SDK
   - SwiftLint
   - YandexCheckoutPayments (from `./`)
+  - "YandexCheckoutWalletApi (from `git@github.com:oltv00/yandex-checkout-wallet-api-swift.git`, branch `task/b2b/MOC-1014`)"
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -46,13 +47,20 @@ SPEC REPOS:
     - When
     - YandexCheckoutPaymentsApi
     - YandexCheckoutShowcaseApi
-    - YandexCheckoutWalletApi
     - YandexMobileMetrica
     - YandexMoneyCoreApi
 
 EXTERNAL SOURCES:
   YandexCheckoutPayments:
     :path: "./"
+  YandexCheckoutWalletApi:
+    :branch: task/b2b/MOC-1014
+    :git: "git@github.com:oltv00/yandex-checkout-wallet-api-swift.git"
+
+CHECKOUT OPTIONS:
+  YandexCheckoutWalletApi:
+    :commit: b087f6c55251f5217111d445c7071905558666d8
+    :git: "git@github.com:oltv00/yandex-checkout-wallet-api-swift.git"
 
 SPEC CHECKSUMS:
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
@@ -60,13 +68,13 @@ SPEC CHECKSUMS:
   Reveal-SDK: 5f94f14aff3d5f2a49f246edcd266fa4472679e9
   SwiftLint: 22ccbbe3b8008684be5955693bab135e0ed6a447
   When: 4ffc88d535a094ad4bd5eaf2fd187de747e716d1
-  YandexCheckoutPayments: d4788b405f5becb479cfde02a081515dca5c2a43
+  YandexCheckoutPayments: 98c86f934c0e1359124fcac3e5285bd0b3685f53
   YandexCheckoutPaymentsApi: 382ebb50d0eb9c83059d3912d584ba2389e53796
   YandexCheckoutShowcaseApi: 44382163176b3a53692fa1c3b85c0c8d0a82b7e6
-  YandexCheckoutWalletApi: 29cf601b0bd6e88666b8815b306d785e3c9015b9
+  YandexCheckoutWalletApi: 60ea55d5823278660d9c4e3a2d770a9369f8d57f
   YandexMobileMetrica: 95e93ee5af38520c9e470533dc8df6cf72fa171d
   YandexMoneyCoreApi: 3d9364913ee91bf3f453d75c9d10fef3ccc9dc4f
 
-PODFILE CHECKSUM: 67612965fb0fc57836c1f430f4864e4c45155367
+PODFILE CHECKSUM: 47a676a61f266dc1d8b64c7c03c348d7e45e1430
 
 COCOAPODS: 1.10.0.rc.1
