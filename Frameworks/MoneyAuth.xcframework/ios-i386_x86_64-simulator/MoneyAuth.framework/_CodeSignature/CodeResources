@@ -6,7 +6,7 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		FbS2jZEOrEfOtMjPzL2ZojtLDVk=
+		P/gBUnHACtwXF4UyfALkbt4NdKg=
 		</data>
 		<key>Headers/MoneyAuth.h</key>
 		<data>
@@ -14,55 +14,55 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		zSFfzVlnwWLj2Cr7jBOAaDg+pqI=
+		bCk8nRCc8jhgKMpnrNhv/ImKujE=
 		</data>
 		<key>Modules/MoneyAuth.swiftmodule/i386-apple-ios-simulator.swiftdoc</key>
 		<data>
-		BtjSbHl40It2rOiafZVnsGZ0lp4=
+		FpHEOjXBaiSs69ICVKFT1dWB0J0=
 		</data>
 		<key>Modules/MoneyAuth.swiftmodule/i386-apple-ios-simulator.swiftinterface</key>
 		<data>
-		S5dGVyfmi2pXQppqN+ONwYicC50=
+		Y2LILW5tcey59HCMn5cIYXZWUCQ=
 		</data>
 		<key>Modules/MoneyAuth.swiftmodule/i386-apple-ios-simulator.swiftmodule</key>
 		<data>
-		qsEzCI9ept9b5adJIEI5a8jxBhU=
+		csbm8d1tX2+aLh8Pik21OZord08=
 		</data>
 		<key>Modules/MoneyAuth.swiftmodule/i386.swiftdoc</key>
 		<data>
-		BtjSbHl40It2rOiafZVnsGZ0lp4=
+		FpHEOjXBaiSs69ICVKFT1dWB0J0=
 		</data>
 		<key>Modules/MoneyAuth.swiftmodule/i386.swiftinterface</key>
 		<data>
-		S5dGVyfmi2pXQppqN+ONwYicC50=
+		Y2LILW5tcey59HCMn5cIYXZWUCQ=
 		</data>
 		<key>Modules/MoneyAuth.swiftmodule/i386.swiftmodule</key>
 		<data>
-		qsEzCI9ept9b5adJIEI5a8jxBhU=
+		csbm8d1tX2+aLh8Pik21OZord08=
 		</data>
 		<key>Modules/MoneyAuth.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		nvxLRiVjQqLJyW6ZN6kly+cEezo=
+		UrGMfwPH4NiCV4lP9jSy2vY4j/c=
 		</data>
 		<key>Modules/MoneyAuth.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		dqDg2ekwwHT/G7HLMN4huyTDo1k=
+		tlKKRP6iHxrfvSLBit7SI7XVXDE=
 		</data>
 		<key>Modules/MoneyAuth.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		bigr96HX6x+dKZ8IZXYoXnvkRvI=
+		EvAwTpaJpO0AVVg8h/BNXYSn+FE=
 		</data>
 		<key>Modules/MoneyAuth.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		nvxLRiVjQqLJyW6ZN6kly+cEezo=
+		UrGMfwPH4NiCV4lP9jSy2vY4j/c=
 		</data>
 		<key>Modules/MoneyAuth.swiftmodule/x86_64.swiftinterface</key>
 		<data>
-		dqDg2ekwwHT/G7HLMN4huyTDo1k=
+		tlKKRP6iHxrfvSLBit7SI7XVXDE=
 		</data>
 		<key>Modules/MoneyAuth.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		bigr96HX6x+dKZ8IZXYoXnvkRvI=
+		EvAwTpaJpO0AVVg8h/BNXYSn+FE=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -81,7 +81,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			frvfDx0EOthbbPrxYcj/Wni2wuI=
+			TzmeEscor+5QT7jJ3PE+LxDuvC0=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -93,11 +93,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			FbS2jZEOrEfOtMjPzL2ZojtLDVk=
+			P/gBUnHACtwXF4UyfALkbt4NdKg=
 			</data>
 			<key>hash2</key>
 			<data>
-			NtbFIFS7okMS7aywgPw6zLwfBzRxCSSmV1NrjtQqoHM=
+			PIgjIUFn6XSnjQVSxUhJE6ECPsXACZEU+S9D5n5H4y8=
 			</data>
 		</dict>
 		<key>Headers/MoneyAuth.h</key>
@@ -115,132 +115,132 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			BtjSbHl40It2rOiafZVnsGZ0lp4=
+			FpHEOjXBaiSs69ICVKFT1dWB0J0=
 			</data>
 			<key>hash2</key>
 			<data>
-			HVDUBbM/lubh9eDkxl7DkAtaSaiw0wDSQFUnXrtTJk0=
+			p658QSOEW0IrrXp7+IBFxeOKTvVVsjuJm0ivuq3CMQo=
 			</data>
 		</dict>
 		<key>Modules/MoneyAuth.swiftmodule/i386-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			S5dGVyfmi2pXQppqN+ONwYicC50=
+			Y2LILW5tcey59HCMn5cIYXZWUCQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			o48IT5IrBSvXqchYXtYSY0EB2qWFYAnkw0yvfTTka68=
+			hqHlbfpgVB92QLL1vYtw+rg3k+t0+c2AR9jCyz+FlNc=
 			</data>
 		</dict>
 		<key>Modules/MoneyAuth.swiftmodule/i386-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			qsEzCI9ept9b5adJIEI5a8jxBhU=
+			csbm8d1tX2+aLh8Pik21OZord08=
 			</data>
 			<key>hash2</key>
 			<data>
-			IGaVQ4CruDSjyWC6qmBgxd7V1fbUxcpeeN1I+Zx7trI=
+			/1BTB7HhXPM5nGK3S9qXEZLbJjWV75MEssRlQGOgFmE=
 			</data>
 		</dict>
 		<key>Modules/MoneyAuth.swiftmodule/i386.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			BtjSbHl40It2rOiafZVnsGZ0lp4=
+			FpHEOjXBaiSs69ICVKFT1dWB0J0=
 			</data>
 			<key>hash2</key>
 			<data>
-			HVDUBbM/lubh9eDkxl7DkAtaSaiw0wDSQFUnXrtTJk0=
+			p658QSOEW0IrrXp7+IBFxeOKTvVVsjuJm0ivuq3CMQo=
 			</data>
 		</dict>
 		<key>Modules/MoneyAuth.swiftmodule/i386.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			S5dGVyfmi2pXQppqN+ONwYicC50=
+			Y2LILW5tcey59HCMn5cIYXZWUCQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			o48IT5IrBSvXqchYXtYSY0EB2qWFYAnkw0yvfTTka68=
+			hqHlbfpgVB92QLL1vYtw+rg3k+t0+c2AR9jCyz+FlNc=
 			</data>
 		</dict>
 		<key>Modules/MoneyAuth.swiftmodule/i386.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			qsEzCI9ept9b5adJIEI5a8jxBhU=
+			csbm8d1tX2+aLh8Pik21OZord08=
 			</data>
 			<key>hash2</key>
 			<data>
-			IGaVQ4CruDSjyWC6qmBgxd7V1fbUxcpeeN1I+Zx7trI=
+			/1BTB7HhXPM5nGK3S9qXEZLbJjWV75MEssRlQGOgFmE=
 			</data>
 		</dict>
 		<key>Modules/MoneyAuth.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			nvxLRiVjQqLJyW6ZN6kly+cEezo=
+			UrGMfwPH4NiCV4lP9jSy2vY4j/c=
 			</data>
 			<key>hash2</key>
 			<data>
-			A3vAwd3lWS5XaSPp++46jZNO4YwsMLPAjj7ydxSH9HA=
+			3vIqCZqRb23qfT+SEgDZ0c5kPwM140UdRNXsxICLhpU=
 			</data>
 		</dict>
 		<key>Modules/MoneyAuth.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			dqDg2ekwwHT/G7HLMN4huyTDo1k=
+			tlKKRP6iHxrfvSLBit7SI7XVXDE=
 			</data>
 			<key>hash2</key>
 			<data>
-			hZRSbrSNBLP73+JxsR+GrczCTzaAMWJuRd8IhJts2bI=
+			ar9Vfnq6a9ncnY7kW+3S5hNVNll/FMd6KM4DWa2s28Y=
 			</data>
 		</dict>
 		<key>Modules/MoneyAuth.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			bigr96HX6x+dKZ8IZXYoXnvkRvI=
+			EvAwTpaJpO0AVVg8h/BNXYSn+FE=
 			</data>
 			<key>hash2</key>
 			<data>
-			tHCmwsL2NNGjasE7cF6w5M2rWETzwM4MxNayLqBsxNE=
+			7bYNJEEmJst11AcUcNxCjgVOs6YHMELimc5gqvptK+4=
 			</data>
 		</dict>
 		<key>Modules/MoneyAuth.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			nvxLRiVjQqLJyW6ZN6kly+cEezo=
+			UrGMfwPH4NiCV4lP9jSy2vY4j/c=
 			</data>
 			<key>hash2</key>
 			<data>
-			A3vAwd3lWS5XaSPp++46jZNO4YwsMLPAjj7ydxSH9HA=
+			3vIqCZqRb23qfT+SEgDZ0c5kPwM140UdRNXsxICLhpU=
 			</data>
 		</dict>
 		<key>Modules/MoneyAuth.swiftmodule/x86_64.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			dqDg2ekwwHT/G7HLMN4huyTDo1k=
+			tlKKRP6iHxrfvSLBit7SI7XVXDE=
 			</data>
 			<key>hash2</key>
 			<data>
-			hZRSbrSNBLP73+JxsR+GrczCTzaAMWJuRd8IhJts2bI=
+			ar9Vfnq6a9ncnY7kW+3S5hNVNll/FMd6KM4DWa2s28Y=
 			</data>
 		</dict>
 		<key>Modules/MoneyAuth.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			bigr96HX6x+dKZ8IZXYoXnvkRvI=
+			EvAwTpaJpO0AVVg8h/BNXYSn+FE=
 			</data>
 			<key>hash2</key>
 			<data>
-			tHCmwsL2NNGjasE7cF6w5M2rWETzwM4MxNayLqBsxNE=
+			7bYNJEEmJst11AcUcNxCjgVOs6YHMELimc5gqvptK+4=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -271,11 +271,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			frvfDx0EOthbbPrxYcj/Wni2wuI=
+			TzmeEscor+5QT7jJ3PE+LxDuvC0=
 			</data>
 			<key>hash2</key>
 			<data>
-			oiDOtHf66ig1HeI8aQyoNDPUO0PHrVJK3uVMZURN41k=
+			EwfukwKMmbQiQDzlu+hiMH4bxDLm6U71YYmciy506wA=
 			</data>
 			<key>optional</key>
 			<true/>

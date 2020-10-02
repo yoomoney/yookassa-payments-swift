@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.2.4 (swiftlang-1103.0.32.9 clang-1103.0.32.53)
+// swift-compiler-version: Apple Swift version 5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)
 // swift-module-flags: -target x86_64-apple-ios10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name MoneyAuth
 import CommonCrypto
 import Compression
@@ -39,7 +39,7 @@ public protocol LargeItemViewInput : AnyObject {
   var title: Swift.String { get set }
   var subtitle: Swift.String { get set }
 }
-@objc @_inheritsConvenienceInitializers final public class LargeItemView : UIKit.UIView {
+@objc final public class LargeItemView : UIKit.UIView {
   final public var title: Swift.String {
     get
     set
@@ -81,6 +81,11 @@ public enum TestScreenFactory {
   public static func makeEnterPasswordForChangeEmailModule() -> UIKit.UIViewController
   public static func makeSetEmailForChangeEmailModule() -> UIKit.UIViewController
   public static func makeEnterPhoneForPasswordRecoveryModule() -> UIKit.UIViewController
+  public static func makeConfirmPhoneForPasswordRecoveryModule(codeLength: Swift.Int) -> UIKit.UIViewController
+  public static func makeChooseAccountForPasswordRecoveryModule() -> UIKit.UIViewController
+  public static func makeChooseCorporateAccountForPasswordRecoveryModule() -> UIKit.UIViewController
+  public static func makeConfirmEmailForPasswordRecoveryModule() -> UIKit.UIViewController
+  public static func makeSetPasswordForPasswordRecoveryModule() -> UIKit.UIViewController
   public static func makeSimpleInformationModule() -> UIKit.UIViewController
   public static func initializeModulesOutput(viewController: UIKit.UIViewController)
 }
@@ -100,7 +105,7 @@ public protocol AvatarViewInput : AnyObject {
   var userImage: UIKit.UIImage? { get set }
   var placeholderText: Swift.String { get set }
 }
-@objc @_inheritsConvenienceInitializers final public class TitleItemTableViewCell : UIKit.UITableViewCell {
+@objc final public class TitleItemTableViewCell : UIKit.UITableViewCell {
   final public var title: Swift.String {
     get
     set
@@ -113,7 +118,7 @@ public protocol AvatarViewInput : AnyObject {
   @objc override final public func layoutSubviews()
   @objc deinit
 }
-@objc @_inheritsConvenienceInitializers final public class TitleItemView : UIKit.UIView {
+@objc final public class TitleItemView : UIKit.UIView {
   final public var title: Swift.String {
     get
     set
@@ -135,7 +140,7 @@ extension TitleItemView {
   }
 }
 infix operator ?< : DefaultPrecedence
-@objc @_inheritsConvenienceInitializers final public class LargeItemTableViewCell : UIKit.UITableViewCell {
+@objc final public class LargeItemTableViewCell : UIKit.UITableViewCell {
   final public var title: Swift.String {
     get
     set
@@ -160,6 +165,19 @@ public enum Origin : Swift.String {
   }
 }
 extension Origin : Swift.Codable {
+}
+public struct ProfileModuleInputData {
+  public let config: MoneyAuth.Config
+  public let oauthToken: Swift.String
+  public init(config: MoneyAuth.Config, oauthToken: Swift.String)
+}
+public protocol ProfileModuleInput : AnyObject {
+}
+public protocol ProfileModuleOutput : AnyObject {
+  func profileModule(_ module: MoneyAuth.ProfileModuleInput, didPressCloseWithAccount account: MoneyAuth.UserAccount?)
+}
+public enum ProfileAssembly {
+  public static func makeModule(inputData: MoneyAuth.ProfileModuleInputData, output: MoneyAuth.ProfileModuleOutput?) -> UIKit.UIViewController
 }
 public protocol AuthorizationCoordinatorDelegate : AnyObject {
   func authorizationCoordinatorDidCancel(_ coordinator: MoneyAuth.AuthorizationCoordinator)
@@ -247,6 +265,7 @@ public protocol ChangeEmailCoordinatorDelegate : AnyObject {
   func changeEmailCoordinatorDidPrepareProcess(_ coordinator: MoneyAuth.ChangeEmailCoordinator)
   func changeEmailCoordinator(_ coordinator: MoneyAuth.ChangeEmailCoordinator, didFailPrepareProcessWithError error: Swift.Error)
   func changeEmailCoordinator(_ coordinator: MoneyAuth.ChangeEmailCoordinator, didFailureWith error: Swift.Error)
+  func changeEmailCoordinator(_ coordinator: MoneyAuth.ChangeEmailCoordinator, didSuccessWith account: MoneyAuth.UserAccount)
 }
 final public class ChangeEmailCoordinator {
   public init(config: MoneyAuth.Config, oauthToken: Swift.String, oldEmailIsEmpty: Swift.Bool)
@@ -264,12 +283,7 @@ extension ChangeEmailCoordinator : MoneyAuth.PasswordRecoveryCoordinatorDelegate
 public enum AuthorizationProcessType {
   case enrollment
   case login
-  case migration
-  public static func == (a: MoneyAuth.AuthorizationProcessType, b: MoneyAuth.AuthorizationProcessType) -> Swift.Bool
-  public var hashValue: Swift.Int {
-    get
-  }
-  public func hash(into hasher: inout Swift.Hasher)
+  case migration(yandexToken: Swift.String?)
 }
 public enum ProcessCoordinatorError : Swift.Error {
   case `internal`
@@ -304,10 +318,7 @@ final public class PasswordRecoveryCoordinator {
   final public func prepareProcess()
   @objc deinit
 }
-extension MoneyAuth.Origin : Swift.Equatable {}
 extension MoneyAuth.Origin : Swift.Hashable {}
 extension MoneyAuth.Origin : Swift.RawRepresentable {}
-extension MoneyAuth.AuthorizationProcessType : Swift.Equatable {}
-extension MoneyAuth.AuthorizationProcessType : Swift.Hashable {}
 extension MoneyAuth.ProcessCoordinatorError : Swift.Equatable {}
 extension MoneyAuth.ProcessCoordinatorError : Swift.Hashable {}
