@@ -26,8 +26,7 @@ final class AuthorizationMediator {
 
 extension AuthorizationMediator: AuthorizationProcessing {
     func getMoneyCenterAuthToken() -> String? {
-        let token = tokenStorage.getString(for: Constants.Keys.moneyCenterAuthToken)
-        return transformTokenIfNeeded(settingsStorage: settingsStorage) <^> token
+        return tokenStorage.getString(for: Constants.Keys.moneyCenterAuthToken)
     }
 
     func setMoneyCenterAuthToken(
@@ -173,8 +172,6 @@ private extension AuthorizationMediator {
             static let isReusableWalletToken = "isReusableYamoneyToken"
             static let walletDisplayName = "walletDisplayName"
         }
-
-        static let devHostMoneyCenterAuthToken = "AQAAAADvD_dkAAALTqe2-u247kgRomOHDziwAj0"
     }
 }
 
@@ -182,11 +179,4 @@ private extension AuthorizationMediator {
 
 private func makeYamoneyLoginResponse(token: String) -> YamoneyLoginResponse {
     return YamoneyLoginResponse.authorized(.init(accessToken: token))
-}
-
-private func transformTokenIfNeeded(settingsStorage: KeyValueStoring) -> (String) -> String {
-    return {
-        let isDevHost: Bool = settingsStorage.getBool(for: Settings.Keys.devHost) ?? false
-        return isDevHost ? AuthorizationMediator.Constants.devHostMoneyCenterAuthToken : $0
-    }
 }
