@@ -87,6 +87,7 @@ public enum TestScreenFactory {
   public static func makeConfirmEmailForPasswordRecoveryModule() -> UIKit.UIViewController
   public static func makeSetPasswordForPasswordRecoveryModule() -> UIKit.UIViewController
   public static func makeSimpleInformationModule() -> UIKit.UIViewController
+  public static func makeMigrationInformationModule() -> UIKit.UIViewController
   public static func initializeModulesOutput(viewController: UIKit.UIViewController)
 }
 extension UIButton {
@@ -99,7 +100,7 @@ public protocol TitleItemViewInput : AnyObject {
 }
 public typealias AuthenticationChallengeHandler = ((Foundation.URLSession, Foundation.URLAuthenticationChallenge, @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void) -> Swift.Void)
 public struct Config {
-  public init(origin: MoneyAuth.Origin, clientId: Swift.String, host: Swift.String, isDevHost: Swift.Bool = false, loggingEnabled: Swift.Bool = false, authenticationChallengeHandler: MoneyAuth.AuthenticationChallengeHandler? = nil, isPasswordRecoveryEnabled: Swift.Bool, setEmailSwitchTitle: Swift.String?, setPhoneSwitchTitle: Swift.String?, userAgreement: Swift.String?, userWithEmailAgreement: Swift.String?, setEmailScreenSubtitle: Swift.String, migrationScreenTitle: Swift.String, migrationScreenSubtitle: Swift.String, supportEmail: Swift.String, yxOauthClientId: Swift.String)
+  public init(origin: MoneyAuth.Origin, clientId: Swift.String, host: Swift.String, isDevHost: Swift.Bool = false, loggingEnabled: Swift.Bool = false, authenticationChallengeHandler: MoneyAuth.AuthenticationChallengeHandler? = nil, isPasswordRecoveryEnabled: Swift.Bool, setEmailSwitchTitle: Swift.String?, setPhoneSwitchTitle: Swift.String?, userAgreement: Swift.String?, userWithEmailAgreement: Swift.String?, setEmailScreenSubtitle: Swift.String, migrationBannerText: Swift.String, migrationScreenTitle: Swift.String, migrationScreenSubtitle: Swift.String, migrationScreenButtonSubtitle: Swift.String, supportEmail: Swift.String, supportPhone: Swift.String, supportHelpUrl: Foundation.URL, yxOauthClientId: Swift.String)
 }
 public protocol AvatarViewInput : AnyObject {
   var userImage: UIKit.UIImage? { get set }
@@ -194,6 +195,7 @@ final public class AuthorizationCoordinator {
   @objc deinit
 }
 extension AuthorizationCoordinator : MoneyAuth.PasswordRecoveryCoordinatorDelegate {
+  final public func passwordRecoveryCoordinatorDidSuccessProcess(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
   final public func passwordRecoveryCoordinatorDidCancel(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
   final public func passwordRecoveryCoordinatorDidPrepareProcess(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
   final public func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailPrepareProcessWithError error: Swift.Error)
@@ -260,6 +262,14 @@ public struct Service {
 extension Service : Swift.Decodable {
   public init(from decoder: Swift.Decoder) throws
 }
+public protocol AccountService {
+  func fetchAccount(oauthToken: Swift.String, completion: @escaping (FunctionalSwift.Result<MoneyAuth.UserAccount>) -> Swift.Void)
+  func changeDisplayName(oauthToken: Swift.String, displayName: Swift.String, completion: @escaping (FunctionalSwift.Result<MoneyAuth.UserAccount>) -> Swift.Void)
+  func changeLanguage(oauthToken: Swift.String, language: Swift.String, completion: @escaping (FunctionalSwift.Result<MoneyAuth.UserAccount>) -> Swift.Void)
+}
+public enum AccountServiceFactory {
+  public static func makeService(config: MoneyAuth.Config) -> MoneyAuth.AccountService
+}
 public protocol ChangeEmailCoordinatorDelegate : AnyObject {
   func changeEmailCoordinatorDidCancel(_ coordinator: MoneyAuth.ChangeEmailCoordinator)
   func changeEmailCoordinatorDidPrepareProcess(_ coordinator: MoneyAuth.ChangeEmailCoordinator)
@@ -275,6 +285,7 @@ final public class ChangeEmailCoordinator {
   @objc deinit
 }
 extension ChangeEmailCoordinator : MoneyAuth.PasswordRecoveryCoordinatorDelegate {
+  final public func passwordRecoveryCoordinatorDidSuccessProcess(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
   final public func passwordRecoveryCoordinatorDidCancel(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
   final public func passwordRecoveryCoordinatorDidPrepareProcess(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
   final public func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailPrepareProcessWithError error: Swift.Error)
@@ -310,6 +321,7 @@ public protocol PasswordRecoveryCoordinatorDelegate : AnyObject {
   func passwordRecoveryCoordinatorDidPrepareProcess(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
   func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailPrepareProcessWithError error: Swift.Error)
   func passwordRecoveryCoordinator(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator, didFailureWith error: Swift.Error)
+  func passwordRecoveryCoordinatorDidSuccessProcess(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
 }
 final public class PasswordRecoveryCoordinator {
   public init(config: MoneyAuth.Config)

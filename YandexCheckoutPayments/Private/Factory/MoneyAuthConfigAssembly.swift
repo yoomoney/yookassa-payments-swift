@@ -26,9 +26,13 @@ enum MoneyAuthConfigAssembly {
             userAgreement: nil,
             userWithEmailAgreement: nil,
             setEmailScreenSubtitle: "setEmailScreenSubtitle",
+            migrationBannerText: "migrationBannerText",
             migrationScreenTitle: "migrationScreenTitle",
             migrationScreenSubtitle: "migrationScreenSubtitle",
+            migrationScreenButtonSubtitle: "migrationScreenButtonSubtitle",
             supportEmail: "supportEmail",
+            supportPhone: "supportPhone",
+            supportHelpUrl: URL(string: "https://google.com")!,
             // TODO: Make yxOauthClientId optional
             yxOauthClientId: yxOauthClientId ?? ""
         )
