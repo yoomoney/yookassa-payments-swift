@@ -2716,11 +2716,11 @@
 			isa = PBXGroup;
 			children = (
 				E0148CD51FE958810087CF5F /* AppDelegate.swift */,
+				402EB90E43119606C39C3A8E /* RootViewController+CardScanning+Carthage.swift */,
+				402EB9D4435E4C37E367DF6A /* RootViewController+CardScanning+Pods.swift */,
+				402EB302A7F71C0A7EA5ACBF /* RootViewController+TokenizationModuleOutput.swift */,
 				FEDABFA4200E651B0056E0CC /* Resources */,
 				402EBFDB9FF2B3958BDF2C52 /* Source */,
-				402EB302A7F71C0A7EA5ACBF /* RootViewController+TokenizationModuleOutput.swift */,
-				402EB9D4435E4C37E367DF6A /* RootViewController+CardScanning+Pods.swift */,
-				402EB90E43119606C39C3A8E /* RootViewController+CardScanning+Carthage.swift */,
 			);
 			path = YandexCheckoutPaymentsExample;
 			sourceTree = "<group>";
