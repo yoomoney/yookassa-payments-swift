@@ -257,7 +257,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             isLoggingEnabled: inputData.isLoggingEnabled,
             getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod),
             moneyAuthClientId: inputData.moneyAuthClientId,
-            yxOauthClientId: inputData.yandexLoginOauthClientId
+            yxOauthClientId: inputData.yandexLoginOauthClientId,
+            paymentMethodsModuleInput: paymentMethodsModuleInput
         )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }

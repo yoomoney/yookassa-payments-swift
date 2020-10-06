@@ -12,7 +12,14 @@ struct PaymentMethodsModuleInputData {
 
 protocol PaymentMethodsModuleInput: class {
     func showPlaceholder(message: String)
+
     func reloadData()
+
+    func yandexAuthModule(
+        _ module: YandexAuthModuleInput,
+        didSelectViewModel viewModel: PaymentMethodViewModel,
+        at indexPath: IndexPath
+    )
 }
 
 protocol PaymentMethodsModuleOutput: class {

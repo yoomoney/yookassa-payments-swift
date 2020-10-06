@@ -2454,13 +2454,13 @@
 		402EBEADF3402FCF4A798D56 /* YandexAuth */ = {
 			isa = PBXGroup;
 			children = (
+				402EB23A27BB831B365784B0 /* YandexAuthInteractorIO.swift */,
 				402EB5F065E3082394C79E74 /* YandexAuthModuleIO.swift */,
+				402EB699DE84BFFA7FBD61F5 /* YandexAuthRouterIO.swift */,
 				402EB17F28E0E61C395AB751 /* Assembly */,
 				402EB317919F7BABAE63CD7A /* Interactor */,
 				402EB931A49EB1A9A2B7EC83 /* Presenter */,
-				402EB23A27BB831B365784B0 /* YandexAuthInteractorIO.swift */,
 				402EBEDE739441A45065CB04 /* Router */,
-				402EB699DE84BFFA7FBD61F5 /* YandexAuthRouterIO.swift */,
 			);
 			path = YandexAuth;
 			sourceTree = "<group>";
