@@ -99,7 +99,10 @@ extension WalletStrategy: TokenizationStrategyInput {
         output?.logout(accountId: paymentOption.accountId)
     }
 
-    func bankCardDataInputModule(_ module: BankCardDataInputModuleInput, didPressConfirmButton bankCardData: CardData) {}
+    func bankCardDataInputModule(
+        _ module: BankCardDataInputModuleInput,
+        didPressConfirmButton bankCardData: CardData
+    ) {}
     func sberbankModule(_ module: SberbankModuleInput, didPressConfirmButton phoneNumber: String) {}
     func didPressConfirmButton(on module: BankCardDataInputModuleInput, cvc: String) {}
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController,

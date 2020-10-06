@@ -26,5 +26,7 @@ private enum Localized {
 // MARK: - Constants
 
 private enum Constants {
+    // swiftlint:disable force_unwrapping
     static let termsOfServiceUrl = URL(string: "https://money.yandex.ru/page?id=526623")!
+    // swiftlint:enable force_unwrapping
 }

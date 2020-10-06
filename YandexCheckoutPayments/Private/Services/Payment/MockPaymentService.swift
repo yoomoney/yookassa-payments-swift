@@ -65,8 +65,7 @@ final class MockPaymentService: PaymentProcessing {
 
         let errorHandler: (
             YandexCheckoutPaymentsApi.PaymentMethod
-            ) throws -> YandexCheckoutPaymentsApi.PaymentMethod = {
-            _ in
+            ) throws -> YandexCheckoutPaymentsApi.PaymentMethod = { _ in
             throw error
         }
 

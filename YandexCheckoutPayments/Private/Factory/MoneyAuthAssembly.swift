@@ -1,9 +1,10 @@
 import MoneyAuth
 
-enum MoneyAuthConfigAssembly {
+enum MoneyAuthAssembly {
     static func makeMoneyAuthConfig(
         clientId: String,
-        yxOauthClientId: String?
+        yxOauthClientId: String?,
+        loggingEnabled: Bool
     ) -> MoneyAuth.Config {
 
         let keyValueStorage = KeyValueStoringAssembly.makeSettingsStorage()
@@ -18,25 +19,34 @@ enum MoneyAuthConfigAssembly {
             clientId: clientId,
             host: makeHost(),
             isDevHost: isDevHost,
-            loggingEnabled: true,
+            loggingEnabled: loggingEnabled,
             authenticationChallengeHandler: authenticationChallengeHandler,
-            isPasswordRecoveryEnabled: false,
-            setEmailSwitchTitle: nil,
-            setPhoneSwitchTitle: nil,
-            userAgreement: nil,
-            userWithEmailAgreement: nil,
-            setEmailScreenSubtitle: "setEmailScreenSubtitle",
-            migrationBannerText: "migrationBannerText",
+            yxOauthClientId: yxOauthClientId,
+            supportEmail: "supportEmail",
+            supportPhone: "supportPhone",
+            // swiftlint:disable force_unwrapping
+            supportHelpUrl: URL(string: "https://google.com")!
+            // swiftlint:enable force_unwrapping
+        )
+        return config
+    }
+
+    static func makeMoneyAuthCustomization() -> MoneyAuth.Customization {
+        let customization = MoneyAuth.Customization(
+            restorePasswordEnabled: true,
+            userAgreementTitle: "userAgreementTitle",
+            userWithEmailAgreementTitle: "userWithEmailAgreementTitle",
+            emailCheckboxVisible: true,
+            emailCheckboxTitle: "emailCheckboxTitle",
+            addEmailTitle: "addEmailTitle",
             migrationScreenTitle: "migrationScreenTitle",
             migrationScreenSubtitle: "migrationScreenSubtitle",
             migrationScreenButtonSubtitle: "migrationScreenButtonSubtitle",
-            supportEmail: "supportEmail",
-            supportPhone: "supportPhone",
-            supportHelpUrl: URL(string: "https://google.com")!,
-            // TODO: Make yxOauthClientId optional
-            yxOauthClientId: yxOauthClientId ?? ""
+            hardMigrationScreenTitle: "hardMigrationScreenTitle",
+            hardMigrationScreenSubtitle: "hardMigrationScreenSubtitle",
+            hardMigrationScreenButtonSubtitle: "hardMigrationScreenButtonSubtitle"
         )
-        return config
+        return customization
     }
 
     private static func makeAuthenticationChallengeHandler(
