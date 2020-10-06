@@ -82,6 +82,14 @@ extension PaymentMethodsPresenter: PaymentMethodsModuleInput {
             }
         }
     }
+
+    func yandexAuthModule(
+        _ module: YandexAuthModuleInput,
+        didSelectViewModel viewModel: PaymentMethodViewModel,
+        at indexPath: IndexPath
+    ) {
+        didSelectViewModel(viewModel, at: indexPath)
+    }
 }
 
 // MARK: - PaymentMethodsInteractorOutput

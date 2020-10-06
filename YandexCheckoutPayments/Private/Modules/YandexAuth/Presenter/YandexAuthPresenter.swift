@@ -23,13 +23,16 @@ final class YandexAuthPresenter {
 
     private let testModeSettings: TestModeSettings?
     private let moneyAuthConfig: MoneyAuth.Config
+    private let paymentMethodsModuleInput: PaymentMethodsModuleInput?
 
     init(
         testModeSettings: TestModeSettings?,
-        moneyAuthConfig: MoneyAuth.Config
+        moneyAuthConfig: MoneyAuth.Config,
+        paymentMethodsModuleInput: PaymentMethodsModuleInput?
     ) {
         self.testModeSettings = testModeSettings
         self.moneyAuthConfig = moneyAuthConfig
+        self.paymentMethodsModuleInput = paymentMethodsModuleInput
     }
 }
 
@@ -65,7 +68,18 @@ extension YandexAuthPresenter: PaymentMethodsViewOutput {
     }
 
     func viewDidAppear() {}
-    func didSelectViewModel(_ viewModel: PaymentMethodViewModel, at indexPath: IndexPath) {}
+
+    func didSelectViewModel(
+        _ viewModel: PaymentMethodViewModel,
+        at indexPath: IndexPath
+    ) {
+        paymentMethodsModuleInput?.yandexAuthModule(
+            self,
+            didSelectViewModel: viewModel,
+            at: indexPath
+        )
+    }
+
     func logoutDidPress(at indexPath: IndexPath) {}
 }
 

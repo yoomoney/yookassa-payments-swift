@@ -25,7 +25,8 @@ enum YandexAuthAssembly {
 
         let presenter = YandexAuthPresenter(
             testModeSettings: inputData.testModeSettings,
-            moneyAuthConfig: moneyAuthConfig
+            moneyAuthConfig: moneyAuthConfig,
+            paymentMethodsModuleInput: inputData.paymentMethodsModuleInput
         )
 
         let authorizationService = AuthorizationProcessingAssembly
