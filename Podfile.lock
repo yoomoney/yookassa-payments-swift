@@ -33,7 +33,6 @@ DEPENDENCIES:
   - SwiftLint
   - YandexCheckoutPayments (from `./`)
   - "YandexCheckoutPaymentsApi (from `git@github.com:oltv00/yandex-checkout-payments-api-swift.git`, branch `task/b2b/MOC-1168`)"
-  - "YandexCheckoutWalletApi (from `git@github.com:oltv00/yandex-checkout-wallet-api-swift.git`, branch `task/b2b/MOC-1014`)"
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -42,6 +41,7 @@ SPEC REPOS:
     - Reveal-SDK
     - SwiftLint
     - When
+    - YandexCheckoutWalletApi
     - YandexMobileMetrica
     - YandexMoneyCoreApi
 
@@ -51,17 +51,11 @@ EXTERNAL SOURCES:
   YandexCheckoutPaymentsApi:
     :branch: task/b2b/MOC-1168
     :git: "git@github.com:oltv00/yandex-checkout-payments-api-swift.git"
-  YandexCheckoutWalletApi:
-    :branch: task/b2b/MOC-1014
-    :git: "git@github.com:oltv00/yandex-checkout-wallet-api-swift.git"
 
 CHECKOUT OPTIONS:
   YandexCheckoutPaymentsApi:
     :commit: 9514a35523980df1e0791b6c033532b09701e438
     :git: "git@github.com:oltv00/yandex-checkout-payments-api-swift.git"
-  YandexCheckoutWalletApi:
-    :commit: d5da0b0d88c8f56a68aec82b11959ec5286fdccd
-    :git: "git@github.com:oltv00/yandex-checkout-wallet-api-swift.git"
 
 SPEC CHECKSUMS:
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
@@ -75,6 +69,6 @@ SPEC CHECKSUMS:
   YandexMobileMetrica: 95e93ee5af38520c9e470533dc8df6cf72fa171d
   YandexMoneyCoreApi: e7c095c06867a8b532e3f60ce6cd43cd8c16f67d
 
-PODFILE CHECKSUM: f03af23026c708ea877889ae21af20ba16b43274
+PODFILE CHECKSUM: fa71df2bbfe78801f680c8963646cd9a779f1a99
 
 COCOAPODS: 1.10.0.rc.1
