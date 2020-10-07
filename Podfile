@@ -9,12 +9,7 @@ target 'YandexCheckoutPaymentsExamplePods' do
   pod 'SwiftLint'
   pod 'Reveal-SDK', :configurations => ['Debug']
 
-  pod 'YandexCheckoutPayments',
-      :path => './'
-  pod 'YandexCheckoutPaymentsApi',
-      :git => 'git@github.com:oltv00/yandex-checkout-payments-api-swift.git',
-      :branch => 'task/b2b/MOC-1168'
-
+  pod 'YandexCheckoutPayments', :path => './'
 end
 
 post_install do |installer|
