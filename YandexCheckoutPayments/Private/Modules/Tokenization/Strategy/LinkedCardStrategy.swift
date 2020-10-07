@@ -106,7 +106,10 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
     func didFailPresentApplePayModule() {}
     func didPresentApplePayModule() {}
     func didPressSubmitButton(on module: ApplePayContractModuleInput) {}
-    func bankCardDataInputModule(_ module: BankCardDataInputModuleInput, didPressConfirmButton bankCardData: CardData) {}
+    func bankCardDataInputModule(
+        _ module: BankCardDataInputModuleInput,
+        didPressConfirmButton bankCardData: CardData
+    ) {}
     func didTokenizeData() {}
 }
 

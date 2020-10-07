@@ -9,12 +9,14 @@ final class YandexAuthRouter {
 extension YandexAuthRouter: YandexAuthRouterInput {
     func presentAuthorizationModule(
         config: MoneyAuth.Config,
+        customization: MoneyAuth.Customization,
         output: MoneyAuth.AuthorizationCoordinatorDelegate
     ) throws -> MoneyAuth.AuthorizationCoordinator {
 
         let coordinator = MoneyAuth.AuthorizationCoordinator(
             processType: .login,
-            config: config
+            config: config,
+            customization: customization
         )
         coordinator.delegate = output
         let viewController = try coordinator.makeInitialViewController()

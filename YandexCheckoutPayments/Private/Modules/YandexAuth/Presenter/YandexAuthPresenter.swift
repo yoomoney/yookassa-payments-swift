@@ -23,15 +23,18 @@ final class YandexAuthPresenter {
 
     private let testModeSettings: TestModeSettings?
     private let moneyAuthConfig: MoneyAuth.Config
+    private let moneyAuthCustomization: MoneyAuth.Customization
     private let paymentMethodsModuleInput: PaymentMethodsModuleInput?
 
     init(
         testModeSettings: TestModeSettings?,
         moneyAuthConfig: MoneyAuth.Config,
+        moneyAuthCustomization: MoneyAuth.Customization,
         paymentMethodsModuleInput: PaymentMethodsModuleInput?
     ) {
         self.testModeSettings = testModeSettings
         self.moneyAuthConfig = moneyAuthConfig
+        self.moneyAuthCustomization = moneyAuthCustomization
         self.paymentMethodsModuleInput = paymentMethodsModuleInput
     }
 }
@@ -58,6 +61,7 @@ extension YandexAuthPresenter: PaymentMethodsViewOutput {
                 do {
                     self.moneyAuthCoordinator = try self.router.presentAuthorizationModule(
                         config: self.moneyAuthConfig,
+                        customization: self.moneyAuthCustomization,
                         output: self
                     )
                 } catch {

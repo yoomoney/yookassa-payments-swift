@@ -48,7 +48,10 @@ extension SberbankStrategy: TokenizationStrategyInput {
         contractStateHandler?.failTokenizeData(error)
     }
 
-    func bankCardDataInputModule(_ module: BankCardDataInputModuleInput, didPressConfirmButton bankCardData: CardData) {}
+    func bankCardDataInputModule(
+        _ module: BankCardDataInputModuleInput,
+        didPressConfirmButton bankCardData: CardData
+    ) {}
     func failLoginInYandexMoney(_ error: Error) {}
     func failResendSmsCode(_ error: Error) {}
     func didPressConfirmButton(on module: BankCardDataInputModuleInput, cvc: String) {}
@@ -62,6 +65,9 @@ extension SberbankStrategy: TokenizationStrategyInput {
     func didPressSubmitButton(on module: ApplePayContractModuleInput) {}
     func didPressSubmitButton(on module: ContractModuleInput) {}
     func didLoginInYandexMoney(_ response: YamoneyLoginResponse) {}
-    func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput, loginWithReusableToken isReusableToken: Bool) {}
+    func yamoneyAuthParameters(
+        _ module: YamoneyAuthParametersModuleInput,
+        loginWithReusableToken isReusableToken: Bool
+    ) {}
     func didTokenizeData() {}
 }
