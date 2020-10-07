@@ -11,9 +11,6 @@ target 'YandexCheckoutPaymentsExamplePods' do
 
   pod 'YandexCheckoutPayments',
       :path => './'
-  pod 'YandexCheckoutWalletApi',
-      :git => 'git@github.com:oltv00/yandex-checkout-wallet-api-swift.git',
-      :branch => 'task/b2b/MOC-1014'
   pod 'YandexCheckoutPaymentsApi',
       :git => 'git@github.com:oltv00/yandex-checkout-payments-api-swift.git',
       :branch => 'task/b2b/MOC-1168'
