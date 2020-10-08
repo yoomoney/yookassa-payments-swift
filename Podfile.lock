@@ -7,11 +7,11 @@ PODS:
   - YandexCheckoutPayments (3.7.1):
     - FunctionalSwift (~> 1.1.0)
     - When (~> 4.0.0)
-    - YandexCheckoutPaymentsApi (~> 2.0.0)
+    - YandexCheckoutPaymentsApi (~> 2.1.0)
     - YandexCheckoutWalletApi (~> 2.0.0)
     - YandexMobileMetrica/Dynamic (~> 3.7.0)
     - YandexMoneyCoreApi (~> 1.8.0)
-  - YandexCheckoutPaymentsApi (2.0.0):
+  - YandexCheckoutPaymentsApi (2.1.0):
     - FunctionalSwift (~> 1.1.0)
     - YandexMoneyCoreApi (~> 1.8.0)
   - YandexCheckoutWalletApi (2.0.0):
@@ -32,6 +32,7 @@ DEPENDENCIES:
   - Reveal-SDK
   - SwiftLint
   - YandexCheckoutPayments (from `./`)
+  - "YandexCheckoutPaymentsApi (from `git@github.com:oltv00/yandex-checkout-payments-api-swift.git`, branch `task/b2b/MOC-1176`)"
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -40,7 +41,6 @@ SPEC REPOS:
     - Reveal-SDK
     - SwiftLint
     - When
-    - YandexCheckoutPaymentsApi
     - YandexCheckoutWalletApi
     - YandexMobileMetrica
     - YandexMoneyCoreApi
@@ -48,6 +48,14 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   YandexCheckoutPayments:
     :path: "./"
+  YandexCheckoutPaymentsApi:
+    :branch: task/b2b/MOC-1176
+    :git: "git@github.com:oltv00/yandex-checkout-payments-api-swift.git"
+
+CHECKOUT OPTIONS:
+  YandexCheckoutPaymentsApi:
+    :commit: 4e97e0f1535f6229262f075dcd0f35ffe77a107d
+    :git: "git@github.com:oltv00/yandex-checkout-payments-api-swift.git"
 
 SPEC CHECKSUMS:
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
@@ -55,12 +63,12 @@ SPEC CHECKSUMS:
   Reveal-SDK: 5f94f14aff3d5f2a49f246edcd266fa4472679e9
   SwiftLint: dfd554ff0dff17288ee574814ccdd5cea85d76f7
   When: 4ffc88d535a094ad4bd5eaf2fd187de747e716d1
-  YandexCheckoutPayments: f26206ab566543f163d9e4065b4f8b17017f819d
-  YandexCheckoutPaymentsApi: 4da975b81fcef4c33baa36a1f697e9d726767160
+  YandexCheckoutPayments: dd48f20c50e5c723a9e3e46b384bb3bded4a4ba6
+  YandexCheckoutPaymentsApi: 9d0706c55c5f4695040b916826de47ab7dd5ff1f
   YandexCheckoutWalletApi: d37fbb48935c85e1250a02aacd91accbbb30e158
   YandexMobileMetrica: 95e93ee5af38520c9e470533dc8df6cf72fa171d
   YandexMoneyCoreApi: e7c095c06867a8b532e3f60ce6cd43cd8c16f67d
 
-PODFILE CHECKSUM: c6471121a137f7d869bebd9ba0651a93ec2b8e31
+PODFILE CHECKSUM: 71fb6557ce69c396baa8b12718114f8810869628
 
 COCOAPODS: 1.10.0.rc.1

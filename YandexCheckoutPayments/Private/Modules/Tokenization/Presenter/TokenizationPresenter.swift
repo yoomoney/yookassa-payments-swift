@@ -502,16 +502,17 @@ extension TokenizationPresenter: PaymentMethodsModuleOutput {
         paymentOptionsCount = methodsCount
         paymentMethodsModuleInput = module
 
-        if paymentOption is PaymentInstrumentYandexMoneyWallet ||
-               paymentOption is PaymentInstrumentYandexMoneyLinkedBankCard ||
-               paymentOption.paymentMethodType == .bankCard ||
-               paymentOption.paymentMethodType == .sberbank ||
-               paymentOption.paymentMethodType == .applePay {
+        if paymentOption is PaymentInstrumentYandexMoneyWallet
+               || paymentOption is PaymentInstrumentYandexMoneyLinkedBankCard
+               || paymentOption.paymentMethodType == .bankCard
+               || paymentOption.paymentMethodType == .sberbank
+               || paymentOption.paymentMethodType == .applePay {
 
             self.paymentOption = paymentOption
             strategy?.beginProcess()
 
-        } else if paymentOption.paymentMethodType == .yandexMoney {
+        } else if paymentOption.paymentMethodType == .yandexMoney
+                      || paymentOption.paymentMethodType == .yooMoney {
             presentYandexAuthModule(paymentOption)
         }
     }

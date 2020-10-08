@@ -52,7 +52,9 @@ extension YandexAuthInteractor: YandexAuthInteractorInput {
         )
 
         let yamoneyPaymentMethods = paymentMethods.map {
-            $0.filter { $0.paymentMethodType == .yandexMoney }
+            $0.filter { $0.paymentMethodType == .yandexMoney
+                || $0.paymentMethodType == .yooMoney
+            }
         }
 
         guard let output = output else { return }

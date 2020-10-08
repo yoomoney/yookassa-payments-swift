@@ -55,6 +55,7 @@ protocol PaymentProcessing {
         walletAuthorization: String,
         confirmation: Confirmation,
         savePaymentMethod: Bool,
+        paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens>
@@ -66,6 +67,7 @@ protocol PaymentProcessing {
         csc: String,
         confirmation: Confirmation,
         savePaymentMethod: Bool,
+        paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens>

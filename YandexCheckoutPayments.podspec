@@ -43,7 +43,7 @@ Pod::Spec.new do |s|
   s.ios.dependency 'When', '~> 4.0.0'
 
   s.ios.dependency 'YandexMoneyCoreApi', '~> 1.8.0'
-  s.ios.dependency 'YandexCheckoutPaymentsApi', '~> 2.0.0'
+  s.ios.dependency 'YandexCheckoutPaymentsApi', '~> 2.1.0'
   s.ios.dependency 'YandexCheckoutWalletApi', '~> 2.0.0'
   s.ios.dependency 'YandexMobileMetrica/Dynamic', '~> 3.7.0'
 end
