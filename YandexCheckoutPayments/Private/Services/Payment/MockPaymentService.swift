@@ -106,6 +106,7 @@ final class MockPaymentService: PaymentProcessing {
         walletAuthorization: String,
         confirmation: Confirmation,
         savePaymentMethod: Bool,
+        paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens> {
@@ -119,6 +120,7 @@ final class MockPaymentService: PaymentProcessing {
         csc: String,
         confirmation: Confirmation,
         savePaymentMethod: Bool,
+        paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens> {

@@ -64,7 +64,7 @@ extension TokenizationInteractor: TokenizationInteractorInput {
             }
 
             makeToken = curry(paymentService.tokenizeWallet)(clientApplicationKey)(
-                yamoneyToken)(confirmation)(savePaymentMethod)
+                yamoneyToken)(confirmation)(savePaymentMethod)(paymentOption.paymentMethodType)
 
         case let .linkedBankCard(id, csc, confirmation, savePaymentMethod):
 
@@ -74,7 +74,7 @@ extension TokenizationInteractor: TokenizationInteractorInput {
             }
 
             makeToken = curry(paymentService.tokenizeLinkedBankCard)(clientApplicationKey)(
-                yamoneyToken)(id)(csc)(confirmation)(savePaymentMethod)
+                yamoneyToken)(id)(csc)(confirmation)(savePaymentMethod)(paymentOption.paymentMethodType)
 
         case let .applePay(paymentData, savePaymentMethod):
             makeToken = curry(paymentService.tokenizeApplePay)(clientApplicationKey)(

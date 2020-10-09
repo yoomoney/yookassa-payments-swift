@@ -92,12 +92,14 @@ extension PaymentService: PaymentProcessing {
         walletAuthorization: String,
         confirmation: Confirmation,
         savePaymentMethod: Bool,
+        paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens> {
         let paymentMethodData = PaymentInstrumentDataYandexMoneyWallet(
             instrumentType: .wallet,
-            walletAuthorization: walletAuthorization
+            walletAuthorization: walletAuthorization,
+            paymentMethodType: paymentMethodType
         )
         let tokensRequest = TokensRequestPaymentMethodData(
             amount: amount,
@@ -121,6 +123,7 @@ extension PaymentService: PaymentProcessing {
         csc: String,
         confirmation: Confirmation,
         savePaymentMethod: Bool,
+        paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens> {
@@ -128,7 +131,8 @@ extension PaymentService: PaymentProcessing {
             instrumentType: .linkedBankCard,
             cardId: cardId,
             csc: csc,
-            walletAuthorization: walletAuthorization
+            walletAuthorization: walletAuthorization,
+            paymentMethodType: paymentMethodType
         )
         let tokensRequest = TokensRequestPaymentMethodData(
             amount: amount,

@@ -28,7 +28,20 @@ struct PaymentMethodHandler {
     // MARK: - Handling logic
     func filterPaymentMethods(_ paymentMethods: [PaymentOption]) -> [PaymentOption] {
         let handledSupportedTypes = applePayHandler.filteredByApplePayAvailability(supportedTypes)
-        let supportedPaymentMethods = paymentMethods.filter { handledSupportedTypes.contains($0.paymentMethodType) }
+        var supportedPaymentMethods = paymentMethods.filter {
+            if $0.paymentMethodType == .yooMoney
+                   && handledSupportedTypes.contains(.yandexMoney) {
+                return true
+            } else {
+                return handledSupportedTypes.contains($0.paymentMethodType)
+            }
+        }
+        if supportedPaymentMethods.contains(where: { $0.paymentMethodType == .yandexMoney })
+            && supportedPaymentMethods.contains(where: { $0.paymentMethodType == .yooMoney }) {
+
+            supportedPaymentMethods = supportedPaymentMethods
+                .filter({ $0.paymentMethodType != .yandexMoney })
+        }
         return supportedPaymentMethods
     }
 }
