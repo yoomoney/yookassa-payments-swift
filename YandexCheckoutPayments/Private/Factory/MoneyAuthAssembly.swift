@@ -22,29 +22,28 @@ enum MoneyAuthAssembly {
             loggingEnabled: loggingEnabled,
             authenticationChallengeHandler: authenticationChallengeHandler,
             yxOauthClientId: yxOauthClientId,
-            supportEmail: "supportEmail",
+            supportEmail: "support@yoomoney.ru",
             supportPhone: "supportPhone",
-            // swiftlint:disable force_unwrapping
-            supportHelpUrl: URL(string: "https://google.com")!
-            // swiftlint:enable force_unwrapping
+            // swiftlint:disable:next force_unwrapping
+            supportHelpUrl: URL(string: "https://money.yandex.ru")!
         )
         return config
     }
 
     static func makeMoneyAuthCustomization() -> MoneyAuth.Customization {
         let customization = MoneyAuth.Customization(
-            restorePasswordEnabled: true,
-            userAgreementTitle: "userAgreementTitle",
-            userWithEmailAgreementTitle: "userWithEmailAgreementTitle",
-            emailCheckboxVisible: true,
-            emailCheckboxTitle: "emailCheckboxTitle",
-            addEmailTitle: "addEmailTitle",
-            migrationScreenTitle: "migrationScreenTitle",
-            migrationScreenSubtitle: "migrationScreenSubtitle",
-            migrationScreenButtonSubtitle: "migrationScreenButtonSubtitle",
-            hardMigrationScreenTitle: "hardMigrationScreenTitle",
-            hardMigrationScreenSubtitle: "hardMigrationScreenSubtitle",
-            hardMigrationScreenButtonSubtitle: "hardMigrationScreenButtonSubtitle"
+            restorePasswordEnabled: false,
+            userAgreementTitle: §Localized.userAgreementTitle,
+            userWithEmailAgreementTitle: §Localized.userWithEmailAgreementTitle,
+            emailCheckboxVisible: false,
+            emailCheckboxTitle: §Localized.emailCheckboxTitle,
+            addEmailTitle: §Localized.addEmailTitle,
+            migrationScreenTitle: §Localized.migrationScreenTitle,
+            migrationScreenSubtitle: §Localized.migrationScreenSubtitle,
+            migrationScreenButtonSubtitle: §Localized.migrationScreenButtonSubtitle,
+            hardMigrationScreenTitle: §Localized.hardMigrationScreenTitle,
+            hardMigrationScreenSubtitle: §Localized.hardMigrationScreenSubtitle,
+            hardMigrationScreenButtonSubtitle: §Localized.hardMigrationScreenButtonSubtitle
         )
         return customization
     }
@@ -75,5 +74,24 @@ enum MoneyAuthAssembly {
             return ""
         }
         return host
+    }
+}
+
+// MARK: - Localized
+
+private extension MoneyAuthAssembly {
+    enum Localized: String {
+        // swiftlint:disable line_length
+        case userAgreementTitle = "Wallet.Authorization.userAgreementTitle"
+        case userWithEmailAgreementTitle = "Wallet.Authorization.userWithEmailAgreementTitle"
+        case emailCheckboxTitle = "Wallet.Authorization.emailCheckboxTitle"
+        case addEmailTitle = "Wallet.Authorization.addEmailTitle"
+        case migrationScreenTitle = "Wallet.Authorization.migrationScreenTitle"
+        case migrationScreenSubtitle = "Wallet.Authorization.migrationScreenSubtitle"
+        case migrationScreenButtonSubtitle = "Wallet.Authorization.migrationScreenButtonSubtitle"
+        case hardMigrationScreenTitle = "Wallet.Authorization.hardMigrationScreenTitle"
+        case hardMigrationScreenSubtitle = "Wallet.Authorization.hardMigrationScreenSubtitle"
+        case hardMigrationScreenButtonSubtitle = "Wallet.Authorization.hardMigrationScreenButtonSubtitle"
+        // swiftlint:enable line_length
     }
 }
