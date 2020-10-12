@@ -30,6 +30,7 @@ enum YandexAuthAssembly {
             testModeSettings: inputData.testModeSettings,
             moneyAuthConfig: moneyAuthConfig,
             moneyAuthCustomization: moneyAuthCustomization,
+            kassaPaymentsCustomization: inputData.kassaPaymentsCustomization,
             paymentMethodsModuleInput: inputData.paymentMethodsModuleInput
         )
 

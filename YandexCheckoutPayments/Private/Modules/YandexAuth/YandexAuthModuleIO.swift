@@ -11,6 +11,7 @@ struct YandexAuthModuleInputData {
     let moneyAuthClientId: String
     let yxOauthClientId: String?
     let paymentMethodsModuleInput: PaymentMethodsModuleInput?
+    let kassaPaymentsCustomization: CustomizationSettings
 }
 
 protocol YandexAuthModuleInput: class {}

@@ -10,6 +10,7 @@ extension YandexAuthRouter: YandexAuthRouterInput {
     func presentAuthorizationModule(
         config: MoneyAuth.Config,
         customization: MoneyAuth.Customization,
+        kassaPaymentsCustomization: CustomizationSettings,
         output: MoneyAuth.AuthorizationCoordinatorDelegate
     ) throws -> MoneyAuth.AuthorizationCoordinator {
 
@@ -20,6 +21,7 @@ extension YandexAuthRouter: YandexAuthRouterInput {
         )
         coordinator.delegate = output
         let viewController = try coordinator.makeInitialViewController()
+        viewController.view.tintColor = kassaPaymentsCustomization.mainScheme
         transitionHandler?.present(viewController, animated: true, completion: nil)
         return coordinator
     }
