@@ -1,4 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
+source 'git@github.com:yandex-money-tech/cocoa-pod-specs.git'
 
 platform :ios, '10.0'
 use_frameworks!
