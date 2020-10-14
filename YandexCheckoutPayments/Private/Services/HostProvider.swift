@@ -22,9 +22,9 @@ final class HostProvider: YandexMoneyCoreApi.HostProvider {
             case YandexCheckoutPaymentsApi.Constants.paymentsApiMethodsKey:
                 host = "//payment.yandex.net"
             case YandexCheckoutWalletApi.Constants.walletApiMethodsKey:
-                host = "//money.yandex.ru"
+                host = "//yoomoney.ru"
             case GlobalConstants.Hosts.moneyAuth:
-                host = "//payment.yandex.net"
+                host = "//yoomoney.ru"
             default:
                 throw HostProviderError.unknownKey(key)
             }
