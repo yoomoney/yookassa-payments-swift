@@ -34,32 +34,21 @@ import YandexMoneyCoreApi/*.ApiResponse*/
 import YandexMoneyCoreApi/*.ApiSession*/
 import YandexMoneyCoreApi/*.Task*/
 import os
-public protocol LargeItemViewInput : AnyObject {
-  var title: Swift.String { get set }
-  var subtitle: Swift.String { get set }
-}
-@objc final public class LargeItemView : UIKit.UIView {
-  final public var title: Swift.String {
-    get
-    set
-  }
-  final public var subtitle: Swift.String {
-    get
-    set
-  }
-  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
-  @objc override dynamic public init(frame: CoreGraphics.CGRect)
-  @objc deinit
-}
-extension LargeItemView : MoneyAuth.LargeItemViewInput {
-}
-extension LargeItemView {
-  final public var leftSeparatorInset: CoreGraphics.CGFloat {
+public enum UnauthorizedError {
+  case invalidCredentials
+  case invalidSignature
+  case invalidToken
+  public static func == (a: MoneyAuth.UnauthorizedError, b: MoneyAuth.UnauthorizedError) -> Swift.Bool
+  public var hashValue: Swift.Int {
     get
   }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+extension UnauthorizedError {
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
 }
 public enum TestScreenFactory {
-  public static func makeProfileModule(config: MoneyAuth.Config, oauthToken: Swift.String, customization: MoneyAuth.Customization) -> UIKit.UIViewController
   public static func makeSetUpPhoneModule(withOffers: Swift.Bool) -> UIKit.UIViewController
   public static func makeConfirmPhoneForEnrollmentModule(codeLength: Swift.Int) -> UIKit.UIViewController
   public static func makeChoosePhoneForMigrationModule() -> UIKit.UIViewController
@@ -87,15 +76,13 @@ public enum TestScreenFactory {
   public static func makeSetPasswordForPasswordRecoveryModule() -> UIKit.UIViewController
   public static func makeSimpleInformationModule() -> UIKit.UIViewController
   public static func makeMigrationInformationModule() -> UIKit.UIViewController
+  public static func makeNotRegisteredAccountModule() -> UIKit.UIViewController
   public static func initializeModulesOutput(viewController: UIKit.UIViewController)
 }
 extension UIButton {
   @objc override dynamic open var intrinsicContentSize: CoreGraphics.CGSize {
     @objc get
   }
-}
-public protocol TitleItemViewInput : AnyObject {
-  var title: Swift.String { get set }
 }
 public typealias AuthenticationChallengeHandler = ((Foundation.URLSession, Foundation.URLAuthenticationChallenge, @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void) -> Swift.Void)
 public struct Config {
@@ -105,55 +92,7 @@ public protocol AvatarViewInput : AnyObject {
   var userImage: UIKit.UIImage? { get set }
   var placeholderText: Swift.String { get set }
 }
-@objc final public class TitleItemTableViewCell : UIKit.UITableViewCell {
-  final public var title: Swift.String {
-    get
-    set
-  }
-  final public var itemView: MoneyAuth.TitleItemView {
-    get
-  }
-  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
-  @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
-  @objc override final public func layoutSubviews()
-  @objc deinit
-}
-@objc final public class TitleItemView : UIKit.UIView {
-  final public var title: Swift.String {
-    get
-    set
-  }
-  final public let titleLabel: UIKit.UILabel
-  @objc override final public var accessibilityIdentifier: Swift.String? {
-    @objc get
-    @objc set
-  }
-  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
-  @objc override dynamic public init(frame: CoreGraphics.CGRect)
-  @objc deinit
-}
-extension TitleItemView : MoneyAuth.TitleItemViewInput {
-}
-extension TitleItemView {
-  final public var leftSeparatorInset: CoreGraphics.CGFloat {
-    get
-  }
-}
 infix operator ?< : DefaultPrecedence
-@objc final public class LargeItemTableViewCell : UIKit.UITableViewCell {
-  final public var title: Swift.String {
-    get
-    set
-  }
-  final public var subtitle: Swift.String {
-    get
-    set
-  }
-  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
-  @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
-  @objc override final public func layoutSubviews()
-  @objc deinit
-}
 public enum Origin : Swift.String {
   case wallet
   case checkout
@@ -176,16 +115,20 @@ public protocol ProfileModuleInput : AnyObject {
 }
 public protocol ProfileModuleOutput : AnyObject {
   func profileModule(_ module: MoneyAuth.ProfileModuleInput, didPressCloseWithAccount account: MoneyAuth.UserAccount?)
+  func profileModule(_ module: MoneyAuth.ProfileModuleInput, didSuccessChangeEmailWithOldEmailWasEmpty oldEmailWasEmpty: Swift.Bool)
 }
 public enum ProfileAssembly {
   public static func makeModule(inputData: MoneyAuth.ProfileModuleInputData, output: MoneyAuth.ProfileModuleOutput?) -> UIKit.UIViewController
+}
+public enum SessionTicketMediatorFactory {
+  public static func makeMediator(config: MoneyAuth.Config) -> MoneyAuth.SessionTicketMediator
 }
 public protocol AuthorizationCoordinatorDelegate : AnyObject {
   func authorizationCoordinatorDidCancel(_ coordinator: MoneyAuth.AuthorizationCoordinator)
   func authorizationCoordinatorDidPrepareProcess(_ coordinator: MoneyAuth.AuthorizationCoordinator)
   func authorizationCoordinator(_ coordinator: MoneyAuth.AuthorizationCoordinator, didFailPrepareProcessWithError error: Swift.Error)
   func authorizationCoordinator(_ coordinator: MoneyAuth.AuthorizationCoordinator, didFailureWith error: Swift.Error)
-  func authorizationCoordinator(_ coordinator: MoneyAuth.AuthorizationCoordinator, didAcquireAuthorizationToken token: Swift.String, account: MoneyAuth.UserAccount, tmxSessionId: Swift.String?, phoneOffersAccepted: Swift.Bool, emailOffersAccepted: Swift.Bool)
+  func authorizationCoordinator(_ coordinator: MoneyAuth.AuthorizationCoordinator, didAcquireAuthorizationToken token: Swift.String, account: MoneyAuth.UserAccount, authorizationProcess: MoneyAuth.AuthorizationProcess?, tmxSessionId: Swift.String?, phoneOffersAccepted: Swift.Bool, emailOffersAccepted: Swift.Bool)
 }
 final public class AuthorizationCoordinator {
   public init(processType: MoneyAuth.AuthorizationProcessType, config: MoneyAuth.Config, customization: MoneyAuth.Customization)
@@ -229,7 +172,7 @@ public struct UserAccount {
     public let url: Foundation.URL?
   }
   public struct LanguageInfo {
-    public let value: Swift.String
+    public let value: Swift.String?
     public let modifiable: Swift.Bool
   }
 }
@@ -262,10 +205,24 @@ public struct Service {
 extension Service : Swift.Decodable {
   public init(from decoder: Swift.Decoder) throws
 }
+public protocol SessionTicketMediator {
+  func fetchTicket(completion: @escaping (FunctionalSwift.Result<Swift.String>) -> Swift.Void)
+  func verifyTicket(_ ticket: Swift.String, completion: @escaping (FunctionalSwift.Result<Swift.String>) -> Swift.Void)
+}
 public protocol AccountService {
   func fetchAccount(oauthToken: Swift.String, completion: @escaping (FunctionalSwift.Result<MoneyAuth.UserAccount>) -> Swift.Void)
   func changeDisplayName(oauthToken: Swift.String, displayName: Swift.String, completion: @escaping (FunctionalSwift.Result<MoneyAuth.UserAccount>) -> Swift.Void)
   func changeLanguage(oauthToken: Swift.String, language: Swift.String, completion: @escaping (FunctionalSwift.Result<MoneyAuth.UserAccount>) -> Swift.Void)
+}
+public enum AuthorizationProcess {
+  case login
+  case enrollment
+  case migration
+  public static func == (a: MoneyAuth.AuthorizationProcess, b: MoneyAuth.AuthorizationProcess) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
 }
 public enum AccountServiceFactory {
   public static func makeService(config: MoneyAuth.Config) -> MoneyAuth.AccountService
@@ -326,8 +283,43 @@ final public class PasswordRecoveryCoordinator {
   final public func prepareProcess()
   @objc deinit
 }
+public enum MigrationInformationAssembly {
+  public static func makeModule(inputData: MoneyAuth.MigrationInformationModuleInputData, moduleOutput: MoneyAuth.MigrationInformationModuleOutput? = nil) -> UIKit.UIViewController
+}
+public struct MigrationInformationModuleInputData {
+  public let title: Swift.String
+  public let text: Swift.String
+  public let buttonTitle: Swift.String?
+  public let conditionsText: Swift.String
+  public init(title: Swift.String, text: Swift.String, buttonTitle: Swift.String?, conditionsText: Swift.String)
+}
+public protocol MigrationInformationModuleInput : AnyObject {
+}
+public protocol MigrationInformationModuleOutput : AnyObject {
+  func migrationInformationModuleDidPressClose(_ module: MoneyAuth.MigrationInformationModuleInput)
+  func migrationInformationModuleDidPressSubmit(_ module: MoneyAuth.MigrationInformationModuleInput)
+}
 public struct Customization {
+  public let restorePasswordEnabled: Swift.Bool
+  public let userAgreementTitle: Swift.String?
+  public let userWithEmailAgreementTitle: Swift.String?
+  public let emailCheckboxVisible: Swift.Bool
+  public let emailCheckboxTitle: Swift.String?
+  public let addEmailTitle: Swift.String?
+  public let migrationScreenTitle: Swift.String?
+  public let migrationScreenSubtitle: Swift.String?
+  public let migrationScreenButtonSubtitle: Swift.String?
+  public let hardMigrationScreenTitle: Swift.String?
+  public let hardMigrationScreenSubtitle: Swift.String?
+  public let hardMigrationScreenButtonSubtitle: Swift.String?
   public init(restorePasswordEnabled: Swift.Bool = false, userAgreementTitle: Swift.String? = nil, userWithEmailAgreementTitle: Swift.String? = nil, emailCheckboxVisible: Swift.Bool = false, emailCheckboxTitle: Swift.String? = nil, addEmailTitle: Swift.String? = nil, migrationScreenTitle: Swift.String? = nil, migrationScreenSubtitle: Swift.String? = nil, migrationScreenButtonSubtitle: Swift.String? = nil, hardMigrationScreenTitle: Swift.String? = nil, hardMigrationScreenSubtitle: Swift.String? = nil, hardMigrationScreenButtonSubtitle: Swift.String? = nil)
 }
+extension MoneyAuth.UnauthorizedError : Swift.Encodable {}
+extension MoneyAuth.UnauthorizedError : Swift.Decodable {}
+extension MoneyAuth.UnauthorizedError : Swift.Error {}
+extension MoneyAuth.UnauthorizedError : Swift.Equatable {}
+extension MoneyAuth.UnauthorizedError : Swift.Hashable {}
 extension MoneyAuth.Origin : Swift.Hashable {}
 extension MoneyAuth.Origin : Swift.RawRepresentable {}
+extension MoneyAuth.AuthorizationProcess : Swift.Equatable {}
+extension MoneyAuth.AuthorizationProcess : Swift.Hashable {}
