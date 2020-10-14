@@ -45,7 +45,8 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
                     paymentMethodsModuleInput: paymentMethodsModuleInput,
                     returnUrl: inputData.returnUrl ?? Constants.returnUrl,
                     isLoggingEnabled: inputData.isLoggingEnabled,
-                    savePaymentMethod: inputData.savePaymentMethod
+                    savePaymentMethod: inputData.savePaymentMethod,
+                    moneyAuthCenterClientId: inputData.moneyAuthClientId
                 )
             }
         }
@@ -83,7 +84,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             tokenizationSettings: inputData.tokenizationSettings,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
-            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod)
+            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod),
+            moneyAuthCenterClientId: inputData.moneyAuthClientId
         )
 
         DispatchQueue.main.async { [weak self] in
@@ -134,19 +136,21 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
 
-        let yamoneyAuthInputData = YamoneyAuthModuleInputData(shopName: inputData.shopName,
-                                                              purchaseDescription: inputData.purchaseDescription,
-                                                              paymentMethod: viewModel,
-                                                              price: makePriceViewModel(paymentOption),
-                                                              fee: makeFeePriceViewModel(paymentOption),
-                                                              processId: processId,
-                                                              authContextId: authContextId,
-                                                              authTypeState: authTypeState,
-                                                              shouldChangePaymentMethod: shouldChangePaymentOptions,
-                                                              testModeSettings: inputData.testModeSettings,
-                                                              tokenizeScheme: tokenizeScheme,
-                                                              isLoggingEnabled: inputData.isLoggingEnabled,
-                                                              termsOfService: termsOfService)
+        let yamoneyAuthInputData = YamoneyAuthModuleInputData(
+            shopName: inputData.shopName,
+            purchaseDescription: inputData.purchaseDescription,
+            paymentMethod: viewModel,
+            price: makePriceViewModel(paymentOption),
+            fee: makeFeePriceViewModel(paymentOption),
+            processId: processId,
+            authContextId: authContextId,
+            authTypeState: authTypeState,
+            shouldChangePaymentMethod: shouldChangePaymentOptions,
+            testModeSettings: inputData.testModeSettings,
+            tokenizeScheme: tokenizeScheme,
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            termsOfService: termsOfService
+        )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentYamoneyAuth(inputData: yamoneyAuthInputData,
@@ -952,45 +956,46 @@ private func makeStrategy(
     paymentMethodsModuleInput: PaymentMethodsModuleInput?,
     returnUrl: String,
     isLoggingEnabled: Bool,
-    savePaymentMethod: SavePaymentMethod
+    savePaymentMethod: SavePaymentMethod,
+    moneyAuthCenterClientId: String
 ) -> TokenizationStrategyInput {
 
     let authorizationService = AuthorizationProcessingAssembly
         .makeService(isLoggingEnabled: isLoggingEnabled,
-                     testModeSettings: testModeSettings)
+                     testModeSettings: testModeSettings,
+                     moneyAuthCenterClientId: moneyAuthCenterClientId)
 
     let analyticsService = AnalyticsProcessingAssembly
         .makeAnalyticsService(isLoggingEnabled: isLoggingEnabled)
 
     let analyticsProvider = AnalyticsProvidingAssembly
-        .makeAnalyticsProvider(isLoggingEnabled: isLoggingEnabled,
-                               testModeSettings: testModeSettings)
+        .makeAnalyticsProvider(testModeSettings: testModeSettings)
 
     let strategy: TokenizationStrategyInput
     if let bankCard = try? BankCardStrategy(
         paymentOption: paymentOption,
         returnUrl: returnUrl,
         savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
-        ) {
+    ) {
         strategy = bankCard
     } else if let wallet = try? WalletStrategy(
         authorizationService: authorizationService,
         paymentOption: paymentOption,
         returnUrl: returnUrl,
         savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
-        ) {
+    ) {
         strategy = wallet
     } else if let linkedBankCard = try? LinkedBankCardStrategy(
         authorizationService: authorizationService,
         paymentOption: paymentOption,
         returnUrl: returnUrl,
         savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
-        ) {
+    ) {
         strategy = linkedBankCard
     } else if let sberbankStrategy = try? SberbankStrategy(
         paymentOption: paymentOption,
         savePaymentMethod: false
-        ) {
+    ) {
         strategy = sberbankStrategy
     } else if let applePay = try? ApplePayStrategy(
         paymentOption: paymentOption,
@@ -999,7 +1004,7 @@ private func makeStrategy(
         analyticsProvider: analyticsProvider,
         savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod),
         inputSavePaymentMethod: savePaymentMethod
-        ) {
+    ) {
         strategy = applePay
     } else {
         fatalError("Unsupported strategy")

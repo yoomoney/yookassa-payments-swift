@@ -1,11 +1,20 @@
 enum AnalyticsProvidingAssembly {
 
-    static func makeAnalyticsProvider(isLoggingEnabled: Bool,
-                                      testModeSettings: TestModeSettings?) -> AnalyticsProviding {
-        let authorizationService = AuthorizationProcessingAssembly
-            .makeService(isLoggingEnabled: isLoggingEnabled,
-                         testModeSettings: testModeSettings)
-        let analyticsProvider = AnalyticsProvider(authorizationService: authorizationService)
+    static func makeAnalyticsProvider(
+        testModeSettings: TestModeSettings?
+    ) -> AnalyticsProviding {
+        let keyValueStoring: KeyValueStoring
+        switch testModeSettings {
+        case .some(let testModeSettings):
+            keyValueStoring = KeyValueStoringAssembly.makeMockKeychainStorage(
+                testModeSettings: testModeSettings
+            )
+        case .none:
+            keyValueStoring = KeyValueStoringAssembly.makeKeychainStorage()
+        }
+        let analyticsProvider = AnalyticsProvider(
+            keyValueStoring: keyValueStoring
+        )
         return analyticsProvider
     }
 }

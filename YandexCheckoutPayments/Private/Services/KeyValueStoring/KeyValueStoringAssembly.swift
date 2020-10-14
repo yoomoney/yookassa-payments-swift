@@ -36,21 +36,25 @@ private extension KeyValueStoringAssembly {
 
 private func makeAuthorizedMockKeychainStroage() -> MockKeychainStorage {
     let storage = MockKeychainStorage()
-    storage.set(string: Constants.Values.yandexToken, for: Constants.Keys.yandexToken)
-    storage.set(string: Constants.Values.yamoneyToken, for: Constants.Keys.yamoneyToken)
-    storage.set(bool: Constants.Values.isReusableYamoneyToken, for: Constants.Keys.isReusableYamoneyToken)
+    storage.set(
+        string: Constants.Values.moneyCenterAuthToken,
+        for: KeyValueStoringKeys.moneyCenterAuthToken
+    )
+    storage.set(
+        string: Constants.Values.walletToken,
+        for: KeyValueStoringKeys.walletToken
+    )
+    storage.set(
+        bool: Constants.Values.isReusableWalletToken,
+        for: KeyValueStoringKeys.isReusableWalletToken
+    )
     return storage
 }
 
 private enum Constants {
-    enum Keys {
-        static let yandexToken = "yandexToken"
-        static let yamoneyToken = "yamoneyToken"
-        static let isReusableYamoneyToken = "isReusableYamoneyToken"
-    }
     enum Values {
-        static let yandexToken = "mockYandexToken"
-        static let yamoneyToken = "mockYamoneyToken"
-        static let isReusableYamoneyToken = true
+        static let moneyCenterAuthToken = "mockMoneyCenterAuthToken"
+        static let walletToken = "mockWalletToken"
+        static let isReusableWalletToken = true
     }
 }

@@ -29,19 +29,18 @@ class BankCardDataInputInteractor {
 
     // MARK: - Module interaction properties
     private let cardService: CardService
-    private let authorizationService: AuthorizationProcessing
     private let analyticsService: AnalyticsProcessing
     private let analyticsProvider: AnalyticsProviding
     private let bankSettingsService: BankSettingsService
 
-    init(cardService: CardService,
-         authorizationService: AuthorizationProcessing,
-         analyticsService: AnalyticsProcessing,
-         analyticsProvider: AnalyticsProviding,
-         bankSettingsService: BankSettingsService) {
+    init(
+        cardService: CardService,
+        analyticsService: AnalyticsProcessing,
+        analyticsProvider: AnalyticsProviding,
+        bankSettingsService: BankSettingsService
+    ) {
         self.cardService = cardService
         self.analyticsService = analyticsService
-        self.authorizationService = authorizationService
         self.analyticsProvider = analyticsProvider
         self.bankSettingsService = bankSettingsService
     }

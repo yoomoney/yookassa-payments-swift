@@ -8,16 +8,18 @@ final class MockPaymentService: PaymentProcessing {
 
     private let paymentMethodHandler: PaymentMethodHandler
     private let testModeSettings: TestModeSettings
-    private let authorizationMediator: AuthorizationProcessing
+    private let keyValueStoring: KeyValueStoring
 
     // MARK: - Creating object
 
-    init(paymentMethodHandler: PaymentMethodHandler,
-         testModeSettings: TestModeSettings,
-         authorizationMediator: AuthorizationProcessing) {
+    init(
+        paymentMethodHandler: PaymentMethodHandler,
+        testModeSettings: TestModeSettings,
+        keyValueStoring: KeyValueStoring
+    ) {
         self.paymentMethodHandler = paymentMethodHandler
         self.testModeSettings = testModeSettings
-        self.authorizationMediator = authorizationMediator
+        self.keyValueStoring = keyValueStoring
     }
 
     // MARK: - PaymentProcessing
@@ -32,7 +34,9 @@ final class MockPaymentService: PaymentProcessing {
     ) -> Promise<[PaymentOption]> {
         let timeout = makeTimeoutPromise()
 
-        let authorized = authorizationMediator.getMoneyCenterAuthToken() != nil
+        let authorized = keyValueStoring.getString(
+            for: KeyValueStoringKeys.moneyCenterAuthToken
+        ) != nil
         let response = makePaymentOptions(testModeSettings,
                                           handler: paymentMethodHandler,
                                           authorized: authorized)
