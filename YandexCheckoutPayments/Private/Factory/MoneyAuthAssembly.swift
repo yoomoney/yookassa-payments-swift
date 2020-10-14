@@ -2,21 +2,25 @@ import MoneyAuth
 
 enum MoneyAuthAssembly {
     static func makeMoneyAuthConfig(
-        moneyAuthCenterClientId: String,
-        yxOauthClientId: String?,
+        moneyAuthClientId: String,
         loggingEnabled: Bool
     ) -> MoneyAuth.Config {
-
         let keyValueStorage = KeyValueStoringAssembly.makeSettingsStorage()
         let isDevHost = keyValueStorage.getBool(for: Settings.Keys.devHost) ?? false
-
         let authenticationChallengeHandler = makeAuthenticationChallengeHandler(
+            isDevHost: isDevHost
+        )
+        let yxOauthClientId = makeYXOauthClientId(
+            isDevHost: isDevHost
+        )
+        let moneyAuthClientId = makeMoneyAuthClientId(
+            currentClientId: moneyAuthClientId,
             isDevHost: isDevHost
         )
 
         let config = MoneyAuth.Config(
             origin: .wallet,
-            clientId: moneyAuthCenterClientId,
+            clientId: moneyAuthClientId,
             host: makeHost(),
             isDevHost: isDevHost,
             loggingEnabled: loggingEnabled,
@@ -74,6 +78,24 @@ enum MoneyAuthAssembly {
             return ""
         }
         return host
+    }
+
+    private static func makeYXOauthClientId(
+        isDevHost: Bool
+    ) -> String {
+        return isDevHost
+            ? "91cad62782fb4889a45decbb18d2c393"
+            : "80642c11721c49d69d9936de0c265886"
+    }
+
+    private static func makeMoneyAuthClientId(
+        currentClientId: String,
+        isDevHost: Bool
+    ) -> String {
+        guard isDevHost == false else {
+            return "a90r00nd74uqa4f1jbp6dni0tmf9eg6s"
+        }
+        return currentClientId
     }
 }
 

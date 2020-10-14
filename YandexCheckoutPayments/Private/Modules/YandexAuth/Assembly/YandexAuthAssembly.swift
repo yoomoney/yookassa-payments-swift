@@ -19,8 +19,7 @@ enum YandexAuthAssembly {
     ) -> PaymentMethodsViewController {
 
         let moneyAuthConfig = MoneyAuthAssembly.makeMoneyAuthConfig(
-            moneyAuthCenterClientId: inputData.moneyAuthClientId,
-            yxOauthClientId: inputData.yxOauthClientId,
+            moneyAuthClientId: inputData.moneyAuthClientId,
             loggingEnabled: inputData.isLoggingEnabled
         )
 
@@ -37,7 +36,7 @@ enum YandexAuthAssembly {
         let authorizationService = AuthorizationProcessingAssembly
             .makeService(isLoggingEnabled: inputData.isLoggingEnabled,
                          testModeSettings: inputData.testModeSettings,
-                         moneyAuthCenterClientId: inputData.moneyAuthClientId)
+                         moneyAuthClientId: inputData.moneyAuthClientId)
         let analyticsService = AnalyticsProcessingAssembly
             .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
         let paymentService = PaymentProcessingAssembly

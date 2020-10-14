@@ -357,8 +357,7 @@ final class RootViewController: UIViewController {
             userPhoneNumber: "7",
             customizationSettings: CustomizationSettings(mainScheme: .blueRibbon),
             savePaymentMethod: .userSelects,
-            moneyAuthClientId: "aaa111",
-            yandexLoginOauthClientId: "7767c737cf5747dca8d3bc4689219013"
+            moneyAuthClientId: "hitm6hg51j1d3g1u3ln040bajiol903b"
         ))
 
 //        let inputData: TokenizationFlow = .bankCardRepeat(BankCardRepeatModuleInputData(

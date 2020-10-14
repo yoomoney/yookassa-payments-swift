@@ -46,7 +46,7 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
                     returnUrl: inputData.returnUrl ?? Constants.returnUrl,
                     isLoggingEnabled: inputData.isLoggingEnabled,
                     savePaymentMethod: inputData.savePaymentMethod,
-                    moneyAuthCenterClientId: inputData.moneyAuthClientId
+                    moneyAuthClientId: inputData.moneyAuthClientId
                 )
             }
         }
@@ -85,7 +85,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
             getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod),
-            moneyAuthCenterClientId: inputData.moneyAuthClientId
+            moneyAuthClientId: inputData.moneyAuthClientId
         )
 
         DispatchQueue.main.async { [weak self] in
@@ -261,7 +261,6 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             isLoggingEnabled: inputData.isLoggingEnabled,
             getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod),
             moneyAuthClientId: inputData.moneyAuthClientId,
-            yxOauthClientId: inputData.yandexLoginOauthClientId,
             paymentMethodsModuleInput: paymentMethodsModuleInput,
             kassaPaymentsCustomization: inputData.customizationSettings
         )
@@ -957,13 +956,13 @@ private func makeStrategy(
     returnUrl: String,
     isLoggingEnabled: Bool,
     savePaymentMethod: SavePaymentMethod,
-    moneyAuthCenterClientId: String
+    moneyAuthClientId: String
 ) -> TokenizationStrategyInput {
 
     let authorizationService = AuthorizationProcessingAssembly
         .makeService(isLoggingEnabled: isLoggingEnabled,
                      testModeSettings: testModeSettings,
-                     moneyAuthCenterClientId: moneyAuthCenterClientId)
+                     moneyAuthClientId: moneyAuthClientId)
 
     let analyticsService = AnalyticsProcessingAssembly
         .makeAnalyticsService(isLoggingEnabled: isLoggingEnabled)

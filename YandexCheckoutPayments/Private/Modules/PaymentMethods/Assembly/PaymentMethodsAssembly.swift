@@ -33,7 +33,7 @@ enum PaymentMethodsAssembly {
             .makeService(
                 isLoggingEnabled: inputData.isLoggingEnabled,
                 testModeSettings: inputData.testModeSettings,
-                moneyAuthCenterClientId: inputData.moneyAuthCenterClientId
+                moneyAuthClientId: inputData.moneyAuthClientId
             )
         let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
             isLoggingEnabled: inputData.isLoggingEnabled
