@@ -152,6 +152,7 @@ extension YandexAuthPresenter: AuthorizationCoordinatorDelegate {
         _ coordinator: AuthorizationCoordinator,
         didAcquireAuthorizationToken token: String,
         account: UserAccount,
+        authorizationProcess: AuthorizationProcess?,
         tmxSessionId: String?,
         phoneOffersAccepted: Bool,
         emailOffersAccepted: Bool
