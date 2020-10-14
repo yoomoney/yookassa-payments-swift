@@ -33,17 +33,18 @@ enum MaskedBankCardDataInputAssembly {
         let presenter = MaskedBankCardDataInputPresenter(inputData: inputData)
 
         let cardService = CardService()
-        let analyticsService = AnalyticsProcessingAssembly
-            .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
-        let authorizationService
-            = AuthorizationProcessingAssembly.makeService(isLoggingEnabled: inputData.isLoggingEnabled,
-                                                          testModeSettings: inputData.testModeSettings)
-        let analyticsProvider = AnalyticsProvider(authorizationService: authorizationService)
-        let interactor = BankCardDataInputInteractor(cardService: cardService,
-                                                     authorizationService: authorizationService,
-                                                     analyticsService: analyticsService,
-                                                     analyticsProvider: analyticsProvider,
-                                                     bankSettingsService: BankServiceSettingsImpl.shared)
+        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
+        let analyticsProvider = AnalyticsProvidingAssembly.makeAnalyticsProvider(
+            testModeSettings: inputData.testModeSettings
+        )
+        let interactor = BankCardDataInputInteractor(
+            cardService: cardService,
+            analyticsService: analyticsService,
+            analyticsProvider: analyticsProvider,
+            bankSettingsService: BankServiceSettingsImpl.shared
+        )
 
         view.output = presenter
         presenter.view = view

@@ -1,5 +1,6 @@
 import class When.Promise
 import FunctionalSwift
+import MoneyAuth
 import YandexCheckoutWalletApi
 
 final class AuthorizationMediator {
@@ -8,17 +9,20 @@ final class AuthorizationMediator {
     let yamoneyLoginService: YamoneyLoginProcessing
     let deviceInfoService: DeviceInfoProvider
     let settingsStorage: KeyValueStoring
+    let moneyAuthRevokeTokenService: RevokeTokenService
 
     init(
         tokenStorage: KeyValueStoring,
         yamoneyLoginService: YamoneyLoginProcessing,
         deviceInfoService: DeviceInfoProvider,
-        settingsStorage: KeyValueStoring
+        settingsStorage: KeyValueStoring,
+        moneyAuthRevokeTokenService: RevokeTokenService
     ) {
         self.tokenStorage = tokenStorage
         self.yamoneyLoginService = yamoneyLoginService
         self.deviceInfoService = deviceInfoService
         self.settingsStorage = settingsStorage
+        self.moneyAuthRevokeTokenService = moneyAuthRevokeTokenService
     }
 }
 
@@ -26,35 +30,59 @@ final class AuthorizationMediator {
 
 extension AuthorizationMediator: AuthorizationProcessing {
     func getMoneyCenterAuthToken() -> String? {
-        return tokenStorage.getString(for: Constants.Keys.moneyCenterAuthToken)
+        return tokenStorage.getString(
+            for: KeyValueStoringKeys.moneyCenterAuthToken
+        )
     }
 
     func setMoneyCenterAuthToken(
         _ token: String
     ) {
-        tokenStorage.set(string: token, for: Constants.Keys.moneyCenterAuthToken)
+        tokenStorage.set(
+            string: token,
+            for: KeyValueStoringKeys.moneyCenterAuthToken
+        )
     }
 
     func getWalletToken() -> String? {
-        return tokenStorage.getString(for: Constants.Keys.walletToken)
+        return tokenStorage.getString(
+            for: KeyValueStoringKeys.walletToken
+        )
     }
 
     func setWalletToken(
         _ token: String
     ) {
-        tokenStorage.set(string: token, for: Constants.Keys.walletToken)
+        tokenStorage.set(
+            string: token,
+            for: KeyValueStoringKeys.walletToken
+        )
     }
 
     func hasReusableWalletToken() -> Bool {
         return getWalletToken() != nil
             && tokenStorage.getBool(
-            for: Constants.Keys.isReusableWalletToken
-        ) == true
+                for: KeyValueStoringKeys.isReusableWalletToken
+            ) == true
     }
 
     func logout() {
-        tokenStorage.set(string: nil, for: Constants.Keys.moneyCenterAuthToken)
-        tokenStorage.set(string: nil, for: Constants.Keys.walletToken)
+        if let moneyCenterAuthToken = tokenStorage.getString(
+            for: KeyValueStoringKeys.moneyCenterAuthToken
+        ) {
+            moneyAuthRevokeTokenService.revoke(
+                oauthToken: moneyCenterAuthToken,
+                completion: { _ in }
+            )
+        }
+        tokenStorage.set(
+            string: nil,
+            for: KeyValueStoringKeys.moneyCenterAuthToken
+        )
+        tokenStorage.set(
+            string: nil,
+            for: KeyValueStoringKeys.walletToken
+        )
     }
 
     func setWalletDisplayName(
@@ -91,8 +119,14 @@ extension AuthorizationMediator {
             return Promise { throw AuthorizationProcessingError.passportNotAuthorized }
         }
 
-        tokenStorage.set(string: nil, for: Constants.Keys.walletToken)
-        tokenStorage.set(bool: reusableToken, for: Constants.Keys.isReusableWalletToken)
+        tokenStorage.set(
+            string: nil,
+            for: KeyValueStoringKeys.walletToken
+        )
+        tokenStorage.set(
+            bool: reusableToken,
+            for: KeyValueStoringKeys.isReusableWalletToken
+        )
 
         let instanceName = deviceInfoService.getDeviceName()
         let amount = reusableToken ? nil : amount
@@ -156,7 +190,10 @@ extension AuthorizationMediator {
 private extension AuthorizationMediator {
     func saveYamoneyLoginInStorage(response: YamoneyLoginResponse) -> YamoneyLoginResponse {
         if case .authorized(let data) = response {
-            tokenStorage.set(string: data.accessToken, for: Constants.Keys.walletToken)
+            tokenStorage.set(
+                string: data.accessToken,
+                for: KeyValueStoringKeys.walletToken
+            )
         }
         return response
     }
@@ -167,9 +204,6 @@ private extension AuthorizationMediator {
 private extension AuthorizationMediator {
     enum Constants {
         enum Keys {
-            static let moneyCenterAuthToken = "yandexToken"
-            static let walletToken = "yamoneyToken"
-            static let isReusableWalletToken = "isReusableYamoneyToken"
             static let walletDisplayName = "walletDisplayName"
         }
     }

@@ -35,6 +35,7 @@
 		30AB53082383315D0098C7C1 /* UITextView+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB67FA3DAB78E3CB6C4DF /* UITextView+Styles.swift */; };
 		30AB530B238334040098C7C1 /* LinkedSwitchItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AB530A238334040098C7C1 /* LinkedSwitchItemView.swift */; };
 		30AB530D238335560098C7C1 /* LinkedSwitchItemViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AB530C238335560098C7C1 /* LinkedSwitchItemViewInput.swift */; };
+		30B20E2B2535FC1C00941574 /* KeyValueStoringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B20E2A2535FC1C00941574 /* KeyValueStoringKeys.swift */; };
 		30B24DE1206C2850002C823B /* YandexMobileMetrica.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */; };
 		30C22EFB251A076400460CC0 /* MoneyAuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C22EFA251A076400460CC0 /* MoneyAuthAssembly.swift */; };
 		30C22EFE251A0C1100460CC0 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C22EFD251A0C1100460CC0 /* GlobalConstants.swift */; };
@@ -689,6 +690,7 @@
 		30A83F052383378E00B51BAB /* LinkedSwitchItemView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LinkedSwitchItemView+Style.swift"; sourceTree = "<group>"; };
 		30AB530A238334040098C7C1 /* LinkedSwitchItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedSwitchItemView.swift; sourceTree = "<group>"; };
 		30AB530C238335560098C7C1 /* LinkedSwitchItemViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedSwitchItemViewInput.swift; sourceTree = "<group>"; };
+		30B20E2A2535FC1C00941574 /* KeyValueStoringKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueStoringKeys.swift; sourceTree = "<group>"; };
 		30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YandexMobileMetrica.framework; path = Carthage/Build/iOS/YandexMobileMetrica.framework; sourceTree = "<group>"; };
 		30C22EFA251A076400460CC0 /* MoneyAuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyAuthAssembly.swift; sourceTree = "<group>"; };
 		30C22EFD251A0C1100460CC0 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
@@ -2217,11 +2219,12 @@
 		402EBAFA3C7BD1906EFDC3BA /* KeyValueStoring */ = {
 			isa = PBXGroup;
 			children = (
-				402EB009CEDEC5DB870537E1 /* KeyValueStoring.swift */,
-				402EB4DADE10C17DBD59936A /* KeychainStorage+KeyValueStoring.swift */,
-				402EB90A62EB2C275C5DE842 /* KeyValueStoringAssembly.swift */,
-				402EBC8C5F2E04C722215410 /* MockKeychainStorage.swift */,
 				402EBED6C43E33F60A00D47A /* KeychainStorage.swift */,
+				402EB4DADE10C17DBD59936A /* KeychainStorage+KeyValueStoring.swift */,
+				402EB009CEDEC5DB870537E1 /* KeyValueStoring.swift */,
+				402EB90A62EB2C275C5DE842 /* KeyValueStoringAssembly.swift */,
+				30B20E2A2535FC1C00941574 /* KeyValueStoringKeys.swift */,
+				402EBC8C5F2E04C722215410 /* MockKeychainStorage.swift */,
 				402EB0D93DE0D413280F555E /* UserDefaultsStorage.swift */,
 			);
 			path = KeyValueStoring;
@@ -3302,6 +3305,7 @@
 				402EB90A3E9FD8733C4EBEA9 /* LoginConfirmationViewController.swift in Sources */,
 				402EBBE91DE40AA08E3AB8B5 /* ApplePayAssembly.swift in Sources */,
 				402EB7C74860DFA65827A00C /* ApplePayModuleIO.swift in Sources */,
+				30B20E2B2535FC1C00941574 /* KeyValueStoringKeys.swift in Sources */,
 				402EBE309FF80B279847B66D /* BankCardRepeatPresenter.swift in Sources */,
 				402EB8D43DDD23DC7A645AA1 /* BankCardRepeatInteractor.swift in Sources */,
 				402EB1F0EAA3B2E1422FD95D /* BankCardRepeatInteractorIO.swift in Sources */,

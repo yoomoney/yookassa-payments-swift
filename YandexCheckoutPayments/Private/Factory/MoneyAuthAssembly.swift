@@ -2,7 +2,7 @@ import MoneyAuth
 
 enum MoneyAuthAssembly {
     static func makeMoneyAuthConfig(
-        clientId: String,
+        moneyAuthCenterClientId: String,
         yxOauthClientId: String?,
         loggingEnabled: Bool
     ) -> MoneyAuth.Config {
@@ -16,7 +16,7 @@ enum MoneyAuthAssembly {
 
         let config = MoneyAuth.Config(
             origin: .wallet,
-            clientId: clientId,
+            clientId: moneyAuthCenterClientId,
             host: makeHost(),
             isDevHost: isDevHost,
             loggingEnabled: loggingEnabled,

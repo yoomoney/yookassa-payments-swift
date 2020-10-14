@@ -66,21 +66,26 @@ public enum TokenizationAssembly {
                          isLoggingEnabled: inputData.isLoggingEnabled)
         let authorizationService = AuthorizationProcessingAssembly
             .makeService(isLoggingEnabled: inputData.isLoggingEnabled,
-                         testModeSettings: inputData.testModeSettings)
-
-        let analyticsService = AnalyticsProcessingAssembly
-            .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
-        let analyticsProvider = AnalyticsProvider(authorizationService: authorizationService)
+                         testModeSettings: inputData.testModeSettings,
+                         moneyAuthCenterClientId: inputData.moneyAuthClientId)
+        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
+        let analyticsProvider = AnalyticsProvidingAssembly.makeAnalyticsProvider(
+            testModeSettings: inputData.testModeSettings
+        )
 
         let viewController = TokenizationViewController()
 
         let presenter = TokenizationPresenter(inputData: inputData)
         let router = TokenizationRouter()
-        let interactor = TokenizationInteractor(paymentService: paymentService,
-                                                authorizationService: authorizationService,
-                                                analyticsService: analyticsService,
-                                                analyticsProvider: analyticsProvider,
-                                                clientApplicationKey: inputData.clientApplicationKey)
+        let interactor = TokenizationInteractor(
+            paymentService: paymentService,
+            authorizationService: authorizationService,
+            analyticsService: analyticsService,
+            analyticsProvider: analyticsProvider,
+            clientApplicationKey: inputData.clientApplicationKey
+        )
 
         viewController.output = presenter
         viewController.transitioningDelegate = router
