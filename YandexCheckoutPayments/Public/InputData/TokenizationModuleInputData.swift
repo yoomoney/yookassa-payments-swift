@@ -48,10 +48,6 @@ public struct TokenizationModuleInputData {
     /// Money center authorization identifier.
     let moneyAuthClientId: String
 
-    /// Yandex oauth client id.
-    /// Example: 7767c737cf5747dca8d3bc4689219013
-    let yandexLoginOauthClientId: String?
-
     /// Creates instance of `TokenizationModuleInputData`.
     ///
     /// - Parameters:
@@ -89,8 +85,7 @@ public struct TokenizationModuleInputData {
         userPhoneNumber: String? = nil,
         customizationSettings: CustomizationSettings = CustomizationSettings(),
         savePaymentMethod: SavePaymentMethod,
-        moneyAuthClientId: String,
-        yandexLoginOauthClientId: String? = nil
+        moneyAuthClientId: String
     ) {
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
@@ -107,6 +102,5 @@ public struct TokenizationModuleInputData {
         self.customizationSettings = customizationSettings
         self.savePaymentMethod = savePaymentMethod
         self.moneyAuthClientId = moneyAuthClientId
-        self.yandexLoginOauthClientId = yandexLoginOauthClientId
     }
 }

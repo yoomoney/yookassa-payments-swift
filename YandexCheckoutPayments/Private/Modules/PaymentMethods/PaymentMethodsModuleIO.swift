@@ -8,7 +8,7 @@ struct PaymentMethodsModuleInputData {
     let testModeSettings: TestModeSettings?
     let isLoggingEnabled: Bool
     let getSavePaymentMethod: Bool?
-    let moneyAuthCenterClientId: String
+    let moneyAuthClientId: String
 }
 
 protocol PaymentMethodsModuleInput: class {

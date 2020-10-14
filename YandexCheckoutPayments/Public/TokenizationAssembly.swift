@@ -67,7 +67,7 @@ public enum TokenizationAssembly {
         let authorizationService = AuthorizationProcessingAssembly
             .makeService(isLoggingEnabled: inputData.isLoggingEnabled,
                          testModeSettings: inputData.testModeSettings,
-                         moneyAuthCenterClientId: inputData.moneyAuthClientId)
+                         moneyAuthClientId: inputData.moneyAuthClientId)
         let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
             isLoggingEnabled: inputData.isLoggingEnabled
         )
