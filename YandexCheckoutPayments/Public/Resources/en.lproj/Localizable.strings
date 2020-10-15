@@ -122,31 +122,31 @@
 "SavePaymentMethodInfo.BankCard.Body" = "It means that you are giving Yandex.Money your prior consent to debit money upon store's request without any additional confirmation from your side from this card or a new one in case it is reissued (if your bank can update the data automatically).\n\nYou can unlink the card at any moment via store's support service.";
 
 /* Текст условий сервиса с ссылкой на экране установки пароля для пользователя без установленной почты https://yadi.sk/i/DgL-5V4hQL15WQ */
-"Wallet.Authorization.userAgreementTitle" = "Нажимая кнопку, я подтверждаю осведомлённость и согласие <a href=\"https://yandex.ru/legal/rules\">со всеми юридическими условиями Новых Денег </a> и с тем, что если я не подключу информирование об операциях на почту или телефон, единственным каналом информирования будет история моих операций — на сайте и в приложении Новых Денег";
+"Wallet.Authorization.addEmailTitle" = "For receipts and notifications";
 
 /* Текст условий сервиса с ссылкой на экране установки пароля для пользователя c установленной почтой https://yadi.sk/i/DgL-5V4hQL15WQ */
-"Wallet.Authorization.userWithEmailAgreementTitle" = "Нажимая кнопку, я подтверждаю осведомлённость и согласие <a href=\"https://yandex.ru/legal/rules\">со всеми юридическими условиями сервиса</a>";
+"Wallet.Authorization.emailCheckboxTitle" = "I'd like to receive news about the service, discounts, and surveys: not more than once a week";
 
 /* Текст свитча согласия на рассылку на экране ввода почты https://yadi.sk/i/8BSuo7q_6CJzbg */
-"Wallet.Authorization.emailCheckboxTitle" = "Хочу получать новости сервиса, скидки, опросы: максимум раз в неделю";
+"Wallet.Authorization.hardMigrationScreenButtonSubtitle" = "It doesn't change any limits, commission rates, or other terms of use of the wallet in any way: <a href=\"https://new.yoomoney.ru/\">learn more</a>";
 
 /* Текст под полем ввода почты на экране ввода почты https://yadi.sk/i/8BSuo7q_6CJzbg */
-"Wallet.Authorization.addEmailTitle" = "Для чеков и восстановления доступа";
+"Wallet.Authorization.hardMigrationScreenSubtitle" = "You used to sign in to your wallet using your Yandex username and password, now you need a YooMoney account instead.\nLet us help you get it:\n\n— sign in using your Yandex username and password, \n— allow YooMoney to access your name and email address, \n— create a new password.\n\nYou'll get a YooMoney account with the same wallet that you've had in it.\nEmail address and password are used for signing in, and text message codes are used for confirming actions.";
 
 /* Заголовок экрана про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.migrationScreenTitle" = "Зачем куда-то переходить?";
+"Wallet.Authorization.hardMigrationScreenTitle" = "Time to switch to YooMoney";
 
 /* Текст на экране про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.migrationScreenSubtitle" = "Потому что теперь кошелёк — в ЮMoney, отдельно от аккаунта в Яндексе.\n\n— Что останется как раньше: номер кошелька, ваши настройки, условия использования.\n\n— Что поменяется: вместо логина (как в Яндексе) у вас будет почта или телефон. Пароль тоже можно обновить.\n\n— Сейчас нужно: войти в аккаунт Яндекса, где есть кошелёк.";
+"Wallet.Authorization.migrationScreenButtonSubtitle" = "It doesn't change any limits, commission rates, or other terms of use of the wallet in any way: <a href=\"https://new.yoomoney.ru\">learn more</a>";
 
 /* Текст с ссылкой под кнопкой на экране про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.migrationScreenButtonSubtitle" = "На лимиты, комиссии и остальные условия использования кошелька это никак не влияет: <a href=\"https://yoomoney.ru\">вот подробности</a>";
+"Wallet.Authorization.migrationScreenSubtitle" = "Your wallet is now in YooMoney, separate from your Yandex account.\n\n— What remains as it was before: your wallet number, settings configuration, and terms of use.\n\n— What's changed: you'll use your email address or phone number instead of your username (like in Yandex). You can also update your password.\n\n— What you need to do now: sign in to your Yandex account, under which you have your wallet.";
 
 /* Заголовок экрана про миграцию, который после нажатия на немигрированный аккаунт на экране выбора аккаунта https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.hardMigrationScreenTitle" = "Пора перейти в ЮMoney";
+"Wallet.Authorization.migrationScreenTitle" = "Why do I need to switch?";
 
 /* Текст на экране про миграцию, который после нажатия на немигрированный аккаунт на экране выбора аккаунта https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.hardMigrationScreenSubtitle" = "Раньше вы заходили в кошелёк с логином и паролем Яндекса, теперь нужен профиль ЮMoney.\nСейчас поможем его получить:\n\n— вы зайдёте с логином и паролем Яндекса,\n— разрешите ЮMoney доступ к имени и почте,\n— придумаете новый пароль.\n\nУ вас появится профиль ЮMoney с прежним кошельком внутри.\nДля входа — почта и пароль, для подтверждений — смс-коды.";
+"Wallet.Authorization.userAgreementTitle" = "By clicking this button, I confirm that I'm aware of <a href=\"https://yandex.ru/legal/rules\">all the legal terms and conditions of the service</a> and I accept them as well as the fact that if I don't enable notifications to my email address or phone number, my transaction history in the YooMoney app or on the website will be the only available source of information";
 
 /* Текст с ссылкой под кнопкой на экране про миграцию, который после нажатия на немигрированный аккаунт на экране выбора аккаунта https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.hardMigrationScreenButtonSubtitle" = "На лимиты, комиссии и остальные условия использования кошелька это никак не влияет: <a href=\"https://yoomoney.ru\">вот подробности</a>";
+"Wallet.Authorization.userWithEmailAgreementTitle" = "By clicking this button, I confirm that I'm aware of <a href=\"https://money.yandex.ru/doc.xml?id=523015\"> all the legal terms and conditions of the service</a>";
