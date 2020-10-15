@@ -50,12 +50,9 @@ extension AuthorizationMediator: AuthorizationProcessing {
         )
     }
 
-    func setWalletToken(
-        _ token: String
-    ) {
-        tokenStorage.set(
-            string: token,
-            for: KeyValueStoringKeys.walletToken
+    func getPassportToken() -> String? {
+        return tokenStorage.getString(
+            for: KeyValueStoringKeys.passportToken
         )
     }
 
@@ -188,7 +185,9 @@ extension AuthorizationMediator {
 // MARK: - Private helpers
 
 private extension AuthorizationMediator {
-    func saveYamoneyLoginInStorage(response: YamoneyLoginResponse) -> YamoneyLoginResponse {
+    func saveYamoneyLoginInStorage(
+        response: YamoneyLoginResponse
+    ) -> YamoneyLoginResponse {
         if case .authorized(let data) = response {
             tokenStorage.set(
                 string: data.accessToken,
@@ -204,7 +203,7 @@ private extension AuthorizationMediator {
 private extension AuthorizationMediator {
     enum Constants {
         enum Keys {
-            static let walletDisplayName = "walletDisplayName"
+            static let walletDisplayName = "yandexDisplayName"
         }
     }
 }

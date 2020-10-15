@@ -44,7 +44,7 @@ extension YandexAuthInteractor: YandexAuthInteractorInput {
 
         let paymentMethods = paymentService.fetchPaymentOptions(
             clientApplicationKey: clientApplicationKey,
-            moneyCenterAuthorization: moneyCenterAuthToken,
+            authorizationToken: moneyCenterAuthToken,
             gatewayId: gatewayId,
             amount: amount.value.description,
             currency: amount.currency.rawValue,

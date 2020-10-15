@@ -16,9 +16,7 @@ protocol AuthorizationProcessing {
 
     func getWalletToken() -> String?
 
-    func setWalletToken(
-        _ token: String
-    )
+    func getPassportToken() -> String?
 
     func hasReusableWalletToken() -> Bool
 

@@ -26,7 +26,7 @@ final class MockPaymentService: PaymentProcessing {
 
     func fetchPaymentOptions(
         clientApplicationKey: String,
-        moneyCenterAuthorization: String?,
+        authorizationToken: String?,
         gatewayId: String?,
         amount: String?,
         currency: String?,

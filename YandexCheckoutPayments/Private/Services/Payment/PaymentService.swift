@@ -25,7 +25,7 @@ extension PaymentService: PaymentProcessing {
 
     func fetchPaymentOptions(
         clientApplicationKey: String,
-        moneyCenterAuthorization: String?,
+        authorizationToken: String?,
         gatewayId: String?,
         amount: String?,
         currency: String?,
@@ -34,7 +34,7 @@ extension PaymentService: PaymentProcessing {
 
         let method = PaymentOptions.Method(
             oauthToken: clientApplicationKey,
-            passportAuthorization: moneyCenterAuthorization,
+            passportAuthorization: authorizationToken,
             gatewayId: gatewayId,
             amount: amount,
             currency: currency,
