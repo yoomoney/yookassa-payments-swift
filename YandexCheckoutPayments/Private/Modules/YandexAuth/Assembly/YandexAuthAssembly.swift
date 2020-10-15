@@ -18,8 +18,10 @@ enum YandexAuthAssembly {
         view: PaymentMethodsViewController
     ) -> PaymentMethodsViewController {
 
+        assert(inputData.moneyAuthClientId != nil, "`moneyAuthClientId` should be in `TokenizationModuleInputData`")
+
         let moneyAuthConfig = MoneyAuthAssembly.makeMoneyAuthConfig(
-            moneyAuthClientId: inputData.moneyAuthClientId,
+            moneyAuthClientId: inputData.moneyAuthClientId ?? "",
             loggingEnabled: inputData.isLoggingEnabled
         )
 

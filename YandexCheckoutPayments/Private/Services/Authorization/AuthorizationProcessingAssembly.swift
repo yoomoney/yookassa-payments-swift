@@ -5,7 +5,7 @@ enum AuthorizationProcessingAssembly {
     static func makeService(
         isLoggingEnabled: Bool,
         testModeSettings: TestModeSettings?,
-        moneyAuthClientId: String
+        moneyAuthClientId: String?
     ) -> AuthorizationProcessing {
         let yamoneyLoginService = YamoneyLoginAssembly
             .makeYamoneyLoginService(isLoggingEnabled: isLoggingEnabled,
@@ -23,13 +23,17 @@ enum AuthorizationProcessingAssembly {
             tokenStorage = KeyValueStoringAssembly.makeKeychainStorage()
         }
 
-        let moneyAuthConfig = MoneyAuthAssembly.makeMoneyAuthConfig(
-            moneyAuthClientId: moneyAuthClientId,
-            loggingEnabled: isLoggingEnabled
-        )
-        let moneyAuthRevokeTokenService = RevokeTokenServiceFactory.makeService(
-            config: moneyAuthConfig
-        )
+        var moneyAuthRevokeTokenService: MoneyAuth.RevokeTokenService?
+        if let moneyAuthClientId = moneyAuthClientId {
+            let moneyAuthConfig = MoneyAuthAssembly.makeMoneyAuthConfig(
+                moneyAuthClientId: moneyAuthClientId,
+                loggingEnabled: isLoggingEnabled
+            )
+            moneyAuthRevokeTokenService = RevokeTokenServiceFactory.makeService(
+                config: moneyAuthConfig
+            )
+        }
+
         let authorizationMediator = AuthorizationMediator(
             tokenStorage: tokenStorage,
             yamoneyLoginService: yamoneyLoginService,

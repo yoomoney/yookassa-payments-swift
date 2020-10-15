@@ -956,7 +956,7 @@ private func makeStrategy(
     returnUrl: String,
     isLoggingEnabled: Bool,
     savePaymentMethod: SavePaymentMethod,
-    moneyAuthClientId: String
+    moneyAuthClientId: String?
 ) -> TokenizationStrategyInput {
 
     let authorizationService = AuthorizationProcessingAssembly
