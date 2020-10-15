@@ -84,7 +84,7 @@ enum MoneyAuthAssembly {
         isDevHost: Bool
     ) -> String {
         return isDevHost
-            ? "91cad62782fb4889a45decbb18d2c393"
+            ? "5bcecea3c35b447aaf8257e1af58d6b3"
             : "80642c11721c49d69d9936de0c265886"
     }
 
