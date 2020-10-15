@@ -9,14 +9,14 @@ final class AuthorizationMediator {
     let yamoneyLoginService: YamoneyLoginProcessing
     let deviceInfoService: DeviceInfoProvider
     let settingsStorage: KeyValueStoring
-    let moneyAuthRevokeTokenService: RevokeTokenService
+    let moneyAuthRevokeTokenService: RevokeTokenService?
 
     init(
         tokenStorage: KeyValueStoring,
         yamoneyLoginService: YamoneyLoginProcessing,
         deviceInfoService: DeviceInfoProvider,
         settingsStorage: KeyValueStoring,
-        moneyAuthRevokeTokenService: RevokeTokenService
+        moneyAuthRevokeTokenService: RevokeTokenService?
     ) {
         self.tokenStorage = tokenStorage
         self.yamoneyLoginService = yamoneyLoginService
@@ -70,7 +70,7 @@ extension AuthorizationMediator: AuthorizationProcessing {
         if let moneyCenterAuthToken = tokenStorage.getString(
             for: KeyValueStoringKeys.moneyCenterAuthToken
         ) {
-            moneyAuthRevokeTokenService.revoke(
+            moneyAuthRevokeTokenService?.revoke(
                 oauthToken: moneyCenterAuthToken,
                 completion: { _ in }
             )

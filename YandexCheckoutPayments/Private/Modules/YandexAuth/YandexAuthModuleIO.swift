@@ -8,7 +8,7 @@ struct YandexAuthModuleInputData {
     let amount: Amount
     let isLoggingEnabled: Bool
     let getSavePaymentMethod: Bool?
-    let moneyAuthClientId: String
+    let moneyAuthClientId: String?
     let paymentMethodsModuleInput: PaymentMethodsModuleInput?
     let kassaPaymentsCustomization: CustomizationSettings
 }

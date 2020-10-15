@@ -46,7 +46,7 @@ public struct TokenizationModuleInputData {
     let savePaymentMethod: SavePaymentMethod
 
     /// Money center authorization identifier.
-    let moneyAuthClientId: String
+    let moneyAuthClientId: String?
 
     /// Creates instance of `TokenizationModuleInputData`.
     ///
@@ -85,7 +85,7 @@ public struct TokenizationModuleInputData {
         userPhoneNumber: String? = nil,
         customizationSettings: CustomizationSettings = CustomizationSettings(),
         savePaymentMethod: SavePaymentMethod,
-        moneyAuthClientId: String
+        moneyAuthClientId: String? = nil
     ) {
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
