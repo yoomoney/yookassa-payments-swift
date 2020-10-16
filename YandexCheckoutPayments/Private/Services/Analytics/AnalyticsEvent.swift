@@ -118,5 +118,24 @@ enum AnalyticsEvent {
         case authTokenType
         case authYaLoginStatus
         case authPaymentStatus
+        case moneyAuthProcessType
     }
+
+    // MARK: - Authorization
+
+    enum MoneyAuthProcessType: String {
+        case enrollment
+        case login
+        case migration
+        case unknown
+
+        var key: String {
+            return Key.moneyAuthProcessType.rawValue
+        }
+    }
+
+    case userStartAuthorization
+    case userCancelAuthorization
+    case userSuccessAuthorization(MoneyAuthProcessType)
+    case userFailedAuthorization(String)
 }
