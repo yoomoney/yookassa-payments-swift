@@ -136,7 +136,7 @@ private extension YamoneyLoginService {
         checkoutTokenIssueInit: CheckoutTokenIssueInit
     ) -> Promise<YamoneyLoginResponse> {
         let processId = checkoutTokenIssueInit.processId
-        let authContextId = checkoutTokenIssueInit.authContextId
+        let authContextId = checkoutTokenIssueInit.authContextId ?? ""
         let context = authContextGet(
             session: session,
             moneyCenterAuthorization: moneyCenterAuthorization,

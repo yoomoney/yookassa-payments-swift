@@ -8,13 +8,13 @@ PODS:
     - FunctionalSwift (~> 1.1.0)
     - When (~> 4.0.0)
     - YandexCheckoutPaymentsApi (~> 2.1.0)
-    - YandexCheckoutWalletApi (~> 2.0.0)
+    - YandexCheckoutWalletApi (~> 2.1.0)
     - YandexMobileMetrica/Dynamic (~> 3.7.0)
     - YandexMoneyCoreApi (~> 1.8.0)
   - YandexCheckoutPaymentsApi (2.1.0):
     - FunctionalSwift (~> 1.1.0)
     - YandexMoneyCoreApi (~> 1.8.0)
-  - YandexCheckoutWalletApi (2.0.0):
+  - YandexCheckoutWalletApi (2.1.0):
     - FunctionalSwift (~> 1.1.0)
     - YandexMoneyCoreApi (~> 1.8.0)
   - YandexMobileMetrica/Dynamic (3.7.1):
@@ -55,9 +55,9 @@ SPEC CHECKSUMS:
   Reveal-SDK: 5f94f14aff3d5f2a49f246edcd266fa4472679e9
   SwiftLint: dfd554ff0dff17288ee574814ccdd5cea85d76f7
   When: 4ffc88d535a094ad4bd5eaf2fd187de747e716d1
-  YandexCheckoutPayments: dd48f20c50e5c723a9e3e46b384bb3bded4a4ba6
+  YandexCheckoutPayments: f0169affcc5b1a8b83ad210d8829c091543896d3
   YandexCheckoutPaymentsApi: 9d0706c55c5f4695040b916826de47ab7dd5ff1f
-  YandexCheckoutWalletApi: d37fbb48935c85e1250a02aacd91accbbb30e158
+  YandexCheckoutWalletApi: 82f24c35ce02a8fed5fda58490c422022d453591
   YandexMobileMetrica: 95e93ee5af38520c9e470533dc8df6cf72fa171d
   YandexMoneyCoreApi: e7c095c06867a8b532e3f60ce6cd43cd8c16f67d
 
