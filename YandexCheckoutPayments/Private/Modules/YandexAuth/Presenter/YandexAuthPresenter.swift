@@ -68,8 +68,12 @@ extension YandexAuthPresenter: PaymentMethodsViewOutput {
                         kassaPaymentsCustomization: self.kassaPaymentsCustomization,
                         output: self
                     )
+                    let event = AnalyticsEvent.userStartAuthorization
+                    self.interactor.trackEvent(event)
                 } catch {
                     self.moduleOutput?.didCancelAuthorizeInYandex(on: self)
+                    let event = AnalyticsEvent.userCancelAuthorization
+                    self.interactor.trackEvent(event)
                 }
             }
         }
@@ -170,6 +174,19 @@ extension YandexAuthPresenter: AuthorizationCoordinatorDelegate {
                     moneyCenterAuthToken: token,
                     walletDisplayName: account.displayName.title
                 )
+
+                let event: AnalyticsEvent
+                switch authorizationProcess {
+                case .login:
+                    event = .userSuccessAuthorization(.login)
+                case .enrollment:
+                    event = .userSuccessAuthorization(.enrollment)
+                case .migration:
+                    event = .userSuccessAuthorization(.migration)
+                case .none:
+                    event = .userSuccessAuthorization(.unknown)
+                }
+                self.interactor.trackEvent(event)
             }
         }
     }
@@ -178,6 +195,10 @@ extension YandexAuthPresenter: AuthorizationCoordinatorDelegate {
         _ coordinator: AuthorizationCoordinator
     ) {
         self.moneyAuthCoordinator = nil
+
+        let event = AnalyticsEvent.userCancelAuthorization
+        interactor.trackEvent(event)
+
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.router.closeAuthorizationModule()
@@ -190,6 +211,12 @@ extension YandexAuthPresenter: AuthorizationCoordinatorDelegate {
         didFailureWith error: Error
     ) {
         self.moneyAuthCoordinator = nil
+
+        let event = AnalyticsEvent.userFailedAuthorization(
+            error.localizedDescription
+        )
+        interactor.trackEvent(event)
+
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.router.closeAuthorizationModule()
