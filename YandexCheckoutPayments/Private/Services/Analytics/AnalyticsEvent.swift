@@ -51,8 +51,8 @@ enum AnalyticsEvent {
         /// The user is not authorized.
         case withoutAuth
 
-        /// Successfully completed authorization in Yandex.Login.
-        case yandexLogin
+        /// Successfully completed authorization in Money center authorization
+        case moneyAuth
 
         /// Successful payment authorization in the wallet.
         case paymentAuth
