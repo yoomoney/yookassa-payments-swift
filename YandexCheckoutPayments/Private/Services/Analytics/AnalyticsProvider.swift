@@ -24,15 +24,15 @@ struct AnalyticsProvider: AnalyticsProviding {
         if hasReusableWalletToken {
             authType = .paymentAuth
             tokenType = .multiple
-            // TODO: MOC-762
-            // } else if authorizationService.getYandexToken() != nil {
-            // authType = .yandexLogin
-            // tokenType = .single
+        } else if keyValueStoring.getString(
+            for: KeyValueStoringKeys.moneyCenterAuthToken
+        ) != nil {
+            authType = .moneyAuth
+            tokenType = .single
         } else {
             authType = .withoutAuth
             tokenType = nil
         }
-
         return (authType, tokenType)
     }
 }
