@@ -4,7 +4,7 @@ PODS:
   - Reveal-SDK (26)
   - SwiftLint (0.40.3)
   - When (4.0.0)
-  - YandexCheckoutPayments (3.7.1):
+  - YandexCheckoutPayments (4.0.0):
     - FunctionalSwift (~> 1.1.0)
     - When (~> 4.0.0)
     - YandexCheckoutPaymentsApi (~> 2.1.0)
@@ -55,7 +55,7 @@ SPEC CHECKSUMS:
   Reveal-SDK: 5f94f14aff3d5f2a49f246edcd266fa4472679e9
   SwiftLint: dfd554ff0dff17288ee574814ccdd5cea85d76f7
   When: 4ffc88d535a094ad4bd5eaf2fd187de747e716d1
-  YandexCheckoutPayments: f0169affcc5b1a8b83ad210d8829c091543896d3
+  YandexCheckoutPayments: f969a1a629689a76d72fad512c2baae8a6d29be4
   YandexCheckoutPaymentsApi: 9d0706c55c5f4695040b916826de47ab7dd5ff1f
   YandexCheckoutWalletApi: 82f24c35ce02a8fed5fda58490c422022d453591
   YandexMobileMetrica: 95e93ee5af38520c9e470533dc8df6cf72fa171d

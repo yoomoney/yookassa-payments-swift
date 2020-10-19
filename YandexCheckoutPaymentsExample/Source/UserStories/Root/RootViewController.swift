@@ -578,7 +578,7 @@ extension RootViewController: SuccessViewControllerDelegate {
                 }
                 strongSelf.present(viewController, animated: true)
             } else {
-                UIApplication.shared.openURL(url)
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
     }
