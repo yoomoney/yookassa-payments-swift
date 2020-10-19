@@ -146,9 +146,15 @@ extension ApplePayStrategy: TokenizationStrategyInput {
     }
 
     func didPressSubmitButton(on module: ContractModuleInput) {}
-    func bankCardDataInputModule(_ module: BankCardDataInputModuleInput, didPressConfirmButton bankCardData: CardData) {}
+    func bankCardDataInputModule(
+        _ module: BankCardDataInputModuleInput,
+        didPressConfirmButton bankCardData: CardData
+    ) {}
     func didLoginInYandexMoney(_ response: YamoneyLoginResponse) {}
-    func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput, loginWithReusableToken isReusableToken: Bool) {}
+    func yamoneyAuthParameters(
+        _ module: YamoneyAuthParametersModuleInput,
+        loginWithReusableToken isReusableToken: Bool
+    ) {}
     func failLoginInYandexMoney(_ error: Error) {}
     func failResendSmsCode(_ error: Error) {}
     func sberbankModule(_ module: SberbankModuleInput, didPressConfirmButton phoneNumber: String) {}

@@ -30,11 +30,17 @@ enum PaymentMethodsAssembly {
                          testModeSettings: inputData.testModeSettings,
                          isLoggingEnabled: inputData.isLoggingEnabled)
         let authorizationService = AuthorizationProcessingAssembly
-            .makeService(isLoggingEnabled: inputData.isLoggingEnabled,
-                         testModeSettings: inputData.testModeSettings)
-        let analyticsService = AnalyticsProcessingAssembly
-            .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
-        let analyticsProvider = AnalyticsProvider(authorizationService: authorizationService)
+            .makeService(
+                isLoggingEnabled: inputData.isLoggingEnabled,
+                testModeSettings: inputData.testModeSettings,
+                moneyAuthClientId: inputData.moneyAuthClientId
+            )
+        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
+        let analyticsProvider = AnalyticsProvidingAssembly.makeAnalyticsProvider(
+            testModeSettings: inputData.testModeSettings
+        )
 
         let interactor = PaymentMethodsInteractor(
             paymentService: paymentService,

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -35,12 +35,15 @@
 		30AB53082383315D0098C7C1 /* UITextView+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB67FA3DAB78E3CB6C4DF /* UITextView+Styles.swift */; };
 		30AB530B238334040098C7C1 /* LinkedSwitchItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AB530A238334040098C7C1 /* LinkedSwitchItemView.swift */; };
 		30AB530D238335560098C7C1 /* LinkedSwitchItemViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AB530C238335560098C7C1 /* LinkedSwitchItemViewInput.swift */; };
+		30B20E2B2535FC1C00941574 /* KeyValueStoringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B20E2A2535FC1C00941574 /* KeyValueStoringKeys.swift */; };
 		30B24DE1206C2850002C823B /* YandexMobileMetrica.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */; };
+		30C22EFB251A076400460CC0 /* MoneyAuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C22EFA251A076400460CC0 /* MoneyAuthAssembly.swift */; };
+		30C22EFE251A0C1100460CC0 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C22EFD251A0C1100460CC0 /* GlobalConstants.swift */; };
+		30C22F00251A331100460CC0 /* MoneyAuth.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C22EFF251A331100460CC0 /* MoneyAuth.xcframework */; };
+		30C22F01251A331100460CC0 /* MoneyAuth.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30C22EFF251A331100460CC0 /* MoneyAuth.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		402EB002BD1EC142641CB2D4 /* LogoutConfirmationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDB3EFE7969B76F4C0A4 /* LogoutConfirmationAssembly.swift */; };
-		402EB00683336405B2DD9A9B /* TextTableViewCellAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7168A9425556168E384 /* TextTableViewCellAssembly.swift */; };
 		402EB00B9EC9B560D706EC06 /* UIScrollView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8295ED9FF21E41876C2 /* UIScrollView+Style.swift */; };
 		402EB00C3F48C40CA5B60DE3 /* LengthTextInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB86C3387D52C172E36A4 /* LengthTextInputPresenterStyle.swift */; };
-		402EB035A0ADCEA77563BE2B /* YandexLoginProcessingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAC909235F83DCF51E92 /* YandexLoginProcessingAssembly.swift */; };
 		402EB059A64C4ADEB677C006 /* UIImage+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA25F27A2A651AD093D3 /* UIImage+Tools.swift */; };
 		402EB068FD623715284B9D60 /* SberbankStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4E1EF38AE1CD9BCF105 /* SberbankStrategy.swift */; };
 		402EB06BF631E107D84C1D80 /* CustomizationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA4C0B33E4DDCE4D1EB9 /* CustomizationSettings.swift */; };
@@ -55,7 +58,6 @@
 		402EB0C5CD04FF2120AD2F71 /* MaskedBankCardDataInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCD1E1AD1511D0FE2D98 /* MaskedBankCardDataInputPresenter.swift */; };
 		402EB0D571A0BE68455B56D8 /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB0D033CC079B2E741512 /* AnalyticsEvent.swift */; };
 		402EB0D6454C36181958F364 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD2572A1A47144B270C3 /* SettingsService.swift */; };
-		402EB0DC194A8E4055711313 /* IdentificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC5C5CE9B835352D3C54 /* IdentificationService.swift */; };
 		402EB0E2F36C58C509807AD3 /* ActivityIndicatorPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB63E55B21BF12B8CD2C4 /* ActivityIndicatorPresenting.swift */; };
 		402EB0E81B80BB4BFCB8850D /* IconButtonItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3ECDB3AB80C4779FAD8 /* IconButtonItemTableViewCell.swift */; };
 		402EB0EBEC7E195DCDEC17A7 /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBAB27562572D852C400 /* DimmingPresentationController.swift */; };
@@ -81,13 +83,10 @@
 		402EB16828AAB0E603D5F06B /* DevHostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBC4339005FA80642DBC /* DevHostService.swift */; };
 		402EB16B699BE1490631CD94 /* TextValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7AF716BE8C008EA6059 /* TextValueView.swift */; };
 		402EB171210A9B1D8C9F59AD /* TextControl+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA8E24E3CAD56361581C /* TextControl+Layout.swift */; };
-		402EB175490427768D8E9BC3 /* TextInputTableViewCellIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE1EDB239912F0F80792 /* TextInputTableViewCellIO.swift */; };
 		402EB1A5803069AB8AFC12C2 /* LargeIconButtonItemViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE9D384C19774E01A03F /* LargeIconButtonItemViewIO.swift */; };
 		402EB1A6D38E001BEE745C9F /* ActivityIndicator+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1CBDA15F4F5C5CF13E0 /* ActivityIndicator+Style.swift */; };
 		402EB1B3893D7061BFCF6D07 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6AB3C97E1E258778D20 /* RootViewController.swift */; };
 		402EB1BC568F568FD6E10047 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB66D5255543D831A6E27 /* ActivityIndicatorView.swift */; };
-		402EB1BE5AE9C7A4190B292C /* SimpleIdentificationModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB0CFD146A3D505F73D33 /* SimpleIdentificationModuleIO.swift */; };
-		402EB1BEB1EF22A4E9A848FA /* SelectOptionModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB89857DD2BF2E27D5ECE /* SelectOptionModuleAssembly.swift */; };
 		402EB1C84B58E7DAED9CAB81 /* UILayoutPriority+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA3026D26E32EFFB6024 /* UILayoutPriority+Constants.swift */; };
 		402EB1CF254ECD528B0187FE /* UIImageView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF04CDE1B544F5EFA654 /* UIImageView+Style.swift */; };
 		402EB1CF4033150CBD9F841D /* CellDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5DE18F967D1D362AB24 /* CellDescriptor.swift */; };
@@ -105,8 +104,6 @@
 		402EB2190CE442F0171240FA /* PhoneNumberOutputFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF5D11080AD50AD7F9B8 /* PhoneNumberOutputFormatter.swift */; };
 		402EB21E38868077796D07A2 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB76A45E625C03DFBA017 /* IconView.swift */; };
 		402EB230D52067A6A6CD0479 /* UIViewController+NotificationPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCED8FF67CEAB438F4B0 /* UIViewController+NotificationPresenting.swift */; };
-		402EB23AB8DA4012B0B38C4A /* SelectOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB43B339A58BFD37432A7 /* SelectOptionTableViewCell.swift */; };
-		402EB252167010F359004226 /* TextInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE867BDDDDA4E9D97D79 /* TextInputTableViewCell.swift */; };
 		402EB25634E5022FF2E9447B /* SwitchItemViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA852A4E0C0965F8B4C0 /* SwitchItemViewIO.swift */; };
 		402EB25DF17FE52DFAF12E16 /* TextControl+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB69DF6A8F4AD80A4F759 /* TextControl+State.swift */; };
 		402EB25FCF5D851CA46F5AF7 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA38EC646E32C0BA9D59 /* Button.swift */; };
@@ -146,7 +143,6 @@
 		402EB359491A435BB90D5F1E /* TextValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7AF716BE8C008EA6059 /* TextValueView.swift */; };
 		402EB368C89CDC6C22652262 /* PrefferedContentSizeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB01C01B0045F18C02BE0 /* PrefferedContentSizeCategory.swift */; };
 		402EB36E1B90E51D2957BBAC /* WebBrowserViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE5FF1DF14A2198A90F5 /* WebBrowserViewIO.swift */; };
-		402EB37F76696B7317EEDDF0 /* MonthOutputFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB691B88D70CBB46478E3 /* MonthOutputFormatter.swift */; };
 		402EB37FABD632D4A895D1E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 402EBCE6D8DD4CCCA85A7592 /* LaunchScreen.storyboard */; };
 		402EB38B0B0D9EA3988F9922 /* PaymentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB9D50FF6F6597287AA66 /* PaymentService.swift */; };
 		402EB38E8A91E6F075E54A78 /* UIViewController+TransitionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFC3A3FDF23F3A7607E3 /* UIViewController+TransitionHandler.swift */; };
@@ -158,7 +154,6 @@
 		402EB3B8F359111B86058AB0 /* ActivityIndicatorFullViewPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFE3042A4A15165F8627 /* ActivityIndicatorFullViewPresenting.swift */; };
 		402EB3C22E3899D86A74F1C0 /* WebBrowserPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB014F96F71429404DC96 /* WebBrowserPresenter.swift */; };
 		402EB3C60AE427521CE73D7E /* LargeIconItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5C88C011D46FCA23C6E /* LargeIconItemView.swift */; };
-		402EB3C8CABD97FDF1E01BF7 /* SelectOptionModuleOutputIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB805E630CB5FFDC295C /* SelectOptionModuleOutputIO.swift */; };
 		402EB3D6C3EA851FFADBC1DB /* WalletStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAD38C5EB643CD21E0DE /* WalletStrategy.swift */; };
 		402EB3D85D14E3351D0166FC /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB776A6DD755E24BEC5B8 /* KeyboardResponder.swift */; };
 		402EB3FF96557316FD2CBB8B /* YandexAuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7CBA4DC00B146D0AABC /* YandexAuthPresenter.swift */; };
@@ -182,9 +177,8 @@
 		402EB47F6CCA4E88344F22C6 /* BankCardStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAF7034B3EE6352760F8 /* BankCardStrategy.swift */; };
 		402EB481012F5C629D018C8A /* SavePaymentMethodViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB96DFA8C9D871DE124D0 /* SavePaymentMethodViewModelFactory.swift */; };
 		402EB48C989D12071B6EAD71 /* MSDKActionSheetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB0D91B5AEDF9532119F1 /* MSDKActionSheetHeaderView.swift */; };
+		402EB48D575905661EA8B3B7 /* YandexAuthRouterIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB699DE84BFFA7FBD61F5 /* YandexAuthRouterIO.swift */; };
 		402EB48E3F3E325F075B9306 /* SubmitDisplayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4A38D1918A8F46B8584 /* SubmitDisplayItem.swift */; };
-		402EB48F4A72EF97617B5690 /* TextInputTableViewCellModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB21CE1BC1C7750971B57 /* TextInputTableViewCellModuleIO.swift */; };
-		402EB48F83E25922C42CADAA /* SimpleIdentificationInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1424546160BBA8A05FA /* SimpleIdentificationInteractorIO.swift */; };
 		402EB49AD0186364906878D0 /* PlaceholderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB331AB2528B523698539 /* PlaceholderProvider.swift */; };
 		402EB4A38D9458D726EF2973 /* AnalyticsProvidingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA44464C238E00928819 /* AnalyticsProvidingAssembly.swift */; };
 		402EB4AA589D5590C3FCD2AE /* InternalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1EEE3DFE557080259B2 /* InternalStyle.swift */; };
@@ -216,7 +210,6 @@
 		402EB55BA25BA4C0946AE0D8 /* KeyValueStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB009CEDEC5DB870537E1 /* KeyValueStoring.swift */; };
 		402EB560777CBE031DDAD263 /* IconButtonItemViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAC997EF833DAC9D3ABF /* IconButtonItemViewIO.swift */; };
 		402EB5609877054CD489DF14 /* AnalyticsTrackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD98D680460920FAFF25 /* AnalyticsTrackable.swift */; };
-		402EB5626C48EA1803A8871A /* SimpleIdentificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4758ADC02DFC4363E15 /* SimpleIdentificationViewController.swift */; };
 		402EB563A97BFDD0F784ADBE /* TextControl+BottomHintMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA98E33140B116330975 /* TextControl+BottomHintMode.swift */; };
 		402EB566B44670E5D7F5558B /* CardSecModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1CA83A927FE69ED0790 /* CardSecModuleIO.swift */; };
 		402EB56B23ABB039B6690CFB /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB761608F1C750B0D45F /* PriceView.swift */; };
@@ -234,21 +227,18 @@
 		402EB5B4BFA3AAFB7B8EFAC1 /* PhoneNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB4CE8123B54AD76D8CC /* PhoneNumberFormatter.swift */; };
 		402EB5B50A771B9055E8F59C /* UISwitch+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB90AC2AB22E987F48BF5 /* UISwitch+Style.swift */; };
 		402EB5B652656D75F375B42D /* ErrorViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5AAED07E18DCD2EF942 /* ErrorViewIO.swift */; };
-		402EB5CFBF0D5B68C459F478 /* SelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA026FC871E026C9BFA5 /* SelectTableViewCell.swift */; };
 		402EB5D40B63F8AF5111971A /* ActionTextDialog+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD6AC87739A790C03D95 /* ActionTextDialog+Style.swift */; };
 		402EB5D6E79FE22EFE162375 /* PaymentMethodsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6F0F343B8BCBDECB5C7 /* PaymentMethodsViewController.swift */; };
 		402EB5EFF251B3E8A8C0C35B /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB761608F1C750B0D45F /* PriceView.swift */; };
 		402EB5F1B5DD83054302484E /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB98341C0EAD3DE8902C2 /* TableViewController.swift */; };
 		402EB603C79C938589C09E5B /* UIView+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA9EBE8B620DE9A915EB /* UIView+Tools.swift */; };
 		402EB6121E6DE1E810A074A9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 402EB434B2C5611C56511AC1 /* Localizable.strings */; };
-		402EB61BC83420232E31AC7B /* DateOutputFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBEB6CD86A8EC57BCD49A /* DateOutputFormatter.swift */; };
 		402EB626DD14A42E57FDD37A /* IconItemView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB11FE389F14318107C2C /* IconItemView+Style.swift */; };
 		402EB62CCA48873DB5009D74 /* SberbankModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6CB8D4482FAC6D34BB2 /* SberbankModuleIO.swift */; };
 		402EB62CDBDD5CBC28E68446 /* Hosts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 402EB1F6B2E1B5879D2BCCC8 /* Hosts.plist */; };
 		402EB630A3DF4F99BC5B9D46 /* InputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8DEF09A97F555305770 /* InputPresenter.swift */; };
 		402EB635657B70CE050A6EBD /* Stylable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB607BBBCF0EDB2F7A639 /* Stylable.swift */; };
 		402EB636FC3E40E0EDE5A096 /* LogoutConfirmationModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB021B3ABFDEC19285694 /* LogoutConfirmationModuleIO.swift */; };
-		402EB63BF335D30A3AE6E8C3 /* SimpleIdentificationViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB720E7517F0665D37640 /* SimpleIdentificationViewIO.swift */; };
 		402EB642BF716ACB319EB848 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB8AF610282235BC5F5A /* Identifier.swift */; };
 		402EB64C16D64190F539C877 /* Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB71B3FA4CE37A176F38D /* Space.swift */; };
 		402EB64D3A1026262D87149E /* UINavigationBar+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDAAC92273068B52009E /* UINavigationBar+Style.swift */; };
@@ -258,7 +248,6 @@
 		402EB66FCD5A001289831B48 /* ApplePayPermissionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4140624A37C315AA60F /* ApplePayPermissionsHandler.swift */; };
 		402EB673123BC9F7BB0EDADE /* KeyboardNotificationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC65C7C9A4599E39EEC2 /* KeyboardNotificationInfo.swift */; };
 		402EB67E391D678EC1816841 /* KeyboardObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB47F288FC29560EE036E /* KeyboardObservable.swift */; };
-		402EB681FE4186E4813E29C5 /* DateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC844321C30955ECCABE /* DateFactory.swift */; };
 		402EB688914B0291A93E8C1F /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCD7E5A2AEB413244F2E /* ListItemView.swift */; };
 		402EB688C6C3773A0DB0C25E /* TextControl+PlaceholderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6DA28A9ED92A6937E11 /* TextControl+PlaceholderMode.swift */; };
 		402EB68B63F0A64521AB3359 /* IconView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3DB2CCC018A9DBE0CAD /* IconView+Style.swift */; };
@@ -274,6 +263,7 @@
 		402EB6EEBDAB43E673F7DA36 /* UIView+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA9EBE8B620DE9A915EB /* UIView+Tools.swift */; };
 		402EB6F495D788A1A3FE0194 /* PlaceholderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB331AB2528B523698539 /* PlaceholderProvider.swift */; };
 		402EB6F7E3B4CC73D716C22B /* ActionTextDialog+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD6AC87739A790C03D95 /* ActionTextDialog+Style.swift */; };
+		402EB70696219EA3E035D1CD /* YandexAuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF58955152812C781561 /* YandexAuthRouter.swift */; };
 		402EB70F599439C2EAF90432 /* ApiLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB40E45FD50302AF2C546 /* ApiLogger.swift */; };
 		402EB710ADA34DDC38EDDC1C /* MonthInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDAA5D0FE0E2B30537E9 /* MonthInputPresenterStyle.swift */; };
 		402EB717A2C476C987CA897A /* LargeIconItemViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB2331DE85C1E08CFDE58 /* LargeIconItemViewIO.swift */; };
@@ -319,7 +309,6 @@
 		402EB835982E5A8D08991192 /* ActivityIndicatorView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB80B16DF18EDB6A2A2C4 /* ActivityIndicatorView+Style.swift */; };
 		402EB83A4368626840FE76BC /* KeychainStorage+KeyValueStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4DADE10C17DBD59936A /* KeychainStorage+KeyValueStoring.swift */; };
 		402EB83C43A4D80A239262B8 /* TextControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDD36FB9F8BC1F80BFD9 /* TextControl.swift */; };
-		402EB841FCE996679FEC3635 /* SelectTableViewCellIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB6BC95592D05B638B9C /* SelectTableViewCellIO.swift */; };
 		402EB843F039EAD4609F1A40 /* BankCardDataInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBADC7F5CB6B5ADAE0A46 /* BankCardDataInputPresenter.swift */; };
 		402EB857FC2960724531CF13 /* YamoneyAuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1482E8BFCCAFC0AD625 /* YamoneyAuthAssembly.swift */; };
 		402EB85D78BF63024037E1A5 /* TestSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7D5657B7828E3545FDC /* TestSettings.swift */; };
@@ -357,7 +346,6 @@
 		402EB8EFE9F78322E4253F18 /* TextDisplayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE2957721298B9CBD485 /* TextDisplayItem.swift */; };
 		402EB8F51F6AE9135CE3FE38 /* TextControl+PlaceholderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6DA28A9ED92A6937E11 /* TextControl+PlaceholderMode.swift */; };
 		402EB8FD9179A9299F8A2842 /* UITableViewHeaderFooterView+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB22CC2427A6AE9A8E5A /* UITableViewHeaderFooterView+Identifier.swift */; };
-		402EB9039C7CDFFC250E3F48 /* TextInputTableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB05B720BE255399C70A1 /* TextInputTableViewCellPresenter.swift */; };
 		402EB90A3E9FD8733C4EBEA9 /* LoginConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7CFB5576396563D966E /* LoginConfirmationViewController.swift */; };
 		402EB9158F25782723DD2595 /* SelectDisplayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCF90A125D279D8D0984 /* SelectDisplayItem.swift */; };
 		402EB9190A3073222DC3EBA8 /* TextControl+LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB12DA957C2B26AE1274 /* TextControl+LineView.swift */; };
@@ -368,7 +356,6 @@
 		402EB92B510A1A0BFB6EB464 /* TermsOfService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDA93CCB741604CDF4AF /* TermsOfService.swift */; };
 		402EB92CF587914417F2C234 /* LargeIconButtonItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA05316F3F0DD3B541CD /* LargeIconButtonItemViewCell.swift */; };
 		402EB933D69EDDFED2DDAB44 /* Amount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB94E653C072F4708CB50 /* Amount.swift */; };
-		402EB93CBCD22E2621073B60 /* TextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB9AE5975C60711283C2 /* TextTableViewCell.swift */; };
 		402EB948B1832C8B0A29FBC2 /* UILayoutPriority+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA3026D26E32EFFB6024 /* UILayoutPriority+Constants.swift */; };
 		402EB94BC27BC7BD95B0396A /* TextControl+ClearMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB95EDD27C0421EB07A04 /* TextControl+ClearMode.swift */; };
 		402EB952EA7B9CD954D7654E /* KeyboardObservingAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCCE907967D5F3300495 /* KeyboardObservingAccessoryView.swift */; };
@@ -390,7 +377,6 @@
 		402EB9B1052404B12C042459 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAC15CD21389AEA84EF6 /* Validator.swift */; };
 		402EB9B3CD7211752FAD696E /* UIScreen+SafeAreaInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBEF70767863315609E30 /* UIScreen+SafeAreaInsets.swift */; };
 		402EB9BC354D3FAE8064F4F1 /* SwitchItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA5DF7EB8AF10F306A28 /* SwitchItemView.swift */; };
-		402EB9BEDC19A4C97D612A04 /* TextInputTableViewCellAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF74A6649C7276B08420 /* TextInputTableViewCellAssembly.swift */; };
 		402EB9C108539065E441FE08 /* PaymentMethodViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3C27AB9FBDF54BD39ED /* PaymentMethodViewFactory.swift */; };
 		402EB9C37ECFBE9D2B402043 /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB584E224B50E412AB1FB /* PaymentMethod.swift */; };
 		402EB9C4BBC1F6EF4241A9C9 /* CardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA04C707C5EA568200DE /* CardData.swift */; };
@@ -405,7 +391,6 @@
 		402EB9E7626589A984FC9F72 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF30547C0D27015F777A /* Settings.swift */; };
 		402EB9EA1CCAA11BF60B5F05 /* PaymentMethodsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB03E078236001308568D /* PaymentMethodsInteractor.swift */; };
 		402EB9EB0CDC0AC4561DE826 /* TokenizationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB038F7DDE6B61A9FA5BB /* TokenizationStrategy.swift */; };
-		402EB9F31A405D4CD28EF8BC /* SelectTableViewCellModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB42EC82EB48FAAAAF7FD /* SelectTableViewCellModuleIO.swift */; };
 		402EB9FA2915EE88D6833F2B /* TokenizeSchemeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6C18513F4422325A19B /* TokenizeSchemeFactory.swift */; };
 		402EBA03EBFAB4CE09BE7DF5 /* UIView+SpecificLayoutGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB226DE34051D5952382B /* UIView+SpecificLayoutGuide.swift */; };
 		402EBA0B59FAF11171373047 /* TextControl+LineMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB9E775A42E865B4CEB44 /* TextControl+LineMode.swift */; };
@@ -425,7 +410,6 @@
 		402EBAA5BE00C495323FB237 /* UIViewController+TransitionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFC3A3FDF23F3A7607E3 /* UIViewController+TransitionHandler.swift */; };
 		402EBAA666772AAB2FA2149D /* InputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8DEF09A97F555305770 /* InputPresenter.swift */; };
 		402EBAB43C320524E4D3B31A /* PresentableNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA064BCB0CAD14B2E344 /* PresentableNotification.swift */; };
-		402EBABE63EB7956AB9594E8 /* SelectTableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8EA747162CD368EF5CA /* SelectTableViewCellPresenter.swift */; };
 		402EBABF794551F9496FC871 /* ContainerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDCA8CE554E9A5B4FFEB /* ContainerTableViewCell.swift */; };
 		402EBAC5654F852ADB058F1F /* ErrorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB05336EBFD3E87062C47 /* ErrorPresenter.swift */; };
 		402EBACF1C5CFC5C064DFA36 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5091FBD0903A0369764 /* AnalyticsService.swift */; };
@@ -443,19 +427,16 @@
 		402EBB21564B35F65373820B /* ApplePayStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5E1D487FE2752A49029 /* ApplePayStrategy.swift */; };
 		402EBB2F4DC8E4889A456C9F /* MonthInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDAA5D0FE0E2B30537E9 /* MonthInputPresenterStyle.swift */; };
 		402EBB302AB46E50088A5B40 /* AnalyticsProcessingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF4B20C030067340B10D /* AnalyticsProcessingAssembly.swift */; };
-		402EBB309C0D8E362A3A0C3B /* IdentificationProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB45D58B1025A48181DC2 /* IdentificationProcessing.swift */; };
 		402EBB328CFCD40CBE47F81F /* TextControl+PlaceholderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6DA28A9ED92A6937E11 /* TextControl+PlaceholderMode.swift */; };
 		402EBB35960510A5BD20B4F6 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB66D5255543D831A6E27 /* ActivityIndicatorView.swift */; };
 		402EBB3F73CC2B61B7E4185B /* TestSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC11D69B61F49F3804D0 /* TestSettingsViewController.swift */; };
 		402EBB497962467D32F916F1 /* LargeIconItemView+PaymentMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF2CD9A728A332E07EA6 /* LargeIconItemView+PaymentMethodView.swift */; };
-		402EBB5A5EE86A8B25F41EC9 /* ShowcaseDisplayItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4FF1A09C97F0CD09479 /* ShowcaseDisplayItemFactory.swift */; };
 		402EBB5BA886912050991DEC /* PaymentMethodTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB487A00F4E5CBA7498D9 /* PaymentMethodTypes.swift */; };
 		402EBB63E95FBBA1BA1B59BE /* InternalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1EEE3DFE557080259B2 /* InternalStyle.swift */; };
 		402EBB71A493C705D105349E /* PaymentMethodViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5C4B4F0B06A58C7547E /* PaymentMethodViewModelFactory.swift */; };
 		402EBB74CB98BDB6DE11B17C /* PaymentProcessingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB5972E9BA97E5350DCC /* PaymentProcessingAssembly.swift */; };
 		402EBB78BFF85EEDADA32400 /* CompoundValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB95572117E0F7D1D666E /* CompoundValidator.swift */; };
 		402EBB82A4F1F43C1B480F4B /* PaymentMethodsModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5258D553F400134737A /* PaymentMethodsModuleIO.swift */; };
-		402EBB8341B73CB4ADEED163 /* TextInputValidatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB969588FDDD395124B4D /* TextInputValidatorFactory.swift */; };
 		402EBB848067B66B2FEAC704 /* TransitionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB83409C10F75CAE558FA /* TransitionHandler.swift */; };
 		402EBB85276075DF17470C04 /* HostProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB227D680A54E76696A72 /* HostProviderAssembly.swift */; };
 		402EBB878C743BB839187166 /* DevHostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBC4339005FA80642DBC /* DevHostService.swift */; };
@@ -506,11 +487,9 @@
 		402EBC79F23AF96FD348A6DE /* AuthorizationProcessingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB86ACD628DEFC6B4DFD7 /* AuthorizationProcessingAssembly.swift */; };
 		402EBC7B48AB625657391282 /* TextControl+BottomHintMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA98E33140B116330975 /* TextControl+BottomHintMode.swift */; };
 		402EBC8400F3D9038184B40D /* String+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB35771FFB12A221F3905 /* String+Tools.swift */; };
-		402EBC84094E9FC51DEB2686 /* SimpleIdentificationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE35AE2BA3E826A7CE7B /* SimpleIdentificationPresenter.swift */; };
 		402EBC8C95C263C57EDD975F /* PlaceholderPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB76EF21372E0F2FCE202 /* PlaceholderPresenting.swift */; };
 		402EBC93DA5E503B16DBADAD /* LengthTextInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB86C3387D52C172E36A4 /* LengthTextInputPresenterStyle.swift */; };
 		402EBC93F0932E48D5F91361 /* IconButtonItemViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAC997EF833DAC9D3ABF /* IconButtonItemViewIO.swift */; };
-		402EBC9F4392D280DFFD0639 /* ShowcaseCellModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB32306CFC48EC71CC8F9 /* ShowcaseCellModuleFactory.swift */; };
 		402EBCB6D5E6441798A2DC59 /* AuthorizationMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB16CBAD5D724F5FB9679 /* AuthorizationMediator.swift */; };
 		402EBCC5CFBF4CB0D58642F1 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6F94C13E4F66AD84654 /* ActivityIndicator.swift */; };
 		402EBCE35CF1967B324D74C3 /* IconItemViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB120B0C7D38F9640AE67 /* IconItemViewIO.swift */; };
@@ -541,7 +520,6 @@
 		402EBDB5C4E2965E370EDE25 /* PaymentMethodsInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3A39BAE3C2CE3288E2B /* PaymentMethodsInteractorIO.swift */; };
 		402EBDB67F4914833185E457 /* TokenizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF9F81B468DF9C631FEC /* TokenizationViewController.swift */; };
 		402EBDB8BED1F76D8731B546 /* LinkedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB302A726A82FE26D8B76 /* LinkedTextView.swift */; };
-		402EBDBC070078C10D875164 /* YandexLoginProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB21B82A4B349DE1F5D94 /* YandexLoginProcessing.swift */; };
 		402EBDBD3FC27CD6773C4ACB /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB76A45E625C03DFBA017 /* IconView.swift */; };
 		402EBDC8FF69A47EA7B298A4 /* TextControl+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB69DF6A8F4AD80A4F759 /* TextControl+State.swift */; };
 		402EBDD0CE42FFE5F44F78C3 /* IconButtonItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE38A13053A6EFBC618C /* IconButtonItemView.swift */; };
@@ -561,12 +539,10 @@
 		402EBE3D748B1AD41EBD2771 /* PresentableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA7169837B287D88A755 /* PresentableError.swift */; };
 		402EBE498B95915B89855060 /* IconViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA8DB39B24DBE1A6F4B1 /* IconViewIO.swift */; };
 		402EBE4D50FAA343F627978D /* TokenizationInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB9B6F518386701DB0C8F /* TokenizationInteractorIO.swift */; };
-		402EBE570BB8F9EE0EDB1ABC /* SimpleIdentificationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4FDEBAB9C313F03EDCB /* SimpleIdentificationAssembly.swift */; };
 		402EBE58A36A98F06C98DD57 /* banks.json in Resources */ = {isa = PBXBuildFile; fileRef = 402EB43CDEA9F5F132A2CF9A /* banks.json */; };
 		402EBE65EA247EAA81C10051 /* CardConfguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD18F7CAB58B8D9FBFD7 /* CardConfguration.swift */; };
 		402EBE6DC060D948B7724287 /* TextControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDD36FB9F8BC1F80BFD9 /* TextControl.swift */; };
 		402EBE713055C909AA9126E6 /* PhoneNumberInputInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE5491F56EF4D2C031C5 /* PhoneNumberInputInteractorIO.swift */; };
-		402EBE7BCC46062613CCE25C /* SimpleIdentificationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB54E93DAF9097B096251 /* SimpleIdentificationInteractor.swift */; };
 		402EBE8781F0829292E715B3 /* CellDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5DE18F967D1D362AB24 /* CellDescriptor.swift */; };
 		402EBE880FD4B8B4135BEFB8 /* WebBrowserAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6C4EBE154CAFF7CF8FD /* WebBrowserAssembly.swift */; };
 		402EBE993BF501D9158671E4 /* StyleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1D0205199AC3C6DE886 /* StyleStorage.swift */; };
@@ -578,8 +554,6 @@
 		402EBEC35B22ED20C4D19064 /* TextHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7A951380D72FF1C56D6 /* TextHeaderFooterView.swift */; };
 		402EBEC517E43E435F79D679 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA38EC646E32C0BA9D59 /* Button.swift */; };
 		402EBEC728884473D2963D2F /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB14D1CA49B598A9505EA /* InputView.swift */; };
-		402EBECA588F26150A869220 /* TextInputOutputFormatterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB862B369C82A4A9763E0 /* TextInputOutputFormatterFactory.swift */; };
-		402EBEEC03026AD39A703CE1 /* YandexLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD84C81CDAF9DB8216BF /* YandexLoginService.swift */; };
 		402EBEF66277DAF519BBBF64 /* TestSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC11D69B61F49F3804D0 /* TestSettingsViewController.swift */; };
 		402EBEFD045AF8060AD332F4 /* MaskedBankCardDataInputModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3E172491E532B30D64E /* MaskedBankCardDataInputModuleIO.swift */; };
 		402EBEFDB09772BF31E76445 /* DeviceInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB880D971E4B0390BF78 /* DeviceInfoService.swift */; };
@@ -588,17 +562,13 @@
 		402EBF16B975AAE8BD12FA20 /* YamoneyAuthParametersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFD655B9723BAFE547FD /* YamoneyAuthParametersPresenter.swift */; };
 		402EBF2A1DA4518D632CFDFF /* IconButtonItemViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAC997EF833DAC9D3ABF /* IconButtonItemViewIO.swift */; };
 		402EBF31C60A443E2591A2C2 /* NSLayoutConstraint+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1951B7BDB84585F6D93 /* NSLayoutConstraint+Tools.swift */; };
-		402EBF39BADAEE97EB4F5574 /* SelectTableViewCellAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB846B859B8EC6ED58F16 /* SelectTableViewCellAssembly.swift */; };
 		402EBF41FAE896B1D782FD6A /* TokenizationViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF7443BB33CCD95DBC82 /* TokenizationViewIO.swift */; };
 		402EBF4D0D419932E8B0564A /* TokeniztionRouterIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6BFFFBAFB3489F33615 /* TokeniztionRouterIO.swift */; };
 		402EBF5880ECE76D7FF1BB62 /* PaymentMethodsViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCB9C339CB5A1C289436 /* PaymentMethodsViewIO.swift */; };
 		402EBF6A190C7B596DB92485 /* UISwitch+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB90AC2AB22E987F48BF5 /* UISwitch+Style.swift */; };
 		402EBF6F0AF3AB32E9C844AC /* TokenizationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB36269018072CE3287E2 /* TokenizationAssembly.swift */; };
 		402EBF72D88566C67130C623 /* AuthTypeStatesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB2267FCDA994A8449002 /* AuthTypeStatesProvider.swift */; };
-		402EBF7C7EE428AB538A8BA1 /* TextInputPresenterStyleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8F08F9BD69EAB756EFB /* TextInputPresenterStyleFactory.swift */; };
 		402EBF7CE2D197AE25CECAC1 /* DateInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBEA633ED75F9F9A2335C /* DateInputPresenterStyle.swift */; };
-		402EBF7DDA0A682FE56AA7E6 /* IdentificationProcessingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBEE1B73F6CB25CF17EDE /* IdentificationProcessingAssembly.swift */; };
-		402EBF86F0FFB13C35A4DDEA /* SelectOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5837CE3CE9D1EC03781 /* SelectOptionViewController.swift */; };
 		402EBF9AF17F4C4E9005701E /* PresentableNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA064BCB0CAD14B2E344 /* PresentableNotification.swift */; };
 		402EBFA0AE6572E7F3A68B24 /* TokenizationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA06C8D321D1120D4B11 /* TokenizationRouter.swift */; };
 		402EBFA22A30FD6DA60F6FA3 /* PrefferedContentSizeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB01C01B0045F18C02BE0 /* PrefferedContentSizeCategory.swift */; };
@@ -635,11 +605,9 @@
 		E072CCA52121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCA42121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework */; };
 		E072CCA72121AAE7003D9913 /* YandexCheckoutShowcaseApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCA62121AAE7003D9913 /* YandexCheckoutShowcaseApi.framework */; };
 		E072CCA92121AAE7003D9913 /* YandexCheckoutWalletApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCA82121AAE7003D9913 /* YandexCheckoutWalletApi.framework */; };
-		E072CCAB2121AAE7003D9913 /* YandexLoginSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCAA2121AAE7003D9913 /* YandexLoginSDK.framework */; };
 		E072CCAD2121AAE7003D9913 /* YandexMoneyCoreApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E072CCAC2121AAE7003D9913 /* YandexMoneyCoreApi.framework */; };
 		E073F71D202C4B29007A100C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0148CD51FE958810087CF5F /* AppDelegate.swift */; };
 		E07E0C1B20246E86000DEF25 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E04D0C432023174F00162F30 /* libz.tbd */; };
-		E07ED63B20346C4A009E0737 /* YandexLoginSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07ED63A20346C4A009E0737 /* YandexLoginSDK.framework */; };
 		E0D529381FE40337005F495F /* FunctionalSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D529361FE40337005F495F /* FunctionalSwift.framework */; };
 		FE5C4D8F200FB41F004F365E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FEDABFAC200E65600056E0CC /* Localizable.strings */; };
 		FE5C4D90200FB426004F365E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FEDABFAC200E65600056E0CC /* Localizable.strings */; };
@@ -664,6 +632,17 @@
 			files = (
 				305DF8D3245C2754009CAE58 /* TMXProfiling.framework in Embed Frameworks */,
 				305DF8FF245C2FCD009CAE58 /* TMXProfilingConnections.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30C22F02251A331100460CC0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				30C22F01251A331100460CC0 /* MoneyAuth.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -705,11 +684,17 @@
 		308E41872385829700B44490 /* SavePaymentMethodInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePaymentMethodInfoViewModel.swift; sourceTree = "<group>"; };
 		308E418A23858B4800B44490 /* SavePaymentMethodInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePaymentMethodInfo.swift; sourceTree = "<group>"; };
 		309CECE6237D62BC002010DD /* PriceView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PriceView+Style.swift"; sourceTree = "<group>"; };
+		30A161EB25022CF000C8F41E /* AuthCenterClientAuthorization.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthCenterClientAuthorization.framework; path = Frameworks/AuthCenterClientAuthorization.framework; sourceTree = "<group>"; };
+		30A161EC25022CF000C8F41E /* MoneyAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MoneyAuth.framework; path = Frameworks/MoneyAuth.framework; sourceTree = "<group>"; };
 		30A588232177B792002AFFF1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		30A83F052383378E00B51BAB /* LinkedSwitchItemView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LinkedSwitchItemView+Style.swift"; sourceTree = "<group>"; };
 		30AB530A238334040098C7C1 /* LinkedSwitchItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedSwitchItemView.swift; sourceTree = "<group>"; };
 		30AB530C238335560098C7C1 /* LinkedSwitchItemViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedSwitchItemViewInput.swift; sourceTree = "<group>"; };
+		30B20E2A2535FC1C00941574 /* KeyValueStoringKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueStoringKeys.swift; sourceTree = "<group>"; };
 		30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YandexMobileMetrica.framework; path = Carthage/Build/iOS/YandexMobileMetrica.framework; sourceTree = "<group>"; };
+		30C22EFA251A076400460CC0 /* MoneyAuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyAuthAssembly.swift; sourceTree = "<group>"; };
+		30C22EFD251A0C1100460CC0 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
+		30C22EFF251A331100460CC0 /* MoneyAuth.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MoneyAuth.xcframework; path = Frameworks/MoneyAuth.xcframework; sourceTree = "<group>"; };
 		30FFA679234E63EA00B09847 /* TrustDefender.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TrustDefender.framework; path = Frameworks/TrustDefender.framework; sourceTree = "<group>"; };
 		3613164D10E60C57E3B2E8D5 /* Pods-YandexCheckoutPaymentsExamplePods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexCheckoutPaymentsExamplePods.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YandexCheckoutPaymentsExamplePods/Pods-YandexCheckoutPaymentsExamplePods.debug.xcconfig"; sourceTree = "<group>"; };
 		402EB008C23528C30EA581DE /* BankCardDataInputRouterIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardDataInputRouterIO.swift; sourceTree = "<group>"; };
@@ -724,12 +709,10 @@
 		402EB038F7DDE6B61A9FA5BB /* TokenizationStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationStrategy.swift; sourceTree = "<group>"; };
 		402EB03E078236001308568D /* PaymentMethodsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsInteractor.swift; sourceTree = "<group>"; };
 		402EB05336EBFD3E87062C47 /* ErrorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorPresenter.swift; sourceTree = "<group>"; };
-		402EB05B720BE255399C70A1 /* TextInputTableViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCellPresenter.swift; sourceTree = "<group>"; };
 		402EB079FFFDD633F57A082A /* DateValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateValidator.swift; sourceTree = "<group>"; };
 		402EB07F0BCC6F94268A89B6 /* TextControl+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextControl+Style.swift"; sourceTree = "<group>"; };
 		402EB09DDBC741FCBC5EEA1B /* KeyboardViewStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewStyle.swift; sourceTree = "<group>"; };
 		402EB0B47CE4E03EC3DFDA37 /* ApplePayModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayModuleIO.swift; sourceTree = "<group>"; };
-		402EB0CFD146A3D505F73D33 /* SimpleIdentificationModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleIdentificationModuleIO.swift; sourceTree = "<group>"; };
 		402EB0D033CC079B2E741512 /* AnalyticsEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsEvent.swift; sourceTree = "<group>"; };
 		402EB0D91B5AEDF9532119F1 /* MSDKActionSheetHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSDKActionSheetHeaderView.swift; sourceTree = "<group>"; };
 		402EB0D93DE0D413280F555E /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
@@ -742,7 +725,6 @@
 		402EB121A6A4E1FE6BCA48ED /* CardSecAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSecAssembly.swift; sourceTree = "<group>"; };
 		402EB12FE30A89CB58969D2E /* LargeIconButtonItemView+PaymentMethodView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LargeIconButtonItemView+PaymentMethodView.swift"; sourceTree = "<group>"; };
 		402EB142133DFA727D062EE9 /* YandexAuthInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexAuthInteractor.swift; sourceTree = "<group>"; };
-		402EB1424546160BBA8A05FA /* SimpleIdentificationInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleIdentificationInteractorIO.swift; sourceTree = "<group>"; };
 		402EB1482E8BFCCAFC0AD625 /* YamoneyAuthAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YamoneyAuthAssembly.swift; sourceTree = "<group>"; };
 		402EB14D1CA49B598A9505EA /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		402EB16CBAD5D724F5FB9679 /* AuthorizationMediator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationMediator.swift; sourceTree = "<group>"; };
@@ -762,8 +744,6 @@
 		402EB20893D57BCDD6531F5D /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		402EB20A7ACB428ADE874F3C /* PlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		402EB21194794FB1D5FFEFF9 /* UIFont+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Style.swift"; sourceTree = "<group>"; };
-		402EB21B82A4B349DE1F5D94 /* YandexLoginProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexLoginProcessing.swift; sourceTree = "<group>"; };
-		402EB21CE1BC1C7750971B57 /* TextInputTableViewCellModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCellModuleIO.swift; sourceTree = "<group>"; };
 		402EB2267FCDA994A8449002 /* AuthTypeStatesProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthTypeStatesProvider.swift; sourceTree = "<group>"; };
 		402EB226DE34051D5952382B /* UIView+SpecificLayoutGuide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+SpecificLayoutGuide.swift"; sourceTree = "<group>"; };
 		402EB227D680A54E76696A72 /* HostProviderAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostProviderAssembly.swift; sourceTree = "<group>"; };
@@ -780,7 +760,6 @@
 		402EB30772856D23A05D839A /* ContractStateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractStateHandler.swift; sourceTree = "<group>"; };
 		402EB3169F7C63326BAC9707 /* EmailValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
 		402EB3173B9E0C8430E09B96 /* BankCardRepeatModuleInputData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardRepeatModuleInputData.swift; sourceTree = "<group>"; };
-		402EB32306CFC48EC71CC8F9 /* ShowcaseCellModuleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowcaseCellModuleFactory.swift; sourceTree = "<group>"; };
 		402EB331AB2528B523698539 /* PlaceholderProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderProvider.swift; sourceTree = "<group>"; };
 		402EB340F0FA43A21F9C8B95 /* ContractTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractTemplate.swift; sourceTree = "<group>"; };
 		402EB35130D8CDC08C740BA1 /* UIImage+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Style.swift"; sourceTree = "<group>"; };
@@ -799,15 +778,11 @@
 		402EB40E45FD50302AF2C546 /* ApiLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiLogger.swift; sourceTree = "<group>"; };
 		402EB4106DE995446269BD51 /* ErrorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorAssembly.swift; sourceTree = "<group>"; };
 		402EB4140624A37C315AA60F /* ApplePayPermissionsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayPermissionsHandler.swift; sourceTree = "<group>"; };
-		402EB42EC82EB48FAAAAF7FD /* SelectTableViewCellModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTableViewCellModuleIO.swift; sourceTree = "<group>"; };
-		402EB43B339A58BFD37432A7 /* SelectOptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectOptionTableViewCell.swift; sourceTree = "<group>"; };
 		402EB43CDEA9F5F132A2CF9A /* banks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = banks.json; sourceTree = "<group>"; };
 		402EB45088875FC4B1B83754 /* PhoneNumberInputAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberInputAssembly.swift; sourceTree = "<group>"; };
 		402EB451EBD2F5D80C8382EE /* PhoneNumberInputPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberInputPresenter.swift; sourceTree = "<group>"; };
-		402EB45D58B1025A48181DC2 /* IdentificationProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentificationProcessing.swift; sourceTree = "<group>"; };
 		402EB46310FE235192C6FBB8 /* UIImage+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Style.swift"; sourceTree = "<group>"; };
 		402EB46DA2515D4FAC698810 /* WebBrowserRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebBrowserRouter.swift; sourceTree = "<group>"; };
-		402EB4758ADC02DFC4363E15 /* SimpleIdentificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleIdentificationViewController.swift; sourceTree = "<group>"; };
 		402EB47DA392DA9D9382598B /* UIButton+Stylable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Stylable.swift"; sourceTree = "<group>"; };
 		402EB47F1567A31864612F7C /* TokenizationModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationModuleIO.swift; sourceTree = "<group>"; };
 		402EB47F288FC29560EE036E /* KeyboardObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObservable.swift; sourceTree = "<group>"; };
@@ -821,17 +796,13 @@
 		402EB4E1EF38AE1CD9BCF105 /* SberbankStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SberbankStrategy.swift; sourceTree = "<group>"; };
 		402EB4EDCE1A900FB422808A /* SberbankPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SberbankPresenter.swift; sourceTree = "<group>"; };
 		402EB4F728CFBA828884E459 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
-		402EB4FDEBAB9C313F03EDCB /* SimpleIdentificationAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleIdentificationAssembly.swift; sourceTree = "<group>"; };
-		402EB4FF1A09C97F0CD09479 /* ShowcaseDisplayItemFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowcaseDisplayItemFactory.swift; sourceTree = "<group>"; };
 		402EB5091FBD0903A0369764 /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		402EB50F92BB073BCF76DB45 /* ApplePayAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayAssembly.swift; sourceTree = "<group>"; };
 		402EB5179EE2C770276844E6 /* LinkedCardStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedCardStrategy.swift; sourceTree = "<group>"; };
 		402EB5183B4C5075C6903F81 /* UIView+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Style.swift"; sourceTree = "<group>"; };
 		402EB5258D553F400134737A /* PaymentMethodsModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsModuleIO.swift; sourceTree = "<group>"; };
-		402EB54E93DAF9097B096251 /* SimpleIdentificationInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleIdentificationInteractor.swift; sourceTree = "<group>"; };
 		402EB5688528CD7F2C34CA12 /* CardConfiguration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = CardConfiguration.plist; sourceTree = "<group>"; };
 		402EB572A001C6A59C33858D /* ApiSessionAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiSessionAssembly.swift; sourceTree = "<group>"; };
-		402EB5837CE3CE9D1EC03781 /* SelectOptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectOptionViewController.swift; sourceTree = "<group>"; };
 		402EB584E224B50E412AB1FB /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		402EB59A0AA13970276C2405 /* PriceFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceFormatter.swift; sourceTree = "<group>"; };
 		402EB5AAED07E18DCD2EF942 /* ErrorViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorViewIO.swift; sourceTree = "<group>"; };
@@ -850,7 +821,7 @@
 		402EB65F750DFE9F342ECE27 /* BankCardDataInputAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardDataInputAssembly.swift; sourceTree = "<group>"; };
 		402EB66D5255543D831A6E27 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		402EB67FA3DAB78E3CB6C4DF /* UITextView+Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Styles.swift"; sourceTree = "<group>"; };
-		402EB691B88D70CBB46478E3 /* MonthOutputFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthOutputFormatter.swift; sourceTree = "<group>"; };
+		402EB699DE84BFFA7FBD61F5 /* YandexAuthRouterIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexAuthRouterIO.swift; sourceTree = "<group>"; };
 		402EB69DF6A8F4AD80A4F759 /* TextControl+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextControl+State.swift"; sourceTree = "<group>"; };
 		402EB6A48AE583D297E41E9A /* TitledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledSwitchView.swift; sourceTree = "<group>"; };
 		402EB6AB3C97E1E258778D20 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -869,9 +840,7 @@
 		402EB70587933513CB54B7A7 /* NonEmptyValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonEmptyValidator.swift; sourceTree = "<group>"; };
 		402EB70944785DE0DF9A4AE9 /* ResourceLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLoader.swift; sourceTree = "<group>"; };
 		402EB7128379FBEB8C5B5561 /* SwitchItemView+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwitchItemView+Style.swift"; sourceTree = "<group>"; };
-		402EB7168A9425556168E384 /* TextTableViewCellAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTableViewCellAssembly.swift; sourceTree = "<group>"; };
 		402EB71B3FA4CE37A176F38D /* Space.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Space.swift; sourceTree = "<group>"; };
-		402EB720E7517F0665D37640 /* SimpleIdentificationViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleIdentificationViewIO.swift; sourceTree = "<group>"; };
 		402EB72D4947CCBA10551A04 /* DeviceInfoProviderAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoProviderAssembly.swift; sourceTree = "<group>"; };
 		402EB745043F7722A3F0ACEE /* NumberKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberKeyboardView.swift; sourceTree = "<group>"; };
 		402EB75BC9578F08A4096984 /* YacardPanInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YacardPanInputPresenterStyle.swift; sourceTree = "<group>"; };
@@ -898,22 +867,17 @@
 		402EB80B16DF18EDB6A2A2C4 /* ActivityIndicatorView+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ActivityIndicatorView+Style.swift"; sourceTree = "<group>"; };
 		402EB8295ED9FF21E41876C2 /* UIScrollView+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Style.swift"; sourceTree = "<group>"; };
 		402EB83409C10F75CAE558FA /* TransitionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionHandler.swift; sourceTree = "<group>"; };
-		402EB846B859B8EC6ED58F16 /* SelectTableViewCellAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTableViewCellAssembly.swift; sourceTree = "<group>"; };
-		402EB862B369C82A4A9763E0 /* TextInputOutputFormatterFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputOutputFormatterFactory.swift; sourceTree = "<group>"; };
 		402EB86773D53872C76DBA04 /* LargeIconButtonItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeIconButtonItemView.swift; sourceTree = "<group>"; };
 		402EB8687A4ED5C4230E8AF0 /* YandexCheckoutPaymentsExamplePods.inhouse.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = YandexCheckoutPaymentsExamplePods.inhouse.entitlements; sourceTree = "<group>"; };
 		402EB86ACD628DEFC6B4DFD7 /* AuthorizationProcessingAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationProcessingAssembly.swift; sourceTree = "<group>"; };
 		402EB86C3387D52C172E36A4 /* LengthTextInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LengthTextInputPresenterStyle.swift; sourceTree = "<group>"; };
 		402EB8953FE1DE599CA97894 /* WebLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebLogger.swift; sourceTree = "<group>"; };
-		402EB89857DD2BF2E27D5ECE /* SelectOptionModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectOptionModuleAssembly.swift; sourceTree = "<group>"; };
 		402EB8AB97D677AA9E36B2C8 /* MonetaryAmountFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonetaryAmountFactory.swift; sourceTree = "<group>"; };
 		402EB8BEF23878B776C64AA5 /* TextInputDisplayItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputDisplayItem.swift; sourceTree = "<group>"; };
 		402EB8C80DD9E0B2A53B86E7 /* AuthCodeInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCodeInputViewController.swift; sourceTree = "<group>"; };
 		402EB8D335568901201F0600 /* TokenizationInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationInteractor.swift; sourceTree = "<group>"; };
 		402EB8DEF09A97F555305770 /* InputPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputPresenter.swift; sourceTree = "<group>"; };
 		402EB8E2FCF62D54C5430379 /* TaskPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskPromise.swift; sourceTree = "<group>"; };
-		402EB8EA747162CD368EF5CA /* SelectTableViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTableViewCellPresenter.swift; sourceTree = "<group>"; };
-		402EB8F08F9BD69EAB756EFB /* TextInputPresenterStyleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputPresenterStyleFactory.swift; sourceTree = "<group>"; };
 		402EB90A62EB2C275C5DE842 /* KeyValueStoringAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStoringAssembly.swift; sourceTree = "<group>"; };
 		402EB90AC2AB22E987F48BF5 /* UISwitch+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISwitch+Style.swift"; sourceTree = "<group>"; };
 		402EB90B3882C0E9057A2AAD /* ProcessingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessingViewController.swift; sourceTree = "<group>"; };
@@ -926,7 +890,6 @@
 		402EB95CFDB39CEB4AD76B48 /* String+Split.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Split.swift"; sourceTree = "<group>"; };
 		402EB95EDD27C0421EB07A04 /* TextControl+ClearMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextControl+ClearMode.swift"; sourceTree = "<group>"; };
 		402EB96235983229B08D616C /* PriceInputFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceInputFormatter.swift; sourceTree = "<group>"; };
-		402EB969588FDDD395124B4D /* TextInputValidatorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputValidatorFactory.swift; sourceTree = "<group>"; };
 		402EB96AF43EBC149FA000CB /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		402EB96DFA8C9D871DE124D0 /* SavePaymentMethodViewModelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavePaymentMethodViewModelFactory.swift; sourceTree = "<group>"; };
 		402EB977EB9DF11150D0F0A7 /* YandexCheckoutPaymentsExampleCarthage.debug.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = YandexCheckoutPaymentsExampleCarthage.debug.entitlements; sourceTree = "<group>"; };
@@ -940,7 +903,6 @@
 		402EB9E775A42E865B4CEB44 /* TextControl+LineMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextControl+LineMode.swift"; sourceTree = "<group>"; };
 		402EB9F6C51AC17D1DC64E76 /* ErrorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		402EB9F7D5BE0D247E0A844D /* TokenizationFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationFlow.swift; sourceTree = "<group>"; };
-		402EBA026FC871E026C9BFA5 /* SelectTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTableViewCell.swift; sourceTree = "<group>"; };
 		402EBA04C707C5EA568200DE /* CardData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardData.swift; sourceTree = "<group>"; };
 		402EBA05316F3F0DD3B541CD /* LargeIconButtonItemViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeIconButtonItemViewCell.swift; sourceTree = "<group>"; };
 		402EBA064BCB0CAD14B2E344 /* PresentableNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentableNotification.swift; sourceTree = "<group>"; };
@@ -974,7 +936,6 @@
 		402EBABEEB6576681EFF55A8 /* ContractInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractInteractor.swift; sourceTree = "<group>"; };
 		402EBAC15CD21389AEA84EF6 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		402EBAC288F1B43084EA43BC /* PhoneNumberInputModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberInputModuleOutput.swift; sourceTree = "<group>"; };
-		402EBAC909235F83DCF51E92 /* YandexLoginProcessingAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexLoginProcessingAssembly.swift; sourceTree = "<group>"; };
 		402EBAC997EF833DAC9D3ABF /* IconButtonItemViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButtonItemViewIO.swift; sourceTree = "<group>"; };
 		402EBAD1F924C381F5EF1B45 /* MockYamoneyLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockYamoneyLoginService.swift; sourceTree = "<group>"; };
 		402EBAD38C5EB643CD21E0DE /* WalletStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletStrategy.swift; sourceTree = "<group>"; };
@@ -993,13 +954,10 @@
 		402EBB4CE8123B54AD76D8CC /* PhoneNumberFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberFormatter.swift; sourceTree = "<group>"; };
 		402EBB549599D3B7DB0DABEC /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		402EBB5972E9BA97E5350DCC /* PaymentProcessingAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentProcessingAssembly.swift; sourceTree = "<group>"; };
-		402EBB6BC95592D05B638B9C /* SelectTableViewCellIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTableViewCellIO.swift; sourceTree = "<group>"; };
 		402EBB761608F1C750B0D45F /* PriceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
-		402EBB805E630CB5FFDC295C /* SelectOptionModuleOutputIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectOptionModuleOutputIO.swift; sourceTree = "<group>"; };
 		402EBB880D971E4B0390BF78 /* DeviceInfoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoService.swift; sourceTree = "<group>"; };
 		402EBB8AF610282235BC5F5A /* Identifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 		402EBB8C29DBDA7B2F91763F /* ActionSheetTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetTemplate.swift; sourceTree = "<group>"; };
-		402EBB9AE5975C60711283C2 /* TextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTableViewCell.swift; sourceTree = "<group>"; };
 		402EBBAB27562572D852C400 /* DimmingPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
 		402EBBB0BB9EBC8983BE60E2 /* SberbankAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SberbankAssembly.swift; sourceTree = "<group>"; };
 		402EBBB86E3224388A362ECF /* CardSecInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSecInteractor.swift; sourceTree = "<group>"; };
@@ -1015,11 +973,9 @@
 		402EBC4E71E76A1046320E32 /* AnalyticsProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsProcessing.swift; sourceTree = "<group>"; };
 		402EBC5278F1B7CBEE0256A1 /* CscInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CscInputPresenterStyle.swift; sourceTree = "<group>"; };
 		402EBC561BF33AB5ACBFEFA7 /* ContractViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractViewIO.swift; sourceTree = "<group>"; };
-		402EBC5C5CE9B835352D3C54 /* IdentificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentificationService.swift; sourceTree = "<group>"; };
 		402EBC65C7C9A4599E39EEC2 /* KeyboardNotificationInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardNotificationInfo.swift; sourceTree = "<group>"; };
 		402EBC6E1AC8DE3F0701FE15 /* HostsConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostsConfig.swift; sourceTree = "<group>"; };
 		402EBC752D3205EAC4BAC8EA /* CardSecInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSecInteractorIO.swift; sourceTree = "<group>"; };
-		402EBC844321C30955ECCABE /* DateFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFactory.swift; sourceTree = "<group>"; };
 		402EBC8C5F2E04C722215410 /* MockKeychainStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeychainStorage.swift; sourceTree = "<group>"; };
 		402EBC92823F6166AFC8E917 /* ContractPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractPresenter.swift; sourceTree = "<group>"; };
 		402EBC9ABFBF24C573DC88A4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -1042,7 +998,6 @@
 		402EBD5D68132AEA412F2BDC /* ContractInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractInteractorIO.swift; sourceTree = "<group>"; };
 		402EBD6AC87739A790C03D95 /* ActionTextDialog+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ActionTextDialog+Style.swift"; sourceTree = "<group>"; };
 		402EBD6B175EEBD8F8242586 /* YamoneyAuthModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YamoneyAuthModuleIO.swift; sourceTree = "<group>"; };
-		402EBD84C81CDAF9DB8216BF /* YandexLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexLoginService.swift; sourceTree = "<group>"; };
 		402EBD98D680460920FAFF25 /* AnalyticsTrackable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsTrackable.swift; sourceTree = "<group>"; };
 		402EBD99826BEF036D940985 /* SectionDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionDescriptor.swift; sourceTree = "<group>"; };
 		402EBDA93CCB741604CDF4AF /* TermsOfService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsOfService.swift; sourceTree = "<group>"; };
@@ -1057,13 +1012,11 @@
 		402EBDDFD195BC7733918BA2 /* UIViewController+Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Keyboard.swift"; sourceTree = "<group>"; };
 		402EBDE88267ABA661952EEB /* BankCardDataInputViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardDataInputViewIO.swift; sourceTree = "<group>"; };
 		402EBE0540BBB606CFA8207E /* UIBarButtonItem+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Style.swift"; sourceTree = "<group>"; };
-		402EBE1EDB239912F0F80792 /* TextInputTableViewCellIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCellIO.swift; sourceTree = "<group>"; };
 		402EBE2957721298B9CBD485 /* TextDisplayItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextDisplayItem.swift; sourceTree = "<group>"; };
 		402EBE29E5C87D456DDBE38B /* UITableViewCell+Identifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Identifier.swift"; sourceTree = "<group>"; };
 		402EBE2F7D8A223BAA837677 /* YamoneyAuthParametersAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YamoneyAuthParametersAssembly.swift; sourceTree = "<group>"; };
 		402EBE317B2A9FEDE4412013 /* MockPaymentService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPaymentService.swift; sourceTree = "<group>"; };
 		402EBE34DAB5E4AE1FC8E6B1 /* AdditionalCardDataInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalCardDataInputView.swift; sourceTree = "<group>"; };
-		402EBE35AE2BA3E826A7CE7B /* SimpleIdentificationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleIdentificationPresenter.swift; sourceTree = "<group>"; };
 		402EBE38A13053A6EFBC618C /* IconButtonItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButtonItemView.swift; sourceTree = "<group>"; };
 		402EBE4329C16EF4BAF8F641 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		402EBE5491F56EF4D2C031C5 /* PhoneNumberInputInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberInputInteractorIO.swift; sourceTree = "<group>"; };
@@ -1071,13 +1024,10 @@
 		402EBE5526ACD7CD69283661 /* UILayoutPriority+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILayoutPriority+Tools.swift"; sourceTree = "<group>"; };
 		402EBE5F748094369D41D15D /* BankCardDataInputRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardDataInputRouter.swift; sourceTree = "<group>"; };
 		402EBE5FF1DF14A2198A90F5 /* WebBrowserViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebBrowserViewIO.swift; sourceTree = "<group>"; };
-		402EBE867BDDDDA4E9D97D79 /* TextInputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCell.swift; sourceTree = "<group>"; };
 		402EBE9D384C19774E01A03F /* LargeIconButtonItemViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeIconButtonItemViewIO.swift; sourceTree = "<group>"; };
 		402EBEA633ED75F9F9A2335C /* DateInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateInputPresenterStyle.swift; sourceTree = "<group>"; };
-		402EBEB6CD86A8EC57BCD49A /* DateOutputFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateOutputFormatter.swift; sourceTree = "<group>"; };
 		402EBEC76B2AB7515C0B5B91 /* AnalyticsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsProvider.swift; sourceTree = "<group>"; };
 		402EBED6C43E33F60A00D47A /* KeychainStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
-		402EBEE1B73F6CB25CF17EDE /* IdentificationProcessingAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentificationProcessingAssembly.swift; sourceTree = "<group>"; };
 		402EBEF2D9C85D1F6D213635 /* YandexCheckoutPaymentsExamplePods.debug.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = YandexCheckoutPaymentsExamplePods.debug.entitlements; sourceTree = "<group>"; };
 		402EBEF70767863315609E30 /* UIScreen+SafeAreaInsets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScreen+SafeAreaInsets.swift"; sourceTree = "<group>"; };
 		402EBEFF5FF3553BF51ED09F /* PhoneNumberStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberStyle.swift; sourceTree = "<group>"; };
@@ -1087,11 +1037,11 @@
 		402EBF30547C0D27015F777A /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		402EBF3A00DEE5F5D61B5F98 /* PhoneNumberInputViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberInputViewIO.swift; sourceTree = "<group>"; };
 		402EBF4B20C030067340B10D /* AnalyticsProcessingAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsProcessingAssembly.swift; sourceTree = "<group>"; };
+		402EBF58955152812C781561 /* YandexAuthRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YandexAuthRouter.swift; sourceTree = "<group>"; };
 		402EBF5D11080AD50AD7F9B8 /* PhoneNumberOutputFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberOutputFormatter.swift; sourceTree = "<group>"; };
 		402EBF6A37743D45F45F9F0A /* IdentifyCountryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifyCountryService.swift; sourceTree = "<group>"; };
 		402EBF6F8BBA7FD7906B47F6 /* ModalTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalTemplate.swift; sourceTree = "<group>"; };
 		402EBF7443BB33CCD95DBC82 /* TokenizationViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationViewIO.swift; sourceTree = "<group>"; };
-		402EBF74A6649C7276B08420 /* TextInputTableViewCellAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCellAssembly.swift; sourceTree = "<group>"; };
 		402EBF7AC88FCC8EA3154C56 /* UserAgentFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAgentFactory.swift; sourceTree = "<group>"; };
 		402EBF9D5E855DC3E1AE25AA /* BankCardDataInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardDataInputViewController.swift; sourceTree = "<group>"; };
 		402EBF9F81B468DF9C631FEC /* TokenizationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationViewController.swift; sourceTree = "<group>"; };
@@ -1126,9 +1076,7 @@
 		E072CCA42121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YandexCheckoutPaymentsApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E072CCA62121AAE7003D9913 /* YandexCheckoutShowcaseApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YandexCheckoutShowcaseApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E072CCA82121AAE7003D9913 /* YandexCheckoutWalletApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YandexCheckoutWalletApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E072CCAA2121AAE7003D9913 /* YandexLoginSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YandexLoginSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E072CCAC2121AAE7003D9913 /* YandexMoneyCoreApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YandexMoneyCoreApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E07ED63A20346C4A009E0737 /* YandexLoginSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YandexLoginSDK.framework; path = Carthage/Build/iOS/YandexLoginSDK.framework; sourceTree = "<group>"; };
 		E0D529361FE40337005F495F /* FunctionalSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FunctionalSwift.framework; path = Carthage/Build/iOS/FunctionalSwift.framework; sourceTree = "<group>"; };
 		FE5C4D8B200FA027004F365E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FE5C4D8C200FA02F004F365E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1143,11 +1091,11 @@
 				E0321BB020EF9A590050CF65 /* YandexCheckoutPaymentsApi.framework in Frameworks */,
 				301D747F20B5D7E60000E394 /* PassKit.framework in Frameworks */,
 				30B24DE1206C2850002C823B /* YandexMobileMetrica.framework in Frameworks */,
+				30C22F00251A331100460CC0 /* MoneyAuth.xcframework in Frameworks */,
 				E04D0C442023174F00162F30 /* libz.tbd in Frameworks */,
 				E0D529381FE40337005F495F /* FunctionalSwift.framework in Frameworks */,
 				D9DF9D662049ADF800371792 /* YandexCheckoutWalletApi.framework in Frameworks */,
 				E018BEB9200E1BAD00022396 /* When.framework in Frameworks */,
-				E07ED63B20346C4A009E0737 /* YandexLoginSDK.framework in Frameworks */,
 				E01B1F30200E1B050079DD57 /* YandexMoneyCoreApi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1161,7 +1109,6 @@
 				E072CCA52121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework in Frameworks */,
 				E072CCA72121AAE7003D9913 /* YandexCheckoutShowcaseApi.framework in Frameworks */,
 				E072CCA92121AAE7003D9913 /* YandexCheckoutWalletApi.framework in Frameworks */,
-				E072CCAB2121AAE7003D9913 /* YandexLoginSDK.framework in Frameworks */,
 				E072CCAD2121AAE7003D9913 /* YandexMoneyCoreApi.framework in Frameworks */,
 				E011A09E20725BCB00B786B5 /* MessageUI.framework in Frameworks */,
 				E04D0C45202317DF00162F30 /* libz.tbd in Frameworks */,
@@ -1293,12 +1240,12 @@
 			path = LinkedSwitchItemView;
 			sourceTree = "<group>";
 		};
-		402EB00D25CC9F5E5DD09116 /* View */ = {
+		30C22EFC251A0C0100460CC0 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				402EBE867BDDDDA4E9D97D79 /* TextInputTableViewCell.swift */,
+				30C22EFD251A0C1100460CC0 /* GlobalConstants.swift */,
 			);
-			path = View;
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		402EB0119776A2008F3C9801 /* BankCardDataInput */ = {
@@ -1414,16 +1361,6 @@
 			path = Button;
 			sourceTree = "<group>";
 		};
-		402EB127861FEF1E345D4427 /* SelectOption */ = {
-			isa = PBXGroup;
-			children = (
-				402EBB805E630CB5FFDC295C /* SelectOptionModuleOutputIO.swift */,
-				402EBE4C36E3FC38E454638A /* Assembly */,
-				402EBECECFBABB128BECFF26 /* View */,
-			);
-			path = SelectOption;
-			sourceTree = "<group>";
-		};
 		402EB13ECBDC29975E13A501 /* Public */ = {
 			isa = PBXGroup;
 			children = (
@@ -1434,7 +1371,6 @@
 				402EBA421DDACFD7FFA52F93 /* Models */,
 				402EB74DCCDF522EE5A5624B /* Protocols */,
 				402EB412B667877AE545EBD1 /* Resources */,
-				402EB3858BE173C4759C062A /* Services */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -1461,13 +1397,6 @@
 				402EBA9160818E89384630B6 /* YandexAuthAssembly.swift */,
 			);
 			path = Assembly;
-			sourceTree = "<group>";
-		};
-		402EB18DE4B1EE457A4ADC58 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Router;
 			sourceTree = "<group>";
 		};
 		402EB1948F279409A289AFEA /* View */ = {
@@ -1499,18 +1428,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		402EB1C1374BD55939579480 /* TextInput */ = {
-			isa = PBXGroup;
-			children = (
-				402EBAF2039E97821D4E2ED0 /* Assembly */,
-				402EB31B3007B2BF2263C9BD /* Presenter */,
-				402EB21CE1BC1C7750971B57 /* TextInputTableViewCellModuleIO.swift */,
-				402EB00D25CC9F5E5DD09116 /* View */,
-				402EBE1EDB239912F0F80792 /* TextInputTableViewCellIO.swift */,
-			);
-			path = TextInput;
-			sourceTree = "<group>";
-		};
 		402EB1C8E83F34A1D7D30CE0 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
@@ -1536,15 +1453,6 @@
 				402EBC11D69B61F49F3804D0 /* TestSettingsViewController.swift */,
 			);
 			path = "Test Settings";
-			sourceTree = "<group>";
-		};
-		402EB24B7F5BED97B2281437 /* Text */ = {
-			isa = PBXGroup;
-			children = (
-				402EBE1E3CC2E2AFE5874ACD /* Assembly */,
-				402EB7D74A6F754B1B5D3960 /* View */,
-			);
-			path = Text;
 			sourceTree = "<group>";
 		};
 		402EB25C85170B43FF38903C /* BankSettingsService */ = {
@@ -1669,14 +1577,6 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
-		402EB31B3007B2BF2263C9BD /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				402EB05B720BE255399C70A1 /* TextInputTableViewCellPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
 		402EB320BCE7333EAFCC1093 /* Styles */ = {
 			isa = PBXGroup;
 			children = (
@@ -1712,19 +1612,10 @@
 				402EBA5D1D4920494878050E /* PaymentMethods */,
 				402EBE612E4F0B4552181765 /* Processing */,
 				308E41782385500E00B44490 /* SavePaymentMethodInfo */,
-				402EB453D7BBA31E0EF72BC4 /* SimpleIdentification */,
 				402EBF72972A19D06F3E5EC5 /* Tokenization */,
 				402EBEADF3402FCF4A798D56 /* YandexAuth */,
 			);
 			path = Modules;
-			sourceTree = "<group>";
-		};
-		402EB377B2BFA97D09CFCF1A /* Assembly */ = {
-			isa = PBXGroup;
-			children = (
-				402EB846B859B8EC6ED58F16 /* SelectTableViewCellAssembly.swift */,
-			);
-			path = Assembly;
 			sourceTree = "<group>";
 		};
 		402EB384CB68D21365AFC6BC /* Organisms */ = {
@@ -1734,14 +1625,6 @@
 				402EB8C80DD9E0B2A53B86E7 /* AuthCodeInputViewController.swift */,
 			);
 			path = Organisms;
-			sourceTree = "<group>";
-		};
-		402EB3858BE173C4759C062A /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				402EBD84C81CDAF9DB8216BF /* YandexLoginService.swift */,
-			);
-			path = Services;
 			sourceTree = "<group>";
 		};
 		402EB3E58825CB8D1B26063D /* ModuleIO */ = {
@@ -1798,29 +1681,6 @@
 				402EBB0248673E79479E1F9F /* ScrollViewController.swift */,
 			);
 			path = Templates;
-			sourceTree = "<group>";
-		};
-		402EB450E1D6E9B241AAE820 /* YandexLogin */ = {
-			isa = PBXGroup;
-			children = (
-				402EB21B82A4B349DE1F5D94 /* YandexLoginProcessing.swift */,
-				402EBAC909235F83DCF51E92 /* YandexLoginProcessingAssembly.swift */,
-			);
-			path = YandexLogin;
-			sourceTree = "<group>";
-		};
-		402EB453D7BBA31E0EF72BC4 /* SimpleIdentification */ = {
-			isa = PBXGroup;
-			children = (
-				402EB756CA713BA7C815E56F /* Assembly */,
-				402EBAA7F82D5E9311D329DE /* View */,
-				402EB720E7517F0665D37640 /* SimpleIdentificationViewIO.swift */,
-				402EB7118F7BB08A0D7ABEE9 /* Presenter */,
-				402EBAA1BF1AEC291EBB34EA /* Interactor */,
-				402EB0CFD146A3D505F73D33 /* SimpleIdentificationModuleIO.swift */,
-				402EB1424546160BBA8A05FA /* SimpleIdentificationInteractorIO.swift */,
-			);
-			path = SimpleIdentification;
 			sourceTree = "<group>";
 		};
 		402EB45C01B7267C16D87529 /* Organisms */ = {
@@ -1971,6 +1831,7 @@
 			isa = PBXGroup;
 			children = (
 				402EB2E33A805256B8A101B1 /* Atomic Design */,
+				30C22EFC251A0C0100460CC0 /* Constants */,
 				402EB72FA2F9530A4A971FF5 /* Extensions */,
 				402EB918F12E85463154D953 /* Factory */,
 				402EB1A92565D100D03BEA47 /* Helpers */,
@@ -2003,26 +1864,6 @@
 				402EB55BA4ECB1C0470B054F /* UIKit+Styles */,
 			);
 			path = Molecules;
-			sourceTree = "<group>";
-		};
-		402EB63C58F51C46D82BEF26 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				402EBA026FC871E026C9BFA5 /* SelectTableViewCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		402EB669F023C650C3EA0179 /* Select */ = {
-			isa = PBXGroup;
-			children = (
-				402EB377B2BFA97D09CFCF1A /* Assembly */,
-				402EBAA4E956B75E5DD9056F /* Presenter */,
-				402EB42EC82EB48FAAAAF7FD /* SelectTableViewCellModuleIO.swift */,
-				402EB63C58F51C46D82BEF26 /* View */,
-				402EBB6BC95592D05B638B9C /* SelectTableViewCellIO.swift */,
-			);
-			path = Select;
 			sourceTree = "<group>";
 		};
 		402EB66D490EE34B6298F44F /* ActivityIndicatorView */ = {
@@ -2077,14 +1918,6 @@
 			path = UserStories;
 			sourceTree = "<group>";
 		};
-		402EB7118F7BB08A0D7ABEE9 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				402EBE35AE2BA3E826A7CE7B /* SimpleIdentificationPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
 		402EB72FA2F9530A4A971FF5 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -2112,14 +1945,6 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		402EB756CA713BA7C815E56F /* Assembly */ = {
-			isa = PBXGroup;
-			children = (
-				402EB4FDEBAB9C313F03EDCB /* SimpleIdentificationAssembly.swift */,
-			);
-			path = Assembly;
-			sourceTree = "<group>";
-		};
 		402EB79934CAA39586B9AA69 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -2127,14 +1952,6 @@
 				402EBCD1E1AD1511D0FE2D98 /* MaskedBankCardDataInputPresenter.swift */,
 			);
 			path = Presenter;
-			sourceTree = "<group>";
-		};
-		402EB7D74A6F754B1B5D3960 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				402EBB9AE5975C60711283C2 /* TextTableViewCell.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		402EB846476FB96A6E8E288F /* KeyboardView */ = {
@@ -2224,12 +2041,11 @@
 				402EB227D680A54E76696A72 /* HostProviderAssembly.swift */,
 				402EB572A001C6A59C33858D /* ApiSessionAssembly.swift */,
 				402EB5C4B4F0B06A58C7547E /* PaymentMethodViewModelFactory.swift */,
-				402EB4FF1A09C97F0CD09479 /* ShowcaseDisplayItemFactory.swift */,
-				402EBC844321C30955ECCABE /* DateFactory.swift */,
 				402EB8AB97D677AA9E36B2C8 /* MonetaryAmountFactory.swift */,
 				402EB033A1DFDB46B5EBA6D1 /* PhoneNumberFormatterAssembly.swift */,
 				402EBF7AC88FCC8EA3154C56 /* UserAgentFactory.swift */,
 				402EB96DFA8C9D871DE124D0 /* SavePaymentMethodViewModelFactory.swift */,
+				30C22EFA251A076400460CC0 /* MoneyAuthAssembly.swift */,
 			);
 			path = Factory;
 			sourceTree = "<group>";
@@ -2255,14 +2071,6 @@
 				402EB7CBA4DC00B146D0AABC /* YandexAuthPresenter.swift */,
 			);
 			path = Presenter;
-			sourceTree = "<group>";
-		};
-		402EB94727954A31515F98C3 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				402EB43B339A58BFD37432A7 /* SelectOptionTableViewCell.swift */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		402EB95D4399B06C5C92280B /* IconView */ = {
@@ -2376,22 +2184,12 @@
 			isa = PBXGroup;
 			children = (
 				402EBA9B7AFC1779BE35D378 /* Formatter.swift */,
-				402EBEB6CD86A8EC57BCD49A /* DateOutputFormatter.swift */,
-				402EB691B88D70CBB46478E3 /* MonthOutputFormatter.swift */,
+				402EBF6A37743D45F45F9F0A /* IdentifyCountryService.swift */,
+				402EBB4CE8123B54AD76D8CC /* PhoneNumberFormatter.swift */,
 				402EBF5D11080AD50AD7F9B8 /* PhoneNumberOutputFormatter.swift */,
 				402EB9B7B29AE2E4CFC48A0C /* InputPresenter */,
-				402EBB4CE8123B54AD76D8CC /* PhoneNumberFormatter.swift */,
-				402EBF6A37743D45F45F9F0A /* IdentifyCountryService.swift */,
 			);
 			path = Formatters;
-			sourceTree = "<group>";
-		};
-		402EBAA1BF1AEC291EBB34EA /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				402EB54E93DAF9097B096251 /* SimpleIdentificationInteractor.swift */,
-			);
-			path = Interactor;
 			sourceTree = "<group>";
 		};
 		402EBAA1C495F655E8620F39 /* Interactor */ = {
@@ -2402,39 +2200,10 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
-		402EBAA4E956B75E5DD9056F /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				402EB8EA747162CD368EF5CA /* SelectTableViewCellPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		402EBAA7F82D5E9311D329DE /* View */ = {
-			isa = PBXGroup;
-			children = (
-				402EB4758ADC02DFC4363E15 /* SimpleIdentificationViewController.swift */,
-				402EB127861FEF1E345D4427 /* SelectOption */,
-				402EBBB0ED32906FA59EB316 /* Cells */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		402EBAB7C556617B5E851D0F /* Assembly */ = {
 			isa = PBXGroup;
 			children = (
 				402EB121A6A4E1FE6BCA48ED /* CardSecAssembly.swift */,
-			);
-			path = Assembly;
-			sourceTree = "<group>";
-		};
-		402EBAF2039E97821D4E2ED0 /* Assembly */ = {
-			isa = PBXGroup;
-			children = (
-				402EBF74A6649C7276B08420 /* TextInputTableViewCellAssembly.swift */,
-				402EB969588FDDD395124B4D /* TextInputValidatorFactory.swift */,
-				402EB8F08F9BD69EAB756EFB /* TextInputPresenterStyleFactory.swift */,
-				402EB862B369C82A4A9763E0 /* TextInputOutputFormatterFactory.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -2450,11 +2219,12 @@
 		402EBAFA3C7BD1906EFDC3BA /* KeyValueStoring */ = {
 			isa = PBXGroup;
 			children = (
-				402EB009CEDEC5DB870537E1 /* KeyValueStoring.swift */,
-				402EB4DADE10C17DBD59936A /* KeychainStorage+KeyValueStoring.swift */,
-				402EB90A62EB2C275C5DE842 /* KeyValueStoringAssembly.swift */,
-				402EBC8C5F2E04C722215410 /* MockKeychainStorage.swift */,
 				402EBED6C43E33F60A00D47A /* KeychainStorage.swift */,
+				402EB4DADE10C17DBD59936A /* KeychainStorage+KeyValueStoring.swift */,
+				402EB009CEDEC5DB870537E1 /* KeyValueStoring.swift */,
+				402EB90A62EB2C275C5DE842 /* KeyValueStoringAssembly.swift */,
+				30B20E2A2535FC1C00941574 /* KeyValueStoringKeys.swift */,
+				402EBC8C5F2E04C722215410 /* MockKeychainStorage.swift */,
 				402EB0D93DE0D413280F555E /* UserDefaultsStorage.swift */,
 			);
 			path = KeyValueStoring;
@@ -2501,17 +2271,6 @@
 				402EB46DA2515D4FAC698810 /* WebBrowserRouter.swift */,
 			);
 			path = Router;
-			sourceTree = "<group>";
-		};
-		402EBBB0ED32906FA59EB316 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				402EB32306CFC48EC71CC8F9 /* ShowcaseCellModuleFactory.swift */,
-				402EB669F023C650C3EA0179 /* Select */,
-				402EB24B7F5BED97B2281437 /* Text */,
-				402EB1C1374BD55939579480 /* TextInput */,
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 		402EBBE1ED7002E267CEBE6A /* AuthTypeStates */ = {
@@ -2586,16 +2345,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		402EBCDE8E70994CAAC565B0 /* Identification */ = {
-			isa = PBXGroup;
-			children = (
-				402EB45D58B1025A48181DC2 /* IdentificationProcessing.swift */,
-				402EBC5C5CE9B835352D3C54 /* IdentificationService.swift */,
-				402EBEE1B73F6CB25CF17EDE /* IdentificationProcessingAssembly.swift */,
-			);
-			path = Identification;
-			sourceTree = "<group>";
-		};
 		402EBD6526851DD273359628 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -2636,14 +2385,6 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		402EBE1E3CC2E2AFE5874ACD /* Assembly */ = {
-			isa = PBXGroup;
-			children = (
-				402EB7168A9425556168E384 /* TextTableViewCellAssembly.swift */,
-			);
-			path = Assembly;
-			sourceTree = "<group>";
-		};
 		402EBE1E64F99114EE687EFB /* Assembly */ = {
 			isa = PBXGroup;
 			children = (
@@ -2674,14 +2415,6 @@
 				402EBAC288F1B43084EA43BC /* PhoneNumberInputModuleOutput.swift */,
 			);
 			path = PhoneNumberInput;
-			sourceTree = "<group>";
-		};
-		402EBE4C36E3FC38E454638A /* Assembly */ = {
-			isa = PBXGroup;
-			children = (
-				402EB89857DD2BF2E27D5ECE /* SelectOptionModuleAssembly.swift */,
-			);
-			path = Assembly;
 			sourceTree = "<group>";
 		};
 		402EBE526EF5DFA0E664FEE2 /* IconItemView */ = {
@@ -2724,12 +2457,13 @@
 		402EBEADF3402FCF4A798D56 /* YandexAuth */ = {
 			isa = PBXGroup;
 			children = (
+				402EB23A27BB831B365784B0 /* YandexAuthInteractorIO.swift */,
 				402EB5F065E3082394C79E74 /* YandexAuthModuleIO.swift */,
+				402EB699DE84BFFA7FBD61F5 /* YandexAuthRouterIO.swift */,
 				402EB17F28E0E61C395AB751 /* Assembly */,
 				402EB317919F7BABAE63CD7A /* Interactor */,
 				402EB931A49EB1A9A2B7EC83 /* Presenter */,
-				402EB18DE4B1EE457A4ADC58 /* Router */,
-				402EB23A27BB831B365784B0 /* YandexAuthInteractorIO.swift */,
+				402EBEDE739441A45065CB04 /* Router */,
 			);
 			path = YandexAuth;
 			sourceTree = "<group>";
@@ -2746,13 +2480,12 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		402EBECECFBABB128BECFF26 /* View */ = {
+		402EBEDE739441A45065CB04 /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				402EB94727954A31515F98C3 /* Cell */,
-				402EB5837CE3CE9D1EC03781 /* SelectOptionViewController.swift */,
+				402EBF58955152812C781561 /* YandexAuthRouter.swift */,
 			);
-			path = View;
+			path = Router;
 			sourceTree = "<group>";
 		};
 		402EBEDFCDFC9732AEC0E737 /* Router */ = {
@@ -2808,13 +2541,11 @@
 		402EBF67858F805C0168A633 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				402EBCDE8E70994CAAC565B0 /* Identification */,
 				402EB8DCCA3ABCF1B5D1064A /* Payment */,
 				402EB6287F7DD3A3CC35816B /* HostProvider.swift */,
 				402EB40E45FD50302AF2C546 /* ApiLogger.swift */,
 				402EBFE0E277B5E418D9A8C0 /* ThreatMetrix */,
 				402EBA65E3F218CA98BD9676 /* PaymentMethodHandler.swift */,
-				402EB450E1D6E9B241AAE820 /* YandexLogin */,
 				402EBEFAE69A8355E0DE0E81 /* Authorization */,
 				402EBAFA3C7BD1906EFDC3BA /* KeyValueStoring */,
 				402EB42B6FF3543C81A7E57C /* YamoneyLogin */,
@@ -2959,11 +2690,11 @@
 			isa = PBXGroup;
 			children = (
 				E0148CD51FE958810087CF5F /* AppDelegate.swift */,
+				402EB90E43119606C39C3A8E /* RootViewController+CardScanning+Carthage.swift */,
+				402EB9D4435E4C37E367DF6A /* RootViewController+CardScanning+Pods.swift */,
+				402EB302A7F71C0A7EA5ACBF /* RootViewController+TokenizationModuleOutput.swift */,
 				FEDABFA4200E651B0056E0CC /* Resources */,
 				402EBFDB9FF2B3958BDF2C52 /* Source */,
-				402EB302A7F71C0A7EA5ACBF /* RootViewController+TokenizationModuleOutput.swift */,
-				402EB9D4435E4C37E367DF6A /* RootViewController+CardScanning+Pods.swift */,
-				402EB90E43119606C39C3A8E /* RootViewController+CardScanning+Carthage.swift */,
 			);
 			path = YandexCheckoutPaymentsExample;
 			sourceTree = "<group>";
@@ -2971,6 +2702,9 @@
 		E0D529341FE40337005F495F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30C22EFF251A331100460CC0 /* MoneyAuth.xcframework */,
+				30A161EB25022CF000C8F41E /* AuthCenterClientAuthorization.framework */,
+				30A161EC25022CF000C8F41E /* MoneyAuth.framework */,
 				3031D79A2420EF79002D0EED /* TMXProfilingConnections.framework */,
 				3031D7932420EEEF002D0EED /* TMXProfiling.framework */,
 				30FFA679234E63EA00B09847 /* TrustDefender.framework */,
@@ -2979,7 +2713,6 @@
 				E072CCA42121AAE7003D9913 /* YandexCheckoutPaymentsApi.framework */,
 				E072CCA62121AAE7003D9913 /* YandexCheckoutShowcaseApi.framework */,
 				E072CCA82121AAE7003D9913 /* YandexCheckoutWalletApi.framework */,
-				E072CCAA2121AAE7003D9913 /* YandexLoginSDK.framework */,
 				E072CCAC2121AAE7003D9913 /* YandexMoneyCoreApi.framework */,
 				301D747E20B5D7E60000E394 /* PassKit.framework */,
 				30B24DE0206C2850002C823B /* YandexMobileMetrica.framework */,
@@ -2989,7 +2722,6 @@
 				E0D529361FE40337005F495F /* FunctionalSwift.framework */,
 				E018BEB8200E1BAD00022396 /* When.framework */,
 				E01B1F2D200E15E80079DD57 /* When.framework */,
-				E07ED63A20346C4A009E0737 /* YandexLoginSDK.framework */,
 				E01B1F2F200E1B050079DD57 /* YandexMoneyCoreApi.framework */,
 				E0494C632010980D0059BBD2 /* YandexCheckoutPaymentsApi.framework */,
 				D96ABAC120440D7D00CFA062 /* YandexCheckoutShowcaseApi.framework */,
@@ -3035,6 +2767,7 @@
 				244F7F2F3BB2B1839FEAD67F /* Frameworks */,
 				244F7F0D1C70A3C37A8190B1 /* Headers */,
 				244F7B427956461A69AAA7BD /* Resources */,
+				30C22F02251A331100460CC0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3235,34 +2968,32 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-YandexCheckoutPaymentsExamplePods/Pods-YandexCheckoutPaymentsExamplePods-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FunctionalSwift/FunctionalSwift.framework",
-				"${PODS_ROOT}/Reveal-SDK/RevealServer/iOS/RevealServer.framework",
 				"${BUILT_PRODUCTS_DIR}/When/When.framework",
 				"${PODS_ROOT}/../Frameworks/TMXProfiling.framework",
 				"${PODS_ROOT}/../Frameworks/TMXProfilingConnections.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutPayments/YandexCheckoutPayments.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutPaymentsApi/YandexCheckoutPaymentsApi.framework",
-				"${BUILT_PRODUCTS_DIR}/YandexCheckoutShowcaseApi/YandexCheckoutShowcaseApi.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexCheckoutWalletApi/YandexCheckoutWalletApi.framework",
-				"${BUILT_PRODUCTS_DIR}/YandexLoginSDK/YandexLoginSDK.framework",
 				"${PODS_ROOT}/YandexMobileMetrica/dynamic/YandexMobileMetrica.framework",
 				"${PODS_ROOT}/YandexMobileMetrica/dynamic/YandexMobileMetricaCrashes.framework",
 				"${BUILT_PRODUCTS_DIR}/YandexMoneyCoreApi/YandexMoneyCoreApi.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/MoneyAuth/MoneyAuth.framework/MoneyAuth",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer/iOS/RevealServer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FunctionalSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/When.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TMXProfiling.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TMXProfilingConnections.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutPayments.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutPaymentsApi.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutShowcaseApi.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexCheckoutWalletApi.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexLoginSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexMobileMetrica.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexMobileMetricaCrashes.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexMoneyCoreApi.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MoneyAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3299,7 +3030,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/YandexCheckoutPaymentsApi.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/YandexCheckoutShowcaseApi.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/YandexCheckoutWalletApi.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/YandexLoginSDK.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/YandexMobileMetrica.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/YandexMoneyCoreApi.framework",
 			);
@@ -3311,13 +3041,12 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexCheckoutPaymentsApi.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexCheckoutShowcaseApi.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexCheckoutWalletApi.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexLoginSDK.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexMobileMetrica.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/YandexMoneyCoreApi.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3332,8 +3061,6 @@
 				402EB40FD0FD8D76EE4D5C27 /* MonthInputPresenterStyle.swift in Sources */,
 				402EB1D56C363822F7C6A143 /* UITextView+Styles.swift in Sources */,
 				402EBBE8B24BE37166C1A1FA /* Formatter.swift in Sources */,
-				402EB61BC83420232E31AC7B /* DateOutputFormatter.swift in Sources */,
-				402EB37F76696B7317EEDDF0 /* MonthOutputFormatter.swift in Sources */,
 				402EB2190CE442F0171240FA /* PhoneNumberOutputFormatter.swift in Sources */,
 				402EBEC728884473D2963D2F /* InputView.swift in Sources */,
 				402EBAA666772AAB2FA2149D /* InputPresenter.swift in Sources */,
@@ -3384,6 +3111,7 @@
 				402EB6F7E3B4CC73D716C22B /* ActionTextDialog+Style.swift in Sources */,
 				402EB9A12072A819B9A76CCE /* IconView.swift in Sources */,
 				402EBBCE94439738B462887E /* IconViewIO.swift in Sources */,
+				30C22EFE251A0C1100460CC0 /* GlobalConstants.swift in Sources */,
 				402EB68B63F0A64521AB3359 /* IconView+Style.swift in Sources */,
 				402EB89B755BC51A4F70F7EE /* UIView+Style.swift in Sources */,
 				402EBBF0FD1BA6CE4ACA7A4E /* UIColor+Style.swift in Sources */,
@@ -3398,6 +3126,7 @@
 				402EB00B9EC9B560D706EC06 /* UIScrollView+Style.swift in Sources */,
 				402EB43FAD5652F9095B47FF /* ActivityIndicatorView+Style.swift in Sources */,
 				402EB1BC568F568FD6E10047 /* ActivityIndicatorView.swift in Sources */,
+				30C22EFB251A076400460CC0 /* MoneyAuthAssembly.swift in Sources */,
 				402EBCC5CFBF4CB0D58642F1 /* ActivityIndicator.swift in Sources */,
 				402EB14E8449DB3BE43401DA /* ActivityIndicator+Style.swift in Sources */,
 				402EBE6DC060D948B7724287 /* TextControl.swift in Sources */,
@@ -3480,8 +3209,6 @@
 				402EBB85276075DF17470C04 /* HostProviderAssembly.swift in Sources */,
 				402EB51D8B988D695E8DB719 /* ApiSessionAssembly.swift in Sources */,
 				402EBB71A493C705D105349E /* PaymentMethodViewModelFactory.swift in Sources */,
-				402EBB5A5EE86A8B25F41EC9 /* ShowcaseDisplayItemFactory.swift in Sources */,
-				402EB681FE4186E4813E29C5 /* DateFactory.swift in Sources */,
 				402EBBEEAD10FD4DC24612CE /* MonetaryAmountFactory.swift in Sources */,
 				402EBBC990C2C0F2A2A0BD69 /* PhoneNumberFormatterAssembly.swift in Sources */,
 				402EB7C3CF2DBEAF200479D6 /* UserAgentFactory.swift in Sources */,
@@ -3500,35 +3227,8 @@
 				402EB7F8B2DD9079E7752FFD /* UIViewController+TransitionHandler.swift in Sources */,
 				402EB66F674895CA46940165 /* UIImage+Tools.swift in Sources */,
 				402EB82C82F34EA77C3B9E4D /* TokenizationModuleIO.swift in Sources */,
-				402EBE570BB8F9EE0EDB1ABC /* SimpleIdentificationAssembly.swift in Sources */,
-				402EB5626C48EA1803A8871A /* SimpleIdentificationViewController.swift in Sources */,
-				402EB3C8CABD97FDF1E01BF7 /* SelectOptionModuleOutputIO.swift in Sources */,
-				402EB1BEB1EF22A4E9A848FA /* SelectOptionModuleAssembly.swift in Sources */,
-				402EB23AB8DA4012B0B38C4A /* SelectOptionTableViewCell.swift in Sources */,
-				402EBF86F0FFB13C35A4DDEA /* SelectOptionViewController.swift in Sources */,
-				402EBC9F4392D280DFFD0639 /* ShowcaseCellModuleFactory.swift in Sources */,
-				402EBF39BADAEE97EB4F5574 /* SelectTableViewCellAssembly.swift in Sources */,
 				30A83F062383378E00B51BAB /* LinkedSwitchItemView+Style.swift in Sources */,
 				308E417C2385818B00B44490 /* SavePaymentMethodInfoViewIO.swift in Sources */,
-				402EBABE63EB7956AB9594E8 /* SelectTableViewCellPresenter.swift in Sources */,
-				402EB9F31A405D4CD28EF8BC /* SelectTableViewCellModuleIO.swift in Sources */,
-				402EB5CFBF0D5B68C459F478 /* SelectTableViewCell.swift in Sources */,
-				402EB841FCE996679FEC3635 /* SelectTableViewCellIO.swift in Sources */,
-				402EB00683336405B2DD9A9B /* TextTableViewCellAssembly.swift in Sources */,
-				402EB93CBCD22E2621073B60 /* TextTableViewCell.swift in Sources */,
-				402EB9BEDC19A4C97D612A04 /* TextInputTableViewCellAssembly.swift in Sources */,
-				402EBB8341B73CB4ADEED163 /* TextInputValidatorFactory.swift in Sources */,
-				402EBF7C7EE428AB538A8BA1 /* TextInputPresenterStyleFactory.swift in Sources */,
-				402EBECA588F26150A869220 /* TextInputOutputFormatterFactory.swift in Sources */,
-				402EB9039C7CDFFC250E3F48 /* TextInputTableViewCellPresenter.swift in Sources */,
-				402EB48F4A72EF97617B5690 /* TextInputTableViewCellModuleIO.swift in Sources */,
-				402EB252167010F359004226 /* TextInputTableViewCell.swift in Sources */,
-				402EB175490427768D8E9BC3 /* TextInputTableViewCellIO.swift in Sources */,
-				402EB63BF335D30A3AE6E8C3 /* SimpleIdentificationViewIO.swift in Sources */,
-				402EBC84094E9FC51DEB2686 /* SimpleIdentificationPresenter.swift in Sources */,
-				402EBE7BCC46062613CCE25C /* SimpleIdentificationInteractor.swift in Sources */,
-				402EB1BE5AE9C7A4190B292C /* SimpleIdentificationModuleIO.swift in Sources */,
-				402EB48F83E25922C42CADAA /* SimpleIdentificationInteractorIO.swift in Sources */,
 				402EB97313185D85C4173C4D /* ErrorAssembly.swift in Sources */,
 				402EB5B652656D75F375B42D /* ErrorViewIO.swift in Sources */,
 				402EBAC5654F852ADB058F1F /* ErrorPresenter.swift in Sources */,
@@ -3605,13 +3305,11 @@
 				402EB90A3E9FD8733C4EBEA9 /* LoginConfirmationViewController.swift in Sources */,
 				402EBBE91DE40AA08E3AB8B5 /* ApplePayAssembly.swift in Sources */,
 				402EB7C74860DFA65827A00C /* ApplePayModuleIO.swift in Sources */,
+				30B20E2B2535FC1C00941574 /* KeyValueStoringKeys.swift in Sources */,
 				402EBE309FF80B279847B66D /* BankCardRepeatPresenter.swift in Sources */,
 				402EB8D43DDD23DC7A645AA1 /* BankCardRepeatInteractor.swift in Sources */,
 				402EB1F0EAA3B2E1422FD95D /* BankCardRepeatInteractorIO.swift in Sources */,
-				402EBB309C0D8E362A3A0C3B /* IdentificationProcessing.swift in Sources */,
-				402EB0DC194A8E4055711313 /* IdentificationService.swift in Sources */,
 				3089EF4D23846F7400CB7319 /* SavePaymentMethodViewModel.swift in Sources */,
-				402EBF7DDA0A682FE56AA7E6 /* IdentificationProcessingAssembly.swift in Sources */,
 				402EB38B0B0D9EA3988F9922 /* PaymentService.swift in Sources */,
 				402EBC0B94C8D1B32962BBA8 /* PaymentProcessing.swift in Sources */,
 				402EBD95FD7CAFB6AD2F29FC /* MockPaymentService.swift in Sources */,
@@ -3620,8 +3318,6 @@
 				402EB70F599439C2EAF90432 /* ApiLogger.swift in Sources */,
 				402EBD50CA9522F54150D2FD /* ThreatMetrixService.swift in Sources */,
 				402EB96B6F077D9807AD790B /* PaymentMethodHandler.swift in Sources */,
-				402EBDBC070078C10D875164 /* YandexLoginProcessing.swift in Sources */,
-				402EB035A0ADCEA77563BE2B /* YandexLoginProcessingAssembly.swift in Sources */,
 				402EB8D9C4C6674F176C1E2C /* AuthorizationProcessing.swift in Sources */,
 				402EBCB6D5E6441798A2DC59 /* AuthorizationMediator.swift in Sources */,
 				402EBC79F23AF96FD348A6DE /* AuthorizationProcessingAssembly.swift in Sources */,
@@ -3663,7 +3359,6 @@
 				402EBF6F0AF3AB32E9C844AC /* TokenizationAssembly.swift in Sources */,
 				402EB337CF8A33565554E71D /* CardScanning.swift in Sources */,
 				402EB10CCFF98C935D4F18FF /* YandexCheckoutPaymentsError.swift in Sources */,
-				402EBEEC03026AD39A703CE1 /* YandexLoginService.swift in Sources */,
 				402EB933D69EDDFED2DDAB44 /* Amount.swift in Sources */,
 				402EBDA6F7FFB24269195FFD /* TestModeSettings.swift in Sources */,
 				402EB0FBD2A8AFE719A2A013 /* TokenizationSettings.swift in Sources */,
@@ -3686,6 +3381,8 @@
 				402EB673123BC9F7BB0EDADE /* KeyboardNotificationInfo.swift in Sources */,
 				402EB34C8185FBEF0E13025B /* UIViewController+Keyboard.swift in Sources */,
 				402EB952EA7B9CD954D7654E /* KeyboardObservingAccessoryView.swift in Sources */,
+				402EB70696219EA3E035D1CD /* YandexAuthRouter.swift in Sources */,
+				402EB48D575905661EA8B3B7 /* YandexAuthRouterIO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4025,7 +3722,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4050,7 +3748,11 @@
 				);
 				INFOPLIST_FILE = YandexCheckoutPayments/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPayments;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -4076,7 +3778,11 @@
 				);
 				INFOPLIST_FILE = YandexCheckoutPayments/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPayments;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -4198,7 +3904,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4223,7 +3930,11 @@
 				);
 				INFOPLIST_FILE = YandexCheckoutPayments/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPayments;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -4245,7 +3956,10 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -4270,7 +3984,10 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4293,7 +4010,10 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -4314,7 +4034,10 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -4339,7 +4062,10 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4367,7 +4093,10 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/YandexCheckoutPaymentsExample/Resources/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.inhouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

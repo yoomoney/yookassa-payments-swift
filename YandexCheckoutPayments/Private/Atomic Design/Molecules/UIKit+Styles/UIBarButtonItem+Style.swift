@@ -50,11 +50,11 @@ extension UIBarButtonItem {
         /// Close bar button item with ability to set tint color.
         ///
         /// Image `button.templatedClose`.
-        static let templatedClose = YandexCheckoutPayments.InternalStyle(name: "templatedClose") { (item: UIBarButtonItem) in
-            item.tintColor = nil
-            item.style = .plain
-            item.image = .templatedClose
-        }
+        static let templatedClose = YandexCheckoutPayments
+            .InternalStyle(name: "templatedClose") { (item: UIBarButtonItem) in
+                item.tintColor = nil
+                item.style = .plain
+                item.image = .templatedClose
+            }
     }
-
 }

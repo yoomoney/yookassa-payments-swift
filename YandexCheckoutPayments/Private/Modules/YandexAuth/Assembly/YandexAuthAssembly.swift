@@ -18,11 +18,27 @@ enum YandexAuthAssembly {
         view: PaymentMethodsViewController
     ) -> PaymentMethodsViewController {
 
-        let presenter = YandexAuthPresenter()
+        assert(inputData.moneyAuthClientId != nil, "`moneyAuthClientId` should be in `TokenizationModuleInputData`")
+
+        let moneyAuthConfig = MoneyAuthAssembly.makeMoneyAuthConfig(
+            moneyAuthClientId: inputData.moneyAuthClientId ?? "",
+            loggingEnabled: inputData.isLoggingEnabled
+        )
+
+        let moneyAuthCustomization = MoneyAuthAssembly.makeMoneyAuthCustomization()
+
+        let presenter = YandexAuthPresenter(
+            testModeSettings: inputData.testModeSettings,
+            moneyAuthConfig: moneyAuthConfig,
+            moneyAuthCustomization: moneyAuthCustomization,
+            kassaPaymentsCustomization: inputData.kassaPaymentsCustomization,
+            paymentMethodsModuleInput: inputData.paymentMethodsModuleInput
+        )
 
         let authorizationService = AuthorizationProcessingAssembly
             .makeService(isLoggingEnabled: inputData.isLoggingEnabled,
-                         testModeSettings: inputData.testModeSettings)
+                         testModeSettings: inputData.testModeSettings,
+                         moneyAuthClientId: inputData.moneyAuthClientId)
         let analyticsService = AnalyticsProcessingAssembly
             .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
         let paymentService = PaymentProcessingAssembly
@@ -40,14 +56,19 @@ enum YandexAuthAssembly {
             getSavePaymentMethod: inputData.getSavePaymentMethod
         )
 
+        let router = YandexAuthRouter()
+
         view.output = presenter
         view.actionTextDialog.delegate = presenter
 
         presenter.view = view
         presenter.interactor = interactor
         presenter.moduleOutput = moduleOutput
+        presenter.router = router
 
         interactor.output = presenter
+
+        router.transitionHandler = view
 
         return view
     }

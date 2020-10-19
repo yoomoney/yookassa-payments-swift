@@ -54,24 +54,30 @@ extension YamoneyLoginProcessingError: PresentableError {
 
 protocol YamoneyLoginProcessing {
 
-    func requestAuthorization(passportAuthorization: String,
-                              merchantClientAuthorization: String,
-                              instanceName: String,
-                              singleAmountMax: MonetaryAmount?,
-                              paymentUsageLimit: PaymentUsageLimit,
-                              tmxSessionId: String) -> Promise<YamoneyLoginResponse>
+    func requestAuthorization(
+        moneyCenterAuthorization: String,
+        merchantClientAuthorization: String,
+        instanceName: String,
+        singleAmountMax: MonetaryAmount?,
+        paymentUsageLimit: PaymentUsageLimit,
+        tmxSessionId: String
+    ) -> Promise<YamoneyLoginResponse>
 
-    func startNewSession(passportAuthorization: String,
-                         merchantClientAuthorization: String,
-                         authContextId: String,
-                         authType: AuthType) -> Promise<AuthTypeState>
+    func startNewSession(
+        moneyCenterAuthorization: String,
+        merchantClientAuthorization: String,
+        authContextId: String,
+        authType: AuthType
+    ) -> Promise<AuthTypeState>
 
-    func checkUserAnswer(passportAuthorization: String,
-                         merchantClientAuthorization: String,
-                         authContextId: String,
-                         authType: AuthType,
-                         answer: String,
-                         processId: String) -> Promise<String>
+    func checkUserAnswer(
+        moneyCenterAuthorization: String,
+        merchantClientAuthorization: String,
+        authContextId: String,
+        authType: AuthType,
+        answer: String,
+        processId: String
+    ) -> Promise<String>
 }
 
 // MARK: - Localized

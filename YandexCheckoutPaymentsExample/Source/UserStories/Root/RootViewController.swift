@@ -356,7 +356,8 @@ final class RootViewController: UIViewController {
             isLoggingEnabled: true,
             userPhoneNumber: "7",
             customizationSettings: CustomizationSettings(mainScheme: .blueRibbon),
-            savePaymentMethod: .userSelects
+            savePaymentMethod: .userSelects,
+            moneyAuthClientId: "hitm6hg51j1d3g1u3ln040bajiol903b"
         ))
 
 //        let inputData: TokenizationFlow = .bankCardRepeat(BankCardRepeatModuleInputData(

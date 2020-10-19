@@ -35,7 +35,7 @@ final class LinkedBankCardStrategy {
 
 extension LinkedBankCardStrategy: TokenizationStrategyInput {
     func beginProcess() {
-        if authorizationService.hasReusableYamoneyToken() {
+        if authorizationService.hasReusableWalletToken() {
             output?.presentContract(paymentOption: paymentOption)
         } else {
             output?.presentYamoneyAuthParametersModule(paymentOption: paymentOption)
@@ -106,7 +106,10 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
     func didFailPresentApplePayModule() {}
     func didPresentApplePayModule() {}
     func didPressSubmitButton(on module: ApplePayContractModuleInput) {}
-    func bankCardDataInputModule(_ module: BankCardDataInputModuleInput, didPressConfirmButton bankCardData: CardData) {}
+    func bankCardDataInputModule(
+        _ module: BankCardDataInputModuleInput,
+        didPressConfirmButton bankCardData: CardData
+    ) {}
     func didTokenizeData() {}
 }
 

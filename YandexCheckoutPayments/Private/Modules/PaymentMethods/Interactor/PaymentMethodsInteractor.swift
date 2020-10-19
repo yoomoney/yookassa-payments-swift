@@ -42,12 +42,11 @@ class PaymentMethodsInteractor {
 
 extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
     func fetchPaymentMethods() {
-
-        let passportToken = authorizationService.getYandexToken()
+        let authorizationToken = makeAuthorizationToken()
 
         let paymentMethods = paymentService.fetchPaymentOptions(
             clientApplicationKey: clientApplicationKey,
-            passportToken: passportToken,
+            authorizationToken: authorizationToken,
             gatewayId: gatewayId,
             amount: amount.value.description,
             currency: amount.currency.rawValue,
@@ -55,13 +54,12 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
         )
 
         guard let output = output else { return }
-
         paymentMethods.done(output.didFetchPaymentMethods)
         paymentMethods.fail(output.didFetchPaymentMethods)
     }
 
-    func getYandexDisplayName() -> String? {
-        return authorizationService.getYandexDisplayName()
+    func getWalletDisplayName() -> String? {
+        return authorizationService.getWalletDisplayName()
     }
 
     func trackEvent(_ event: AnalyticsEvent) {
@@ -71,5 +69,18 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
     func makeTypeAnalyticsParameters() -> (authType: AnalyticsEvent.AuthType,
                                            tokenType: AnalyticsEvent.AuthTokenType?) {
         return analyticsProvider.makeTypeAnalyticsParameters()
+    }
+}
+
+// MARK: - Private helpers
+
+private extension PaymentMethodsInteractor {
+    func makeAuthorizationToken() -> String? {
+        if authorizationService.hasReusableWalletToken() {
+            return authorizationService.getMoneyCenterAuthToken()
+                ?? authorizationService.getPassportToken()
+        } else {
+            return authorizationService.getMoneyCenterAuthToken()
+        }
     }
 }

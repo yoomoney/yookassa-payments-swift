@@ -31,6 +31,7 @@ Pod::Spec.new do |s|
   s.ios.vendored_frameworks = [
     'Frameworks/TMXProfiling.framework',
     'Frameworks/TMXProfilingConnections.framework',
+    'Frameworks/MoneyAuth.xcframework',
   ]
 
   s.pod_target_xcconfig = {
@@ -41,10 +42,8 @@ Pod::Spec.new do |s|
   s.ios.dependency 'FunctionalSwift', '~> 1.1.0'
   s.ios.dependency 'When', '~> 4.0.0'
 
-  s.ios.dependency 'YandexLoginSDK', '~> 2.0.0'
-  s.ios.dependency 'YandexMoneyCoreApi', '~> 1.7.0'
-  s.ios.dependency 'YandexCheckoutPaymentsApi', '~> 1.9.0'
-  s.ios.dependency 'YandexCheckoutShowcaseApi', '~> 1.2.0'
-  s.ios.dependency 'YandexCheckoutWalletApi', '~> 1.3.0'
+  s.ios.dependency 'YandexMoneyCoreApi', '~> 1.8.0'
+  s.ios.dependency 'YandexCheckoutPaymentsApi', '~> 2.1.0'
+  s.ios.dependency 'YandexCheckoutWalletApi', '~> 2.1.0'
   s.ios.dependency 'YandexMobileMetrica/Dynamic', '~> 3.7.0'
 end

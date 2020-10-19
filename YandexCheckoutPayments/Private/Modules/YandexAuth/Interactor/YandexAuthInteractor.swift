@@ -35,30 +35,27 @@ final class YandexAuthInteractor {
 // MARK: - YandexAuthInteractorInput
 
 extension YandexAuthInteractor: YandexAuthInteractorInput {
-
-    func authorizeInYandex() {
-
-        let token = authorizationService.loginInYandex()
-
-        guard let output = output else { return }
-        token.done(output.didAuthorizeInYandex)
-        token.fail(output.didAuthorizeInYandex)
-    }
-
-    func fetchYamoneyPaymentMethods() {
-
-        let passportToken = authorizationService.getYandexToken()
+    func fetchYamoneyPaymentMethods(
+        moneyCenterAuthToken: String,
+        walletDisplayName: String?
+    ) {
+        authorizationService.setMoneyCenterAuthToken(moneyCenterAuthToken)
+        authorizationService.setWalletDisplayName(walletDisplayName)
 
         let paymentMethods = paymentService.fetchPaymentOptions(
             clientApplicationKey: clientApplicationKey,
-            passportToken: passportToken,
+            authorizationToken: moneyCenterAuthToken,
             gatewayId: gatewayId,
             amount: amount.value.description,
             currency: amount.currency.rawValue,
             getSavePaymentMethod: getSavePaymentMethod
         )
 
-        let yamoneyPaymentMethods = paymentMethods.map { $0.filter { $0.paymentMethodType == .yandexMoney } }
+        let yamoneyPaymentMethods = paymentMethods.map {
+            $0.filter { $0.paymentMethodType == .yandexMoney
+                || $0.paymentMethodType == .yooMoney
+            }
+        }
 
         guard let output = output else { return }
 

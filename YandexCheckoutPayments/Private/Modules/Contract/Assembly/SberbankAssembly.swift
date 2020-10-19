@@ -10,20 +10,21 @@ enum SberbankAssembly {
 
         viewController.templateViewController.addChild(phoneController)
 
-        let authorizationService = AuthorizationProcessingAssembly
-            .makeService(isLoggingEnabled: inputData.isLoggingEnabled,
-                         testModeSettings: inputData.testModeSettings)
-        let analyticsService = AnalyticsProcessingAssembly
-            .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
-        let analyticsProvider = AnalyticsProvider(authorizationService: authorizationService)
+        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
+        let analyticsProvider = AnalyticsProvidingAssembly.makeAnalyticsProvider(
+            testModeSettings: inputData.testModeSettings
+        )
 
         let interactor = ContractInteractor(analyticsService: analyticsService,
                                             analyticsProvider: analyticsProvider)
 
-        let itemView =
-            ContractViewFactory.makePaymentMethodView(paymentMethod: inputData.paymentMethod,
-                                                      viewOutput: presenter,
-                                                      shouldChangePaymentMethod: inputData.shouldChangePaymentMethod)
+        let itemView = ContractViewFactory.makePaymentMethodView(
+            paymentMethod: inputData.paymentMethod,
+            viewOutput: presenter,
+            shouldChangePaymentMethod: inputData.shouldChangePaymentMethod
+        )
 
         viewController.output = presenter
         viewController.paymentMethodView = itemView

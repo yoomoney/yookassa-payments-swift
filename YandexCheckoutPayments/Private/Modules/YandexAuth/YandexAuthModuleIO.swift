@@ -8,16 +8,26 @@ struct YandexAuthModuleInputData {
     let amount: Amount
     let isLoggingEnabled: Bool
     let getSavePaymentMethod: Bool?
+    let moneyAuthClientId: String?
+    let paymentMethodsModuleInput: PaymentMethodsModuleInput?
+    let kassaPaymentsCustomization: CustomizationSettings
 }
 
 protocol YandexAuthModuleInput: class {}
 
 protocol YandexAuthModuleOutput: class {
 
-    func yandexAuthModule(_ module: YandexAuthModuleInput,
-                          didFetchYamoneyPaymentMethod paymentMethod: PaymentOption)
+    func yandexAuthModule(
+        _ module: YandexAuthModuleInput,
+        didFetchYamoneyPaymentMethod paymentMethod: PaymentOption,
+        tmxSessionId: String?
+    )
 
-    func didFetchYamoneyPaymentMethods(on module: YandexAuthModuleInput)
+    func didFetchYamoneyPaymentMethods(
+        on module: YandexAuthModuleInput,
+        tmxSessionId: String?
+    )
+
     func didFetchYamoneyPaymentMethodsWithoutWallet(on module: YandexAuthModuleInput)
     func didFailFetchYamoneyPaymentMethods(on module: YandexAuthModuleInput)
     func didCancelAuthorizeInYandex(on module: YandexAuthModuleInput)
