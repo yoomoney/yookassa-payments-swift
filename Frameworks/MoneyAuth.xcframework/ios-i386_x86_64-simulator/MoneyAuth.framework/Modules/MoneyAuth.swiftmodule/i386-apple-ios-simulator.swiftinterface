@@ -86,7 +86,14 @@ extension UIButton {
 }
 public typealias AuthenticationChallengeHandler = ((Foundation.URLSession, Foundation.URLAuthenticationChallenge, @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void) -> Swift.Void)
 public struct Config {
-  public init(origin: MoneyAuth.Origin, clientId: Swift.String, host: Swift.String, isDevHost: Swift.Bool = false, loggingEnabled: Swift.Bool = false, authenticationChallengeHandler: MoneyAuth.AuthenticationChallengeHandler? = nil, yxOauthClientId: Swift.String? = nil, supportEmail: Swift.String, supportPhone: Swift.String, supportHelpUrl: Foundation.URL)
+  public init(origin: MoneyAuth.Origin, clientId: Swift.String, host: Swift.String, isDevHost: Swift.Bool = false, loggingEnabled: Swift.Bool = false, authenticationChallengeHandler: MoneyAuth.AuthenticationChallengeHandler? = nil, yxOauthClientId: Swift.String? = nil, supportEmail: Swift.String, supportPhone: Swift.String, supportHelpUrl: Foundation.URL, prefilledPhone: MoneyAuth.Config.PrefilledPhone? = nil)
+}
+extension Config {
+  public struct PrefilledPhone {
+    public let number: Swift.String
+    public let countryCode: Swift.String
+    public init(number: Swift.String, countryCode: Swift.String)
+  }
 }
 public protocol AvatarViewInput : AnyObject {
   var userImage: UIKit.UIImage? { get set }
@@ -132,10 +139,10 @@ public protocol AuthorizationCoordinatorDelegate : AnyObject {
 }
 final public class AuthorizationCoordinator {
   public init(processType: MoneyAuth.AuthorizationProcessType, config: MoneyAuth.Config, customization: MoneyAuth.Customization)
+  @objc deinit
   weak final public var delegate: MoneyAuth.AuthorizationCoordinatorDelegate?
   final public func makeInitialViewController() throws -> UIKit.UIViewController
   final public func prepareProcess()
-  @objc deinit
 }
 extension AuthorizationCoordinator : MoneyAuth.PasswordRecoveryCoordinatorDelegate {
   final public func passwordRecoveryCoordinatorDidSuccessProcess(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
@@ -236,10 +243,10 @@ public protocol ChangeEmailCoordinatorDelegate : AnyObject {
 }
 final public class ChangeEmailCoordinator {
   public init(config: MoneyAuth.Config, oauthToken: Swift.String, oldEmailIsEmpty: Swift.Bool, customization: MoneyAuth.Customization)
+  @objc deinit
   weak final public var delegate: MoneyAuth.ChangeEmailCoordinatorDelegate?
   final public func makeInitialViewController() throws -> UIKit.UIViewController
   final public func prepareProcess()
-  @objc deinit
 }
 extension ChangeEmailCoordinator : MoneyAuth.PasswordRecoveryCoordinatorDelegate {
   final public func passwordRecoveryCoordinatorDidSuccessProcess(_ coordinator: MoneyAuth.PasswordRecoveryCoordinator)
@@ -278,10 +285,10 @@ public protocol PasswordRecoveryCoordinatorDelegate : AnyObject {
 }
 final public class PasswordRecoveryCoordinator {
   public init(config: MoneyAuth.Config, customization: MoneyAuth.Customization)
+  @objc deinit
   weak final public var delegate: MoneyAuth.PasswordRecoveryCoordinatorDelegate?
   final public func makeInitialViewController() throws -> UIKit.UIViewController
   final public func prepareProcess()
-  @objc deinit
 }
 public enum MigrationInformationAssembly {
   public static func makeModule(inputData: MoneyAuth.MigrationInformationModuleInputData, moduleOutput: MoneyAuth.MigrationInformationModuleOutput? = nil) -> UIKit.UIViewController
