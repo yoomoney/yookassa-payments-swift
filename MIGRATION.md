@@ -104,20 +104,12 @@ source 'git@github.com:yandex-money-tech/cocoa-pod-specs.git'
 Необходимо обновить версию `CocoaPods` выше 1.9.3\
 Для этого в консоли в директории с проектом выполните команду:
 
-> Если версия Cococapods 1.10.0 вышла в релиз:
-
 ```zsh
 gem install cocoapods
 ```
 
-> Если версия Cococapods 1.10.0 еще не вышла в релиз:
-
-```zsh
-gem install cocoapods --pre
-```
-
-[Подробнее тут](https://guides.cocoapods.org/using/getting-started.html#updating-cocoapods).\
-Версии CocoaPods можно посмотреть по [ссылке](https://github.com/CocoaPods/CocoaPods/releases).
+[Официальная документация по установке CocoaPods](https://guides.cocoapods.org/using/getting-started.html#updating-cocoapods).\
+[Какие версии CocoaPods есть](https://github.com/CocoaPods/CocoaPods/releases).
 
 > Если вы используете `Bundler` для контроля зависимостей `RubyGems`, то необходимо внести изменения в `Gemfile`.
 
