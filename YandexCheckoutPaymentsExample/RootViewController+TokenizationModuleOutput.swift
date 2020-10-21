@@ -12,15 +12,15 @@ extension RootViewController: TokenizationModuleOutput {
         self.paymentMethodType = paymentMethodType
 
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let self = self else { return }
 
             let successViewController = SuccessViewController()
             successViewController.delegate = self
 
-            if let presentedViewController = strongSelf.presentedViewController {
+            if let presentedViewController = self.presentedViewController {
                 presentedViewController.show(successViewController, sender: self)
             } else {
-                strongSelf.present(successViewController, animated: true)
+                self.present(successViewController, animated: true)
             }
         }
     }
@@ -28,21 +28,21 @@ extension RootViewController: TokenizationModuleOutput {
     func didFinish(on module: TokenizationModuleInput,
                    with error: YandexCheckoutPaymentsError?) {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.dismiss(animated: true)
+            guard let self = self else { return }
+            self.dismiss(animated: true)
         }
     }
 
     func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let self = self else { return }
             let alertController = UIAlertController(title: "3D-Sec",
                                                     message: "Successfully passed 3d-sec",
                                                     preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default)
             alertController.addAction(action)
-            strongSelf.dismiss(animated: true)
-            strongSelf.present(alertController, animated: true)
+            self.dismiss(animated: true)
+            self.present(alertController, animated: true)
         }
     }
 }

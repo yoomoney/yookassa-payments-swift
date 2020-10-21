@@ -8,11 +8,19 @@ struct PaymentMethodsModuleInputData {
     let testModeSettings: TestModeSettings?
     let isLoggingEnabled: Bool
     let getSavePaymentMethod: Bool?
+    let moneyAuthClientId: String?
 }
 
 protocol PaymentMethodsModuleInput: class {
     func showPlaceholder(message: String)
+
     func reloadData()
+
+    func yandexAuthModule(
+        _ module: YandexAuthModuleInput,
+        didSelectViewModel viewModel: PaymentMethodViewModel,
+        at indexPath: IndexPath
+    )
 }
 
 protocol PaymentMethodsModuleOutput: class {

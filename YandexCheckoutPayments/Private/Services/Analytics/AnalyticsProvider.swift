@@ -1,9 +1,11 @@
 struct AnalyticsProvider: AnalyticsProviding {
 
-    private let authorizationService: AuthorizationProcessing
+    private let keyValueStoring: KeyValueStoring
 
-    init(authorizationService: AuthorizationProcessing) {
-        self.authorizationService = authorizationService
+    init(
+        keyValueStoring: KeyValueStoring
+    ) {
+        self.keyValueStoring = keyValueStoring
     }
 
     func makeTypeAnalyticsParameters() -> (authType: AnalyticsEvent.AuthType,
@@ -12,17 +14,25 @@ struct AnalyticsProvider: AnalyticsProviding {
         let authType: AnalyticsEvent.AuthType
         let tokenType: AnalyticsEvent.AuthTokenType?
 
-        if authorizationService.hasReusableYamoneyToken() {
+        let hasReusableWalletToken = keyValueStoring.getString(
+            for: KeyValueStoringKeys.walletToken
+        ) != nil
+        && keyValueStoring.getBool(
+            for: KeyValueStoringKeys.isReusableWalletToken
+        ) == true
+
+        if hasReusableWalletToken {
             authType = .paymentAuth
             tokenType = .multiple
-        } else if authorizationService.getYandexToken() != nil {
-            authType = .yandexLogin
+        } else if keyValueStoring.getString(
+            for: KeyValueStoringKeys.moneyCenterAuthToken
+        ) != nil {
+            authType = .moneyAuth
             tokenType = .single
         } else {
             authType = .withoutAuth
             tokenType = nil
         }
-
         return (authType, tokenType)
     }
 }

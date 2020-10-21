@@ -33,6 +33,7 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
     private var strategy: TokenizationStrategyInput?
     private var tokenizeData: TokenizeData?
     private var isReusableToken: Bool?
+    private var tmxSessionId: String?
 
     private var paymentOption: PaymentOption? {
         didSet {
@@ -44,7 +45,8 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
                     paymentMethodsModuleInput: paymentMethodsModuleInput,
                     returnUrl: inputData.returnUrl ?? Constants.returnUrl,
                     isLoggingEnabled: inputData.isLoggingEnabled,
-                    savePaymentMethod: inputData.savePaymentMethod
+                    savePaymentMethod: inputData.savePaymentMethod,
+                    moneyAuthClientId: inputData.moneyAuthClientId
                 )
             }
         }
@@ -63,9 +65,11 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
     }()
 
     private func makePaymentMethodViewModel(paymentOption: PaymentOption) -> PaymentMethodViewModel {
-        let yandexLogin = interactor.getYandexDisplayName()
-        return PaymentMethodViewModelFactory.makePaymentMethodViewModel(paymentOption: paymentOption,
-                                                                        yandexDisplayName: yandexLogin)
+        let walletDisplayName = interactor.getWalletDisplayName()
+        return PaymentMethodViewModelFactory.makePaymentMethodViewModel(
+            paymentOption: paymentOption,
+            yandexDisplayName: walletDisplayName
+        )
     }
 }
 
@@ -80,7 +84,8 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             tokenizationSettings: inputData.tokenizationSettings,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
-            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod)
+            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod),
+            moneyAuthClientId: inputData.moneyAuthClientId
         )
 
         DispatchQueue.main.async { [weak self] in
@@ -131,19 +136,21 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
 
-        let yamoneyAuthInputData = YamoneyAuthModuleInputData(shopName: inputData.shopName,
-                                                              purchaseDescription: inputData.purchaseDescription,
-                                                              paymentMethod: viewModel,
-                                                              price: makePriceViewModel(paymentOption),
-                                                              fee: makeFeePriceViewModel(paymentOption),
-                                                              processId: processId,
-                                                              authContextId: authContextId,
-                                                              authTypeState: authTypeState,
-                                                              shouldChangePaymentMethod: shouldChangePaymentOptions,
-                                                              testModeSettings: inputData.testModeSettings,
-                                                              tokenizeScheme: tokenizeScheme,
-                                                              isLoggingEnabled: inputData.isLoggingEnabled,
-                                                              termsOfService: termsOfService)
+        let yamoneyAuthInputData = YamoneyAuthModuleInputData(
+            shopName: inputData.shopName,
+            purchaseDescription: inputData.purchaseDescription,
+            paymentMethod: viewModel,
+            price: makePriceViewModel(paymentOption),
+            fee: makeFeePriceViewModel(paymentOption),
+            processId: processId,
+            authContextId: authContextId,
+            authTypeState: authTypeState,
+            shouldChangePaymentMethod: shouldChangePaymentOptions,
+            testModeSettings: inputData.testModeSettings,
+            tokenizeScheme: tokenizeScheme,
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            termsOfService: termsOfService
+        )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentYamoneyAuth(inputData: yamoneyAuthInputData,
@@ -252,7 +259,10 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             gatewayId: inputData.gatewayId,
             amount: MonetaryAmountFactory.makeAmount(paymentOption.charge),
             isLoggingEnabled: inputData.isLoggingEnabled,
-            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod)
+            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod),
+            moneyAuthClientId: inputData.moneyAuthClientId,
+            paymentMethodsModuleInput: paymentMethodsModuleInput,
+            kassaPaymentsCustomization: inputData.customizationSettings
         )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
@@ -263,18 +273,38 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
 
     func tokenize(_ data: TokenizeData, paymentOption: PaymentOption) {
         tokenizeData = data
-        interactor.tokenize(data, paymentOption: paymentOption)
+        var tmxSessionId: String?
+        if paymentOption is PaymentInstrumentYandexMoneyWallet {
+            tmxSessionId = self.tmxSessionId
+        }
+        interactor.tokenize(
+            data,
+            paymentOption: paymentOption,
+            tmxSessionId: tmxSessionId
+        )
     }
 
     func loginInYandexMoney(reusableToken: Bool, paymentOption: PaymentOption) {
-        interactor.loginInYandexMoney(reusableToken: reusableToken, paymentOption: paymentOption)
+        var tmxSessionId: String?
+        if paymentOption is PaymentInstrumentYandexMoneyWallet {
+            tmxSessionId = self.tmxSessionId
+        }
+        interactor.loginInYandexMoney(
+            reusableToken: reusableToken,
+            paymentOption: paymentOption,
+            tmxSessionId: tmxSessionId
+        )
     }
 
     func logout(accountId: String) {
-        let accountName = interactor.getYandexDisplayName()
-        let inputData = LogoutConfirmationModuleInputData(accountName: accountName ?? accountId)
-        router.presentLogoutConfirmation(inputData: inputData,
-                                         moduleOutput: self)
+        let walletDisplayName = interactor.getWalletDisplayName()
+        let inputData = LogoutConfirmationModuleInputData(
+            accountName: walletDisplayName ?? accountId
+        )
+        router.presentLogoutConfirmation(
+            inputData: inputData,
+            moduleOutput: self
+        )
     }
 
     func presentApplePay(_ paymentOption: PaymentOption) {
@@ -476,16 +506,17 @@ extension TokenizationPresenter: PaymentMethodsModuleOutput {
         paymentOptionsCount = methodsCount
         paymentMethodsModuleInput = module
 
-        if paymentOption is PaymentInstrumentYandexMoneyWallet ||
-               paymentOption is PaymentInstrumentYandexMoneyLinkedBankCard ||
-               paymentOption.paymentMethodType == .bankCard ||
-               paymentOption.paymentMethodType == .sberbank ||
-               paymentOption.paymentMethodType == .applePay {
+        if paymentOption is PaymentInstrumentYandexMoneyWallet
+               || paymentOption is PaymentInstrumentYandexMoneyLinkedBankCard
+               || paymentOption.paymentMethodType == .bankCard
+               || paymentOption.paymentMethodType == .sberbank
+               || paymentOption.paymentMethodType == .applePay {
 
             self.paymentOption = paymentOption
             strategy?.beginProcess()
 
-        } else if paymentOption.paymentMethodType == .yandexMoney {
+        } else if paymentOption.paymentMethodType == .yandexMoney
+                      || paymentOption.paymentMethodType == .yooMoney {
             presentYandexAuthModule(paymentOption)
         }
     }
@@ -604,12 +635,21 @@ extension TokenizationPresenter: MaskedBankCardDataInputModuleOutput {
 
 extension TokenizationPresenter: YandexAuthModuleOutput {
 
-    func yandexAuthModule(_ module: YandexAuthModuleInput, didFetchYamoneyPaymentMethod paymentMethod: PaymentOption) {
+    func yandexAuthModule(
+        _ module: YandexAuthModuleInput,
+        didFetchYamoneyPaymentMethod paymentMethod: PaymentOption,
+        tmxSessionId: String?
+    ) {
         self.paymentOption = paymentMethod
+        self.tmxSessionId = tmxSessionId
         strategy?.beginProcess()
     }
 
-    func didFetchYamoneyPaymentMethods(on module: YandexAuthModuleInput) {
+    func didFetchYamoneyPaymentMethods(
+        on module: YandexAuthModuleInput,
+        tmxSessionId: String?
+    ) {
+        self.tmxSessionId = tmxSessionId
         presentPaymentMethodsModule()
     }
 
@@ -915,45 +955,46 @@ private func makeStrategy(
     paymentMethodsModuleInput: PaymentMethodsModuleInput?,
     returnUrl: String,
     isLoggingEnabled: Bool,
-    savePaymentMethod: SavePaymentMethod
+    savePaymentMethod: SavePaymentMethod,
+    moneyAuthClientId: String?
 ) -> TokenizationStrategyInput {
 
     let authorizationService = AuthorizationProcessingAssembly
         .makeService(isLoggingEnabled: isLoggingEnabled,
-                     testModeSettings: testModeSettings)
+                     testModeSettings: testModeSettings,
+                     moneyAuthClientId: moneyAuthClientId)
 
     let analyticsService = AnalyticsProcessingAssembly
         .makeAnalyticsService(isLoggingEnabled: isLoggingEnabled)
 
     let analyticsProvider = AnalyticsProvidingAssembly
-        .makeAnalyticsProvider(isLoggingEnabled: isLoggingEnabled,
-                               testModeSettings: testModeSettings)
+        .makeAnalyticsProvider(testModeSettings: testModeSettings)
 
     let strategy: TokenizationStrategyInput
     if let bankCard = try? BankCardStrategy(
         paymentOption: paymentOption,
         returnUrl: returnUrl,
         savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
-        ) {
+    ) {
         strategy = bankCard
     } else if let wallet = try? WalletStrategy(
         authorizationService: authorizationService,
         paymentOption: paymentOption,
         returnUrl: returnUrl,
         savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
-        ) {
+    ) {
         strategy = wallet
     } else if let linkedBankCard = try? LinkedBankCardStrategy(
         authorizationService: authorizationService,
         paymentOption: paymentOption,
         returnUrl: returnUrl,
         savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
-        ) {
+    ) {
         strategy = linkedBankCard
     } else if let sberbankStrategy = try? SberbankStrategy(
         paymentOption: paymentOption,
         savePaymentMethod: false
-        ) {
+    ) {
         strategy = sberbankStrategy
     } else if let applePay = try? ApplePayStrategy(
         paymentOption: paymentOption,
@@ -962,7 +1003,7 @@ private func makeStrategy(
         analyticsProvider: analyticsProvider,
         savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod),
         inputSavePaymentMethod: savePaymentMethod
-        ) {
+    ) {
         strategy = applePay
     } else {
         fatalError("Unsupported strategy")

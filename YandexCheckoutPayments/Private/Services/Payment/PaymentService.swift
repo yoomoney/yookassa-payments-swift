@@ -22,9 +22,10 @@ final class PaymentService {
 // MARK: - PaymentProcessing
 
 extension PaymentService: PaymentProcessing {
+
     func fetchPaymentOptions(
         clientApplicationKey: String,
-        passportToken: String?,
+        authorizationToken: String?,
         gatewayId: String?,
         amount: String?,
         currency: String?,
@@ -33,7 +34,7 @@ extension PaymentService: PaymentProcessing {
 
         let method = PaymentOptions.Method(
             oauthToken: clientApplicationKey,
-            passportAuthorization: passportToken,
+            passportAuthorization: authorizationToken,
             gatewayId: gatewayId,
             amount: amount,
             currency: currency,
@@ -88,15 +89,17 @@ extension PaymentService: PaymentProcessing {
 
     func tokenizeWallet(
         clientApplicationKey: String,
-        yamoneyToken: String,
+        walletAuthorization: String,
         confirmation: Confirmation,
         savePaymentMethod: Bool,
+        paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens> {
         let paymentMethodData = PaymentInstrumentDataYandexMoneyWallet(
             instrumentType: .wallet,
-            walletAuthorization: yamoneyToken
+            walletAuthorization: walletAuthorization,
+            paymentMethodType: paymentMethodType
         )
         let tokensRequest = TokensRequestPaymentMethodData(
             amount: amount,
@@ -115,11 +118,12 @@ extension PaymentService: PaymentProcessing {
 
     func tokenizeLinkedBankCard(
         clientApplicationKey: String,
-        yamoneyToken: String,
+        walletAuthorization: String,
         cardId: String,
         csc: String,
         confirmation: Confirmation,
         savePaymentMethod: Bool,
+        paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
         tmxSessionId: String
     ) -> Promise<Tokens> {
@@ -127,7 +131,8 @@ extension PaymentService: PaymentProcessing {
             instrumentType: .linkedBankCard,
             cardId: cardId,
             csc: csc,
-            walletAuthorization: yamoneyToken
+            walletAuthorization: walletAuthorization,
+            paymentMethodType: paymentMethodType
         )
         let tokensRequest = TokensRequestPaymentMethodData(
             amount: amount,

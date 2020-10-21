@@ -18,18 +18,18 @@
 - [Yandex Checkout Payments SDK](#yandex-checkout-payments-sdk)
   - [Changelog](#changelog)
   - [Migration guide](#migration-guide)
-  - [Подключение зависимостей](#%d0%9f%d0%be%d0%b4%d0%ba%d0%bb%d1%8e%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b7%d0%b0%d0%b2%d0%b8%d1%81%d0%b8%d0%bc%d0%be%d1%81%d1%82%d0%b5%d0%b9)
+  - [Подключение зависимостей](#подключение-зависимостей)
     - [CocoaPods](#cocoapods)
     - [Carthage](#carthage)
-  - [Подключение TMXProfiling и TMXProfilingConnections](#%d0%9f%d0%be%d0%b4%d0%ba%d0%bb%d1%8e%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-tmxprofiling-%d0%b8-tmxprofilingconnections)
-  - [Быстрая интеграция](#%d0%91%d1%8b%d1%81%d1%82%d1%80%d0%b0%d1%8f-%d0%b8%d0%bd%d1%82%d0%b5%d0%b3%d1%80%d0%b0%d1%86%d0%b8%d1%8f)
-  - [Доступные способы оплаты](#%d0%94%d0%be%d1%81%d1%82%d1%83%d0%bf%d0%bd%d1%8b%d0%b5-%d1%81%d0%bf%d0%be%d1%81%d0%be%d0%b1%d1%8b-%d0%be%d0%bf%d0%bb%d0%b0%d1%82%d1%8b)
-  - [Настройка способов оплаты](#%d0%9d%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-%d1%81%d0%bf%d0%be%d1%81%d0%be%d0%b1%d0%be%d0%b2-%d0%be%d0%bf%d0%bb%d0%b0%d1%82%d1%8b)
-    - [Яндекс Деньги](#%d0%af%d0%bd%d0%b4%d0%b5%d0%ba%d1%81-%d0%94%d0%b5%d0%bd%d1%8c%d0%b3%d0%b8)
-    - [Банковская карта](#%d0%91%d0%b0%d0%bd%d0%ba%d0%be%d0%b2%d1%81%d0%ba%d0%b0%d1%8f-%d0%ba%d0%b0%d1%80%d1%82%d0%b0)
-    - [Сбербанк Онлайн](#%d0%a1%d0%b1%d0%b5%d1%80%d0%b1%d0%b0%d0%bd%d0%ba-%d0%9e%d0%bd%d0%bb%d0%b0%d0%b9%d0%bd)
+  - [Подключение TMXProfiling и TMXProfilingConnections](#подключение-tmxprofiling-и-tmxprofilingconnections)
+  - [Быстрая интеграция](#быстрая-интеграция)
+  - [Доступные способы оплаты](#доступные-способы-оплаты)
+  - [Настройка способов оплаты](#настройка-способов-оплаты)
+    - [Яндекс Деньги](#яндекс-деньги)
+    - [Банковская карта](#банковская-карта)
+    - [Сбербанк Онлайн](#сбербанк-онлайн)
     - [Apple Pay](#apple-pay)
-  - [Описание публичных параметров](#%d0%9e%d0%bf%d0%b8%d1%81%d0%b0%d0%bd%d0%b8%d0%b5-%d0%bf%d1%83%d0%b1%d0%bb%d0%b8%d1%87%d0%bd%d1%8b%d1%85-%d0%bf%d0%b0%d1%80%d0%b0%d0%bc%d0%b5%d1%82%d1%80%d0%be%d0%b2)
+  - [Описание публичных параметров](#описание-публичных-параметров)
     - [TokenizationFlow](#tokenizationflow)
     - [YandexCheckoutPaymentsError](#yandexcheckoutpaymentserror)
     - [TokenizationModuleInputData](#tokenizationmoduleinputdata)
@@ -40,14 +40,14 @@
     - [Currency](#currency)
     - [CustomizationSettings](#customizationsettings)
     - [SavePaymentMethod](#savepaymentmethod)
-  - [Сканирование банковских карт](#%d0%a1%d0%ba%d0%b0%d0%bd%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5-%d0%b1%d0%b0%d0%bd%d0%ba%d0%be%d0%b2%d1%81%d0%ba%d0%b8%d1%85-%d0%ba%d0%b0%d1%80%d1%82)
-  - [Настройка 3D Secure](#%d0%9d%d0%b0%d1%81%d1%82%d1%80%d0%be%d0%b9%d0%ba%d0%b0-3d-secure)
-  - [Логирование](#%d0%9b%d0%be%d0%b3%d0%b8%d1%80%d0%be%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5)
-  - [Тестовый режим](#%d0%a2%d0%b5%d1%81%d1%82%d0%be%d0%b2%d1%8b%d0%b9-%d1%80%d0%b5%d0%b6%d0%b8%d0%bc)
-  - [Запуск Example](#%d0%97%d0%b0%d0%bf%d1%83%d1%81%d0%ba-example)
-  - [Кастомизация интерфейса](#%d0%9a%d0%b0%d1%81%d1%82%d0%be%d0%bc%d0%b8%d0%b7%d0%b0%d1%86%d0%b8%d1%8f-%d0%b8%d0%bd%d1%82%d0%b5%d1%80%d1%84%d0%b5%d0%b9%d1%81%d0%b0)
-  - [Платёж привязанной к магазину картой с дозапросом CVC/CVV](#%d0%9f%d0%bb%d0%b0%d1%82%d1%91%d0%b6-%d0%bf%d1%80%d0%b8%d0%b2%d1%8f%d0%b7%d0%b0%d0%bd%d0%bd%d0%be%d0%b9-%d0%ba-%d0%bc%d0%b0%d0%b3%d0%b0%d0%b7%d0%b8%d0%bd%d1%83-%d0%ba%d0%b0%d1%80%d1%82%d0%be%d0%b9-%d1%81-%d0%b4%d0%be%d0%b7%d0%b0%d0%bf%d1%80%d0%be%d1%81%d0%be%d0%bc-cvccvv)
-  - [Лицензия](#%d0%9b%d0%b8%d1%86%d0%b5%d0%bd%d0%b7%d0%b8%d1%8f)
+  - [Сканирование банковских карт](#сканирование-банковских-карт)
+  - [Настройка 3D Secure](#настройка-3d-secure)
+  - [Логирование](#логирование)
+  - [Тестовый режим](#тестовый-режим)
+  - [Запуск Example](#запуск-example)
+  - [Кастомизация интерфейса](#кастомизация-интерфейса)
+  - [Платёж привязанной к магазину картой с дозапросом CVC/CVV](#платёж-привязанной-к-магазину-картой-с-дозапросом-cvccvv)
+  - [Лицензия](#лицензия)
 
 ## Changelog
 
@@ -61,35 +61,40 @@
 
 ### CocoaPods
 
-1. Установите CocoaPods
+1. Установите CocoaPods версии 1.10.0 или выше.
 
-  ```shell
-  gem install cocoapods
-  ```
+```zsh
+gem install cocoapods
+```
 
-2. Создайте файл Podfile\
+[Официальная документация по установке CocoaPods](https://guides.cocoapods.org/using/getting-started.html#updating-cocoapods).\
+[Какие версии CocoaPods есть](https://github.com/CocoaPods/CocoaPods/releases).
 
-  > CocoaPods предоставляет команду ```pod init``` для создания Podfile с настройками по умолчанию.
+1. Создайте файл Podfile
 
-3. Добавьте зависимости в `Podfile`.\
+> CocoaPods предоставляет команду ```pod init``` для создания Podfile с настройками по умолчанию.
+
+2. Добавьте зависимости в `Podfile`.\
   [Пример](https://github.com/yandex-money/yandex-checkout-payments-swift/tree/master/YandexCheckoutPaymentsExample/Podfile-example) `Podfile` из демо-приложения.
 
-  ```shell
-  source 'https://github.com/CocoaPods/Specs.git'
-  platform :ios, '10.0'
-  use_frameworks!
+```shell
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/yandex-money-tech/cocoa-pod-specs.git'
 
-  target 'Your Target Name' do
-    pod 'YandexCheckoutPayments',
-      :git => 'https://github.com/yandex-money/yandex-checkout-payments-swift.git',
-      :tag => 'tag'
-  end
-  ```
+platform :ios, '10.0'
+use_frameworks!
 
-  > `Your Target Name` - название таргета в Xcode для вашего приложения.\
-  > `tag` - версия SDK. Актуальную версию можно узнать на github в разделе [releases](https://github.com/yandex-money/yandex-checkout-payments-swift/releases).
+target 'Your Target Name' do
+  pod 'YandexCheckoutPayments',
+    :git => 'https://github.com/yandex-money/yandex-checkout-payments-swift.git',
+    :tag => 'tag'
+end
+```
 
-4. Выполните команду ```pod install```
+> `Your Target Name` - название таргета в Xcode для вашего приложения.\
+> `tag` - версия SDK. Актуальную версию можно узнать на github в разделе [releases](https://github.com/yandex-money/yandex-checkout-payments-swift/releases).
+
+3. Выполните команду `pod install`
 
 ### Carthage
 
@@ -100,20 +105,24 @@
 Чтобы получить файл `.framework`,  [зарегистрируйтесь в Яндекс.Кассе](https://kassa.yandex.ru/joinups)
 и сообщите вашему менеджеру, что хотите подключить мобильный SDK.
 
-1. Добавьте библиотеки `TMXProfiling.framework` и `TMXProfilingConnections.framework` в папку `Frameworks`.
+1. Используя Finder или другой файловый менеджер добавьте библиотеки `TMXProfiling.framework` и `TMXProfilingConnections.framework` в папку `Frameworks`.
 
-  ```txt
-  App
-  ├─ Pods
-  └─ Frameworks
-     └─ TMXProfiling.framework
-     └─ TMXProfilingConnections.framework
-  ```
-  > Если в проекте отсутствует папка `Frameworks` создайте её вручную.
+> Если в папке с проектом отсутствует папка `Frameworks` создайте её вручную.\
+> Папка `Frameworks` должна быть на уровне файловой системы, не используйте папку `Frameworks` в Xcode.
 
-2. В разделе `General` у основного таргета проекта добавьте TMXProfiling.framework и TMXProfilingConnections.framework в `Embedded Binaries`(в Xcode 10.3 или меньше), или в `Frameworks, Libraries, and Embedded Content`(в Xcode 11)
+```txt
+App
+├─ Pods
+└─ Frameworks
+    └─ TMXProfiling.framework
+    └─ TMXProfilingConnections.framework
+```
 
-3. Добавьте в `Build Phases` -> `New Run Script Phase`, и добавьте скрипт из файла `strip_framework.sh`
+2. В разделе `General` у основного таргета проекта добавьте `TMXProfiling.framework` и `TMXProfilingConnections.framework` в `Embedded Binaries`(в Xcode 10.3 или меньше), или в `Frameworks, Libraries, and Embedded Content`(в Xcode 11)
+
+3. `TMXProfiling.framework` и `TMXProfilingConnections.framework` должны быть добавлены как `Embed & Sign`
+
+4. Добавьте в `Build Phases` -> `New Run Script Phase`, и добавьте скрипт из файла `strip_framework.sh`
 
 ## Быстрая интеграция
 
@@ -121,56 +130,56 @@
 
 > Для работы с сущностями YandexCheckoutPayments импортируйте зависимости в исходный файл
 
-  ```swift
-  import YandexCheckoutPayments
-  import YandexCheckoutPaymentsApi
-  ```
+```swift
+import YandexCheckoutPayments
+import YandexCheckoutPaymentsApi
+```
 
 Пример создания `TokenizationModuleInputData`:
 
-  ```swift
-  let clientApplicationKey = "<Ключ для клиентских приложений>"
-  let amount = Amount(value: 999.99, currency: .rub)
-  let tokenizationModuleInputData =
-            TokenizationModuleInputData(clientApplicationKey: clientApplicationKey,
-                                        shopName: "Космические объекты",
-                                        purchaseDescription: """
-                                                             Комета повышенной яркости, период обращения — 112 лет
-                                                             """,
-                                        amount: amount,
-                                        savePaymentMethod: .on)
-  ```
+```swift
+let clientApplicationKey = "<Ключ для клиентских приложений>"
+let amount = Amount(value: 999.99, currency: .rub)
+let tokenizationModuleInputData =
+          TokenizationModuleInputData(clientApplicationKey: clientApplicationKey,
+                                      shopName: "Космические объекты",
+                                      purchaseDescription: """
+                                                            Комета повышенной яркости, период обращения — 112 лет
+                                                            """,
+                                      amount: amount,
+                                      savePaymentMethod: .on)
+```
 
 2. Создайте `TokenizationFlow` с кейсом `.tokenization` и передайте `TokenizationModuleInputData`.
 
 Пример создания `TokenizationFlow`:
 
-  ```swift
-  let inputData: TokenizationFlow = .tokenization(tokenizationModuleInputData)
-  ```
+```swift
+let inputData: TokenizationFlow = .tokenization(tokenizationModuleInputData)
+```
 
 3. Создайте `ViewController` из `TokenizationAssembly` и выведите его на экран.
 
-  ```swift
-  let viewController = TokenizationAssembly.makeModule(inputData: inputData,
+```swift
+let viewController = TokenizationAssembly.makeModule(inputData: inputData,
                                                        moduleOutput: self)
-  present(viewController, animated: true, completion: nil)
-  ```
+present(viewController, animated: true, completion: nil)
+```
 
 В `moduleOutput` необходимо передать объект, который реализует протокол `TokenizationModuleOutput`.
 
 4. Реализуйте протокол `TokenizationModuleOutput`.
 
-  ```swift
-  extension ViewController: TokenizationModuleOutput {
+```swift
+extension ViewController: TokenizationModuleOutput {
     func tokenizationModule(_ module: TokenizationModuleInput,
                             didTokenize token: Tokens,
                             paymentMethodType: PaymentMethodType) {
-      DispatchQueue.main.async { [weak self] in
-          guard let self = self else { return }
-          self.dismiss(animated: true)
-      }
-      // Отправьте токен в вашу систему
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true)
+        }
+        // Отправьте токен в вашу систему
     }
 
     func didFinish(on module: TokenizationModuleInput,
@@ -180,8 +189,17 @@
             self.dismiss(animated: true)
         }
     }
-  }
-  ```
+
+    func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            // Создать экран успеха после прохождения 3DS
+            self.dismiss(animated: true)
+            // Показать экран успеха
+        }
+    }
+}
+```
 
 Закройте модуль SDK и отправьте токен в вашу систему. Затем [создайте платеж](https://kassa.yandex.ru/docs/guides/#custom) по API Яндекс.Кассы, в параметре `payment_token` передайте токен, полученный в SDK. Способ подтверждения при создании платежа зависит от способа оплаты, который выбрал пользователь. Он приходит вместе с токеном в `paymentMethodType`.
 
@@ -233,66 +251,13 @@ let tokenizationSettings = TokenizationSettings(paymentMethodTypes: paymentMetho
 
 ### Яндекс Деньги
 
-Чтобы принимать платежи из кошельков в Яндекс.Деньгах, необходима авторизация в Яндексе.
-
-1. Зарегистрируйте свое приложение в [Яндекс.OAuth](https://oauth.yandex.ru/) и сохраните __ID__.
-   - Введите название приложения.
-   - В разделе __API Яндекс.Паспорта__ необходимо выбрать __Доступ к логину, имени и фамилии, полу__
-
-2. Добавьте в Info.plist следующие строки:
-
-  ```plistbase
-  <key>LSApplicationQueriesSchemes</key>
-  <array>
-      <string>yandexauth</string>
-      <string>yandexauth2</string>
-  </array>
-  <key>CFBundleURLTypes</key>
-  <array>
-      <dict>
-          <key>CFBundleURLName</key>
-          <string>YandexLoginSDK</string>
-          <key>CFBundleURLSchemes</key>
-          <array>
-              <string>yx<ID из Яндекс.OAuth></string>
-          </array>
-      </dict>
-  </array>
-  ```
-
-3. Настройте Entitlements
-
-В своем проекте в разделе `Capabilities` включите `Associated Domains` и добавьте домен по шаблону:
->applinks:yx<ID из Яндекс.OAuth>.oauth.yandex.ru.
-
-Например, если ваш ID из Яндекс.OAuth — `333`, домен будет таким:
->applinks:yx333.oauth.yandex.ru.
-
-4. Добавьте код из примера в AppDelegate.
+1. Запросить у менеджера по подключению `client id` для центра авторизации в системе `YooMoney`.
+2. При создании `TokenizationModuleInputData` передать `client id` в параметре `moneyAuthClientId`
 
 ```swift
-func application(_ application: UIApplication,
-                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    do {
-        try YandexLoginService.activate(withAppId: /* ID из Яндекс.OAuth */)
-    } catch {
-        // process error
-    }
-    return true
-}
-
-func application(_ application: UIApplication,
-                 continue userActivity: NSUserActivity,
-                 restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-    YandexLoginService.processUserActivity(userActivity)
-    return true
-}
-
-func application(_ app: UIApplication,
-                 open url: URL,
-                 options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
-    return YandexLoginService.handleOpen(url, sourceApplication: options[.sourceApplication] as? String)
-}
+let moduleData = TokenizationModuleInputData(
+    ...
+    moneyAuthClientId: "client_id")
 ```
 
 Чтобы провести платеж:
@@ -374,11 +339,11 @@ let moduleData = TokenizationModuleInputData(
 
 | Параметр             | Тип    | Описание |
 | -------------------- | ------ | -------- |
-| clientApplicationKey | String | Ключ для клиентских приложений из личного кабинета Яндекс.Кассы |
-| shopName             | String | Название магазина в форме оплаты |
-| purchaseDescription  | String | Описание заказа в форме оплаты |
-| amount               | Amount | Объект, содержащий сумму заказа и валюту |
-| 
+| clientApplicationKey | String            | Ключ для клиентских приложений из личного кабинета Яндекс.Кассы |
+| shopName             | String            | Название магазина в форме оплаты |
+| purchaseDescription  | String            | Описание заказа в форме оплаты |
+| amount               | Amount            | Объект, содержащий сумму заказа и валюту |
+| savePaymentMethod    | SavePaymentMethod | Объект, описывающий логику того, будет ли платеж рекуррентным |
 
 >Необязательные:
 
@@ -393,6 +358,7 @@ let moduleData = TokenizationModuleInputData(
 | isLoggingEnabled           | Bool                  | По умолчанию `false`. Включает логирование сетевых запросов. |
 | userPhoneNumber            | String                | По умолчанию `nil`. Телефонный номер пользователя. |
 | customizationSettings      | CustomizationSettings | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
+| moneyAuthClientId          | String                | По умолчанию `nil`. Идентификатор для центра авторизации в системе YooMoney.
 
 ### BankCardRepeatModuleInputData
 

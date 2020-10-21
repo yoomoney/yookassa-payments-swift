@@ -1,5 +1,12 @@
 ## Changelog
 
+### 4.0.0
+
+1. Удалили зависимость YandexLoginSDK.
+2. Изменили способ авторизации в Яндекс.Деньгах.
+
+> Необходимо выполнить [инструкцию](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/MIGRATION.md) по миграции с версий ниже.
+
 ### 3.7.1
 
 1. Минимальная версия iOS поддерживаемая библиотекой теперь 10.0

@@ -82,6 +82,14 @@ extension PaymentMethodsPresenter: PaymentMethodsModuleInput {
             }
         }
     }
+
+    func yandexAuthModule(
+        _ module: YandexAuthModuleInput,
+        didSelectViewModel viewModel: PaymentMethodViewModel,
+        at indexPath: IndexPath
+    ) {
+        didSelectViewModel(viewModel, at: indexPath)
+    }
 }
 
 // MARK: - PaymentMethodsInteractorOutput
@@ -101,10 +109,10 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
                                                               didSelect: paymentMethod,
                                                               methodsCount: paymentMethods.count)
             } else {
-                let yandexDisplayName = strongSelf.interactor.getYandexDisplayName()
+                let walletDisplayName = strongSelf.interactor.getWalletDisplayName()
                 let viewModels = { PaymentMethodViewModelFactory
                     .makePaymentMethodViewModel(paymentOption: $0,
-                                                yandexDisplayName: yandexDisplayName) } <^> paymentMethods
+                                                yandexDisplayName: walletDisplayName) } <^> paymentMethods
                 view.hideActivity()
                 view.setPaymentMethodViewModels(viewModels)
             }

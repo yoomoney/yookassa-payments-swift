@@ -69,7 +69,15 @@ final class AnalyticsService: AnalyticsProcessing {
             eventName = EventKey.actionChangePaymentMethod.rawValue
         case .actionAuthWithoutWallet:
             eventName = EventKey.actionAuthWithoutWallet.rawValue
-}
+        case .userStartAuthorization:
+            eventName = EventKey.userStartAuthorization.rawValue
+        case .userCancelAuthorization:
+            eventName = EventKey.userCancelAuthorization.rawValue
+        case .userSuccessAuthorization:
+            eventName = EventKey.userSuccessAuthorization.rawValue
+        case .userFailedAuthorization:
+            eventName = EventKey.userFailedAuthorization.rawValue
+        }
         return eventName
     }
     // swiftlint:enable cyclomatic_complexity
@@ -139,6 +147,19 @@ final class AnalyticsService: AnalyticsProcessing {
 
         case .actionAuthWithoutWallet:
             parameters = nil
+
+        case .userStartAuthorization:
+            parameters = nil
+        case .userCancelAuthorization:
+            parameters = nil
+        case .userSuccessAuthorization(let moneyAuthProcessType):
+            parameters = [
+                moneyAuthProcessType.key: moneyAuthProcessType.rawValue,
+            ]
+        case .userFailedAuthorization(let errorLocalizedDescription):
+            parameters = [
+                "error": errorLocalizedDescription,
+            ]
         }
 
         return parameters
@@ -159,6 +180,13 @@ final class AnalyticsService: AnalyticsProcessing {
         case actionLogout
         case actionChangePaymentMethod
         case actionAuthWithoutWallet
+
+        // MARK: - Authorization
+
+        case userStartAuthorization
+        case userCancelAuthorization
+        case userSuccessAuthorization
+        case userFailedAuthorization
     }
 }
 
