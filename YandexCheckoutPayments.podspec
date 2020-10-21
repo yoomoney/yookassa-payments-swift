@@ -28,10 +28,10 @@ Pod::Spec.new do |s|
   s.ios.framework  = 'UIKit'
   s.ios.framework  = 'PassKit'
   s.ios.library = 'z'
+
   s.ios.vendored_frameworks = [
     'Frameworks/TMXProfiling.framework',
     'Frameworks/TMXProfilingConnections.framework',
-    'Frameworks/MoneyAuth.xcframework',
   ]
 
   s.pod_target_xcconfig = {
@@ -46,4 +46,6 @@ Pod::Spec.new do |s|
   s.ios.dependency 'YandexCheckoutPaymentsApi', '~> 2.1.0'
   s.ios.dependency 'YandexCheckoutWalletApi', '~> 2.1.0'
   s.ios.dependency 'YandexMobileMetrica/Dynamic', '~> 3.7.0'
+
+  s.ios.dependency 'MoneyAuth', '~> 1.0.1'
 end
