@@ -1,15 +1,15 @@
 PODS:
   - CardIO (5.4.1)
   - FunctionalSwift (1.1.2)
-  - MoneyAuth (1.0.1):
+  - MoneyAuth (1.2.1):
     - FunctionalSwift
     - YandexMoneyCoreApi
   - Reveal-SDK (26)
   - SwiftLint (0.40.3)
   - When (4.0.0)
-  - YandexCheckoutPayments (4.0.0):
+  - YandexCheckoutPayments (4.1.0):
     - FunctionalSwift (~> 1.1.0)
-    - MoneyAuth (~> 1.0.1)
+    - MoneyAuth (~> 1.2.1)
     - When (~> 4.0.0)
     - YandexCheckoutPaymentsApi (~> 2.1.0)
     - YandexCheckoutWalletApi (~> 2.1.0)
@@ -58,11 +58,11 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   FunctionalSwift: 8ac888d5c2f2c0ce6bf7d48daea1408a8bfdd864
-  MoneyAuth: ff2228b40f2f8b52c7c906aa8ebe98384de13db9
+  MoneyAuth: 3407a1600c34c73e6f7f2d3e4852e70ca2893fd7
   Reveal-SDK: 5f94f14aff3d5f2a49f246edcd266fa4472679e9
   SwiftLint: dfd554ff0dff17288ee574814ccdd5cea85d76f7
   When: 4ffc88d535a094ad4bd5eaf2fd187de747e716d1
-  YandexCheckoutPayments: 9ec2fe366fddfcec7fca9b7a1c2d073211fdf713
+  YandexCheckoutPayments: d43c659675d4a5dfb3ee79b077436b5040314d08
   YandexCheckoutPaymentsApi: 9d0706c55c5f4695040b916826de47ab7dd5ff1f
   YandexCheckoutWalletApi: 82f24c35ce02a8fed5fda58490c422022d453591
   YandexMobileMetrica: 95e93ee5af38520c9e470533dc8df6cf72fa171d
