@@ -9,4 +9,6 @@ protocol YandexAuthRouterInput: class {
     ) throws -> MoneyAuth.AuthorizationCoordinator
 
     func closeAuthorizationModule()
+
+    func shouldDismissAuthorizationModule() -> Bool
 }
