@@ -159,7 +159,8 @@ extension YandexAuthPresenter: AuthorizationCoordinatorDelegate {
         authorizationProcess: AuthorizationProcess?,
         tmxSessionId: String?,
         phoneOffersAccepted: Bool,
-        emailOffersAccepted: Bool
+        emailOffersAccepted: Bool,
+        userAgreementAccepted: Bool
     ) {
         self.moneyAuthCoordinator = nil
         self.tmxSessionId = tmxSessionId
@@ -201,7 +202,9 @@ extension YandexAuthPresenter: AuthorizationCoordinatorDelegate {
 
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.router.closeAuthorizationModule()
+            if self.router.shouldDismissAuthorizationModule() {
+                self.router.closeAuthorizationModule()
+            }
             self.moduleOutput?.didCancelAuthorizeInYandex(on: self)
         }
     }

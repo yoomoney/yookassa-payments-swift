@@ -16,4 +16,11 @@ protocol TransitionHandler: class {
     ///   - flag: manage animation flag
     ///   - completion: The block to execute after the dismiss finishes.
     func dismiss(animated flag: Bool, completion: (() -> Void)?)
+
+    /// When you present a view controller modally (either explicitly or implicitly)
+    /// using the present(_:animated:completion:) method, the view controller that called the
+    /// method has this property set to the view controller that it presented.
+    /// If the current view controller did not present another view controller modally,
+    /// the value in this property is nil.
+    var presentedViewController: UIViewController? { get }
 }

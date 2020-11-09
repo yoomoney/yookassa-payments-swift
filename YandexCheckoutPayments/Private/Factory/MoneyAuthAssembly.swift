@@ -36,10 +36,10 @@ enum MoneyAuthAssembly {
 
     static func makeMoneyAuthCustomization() -> MoneyAuth.Customization {
         let customization = MoneyAuth.Customization(
-            restorePasswordEnabled: false,
+            restorePasswordEnabled: Constants.restorePasswordEnabled,
             userAgreementTitle: §Localized.userAgreementTitle,
             userWithEmailAgreementTitle: §Localized.userWithEmailAgreementTitle,
-            emailCheckboxVisible: false,
+            emailCheckboxVisible: Constants.emailCheckboxVisible,
             emailCheckboxTitle: §Localized.emailCheckboxTitle,
             addEmailTitle: §Localized.addEmailTitle,
             migrationScreenTitle: §Localized.migrationScreenTitle,
@@ -47,7 +47,11 @@ enum MoneyAuthAssembly {
             migrationScreenButtonSubtitle: §Localized.migrationScreenButtonSubtitle,
             hardMigrationScreenTitle: §Localized.hardMigrationScreenTitle,
             hardMigrationScreenSubtitle: §Localized.hardMigrationScreenSubtitle,
-            hardMigrationScreenButtonSubtitle: §Localized.hardMigrationScreenButtonSubtitle
+            hardMigrationScreenButtonSubtitle: §Localized.hardMigrationScreenButtonSubtitle,
+            migrationBannerVisible: Constants.migrationBannerVisible,
+            migrationBannerText: §Localized.migrationBannerText,
+            migrationBannerButtonText: §Localized.migrationBannerButtonText,
+            migrationBannerImageUrl: URL(string: Constants.migrationBannerImageUrl)
         )
         return customization
     }
@@ -57,7 +61,7 @@ enum MoneyAuthAssembly {
     ) -> AuthenticationChallengeHandler? {
         guard isDevHost == true else { return nil }
 
-        let authenticationChallengeHandler: AuthenticationChallengeHandler = { session, challenge, completionHandler in
+        let authenticationChallengeHandler: AuthenticationChallengeHandler = { challenge, completionHandler in
             guard let serverTrust = challenge.protectionSpace.serverTrust else {
                 completionHandler(.performDefaultHandling, nil)
                 return
@@ -99,6 +103,19 @@ enum MoneyAuthAssembly {
     }
 }
 
+// MARK: - Constants
+
+private extension MoneyAuthAssembly {
+    enum Constants {
+        // swiftlint:disable line_length
+        static let restorePasswordEnabled = false
+        static let emailCheckboxVisible = false
+        static let migrationBannerVisible = true
+        static let migrationBannerImageUrl = "https://static.yoomoney.ru/files-front/mobile/img/ios_migration_banner_logo.png"
+        // swiftlint:enable line_length
+    }
+}
+
 // MARK: - Localized
 
 private extension MoneyAuthAssembly {
@@ -114,6 +131,8 @@ private extension MoneyAuthAssembly {
         case hardMigrationScreenTitle = "Wallet.Authorization.hardMigrationScreenTitle"
         case hardMigrationScreenSubtitle = "Wallet.Authorization.hardMigrationScreenSubtitle"
         case hardMigrationScreenButtonSubtitle = "Wallet.Authorization.hardMigrationScreenButtonSubtitle"
+        case migrationBannerText = "Wallet.Authorization.migrationBannerText"
+        case migrationBannerButtonText = "Wallet.Authorization.migrationBannerButtonText"
         // swiftlint:enable line_length
     }
 }

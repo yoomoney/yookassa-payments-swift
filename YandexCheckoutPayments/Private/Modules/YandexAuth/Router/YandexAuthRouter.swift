@@ -29,4 +29,8 @@ extension YandexAuthRouter: YandexAuthRouterInput {
     func closeAuthorizationModule() {
         transitionHandler?.dismiss(animated: true, completion: nil)
     }
+
+    func shouldDismissAuthorizationModule() -> Bool {
+        return transitionHandler?.presentedViewController != nil
+    }
 }
