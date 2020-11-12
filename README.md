@@ -251,8 +251,29 @@ let tokenizationSettings = TokenizationSettings(paymentMethodTypes: paymentMetho
 
 ### Яндекс Деньги
 
-1. Запросить у менеджера по подключению `client id` для центра авторизации в системе `YooMoney`.
+Для подключения способа оплаты `Яндекс.Деньги` необходимо:
+
+1. Получить `client id` центра авторизации системы `YooMoney`.
 2. При создании `TokenizationModuleInputData` передать `client id` в параметре `moneyAuthClientId`
+
+#### Как получить `client id` центра авторизации системы `YooMoney`
+
+1. Авторизуйтесь на [yookassa.ru](https://yookassa.ru)
+2. Перейти на страницу регистрации клиентов СЦА - [yookassa.ru/oauth/v2/client](https://yookassa.ru/oauth/v2/client)
+3. Нажать [Зарегистрировать](https://yookassa.ru/oauth/v2/client/create)
+4. Заполнить поля:\
+4.1. "Название" - `required` поле, отображается при выдаче прав и в списке приложений.\
+4.2. "Описание" - `optional` поле, отображается у пользователя в списке приложений.\
+4.3. "Ссылка на сайт приложения" - `optional` поле, отображается у пользователя в списке приложений.\
+4.4. "Код подтверждения" - выбрать `Передавать в Callback URL`, можно указывать любое значение, например ссылку на сайт.
+5. Выбрать доступы:\
+5.1. `Кошелёк ЮMoney` -> `Просмотр`\
+5.2. `Профиль ЮMoney` -> `Просмотр`
+6. Нажать `Зарегистрировать`
+
+#### Передать `client id` в параметре `moneyAuthClientId`
+
+При создании `TokenizationModuleInputData` передать `client id` в параметре `moneyAuthClientId`
 
 ```swift
 let moduleData = TokenizationModuleInputData(
