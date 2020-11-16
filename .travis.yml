@@ -1,6 +1,6 @@
 language: objective-c
 osx_image: xcode9.2
-xcode_workspace: YandexCheckoutPayments.xcworkspace
+xcode_workspace: YooKassaPayments.xcworkspace
 xcode_scheme: ExamplePods
 cache:
   bundler: true
