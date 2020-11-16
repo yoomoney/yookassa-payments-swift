@@ -19,6 +19,14 @@ enum UserAgentFactory {
             deviceClass = "Unknown"
         }
 
-        return ["Yandex.Checkout.SDK.iOS/", frameworkVersion, " iOS/", osVersion, " ", deviceClass].joined()
+        let result = [
+            "YooKassa.SDK.Client.iOS/",
+            frameworkVersion,
+            " iOS/",
+            osVersion,
+            " ",
+            deviceClass,
+        ].joined()
+        return result
     }
 }
