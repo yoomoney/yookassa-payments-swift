@@ -2741,10 +2741,10 @@
       }
     },
     {
-      "id": "yandex_money",
+      "id": "yoo_money",
       "name": {
-        "ru": "Яндекс.Деньги",
-        "en": "Yandex.Money"
+        "ru": "ЮMoney",
+        "en": "YooMoney"
       },
       "bins": [
         "515548",
@@ -2762,16 +2762,16 @@
         }
       },
       "logo": {
-        "card": "yandex_money_card",
-        "list": "yandex_money_list",
-        "color": "yandex_money_color"
+        "card": "yoo_money_card",
+        "list": "yoo_money_list",
+        "color": "yoo_money_color"
       }
     },
     {
-      "id": "yandex_money_virtual",
+      "id": "yoo_money_virtual",
       "name": {
-        "ru": "Яндекс.Деньги",
-        "en": "Yandex.Money"
+        "ru": "ЮMoney",
+        "en": "YooMoney"
       },
       "bins": [],
       "background": {
@@ -2788,8 +2788,8 @@
         }
       },
       "logo": {
-        "card": "yandex_money_virtual_card",
-        "list": "yandex_money_virtual_list"
+        "card": "yoo_money_virtual_card",
+        "list": "yoo_money_virtual_list"
       }
     },
     {

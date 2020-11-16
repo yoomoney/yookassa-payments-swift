@@ -26,10 +26,10 @@ enum MoneyAuthAssembly {
             loggingEnabled: loggingEnabled,
             authenticationChallengeHandler: authenticationChallengeHandler,
             yxOauthClientId: yxOauthClientId,
-            supportEmail: "supp@money.yandex.ru",
-            supportPhone: "8(800)250-6699",
+            supportEmail: "support@yoomoney.ru",
+            supportPhone: "8 800 250-66-99",
             // swiftlint:disable:next force_unwrapping
-            supportHelpUrl: URL(string: "https://money.yandex.ru/page?id=536720")!
+            supportHelpUrl: URL(string: "https://yoomoney.ru/page?id=536720")!
         )
         return config
     }

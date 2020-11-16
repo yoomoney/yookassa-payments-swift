@@ -34,7 +34,7 @@
 
 "PaymentMethods.paymentMethods" = "СПОСОБЫ ОПЛАТЫ";
 
-"PaymentMethod.wallet" = "Яндекс.Деньги";
+"PaymentMethod.wallet" = "ЮMoney (ex. Яндекс.Деньги)";
 
 "PaymentMethod.applePay" = "Apple Pay";
 
