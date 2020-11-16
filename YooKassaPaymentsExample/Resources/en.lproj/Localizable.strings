@@ -19,13 +19,13 @@
 
 "settings.title" = "Settings";
 "settings.payment_methods.title" = "Payment methods";
-"settings.payment_methods.yoo_money" = "Yandex.Money";
+"settings.payment_methods.yoo_money" = "YooMoney";
 "settings.payment_methods.bank_card" = "Bank card";
 "settings.payment_methods.apple_pay" = "Apple Pay";
-"settings.ui_customization.yoo_money_logo" = "The Yandex.Checkout logo";
+"settings.ui_customization.yoo_money_logo" = "The YooKassa logo";
 "settings.test_mode.title" = "Test mode";
 "settings.payment_methods.sberbank" = "Sberbank Online";
 
-"success.description" = "Create payment with Yandex.Checkout API. Use this token as payment_token parameter";
+"success.description" = "Create payment with YooKassa API. Use this token as payment_token parameter";
 "success.button.docs" = "Documentation";
 "success.button.send_token" = "Send token via e-mail";

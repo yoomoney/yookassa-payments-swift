@@ -642,7 +642,7 @@ private extension RootViewController {
         static let priceInputMinWidth: CGFloat = 156.0
 
         static let russianLanguageCode = "ru"
-        static let documentationPathRu = "https://kassa.yandex.ru/developers/using-api/using-sdks"
-        static let documentationPathEn = "https://checkout.yandex.com/developers/using-api/using-sdks"
+        static let documentationPathRu = "https://yookassa.ru/developers/using-api/using-sdks"
+        static let documentationPathEn = "https://yookassa.ru/en/developers/using-api/using-sdks"
     }
 }

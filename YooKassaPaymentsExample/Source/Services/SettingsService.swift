@@ -73,11 +73,11 @@ final class SettingsService {
 
 private extension SettingsService {
     enum Constants {
-        static let isYooMoneyEnabledKey = "isYandexMoneyEnabled"
+        static let isYooMoneyEnabledKey = "isYooMoneyEnabled"
         static let isBankCardEnabledKey = "isBankCardEnabled"
         static let isApplePayEnabledKey = "isApplePayEnabled"
         static let isSberbankEnabledKey = "isSberbankEnabled"
-        static let isShowingYooMoneyLogoEnabledKey = "isShowingYandexLogoEnabled"
+        static let isShowingYooMoneyLogoEnabledKey = "isShowingYooMoneyLogoEnabled"
         static let priceKey = "price"
 
         static let isTestModeEnadledKey = "isTestModeEnadled"

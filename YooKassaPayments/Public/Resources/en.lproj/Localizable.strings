@@ -34,7 +34,7 @@
 
 "PaymentMethods.paymentMethods" = "PAYMENT METHODS";
 
-"PaymentMethod.wallet" = "Yandex.Money";
+"PaymentMethod.wallet" = "YooMoney (ex. Yandex.Money)";
 
 "PaymentMethod.applePay" = "Apple Pay";
 
