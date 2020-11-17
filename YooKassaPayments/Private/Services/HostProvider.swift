@@ -20,7 +20,7 @@ final class HostProvider: YooMoneyCoreApi.HostProvider {
         } else {
             switch key {
             case YooKassaPaymentsApi.Constants.paymentsApiMethodsKey:
-                host = "//payment.yandex.net"
+                host = "//sdk.yookassa.ru"
             case YooKassaWalletApi.Constants.walletApiMethodsKey:
                 host = "//yoomoney.ru"
             case GlobalConstants.Hosts.moneyAuth:
