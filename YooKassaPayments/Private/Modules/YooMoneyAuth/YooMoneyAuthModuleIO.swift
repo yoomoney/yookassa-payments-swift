@@ -19,17 +19,17 @@ protocol YooMoneyAuthModuleOutput: class {
 
     func yooMoneyAuthModule(
         _ module: YooMoneyAuthModuleInput,
-        didFetchYamoneyPaymentMethod paymentMethod: PaymentOption,
+        didFetchWalletPaymentMethod paymentMethod: PaymentOption,
         tmxSessionId: String?
     )
 
-    func didFetchYamoneyPaymentMethods(
+    func didFetchWalletPaymentMethods(
         on module: YooMoneyAuthModuleInput,
         tmxSessionId: String?
     )
 
-    func didFetchYamoneyPaymentMethodsWithoutWallet(on module: YooMoneyAuthModuleInput)
-    func didFailFetchYamoneyPaymentMethods(on module: YooMoneyAuthModuleInput)
+    func didFetchWalletPaymentMethodsWithoutWallet(on module: YooMoneyAuthModuleInput)
+    func didFailFetchWalletPaymentMethods(on module: YooMoneyAuthModuleInput)
     func didCancelAuthorizeInYooMoney(on module: YooMoneyAuthModuleInput)
 
 }

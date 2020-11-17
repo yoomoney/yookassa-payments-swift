@@ -1,30 +1,30 @@
 import UIKit
 
-final class YamoneyAuthParametersPresenter {
+final class WalletAuthParametersPresenter {
 
     // MARK: - VIPER module properties
 
     var interactor: ContractInteractorInput!
 
     weak var view: ContractViewInput?
-    weak var moduleOutput: YamoneyAuthParametersModuleOutput?
+    weak var moduleOutput: WalletAuthParametersModuleOutput?
     weak var contractView: ContractTemplateViewInput?
     weak var paymentMethodView: PaymentMethodViewInput?
     weak var isReusableTokenView: SwitchItemViewInput?
 
     // MARK: - Data
 
-    fileprivate let inputData: YamoneyAuthParametersModuleInputData
+    fileprivate let inputData: WalletAuthParametersModuleInputData
     fileprivate var isReusableToken = true
 
-    init(inputData: YamoneyAuthParametersModuleInputData) {
+    init(inputData: WalletAuthParametersModuleInputData) {
         self.inputData = inputData
     }
 }
 
 // MARK: - ContractViewOutput
 
-extension YamoneyAuthParametersPresenter: ContractViewOutput {
+extension WalletAuthParametersPresenter: ContractViewOutput {
     func setupView() {
         guard let contractView = contractView,
               let paymentMethodView = paymentMethodView,
@@ -59,31 +59,31 @@ extension YamoneyAuthParametersPresenter: ContractViewOutput {
 
 // MARK: - PlaceholderViewDelegate
 
-extension YamoneyAuthParametersPresenter: ActionTextDialogDelegate {
+extension WalletAuthParametersPresenter: ActionTextDialogDelegate {
     // This is button in placeholder view. Need fix in UI library
     func didPressButton() {
-        moduleOutput?.yamoneyAuthParameters(self, loginWithReusableToken: isReusableToken)
+        moduleOutput?.walletAuthParameters(self, loginWithReusableToken: isReusableToken)
     }
 }
 
 // MARK: - ContractTemplateDelegate
 
-extension YamoneyAuthParametersPresenter: ContractTemplateViewOutput {
+extension WalletAuthParametersPresenter: ContractTemplateViewOutput {
     func didPressSubmitButton(in contractTemplate: ContractTemplateViewInput) {
-        moduleOutput?.yamoneyAuthParameters(self, loginWithReusableToken: isReusableToken)
+        moduleOutput?.walletAuthParameters(self, loginWithReusableToken: isReusableToken)
     }
 
     func didTapContract(_ contractTemplate: ContractTemplateViewInput) { }
 
     func didTapTermsOfService(_ url: URL) {
-        moduleOutput?.yamoneyAuthParameters(self, didTapTermsOfService: url)
+        moduleOutput?.walletAuthParameters(self, didTapTermsOfService: url)
     }
 
     func linkedSwitchItemView(
         _ itemView: LinkedSwitchItemViewInput,
         didChangeState state: Bool
     ) {
-        moduleOutput?.yamoneyAuthParameters(
+        moduleOutput?.walletAuthParameters(
             self,
             didChangeSavePaymentMethodState: state
         )
@@ -96,7 +96,7 @@ extension YamoneyAuthParametersPresenter: ContractTemplateViewOutput {
 
 // MARK: - SwitchItemViewDelegate
 
-extension YamoneyAuthParametersPresenter: SwitchItemViewOutput {
+extension WalletAuthParametersPresenter: SwitchItemViewOutput {
     func switchItemView(_ itemView: SwitchItemViewInput, didChangeState state: Bool) {
         isReusableToken = state
     }
@@ -104,15 +104,15 @@ extension YamoneyAuthParametersPresenter: SwitchItemViewOutput {
 
 // MARK: - LargeIconItemViewOutput
 
-extension YamoneyAuthParametersPresenter: LargeIconItemViewOutput {
+extension WalletAuthParametersPresenter: LargeIconItemViewOutput {
     func didPressActionButton(in view: LargeIconItemViewInput) {
         moduleOutput?.didPressLogoutButton(on: self)
     }
 }
 
-// MARK: - YamoneyAuthParametersModuleInput
+// MARK: - WalletAuthParametersModuleInput
 
-extension YamoneyAuthParametersPresenter: YamoneyAuthParametersModuleInput {
+extension WalletAuthParametersPresenter: WalletAuthParametersModuleInput {
     func didFailLoginInWallet(_ error: Error) {
         let message = makeMessage(error)
         DispatchQueue.main.async { [weak self] in
@@ -134,7 +134,7 @@ extension YamoneyAuthParametersPresenter: YamoneyAuthParametersModuleInput {
 
 // MARK: - IconButtonItemViewOutput
 
-extension YamoneyAuthParametersPresenter: IconButtonItemViewOutput {
+extension WalletAuthParametersPresenter: IconButtonItemViewOutput {
     func didPressButton(in itemView: IconButtonItemViewInput) {
         moduleOutput?.didPressChangeAction(on: self)
     }
@@ -142,7 +142,7 @@ extension YamoneyAuthParametersPresenter: IconButtonItemViewOutput {
 
 // MARK: - LargeIconButtonItemViewOutput
 
-extension YamoneyAuthParametersPresenter: LargeIconButtonItemViewOutput {
+extension WalletAuthParametersPresenter: LargeIconButtonItemViewOutput {
     func didPressLeftButton(in itemView: LargeIconButtonItemViewInput) {
         moduleOutput?.didPressLogoutButton(on: self)
     }
@@ -154,7 +154,7 @@ extension YamoneyAuthParametersPresenter: LargeIconButtonItemViewOutput {
 
 // MARK: - Localized
 
-private extension YamoneyAuthParametersPresenter {
+private extension WalletAuthParametersPresenter {
     enum Localized: String {
         case saveAuthInApp = "Contract.format.saveAuthInApp"
     }

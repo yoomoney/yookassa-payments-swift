@@ -150,9 +150,9 @@ extension ApplePayStrategy: TokenizationStrategyInput {
         _ module: BankCardDataInputModuleInput,
         didPressConfirmButton bankCardData: CardData
     ) {}
-    func didLoginInWallet(_ response: YamoneyLoginResponse) {}
-    func yamoneyAuthParameters(
-        _ module: YamoneyAuthParametersModuleInput,
+    func didLoginInWallet(_ response: WalletLoginResponse) {}
+    func walletAuthParameters(
+        _ module: WalletAuthParametersModuleInput,
         loginWithReusableToken isReusableToken: Bool
     ) {}
     func failLoginInWallet(_ error: Error) {}

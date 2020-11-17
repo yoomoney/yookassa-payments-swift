@@ -7,8 +7,8 @@ enum AuthorizationProcessingAssembly {
         testModeSettings: TestModeSettings?,
         moneyAuthClientId: String?
     ) -> AuthorizationProcessing {
-        let yamoneyLoginService = YamoneyLoginAssembly
-            .makeYamoneyLoginService(isLoggingEnabled: isLoggingEnabled,
+        let walletLoginService = WalletLoginAssembly
+            .makeWalletLoginService(isLoggingEnabled: isLoggingEnabled,
                                      testModeSettings: testModeSettings)
         let deviceInfoService = DeviceInfoProviderAssembly.makeDeviceInfoProvider()
         let settingsStorage = KeyValueStoringAssembly.makeSettingsStorage()
@@ -36,7 +36,7 @@ enum AuthorizationProcessingAssembly {
 
         let authorizationMediator = AuthorizationMediator(
             tokenStorage: tokenStorage,
-            yamoneyLoginService: yamoneyLoginService,
+            walletLoginService: walletLoginService,
             deviceInfoService: deviceInfoService,
             settingsStorage: settingsStorage,
             moneyAuthRevokeTokenService: moneyAuthRevokeTokenService

@@ -53,16 +53,16 @@ extension TokenizationRouter: TokenizationRouterInput {
         transitionHandler?.show(viewController, sender: self)
     }
 
-    func presentYamoneyAuthParameters(inputData: YamoneyAuthParametersModuleInputData,
-                                      moduleOutput: YamoneyAuthParametersModuleOutput) {
-        let viewController = YamoneyAuthParametersAssembly.makeModule(inputData: inputData,
+    func presentWalletAuthParameters(inputData: WalletAuthParametersModuleInputData,
+                                     moduleOutput: WalletAuthParametersModuleOutput) {
+        let viewController = WalletAuthParametersAssembly.makeModule(inputData: inputData,
                                                                       moduleOutput: moduleOutput)
         transitionHandler?.show(viewController, sender: self)
     }
 
-    func presentYamoneyAuth(inputData: YamoneyAuthModuleInputData,
-                            moduleOutput: YamoneyAuthModuleOutput) {
-        let viewController = YamoneyAuthAssembly.makeModule(inputData: inputData,
+    func presentWalletAuth(inputData: WalletAuthModuleInputData,
+                           moduleOutput: WalletAuthModuleOutput) {
+        let viewController = WalletAuthAssembly.makeModule(inputData: inputData,
                                                             moduleOutput: moduleOutput)
         transitionHandler?.show(viewController, sender: self)
     }

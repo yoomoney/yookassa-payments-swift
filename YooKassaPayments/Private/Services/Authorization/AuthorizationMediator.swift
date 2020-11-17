@@ -6,20 +6,20 @@ import YooKassaWalletApi
 final class AuthorizationMediator {
 
     let tokenStorage: KeyValueStoring
-    let yamoneyLoginService: YamoneyLoginProcessing
+    let walletLoginService: WalletLoginProcessing
     let deviceInfoService: DeviceInfoProvider
     let settingsStorage: KeyValueStoring
     let moneyAuthRevokeTokenService: RevokeTokenService?
 
     init(
         tokenStorage: KeyValueStoring,
-        yamoneyLoginService: YamoneyLoginProcessing,
+        walletLoginService: WalletLoginProcessing,
         deviceInfoService: DeviceInfoProvider,
         settingsStorage: KeyValueStoring,
         moneyAuthRevokeTokenService: RevokeTokenService?
     ) {
         self.tokenStorage = tokenStorage
-        self.yamoneyLoginService = yamoneyLoginService
+        self.walletLoginService = walletLoginService
         self.deviceInfoService = deviceInfoService
         self.settingsStorage = settingsStorage
         self.moneyAuthRevokeTokenService = moneyAuthRevokeTokenService
@@ -95,15 +95,15 @@ extension AuthorizationMediator: AuthorizationProcessing {
 // MARK: - AuthorizationProcessing Wallet 2FA
 
 extension AuthorizationMediator {
-    func loginInYamoney(
+    func loginInWallet(
         merchantClientAuthorization: String,
         amount: MonetaryAmount,
         reusableToken: Bool,
         tmxSessionId: String?
-    ) -> Promise<YamoneyLoginResponse> {
+    ) -> Promise<WalletLoginResponse> {
 
         if let token = getWalletToken(), hasReusableWalletToken() {
-            return Promise { return YamoneyLoginResponse.authorized(CheckoutTokenIssueExecute(accessToken: token)) }
+            return Promise { return WalletLoginResponse.authorized(CheckoutTokenIssueExecute(accessToken: token)) }
         }
 
         guard let moneyCenterAuthorization = getMoneyCenterAuthToken() else {
@@ -122,7 +122,7 @@ extension AuthorizationMediator {
         let instanceName = deviceInfoService.getDeviceName()
         let amount = reusableToken ? nil : amount
 
-        let request = curry(yamoneyLoginService.requestAuthorization)
+        let request = curry(walletLoginService.requestAuthorization)
         let authorizedRequest = request(moneyCenterAuthorization)(merchantClientAuthorization)(instanceName)
         let paymentUsageLimit: PaymentUsageLimit = reusableToken ? .multiple : .single
 
@@ -134,7 +134,7 @@ extension AuthorizationMediator {
         }
 
         let response = authorizedRequest(amount)(paymentUsageLimit) -<< promiseTmxSessionId
-        return saveYamoneyLoginInStorage <^> response
+        return saveWalletLoginInStorage <^> response
     }
 
     func startNewAuthSession(merchantClientAuthorization: String,
@@ -144,7 +144,7 @@ extension AuthorizationMediator {
             return Promise { throw  AuthorizationProcessingError.passportNotAuthorized }
         }
 
-        return yamoneyLoginService.startNewSession(
+        return walletLoginService.startNewSession(
             moneyCenterAuthorization: moneyCenterAuthorization,
             merchantClientAuthorization: merchantClientAuthorization,
             authContextId: contextId,
@@ -158,12 +158,12 @@ extension AuthorizationMediator {
         authType: AuthType,
         answer: String,
         processId: String
-    ) -> Promise<YamoneyLoginResponse> {
+    ) -> Promise<WalletLoginResponse> {
         guard let moneyCenterAuthorization = getMoneyCenterAuthToken() else {
             return Promise { throw  AuthorizationProcessingError.passportNotAuthorized }
         }
 
-        let token = yamoneyLoginService.checkUserAnswer(
+        let token = walletLoginService.checkUserAnswer(
             moneyCenterAuthorization: moneyCenterAuthorization,
             merchantClientAuthorization: merchantClientAuthorization,
             authContextId: authContextId,
@@ -171,17 +171,17 @@ extension AuthorizationMediator {
             answer: answer,
             processId: processId
         )
-        let response = makeYamoneyLoginResponse <^> token
-        return saveYamoneyLoginInStorage <^> response
+        let response = makeWalletLoginResponse <^> token
+        return saveWalletLoginInStorage <^> response
     }
 }
 
 // MARK: - Private helpers
 
 private extension AuthorizationMediator {
-    func saveYamoneyLoginInStorage(
-        response: YamoneyLoginResponse
-    ) -> YamoneyLoginResponse {
+    func saveWalletLoginInStorage(
+        response: WalletLoginResponse
+    ) -> WalletLoginResponse {
         if case .authorized(let data) = response {
             tokenStorage.set(
                 string: data.accessToken,
@@ -204,6 +204,6 @@ private extension AuthorizationMediator {
 
 // MARK: - Private global helpers
 
-private func makeYamoneyLoginResponse(token: String) -> YamoneyLoginResponse {
-    return YamoneyLoginResponse.authorized(.init(accessToken: token))
+private func makeWalletLoginResponse(token: String) -> WalletLoginResponse {
+    return WalletLoginResponse.authorized(.init(accessToken: token))
 }

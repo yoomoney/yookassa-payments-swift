@@ -1,11 +1,11 @@
 import UIKit.UIViewController
 import struct YooKassaWalletApi.AuthTypeState
 
-enum YamoneyAuthAssembly {
-    static func makeModule(inputData: YamoneyAuthModuleInputData,
-                           moduleOutput: YamoneyAuthModuleOutput?) -> UIViewController {
+enum WalletAuthAssembly {
+    static func makeModule(inputData: WalletAuthModuleInputData,
+                           moduleOutput: WalletAuthModuleOutput?) -> UIViewController {
         let viewController = ContractViewController()
-        let presenter = YamoneyAuthPresenter(inputData: inputData)
+        let presenter = WalletAuthPresenter(inputData: inputData)
 
         let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
             isLoggingEnabled: inputData.isLoggingEnabled

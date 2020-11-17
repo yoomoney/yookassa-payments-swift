@@ -3,7 +3,7 @@ import When
 import YooKassaWalletApi
 import YooMoneyCoreApi
 
-final class YamoneyLoginService {
+final class WalletLoginService {
 
     fileprivate let session: ApiSession
     fileprivate let authTypeStatesService: AuthTypeStatesProvider
@@ -15,8 +15,9 @@ final class YamoneyLoginService {
     }
 }
 
-// MARK: - YamoneyLoginProcessing
-extension YamoneyLoginService: YamoneyLoginProcessing {
+// MARK: - WalletLoginProcessing
+
+extension WalletLoginService: WalletLoginProcessing {
 
     func requestAuthorization(
         moneyCenterAuthorization: String,
@@ -25,11 +26,11 @@ extension YamoneyLoginService: YamoneyLoginProcessing {
         singleAmountMax: MonetaryAmount?,
         paymentUsageLimit: PaymentUsageLimit,
         tmxSessionId: String
-    ) -> Promise<YamoneyLoginResponse> {
+    ) -> Promise<WalletLoginResponse> {
 
         func handle(
             _ response: CheckoutTokenIssueInit
-        ) -> Promise<YamoneyLoginResponse> {
+        ) -> Promise<WalletLoginResponse> {
             let handler = response.authRequired
                 ? handleAuthRequired
                 : handleAuthNotRequired
@@ -53,10 +54,10 @@ extension YamoneyLoginService: YamoneyLoginProcessing {
         let response = handle -<< issueInit
 
         let handledResponse = response
-            .recover(on: .global()) { (error: Error) -> Promise<YamoneyLoginResponse> in
+            .recover(on: .global()) { (error: Error) -> Promise<WalletLoginResponse> in
             switch error {
-            case YamoneyLoginProcessingError.invalidContext,
-                 YamoneyLoginProcessingError.sessionsExceeded:
+            case WalletLoginProcessingError.invalidContext,
+                 WalletLoginProcessingError.sessionsExceeded:
                 return self.requestAuthorization(
                     moneyCenterAuthorization: moneyCenterAuthorization,
                     merchantClientAuthorization: merchantClientAuthorization,
@@ -113,13 +114,13 @@ extension YamoneyLoginService: YamoneyLoginProcessing {
     }
 }
 
-private extension YamoneyLoginService {
+private extension WalletLoginService {
 
     func handleAuthNotRequired(
         moneyCenterAuthorization: String,
         merchantClientAuthorization: String,
         response: CheckoutTokenIssueInit
-    ) -> Promise<YamoneyLoginResponse> {
+    ) -> Promise<WalletLoginResponse> {
         let response = tokenIssueExecute(
             session: session,
             moneyCenterAuthorization: moneyCenterAuthorization,
@@ -134,7 +135,7 @@ private extension YamoneyLoginService {
         moneyCenterAuthorization: String,
         merchantClientAuthorization: String,
         checkoutTokenIssueInit: CheckoutTokenIssueInit
-    ) -> Promise<YamoneyLoginResponse> {
+    ) -> Promise<WalletLoginResponse> {
         let processId = checkoutTokenIssueInit.processId
         let authContextId = checkoutTokenIssueInit.authContextId ?? ""
         let context = authContextGet(
@@ -202,16 +203,16 @@ private func execute(
 
 private func makeResponse(
     _ value: CheckoutTokenIssueExecute
-) -> YamoneyLoginResponse {
-    return YamoneyLoginResponse.authorized(value)
+) -> WalletLoginResponse {
+    return WalletLoginResponse.authorized(value)
 }
 
 private func makeResponse(
     _ value: AuthTypeState,
     _ processId: String,
     _ contextId: String
-) -> YamoneyLoginResponse {
-    return YamoneyLoginResponse.notAuthorized(
+) -> WalletLoginResponse {
+    return WalletLoginResponse.notAuthorized(
         authTypeState: value,
         processId: processId,
         authContextId: contextId
@@ -239,28 +240,28 @@ private func mapError<T>(_ error: Error) throws -> Promise<T> {
     switch error {
 
     case CheckoutAuthCheckError.invalidAnswer:
-        resultError = YamoneyLoginProcessingError.invalidAnswer
+        resultError = WalletLoginProcessingError.invalidAnswer
 
     case CheckoutAuthContextGetError.invalidContext,
          CheckoutAuthSessionGenerateError.invalidContext:
-        resultError = YamoneyLoginProcessingError.invalidContext
+        resultError = WalletLoginProcessingError.invalidContext
 
     case CheckoutAuthCheckError.invalidContext:
-        resultError = YamoneyLoginProcessingError.authCheckInvalidContext
+        resultError = WalletLoginProcessingError.authCheckInvalidContext
 
     case CheckoutAuthSessionGenerateError.sessionsExceeded:
-        resultError = YamoneyLoginProcessingError.sessionsExceeded
+        resultError = WalletLoginProcessingError.sessionsExceeded
 
     case CheckoutAuthCheckError.sessionDoesNotExist,
          CheckoutAuthCheckError.sessionExpired:
-        resultError = YamoneyLoginProcessingError.sessionDoesNotExist
+        resultError = WalletLoginProcessingError.sessionDoesNotExist
 
     case CheckoutAuthCheckError.verifyAttemptsExceeded:
-        resultError = YamoneyLoginProcessingError.verifyAttemptsExceeded
+        resultError = WalletLoginProcessingError.verifyAttemptsExceeded
 
     case CheckoutTokenIssueExecuteError.authRequired,
          CheckoutTokenIssueExecuteError.authExpired:
-        resultError = YamoneyLoginProcessingError.executeError
+        resultError = WalletLoginProcessingError.executeError
 
     default:
         resultError = error

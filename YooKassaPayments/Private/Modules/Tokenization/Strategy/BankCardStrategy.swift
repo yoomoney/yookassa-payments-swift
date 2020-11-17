@@ -65,8 +65,8 @@ extension BankCardStrategy: TokenizationStrategyInput {
     func sberbankModule(_ module: SberbankModuleInput, didPressConfirmButton phoneNumber: String) {}
     func didPressConfirmButton(on module: BankCardDataInputModuleInput, cvc: String) {}
     func failResendSmsCode(_ error: Error) {}
-    func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput,
-                               loginWithReusableToken isReusableToken: Bool) {}
+    func walletAuthParameters(_ module: WalletAuthParametersModuleInput,
+                              loginWithReusableToken isReusableToken: Bool) {}
     func didPressLogout() {}
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController,
                                             didAuthorizePayment payment: PKPayment,
@@ -75,7 +75,7 @@ extension BankCardStrategy: TokenizationStrategyInput {
     func didFailPresentApplePayModule() {}
     func didPresentApplePayModule() {}
     func didPressSubmitButton(on module: ApplePayContractModuleInput) {}
-    func didLoginInWallet(_ response: YamoneyLoginResponse) {}
+    func didLoginInWallet(_ response: WalletLoginResponse) {}
     func failLoginInWallet(_ error: Error) {}
     func didTokenizeData() {}
 }

@@ -28,7 +28,7 @@
 		<false/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>yamoney.ru</key>
+			<key>yoomoney.ru</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>

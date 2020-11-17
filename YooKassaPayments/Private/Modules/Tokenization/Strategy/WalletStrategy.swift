@@ -35,7 +35,7 @@ extension WalletStrategy: TokenizationStrategyInput {
         if authorizationService.hasReusableWalletToken() {
             output?.presentContract(paymentOption: paymentOption)
         } else {
-            output?.presentYamoneyAuthParametersModule(paymentOption: paymentOption)
+            output?.presentWalletAuthParametersModule(paymentOption: paymentOption)
         }
     }
 
@@ -53,8 +53,8 @@ extension WalletStrategy: TokenizationStrategyInput {
         output?.tokenize(tokenizeData, paymentOption: paymentOption)
     }
 
-    func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput,
-                               loginWithReusableToken isReusableToken: Bool) {
+    func walletAuthParameters(_ module: WalletAuthParametersModuleInput,
+                              loginWithReusableToken isReusableToken: Bool) {
 
         contractStateHandler = module
         module.hidePlaceholder()
@@ -64,7 +64,7 @@ extension WalletStrategy: TokenizationStrategyInput {
     }
 
     func didLoginInWallet(
-        _ response: YamoneyLoginResponse
+        _ response: WalletLoginResponse
     ) {
         switch response {
         case .authorized:
@@ -74,7 +74,7 @@ extension WalletStrategy: TokenizationStrategyInput {
             )
             output?.tokenize(tokenizeData, paymentOption: paymentOption)
         case let .notAuthorized(authTypeState: authTypeState, processId: processId, authContextId: authContextId):
-            output?.presentYamoneyAuthModule(
+            output?.presentWalletAuthModule(
                 paymentOption: paymentOption,
                 processId: processId,
                 authContextId: authContextId,

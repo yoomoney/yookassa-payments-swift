@@ -3,7 +3,7 @@ import When
 import YooKassaWalletApi
 import YooMoneyCoreApi
 
-final class MockYamoneyLoginService {
+final class MockWalletLoginService {
 
     // MARK: - Data
 
@@ -22,9 +22,9 @@ final class MockYamoneyLoginService {
     fileprivate static let accessToken = "accessToken"
 }
 
-// MARK: - YamoneyLoginProcessing
+// MARK: - WalletLoginProcessing
 
-extension MockYamoneyLoginService: YamoneyLoginProcessing {
+extension MockWalletLoginService: WalletLoginProcessing {
     func requestAuthorization(
         moneyCenterAuthorization: String,
         merchantClientAuthorization: String,
@@ -32,9 +32,9 @@ extension MockYamoneyLoginService: YamoneyLoginProcessing {
         singleAmountMax: MonetaryAmount?,
         paymentUsageLimit: PaymentUsageLimit,
         tmxSessionId: String
-    ) -> Promise<YamoneyLoginResponse> {
+    ) -> Promise<WalletLoginResponse> {
         let timeout = makeTimeoutPromise()
-        let response = makeYamoneyLoginResponse(
+        let response = makeWalletLoginResponse(
             paymentAuthorizationPassed: self.paymentAuthorizationPassed
         )
         return response <^ timeout
@@ -60,7 +60,7 @@ extension MockYamoneyLoginService: YamoneyLoginProcessing {
         processId: String
     ) -> Promise<String> {
         let timeout = makeTimeoutPromise()
-        let response = MockYamoneyLoginService.accessToken
+        let response = MockWalletLoginService.accessToken
 
         if answer == correctAnswer {
             return response <^ timeout
@@ -68,7 +68,7 @@ extension MockYamoneyLoginService: YamoneyLoginProcessing {
         } else {
             let timeoutResponse = response <^ timeout
             let handleResponse: (String) throws -> String = { _ in
-                throw YamoneyLoginProcessingError.invalidAnswer
+                throw WalletLoginProcessingError.invalidAnswer
             }
             return handleResponse <^> timeoutResponse
         }
@@ -79,20 +79,20 @@ extension MockYamoneyLoginService: YamoneyLoginProcessing {
 
 private let correctAnswer = "1111"
 
-private func makeYamoneyLoginResponse(
+private func makeWalletLoginResponse(
     paymentAuthorizationPassed: Bool
-) -> YamoneyLoginResponse {
-    let response: YamoneyLoginResponse
+) -> WalletLoginResponse {
+    let response: WalletLoginResponse
     if paymentAuthorizationPassed {
         let accessToken = CheckoutTokenIssueExecute(
-            accessToken: MockYamoneyLoginService.accessToken
+            accessToken: MockWalletLoginService.accessToken
         )
-        response = YamoneyLoginResponse.authorized(accessToken)
+        response = WalletLoginResponse.authorized(accessToken)
     } else {
-        response = YamoneyLoginResponse.notAuthorized(
+        response = WalletLoginResponse.notAuthorized(
             authTypeState: makeAuthTypeState(),
-            processId: MockYamoneyLoginService.processId,
-            authContextId: MockYamoneyLoginService.authContextId
+            processId: MockWalletLoginService.processId,
+            authContextId: MockWalletLoginService.authContextId
         )
     }
     return response

@@ -35,7 +35,7 @@ final class YooMoneyAuthInteractor {
 // MARK: - YooMoneyAuthInteractorInput
 
 extension YooMoneyAuthInteractor: YooMoneyAuthInteractorInput {
-    func fetchYamoneyPaymentMethods(
+    func fetchYooMoneyPaymentMethods(
         moneyCenterAuthToken: String,
         walletDisplayName: String?
     ) {
@@ -51,7 +51,7 @@ extension YooMoneyAuthInteractor: YooMoneyAuthInteractorInput {
             getSavePaymentMethod: getSavePaymentMethod
         )
 
-        let yamoneyPaymentMethods = paymentMethods.map {
+        let yoomoneyPaymentMethods = paymentMethods.map {
             $0.filter {
                 $0.paymentMethodType == .yooMoney
             }
@@ -59,8 +59,8 @@ extension YooMoneyAuthInteractor: YooMoneyAuthInteractorInput {
 
         guard let output = output else { return }
 
-        yamoneyPaymentMethods.done(output.didFetchYamoneyPaymentMethods)
-        yamoneyPaymentMethods.fail(output.didFetchYamoneyPaymentMethods)
+        yoomoneyPaymentMethods.done(output.didFetchYooMoneyPaymentMethods)
+        yoomoneyPaymentMethods.fail(output.didFetchYooMoneyPaymentMethods)
     }
 
     func trackEvent(_ event: AnalyticsEvent) {

@@ -1,14 +1,14 @@
 import FunctionalSwift
 import struct YooKassaWalletApi.AuthTypeState
 
-final class YamoneyAuthPresenter {
+final class WalletAuthPresenter {
 
     // MARK: - VIPER module properties
 
     var interactor: ContractInteractorInput!
 
     weak var view: ContractViewInput?
-    weak var moduleOutput: YamoneyAuthModuleOutput?
+    weak var moduleOutput: WalletAuthModuleOutput?
     weak var contractView: ContractTemplateViewInput?
     weak var paymentMethodView: PaymentMethodViewInput?
     weak var authCodeInputView: AuthCodeInputViewInput?
@@ -21,11 +21,11 @@ final class YamoneyAuthPresenter {
 
     // MARK: - Data
 
-    fileprivate let inputData: YamoneyAuthModuleInputData
+    fileprivate let inputData: WalletAuthModuleInputData
     fileprivate var authCode: String = ""
     fileprivate var requiredCodeLength = 0
 
-    init(inputData: YamoneyAuthModuleInputData) {
+    init(inputData: WalletAuthModuleInputData) {
         self.inputData = inputData
 
         authTypeState = inputData.authTypeState
@@ -34,7 +34,7 @@ final class YamoneyAuthPresenter {
 
 // MARK: - ContractViewOutput
 
-extension YamoneyAuthPresenter: ContractViewOutput {
+extension WalletAuthPresenter: ContractViewOutput {
     func setupView() {
         guard let contractView = contractView,
               let paymentMethodView = paymentMethodView else { return }
@@ -56,49 +56,49 @@ extension YamoneyAuthPresenter: ContractViewOutput {
 
 // MARK: - PlaceholderViewDelegate
 
-extension YamoneyAuthPresenter: ActionTextDialogDelegate {
+extension WalletAuthPresenter: ActionTextDialogDelegate {
     // This is button in placeholder view. Need fix in UI library
     func didPressButton() {
         guard let placeholderState = placeholderState else { return }
         switch placeholderState {
             case .message:
-                moduleOutput?.yamoneyAuth(self,
+                moduleOutput?.walletAuth(self,
                                           authContextId: inputData.authContextId,
                                           authType: authTypeState.specific.type,
                                           answer: authCode,
                                           processId: inputData.processId)
 
         case .failResendSmsCode:
-            moduleOutput?.yamoneyAuth(self,
+            moduleOutput?.walletAuth(self,
                                       resendSmsCodeWithContextId: inputData.authContextId,
                                       authType: inputData.authTypeState.specific.type)
 
         case .authCheckInvalidContext(_, let error):
             hidePlaceholder()
             showActivity()
-            moduleOutput?.yamoneyAuth(self, didFinishWithError: error)
+            moduleOutput?.walletAuth(self, didFinishWithError: error)
 
         case .sessionBroken:
-            moduleOutput?.yamoneyAuth(self,
+            moduleOutput?.walletAuth(self,
                                       resendSmsCodeWithContextId: inputData.authContextId,
                                       authType: inputData.authTypeState.specific.type)
 
         case .verifyAttemptsExceeded(_, let error):
             hidePlaceholder()
             showActivity()
-            moduleOutput?.yamoneyAuth(self, didFinishWithError: error)
+            moduleOutput?.walletAuth(self, didFinishWithError: error)
 
         case .executeError(_, let error):
             hidePlaceholder()
             showActivity()
-            moduleOutput?.yamoneyAuth(self, didFinishWithError: error)
+            moduleOutput?.walletAuth(self, didFinishWithError: error)
         }
     }
 }
 
 // MARK: - ContractModuleInput
 
-extension YamoneyAuthPresenter: YamoneyAuthModuleInput {
+extension WalletAuthPresenter: WalletAuthModuleInput {
     func setAuthTypeState(_ authTypeState: AuthTypeState) {
         hideActivity()
         self.authTypeState = authTypeState
@@ -118,7 +118,7 @@ extension YamoneyAuthPresenter: YamoneyAuthModuleInput {
 
     func failResendSmsCode(_ error: Error) {
         switch error {
-        case is YamoneyLoginProcessingError:
+        case is WalletLoginProcessingError:
             handleError(error)
         default:
             hideActivity()
@@ -129,10 +129,10 @@ extension YamoneyAuthPresenter: YamoneyAuthModuleInput {
 
 // MARK: - ContractTemplateDelegate
 
-extension YamoneyAuthPresenter: ContractTemplateViewOutput {
+extension WalletAuthPresenter: ContractTemplateViewOutput {
     func didPressSubmitButton(in contractTemplate: ContractTemplateViewInput) {
         view?.endEditing(true)
-        moduleOutput?.yamoneyAuth(self,
+        moduleOutput?.walletAuth(self,
                                   authContextId: inputData.authContextId,
                                   authType: authTypeState.specific.type,
                                   answer: authCode,
@@ -144,7 +144,7 @@ extension YamoneyAuthPresenter: ContractTemplateViewOutput {
     }
 
     func didTapTermsOfService(_ url: URL) {
-        moduleOutput?.yamoneyAuth(self, didTapTermsOfService: url)
+        moduleOutput?.walletAuth(self, didTapTermsOfService: url)
     }
 
     func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) { }
@@ -152,13 +152,13 @@ extension YamoneyAuthPresenter: ContractTemplateViewOutput {
     func didTapOnSavePaymentMethod() { }
 }
 
-extension YamoneyAuthPresenter: AuthCodeInputViewOutput {
+extension WalletAuthPresenter: AuthCodeInputViewOutput {
     func didPressResendSmsButton(in view: AuthCodeInputViewInput) {
 
         showActivity()
         self.view?.endEditing(true)
 
-        moduleOutput?.yamoneyAuth(self,
+        moduleOutput?.walletAuth(self,
                                   resendSmsCodeWithContextId: inputData.authContextId,
                                   authType: inputData.authTypeState.specific.type)
     }
@@ -171,7 +171,7 @@ extension YamoneyAuthPresenter: AuthCodeInputViewOutput {
 
 // MARK: - LargeIconItemViewOutput
 
-extension YamoneyAuthPresenter: LargeIconItemViewOutput {
+extension WalletAuthPresenter: LargeIconItemViewOutput {
     func didPressActionButton(in view: LargeIconItemViewInput) {
         moduleOutput?.didPressLogoutButton(on: self)
     }
@@ -179,7 +179,7 @@ extension YamoneyAuthPresenter: LargeIconItemViewOutput {
 
 // MARK: - IconButtonItemViewOutput
 
-extension YamoneyAuthPresenter: IconButtonItemViewOutput {
+extension WalletAuthPresenter: IconButtonItemViewOutput {
     func didPressButton(in itemView: IconButtonItemViewInput) {
         moduleOutput?.didPressChangeAction(on: self)
     }
@@ -187,7 +187,7 @@ extension YamoneyAuthPresenter: IconButtonItemViewOutput {
 
 // MARK: - LargeIconButtonItemViewOutput
 
-extension YamoneyAuthPresenter: LargeIconButtonItemViewOutput {
+extension WalletAuthPresenter: LargeIconButtonItemViewOutput {
     func didPressLeftButton(in itemView: LargeIconButtonItemViewInput) {
         moduleOutput?.didPressLogoutButton(on: self)
     }
@@ -199,28 +199,28 @@ extension YamoneyAuthPresenter: LargeIconButtonItemViewOutput {
 
 // MARK: - Errors handling
 
-private extension YamoneyAuthPresenter {
+private extension WalletAuthPresenter {
     func handleError(_ error: Error) {
 
         hideActivity()
 
         switch error {
-        case YamoneyLoginProcessingError.invalidAnswer:
+        case WalletLoginProcessingError.invalidAnswer:
             handleInvalidAnswer()
 
-        case YamoneyLoginProcessingError.authCheckInvalidContext:
+        case WalletLoginProcessingError.authCheckInvalidContext:
             let message = makeMessage(error)
             showPlaceholder(state: .authCheckInvalidContext(message: message, error: error))
 
-        case YamoneyLoginProcessingError.sessionDoesNotExist:
+        case WalletLoginProcessingError.sessionDoesNotExist:
             let message = makeMessage(error)
             showPlaceholder(state: .sessionBroken(message: message, error: error))
 
-        case YamoneyLoginProcessingError.verifyAttemptsExceeded:
+        case WalletLoginProcessingError.verifyAttemptsExceeded:
             let message = makeMessage(error)
             showPlaceholder(state: .verifyAttemptsExceeded(message: message, error: error))
 
-        case YamoneyLoginProcessingError.executeError:
+        case WalletLoginProcessingError.executeError:
             let message = makeMessage(error)
             showPlaceholder(state: .executeError(message: message, error: error))
 
@@ -262,7 +262,7 @@ private extension YamoneyAuthPresenter {
 
 // MARK: - Update view by models {
 
-private extension YamoneyAuthPresenter {
+private extension WalletAuthPresenter {
     func setSmsTimer(authTypeState: AuthTypeState) {
         guard let authCodeInputView = authCodeInputView else { return }
 
