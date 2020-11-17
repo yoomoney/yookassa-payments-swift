@@ -50,12 +50,6 @@ extension AuthorizationMediator: AuthorizationProcessing {
         )
     }
 
-    func getPassportToken() -> String? {
-        return tokenStorage.getString(
-            for: KeyValueStoringKeys.passportToken
-        )
-    }
-
     func hasReusableWalletToken() -> Bool {
         return getWalletToken() != nil
             && tokenStorage.getBool(
@@ -203,7 +197,7 @@ private extension AuthorizationMediator {
 private extension AuthorizationMediator {
     enum Constants {
         enum Keys {
-            static let walletDisplayName = "yandexDisplayName"
+            static let walletDisplayName = "walletDisplayName"
         }
     }
 }
