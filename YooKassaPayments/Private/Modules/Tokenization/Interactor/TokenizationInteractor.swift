@@ -58,23 +58,23 @@ extension TokenizationInteractor: TokenizationInteractorInput {
 
         case let .wallet(confirmation, savePaymentMethod):
 
-            guard let yamoneyToken = authorizationService.getWalletToken() else {
-                assertionFailure("You must be authorized in yamoney")
+            guard let walletToken = authorizationService.getWalletToken() else {
+                assertionFailure("You must be authorized in wallet")
                 return
             }
 
             makeToken = curry(paymentService.tokenizeWallet)(clientApplicationKey)(
-                yamoneyToken)(confirmation)(savePaymentMethod)(paymentOption.paymentMethodType)
+                walletToken)(confirmation)(savePaymentMethod)(paymentOption.paymentMethodType)
 
         case let .linkedBankCard(id, csc, confirmation, savePaymentMethod):
 
-            guard let yamoneyToken = authorizationService.getWalletToken() else {
-                assertionFailure("You must be authorized in yamoney")
+            guard let walletToken = authorizationService.getWalletToken() else {
+                assertionFailure("You must be authorized in wallet")
                 return
             }
 
             makeToken = curry(paymentService.tokenizeLinkedBankCard)(clientApplicationKey)(
-                yamoneyToken)(id)(csc)(confirmation)(savePaymentMethod)(paymentOption.paymentMethodType)
+                walletToken)(id)(csc)(confirmation)(savePaymentMethod)(paymentOption.paymentMethodType)
 
         case let .applePay(paymentData, savePaymentMethod):
             makeToken = curry(paymentService.tokenizeApplePay)(clientApplicationKey)(
@@ -103,9 +103,10 @@ extension TokenizationInteractor: TokenizationInteractorInput {
         paymentOption: PaymentOption,
         tmxSessionId: String?
     ) {
-        let walletMonetaryAmount = MonetaryAmountFactory.makeWalletMonetaryAmount(paymentOption.charge)
+        let walletMonetaryAmount = MonetaryAmountFactory
+            .makeWalletMonetaryAmount(paymentOption.charge)
 
-        let response = authorizationService.loginInYamoney(
+        let response = authorizationService.loginInWallet(
             merchantClientAuthorization: clientApplicationKey,
             amount: walletMonetaryAmount,
             reusableToken: reusableToken,

@@ -20,10 +20,10 @@ protocol TokenizationStrategyInput: class {
         on module: ContractModuleInput
     )
     func didLoginInWallet(
-        _ response: YamoneyLoginResponse
+        _ response: WalletLoginResponse
     )
-    func yamoneyAuthParameters(
-        _ module: YamoneyAuthParametersModuleInput,
+    func walletAuthParameters(
+        _ module: WalletAuthParametersModuleInput,
         loginWithReusableToken isReusableToken: Bool
     )
 
@@ -85,11 +85,11 @@ protocol TokenizationStrategyOutput: class {
 
     func presentPaymentMethodsModule()
 
-    func presentYamoneyAuthParametersModule(
+    func presentWalletAuthParametersModule(
         paymentOption: PaymentOption
     )
 
-    func presentYamoneyAuthModule(
+    func presentWalletAuthModule(
         paymentOption: PaymentOption,
         processId: String,
         authContextId: String,

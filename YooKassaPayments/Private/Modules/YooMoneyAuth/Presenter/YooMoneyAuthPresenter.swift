@@ -55,7 +55,7 @@ extension YooMoneyAuthPresenter: PaymentMethodsViewOutput {
 
             if self.testModeSettings != nil {
                 DispatchQueue.global().async {
-                    self.interactor.fetchYamoneyPaymentMethods(
+                    self.interactor.fetchYooMoneyPaymentMethods(
                         moneyCenterAuthToken: "MOCK_TOKEN",
                         walletDisplayName: nil
                     )
@@ -102,14 +102,14 @@ extension YooMoneyAuthPresenter: ActionTextDialogDelegate {
         guard let view = view else { return }
         view.hidePlaceholder()
         view.showActivity()
-        moduleOutput?.didFetchYamoneyPaymentMethodsWithoutWallet(on: self)
+        moduleOutput?.didFetchWalletPaymentMethodsWithoutWallet(on: self)
     }
 }
 
 // MARK: - YooMoneyAuthInteractorOutput
 
 extension YooMoneyAuthPresenter: YooMoneyAuthInteractorOutput {
-    func didFetchYamoneyPaymentMethods(_ paymentMethods: [PaymentOption]) {
+    func didFetchYooMoneyPaymentMethods(_ paymentMethods: [PaymentOption]) {
 
         let condition: (PaymentOption) -> Bool = { $0 is PaymentInstrumentYooMoneyWallet }
 
@@ -118,7 +118,7 @@ extension YooMoneyAuthPresenter: YooMoneyAuthInteractorOutput {
 
             moduleOutput?.yooMoneyAuthModule(
                 self,
-                didFetchYamoneyPaymentMethod: paymentOption,
+                didFetchWalletPaymentMethod: paymentOption,
                 tmxSessionId: tmxSessionId
             )
 
@@ -132,7 +132,7 @@ extension YooMoneyAuthPresenter: YooMoneyAuthInteractorOutput {
 
         } else {
 
-            moduleOutput?.didFetchYamoneyPaymentMethods(
+            moduleOutput?.didFetchWalletPaymentMethods(
                 on: self,
                 tmxSessionId: tmxSessionId
             )
@@ -140,8 +140,8 @@ extension YooMoneyAuthPresenter: YooMoneyAuthInteractorOutput {
         }
     }
 
-    func didFetchYamoneyPaymentMethods(_ error: Error) {
-        moduleOutput?.didFailFetchYamoneyPaymentMethods(on: self)
+    func didFetchYooMoneyPaymentMethods(_ error: Error) {
+        moduleOutput?.didFailFetchWalletPaymentMethods(on: self)
     }
 }
 
@@ -171,7 +171,7 @@ extension YooMoneyAuthPresenter: AuthorizationCoordinatorDelegate {
 
             DispatchQueue.global().async { [weak self] in
                 guard let self = self else { return }
-                self.interactor.fetchYamoneyPaymentMethods(
+                self.interactor.fetchYooMoneyPaymentMethods(
                     moneyCenterAuthToken: token,
                     walletDisplayName: account.displayName.title
                 )

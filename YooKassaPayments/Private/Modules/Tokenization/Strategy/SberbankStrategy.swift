@@ -64,9 +64,9 @@ extension SberbankStrategy: TokenizationStrategyInput {
     func didFailPresentApplePayModule() {}
     func didPressSubmitButton(on module: ApplePayContractModuleInput) {}
     func didPressSubmitButton(on module: ContractModuleInput) {}
-    func didLoginInWallet(_ response: YamoneyLoginResponse) {}
-    func yamoneyAuthParameters(
-        _ module: YamoneyAuthParametersModuleInput,
+    func didLoginInWallet(_ response: WalletLoginResponse) {}
+    func walletAuthParameters(
+        _ module: WalletAuthParametersModuleInput,
         loginWithReusableToken isReusableToken: Bool
     ) {}
     func didTokenizeData() {}

@@ -15,7 +15,7 @@ extension AuthTypeStatesService: AuthTypeStatesProvider {
         }
         guard let state = sortedStates.first,
               supportedTypes.keys.contains(state.specific.type) else {
-            throw YamoneyLoginProcessingError.unsupportedAuthType
+            throw WalletLoginProcessingError.unsupportedAuthType
         }
         return state
     }

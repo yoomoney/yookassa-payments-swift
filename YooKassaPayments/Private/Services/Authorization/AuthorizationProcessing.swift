@@ -28,12 +28,12 @@ protocol AuthorizationProcessing {
 
     // MARK: - Wallet 2FA
 
-    func loginInYamoney(
+    func loginInWallet(
         merchantClientAuthorization: String,
         amount: MonetaryAmount,
         reusableToken: Bool,
         tmxSessionId: String?
-    ) -> Promise<YamoneyLoginResponse>
+    ) -> Promise<WalletLoginResponse>
 
     func startNewAuthSession(
         merchantClientAuthorization: String,
@@ -47,5 +47,5 @@ protocol AuthorizationProcessing {
         authType: AuthType,
         answer: String,
         processId: String
-    ) -> Promise<YamoneyLoginResponse>
+    ) -> Promise<WalletLoginResponse>
 }

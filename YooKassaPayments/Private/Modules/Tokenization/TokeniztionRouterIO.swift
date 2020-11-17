@@ -20,14 +20,14 @@ protocol TokenizationRouterInput: class {
         moduleOutput: YooMoneyAuthModuleOutput
     )
 
-    func presentYamoneyAuthParameters(
-        inputData: YamoneyAuthParametersModuleInputData,
-        moduleOutput: YamoneyAuthParametersModuleOutput
+    func presentWalletAuthParameters(
+        inputData: WalletAuthParametersModuleInputData,
+        moduleOutput: WalletAuthParametersModuleOutput
     )
 
-    func presentYamoneyAuth(
-        inputData: YamoneyAuthModuleInputData,
-        moduleOutput: YamoneyAuthModuleOutput
+    func presentWalletAuth(
+        inputData: WalletAuthModuleInputData,
+        moduleOutput: WalletAuthModuleOutput
     )
 
     func presentBankCardDataInput(

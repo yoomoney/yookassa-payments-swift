@@ -45,7 +45,7 @@ protocol TokenizationInteractorOutput: class {
     func didTokenizeData(_ token: Tokens)
     func failTokenizeData(_ error: Error)
 
-    func didLoginInWallet(_ response: YamoneyLoginResponse)
+    func didLoginInWallet(_ response: WalletLoginResponse)
     func failLoginInWallet(_ error: Error)
 
     func didResendSmsCode(_ authTypeState: AuthTypeState)

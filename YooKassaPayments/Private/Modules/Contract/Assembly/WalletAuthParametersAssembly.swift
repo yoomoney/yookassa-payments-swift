@@ -2,11 +2,11 @@ import class UIKit.UIViewController
 import class UIKit.UIView
 import struct UIKit.UIEdgeInsets
 
-enum YamoneyAuthParametersAssembly {
-    static func makeModule(inputData: YamoneyAuthParametersModuleInputData,
-                           moduleOutput: YamoneyAuthParametersModuleOutput?) -> UIViewController {
+enum WalletAuthParametersAssembly {
+    static func makeModule(inputData: WalletAuthParametersModuleInputData,
+                           moduleOutput: WalletAuthParametersModuleOutput?) -> UIViewController {
         let viewController = ContractViewController()
-        let presenter = YamoneyAuthParametersPresenter(inputData: inputData)
+        let presenter = WalletAuthParametersPresenter(inputData: inputData)
 
         let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
             isLoggingEnabled: inputData.isLoggingEnabled

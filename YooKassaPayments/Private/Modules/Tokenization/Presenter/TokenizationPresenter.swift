@@ -24,7 +24,7 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
 
     // MARK: - Modules
 
-    private weak var yamoneyAuthModule: YamoneyAuthModuleInput?
+    private weak var walletAuthModule: WalletAuthModuleInput?
     private weak var paymentMethodsModuleInput: PaymentMethodsModuleInput?
 
     // MARK: - Module data
@@ -97,7 +97,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         }
     }
 
-    func presentYamoneyAuthParametersModule(paymentOption: PaymentOption) {
+    func presentWalletAuthParametersModule(paymentOption: PaymentOption) {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
         let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
@@ -105,7 +105,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             inputData.savePaymentMethod,
             initialState: makeInitialSavePaymentMethod(inputData.savePaymentMethod)
         )
-        let yamoneyAuthParametersInputData = YamoneyAuthParametersModuleInputData(
+        let walletAuthParametersInputData = WalletAuthParametersModuleInputData(
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
             paymentMethod: viewModel,
@@ -122,21 +122,21 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.router.presentYamoneyAuthParameters(
-                inputData: yamoneyAuthParametersInputData,
+            strongSelf.router.presentWalletAuthParameters(
+                inputData: walletAuthParametersInputData,
                 moduleOutput: strongSelf
             )
         }
     }
 
-    func presentYamoneyAuthModule(paymentOption: PaymentOption,
-                                  processId: String,
-                                  authContextId: String,
-                                  authTypeState: AuthTypeState) {
+    func presentWalletAuthModule(paymentOption: PaymentOption,
+                                 processId: String,
+                                 authContextId: String,
+                                 authTypeState: AuthTypeState) {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
 
-        let yamoneyAuthInputData = YamoneyAuthModuleInputData(
+        let walletAuthInputData = WalletAuthModuleInputData(
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
             paymentMethod: viewModel,
@@ -153,7 +153,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.router.presentYamoneyAuth(inputData: yamoneyAuthInputData,
+            strongSelf.router.presentWalletAuth(inputData: walletAuthInputData,
                                                  moduleOutput: strongSelf)
         }
     }
@@ -432,7 +432,7 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
         strategy?.failTokenizeData(error)
     }
 
-    func didLoginInWallet(_ response: YamoneyLoginResponse) {
+    func didLoginInWallet(_ response: WalletLoginResponse) {
         strategy?.didLoginInWallet(response)
 
         if case .authorized = response {
@@ -453,11 +453,11 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
     }
 
     func didResendSmsCode(_ authTypeState: AuthTypeState) {
-        yamoneyAuthModule?.setAuthTypeState(authTypeState)
+        walletAuthModule?.setAuthTypeState(authTypeState)
     }
 
     func failResendSmsCode(_ error: Error) {
-        yamoneyAuthModule?.failResendSmsCode(error)
+        walletAuthModule?.failResendSmsCode(error)
     }
 
     private func makeAnalyticsEventFromTokenizeData(_ tokenizeData: TokenizeData) -> AnalyticsEvent {
@@ -636,7 +636,7 @@ extension TokenizationPresenter: YooMoneyAuthModuleOutput {
 
     func yooMoneyAuthModule(
         _ module: YooMoneyAuthModuleInput,
-        didFetchYamoneyPaymentMethod paymentMethod: PaymentOption,
+        didFetchWalletPaymentMethod paymentMethod: PaymentOption,
         tmxSessionId: String?
     ) {
         self.paymentOption = paymentMethod
@@ -644,7 +644,7 @@ extension TokenizationPresenter: YooMoneyAuthModuleOutput {
         strategy?.beginProcess()
     }
 
-    func didFetchYamoneyPaymentMethods(
+    func didFetchWalletPaymentMethods(
         on module: YooMoneyAuthModuleInput,
         tmxSessionId: String?
     ) {
@@ -652,41 +652,43 @@ extension TokenizationPresenter: YooMoneyAuthModuleOutput {
         presentPaymentMethodsModule()
     }
 
-    func didFetchYamoneyPaymentMethodsWithoutWallet(on module: YooMoneyAuthModuleInput) {
+    func didFetchWalletPaymentMethodsWithoutWallet(on module: YooMoneyAuthModuleInput) {
         interactor.trackEvent(.actionAuthWithoutWallet)
         presentPaymentMethodsModule()
     }
 
-    func didFailFetchYamoneyPaymentMethods(on module: YooMoneyAuthModuleInput) {}
+    func didFailFetchWalletPaymentMethods(on module: YooMoneyAuthModuleInput) {}
 
     func didCancelAuthorizeInYooMoney(on module: YooMoneyAuthModuleInput) {
         handleOnePaymentOptionMethodAtReturn()
     }
 }
 
-// MARK: - YamoneyAuthParametersModuleOutput
+// MARK: - WalletAuthParametersModuleOutput
 
-extension TokenizationPresenter: YamoneyAuthParametersModuleOutput {
-    func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput,
-                               loginWithReusableToken isReusableToken: Bool) {
+extension TokenizationPresenter: WalletAuthParametersModuleOutput {
+    func walletAuthParameters(_ module: WalletAuthParametersModuleInput,
+                              loginWithReusableToken isReusableToken: Bool) {
         DispatchQueue.global().async { [weak self] in
             guard let strongSelf = self,
                   let strategy = strongSelf.strategy else { return }
             strongSelf.isReusableToken = isReusableToken
-            strategy.yamoneyAuthParameters(module,
-                                           loginWithReusableToken: isReusableToken)
+            strategy.walletAuthParameters(
+                module,
+                loginWithReusableToken: isReusableToken
+            )
         }
     }
 
-    func didFinish(on module: YamoneyAuthParametersModuleInput) {
+    func didFinish(on module: WalletAuthParametersModuleInput) {
         close()
     }
 
-    func didPressLogoutButton(on module: YamoneyAuthParametersModuleInput) {
+    func didPressLogoutButton(on module: WalletAuthParametersModuleInput) {
         strategy?.didPressLogout()
     }
 
-    func didPressChangeAction(on module: YamoneyAuthParametersModuleInput) {
+    func didPressChangeAction(on module: WalletAuthParametersModuleInput) {
         DispatchQueue.global().async { [weak self] in
             guard let interactor = self?.interactor else { return }
             interactor.trackEvent(.actionChangePaymentMethod)
@@ -695,31 +697,31 @@ extension TokenizationPresenter: YamoneyAuthParametersModuleOutput {
         presentPaymentMethodsModule()
     }
 
-    func yamoneyAuthParameters(_ module: YamoneyAuthParametersModuleInput, didTapTermsOfService url: URL) {
+    func walletAuthParameters(_ module: WalletAuthParametersModuleInput, didTapTermsOfService url: URL) {
         presentTermsOfServiceModule(url)
     }
 
-    func yamoneyAuthParameters(
-        _ module: YamoneyAuthParametersModuleInput,
+    func walletAuthParameters(
+        _ module: WalletAuthParametersModuleInput,
         didChangeSavePaymentMethodState state: Bool
     ) {
         strategy?.savePaymentMethod = state
     }
 
     func didTapOnSavePaymentMethodInfo(
-        on module: YamoneyAuthParametersModuleInput
+        on module: WalletAuthParametersModuleInput
     ) {
         presentSavePaymentMethodInfoModule()
     }
 }
 
-// MARK: - YamoneyAuthModuleOutput
+// MARK: - WalletAuthModuleOutput
 
-extension TokenizationPresenter: YamoneyAuthModuleOutput {
-    func yamoneyAuth(_ module: YamoneyAuthModuleInput,
-                     resendSmsCodeWithContextId authContextId: String,
-                     authType: AuthType) {
-        yamoneyAuthModule = module
+extension TokenizationPresenter: WalletAuthModuleOutput {
+    func walletAuth(_ module: WalletAuthModuleInput,
+                    resendSmsCodeWithContextId authContextId: String,
+                    authType: AuthType) {
+        walletAuthModule = module
         strategy?.contractStateHandler = module
 
         module.hidePlaceholder()
@@ -729,12 +731,12 @@ extension TokenizationPresenter: YamoneyAuthModuleOutput {
                                  authType: authType)
     }
 
-    func yamoneyAuth(_ module: YamoneyAuthModuleInput,
-                     authContextId: String,
-                     authType: AuthType,
-                     answer: String,
-                     processId: String) {
-        yamoneyAuthModule = module
+    func walletAuth(_ module: WalletAuthModuleInput,
+                    authContextId: String,
+                    authType: AuthType,
+                    answer: String,
+                    processId: String) {
+        walletAuthModule = module
 
         strategy?.contractStateHandler = module
         module.hidePlaceholder()
@@ -746,15 +748,15 @@ extension TokenizationPresenter: YamoneyAuthModuleOutput {
                                       processId: processId)
     }
 
-    func didPressLogoutButton(on module: YamoneyAuthModuleInput) {
+    func didPressLogoutButton(on module: WalletAuthModuleInput) {
         strategy?.didPressLogout()
     }
 
-    func didFinish(on module: YamoneyAuthModuleInput) {
+    func didFinish(on module: WalletAuthModuleInput) {
         close()
     }
 
-    func didPressChangeAction(on module: YamoneyAuthModuleInput) {
+    func didPressChangeAction(on module: WalletAuthModuleInput) {
         DispatchQueue.global().async { [weak self] in
             guard let interactor = self?.interactor else { return }
             interactor.trackEvent(.actionChangePaymentMethod)
@@ -763,7 +765,7 @@ extension TokenizationPresenter: YamoneyAuthModuleOutput {
         presentPaymentMethodsModule()
     }
 
-    func yamoneyAuth(_ module: YamoneyAuthModuleInput, didFinishWithError error: Error) {
+    func walletAuth(_ module: WalletAuthModuleInput, didFinishWithError error: Error) {
         guard let isReusableToken = isReusableToken,
               let paymentOption = paymentOption else { return }
         loginInWallet(
@@ -772,7 +774,7 @@ extension TokenizationPresenter: YamoneyAuthModuleOutput {
         )
     }
 
-    func yamoneyAuth(_ module: YamoneyAuthModuleInput, didTapTermsOfService url: URL) {
+    func walletAuth(_ module: WalletAuthModuleInput, didTapTermsOfService url: URL) {
         presentTermsOfServiceModule(url)
     }
 }

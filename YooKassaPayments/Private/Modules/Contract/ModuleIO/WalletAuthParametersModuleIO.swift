@@ -2,7 +2,7 @@ import Foundation
 import struct YooKassaPaymentsApi.MonetaryAmount
 import class YooKassaPaymentsApi.PaymentOption
 
-struct YamoneyAuthParametersModuleInputData {
+struct WalletAuthParametersModuleInputData {
     let shopName: String
     let purchaseDescription: String
     let paymentMethod: PaymentMethodViewModel
@@ -18,31 +18,31 @@ struct YamoneyAuthParametersModuleInputData {
     let savePaymentMethodViewModel: SavePaymentMethodViewModel?
 }
 
-protocol YamoneyAuthParametersModuleInput: ContractStateHandler {}
+protocol WalletAuthParametersModuleInput: ContractStateHandler {}
 
-protocol YamoneyAuthParametersModuleOutput: class {
-    func yamoneyAuthParameters(
-        _ module: YamoneyAuthParametersModuleInput,
+protocol WalletAuthParametersModuleOutput: class {
+    func walletAuthParameters(
+        _ module: WalletAuthParametersModuleInput,
         loginWithReusableToken isReusableToken: Bool
     )
     func didPressLogoutButton(
-        on module: YamoneyAuthParametersModuleInput
+        on module: WalletAuthParametersModuleInput
     )
     func didPressChangeAction(
-        on module: YamoneyAuthParametersModuleInput
+        on module: WalletAuthParametersModuleInput
     )
     func didFinish(
-        on module: YamoneyAuthParametersModuleInput
+        on module: WalletAuthParametersModuleInput
     )
-    func yamoneyAuthParameters(
-        _ module: YamoneyAuthParametersModuleInput,
+    func walletAuthParameters(
+        _ module: WalletAuthParametersModuleInput,
         didTapTermsOfService url: URL
     )
-    func yamoneyAuthParameters(
-        _ module: YamoneyAuthParametersModuleInput,
+    func walletAuthParameters(
+        _ module: WalletAuthParametersModuleInput,
         didChangeSavePaymentMethodState state: Bool
     )
     func didTapOnSavePaymentMethodInfo(
-        on module: YamoneyAuthParametersModuleInput
+        on module: WalletAuthParametersModuleInput
     )
 }

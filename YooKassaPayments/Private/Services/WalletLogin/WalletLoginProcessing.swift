@@ -1,12 +1,12 @@
 import YooKassaWalletApi
 import class When.Promise
 
-enum YamoneyLoginResponse {
+enum WalletLoginResponse {
     case authorized(CheckoutTokenIssueExecute)
     case notAuthorized(authTypeState: AuthTypeState, processId: String, authContextId: String)
 }
 
-enum YamoneyLoginProcessingError: Error {
+enum WalletLoginProcessingError: Error {
     case unsupportedAuthType
     case invalidAnswer
     case invalidContext
@@ -19,7 +19,7 @@ enum YamoneyLoginProcessingError: Error {
 
 // MARK: - PresentableError
 
-extension YamoneyLoginProcessingError: PresentableError {
+extension WalletLoginProcessingError: PresentableError {
 
     var title: String? {
         return nil
@@ -52,7 +52,7 @@ extension YamoneyLoginProcessingError: PresentableError {
     }
 }
 
-protocol YamoneyLoginProcessing {
+protocol WalletLoginProcessing {
 
     func requestAuthorization(
         moneyCenterAuthorization: String,
@@ -61,7 +61,7 @@ protocol YamoneyLoginProcessing {
         singleAmountMax: MonetaryAmount?,
         paymentUsageLimit: PaymentUsageLimit,
         tmxSessionId: String
-    ) -> Promise<YamoneyLoginResponse>
+    ) -> Promise<WalletLoginResponse>
 
     func startNewSession(
         moneyCenterAuthorization: String,
@@ -82,7 +82,7 @@ protocol YamoneyLoginProcessing {
 
 // MARK: - Localized
 
-private extension YamoneyLoginProcessingError {
+private extension WalletLoginProcessingError {
     enum Localized {
         enum Error: String {
             case resendAuthCodeAndStartOver = "Error.resendAuthCodeAndStartOver"
