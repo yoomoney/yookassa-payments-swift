@@ -42,7 +42,7 @@ class PaymentMethodsInteractor {
 
 extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
     func fetchPaymentMethods() {
-        let authorizationToken = makeAuthorizationToken()
+        let authorizationToken = authorizationService.getMoneyCenterAuthToken()
 
         let paymentMethods = paymentService.fetchPaymentOptions(
             clientApplicationKey: clientApplicationKey,
@@ -69,18 +69,5 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
     func makeTypeAnalyticsParameters() -> (authType: AnalyticsEvent.AuthType,
                                            tokenType: AnalyticsEvent.AuthTokenType?) {
         return analyticsProvider.makeTypeAnalyticsParameters()
-    }
-}
-
-// MARK: - Private helpers
-
-private extension PaymentMethodsInteractor {
-    func makeAuthorizationToken() -> String? {
-        if authorizationService.hasReusableWalletToken() {
-            return authorizationService.getMoneyCenterAuthToken()
-                ?? authorizationService.getPassportToken()
-        } else {
-            return authorizationService.getMoneyCenterAuthToken()
-        }
     }
 }

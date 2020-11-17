@@ -29,7 +29,7 @@ enum KeyValueStoringAssembly {
 private extension KeyValueStoringAssembly {
     enum Constants {
         enum Keys {
-            static let serviceId = "yandex.money.msdk2.keychainService"
+            static let serviceId = "ru.yoo.kassa.keychainService"
         }
     }
 }
