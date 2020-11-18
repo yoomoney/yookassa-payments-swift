@@ -3259,7 +3259,7 @@
 				INFOPLIST_FILE = YooKassaPayments/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPayments;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yoo.sdk.kassa.payments;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -3280,7 +3280,7 @@
 				INFOPLIST_FILE = YooKassaPayments/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPayments;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yoo.sdk.kassa.payments;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -3422,7 +3422,7 @@
 				INFOPLIST_FILE = YooKassaPayments/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.YandexCheckoutPayments;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yoo.sdk.kassa.payments;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -3440,7 +3440,7 @@
 				DEVELOPMENT_TEAM = 2752592HU5;
 				INFOPLIST_FILE = "$(SRCROOT)/YooKassaPaymentsExample/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yoo.sdk.kassa.payments.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "YooKassaPaymentsExample/Source/Bridging-Header.h";
@@ -3459,7 +3459,7 @@
 				DEVELOPMENT_TEAM = 2752592HU5;
 				INFOPLIST_FILE = "$(SRCROOT)/YooKassaPaymentsExample/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yoo.sdk.kassa.payments.example.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -3479,7 +3479,7 @@
 				DEVELOPMENT_TEAM = 2752592HU5;
 				INFOPLIST_FILE = "$(SRCROOT)/YooKassaPaymentsExample/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.yandex.mobile.money.checkout.inhouse;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.yoo.sdk.kassa.payments.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "YooKassaPaymentsExample/Source/Bridging-Header.h";

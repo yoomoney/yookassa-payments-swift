@@ -352,7 +352,7 @@ final class RootViewController: UIViewController {
             tokenizationSettings: makeTokenizationSettings(),
             testModeSettings: testSettings,
             cardScanning: self,
-            applePayMerchantIdentifier: "merchant.ru.yandex.mobile.msdk.debug",
+            applePayMerchantIdentifier: "merchant.ru.yoo.sdk.kassa.payments",
             isLoggingEnabled: true,
             userPhoneNumber: "7",
             customizationSettings: CustomizationSettings(mainScheme: .blueRibbon),
