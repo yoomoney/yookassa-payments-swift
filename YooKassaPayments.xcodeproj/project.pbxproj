@@ -287,7 +287,6 @@
 		402EB9891535071C937CBBD5 /* DeviceInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB10ECDD105210396D8E9 /* DeviceInfoProvider.swift */; };
 		402EB99583C03B4D7ED0918B /* MaskedBankCardDataInputAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB022C090F30CC45D7617 /* MaskedBankCardDataInputAssembly.swift */; };
 		402EB9A12072A819B9A76CCE /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB76A45E625C03DFBA017 /* IconView.swift */; };
-		402EB9A26392A90144542FBE /* CardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCCCBA7449C8E5B073FA /* CardType.swift */; };
 		402EB9A28D0F8AD5DD5583B1 /* TextControl+BottomHintMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA98E33140B116330975 /* TextControl+BottomHintMode.swift */; };
 		402EB9AB6B7D30CC87B1D122 /* IconItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBDD7911469421B84EDA /* IconItemView.swift */; };
 		402EB9AF1EC6377E4EB997A7 /* NotificationPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6F121213207871F23C7 /* NotificationPresenting.swift */; };
@@ -403,7 +402,6 @@
 		402EBD8A4294EC7366FF3C95 /* LargeIconItemViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB2331DE85C1E08CFDE58 /* LargeIconItemViewIO.swift */; };
 		402EBD95FD7CAFB6AD2F29FC /* MockPaymentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE317B2A9FEDE4412013 /* MockPaymentService.swift */; };
 		402EBDA16A62F97489BF95AC /* WalletLoginProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA73630FCF328129C13F /* WalletLoginProcessing.swift */; };
-		402EBDA58FE5454CFC5CDDE4 /* CardConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 402EB5688528CD7F2C34CA12 /* CardConfiguration.plist */; };
 		402EBDA6F7FFB24269195FFD /* TestModeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA613775B03AC97A0BAD /* TestModeSettings.swift */; };
 		402EBDB5C4E2965E370EDE25 /* PaymentMethodsInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3A39BAE3C2CE3288E2B /* PaymentMethodsInteractorIO.swift */; };
 		402EBDB67F4914833185E457 /* TokenizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF9F81B468DF9C631FEC /* TokenizationViewController.swift */; };
@@ -423,7 +421,6 @@
 		402EBE3D748B1AD41EBD2771 /* PresentableError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA7169837B287D88A755 /* PresentableError.swift */; };
 		402EBE4D50FAA343F627978D /* TokenizationInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB9B6F518386701DB0C8F /* TokenizationInteractorIO.swift */; };
 		402EBE58A36A98F06C98DD57 /* banks.json in Resources */ = {isa = PBXBuildFile; fileRef = 402EB43CDEA9F5F132A2CF9A /* banks.json */; };
-		402EBE65EA247EAA81C10051 /* CardConfguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD18F7CAB58B8D9FBFD7 /* CardConfguration.swift */; };
 		402EBE6DC060D948B7724287 /* TextControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDD36FB9F8BC1F80BFD9 /* TextControl.swift */; };
 		402EBE713055C909AA9126E6 /* PhoneNumberInputInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE5491F56EF4D2C031C5 /* PhoneNumberInputInteractorIO.swift */; };
 		402EBE8781F0829292E715B3 /* CellDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5DE18F967D1D362AB24 /* CellDescriptor.swift */; };
@@ -608,7 +605,6 @@
 		402EB5179EE2C770276844E6 /* LinkedCardStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedCardStrategy.swift; sourceTree = "<group>"; };
 		402EB5183B4C5075C6903F81 /* UIView+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Style.swift"; sourceTree = "<group>"; };
 		402EB5258D553F400134737A /* PaymentMethodsModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsModuleIO.swift; sourceTree = "<group>"; };
-		402EB5688528CD7F2C34CA12 /* CardConfiguration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = CardConfiguration.plist; sourceTree = "<group>"; };
 		402EB572A001C6A59C33858D /* ApiSessionAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiSessionAssembly.swift; sourceTree = "<group>"; };
 		402EB584E224B50E412AB1FB /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		402EB59A0AA13970276C2405 /* PriceFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceFormatter.swift; sourceTree = "<group>"; };
@@ -788,14 +784,12 @@
 		402EBCA4155A33038689C3A6 /* PriceInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceInputPresenterStyle.swift; sourceTree = "<group>"; };
 		402EBCB4BADAB646A9C1ED4C /* ProcessingAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessingAssembly.swift; sourceTree = "<group>"; };
 		402EBCB9C339CB5A1C289436 /* PaymentMethodsViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsViewIO.swift; sourceTree = "<group>"; };
-		402EBCCCBA7449C8E5B073FA /* CardType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
 		402EBCCE907967D5F3300495 /* KeyboardObservingAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObservingAccessoryView.swift; sourceTree = "<group>"; };
 		402EBCD1E1AD1511D0FE2D98 /* MaskedBankCardDataInputPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskedBankCardDataInputPresenter.swift; sourceTree = "<group>"; };
 		402EBCD7E5A2AEB413244F2E /* ListItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListItemView.swift; sourceTree = "<group>"; };
 		402EBCE6D8DD4CCCA85A7592 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		402EBCED8FF67CEAB438F4B0 /* UIViewController+NotificationPresenting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+NotificationPresenting.swift"; sourceTree = "<group>"; };
 		402EBCF90A125D279D8D0984 /* SelectDisplayItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectDisplayItem.swift; sourceTree = "<group>"; };
-		402EBD18F7CAB58B8D9FBFD7 /* CardConfguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardConfguration.swift; sourceTree = "<group>"; };
 		402EBD24A8CA2694434FF10B /* DecimalPriceViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecimalPriceViewModel.swift; sourceTree = "<group>"; };
 		402EBD2572A1A47144B270C3 /* SettingsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		402EBD2D68EF7798A3F9B36D /* CustomizationColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizationColors.swift; sourceTree = "<group>"; };
@@ -1183,7 +1177,6 @@
 		402EB1C8E83F34A1D7D30CE0 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
-				402EB5688528CD7F2C34CA12 /* CardConfiguration.plist */,
 				402EB1F6B2E1B5879D2BCCC8 /* Hosts.plist */,
 				402EB43CDEA9F5F132A2CF9A /* banks.json */,
 			);
@@ -1913,9 +1906,7 @@
 			isa = PBXGroup;
 			children = (
 				402EBA3F8618D17FB47AC873 /* BankSettings.swift */,
-				402EBD18F7CAB58B8D9FBFD7 /* CardConfguration.swift */,
 				402EBA04C707C5EA568200DE /* CardData.swift */,
-				402EBCCCBA7449C8E5B073FA /* CardType.swift */,
 				402EBC6E1AC8DE3F0701FE15 /* HostsConfig.swift */,
 				402EB584E224B50E412AB1FB /* PaymentMethod.swift */,
 				402EBBEF9B96FD16F8D2F809 /* PaymentMethodResources.swift */,
@@ -2576,7 +2567,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				402EBDA58FE5454CFC5CDDE4 /* CardConfiguration.plist in Resources */,
 				402EB62CDBDD5CBC28E68446 /* Hosts.plist in Resources */,
 				402EBE58A36A98F06C98DD57 /* banks.json in Resources */,
 				402EB20489B718B1F3042183 /* Media.xcassets in Resources */,
@@ -2845,9 +2835,7 @@
 				402EB48E3F3E325F075B9306 /* SubmitDisplayItem.swift in Sources */,
 				402EB8EFE9F78322E4253F18 /* TextDisplayItem.swift in Sources */,
 				402EB9158F25782723DD2595 /* SelectDisplayItem.swift in Sources */,
-				402EBE65EA247EAA81C10051 /* CardConfguration.swift in Sources */,
 				402EB9C4BBC1F6EF4241A9C9 /* CardData.swift in Sources */,
-				402EB9A26392A90144542FBE /* CardType.swift in Sources */,
 				402EBDEA03C1BFD97AE64116 /* TempAmount.swift in Sources */,
 				402EB9C37ECFBE9D2B402043 /* PaymentMethod.swift in Sources */,
 				402EB9CF3E1CEA91F61C39DE /* PaymentMethodResources.swift in Sources */,
