@@ -44,16 +44,6 @@ class CardService {
         case cscInvalidLength
     }
 
-    /// Return card type for pan.
-    ///
-    /// - parameter pan: pan
-    ///
-    /// - returns: card type
-    func cardType(for pan: String) -> CardType? {
-
-        return configuration(for: pan)?.type
-    }
-
     /// Validate card data model.
     ///
     /// - parameter card: card model for validation
@@ -123,24 +113,9 @@ extension CardService {
     func validateLength(pan: String) throws {
         let panLength = pan.count
 
-        let error = ValidationError.panInvalidLength
-
-        if let configuration = configuration(for: pan) {
-            // Validate length from configuration
-
-            if let lengthRanges = configuration.lengthRanges,
-               lengthRanges.contains(where: { $0 ~= panLength }) == false {
-                throw error
-            }
-            if let lengthValues = configuration.lengthValues,
-               lengthValues.contains(panLength) == false {
-                throw error
-            }
-        } else {
-            // Validate default pan length
-            if (12...19 ~= panLength) == false {
-                throw error
-            }
+        // Validate default pan length
+        if (12...19 ~= panLength) == false {
+            throw ValidationError.panInvalidLength
         }
     }
 
@@ -171,40 +146,6 @@ extension CardService {
 
 private extension CardService {
 
-    /// Return configuration for pan
-    ///
-    /// - parameter pan: pan
-    ///
-    /// - returns: configuration with length validation and card type
-    func configuration(for pan: String) -> CardConfiguration? {
-
-        var iins: [Int: Int] = [:]
-
-        for configuration in CardService.cardConfigurations {
-            for iinRange in configuration.iinRanges {
-
-                let charactersCount = String(iinRange.lowerBound).count
-
-                if iins[charactersCount] == nil {
-                    guard let iinEndIndex = pan.index(pan.startIndex,
-                                                      offsetBy: charactersCount,
-                                                      limitedBy: pan.endIndex) else { continue }
-                    let panPrefix = pan[pan.startIndex..<iinEndIndex]
-                    guard let iin = Int(panPrefix) else { continue }
-
-                    iins[charactersCount] = iin
-                }
-
-                guard let iin = iins[charactersCount] else { continue }
-
-                if iinRange ~= iin {
-                    return configuration
-                }
-            }
-        }
-        return nil
-    }
-
     /// Call and unwrap `ValidationError` from throws closure to `Optional<ValidationError>`
     ///
     /// - parameter closure: function that can throws `ValidationError`
@@ -219,73 +160,5 @@ private extension CardService {
             }
         }
         return nil
-    }
-}
-
-// MARK: - Lazy data initializer
-
-private extension CardService {
-
-    /// Helpers alias for parsing range.
-    private typealias RangeDictionary = [String: Int]
-
-    /// Keys for parsing `CardConfiguration.plist` file
-    private enum Keys {
-        /// `iins` key. Contains array of ranges.
-        static let iins = "iins"
-        /// `length` key. Contains dictionary of length validators.
-        static let length = "length"
-        /// `values` key. Length validator with array of possible values.
-        static let values = "values"
-        /// `ranges` key. Length validator with array of possible ranges.
-        static let ranges = "ranges"
-        /// `min` key. Lower bound of range validator.
-        static let min = "min"
-        /// `max` key. Upper bound of range validator.
-        static let max = "max"
-    }
-
-    /// Lazy var with card configurations
-    static var cardConfigurations: [CardConfiguration] = {
-        guard let url = Bundle.framework.url(forResource: "CardConfiguration", withExtension: "plist"),
-              let cardDictionary = NSDictionary(contentsOf: url) as? [String: Any] else {
-            assertionFailure("Couldn't load CardConfiguration.plist from framework bundle")
-            return []
-        }
-        return cardDictionary.compactMap(configurationParser)
-    }()
-
-    /// Parse configuration dictionary.
-    ///
-    /// - parameter key: name of card configuration. Must be equal to one of exist `CardType`
-    /// - parameter value: dictionary of configuration
-    ///
-    /// - returns: card configuration
-    private static func configurationParser(key: String, value: Any) -> CardConfiguration? {
-        guard let cardType = CardType(rawValue: key),
-              let configuration = value as? [String: Any],
-              let pansSettings = configuration[Keys.iins] as? [RangeDictionary],
-              let lengthSettings = configuration[Keys.length] as? [String: Any] else { return nil }
-
-        let panRanges = pansSettings.compactMap(rangeParser)
-
-        let lengthValues = lengthSettings[Keys.values] as? [Int]
-        let lengthRanges: [CountableClosedRange<Int>]? = (lengthSettings[Keys.ranges] as? [RangeDictionary])?
-            .compactMap(rangeParser)
-        return CardConfiguration(type: cardType,
-                                 iinRanges: panRanges,
-                                 lengthRanges: lengthRanges,
-                                 lengthValues: lengthValues)
-    }
-
-    /// Parse range from dictionary
-    ///
-    /// - parameter rangeDictionary: dictionary of range for parsing
-    ///
-    /// - returns: parsed range
-    private static func rangeParser(_ rangeDictionary: RangeDictionary) -> CountableClosedRange<Int>? {
-        guard let min = rangeDictionary[Keys.min],
-              let max = rangeDictionary[Keys.max] else { return nil }
-        return (min...max)
     }
 }
