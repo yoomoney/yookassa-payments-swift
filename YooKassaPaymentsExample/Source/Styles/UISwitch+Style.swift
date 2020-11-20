@@ -29,8 +29,9 @@ extension UISwitch {
     enum Styles {
 
         /// Mustard onTintColor style
-        static let mustardOnTintColor = InternalStyle(name: "mustardOnTintColor") { (switchControl: UISwitch) in
-            switchControl.onTintColor = UIColor.mustard
+        static let blueRibbonOnTintColor = InternalStyle(name: "blueRibbonOnTintColor") { (switchControl: UISwitch) in
+            switchControl.onTintColor = UIColor.blueRibbon
         }
+
     }
 }

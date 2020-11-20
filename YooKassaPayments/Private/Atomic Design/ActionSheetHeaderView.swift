@@ -1,7 +1,7 @@
 import FunctionalSwift
 import UIKit
 
-final class MSDKActionSheetHeaderView: UIView {
+final class ActionSheetHeaderView: UIView {
     var title: String {
         set {
             titleLabel.styledText = newValue
@@ -99,7 +99,7 @@ final class MSDKActionSheetHeaderView: UIView {
         layoutMargins = UIEdgeInsets(top: Space.double,
                                      left: Space.double,
                                      bottom: Space.single,
-                                     right: Space.single)
+                                     right: Space.double)
         backgroundColor = .clear
         subscribeOnNotifications()
         setupSubviews()

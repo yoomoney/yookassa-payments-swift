@@ -35,7 +35,7 @@ class TitledSwitchView: UIView {
 
     lazy var switchControl: UISwitch = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.setStyles(UISwitch.Styles.mustardOnTintColor)
+        $0.setStyles(UISwitch.Styles.blueRibbonOnTintColor)
         $0.addTarget(self, action: #selector(onSwitchValueChange(_:)), for: .valueChanged)
         $0.setContentHuggingPriority(.required, for: .horizontal)
         $0.setContentCompressionResistancePriority(.required, for: .horizontal)

@@ -24,13 +24,13 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
         return $0
     }(UIVisualEffectView(effect: UIBlurEffect(style: blurEffectStyle)))
 
-    fileprivate lazy var headerView: MSDKActionSheetHeaderView = {
+    fileprivate lazy var headerView: ActionSheetHeaderView = {
         $0.title = §Localized.paymentMethods
         $0.backgroundColor = .clear
         $0.setContentHuggingPriority(.fittingSizeLevel, for: .vertical)
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
-    }(MSDKActionSheetHeaderView())
+    }(ActionSheetHeaderView())
 
     fileprivate lazy var separatorView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
