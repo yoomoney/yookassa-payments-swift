@@ -270,7 +270,6 @@
 		402EB9190A3073222DC3EBA8 /* TextControl+LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB12DA957C2B26AE1274 /* TextControl+LineView.swift */; };
 		402EB91BEC54829B7D570406 /* PhoneNumberInputModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAC288F1B43084EA43BC /* PhoneNumberInputModuleOutput.swift */; };
 		402EB91E8B965FFECCCFB4D0 /* LenghtValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7AEF7B5F7DEF1B20B92 /* LenghtValidator.swift */; };
-		402EB924F483EC06B6F1FC90 /* UISwitch+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB90AC2AB22E987F48BF5 /* UISwitch+Style.swift */; };
 		402EB92B510A1A0BFB6EB464 /* TermsOfService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDA93CCB741604CDF4AF /* TermsOfService.swift */; };
 		402EB933D69EDDFED2DDAB44 /* Amount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB94E653C072F4708CB50 /* Amount.swift */; };
 		402EB948B1832C8B0A29FBC2 /* UILayoutPriority+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA3026D26E32EFFB6024 /* UILayoutPriority+Constants.swift */; };
@@ -923,6 +922,14 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		308ADF612567CF8F0075DF6E /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				402EB90AC2AB22E987F48BF5 /* UISwitch+Style.swift */,
+			);
+			path = Styles;
+			sourceTree = "<group>";
+		};
 		308E41782385500E00B44490 /* SavePaymentMethodInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -1505,7 +1512,6 @@
 				402EBF04CDE1B544F5EFA654 /* UIImageView+Style.swift */,
 				402EBDAAC92273068B52009E /* UINavigationBar+Style.swift */,
 				402EBE0540BBB606CFA8207E /* UIBarButtonItem+Style.swift */,
-				402EB90AC2AB22E987F48BF5 /* UISwitch+Style.swift */,
 				402EB8295ED9FF21E41876C2 /* UIScrollView+Style.swift */,
 			);
 			path = "UIKit+Styles";
@@ -2382,6 +2388,7 @@
 		402EBFDB9FF2B3958BDF2C52 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				308ADF612567CF8F0075DF6E /* Styles */,
 				402EB1120CDE2621591F3CD4 /* Extensions */,
 				402EB04DD981C5FC1C5C58A5 /* Services */,
 				402EB9CDA6AF7F7DF6D28AC1 /* ViewControllers */,
@@ -2761,7 +2768,6 @@
 				402EB2F13EA4EBCE01956D61 /* UIImageView+Style.swift in Sources */,
 				402EBD2767032917D2486044 /* UINavigationBar+Style.swift in Sources */,
 				402EBFAAC2EC4686CE4488A8 /* UIBarButtonItem+Style.swift in Sources */,
-				402EB924F483EC06B6F1FC90 /* UISwitch+Style.swift in Sources */,
 				402EB00B9EC9B560D706EC06 /* UIScrollView+Style.swift in Sources */,
 				402EB43FAD5652F9095B47FF /* ActivityIndicatorView+Style.swift in Sources */,
 				402EB1BC568F568FD6E10047 /* ActivityIndicatorView.swift in Sources */,
