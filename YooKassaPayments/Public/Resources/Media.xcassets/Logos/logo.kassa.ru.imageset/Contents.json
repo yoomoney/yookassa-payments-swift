@@ -3,6 +3,16 @@
     {
       "filename" : "logo.kassa.ru.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "logo.kassa.ru-inverse.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
