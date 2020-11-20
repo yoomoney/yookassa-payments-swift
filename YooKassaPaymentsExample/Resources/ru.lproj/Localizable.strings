@@ -19,13 +19,13 @@
 
 "settings.title" = "Настройки";
 "settings.payment_methods.title" = "Способы оплаты";
-"settings.payment_methods.yoo_money" = "Яндекс.Деньги";
+"settings.payment_methods.yoo_money" = "ЮMoney";
 "settings.payment_methods.bank_card" = "Банковская карта";
 "settings.payment_methods.sberbank" = "Сбербанк Онлайн";
 "settings.payment_methods.apple_pay" = "Apple Pay";
-"settings.ui_customization.yoo_money_logo" = "Логотип Яндекс.Кассы";
+"settings.ui_customization.yoo_money_logo" = "Логотип ЮKassa";
 "settings.test_mode.title" = "Тестовый режим";
 
-"success.description" = "Создайте платёж по API Яндекс.Кассы, передайте этот токен в параметре payment_token.";
+"success.description" = "Создайте платёж по API ЮKassa, передайте этот токен в параметре payment_token.";
 "success.button.docs" = "Посмотреть документацию";
 "success.button.send_token" = "Отправить токен";
