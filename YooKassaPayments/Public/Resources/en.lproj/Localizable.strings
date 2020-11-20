@@ -21,20 +21,20 @@
 "Error.resendAuthCodeAndStartOver" = "Error, try again";
 
 /*С сервера пришел неподдерживаемый способ прохождения платежной авторизации.*/
-"Error.unsupportedAuthType" = "This method of receiving passwords is not supported. You can change it in the wallet settings on the Yandex.Money website";
+"Error.unsupportedAuthType" = "This method of receiving passwords is not supported. You can change it in the wallet settings on the YooMoney website";
 
 /*Способ оплаты сбербанк онлайн*/
 "PaymentMethod.sberbank" = "Sberbank Online";
 
-/* https://yadi.sk/i/e-y9WwBb3VwYzm Текст на кнопке, рядом с текстом ошибки, когда пользователь успешно авторизовался в аккаунте Яндекса и у него нет кошелька.*/
+/* https://yadi.sk/i/e-y9WwBb3VwYzm Текст на кнопке, рядом с текстом ошибки, когда пользователь успешно авторизовался в аккаунте YooMoney и у него нет кошелька.*/
 "PaymentOptionsNoWallet.buttonTitle" = "Continue without wallet";
 
-/*https://yadi.sk/i/e-y9WwBb3VwYzm Текст ошибки, когда пользователь успешно авторизовался в аккаунте Яндекса и у него нет кошелька.*/
-"PaymentOptionsNoWallet.title" = "You don't have a Yandex.Money Wallet";
+/*https://yadi.sk/i/e-y9WwBb3VwYzm Текст ошибки, когда пользователь успешно авторизовался в аккаунте YooMoney и у него нет кошелька.*/
+"PaymentOptionsNoWallet.title" = "You don't have a YooMoney Wallet";
 
 "PaymentMethods.paymentMethods" = "PAYMENT METHODS";
 
-"PaymentMethod.wallet" = "YooMoney (ex. Yandex.Money)";
+"PaymentMethod.wallet" = "YooMoney";
 
 "PaymentMethod.applePay" = "Apple Pay";
 
@@ -115,11 +115,11 @@
 
 "SavePaymentMethodInfo.Wallet.Header" = "Permission to debit money without your participation";
 
-"SavePaymentMethodInfo.Wallet.Body" = "It means that you are giving Yandex.Money your prior consent to debit money from your wallet upon store's request without any additional confirmation from your side.\n\nYou can disable this permission at any moment in the wallet settings (on the Yandex.Money website).";
+"SavePaymentMethodInfo.Wallet.Body" = "It means that you are giving YooMoney your prior consent to debit money from your wallet upon store's request without any additional confirmation from your side.\n\nYou can disable this permission at any moment in the wallet settings (on the YooMoney website).";
 
 "SavePaymentMethodInfo.BankCard.Header" = "Permission to debit money upon store's request";
 
-"SavePaymentMethodInfo.BankCard.Body" = "It means that you are giving Yandex.Money your prior consent to debit money upon store's request without any additional confirmation from your side from this card or a new one in case it is reissued (if your bank can update the data automatically).\n\nYou can unlink the card at any moment via store's support service.";
+"SavePaymentMethodInfo.BankCard.Body" = "It means that you are giving YooMoney your prior consent to debit money upon store's request without any additional confirmation from your side from this card or a new one in case it is reissued (if your bank can update the data automatically).\n\nYou can unlink the card at any moment via store's support service.";
 
 /* Текст условий сервиса с ссылкой на экране установки пароля для пользователя без установленной почты https://yadi.sk/i/DgL-5V4hQL15WQ */
 "Wallet.Authorization.addEmailTitle" = "For receipts and notifications";
@@ -146,10 +146,10 @@
 "Wallet.Authorization.migrationScreenTitle" = "Why do I need to switch?";
 
 /* Текст на экране про миграцию, который после нажатия на немигрированный аккаунт на экране выбора аккаунта https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.userAgreementTitle" = "By clicking this button, I confirm that I'm aware of <a href=\"https://yandex.ru/legal/rules\">all the legal terms and conditions of the service</a> and I accept them as well as the fact that if I don't enable notifications to my email address or phone number, my transaction history in the YooMoney app or on the website will be the only available source of information";
+"Wallet.Authorization.userAgreementTitle" = "By clicking this button, I confirm that I'm aware of <a href=\"https://yoomoney.ru/page?id=525698%5C\">all the legal terms and conditions of the service</a> and I accept them as well as the fact that if I don't enable notifications to my email address or phone number, my transaction history in the YooMoney app or on the website will be the only available source of information";
 
 /* Текст с ссылкой под кнопкой на экране про миграцию, который после нажатия на немигрированный аккаунт на экране выбора аккаунта https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.userWithEmailAgreementTitle" = "By clicking this button, I confirm that I'm aware of <a href=\"https://money.yandex.ru/doc.xml?id=523015\"> all the legal terms and conditions of the service</a>";
+"Wallet.Authorization.userWithEmailAgreementTitle" = "By clicking this button, I confirm that I'm aware of <a href=\"https://yoomoney.ru/page?id=525698%5C\"> all the legal terms and conditions of the service</a>";
 
 /* Текст на баннере миграции https://yadi.sk/i/IuBf_A1_uq2zSg */
 "Wallet.Authorization.migrationBannerText" = "If you signed up before October 21, you need to switch to YooMoney";
