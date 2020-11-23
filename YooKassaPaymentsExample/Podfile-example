@@ -1,0 +1,11 @@
+source 'https://github.com/CocoaPods/Specs.git'
+source 'git@github.com:yoomoney-tech/cocoa-pod-specs.git'
+
+platform :ios, '10.0'
+use_frameworks!
+
+target 'YooKassaPaymentsExamplePods' do
+  pod 'YooKassaPayments',
+    :git => 'https://github.com/yoomoney/yookassa-payments-swift.git',
+    :tag => '4.0.0'
+end
