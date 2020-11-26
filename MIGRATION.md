@@ -158,7 +158,7 @@ gem install cocoapods
 
 > Если вы используете `Bundler` для контроля зависимостей `RubyGems`, то необходимо внести изменения в `Gemfile`.
 
-### Если вы используете метод оплаты "Яндекс.Деньги"
+### Если вы используете метод оплаты "ЮMoney"
 
 В модели `TokenizationModuleInputData` появился новый необязательный параметр, `moneyAuthClientId`, который необходимо передавать.\
 [Подробнее тут](https://github.com/yoomoney/yookassa-payments-swift#юmoney).
