@@ -38,7 +38,7 @@ DEPENDENCIES:
   - YooKassaPayments (from `./`)
 
 SPEC REPOS:
-  "git@github.com:oltv00/cocoa-pod-specs.git":
+  "git@github.com:yoomoney-tech/cocoa-pod-specs.git":
     - MoneyAuth
   https://github.com/CocoaPods/Specs.git:
     - CardIO
@@ -58,7 +58,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   FunctionalSwift: 1b839fcf50b8db067885938df54f818518356dbb
-  MoneyAuth: 7f727f4c63fcc5c0e741ae90dfae362574ce29a5
+  MoneyAuth: 906847277f9b3e0c59e920133dad70a0933374ab
   Reveal-SDK: 306e2880395ee396f5a8b4c485c3a86dd19866c7
   SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
   When: 4ffc88d535a094ad4bd5eaf2fd187de747e716d1
@@ -68,6 +68,6 @@ SPEC CHECKSUMS:
   YooKassaWalletApi: 5fa5f93ebd08d926f8f4adaa5f50863ce6602013
   YooMoneyCoreApi: 4f40673a79d11e95af850bb97f264995ac47a873
 
-PODFILE CHECKSUM: 101f55173d07b8e5e6b92a64fc573a4e6eb0460f
+PODFILE CHECKSUM: 21ae6764ed821a2f4f99d49b8963d8445b12413e
 
 COCOAPODS: 1.10.0
