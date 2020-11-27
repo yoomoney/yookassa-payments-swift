@@ -1,11 +1,56 @@
 # Migration guide
 
 - [Migration guide](#migration-guide)
-  - [3.\*.\* -> 4.\*.\*](#3---4)
+  - [4.\*.\* -> 5.\*.\*](#4---5)
+    - [Изменить Podfile](#изменить-podfile)
+    - [Изменить код интеграции](#изменить-код-интеграции)
+  - [\*.\*.\* -> 4.\*.\*](#---4)
     - [Удалить `YandexLoginSDK`](#удалить-yandexloginsdk)
-    - [Добавить ссылку на pod repo](#добавить-ссылку-на-pod-repo)
+    - [Добавить новые зависимости](#добавить-новые-зависимости)
+    - [Если вы используете метод оплаты "Яндекс.Деньги"](#если-вы-используете-метод-оплаты-яндексденьги)
   - [2.\*.\* -> 3.\*.\*](#2---3)
   - [2.1.0 -> 2.2.0](#210---220)
+
+## 4.\*.\* -> 5.\*.\*
+
+В версии 5.\*.\* был переименован модуль SDK и некоторые зависимости.
+
+Для корректной интеграции SDK, нужно изменить некоторые параметры.
+
+### Изменить Podfile
+
+- pod `'YandexCheckoutPayments'` -> pod `'YooKassaPayments'`
+- :git => 'https://github.com/yoomoney/yookassa-payments-swift.git'
+
+```shell
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/yoomoney-tech/cocoa-pod-specs.git'
+
+platform :ios, '10.0'
+use_frameworks!
+
+target 'Your Target Name' do
+  pod 'YooKassaPayments',
+    :git => 'https://github.com/yoomoney/yookassa-payments-swift.git',
+    :tag => 'tag'
+end
+```
+
+### Изменить код интеграции
+
+Поменять названия библиотек при импорте:
+
+- `YandexCheckoutPayments` -> `YooKassaPayments`
+- `YandexCheckoutPaymentsApi` -> `YooKassaPaymentsApi`
+
+В методе `didFinish(on module:error:)` протокола `TokenizationModuleOutput` изменить тип ошибки:
+
+- `YandexCheckoutPaymentsError` -> `YooKassaPaymentsError`
+
+Если вы передаете `TokenizationSettings` в `TokenizationModuleInputData`, необходимо изменить:
+
+- элемент `PaymentMethodTypes` - `yandexMoney` -> `yooMoney`
+- название параметра `showYandexCheckoutLogo` -> `showYooKassaLogo`
 
 ## \*.\*.\* -> 4.\*.\*
 
@@ -87,18 +132,18 @@ func application(_ app: UIApplication,
 1. В `Podfile` вашего проекто добавить ссылку вида:
 
 ```ruby
-source 'https://github.com/yandex-money-tech/cocoa-pod-specs.git'
+source 'https://github.com/yoomoney-tech/cocoa-pod-specs.git'
 ```
 
 или
 
 ```ruby
-source 'git@github.com:yandex-money-tech/cocoa-pod-specs.git'
+source 'git@github.com:yoomoney-tech/cocoa-pod-specs.git'
 ```
 
 в зависимости от вашего подключения к github.com через CLI.
 
-[Пример готового Podfile](https://github.com/yandex-money/yandex-checkout-payments-swift/tree/master/YandexCheckoutPaymentsExample/Podfile-example)
+[Пример готового Podfile](https://github.com/yoomoney/yookassa-payments-swift/tree/master/YooKassaPaymentsExample/Podfile-example)
 
 2. Зависимость `MoneyAuth` подключается в виде `.xcframework`, и к сожалению версия CocoaPods 1.9.3 [не умеет корректно с ними работать](https://github.com/CocoaPods/CocoaPods/issues?q=is%3Aissue+xcframework).\
 Необходимо обновить версию `CocoaPods` выше 1.9.3\
@@ -113,10 +158,10 @@ gem install cocoapods
 
 > Если вы используете `Bundler` для контроля зависимостей `RubyGems`, то необходимо внести изменения в `Gemfile`.
 
-### Если вы используете метод оплаты "Яндекс.Деньги"
+### Если вы используете метод оплаты "ЮMoney"
 
 В модели `TokenizationModuleInputData` появился новый необязательный параметр, `moneyAuthClientId`, который необходимо передавать.\
-[Подробнее тут](https://github.com/yandex-money/yandex-checkout-payments-swift#Яндекс-Деньги).
+[Подробнее тут](https://github.com/yoomoney/yookassa-payments-swift#юmoney).
 
 ## 2.\*.\* -> 3.\*.\*
 
@@ -133,8 +178,6 @@ gem install cocoapods
 `SavePaymentMethod.off` - Не дает пользователю выбрать, сохранять способ оплаты или нет.
 
 `SavePaymentMethod.userSelects` - Пользователь выбирает, сохранять платёжный метод или нет. Если метод можно сохранить, на экране контракта появится переключатель.
-
- Подробнее про проведения рекуррентных платежей можно [прочитать тут](https://kassa.yandex.ru/developers/payments/recurring-payments).
 
 ## 2.1.0 -> 2.2.0
 
@@ -178,3 +221,5 @@ was changed to
 func didFinish(on module: TokenizationModuleInput,
                with error: YandexCheckoutPaymentsError?)
 ```
+
+ Подробнее про проведения рекуррентных платежей можно [прочитать тут](https://yookassa.ru/developers/payments/recurring-payments).

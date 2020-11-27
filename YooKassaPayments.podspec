@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name      = 'YooKassaPayments'
-  s.version   = '4.1.0'
+  s.version   = '5.0.0'
   s.homepage  = 'https://github.com/yoomoney/yookassa-payments-swift'
   s.license   = {
     :type => "MIT",
@@ -47,5 +47,5 @@ Pod::Spec.new do |s|
   s.ios.dependency 'YooKassaWalletApi', '~> 2.2.0'
   s.ios.dependency 'YandexMobileMetrica/Dynamic', '~> 3.7.0'
 
-  s.ios.dependency 'MoneyAuth', '~> 1.2.2'
+  s.ios.dependency 'MoneyAuth', '~> 2.0.0'
 end

@@ -1,21 +1,21 @@
-# Yandex Checkout Payments SDK
+# YooKassa Payments SDK
 
 [![Platform](https://img.shields.io/badge/Support-iOS%2010.0+-brightgreen.svg)](https://img.shields.io/badge/Support-iOS%2010.3+-brightgreen.svg)
-[![GitHub tag](https://img.shields.io/github/tag/yandex-money/yandex-checkout-payments-swift.svg)](https://img.shields.io/github/tag/yandex-money/yandex-checkout-payments-swift.svg)
+[![GitHub tag](https://img.shields.io/github/tag/yoomoney/yookassa-payments-swift.svg)](https://img.shields.io/github/tag/yoomoney/yookassa-payments-swift.svg)
 [![Documentation](docs/badge.svg)](docs/badge.svg)
-[![license](https://img.shields.io/github/license/yandex-money/yandex-checkout-payments-swift.svg)](https://img.shields.io/github/license/yandex-money/yandex-checkout-payments-swift.svg)
+[![license](https://img.shields.io/github/license/yoomoney/yookassa-payments-swift.svg)](https://img.shields.io/github/license/yoomoney/yookassa-payments-swift.svg)
 
-Библиотека позволяет встроить прием платежей в мобильные приложения на iOS и работает как дополнение к API Яндекс.Кассы.\
+Библиотека позволяет встроить прием платежей в мобильные приложения на iOS и работает как дополнение к API ЮKassa.\
 В мобильный SDK входят готовые платежные интерфейсы (форма оплаты и всё, что с ней связано).\
-С помощью SDK можно получать токены для проведения оплаты с банковской карты, через Apple Pay, Сбербанк Онлайн или из кошелька в Яндекс.Деньгах.
+С помощью SDK можно получать токены для проведения оплаты с банковской карты, через Apple Pay, Сбербанк Онлайн или из кошелька в ЮMoney.
 
-- [Код библиотеки](https://github.com/yandex-money/yandex-checkout-payments-swift/tree/master/YandexCheckoutPayments)
-- [Код демо-приложения, которое интегрирует SDK](https://github.com/yandex-money/yandex-checkout-payments-swift/tree/master/YandexCheckoutPaymentsExample)
-- [Документация](https://yandex-money.github.io/yandex-checkout-payments-swift/)
+- [Код библиотеки](https://github.com/yoomoney/yookassa-payments-swift/tree/master/YooKassaPayments)
+- [Код демо-приложения, которое интегрирует SDK](https://github.com/yoomoney/yookassa-payments-swift/tree/master/YooKassaPaymentsExample)
+- [Документация](https://yoomoney.github.io/yookassa-payments-swift/)
 
 ---
 
-- [Yandex Checkout Payments SDK](#yandex-checkout-payments-sdk)
+- [YooKassa Payments SDK](#yookassa-payments-sdk)
   - [Changelog](#changelog)
   - [Migration guide](#migration-guide)
   - [Подключение зависимостей](#подключение-зависимостей)
@@ -25,13 +25,15 @@
   - [Быстрая интеграция](#быстрая-интеграция)
   - [Доступные способы оплаты](#доступные-способы-оплаты)
   - [Настройка способов оплаты](#настройка-способов-оплаты)
-    - [Яндекс Деньги](#яндекс-деньги)
+    - [ЮMoney](#юmoney)
+      - [Как получить `client id` центра авторизации системы `ЮMoney`](#как-получить-client-id-центра-авторизации-системы-юmoney)
+      - [Передать `client id` в параметре `moneyAuthClientId`](#передать-client-id-в-параметре-moneyauthclientid)
     - [Банковская карта](#банковская-карта)
     - [Сбербанк Онлайн](#сбербанк-онлайн)
     - [Apple Pay](#apple-pay)
   - [Описание публичных параметров](#описание-публичных-параметров)
     - [TokenizationFlow](#tokenizationflow)
-    - [YandexCheckoutPaymentsError](#yandexcheckoutpaymentserror)
+    - [YooKassaPaymentsError](#yookassapaymentserror)
     - [TokenizationModuleInputData](#tokenizationmoduleinputdata)
     - [BankCardRepeatModuleInputData](#bankcardrepeatmoduleinputdata)
     - [TokenizationSettings](#tokenizationsettings)
@@ -51,11 +53,11 @@
 
 ## Changelog
 
-[Ссылка на Changelog](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/CHANGELOG.md)
+[Ссылка на Changelog](https://github.com/yoomoney/yookassa-payments-swift/blob/master/CHANGELOG.md)
 
 ## Migration guide
 
-[Ссылка на Migration guide](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/MIGRATION.md)
+[Ссылка на Migration guide](https://github.com/yoomoney/yookassa-payments-swift/blob/master/MIGRATION.md)
 
 ## Подключение зависимостей
 
@@ -75,24 +77,24 @@ gem install cocoapods
 > CocoaPods предоставляет команду ```pod init``` для создания Podfile с настройками по умолчанию.
 
 2. Добавьте зависимости в `Podfile`.\
-  [Пример](https://github.com/yandex-money/yandex-checkout-payments-swift/tree/master/YandexCheckoutPaymentsExample/Podfile-example) `Podfile` из демо-приложения.
+  [Пример](https://github.com/yoomoney/yookassa-payments-swift/tree/master/YooKassaPaymentsExample/Podfile-example) `Podfile` из демо-приложения.
 
 ```shell
 source 'https://github.com/CocoaPods/Specs.git'
-source 'https://github.com/yandex-money-tech/cocoa-pod-specs.git'
+source 'https://github.com/yoomoney-tech/cocoa-pod-specs.git'
 
 platform :ios, '10.0'
 use_frameworks!
 
 target 'Your Target Name' do
-  pod 'YandexCheckoutPayments',
-    :git => 'https://github.com/yandex-money/yandex-checkout-payments-swift.git',
+  pod 'YooKassaPayments',
+    :git => 'https://github.com/yoomoney/yookassa-payments-swift.git',
     :tag => 'tag'
 end
 ```
 
 > `Your Target Name` - название таргета в Xcode для вашего приложения.\
-> `tag` - версия SDK. Актуальную версию можно узнать на github в разделе [releases](https://github.com/yandex-money/yandex-checkout-payments-swift/releases).
+> `tag` - версия SDK. Актуальную версию можно узнать на github в разделе [releases](https://github.com/yoomoney/yookassa-payments-swift/releases).
 
 3. Выполните команду `pod install`
 
@@ -102,7 +104,7 @@ end
 
 ## Подключение TMXProfiling и TMXProfilingConnections
 
-Чтобы получить файл `.framework`,  [зарегистрируйтесь в Яндекс.Кассе](https://kassa.yandex.ru/joinups)
+Чтобы получить файл `.framework`,  [зарегистрируйтесь в ЮKassa](https://yookassa.ru/joinups)
 и сообщите вашему менеджеру, что хотите подключить мобильный SDK.
 
 1. Используя Finder или другой файловый менеджер добавьте библиотеки `TMXProfiling.framework` и `TMXProfilingConnections.framework` в папку `Frameworks`.
@@ -126,13 +128,13 @@ App
 
 ## Быстрая интеграция
 
-1. Создайте `TokenizationModuleInputData` (понадобится [ключ для клиентских приложений](https://kassa.yandex.ru/my/tunes) из личного кабинета Яндекс.Кассы). В этой модели передаются параметры платежа (валюта и сумма) и параметры платежной формы, которые увидит пользователь при оплате (способы оплаты, название магазина и описание заказа).
+1. Создайте `TokenizationModuleInputData` (понадобится [ключ для клиентских приложений](https://yookassa.ru/my/tunes) из личного кабинета ЮKassa). В этой модели передаются параметры платежа (валюта и сумма) и параметры платежной формы, которые увидит пользователь при оплате (способы оплаты, название магазина и описание заказа).
 
-> Для работы с сущностями YandexCheckoutPayments импортируйте зависимости в исходный файл
+> Для работы с сущностями YooKassaPayments импортируйте зависимости в исходный файл
 
 ```swift
-import YandexCheckoutPayments
-import YandexCheckoutPaymentsApi
+import YooKassaPayments
+import YooKassaPaymentsApi
 ```
 
 Пример создания `TokenizationModuleInputData`:
@@ -183,7 +185,7 @@ extension ViewController: TokenizationModuleOutput {
     }
 
     func didFinish(on module: TokenizationModuleInput,
-                   with error: YandexCheckoutPaymentsError?) {
+                   with error: YooKassaPaymentsError?) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.dismiss(animated: true)
@@ -201,13 +203,13 @@ extension ViewController: TokenizationModuleOutput {
 }
 ```
 
-Закройте модуль SDK и отправьте токен в вашу систему. Затем [создайте платеж](https://kassa.yandex.ru/docs/guides/#custom) по API Яндекс.Кассы, в параметре `payment_token` передайте токен, полученный в SDK. Способ подтверждения при создании платежа зависит от способа оплаты, который выбрал пользователь. Он приходит вместе с токеном в `paymentMethodType`.
+Закройте модуль SDK и отправьте токен в вашу систему. Затем [создайте платеж](https://yookassa.ru/developers/api#create_payment) по API ЮKassa, в параметре `payment_token` передайте токен, полученный в SDK. Способ подтверждения при создании платежа зависит от способа оплаты, который выбрал пользователь. Он приходит вместе с токеном в `paymentMethodType`.
 
 ## Доступные способы оплаты
 
 Сейчас в SDK для iOS доступны следующие способы оплаты:
 
-`.yandexMoney` — Яндекс.Деньги (платежи из кошелька или привязанной картой)\
+`.yooMoney` — ЮMoney (платежи из кошелька или привязанной картой)\
 `.bankCard` — банковская карта (карты можно сканировать)\
 `.sberbank` — Сбербанк Онлайн (с подтверждением по смс)\
 `.applePay` — Apple Pay
@@ -234,9 +236,9 @@ if <Условие для Сбербанка Онлайн> {
     paymentMethodTypes.insert(.sberbank)
 }
 
-if <Условие для Яндекс.Денег> {
-    // Добавляем в paymentMethodTypes элемент `.yandexMoney`
-    paymentMethodTypes.insert(.yandexMoney)
+if <Условие для ЮMoney> {
+    // Добавляем в paymentMethodTypes элемент `.yooMoney`
+    paymentMethodTypes.insert(.yooMoney)
 }
 
 if <Условие для Apple Pay> {
@@ -249,14 +251,14 @@ let tokenizationSettings = TokenizationSettings(paymentMethodTypes: paymentMetho
 
 Теперь используйте `tokenizationSettings` при инициализации `TokenizationModuleInputData`.
 
-### Яндекс Деньги
+### ЮMoney
 
-Для подключения способа оплаты `Яндекс.Деньги` необходимо:
+Для подключения способа оплаты `ЮMoney` необходимо:
 
-1. Получить `client id` центра авторизации системы `YooMoney`.
+1. Получить `client id` центра авторизации системы `ЮMoney`.
 2. При создании `TokenizationModuleInputData` передать `client id` в параметре `moneyAuthClientId`
 
-#### Как получить `client id` центра авторизации системы `YooMoney`
+#### Как получить `client id` центра авторизации системы `ЮMoney`
 
 1. Авторизуйтесь на [yookassa.ru](https://yookassa.ru)
 2. Перейти на страницу регистрации клиентов СЦА - [yookassa.ru/oauth/v2/client](https://yookassa.ru/oauth/v2/client)
@@ -283,15 +285,15 @@ let moduleData = TokenizationModuleInputData(
 
 Чтобы провести платеж:
 
-1. При создании `TokenizationModuleInputData` передайте значение `.yandexMoney` в `paymentMethodTypes.`
+1. При создании `TokenizationModuleInputData` передайте значение `.yooMoney` в `paymentMethodTypes.`
 2. Получите токен.
-3. [Создайте платеж](https://kassa.yandex.ru/docs/guides#custom) с токеном по API Яндекс.Кассы.
+3. [Создайте платеж](https://yookassa.ru/developers/api#create_payment) с токеном по API ЮKassa.
 
 ### Банковская карта
 
 1. При создании `TokenizationModuleInputData` передайте значение `.bankcard` в `paymentMethodTypes`.
 2. Получите токен.
-3. [Создайте платеж](https://kassa.yandex.ru/docs/guides#custom) с токеном по API Яндекс.Кассы.
+3. [Создайте платеж](https://yookassa.ru/developers/api#create_payment) с токеном по API ЮKassa.
 
 ### Сбербанк Онлайн
 
@@ -299,11 +301,11 @@ let moduleData = TokenizationModuleInputData(
 
 1. При создании `TokenizationModuleInputData` передайте значение `.sberbank` в `paymentMethodTypes`.
 2. Получите токен.
-3. [Создайте платеж](https://kassa.yandex.ru/docs/guides#custom) с токеном по API Яндекс.Кассы.
+3. [Создайте платеж](https://yookassa.ru/developers/api#create_payment) с токеном по API ЮKassa.
 
 ### Apple Pay
 
-1. Чтобы подключить Apple Pay, нужно передать Яндекс.Кассе сертификат, с помощью которого Apple будет шифровать данные банковских карт.
+1. Чтобы подключить Apple Pay, нужно передать в ЮKassa сертификат, с помощью которого Apple будет шифровать данные банковских карт.
 
 Для этого:
 
@@ -311,7 +313,7 @@ let moduleData = TokenizationModuleInputData(
 - Создайте сертификат в панели разработчика Apple (используйте `.csr`).
 - Скачайте получившийся сертификат и пришлите менеджеру.
 
-[Подробная инструкция](https://kassa.yandex.ru/files/manual_connection_Apple_Pay(website).pdf) (см. раздел 2 «Обмен сертификатами с Apple»)
+[Подробная инструкция](https://yookassa.ru/files/manual_connection_Apple_Pay(website).pdf) (см. раздел 2 «Обмен сертификатами с Apple»)
 
 2. Включите Apple Pay в Xcode.
 
@@ -333,7 +335,7 @@ let moduleData = TokenizationModuleInputData(
 ```
 
 2. Получите токен.
-3. [Создайте платеж](https://kassa.yandex.ru/docs/guides#custom) с токеном по API Яндекс.Кассы.
+3. [Создайте платеж](https://yookassa.ru/developers/api#create_payment) с токеном по API ЮKassa.
 
 ## Описание публичных параметров
 
@@ -343,10 +345,10 @@ let moduleData = TokenizationModuleInputData(
 
 | Case           | Тип              | Описание |
 | -------------- | ---------------- | -------- |
-| tokenization   | TokenizationFlow | Принимает на вход модель `TokenizationModuleInputData`. Логика для токенизации несколько способов оплаты на выбор: Банковская карта, Яндекс Деньги, Сбербанк-Онлайн, Apple Pay |
+| tokenization   | TokenizationFlow | Принимает на вход модель `TokenizationModuleInputData`. Логика для токенизации несколько способов оплаты на выбор: Банковская карта, ЮMoney, Сбербанк-Онлайн, Apple Pay |
 | bankCardRepeat | TokenizationFlow | Принимает на вход модель `BankCardRepeatModuleInputData`. Логика для токенизации сохраненных способов оплаты по идентификатору способа оплаты |
 
-### YandexCheckoutPaymentsError
+### YooKassaPaymentsError
 
 `Enum` с возможными ошибками, которые можно обработать в методе `func didFinish(on module:, with error:)`
 
@@ -360,7 +362,7 @@ let moduleData = TokenizationModuleInputData(
 
 | Параметр             | Тип    | Описание |
 | -------------------- | ------ | -------- |
-| clientApplicationKey | String            | Ключ для клиентских приложений из личного кабинета Яндекс.Кассы |
+| clientApplicationKey | String            | Ключ для клиентских приложений из личного кабинета ЮKassa |
 | shopName             | String            | Название магазина в форме оплаты |
 | purchaseDescription  | String            | Описание заказа в форме оплаты |
 | amount               | Amount            | Объект, содержащий сумму заказа и валюту |
@@ -371,7 +373,7 @@ let moduleData = TokenizationModuleInputData(
 | Параметр                   | Тип                   | Описание |
 | -------------------------- | --------------------- | -------- |
 | gatewayId                  | String                | По умолчанию `nil`. Используется, если у вас несколько платежных шлюзов с разными идентификаторами. |
-| tokenizationSettings       | TokenizationSettings  | По умолчанию используется стандартный инициализатор со всеми способами оплаты. Параметр отвечает за настройку токенизации (способы оплаты и логотип Яндекс.Кассы). |
+| tokenizationSettings       | TokenizationSettings  | По умолчанию используется стандартный инициализатор со всеми способами оплаты. Параметр отвечает за настройку токенизации (способы оплаты и логотип ЮKassa). |
 | testModeSettings           | TestModeSettings      | По умолчанию `nil`. Настройки тестового режима. |
 | cardScanning               | CardScanning          | По умолчанию `nil`. Возможность сканировать банковские карты. |
 | applePayMerchantIdentifier | String                | По умолчанию `nil`. Apple Pay merchant ID (обязательно для платежей через Apple Pay). |
@@ -387,7 +389,7 @@ let moduleData = TokenizationModuleInputData(
 
 | Параметр             | Тип    | Описание |
 | -------------------- | ------ | -------- |
-| clientApplicationKey | String | Ключ для клиентских приложений из личного кабинета Яндекс.Кассы |
+| clientApplicationKey | String | Ключ для клиентских приложений из личного кабинета ЮKassa |
 | shopName             | String | Название магазина в форме оплаты |
 | purchaseDescription  | String | Описание заказа в форме оплаты |
 | paymentMethodId      | String | Идентификатор сохраненного способа оплаты |
@@ -404,19 +406,19 @@ let moduleData = TokenizationModuleInputData(
 
 ### TokenizationSettings
 
-Можно настроить список способов оплаты и отображение логотипа Яндекс.Кассы в приложении.
+Можно настроить список способов оплаты и отображение логотипа ЮKassa в приложении.
 
 | Параметр               | Тип                | Описание |
 | ---------------------- | ------------------ | -------- |
 | paymentMethodTypes     | PaymentMethodTypes | По умолчанию `.all`. [Способы оплаты](#настройка-способов-оплаты), доступные пользователю в приложении. |
-| showYandexCheckoutLogo | Bool               | По умолчанию `true`. Отвечает за отображение логотипа Яндекс.Кассы. По умолчанию логотип отображается. |
+| showYooKassaLogo       | Bool               | По умолчанию `true`. Отвечает за отображение логотипа ЮKassa. По умолчанию логотип отображается. |
 
 ### TestModeSettings
 
 | Параметр                   | Тип    | Описание |
 | -------------------------- | ------ | -------- |
-| paymentAuthorizationPassed | Bool   | Определяет, пройдена ли платежная авторизация при оплате Яндекс.Деньгами. |
-| cardsCount                 | Int    | Количество привязанные карт к кошельку в Яндекс.Деньгах. |
+| paymentAuthorizationPassed | Bool   | Определяет, пройдена ли платежная авторизация при оплате ЮMoney. |
+| cardsCount                 | Int    | Количество привязанные карт к кошельку в ЮMoney. |
 | charge                     | Amount | Сумма и валюта платежа. |
 | enablePaymentError         | Bool   | Определяет, будет ли платеж завершен с ошибкой. |
 
@@ -588,7 +590,7 @@ let moduleData = TokenizationModuleInputData(
 1. Сделать `git clone` репозитория.
 
 ```shell
-git clone https://github.com/yandex-money/yandex-checkout-payments-swift.git
+git clone https://github.com/yoomoney/yookassa-payments-swift.git
 ```
 
 2. Добавить `TMXProfiling.framework` и `TMXProfilingConnections.framework` в папку `Frameworks`, которая находится на одном уровне с папкой `Pods` (см. [Подключение TMXProfiling и TMXProfilingConnections](#%d0%9f%d0%be%d0%b4%d0%ba%d0%bb%d1%8e%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-tmxprofiling-%d0%b8-tmxprofilingconnections))
@@ -600,7 +602,7 @@ bundle
 pod install
 ```
 
-4. Открыть `YandexCheckoutPayments.xcworkspace`.
+4. Открыть `YooKassaPayments.xcworkspace`.
 5. Выбрать и запустить схему `ExamplePods`.
 
 ## Кастомизация интерфейса
@@ -650,4 +652,4 @@ present(viewController, animated: true, completion: nil)
 
 ## Лицензия
 
-Yandex Checkout Payments SDK доступна под лицензией MIT. Смотрите [LICENSE](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/LICENSE) файл для получения дополнительной информации.
+YooKassa Payments SDK доступна под лицензией MIT. Смотрите [LICENSE](https://github.com/yoomoney/yookassa-payments-swift/blob/master/LICENSE) файл для получения дополнительной информации.
