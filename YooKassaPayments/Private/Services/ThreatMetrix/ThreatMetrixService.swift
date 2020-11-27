@@ -58,7 +58,7 @@ class ThreatMetrixService {
                 // will communicate with to transmit the collected device attributes.
                 // This will only need to be explicitly specified if you have Enhanced Profiling configured.
                 // This parameter must be specified in a FQDN format, eg: host.domain.com
-                TMXFingerprintServer: "s4.money.yandex.net",
+                TMXFingerprintServer: "s4.partner.yoomoney.ru",
             ])
             isConfigured = true
         }
