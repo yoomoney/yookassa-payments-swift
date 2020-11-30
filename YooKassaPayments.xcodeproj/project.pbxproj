@@ -3430,7 +3430,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ./YooKassaPayments/Public/Resources/Entitlements/YooKassaPaymentsExamplePods.entitlements;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2752592HU5;
 				INFOPLIST_FILE = "$(SRCROOT)/YooKassaPaymentsExample/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3449,7 +3449,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ./YooKassaPayments/Public/Resources/Entitlements/YooKassaPaymentsExamplePods.debug.entitlements;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2752592HU5;
 				INFOPLIST_FILE = "$(SRCROOT)/YooKassaPaymentsExample/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3469,7 +3469,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ./YooKassaPayments/Public/Resources/Entitlements/YooKassaPaymentsExamplePods.inhouse.entitlements;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2752592HU5;
 				INFOPLIST_FILE = "$(SRCROOT)/YooKassaPaymentsExample/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

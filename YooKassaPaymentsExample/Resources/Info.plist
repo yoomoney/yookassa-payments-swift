@@ -28,15 +28,6 @@
 		<false/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>yoomoney.ru</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSTemporaryExceptionMinimumTLSVersion</key>
-				<string>TLSv1.1</string>
-			</dict>
 			<key>cloud.yookassa.ru</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
@@ -47,6 +38,15 @@
 				<string>TLSv1.1</string>
 			</dict>
 			<key>cloud.yoomoney.ru</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSTemporaryExceptionMinimumTLSVersion</key>
+				<string>TLSv1.1</string>
+			</dict>
+			<key>yoomoney.ru</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>
