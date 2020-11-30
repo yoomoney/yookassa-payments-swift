@@ -1,11 +1,18 @@
 ## Changelog
 
+### 5.0.0
+
+1. Исправили проблему с валидацией номера карты.
+2. Переименовали модуль SDK и некоторые зависимости.
+
+> Необходимо выполнить [инструкцию](https://github.com/yoomoney/yookassa-payments-swift/blob/master/MIGRATION.md) по миграции с версий ниже.
+
 ### 4.0.0
 
 1. Удалили зависимость YandexLoginSDK.
 2. Изменили способ авторизации в Яндекс.Деньгах.
 
-> Необходимо выполнить [инструкцию](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/MIGRATION.md) по миграции с версий ниже.
+> Необходимо выполнить [инструкцию](https://github.com/yoomoney/yookassa-payments-swift/blob/master/MIGRATION.md) по миграции с версий ниже.
 
 ### 3.7.1
 
@@ -78,10 +85,10 @@
 
 1. Добавили поддержку Swift 5.
 2. Добавили возможность совершить платёж привязанной к магазину картой с дозапросом CVC/CVV.\
-   Подробнее с повтором платежа можно ознакомиться в 
-   [документации](https://kassa.yandex.ru/developers/payments/recurring-payments) и в 
-   [README.md](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/README.md). 
-3. Добавили файл [MIGRATION.md](https://github.com/yandex-money/yandex-checkout-payments-swift/blob/master/MIGRATION.md).
+   Подробнее с повтором платежа можно ознакомиться в
+   [документации](https://yookassa.ru/developers/payments/recurring-payments) и в
+   [README.md](https://github.com/yoomoney/yookassa-payments-swift/blob/master/README.md).
+3. Добавили файл [MIGRATION.md](https://github.com/yoomoney/yookassa-payments-swift/blob/master/MIGRATION.md).
 4. Теперь на экране ввода данных банковской карты отображается логотип банка.
 
 ### 2.1.0
@@ -126,9 +133,9 @@
 
 1. Теперь интеграция mSDK на серверной стороне стала проще.
 2. Обновили README.md.
-3. Обновили версию Swift до 4.2. (https://github.com/yandex-money/yandex-checkout-payments-swift/issues/22)
-4. Починили горизонтальный scroll indicator на web view. (https://github.com/yandex-money/yandex-checkout-payments-swift/issues/13)
-5. Починили версии зависимостей в *.podspec и Cartfile. (https://github.com/yandex-money/yandex-checkout-payments-swift/issues/27)
+3. [Обновили версию Swift до 4.2](https://github.com/yoomoney/yookassa-payments-swift/issues/22)
+4. [Починили горизонтальный scroll indicator на web view](https://github.com/yoomoney/yookassa-payments-swift/issues/13)
+5. [Починили версии зависимостей в *.podspec и Cartfile](https://github.com/yoomoney/yookassa-payments-swift/issues/27)
 6. Анимация появления контракта при инициализации одного способа оплаты стала лучше.
 7. Добавили возможность логировать запросы.
 8. Исправили UI баги.
