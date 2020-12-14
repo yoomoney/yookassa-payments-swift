@@ -101,7 +101,6 @@ enum AnalyticsEvent {
         case tokenizeScheme
         case authType
         case authTokenType
-        case authYaLoginStatus
         case authPaymentStatus
         case moneyAuthProcessType
     }
