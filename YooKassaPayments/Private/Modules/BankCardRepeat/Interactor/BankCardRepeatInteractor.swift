@@ -38,9 +38,9 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
         ) { [weak self] result in
             guard let output = self?.output else { return }
             switch result {
-            case .success(let data):
+            case let .success(data):
                 output.didFetchPaymentMethod(data)
-            case .failure(let error):
+            case let .failure(error):
                 output.didFailFetchPaymentMethod(error)
             }
         }
@@ -68,9 +68,9 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
                 csc: csc
             ) { result in
                 switch result {
-                case .success(let data):
+                case let .success(data):
                     output.didTokenize(data)
-                case .failure(let error):
+                case let .failure(error):
                     let mappedError = mapError(error)
                     output.didFailTokenize(mappedError)
                 }

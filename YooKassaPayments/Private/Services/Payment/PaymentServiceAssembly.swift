@@ -9,7 +9,7 @@ enum PaymentServiceAssembly {
             .makeService(tokenizationSettings)
 
         switch testModeSettings {
-        case .some(let testModeSettings):
+        case let .some(testModeSettings):
             let keyValueStoring = KeyValueStoringAssembly.makeMockKeychainStorage(
                 testModeSettings: testModeSettings
             )

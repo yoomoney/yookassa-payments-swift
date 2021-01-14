@@ -959,11 +959,11 @@ private func makeStrategy(
     savePaymentMethod: SavePaymentMethod,
     moneyAuthClientId: String?
 ) -> TokenizationStrategyInput {
-
-    let authorizationService = AuthorizationProcessingAssembly
-        .makeService(isLoggingEnabled: isLoggingEnabled,
-                     testModeSettings: testModeSettings,
-                     moneyAuthClientId: moneyAuthClientId)
+    let authorizationService = AuthorizationServiceAssembly.makeService(
+        isLoggingEnabled: isLoggingEnabled,
+        testModeSettings: testModeSettings,
+        moneyAuthClientId: moneyAuthClientId
+    )
 
     let analyticsService = AnalyticsProcessingAssembly
         .makeAnalyticsService(isLoggingEnabled: isLoggingEnabled)

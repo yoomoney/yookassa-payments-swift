@@ -13,12 +13,12 @@ final class LinkedBankCardStrategy {
     var savePaymentMethod: Bool
     var shouldInvalidateTokenizeData = false
 
-    private let authorizationService: AuthorizationProcessing
+    private let authorizationService: AuthorizationService
     private let paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
     private let returnUrl: String
 
     init(
-        authorizationService: AuthorizationProcessing,
+        authorizationService: AuthorizationService,
         paymentOption: PaymentOption,
         returnUrl: String,
         savePaymentMethod: Bool

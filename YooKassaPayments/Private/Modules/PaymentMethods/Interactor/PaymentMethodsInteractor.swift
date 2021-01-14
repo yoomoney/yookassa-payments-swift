@@ -8,7 +8,7 @@ class PaymentMethodsInteractor {
     weak var output: PaymentMethodsInteractorOutput?
 
     private let paymentService: PaymentService
-    private let authorizationService: AuthorizationProcessing
+    private let authorizationService: AuthorizationService
     private let analyticsService: AnalyticsProcessing
     private let analyticsProvider: AnalyticsProviding
 
@@ -21,7 +21,7 @@ class PaymentMethodsInteractor {
 
     init(
         paymentService: PaymentService,
-        authorizationService: AuthorizationProcessing,
+        authorizationService: AuthorizationService,
         analyticsService: AnalyticsProcessing,
         analyticsProvider: AnalyticsProviding,
         clientApplicationKey: String,
@@ -29,7 +29,6 @@ class PaymentMethodsInteractor {
         amount: Amount,
         getSavePaymentMethod: Bool?
     ) {
-
         self.paymentService = paymentService
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
@@ -56,9 +55,9 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
         ) { [weak self] result in
             guard let output = self?.output else { return }
             switch result {
-            case .success(let data):
+            case let .success(data):
                 output.didFetchPaymentMethods(data)
-            case .failure(let error):
+            case let .failure(error):
                 output.didFetchPaymentMethods(error)
             }
         }
