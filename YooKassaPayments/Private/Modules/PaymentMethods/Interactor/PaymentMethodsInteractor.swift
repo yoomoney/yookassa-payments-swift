@@ -7,7 +7,7 @@ class PaymentMethodsInteractor {
 
     weak var output: PaymentMethodsInteractorOutput?
 
-    private let paymentService: PaymentProcessing
+    private let paymentService: PaymentService
     private let authorizationService: AuthorizationProcessing
     private let analyticsService: AnalyticsProcessing
     private let analyticsProvider: AnalyticsProviding
@@ -19,14 +19,16 @@ class PaymentMethodsInteractor {
     private let amount: Amount
     private let getSavePaymentMethod: Bool?
 
-    init(paymentService: PaymentProcessing,
-         authorizationService: AuthorizationProcessing,
-         analyticsService: AnalyticsProcessing,
-         analyticsProvider: AnalyticsProviding,
-         clientApplicationKey: String,
-         gatewayId: String?,
-         amount: Amount,
-         getSavePaymentMethod: Bool?) {
+    init(
+        paymentService: PaymentService,
+        authorizationService: AuthorizationProcessing,
+        analyticsService: AnalyticsProcessing,
+        analyticsProvider: AnalyticsProviding,
+        clientApplicationKey: String,
+        gatewayId: String?,
+        amount: Amount,
+        getSavePaymentMethod: Bool?
+    ) {
 
         self.paymentService = paymentService
         self.authorizationService = authorizationService
@@ -44,18 +46,22 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
     func fetchPaymentMethods() {
         let authorizationToken = authorizationService.getMoneyCenterAuthToken()
 
-        let paymentMethods = paymentService.fetchPaymentOptions(
+        paymentService.fetchPaymentOptions(
             clientApplicationKey: clientApplicationKey,
             authorizationToken: authorizationToken,
             gatewayId: gatewayId,
             amount: amount.value.description,
             currency: amount.currency.rawValue,
             getSavePaymentMethod: getSavePaymentMethod
-        )
-
-        guard let output = output else { return }
-        paymentMethods.done(output.didFetchPaymentMethods)
-        paymentMethods.fail(output.didFetchPaymentMethods)
+        ) { [weak self] result in
+            guard let output = self?.output else { return }
+            switch result {
+            case .success(let data):
+                output.didFetchPaymentMethods(data)
+            case .failure(let error):
+                output.didFetchPaymentMethods(error)
+            }
+        }
     }
 
     func getWalletDisplayName() -> String? {

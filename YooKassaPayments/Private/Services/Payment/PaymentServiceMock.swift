@@ -1,28 +1,29 @@
-import FunctionalSwift
-import When
 import YooKassaPaymentsApi
 
-final class MockPaymentService: PaymentProcessing {
+final class PaymentServiceMock {
 
-    // MARK: - Initial parameters
+    // MARK: - Init data
 
-    private let paymentMethodHandler: PaymentMethodHandler
+    private let paymentMethodHandlerService: PaymentMethodHandlerService
     private let testModeSettings: TestModeSettings
     private let keyValueStoring: KeyValueStoring
 
-    // MARK: - Creating object
+    // MARK: - Init
 
     init(
-        paymentMethodHandler: PaymentMethodHandler,
+        paymentMethodHandlerService: PaymentMethodHandlerService,
         testModeSettings: TestModeSettings,
         keyValueStoring: KeyValueStoring
     ) {
-        self.paymentMethodHandler = paymentMethodHandler
+        self.paymentMethodHandlerService = paymentMethodHandlerService
         self.testModeSettings = testModeSettings
         self.keyValueStoring = keyValueStoring
     }
+}
 
-    // MARK: - PaymentProcessing
+// MARK: - PaymentService
+
+extension PaymentServiceMock: PaymentService {
 
     func fetchPaymentOptions(
         clientApplicationKey: String,
@@ -30,48 +31,40 @@ final class MockPaymentService: PaymentProcessing {
         gatewayId: String?,
         amount: String?,
         currency: String?,
-        getSavePaymentMethod: Bool?
-    ) -> Promise<[PaymentOption]> {
-        let timeout = makeTimeoutPromise()
-
+        getSavePaymentMethod: Bool?,
+        completion: @escaping (Result<[PaymentOption], Error>) -> Void
+    ) {
         let authorized = keyValueStoring.getString(
             for: KeyValueStoringKeys.moneyCenterAuthToken
         ) != nil
-        let response = makePaymentOptions(testModeSettings,
-                                          handler: paymentMethodHandler,
-                                          authorized: authorized)
+        let items = makePaymentOptions(
+            testModeSettings,
+            handler: paymentMethodHandlerService,
+            authorized: authorized
+        )
 
-        let handleResponse: ([PaymentOption]) throws -> [PaymentOption] = {
-            if $0.isEmpty {
-                throw PaymentProcessingError.emptyList
+        DispatchQueue.global().asyncAfter(deadline: .now() + timeout) {
+            if items.isEmpty {
+                completion(.failure(PaymentProcessingError.emptyList))
             } else {
-                return $0
+                completion(.success(items))
             }
         }
-
-        let promise = response <^ timeout
-        return handleResponse <^> promise
     }
 
     func fetchPaymentMethod(
         clientApplicationKey: String,
-        paymentMethodId: String
-    ) -> Promise<YooKassaPaymentsApi.PaymentMethod> {
-        let timeout = makeTimeoutPromise()
-        let error = PaymentsApiError(
-            id: "id_value",
-            type: .error,
-            description: "description",
-            parameter: "parameter",
-            retryAfter: nil,
-            errorCode: .invalidRequest
-        )
-
-        let errorHandler: (
-            YooKassaPaymentsApi.PaymentMethod
-            ) throws -> YooKassaPaymentsApi.PaymentMethod = { _ in
-            throw error
-        }
+        paymentMethodId: String,
+        completion: @escaping (Result<YooKassaPaymentsApi.PaymentMethod, Error>) -> Void
+    ) {
+//        let error = PaymentsApiError(
+//            id: "id_value",
+//            type: .error,
+//            description: "description",
+//            parameter: "parameter",
+//            retryAfter: nil,
+//            errorCode: .invalidRequest
+//        )
 
         let response = YooKassaPaymentsApi.PaymentMethod(
             type: .bankCard,
@@ -88,21 +81,22 @@ final class MockPaymentService: PaymentProcessing {
             ))
         )
 
-        let promise = timeout.then { _ in response }
-        return promise
-//        let promiseWithError = errorHandler <^> promise
-//        return promiseWithError
+        DispatchQueue.global().asyncAfter(deadline: .now() + timeout) {
+//            completion(.failure(error))
+            completion(.success(response))
+        }
     }
 
-        func tokenizeBankCard(
+    func tokenizeBankCard(
         clientApplicationKey: String,
         bankCard: BankCard,
         confirmation: Confirmation,
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
-        tmxSessionId: String
-    ) -> Promise<Tokens> {
-        return makeTokensPromise()
+        tmxSessionId: String,
+        completion: @escaping (Result<Tokens, Error>) -> Void
+    ) {
+        makeTokensPromise(completion: completion)
     }
 
     func tokenizeWallet(
@@ -112,9 +106,10 @@ final class MockPaymentService: PaymentProcessing {
         savePaymentMethod: Bool,
         paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
-        tmxSessionId: String
-    ) -> Promise<Tokens> {
-        return makeTokensPromise()
+        tmxSessionId: String,
+        completion: @escaping (Result<Tokens, Error>) -> Void
+    ) {
+        makeTokensPromise(completion: completion)
     }
 
     func tokenizeLinkedBankCard(
@@ -126,9 +121,10 @@ final class MockPaymentService: PaymentProcessing {
         savePaymentMethod: Bool,
         paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
-        tmxSessionId: String
-    ) -> Promise<Tokens> {
-        return makeTokensPromise()
+        tmxSessionId: String,
+        completion: @escaping (Result<Tokens, Error>) -> Void
+    ) {
+        makeTokensPromise(completion: completion)
     }
 
     func tokenizeSberbank(
@@ -137,9 +133,10 @@ final class MockPaymentService: PaymentProcessing {
         confirmation: Confirmation,
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
-        tmxSessionId: String
-    ) -> Promise<Tokens> {
-        return makeTokensPromise()
+        tmxSessionId: String,
+        completion: @escaping (Result<Tokens, Error>) -> Void
+    ) {
+        makeTokensPromise(completion: completion)
     }
 
     func tokenizeApplePay(
@@ -147,9 +144,10 @@ final class MockPaymentService: PaymentProcessing {
         paymentData: String,
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
-        tmxSessionId: String
-    ) -> Promise<Tokens> {
-        return makeTokensPromise()
+        tmxSessionId: String,
+        completion: @escaping (Result<Tokens, Error>) -> Void
+    ) {
+        makeTokensPromise(completion: completion)
     }
 
     func tokenizeRepeatBankCard(
@@ -159,26 +157,24 @@ final class MockPaymentService: PaymentProcessing {
         confirmation: Confirmation,
         savePaymentMethod: Bool,
         paymentMethodId: String,
-        csc: String
-    ) -> Promise<Tokens> {
-        return makeTokensPromise()
+        csc: String,
+        completion: @escaping (Result<Tokens, Error>) -> Void
+    ) {
+        makeTokensPromise(completion: completion)
     }
 
-    private func makeTokensPromise() -> Promise<Tokens> {
-        let timeout = makeTimeoutPromise()
-
-        let tokens = mockTokens <^ timeout
-
-        let enablePaymentError = testModeSettings.enablePaymentError
-        let handleResponse: (Tokens) throws -> Tokens = {
-            if enablePaymentError {
-                throw mockError
+    private func makeTokensPromise(
+        completion: @escaping (Result<Tokens, Error>) -> Void
+    ) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + timeout) { [weak self] in
+            guard let self = self else { return }
+            if self.testModeSettings.enablePaymentError {
+                completion(.failure(mockError))
             } else {
-                return $0
+                completion(.success(mockTokens))
             }
-        }
 
-        return handleResponse <^> tokens
+        }
     }
 }
 
@@ -186,18 +182,9 @@ final class MockPaymentService: PaymentProcessing {
 
 private let timeout: Double = 2
 
-private func makeTimeoutPromise() -> Promise<()> {
-    let promise: Promise<()> = Promise()
-    DispatchQueue.global().asyncAfter(deadline: .now() + timeout) {
-        promise.resolve(())
-    }
-    return promise
-}
-
 // MARK: - Data for Error
 
-private struct MockError: Error {
-}
+private struct MockError: Error { }
 
 private let mockError = MockError()
 
@@ -207,10 +194,9 @@ private let mockTokens = Tokens(paymentToken: "mock_token")
 
 private func makePaymentOptions(
     _ settings: TestModeSettings,
-    handler: PaymentMethodHandler,
+    handler: PaymentMethodHandlerService,
     authorized: Bool
 ) -> [PaymentOption] {
-
     let service = Service(charge: MonetaryAmount(value: 3.14, currency: settings.charge.currency.rawValue))
     let fee = Fee(service: service, counterparty: nil)
 

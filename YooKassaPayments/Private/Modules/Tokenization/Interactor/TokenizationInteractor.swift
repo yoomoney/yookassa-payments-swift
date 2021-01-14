@@ -1,4 +1,3 @@
-import FunctionalSwift
 import When
 import YooKassaPaymentsApi
 import enum YooKassaWalletApi.AuthType
@@ -8,7 +7,7 @@ final class TokenizationInteractor {
     // MARK: - VIPER module
 
     weak var output: TokenizationInteractorOutput?
-    private let paymentService: PaymentProcessing
+    private let paymentService: PaymentService
     private let authorizationService: AuthorizationProcessing
     private let analyticsService: AnalyticsProcessing
     private let analyticsProvider: AnalyticsProviding
@@ -17,11 +16,13 @@ final class TokenizationInteractor {
 
     private let clientApplicationKey: String
 
-    init(paymentService: PaymentProcessing,
-         authorizationService: AuthorizationProcessing,
-         analyticsService: AnalyticsProcessing,
-         analyticsProvider: AnalyticsProviding,
-         clientApplicationKey: String) {
+    init(
+        paymentService: PaymentService,
+        authorizationService: AuthorizationProcessing,
+        analyticsService: AnalyticsProcessing,
+        analyticsProvider: AnalyticsProviding,
+        clientApplicationKey: String
+    ) {
         ThreatMetrixService.configure()
 
         self.clientApplicationKey = clientApplicationKey
@@ -36,6 +37,7 @@ final class TokenizationInteractor {
 
 extension TokenizationInteractor: TokenizationInteractorInput {
 
+    // swiftlint:disable cyclomatic_complexity
     func tokenize(
         _ data: TokenizeData,
         paymentOption: PaymentOption,
@@ -48,51 +50,101 @@ extension TokenizationInteractor: TokenizationInteractorInput {
             promiseTmxSessionId = ThreatMetrixService.profileApp()
         }
 
-        let makeToken: (MonetaryAmount?) -> (String) -> Promise<Tokens>
+        promiseTmxSessionId.always { [weak self] result in
+            guard let self = self,
+                  let output = self.output else { return }
 
-        switch data {
-        case let .bankCard(bankCard, confirmation, savePaymentMethod):
-            makeToken = curry(
-                paymentService.tokenizeBankCard)(clientApplicationKey)(
-                    bankCard)(confirmation)(savePaymentMethod)
+            let monetaryAmount = paymentOption.charge
 
-        case let .wallet(confirmation, savePaymentMethod):
+            switch result {
+            case let .success(tmxSessionId):
+                let completion: (Swift.Result<Tokens, Error>) -> Void = { result in
+                    switch result {
+                    case .success(let data):
+                        output.didTokenizeData(data)
+                    case .failure(let error):
+                        let mappedError = mapError(error)
+                        output.failTokenizeData(mappedError)
+                    }
+                }
 
-            guard let walletToken = authorizationService.getWalletToken() else {
-                assertionFailure("You must be authorized in wallet")
-                return
+                switch data {
+                case let .bankCard(bankCard, confirmation, savePaymentMethod):
+                    self.paymentService.tokenizeBankCard(
+                        clientApplicationKey: self.clientApplicationKey,
+                        bankCard: bankCard,
+                        confirmation: confirmation,
+                        savePaymentMethod: savePaymentMethod,
+                        amount: monetaryAmount,
+                        tmxSessionId: tmxSessionId,
+                        completion: completion
+                    )
+
+                case let .wallet(confirmation, savePaymentMethod):
+                    guard let walletToken = self.authorizationService.getWalletToken() else {
+                        assertionFailure("You must be authorized in wallet")
+                        return
+                    }
+
+                    self.paymentService.tokenizeWallet(
+                        clientApplicationKey: self.clientApplicationKey,
+                        walletAuthorization: walletToken,
+                        confirmation: confirmation,
+                        savePaymentMethod: savePaymentMethod,
+                        paymentMethodType: paymentOption.paymentMethodType,
+                        amount: monetaryAmount,
+                        tmxSessionId: tmxSessionId,
+                        completion: completion
+                    )
+
+                case let .linkedBankCard(id, csc, confirmation, savePaymentMethod):
+                    guard let walletToken = self.authorizationService.getWalletToken() else {
+                        assertionFailure("You must be authorized in wallet")
+                        return
+                    }
+
+                    self.paymentService.tokenizeLinkedBankCard(
+                        clientApplicationKey: self.clientApplicationKey,
+                        walletAuthorization: walletToken,
+                        cardId: id,
+                        csc: csc,
+                        confirmation: confirmation,
+                        savePaymentMethod: savePaymentMethod,
+                        paymentMethodType: paymentOption.paymentMethodType,
+                        amount: monetaryAmount,
+                        tmxSessionId: tmxSessionId,
+                        completion: completion
+                    )
+
+                case let .applePay(paymentData, savePaymentMethod):
+                    self.paymentService.tokenizeApplePay(
+                        clientApplicationKey: self.clientApplicationKey,
+                        paymentData: paymentData,
+                        savePaymentMethod: savePaymentMethod,
+                        amount: monetaryAmount,
+                        tmxSessionId: tmxSessionId,
+                        completion: completion
+                    )
+
+                case let .sberbank(phoneNumber, confirmation, savePaymentMethod):
+                    self.paymentService.tokenizeSberbank(
+                        clientApplicationKey: self.clientApplicationKey,
+                        phoneNumber: phoneNumber,
+                        confirmation: confirmation,
+                        savePaymentMethod: savePaymentMethod,
+                        amount: monetaryAmount,
+                        tmxSessionId: tmxSessionId,
+                        completion: completion
+                    )
+                }
+
+            case let .failure(error):
+                let mappedError = mapError(error)
+                output.failTokenizeData(mappedError)
             }
-
-            makeToken = curry(paymentService.tokenizeWallet)(clientApplicationKey)(
-                walletToken)(confirmation)(savePaymentMethod)(paymentOption.paymentMethodType)
-
-        case let .linkedBankCard(id, csc, confirmation, savePaymentMethod):
-
-            guard let walletToken = authorizationService.getWalletToken() else {
-                assertionFailure("You must be authorized in wallet")
-                return
-            }
-
-            makeToken = curry(paymentService.tokenizeLinkedBankCard)(clientApplicationKey)(
-                walletToken)(id)(csc)(confirmation)(savePaymentMethod)(paymentOption.paymentMethodType)
-
-        case let .applePay(paymentData, savePaymentMethod):
-            makeToken = curry(paymentService.tokenizeApplePay)(clientApplicationKey)(
-                paymentData)(savePaymentMethod)
-
-        case let .sberbank(phoneNumber, confirmation, savePaymentMethod):
-            makeToken = curry(paymentService.tokenizeSberbank)(clientApplicationKey)(
-                phoneNumber)(confirmation)(savePaymentMethod)
         }
-
-        let monetaryAmount = paymentOption.charge
-        let tokens = makeToken(monetaryAmount) -<< promiseTmxSessionId
-        let tokensWithError = tokens.recover(on: .global(), mapError)
-
-        guard let output = output else { return }
-        tokensWithError.done(output.didTokenizeData)
-        tokensWithError.fail(output.failTokenizeData)
     }
+    // swiftlint:enable cyclomatic_complexity
 
     func getWalletDisplayName() -> String? {
         return authorizationService.getWalletDisplayName()
@@ -121,9 +173,11 @@ extension TokenizationInteractor: TokenizationInteractorInput {
     }
 
     func resendSmsCode(authContextId: String, authType: AuthType) {
-        let authTypeState = authorizationService.startNewAuthSession(merchantClientAuthorization: clientApplicationKey,
-                                                                     contextId: authContextId,
-                                                                     authType: authType)
+        let authTypeState = authorizationService.startNewAuthSession(
+            merchantClientAuthorization: clientApplicationKey,
+            contextId: authContextId,
+            authType: authType
+        )
 
         guard let output = output else { return }
 
@@ -132,11 +186,13 @@ extension TokenizationInteractor: TokenizationInteractorInput {
     }
 
     func loginInWallet(authContextId: String, authType: AuthType, answer: String, processId: String) {
-        let response = authorizationService.checkUserAnswer(merchantClientAuthorization: clientApplicationKey,
-                                                            authContextId: authContextId,
-                                                            authType: authType,
-                                                            answer: answer,
-                                                            processId: processId)
+        let response = authorizationService.checkUserAnswer(
+            merchantClientAuthorization: clientApplicationKey,
+            authContextId: authContextId,
+            authType: authType,
+            answer: answer,
+            processId: processId
+        )
 
         let responseWithError = response.recover(on: .global(), mapError)
 
@@ -166,6 +222,17 @@ extension TokenizationInteractor: TokenizationInteractorInput {
 
     func stopAnalyticsService() {
         analyticsService.stop()
+    }
+}
+
+private func mapError(_ error: Error) -> Error {
+    switch error {
+    case ThreatMetrixService.ProfileError.connectionFail:
+        return PaymentProcessingError.internetConnection
+    case let error as NSError where error.domain == NSURLErrorDomain:
+        return PaymentProcessingError.internetConnection
+    default:
+        return error
     }
 }
 

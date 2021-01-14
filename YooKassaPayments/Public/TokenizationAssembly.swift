@@ -25,10 +25,11 @@ public enum TokenizationAssembly {
         let view = TokenizationViewController()
         let presenter = BankCardRepeatPresenter(inputData: inputData)
 
-        let paymentService = PaymentProcessingAssembly
-            .makeService(tokenizationSettings: TokenizationSettings(),
-                         testModeSettings: inputData.testModeSettings,
-                         isLoggingEnabled: inputData.isLoggingEnabled)
+        let paymentService = PaymentServiceAssembly.makeService(
+            tokenizationSettings: TokenizationSettings(),
+            testModeSettings: inputData.testModeSettings,
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
 
         let analyticsService = AnalyticsProcessingAssembly
             .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
@@ -60,10 +61,11 @@ public enum TokenizationAssembly {
         _ inputData: TokenizationModuleInputData,
         moduleOutput: TokenizationModuleOutput
     ) -> UIViewController & TokenizationModuleInput {
-        let paymentService = PaymentProcessingAssembly
-            .makeService(tokenizationSettings: inputData.tokenizationSettings,
-                         testModeSettings: inputData.testModeSettings,
-                         isLoggingEnabled: inputData.isLoggingEnabled)
+        let paymentService = PaymentServiceAssembly.makeService(
+            tokenizationSettings: inputData.tokenizationSettings,
+            testModeSettings: inputData.testModeSettings,
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
         let authorizationService = AuthorizationProcessingAssembly
             .makeService(isLoggingEnabled: inputData.isLoggingEnabled,
                          testModeSettings: inputData.testModeSettings,

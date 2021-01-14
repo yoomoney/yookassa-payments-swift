@@ -25,10 +25,11 @@ enum PaymentMethodsAssembly {
             isLogoVisible: inputData.tokenizationSettings.showYooKassaLogo
         )
 
-        let paymentService = PaymentProcessingAssembly
-            .makeService(tokenizationSettings: inputData.tokenizationSettings,
-                         testModeSettings: inputData.testModeSettings,
-                         isLoggingEnabled: inputData.isLoggingEnabled)
+        let paymentService = PaymentServiceAssembly.makeService(
+            tokenizationSettings: inputData.tokenizationSettings,
+            testModeSettings: inputData.testModeSettings,
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
         let authorizationService = AuthorizationProcessingAssembly
             .makeService(
                 isLoggingEnabled: inputData.isLoggingEnabled,
