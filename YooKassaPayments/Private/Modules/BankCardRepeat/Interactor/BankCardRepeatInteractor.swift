@@ -11,12 +11,14 @@ final class BankCardRepeatInteractor {
     // MARK: - Initialization
 
     private let clientApplicationKey: String
-    private let paymentService: PaymentProcessing
+    private let paymentService: PaymentService
     private let analyticsService: AnalyticsProcessing
 
-    init(clientApplicationKey: String,
-         paymentService: PaymentProcessing,
-         analyticsService: AnalyticsProcessing) {
+    init(
+        clientApplicationKey: String,
+        paymentService: PaymentService,
+        analyticsService: AnalyticsProcessing
+    ) {
         ThreatMetrixService.configure()
 
         self.clientApplicationKey = clientApplicationKey
@@ -30,14 +32,18 @@ final class BankCardRepeatInteractor {
 extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
 
     func fetchPaymentMethod(paymentMethodId: String) {
-        guard let output = output else { return }
-
-        let paymentMethod = paymentService.fetchPaymentMethod(
+        paymentService.fetchPaymentMethod(
             clientApplicationKey: clientApplicationKey,
             paymentMethodId: paymentMethodId
-        )
-        paymentMethod.done(output.didFetchPaymentMethod)
-        paymentMethod.fail(output.didFailFetchPaymentMethod)
+        ) { [weak self] result in
+            guard let output = self?.output else { return }
+            switch result {
+            case .success(let data):
+                output.didFetchPaymentMethod(data)
+            case .failure(let error):
+                output.didFailFetchPaymentMethod(error)
+            }
+        }
     }
 
     func tokenize(
@@ -52,7 +58,7 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
         let tmxSessionId = ThreatMetrixService.profileApp()
         tmxSessionId.done { [weak self] tmxSessionId in
             guard let self = self else { return }
-            let response = self.paymentService.tokenizeRepeatBankCard(
+            self.paymentService.tokenizeRepeatBankCard(
                 clientApplicationKey: self.clientApplicationKey,
                 amount: amount,
                 tmxSessionId: tmxSessionId,
@@ -60,12 +66,15 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
                 savePaymentMethod: savePaymentMethod,
                 paymentMethodId: paymentMethodId,
                 csc: csc
-            )
-
-            let responseWithError = response.recover(on: .global(), mapError)
-
-            responseWithError.done(output.didTokenize)
-            responseWithError.fail(output.didFailTokenize)
+            ) { result in
+                switch result {
+                case .success(let data):
+                    output.didTokenize(data)
+                case .failure(let error):
+                    let mappedError = mapError(error)
+                    output.didFailTokenize(mappedError)
+                }
+            }
         }
 
         let tmxSessionIdWithError = tmxSessionId.recover(on: .global(), mapError)
@@ -78,6 +87,15 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
 }
 
 // MARK: - Private global helpers
+
+private func mapError(_ error: Error) -> Error {
+    switch error {
+    case ThreatMetrixService.ProfileError.connectionFail:
+        return PaymentProcessingError.internetConnection
+    default:
+        return error
+    }
+}
 
 private func mapError<T>(_ error: Error) throws -> Promise<T> {
     switch error {

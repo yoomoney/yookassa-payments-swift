@@ -6,7 +6,7 @@ final class YooMoneyAuthInteractor {
 
     private let authorizationService: AuthorizationProcessing
     private let analyticsService: AnalyticsProcessing
-    private let paymentService: PaymentProcessing
+    private let paymentService: PaymentService
 
     // MARK: - Data properties
 
@@ -17,7 +17,7 @@ final class YooMoneyAuthInteractor {
 
     init(authorizationService: AuthorizationProcessing,
          analyticsService: AnalyticsProcessing,
-         paymentService: PaymentProcessing,
+         paymentService: PaymentService,
          clientApplicationKey: String,
          gatewayId: String?,
          amount: Amount,
@@ -42,25 +42,22 @@ extension YooMoneyAuthInteractor: YooMoneyAuthInteractorInput {
         authorizationService.setMoneyCenterAuthToken(moneyCenterAuthToken)
         authorizationService.setWalletDisplayName(walletDisplayName)
 
-        let paymentMethods = paymentService.fetchPaymentOptions(
+        paymentService.fetchPaymentOptions(
             clientApplicationKey: clientApplicationKey,
             authorizationToken: moneyCenterAuthToken,
             gatewayId: gatewayId,
             amount: amount.value.description,
             currency: amount.currency.rawValue,
             getSavePaymentMethod: getSavePaymentMethod
-        )
-
-        let yoomoneyPaymentMethods = paymentMethods.map {
-            $0.filter {
-                $0.paymentMethodType == .yooMoney
+        ) { [weak self] result in
+            guard let output = self?.output else { return }
+            switch result {
+            case .success(let data):
+                output.didFetchYooMoneyPaymentMethods(data.filter { $0.paymentMethodType == .yooMoney })
+            case .failure(let error):
+                output.didFetchYooMoneyPaymentMethods(error)
             }
         }
-
-        guard let output = output else { return }
-
-        yoomoneyPaymentMethods.done(output.didFetchYooMoneyPaymentMethods)
-        yoomoneyPaymentMethods.fail(output.didFetchYooMoneyPaymentMethods)
     }
 
     func trackEvent(_ event: AnalyticsEvent) {

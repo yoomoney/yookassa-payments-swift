@@ -43,10 +43,11 @@ enum YooMoneyAuthAssembly {
                          moneyAuthClientId: inputData.moneyAuthClientId)
         let analyticsService = AnalyticsProcessingAssembly
             .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
-        let paymentService = PaymentProcessingAssembly
-            .makeService(tokenizationSettings: inputData.tokenizationSettings,
-                         testModeSettings: inputData.testModeSettings,
-                         isLoggingEnabled: inputData.isLoggingEnabled)
+        let paymentService = PaymentServiceAssembly.makeService(
+            tokenizationSettings: inputData.tokenizationSettings,
+            testModeSettings: inputData.testModeSettings,
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
 
         let interactor = YooMoneyAuthInteractor(
             authorizationService: authorizationService,
