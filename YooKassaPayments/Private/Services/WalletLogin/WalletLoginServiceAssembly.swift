@@ -1,22 +1,22 @@
 import YooKassaWalletApi
 
-enum WalletLoginAssembly {
-    static func makeWalletLoginService(
+enum WalletLoginServiceAssembly {
+    static func makeService(
         isLoggingEnabled: Bool,
         testModeSettings: TestModeSettings?
-    ) -> WalletLoginProcessing {
-        let service: WalletLoginProcessing
+    ) -> WalletLoginService {
+        let service: WalletLoginService
 
         switch testModeSettings {
         case .some(let testModeSettings):
-            service = MockWalletLoginService(
+            service = WalletLoginServiceMock(
                 paymentAuthorizationPassed: testModeSettings.paymentAuthorizationPassed
             )
         case .none:
             let session = ApiSessionAssembly.makeApiSession(
                 isLoggingEnabled: isLoggingEnabled
             )
-            service = WalletLoginService(
+            service = WalletLoginServiceImpl(
                 session: session,
                 authTypeStatesService: AuthTypeStatesService()
             )

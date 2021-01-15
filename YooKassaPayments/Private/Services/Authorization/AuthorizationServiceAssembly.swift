@@ -17,7 +17,7 @@ enum AuthorizationServiceAssembly {
             tokenStorage = KeyValueStoringAssembly.makeKeychainStorage()
         }
 
-        let walletLoginService = WalletLoginAssembly.makeWalletLoginService(
+        let walletLoginService = WalletLoginServiceAssembly.makeService(
             isLoggingEnabled: isLoggingEnabled,
             testModeSettings: testModeSettings
         )

@@ -7,7 +7,7 @@ final class AuthorizationServiceImpl {
     // MARK: - Init data
 
     let tokenStorage: KeyValueStoring
-    let walletLoginService: WalletLoginProcessing
+    let walletLoginService: WalletLoginService
     let deviceInfoService: DeviceInfoProvider
     let settingsStorage: KeyValueStoring
     let moneyAuthRevokeTokenService: RevokeTokenService?
@@ -16,7 +16,7 @@ final class AuthorizationServiceImpl {
 
     init(
         tokenStorage: KeyValueStoring,
-        walletLoginService: WalletLoginProcessing,
+        walletLoginService: WalletLoginService,
         deviceInfoService: DeviceInfoProvider,
         settingsStorage: KeyValueStoring,
         moneyAuthRevokeTokenService: RevokeTokenService?
@@ -146,7 +146,7 @@ extension AuthorizationServiceImpl {
                     singleAmountMax: amount,
                     paymentUsageLimit: paymentUsageLimit,
                     tmxSessionId: tmxSessionId
-                ).always { result in
+                ) { result in
                     switch result {
                     case let .success(response):
                         self.saveWalletLoginInStorage(response: response)
@@ -178,7 +178,7 @@ extension AuthorizationServiceImpl {
             merchantClientAuthorization: merchantClientAuthorization,
             authContextId: contextId,
             authType: authType
-        ).always { result in
+        ) { result in
             switch result {
             case let .success(state):
                 completion(.success(state))
@@ -208,7 +208,7 @@ extension AuthorizationServiceImpl {
             authType: authType,
             answer: answer,
             processId: processId
-        ).always { [weak self] result in
+        ) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(token):
