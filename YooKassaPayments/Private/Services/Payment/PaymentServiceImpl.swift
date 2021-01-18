@@ -45,10 +45,10 @@ extension PaymentServiceImpl: PaymentService {
         session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .left(let error):
+            case let .left(error):
                 let mappedError = mapError(error)
                 completion(.failure(mappedError))
-            case .right(let data):
+            case let .right(data):
                 let items = self.paymentMethodHandlerService.filterPaymentMethods(data.items)
                 if items.isEmpty {
                     completion(.failure(PaymentProcessingError.emptyList))
@@ -72,10 +72,10 @@ extension PaymentServiceImpl: PaymentService {
         session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .left(let error):
+            case let .left(error):
                 let mappedError = mapError(error)
                 completion(.failure(mappedError))
-            case .right(let data):
+            case let .right(data):
                 completion(.success(data))
             }
         }
@@ -106,10 +106,10 @@ extension PaymentServiceImpl: PaymentService {
         session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .left(let error):
+            case let .left(error):
                 let mappedError = mapError(error)
                 completion(.failure(mappedError))
-            case .right(let data):
+            case let .right(data):
                 completion(.success(data))
             }
         }
@@ -145,10 +145,10 @@ extension PaymentServiceImpl: PaymentService {
         session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .left(let error):
+            case let .left(error):
                 let mappedError = mapError(error)
                 completion(.failure(mappedError))
-            case .right(let data):
+            case let .right(data):
                 completion(.success(data))
             }
         }
@@ -188,10 +188,10 @@ extension PaymentServiceImpl: PaymentService {
         session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .left(let error):
+            case let .left(error):
                 let mappedError = mapError(error)
                 completion(.failure(mappedError))
-            case .right(let data):
+            case let .right(data):
                 completion(.success(data))
             }
         }
@@ -223,10 +223,10 @@ extension PaymentServiceImpl: PaymentService {
         session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .left(let error):
+            case let .left(error):
                 let mappedError = mapError(error)
                 completion(.failure(mappedError))
-            case .right(let data):
+            case let .right(data):
                 completion(.success(data))
             }
         }
@@ -259,10 +259,10 @@ extension PaymentServiceImpl: PaymentService {
         session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .left(let error):
+            case let .left(error):
                 let mappedError = mapError(error)
                 completion(.failure(mappedError))
-            case .right(let data):
+            case let .right(data):
                 completion(.success(data))
             }
         }
@@ -294,10 +294,10 @@ extension PaymentServiceImpl: PaymentService {
         session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .left(let error):
+            case let .left(error):
                 let mappedError = mapError(error)
                 completion(.failure(mappedError))
-            case .right(let data):
+            case let .right(data):
                 completion(.success(data))
             }
         }

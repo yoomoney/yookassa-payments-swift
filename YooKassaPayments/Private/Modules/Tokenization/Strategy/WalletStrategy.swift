@@ -10,12 +10,12 @@ final class WalletStrategy {
     var savePaymentMethod: Bool
     var shouldInvalidateTokenizeData = false
 
-    private let authorizationService: AuthorizationProcessing
+    private let authorizationService: AuthorizationService
     private let paymentOption: PaymentInstrumentYooMoneyWallet
     private let returnUrl: String
 
     init(
-        authorizationService: AuthorizationProcessing,
+        authorizationService: AuthorizationService,
         paymentOption: PaymentOption,
         returnUrl: String,
         savePaymentMethod: Bool

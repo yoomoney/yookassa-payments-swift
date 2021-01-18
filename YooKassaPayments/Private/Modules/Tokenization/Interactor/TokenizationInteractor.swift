@@ -1,4 +1,4 @@
-import When
+import class When.Promise
 import YooKassaPaymentsApi
 import enum YooKassaWalletApi.AuthType
 
@@ -8,7 +8,7 @@ final class TokenizationInteractor {
 
     weak var output: TokenizationInteractorOutput?
     private let paymentService: PaymentService
-    private let authorizationService: AuthorizationProcessing
+    private let authorizationService: AuthorizationService
     private let analyticsService: AnalyticsProcessing
     private let analyticsProvider: AnalyticsProviding
 
@@ -18,7 +18,7 @@ final class TokenizationInteractor {
 
     init(
         paymentService: PaymentService,
-        authorizationService: AuthorizationProcessing,
+        authorizationService: AuthorizationService,
         analyticsService: AnalyticsProcessing,
         analyticsProvider: AnalyticsProviding,
         clientApplicationKey: String
@@ -58,11 +58,11 @@ extension TokenizationInteractor: TokenizationInteractorInput {
 
             switch result {
             case let .success(tmxSessionId):
-                let completion: (Swift.Result<Tokens, Error>) -> Void = { result in
+                let completion: (Result<Tokens, Error>) -> Void = { result in
                     switch result {
-                    case .success(let data):
+                    case let .success(data):
                         output.didTokenizeData(data)
-                    case .failure(let error):
+                    case let .failure(error):
                         let mappedError = mapError(error)
                         output.failTokenizeData(mappedError)
                     }
@@ -158,48 +158,65 @@ extension TokenizationInteractor: TokenizationInteractorInput {
         let walletMonetaryAmount = MonetaryAmountFactory
             .makeWalletMonetaryAmount(paymentOption.charge)
 
-        let response = authorizationService.loginInWallet(
+        authorizationService.loginInWallet(
             merchantClientAuthorization: clientApplicationKey,
             amount: walletMonetaryAmount,
             reusableToken: reusableToken,
             tmxSessionId: tmxSessionId
-        )
-        let responseWithError = response.recover(on: .global(), mapError)
-
-        guard let output = output else { return }
-
-        responseWithError.done(output.didLoginInWallet)
-        responseWithError.fail(output.failLoginInWallet)
+        ) { [weak self] result in
+            guard let output = self?.output else { return }
+            switch result {
+            case let .success(response):
+                output.didLoginInWallet(response)
+            case let .failure(error):
+                let mappedError = mapError(error)
+                output.failLoginInWallet(mappedError)
+            }
+        }
     }
 
-    func resendSmsCode(authContextId: String, authType: AuthType) {
-        let authTypeState = authorizationService.startNewAuthSession(
+    func resendSmsCode(
+        authContextId: String,
+        authType: AuthType
+    ) {
+        authorizationService.startNewAuthSession(
             merchantClientAuthorization: clientApplicationKey,
             contextId: authContextId,
             authType: authType
-        )
-
-        guard let output = output else { return }
-
-        authTypeState.done(output.didResendSmsCode)
-            .fail(output.failResendSmsCode)
+        ) { [weak self] result in
+            guard let output = self?.output else { return }
+            switch result {
+            case let .success(state):
+                output.didResendSmsCode(state)
+            case let .failure(error):
+                output.failLoginInWallet(error)
+            }
+        }
     }
 
-    func loginInWallet(authContextId: String, authType: AuthType, answer: String, processId: String) {
-        let response = authorizationService.checkUserAnswer(
+    func loginInWallet(
+        authContextId: String,
+        authType: AuthType,
+        answer: String,
+        processId: String
+    ) {
+        authorizationService.checkUserAnswer(
             merchantClientAuthorization: clientApplicationKey,
             authContextId: authContextId,
             authType: authType,
             answer: answer,
             processId: processId
-        )
+        ) { [weak self] result in
+            guard let output = self?.output else { return }
+            switch result {
+            case let .success(response):
+                output.didLoginInWallet(response)
+            case let .failure(error):
+                let mappedError = mapError(error)
+                output.failLoginInWallet(mappedError)
+            }
 
-        let responseWithError = response.recover(on: .global(), mapError)
-
-        guard let output = output else { return }
-
-        responseWithError.done(output.didLoginInWallet)
-        responseWithError.fail(output.failLoginInWallet)
+        }
     }
 
     func logout() {

@@ -1,13 +1,8 @@
-import class When.Promise
 import enum YooKassaWalletApi.AuthType
 import struct YooKassaWalletApi.AuthTypeState
 import struct YooKassaWalletApi.MonetaryAmount
 
-enum AuthorizationProcessingError: Error {
-    case passportNotAuthorized
-}
-
-protocol AuthorizationProcessing {
+protocol AuthorizationService {
     func getMoneyCenterAuthToken() -> String?
 
     func setMoneyCenterAuthToken(
@@ -32,20 +27,23 @@ protocol AuthorizationProcessing {
         merchantClientAuthorization: String,
         amount: MonetaryAmount,
         reusableToken: Bool,
-        tmxSessionId: String?
-    ) -> Promise<WalletLoginResponse>
+        tmxSessionId: String?,
+        completion: @escaping (Result<WalletLoginResponse, Error>) -> Void
+    )
 
     func startNewAuthSession(
         merchantClientAuthorization: String,
         contextId: String,
-        authType: AuthType
-    ) -> Promise<AuthTypeState>
+        authType: AuthType,
+        completion: @escaping (Result<AuthTypeState, Error>) -> Void
+    )
 
     func checkUserAnswer(
         merchantClientAuthorization: String,
         authContextId: String,
         authType: AuthType,
         answer: String,
-        processId: String
-    ) -> Promise<WalletLoginResponse>
+        processId: String,
+        completion: @escaping (Result<WalletLoginResponse, Error>) -> Void
+    )
 }

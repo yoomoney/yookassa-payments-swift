@@ -1,27 +1,31 @@
 final class YooMoneyAuthInteractor {
 
-    // VIPER module properties
+    // MARK: - VIPER
 
     weak var output: YooMoneyAuthInteractorOutput?
 
-    private let authorizationService: AuthorizationProcessing
+    private let authorizationService: AuthorizationService
     private let analyticsService: AnalyticsProcessing
     private let paymentService: PaymentService
 
-    // MARK: - Data properties
+    // MARK: - Init data
 
     private let clientApplicationKey: String
     private let gatewayId: String?
     private let amount: Amount
     private let getSavePaymentMethod: Bool?
 
-    init(authorizationService: AuthorizationProcessing,
-         analyticsService: AnalyticsProcessing,
-         paymentService: PaymentService,
-         clientApplicationKey: String,
-         gatewayId: String?,
-         amount: Amount,
-         getSavePaymentMethod: Bool?) {
+    // MARK: - Init
+
+    init(
+        authorizationService: AuthorizationService,
+        analyticsService: AnalyticsProcessing,
+        paymentService: PaymentService,
+        clientApplicationKey: String,
+        gatewayId: String?,
+        amount: Amount,
+        getSavePaymentMethod: Bool?
+    ) {
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
         self.paymentService = paymentService
@@ -52,9 +56,9 @@ extension YooMoneyAuthInteractor: YooMoneyAuthInteractorInput {
         ) { [weak self] result in
             guard let output = self?.output else { return }
             switch result {
-            case .success(let data):
+            case let .success(data):
                 output.didFetchYooMoneyPaymentMethods(data.filter { $0.paymentMethodType == .yooMoney })
-            case .failure(let error):
+            case let .failure(error):
                 output.didFetchYooMoneyPaymentMethods(error)
             }
         }
