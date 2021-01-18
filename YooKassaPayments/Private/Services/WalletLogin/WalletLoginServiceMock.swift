@@ -1,17 +1,17 @@
-import FunctionalSwift
-import When
 import YooKassaWalletApi
 import YooMoneyCoreApi
 
-final class MockWalletLoginService {
+final class WalletLoginServiceMock {
 
-    // MARK: - Data
+    // MARK: - Init data
 
     fileprivate let paymentAuthorizationPassed: Bool
 
-    // MARK: - Initializers & deinitializer
+    // MARK: - Init
 
-    init(paymentAuthorizationPassed: Bool) {
+    init(
+        paymentAuthorizationPassed: Bool
+    ) {
         self.paymentAuthorizationPassed = paymentAuthorizationPassed
     }
 
@@ -22,33 +22,37 @@ final class MockWalletLoginService {
     fileprivate static let accessToken = "accessToken"
 }
 
-// MARK: - WalletLoginProcessing
+// MARK: - WalletLoginService
 
-extension MockWalletLoginService: WalletLoginProcessing {
+extension WalletLoginServiceMock: WalletLoginService {
     func requestAuthorization(
         moneyCenterAuthorization: String,
         merchantClientAuthorization: String,
         instanceName: String,
         singleAmountMax: MonetaryAmount?,
         paymentUsageLimit: PaymentUsageLimit,
-        tmxSessionId: String
-    ) -> Promise<WalletLoginResponse> {
-        let timeout = makeTimeoutPromise()
-        let response = makeWalletLoginResponse(
-            paymentAuthorizationPassed: self.paymentAuthorizationPassed
-        )
-        return response <^ timeout
+        tmxSessionId: String,
+        completion: @escaping (Result<WalletLoginResponse, Error>) -> Void
+    ) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + timeout) {
+            let response = makeWalletLoginResponse(
+                paymentAuthorizationPassed: self.paymentAuthorizationPassed
+            )
+            completion(.success(response))
+        }
     }
 
     func startNewSession(
         moneyCenterAuthorization: String,
         merchantClientAuthorization: String,
         authContextId: String,
-        authType: AuthType
-    ) -> Promise<AuthTypeState> {
-        let timeout = makeTimeoutPromise()
-        let response = makeAuthTypeState()
-        return response <^ timeout
+        authType: AuthType,
+        completion: @escaping (Result<AuthTypeState, Error>) -> Void
+    ) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + timeout) {
+            let response = makeAuthTypeState()
+            completion(.success(response))
+        }
     }
 
     func checkUserAnswer(
@@ -57,20 +61,16 @@ extension MockWalletLoginService: WalletLoginProcessing {
         authContextId: String,
         authType: AuthType,
         answer: String,
-        processId: String
-    ) -> Promise<String> {
-        let timeout = makeTimeoutPromise()
-        let response = MockWalletLoginService.accessToken
-
-        if answer == correctAnswer {
-            return response <^ timeout
-
-        } else {
-            let timeoutResponse = response <^ timeout
-            let handleResponse: (String) throws -> String = { _ in
-                throw WalletLoginProcessingError.invalidAnswer
+        processId: String,
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + timeout) {
+            let response = WalletLoginServiceMock.accessToken
+            if answer == correctAnswer {
+                completion(.success(response))
+            } else {
+                completion(.failure(WalletLoginProcessingError.invalidAnswer))
             }
-            return handleResponse <^> timeoutResponse
         }
     }
 }
@@ -85,14 +85,14 @@ private func makeWalletLoginResponse(
     let response: WalletLoginResponse
     if paymentAuthorizationPassed {
         let accessToken = CheckoutTokenIssueExecute(
-            accessToken: MockWalletLoginService.accessToken
+            accessToken: WalletLoginServiceMock.accessToken
         )
         response = WalletLoginResponse.authorized(accessToken)
     } else {
         response = WalletLoginResponse.notAuthorized(
             authTypeState: makeAuthTypeState(),
-            processId: MockWalletLoginService.processId,
-            authContextId: MockWalletLoginService.authContextId
+            processId: WalletLoginServiceMock.processId,
+            authContextId: WalletLoginServiceMock.authContextId
         )
     }
     return response
@@ -119,11 +119,3 @@ private func makeAuthTypeState() -> AuthTypeState {
 // MARK: - Promise helper
 
 private let timeout: Double = 2
-
-private func makeTimeoutPromise() -> Promise<()> {
-    let promise: Promise<()> = Promise()
-    DispatchQueue.global().asyncAfter(deadline: .now() + timeout) {
-        promise.resolve(())
-    }
-    return promise
-}

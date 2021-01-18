@@ -1,11 +1,3 @@
-import YooKassaWalletApi
-import class When.Promise
-
-enum WalletLoginResponse {
-    case authorized(CheckoutTokenIssueExecute)
-    case notAuthorized(authTypeState: AuthTypeState, processId: String, authContextId: String)
-}
-
 enum WalletLoginProcessingError: Error {
     case unsupportedAuthType
     case invalidAnswer
@@ -50,34 +42,6 @@ extension WalletLoginProcessingError: PresentableError {
     var actions: [PresentableNotificationAction] {
         return []
     }
-}
-
-protocol WalletLoginProcessing {
-
-    func requestAuthorization(
-        moneyCenterAuthorization: String,
-        merchantClientAuthorization: String,
-        instanceName: String,
-        singleAmountMax: MonetaryAmount?,
-        paymentUsageLimit: PaymentUsageLimit,
-        tmxSessionId: String
-    ) -> Promise<WalletLoginResponse>
-
-    func startNewSession(
-        moneyCenterAuthorization: String,
-        merchantClientAuthorization: String,
-        authContextId: String,
-        authType: AuthType
-    ) -> Promise<AuthTypeState>
-
-    func checkUserAnswer(
-        moneyCenterAuthorization: String,
-        merchantClientAuthorization: String,
-        authContextId: String,
-        authType: AuthType,
-        answer: String,
-        processId: String
-    ) -> Promise<String>
 }
 
 // MARK: - Localized

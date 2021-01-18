@@ -160,7 +160,7 @@
 		402EB563A97BFDD0F784ADBE /* TextControl+BottomHintMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA98E33140B116330975 /* TextControl+BottomHintMode.swift */; };
 		402EB566B44670E5D7F5558B /* CardSecModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1CA83A927FE69ED0790 /* CardSecModuleIO.swift */; };
 		402EB56B23ABB039B6690CFB /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB761608F1C750B0D45F /* PriceView.swift */; };
-		402EB5745ABA5C4E1A40294A /* MockWalletLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAD1F924C381F5EF1B45 /* MockWalletLoginService.swift */; };
+		402EB5745ABA5C4E1A40294A /* WalletLoginServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAD1F924C381F5EF1B45 /* WalletLoginServiceMock.swift */; };
 		402EB58531C87EFDDE780DF1 /* SwitchItemViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA852A4E0C0965F8B4C0 /* SwitchItemViewIO.swift */; };
 		402EB588CFCE2DD9628E0D13 /* TextControl+TopHintMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7A7C7AD7AC90990E199 /* TextControl+TopHintMode.swift */; };
 		402EB5986365E93F53AF0534 /* TextControl+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB07F0BCC6F94268A89B6 /* TextControl+Style.swift */; };
@@ -400,7 +400,7 @@
 		402EBD7CB778A992876AA85B /* SberbankAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBBB0BB9EBC8983BE60E2 /* SberbankAssembly.swift */; };
 		402EBD8A4294EC7366FF3C95 /* LargeIconItemViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB2331DE85C1E08CFDE58 /* LargeIconItemViewIO.swift */; };
 		402EBD95FD7CAFB6AD2F29FC /* PaymentServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE317B2A9FEDE4412013 /* PaymentServiceMock.swift */; };
-		402EBDA16A62F97489BF95AC /* WalletLoginProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA73630FCF328129C13F /* WalletLoginProcessing.swift */; };
+		402EBDA16A62F97489BF95AC /* WalletLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA73630FCF328129C13F /* WalletLoginService.swift */; };
 		402EBDA6F7FFB24269195FFD /* TestModeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA613775B03AC97A0BAD /* TestModeSettings.swift */; };
 		402EBDB5C4E2965E370EDE25 /* PaymentMethodsInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3A39BAE3C2CE3288E2B /* PaymentMethodsInteractorIO.swift */; };
 		402EBDB67F4914833185E457 /* TokenizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF9F81B468DF9C631FEC /* TokenizationViewController.swift */; };
@@ -451,8 +451,11 @@
 		402EBFC348B3BCF7D33FCAB5 /* CustomizationColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD2D68EF7798A3F9B36D /* CustomizationColors.swift */; };
 		402EBFC6ACBD8274397BC9BC /* ActionSheetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB0D91B5AEDF9532119F1 /* ActionSheetHeaderView.swift */; };
 		402EBFDEAFFA87286AFE557C /* IconView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3DB2CCC018A9DBE0CAD /* IconView+Style.swift */; };
-		402EBFE2285B7B73BF2290ED /* WalletLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7058326C3DABBC52C15 /* WalletLoginService.swift */; };
+		402EBFE2285B7B73BF2290ED /* WalletLoginServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7058326C3DABBC52C15 /* WalletLoginServiceImpl.swift */; };
 		559073921FF3C2B90094AE5D /* YooKassaPayments.h in Headers */ = {isa = PBXBuildFile; fileRef = 559073911FF3C2B90094AE5D /* YooKassaPayments.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7817A19A25B18AB200CD5BAB /* WalletLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7817A19925B18AB200CD5BAB /* WalletLoginResponse.swift */; };
+		7817A19C25B18AD700CD5BAB /* WalletLoginProcessingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7817A19B25B18AD700CD5BAB /* WalletLoginProcessingError.swift */; };
+		7817A19E25B18C2800CD5BAB /* WalletLoginServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7817A19D25B18C2800CD5BAB /* WalletLoginServiceAssembly.swift */; };
 		789C373D25AF260400BA94D1 /* PaymentMethodHandlerServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C373C25AF260400BA94D1 /* PaymentMethodHandlerServiceImpl.swift */; };
 		789C373F25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C373E25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift */; };
 		789C374125AF285C00BA94D1 /* PaymentServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C374025AF285C00BA94D1 /* PaymentServiceImpl.swift */; };
@@ -642,7 +645,7 @@
 		402EB6F0F343B8BCBDECB5C7 /* PaymentMethodsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsViewController.swift; sourceTree = "<group>"; };
 		402EB6F121213207871F23C7 /* NotificationPresenting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationPresenting.swift; sourceTree = "<group>"; };
 		402EB6F94C13E4F66AD84654 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
-		402EB7058326C3DABBC52C15 /* WalletLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WalletLoginService.swift; path = ../WalletLogin/WalletLoginService.swift; sourceTree = "<group>"; };
+		402EB7058326C3DABBC52C15 /* WalletLoginServiceImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletLoginServiceImpl.swift; sourceTree = "<group>"; };
 		402EB70587933513CB54B7A7 /* NonEmptyValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonEmptyValidator.swift; sourceTree = "<group>"; };
 		402EB70944785DE0DF9A4AE9 /* ResourceLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLoader.swift; sourceTree = "<group>"; };
 		402EB7128379FBEB8C5B5561 /* SwitchItemView+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwitchItemView+Style.swift"; sourceTree = "<group>"; };
@@ -724,7 +727,7 @@
 		402EBA613775B03AC97A0BAD /* TestModeSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestModeSettings.swift; sourceTree = "<group>"; };
 		402EBA65E3F218CA98BD9676 /* PaymentMethodHandlerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodHandlerService.swift; sourceTree = "<group>"; };
 		402EBA7169837B287D88A755 /* PresentableError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentableError.swift; sourceTree = "<group>"; };
-		402EBA73630FCF328129C13F /* WalletLoginProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WalletLoginProcessing.swift; path = ../WalletLogin/WalletLoginProcessing.swift; sourceTree = "<group>"; };
+		402EBA73630FCF328129C13F /* WalletLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletLoginService.swift; sourceTree = "<group>"; };
 		402EBA7CE4F3873F32023D50 /* ActionTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionTemplate.swift; sourceTree = "<group>"; };
 		402EBA852A4E0C0965F8B4C0 /* SwitchItemViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchItemViewIO.swift; sourceTree = "<group>"; };
 		402EBA8DB39B24DBE1A6F4B1 /* IconViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconViewIO.swift; sourceTree = "<group>"; };
@@ -742,7 +745,7 @@
 		402EBAC15CD21389AEA84EF6 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		402EBAC288F1B43084EA43BC /* PhoneNumberInputModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberInputModuleOutput.swift; sourceTree = "<group>"; };
 		402EBAC997EF833DAC9D3ABF /* IconButtonItemViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButtonItemViewIO.swift; sourceTree = "<group>"; };
-		402EBAD1F924C381F5EF1B45 /* MockWalletLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockWalletLoginService.swift; path = ../WalletLogin/MockWalletLoginService.swift; sourceTree = "<group>"; };
+		402EBAD1F924C381F5EF1B45 /* WalletLoginServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletLoginServiceMock.swift; sourceTree = "<group>"; };
 		402EBAD38C5EB643CD21E0DE /* WalletStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletStrategy.swift; sourceTree = "<group>"; };
 		402EBADC7F5CB6B5ADAE0A46 /* BankCardDataInputPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardDataInputPresenter.swift; sourceTree = "<group>"; };
 		402EBAE1E89313CB00982889 /* TextControl+InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextControl+InputView.swift"; sourceTree = "<group>"; };
@@ -856,6 +859,9 @@
 		559073911FF3C2B90094AE5D /* YooKassaPayments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YooKassaPayments.h; sourceTree = "<group>"; };
 		559073AD1FF3CE910094AE5D /* Gemfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gemfile; sourceTree = "<group>"; };
 		5746D1C01E2AA9F16B231A99 /* Pods_YooKassaPaymentsExamplePods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YooKassaPaymentsExamplePods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7817A19925B18AB200CD5BAB /* WalletLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLoginResponse.swift; sourceTree = "<group>"; };
+		7817A19B25B18AD700CD5BAB /* WalletLoginProcessingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLoginProcessingError.swift; sourceTree = "<group>"; };
+		7817A19D25B18C2800CD5BAB /* WalletLoginServiceAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletLoginServiceAssembly.swift; sourceTree = "<group>"; };
 		789C373C25AF260400BA94D1 /* PaymentMethodHandlerServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodHandlerServiceImpl.swift; sourceTree = "<group>"; };
 		789C373E25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodHandlerServiceAssembly.swift; sourceTree = "<group>"; };
 		789C374025AF285C00BA94D1 /* PaymentServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceImpl.swift; sourceTree = "<group>"; };
@@ -1420,9 +1426,12 @@
 		402EB42B6FF3543C81A7E57C /* WalletLogin */ = {
 			isa = PBXGroup;
 			children = (
-				402EB7058326C3DABBC52C15 /* WalletLoginService.swift */,
-				402EBA73630FCF328129C13F /* WalletLoginProcessing.swift */,
-				402EBAD1F924C381F5EF1B45 /* MockWalletLoginService.swift */,
+				7817A19D25B18C2800CD5BAB /* WalletLoginServiceAssembly.swift */,
+				7817A19B25B18AD700CD5BAB /* WalletLoginProcessingError.swift */,
+				7817A19925B18AB200CD5BAB /* WalletLoginResponse.swift */,
+				402EBA73630FCF328129C13F /* WalletLoginService.swift */,
+				402EB7058326C3DABBC52C15 /* WalletLoginServiceImpl.swift */,
+				402EBAD1F924C381F5EF1B45 /* WalletLoginServiceMock.swift */,
 			);
 			path = WalletLogin;
 			sourceTree = "<group>";
@@ -2295,21 +2304,21 @@
 		402EBF67858F805C0168A633 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				789C373B25AF25CC00BA94D1 /* PaymentMethodHandler */,
-				402EB8DCCA3ABCF1B5D1064A /* Payment */,
-				402EB6287F7DD3A3CC35816B /* HostProvider.swift */,
 				402EB40E45FD50302AF2C546 /* ApiLogger.swift */,
-				402EBFE0E277B5E418D9A8C0 /* ThreatMetrix */,
-				402EBEFAE69A8355E0DE0E81 /* Authorization */,
-				402EBAFA3C7BD1906EFDC3BA /* KeyValueStoring */,
-				402EB42B6FF3543C81A7E57C /* WalletLogin */,
-				402EBBE1ED7002E267CEBE6A /* AuthTypeStates */,
-				402EB2741A02449E43C85DA5 /* DeviceInfo */,
-				402EBF2ECE99022B226CDBE6 /* Analytics */,
 				402EB4140624A37C315AA60F /* ApplePayPermissionsHandler.swift */,
-				402EB8953FE1DE599CA97894 /* WebLogger.swift */,
-				402EB25C85170B43FF38903C /* BankSettingsService */,
 				402EB0E1A17D557739552F70 /* CardService.swift */,
+				402EB6287F7DD3A3CC35816B /* HostProvider.swift */,
+				402EB8953FE1DE599CA97894 /* WebLogger.swift */,
+				402EBF2ECE99022B226CDBE6 /* Analytics */,
+				402EBEFAE69A8355E0DE0E81 /* Authorization */,
+				402EBBE1ED7002E267CEBE6A /* AuthTypeStates */,
+				402EB25C85170B43FF38903C /* BankSettingsService */,
+				402EB2741A02449E43C85DA5 /* DeviceInfo */,
+				402EBAFA3C7BD1906EFDC3BA /* KeyValueStoring */,
+				402EB8DCCA3ABCF1B5D1064A /* Payment */,
+				789C373B25AF25CC00BA94D1 /* PaymentMethodHandler */,
+				402EBFE0E277B5E418D9A8C0 /* ThreatMetrix */,
+				402EB42B6FF3543C81A7E57C /* WalletLogin */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -2846,6 +2855,7 @@
 				402EB8C6A187231B267BF70E /* WebBrowserInteractor.swift in Sources */,
 				402EB5371BE9F336FC06AA3A /* Anchor.swift in Sources */,
 				402EB9B3CD7211752FAD696E /* UIScreen+SafeAreaInsets.swift in Sources */,
+				7817A19A25B18AB200CD5BAB /* WalletLoginResponse.swift in Sources */,
 				30AB530D238335560098C7C1 /* LinkedSwitchItemViewInput.swift in Sources */,
 				402EB53AE18A55F18C9BDCA9 /* UIView+SpecificLayoutGuide.swift in Sources */,
 				308E418B23858B4800B44490 /* SavePaymentMethodInfo.swift in Sources */,
@@ -2879,6 +2889,7 @@
 				402EBFA22A30FD6DA60F6FA3 /* PrefferedContentSizeCategory.swift in Sources */,
 				402EBD79F5F3730B73E8E2B6 /* ResourceLoader.swift in Sources */,
 				402EB2094206B1F1F567506A /* TaskPromise.swift in Sources */,
+				7817A19C25B18AD700CD5BAB /* WalletLoginProcessingError.swift in Sources */,
 				402EB40CB6ED57483D5DB57D /* FunctionalPromise.swift in Sources */,
 				402EB15E980B41AA08731E66 /* String+Split.swift in Sources */,
 				402EB10A8D9BD77A5D0E64A4 /* UIView+Tools.swift in Sources */,
@@ -2893,6 +2904,7 @@
 				30A83F062383378E00B51BAB /* LinkedSwitchItemView+Style.swift in Sources */,
 				308E417C2385818B00B44490 /* SavePaymentMethodInfoViewIO.swift in Sources */,
 				402EB97313185D85C4173C4D /* ErrorAssembly.swift in Sources */,
+				7817A19E25B18C2800CD5BAB /* WalletLoginServiceAssembly.swift in Sources */,
 				402EB5B652656D75F375B42D /* ErrorViewIO.swift in Sources */,
 				402EBAC5654F852ADB058F1F /* ErrorPresenter.swift in Sources */,
 				402EB46E0F1D1F12512424FB /* ErrorViewController.swift in Sources */,
@@ -2992,9 +3004,9 @@
 				402EBD63F90CE9E26E3ABF36 /* MockKeychainStorage.swift in Sources */,
 				402EB3397345E69677F29347 /* KeychainStorage.swift in Sources */,
 				402EB52D11504C419695D49F /* UserDefaultsStorage.swift in Sources */,
-				402EBFE2285B7B73BF2290ED /* WalletLoginService.swift in Sources */,
-				402EBDA16A62F97489BF95AC /* WalletLoginProcessing.swift in Sources */,
-				402EB5745ABA5C4E1A40294A /* MockWalletLoginService.swift in Sources */,
+				402EBFE2285B7B73BF2290ED /* WalletLoginServiceImpl.swift in Sources */,
+				402EBDA16A62F97489BF95AC /* WalletLoginService.swift in Sources */,
+				402EB5745ABA5C4E1A40294A /* WalletLoginServiceMock.swift in Sources */,
 				402EBF72D88566C67130C623 /* AuthTypeStatesProvider.swift in Sources */,
 				402EB4DB7D89DA8CBED9BBBB /* AuthTypeStatesService.swift in Sources */,
 				402EB9891535071C937CBBD5 /* DeviceInfoProvider.swift in Sources */,
