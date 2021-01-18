@@ -1,7 +1,10 @@
-final class MockKeychainStorage: KeyValueStoring {
-
+final class KeychainStorageMock {
     private var data: [String: Any] = [:]
+}
 
+// MARK: - KeyValueStoring
+
+extension KeychainStorageMock: KeyValueStoring {
     func getString(for key: String) -> String? {
         guard let value = data[key] as? String else {
             return nil

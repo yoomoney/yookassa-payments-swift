@@ -1,21 +1,32 @@
 import Foundation
 
 final class UserDefaultsStorage {
+
+    // MARK: - Init data
+
     let userDefaults: UserDefaults
+
+    // MARK: - Init
 
     init(userDefaults: UserDefaults) {
         self.userDefaults = userDefaults
     }
 
+    // MARK: - Deinit
+
     deinit {
         unsubscribeForAllNotifications()
     }
+}
 
+extension UserDefaultsStorage {
     private func subscribeForUserDefaultsDidChange() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(userDefaultsDidChange),
-                                               name: UserDefaults.didChangeNotification,
-                                               object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(userDefaultsDidChange),
+            name: UserDefaults.didChangeNotification,
+            object: nil
+        )
     }
 
     private func unsubscribeForAllNotifications() {
@@ -27,6 +38,8 @@ final class UserDefaultsStorage {
         userDefaults.synchronize()
     }
 }
+
+// MARK: - KeyValueStoring
 
 extension UserDefaultsStorage: KeyValueStoring {
     func getString(for key: String) -> String? {

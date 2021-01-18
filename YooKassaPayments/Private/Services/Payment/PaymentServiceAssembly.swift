@@ -10,7 +10,7 @@ enum PaymentServiceAssembly {
 
         switch testModeSettings {
         case let .some(testModeSettings):
-            let keyValueStoring = KeyValueStoringAssembly.makeMockKeychainStorage(
+            let keyValueStoring = KeyValueStoringAssembly.makeKeychainStorageMock(
                 testModeSettings: testModeSettings
             )
             service = PaymentServiceMock(

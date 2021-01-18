@@ -7,18 +7,18 @@ final class PaymentMethodHandlerServiceImpl {
 
     private let supportedTypes: Set<PaymentMethodType>
     private let tokenizationSettings: TokenizationSettings
-    private let applePayHandler: ApplePayHandlerProcessing
+    private let applePayService: ApplePayService
 
     // MARK: - Init
 
     init(
         tokenizationSettings: TokenizationSettings,
         supportedTypes: Set<PaymentMethodType>,
-        applePayHandler: ApplePayHandlerProcessing
+        applePayService: ApplePayService
     ) {
         self.tokenizationSettings = tokenizationSettings
         self.supportedTypes = supportedTypes
-        self.applePayHandler = applePayHandler
+        self.applePayService = applePayService
     }
 }
 
@@ -28,7 +28,7 @@ extension PaymentMethodHandlerServiceImpl: PaymentMethodHandlerService {
     func filterPaymentMethods(
         _ paymentMethods: [PaymentOption]
     ) -> [PaymentOption] {
-        let handledSupportedTypes = applePayHandler
+        let handledSupportedTypes = applePayService
             .filteredByApplePayAvailability(supportedTypes)
         let supportedPaymentMethods = paymentMethods.filter {
             handledSupportedTypes.contains($0.paymentMethodType)
