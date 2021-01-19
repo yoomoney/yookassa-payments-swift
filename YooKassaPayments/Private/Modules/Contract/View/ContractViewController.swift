@@ -99,21 +99,6 @@ class ContractViewController: UIViewController, PlaceholderProvider {
     }
 }
 
-// MARK: - Presentable
-
-extension ContractViewController: Presentable {
-    var iPhonePresentationStyle: PresentationStyle {
-        return .actionSheet
-    }
-
-    var iPadPresentationStyle: PresentationStyle {
-        return .pageSheet
-    }
-    var hasNavigationBar: Bool {
-        return false
-    }
-}
-
 // MARK: - ContractViewInput
 
 extension ContractViewController: ContractViewInput {

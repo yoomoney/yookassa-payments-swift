@@ -143,22 +143,6 @@ class BankCardDataInputViewController: UIViewController, PlaceholderProvider {
     }
 }
 
-// MARK: - Presentable
-
-extension BankCardDataInputViewController: Presentable {
-    var iPhonePresentationStyle: PresentationStyle {
-        return .modal
-    }
-
-    var iPadPresentationStyle: PresentationStyle {
-        return .pageSheet
-    }
-
-    var hasNavigationBar: Bool {
-        return true
-    }
-}
-
 // MARK: - BankCardDataInputViewInput
 
 extension BankCardDataInputViewController: BankCardDataInputViewInput {

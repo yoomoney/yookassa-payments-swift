@@ -54,23 +54,6 @@ final class ErrorViewController: UIViewController, PlaceholderProvider {
     }
 }
 
-// MARK: - Presentable
-
-extension ErrorViewController: Presentable {
-
-    var iPhonePresentationStyle: PresentationStyle {
-        return .actionSheet
-    }
-
-    var iPadPresentationStyle: PresentationStyle {
-        return .pageSheet
-    }
-
-    var hasNavigationBar: Bool {
-        return false
-    }
-}
-
 // MARK: - ErrorViewInput
 
 extension ErrorViewController: ErrorViewInput {

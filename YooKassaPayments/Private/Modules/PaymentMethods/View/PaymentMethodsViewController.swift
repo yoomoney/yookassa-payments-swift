@@ -224,21 +224,6 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
     }
 }
 
-// MARK: - Presentable
-
-extension PaymentMethodsViewController: Presentable {
-    var iPhonePresentationStyle: PresentationStyle {
-        return .actionSheet
-    }
-
-    var iPadPresentationStyle: PresentationStyle {
-        return .pageSheet
-    }
-    var hasNavigationBar: Bool {
-        return false
-    }
-}
-
 // MARK: - UITableViewDataSource
 extension PaymentMethodsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
