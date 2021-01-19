@@ -6,9 +6,10 @@ enum AnalyticsProvidingAssembly {
         let keyValueStoring: KeyValueStoring
         switch testModeSettings {
         case .some(let testModeSettings):
-            keyValueStoring = KeyValueStoringAssembly.makeMockKeychainStorage(
+            keyValueStoring = KeyValueStoringAssembly.makeKeychainStorageMock(
                 testModeSettings: testModeSettings
             )
+
         case .none:
             keyValueStoring = KeyValueStoringAssembly.makeKeychainStorage()
         }

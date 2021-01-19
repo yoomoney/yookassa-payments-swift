@@ -5,10 +5,11 @@ struct PaymentMethodHandlerServiceAssembly {
         _ tokenizationSettings: TokenizationSettings
     ) -> PaymentMethodHandlerService {
         let supportedTypes = tokenizationSettings.paymentMethodTypes.rawValue
+        let applePayService = ApplePayServiceImpl()
         return PaymentMethodHandlerServiceImpl(
             tokenizationSettings: tokenizationSettings,
             supportedTypes: supportedTypes,
-            applePayHandler: ApplePayHandler()
+            applePayService: applePayService
         )
     }
 }

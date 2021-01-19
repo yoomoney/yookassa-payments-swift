@@ -3,12 +3,18 @@ import Security
 
 final class KeychainStorage {
 
+    // MARK: - Init data
+
     private let service: String
+
+    // MARK: - Init
 
     init(service: String) {
         self.service = service
     }
+}
 
+extension KeychainStorage {
     func setValue(_ value: String?, for key: String) {
         if let value = value {
             guard let data = value.data(using: .utf8, allowLossyConversion: false) else {
@@ -41,7 +47,6 @@ final class KeychainStorage {
     }
 
     private func setValue(_ value: Data, for key: String) {
-
         var query = makeQuery()
         query[Keys.attributeAccount] = key
 
@@ -55,15 +60,13 @@ final class KeychainStorage {
 
         switch status {
         case errSecSuccess, errSecInteractionNotAllowed:
-
             var query = makeQuery()
             query[Keys.attributeAccount] = key
 
             let attributes = makeAttributes(key: nil, value: value)
 
             if status == errSecInteractionNotAllowed
-                   && floor(NSFoundationVersionNumber) <= floor(NSFoundationVersionNumber_iOS_8_0) {
-
+            && floor(NSFoundationVersionNumber) <= floor(NSFoundationVersionNumber_iOS_8_0) {
                 removeValue(for: key)
                 setValue(value, for: key)
             } else {
@@ -105,7 +108,6 @@ final class KeychainStorage {
     }
 
     private func makeAttributes(key: String?, value: Data) -> [String: Any] {
-
         var attributes: [String: Any]
 
         if key != nil {
@@ -123,12 +125,39 @@ final class KeychainStorage {
     }
 }
 
+// MARK: - KeyValueStoring
+
+extension KeychainStorage: KeyValueStoring {
+
+    func getString(for key: String) -> String? {
+        return getValue(for: key)
+    }
+
+    func set(string: String?, for key: String) {
+        setValue(string, for: key)
+    }
+
+    func getBool(for key: String) -> Bool? {
+        guard let value = getValue(for: key) else { return nil }
+        return ["YES", "1"].contains(value)
+    }
+
+    func set(bool: Bool?, for key: String) {
+        switch bool {
+        case true?:
+            setValue("YES", for: key)
+        case false?:
+            setValue("NO", for: key)
+        case nil:
+            removeValue(for: key)
+        }
+    }
+}
+
 // MARK: - Constants
 
 private extension KeychainStorage {
-
     enum Keys {
-
         static let matchLimit = String(kSecMatchLimit)
         static let returnData = String(kSecReturnData)
         static let attributeAccount = String(kSecAttrAccount)
@@ -146,7 +175,6 @@ private extension KeychainStorage {
     }
 
     enum Values {
-
         static let matchLimitOne = kSecMatchLimitOne
         static let matchLimitAll = kSecMatchLimitAll
         static let synchronizableAny = kSecAttrSynchronizableAny

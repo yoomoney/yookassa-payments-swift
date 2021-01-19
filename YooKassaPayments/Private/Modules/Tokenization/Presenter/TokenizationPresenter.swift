@@ -308,12 +308,14 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
     }
 
     func presentApplePay(_ paymentOption: PaymentOption) {
-        let moduleInputData = ApplePayModuleInputData(merchantIdentifier: inputData.applePayMerchantIdentifier,
-                                                      amount: MonetaryAmountFactory.makeAmount(paymentOption.charge),
-                                                      shopName: inputData.shopName,
-                                                      purchaseDescription: inputData.purchaseDescription,
-                                                      supportedNetworks: ApplePayConstants.paymentNetworks,
-                                                      fee: paymentOption.fee)
+        let moduleInputData = ApplePayModuleInputData(
+            merchantIdentifier: inputData.applePayMerchantIdentifier,
+            amount: MonetaryAmountFactory.makeAmount(paymentOption.charge),
+            shopName: inputData.shopName,
+            purchaseDescription: inputData.purchaseDescription,
+            supportedNetworks: ApplePayConstants.paymentNetworks,
+            fee: paymentOption.fee
+        )
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.router.presentApplePay(inputData: moduleInputData,

@@ -10,7 +10,7 @@ enum AuthorizationServiceAssembly {
         let tokenStorage: KeyValueStoring
         switch testModeSettings {
         case let .some(testModeSettings):
-            tokenStorage = KeyValueStoringAssembly.makeMockKeychainStorage(
+            tokenStorage = KeyValueStoringAssembly.makeKeychainStorageMock(
                 testModeSettings: testModeSettings
             )
         case .none:
@@ -21,7 +21,7 @@ enum AuthorizationServiceAssembly {
             isLoggingEnabled: isLoggingEnabled,
             testModeSettings: testModeSettings
         )
-        let deviceInfoService = DeviceInfoProviderAssembly.makeDeviceInfoProvider()
+        let deviceInfoService = DeviceInfoServiceAssembly.makeService()
         let settingsStorage = KeyValueStoringAssembly.makeSettingsStorage()
 
         var moneyAuthRevokeTokenService: MoneyAuth.RevokeTokenService?

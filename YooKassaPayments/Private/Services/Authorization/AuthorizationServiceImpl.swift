@@ -8,7 +8,7 @@ final class AuthorizationServiceImpl {
 
     let tokenStorage: KeyValueStoring
     let walletLoginService: WalletLoginService
-    let deviceInfoService: DeviceInfoProvider
+    let deviceInfoService: DeviceInfoService
     let settingsStorage: KeyValueStoring
     let moneyAuthRevokeTokenService: RevokeTokenService?
 
@@ -17,7 +17,7 @@ final class AuthorizationServiceImpl {
     init(
         tokenStorage: KeyValueStoring,
         walletLoginService: WalletLoginService,
-        deviceInfoService: DeviceInfoProvider,
+        deviceInfoService: DeviceInfoService,
         settingsStorage: KeyValueStoring,
         moneyAuthRevokeTokenService: RevokeTokenService?
     ) {

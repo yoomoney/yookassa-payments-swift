@@ -181,7 +181,6 @@
 		402EB642BF716ACB319EB848 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB8AF610282235BC5F5A /* Identifier.swift */; };
 		402EB64C16D64190F539C877 /* Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB71B3FA4CE37A176F38D /* Space.swift */; };
 		402EB66F674895CA46940165 /* UIImage+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA25F27A2A651AD093D3 /* UIImage+Tools.swift */; };
-		402EB66FCD5A001289831B48 /* ApplePayPermissionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4140624A37C315AA60F /* ApplePayPermissionsHandler.swift */; };
 		402EB673123BC9F7BB0EDADE /* KeyboardNotificationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC65C7C9A4599E39EEC2 /* KeyboardNotificationInfo.swift */; };
 		402EB67E391D678EC1816841 /* KeyboardObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB47F288FC29560EE036E /* KeyboardObservable.swift */; };
 		402EB688C6C3773A0DB0C25E /* TextControl+PlaceholderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6DA28A9ED92A6937E11 /* TextControl+PlaceholderMode.swift */; };
@@ -235,7 +234,6 @@
 		402EB82C82F34EA77C3B9E4D /* TokenizationModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB47F1567A31864612F7C /* TokenizationModuleIO.swift */; };
 		402EB82DE37467B20D37A0DA /* ContainerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDCA8CE554E9A5B4FFEB /* ContainerTableViewCell.swift */; };
 		402EB835982E5A8D08991192 /* ActivityIndicatorView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB80B16DF18EDB6A2A2C4 /* ActivityIndicatorView+Style.swift */; };
-		402EB83A4368626840FE76BC /* KeychainStorage+KeyValueStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4DADE10C17DBD59936A /* KeychainStorage+KeyValueStoring.swift */; };
 		402EB843F039EAD4609F1A40 /* BankCardDataInputPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBADC7F5CB6B5ADAE0A46 /* BankCardDataInputPresenter.swift */; };
 		402EB857FC2960724531CF13 /* WalletAuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1482E8BFCCAFC0AD625 /* WalletAuthAssembly.swift */; };
 		402EB85E842DBEAC4783738D /* UIViewController+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC140707FD1E08BB4760 /* UIViewController+Tools.swift */; };
@@ -283,7 +281,7 @@
 		402EB97391D8F379DEDE3203 /* LengthTextInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB86C3387D52C172E36A4 /* LengthTextInputPresenterStyle.swift */; };
 		402EB9740E2A7B0B64A6BA8C /* WebBrowserOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB2DD1B33A81A508DE7C /* WebBrowserOptions.swift */; };
 		402EB98572483EEC2B1B9EC8 /* ContractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB23C955E38F26EECEB1C /* ContractViewController.swift */; };
-		402EB9891535071C937CBBD5 /* DeviceInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB10ECDD105210396D8E9 /* DeviceInfoProvider.swift */; };
+		402EB9891535071C937CBBD5 /* DeviceInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB10ECDD105210396D8E9 /* DeviceInfoService.swift */; };
 		402EB99583C03B4D7ED0918B /* MaskedBankCardDataInputAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB022C090F30CC45D7617 /* MaskedBankCardDataInputAssembly.swift */; };
 		402EB9A12072A819B9A76CCE /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB76A45E625C03DFBA017 /* IconView.swift */; };
 		402EB9A28D0F8AD5DD5583B1 /* TextControl+BottomHintMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA98E33140B116330975 /* TextControl+BottomHintMode.swift */; };
@@ -392,7 +390,7 @@
 		402EBD4D36B6D5EB56EDF70B /* UITableViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBE29E5C87D456DDBE38B /* UITableViewCell+Identifier.swift */; };
 		402EBD50CA9522F54150D2FD /* ThreatMetrixService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7986CB03B6C22D0D00E /* ThreatMetrixService.swift */; };
 		402EBD61AE8F6F0E80140202 /* PhoneNumberInputInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB90DA607ABBDC720DA28 /* PhoneNumberInputInteractor.swift */; };
-		402EBD63F90CE9E26E3ABF36 /* MockKeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC8C5F2E04C722215410 /* MockKeychainStorage.swift */; };
+		402EBD63F90CE9E26E3ABF36 /* KeychainStorageMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC8C5F2E04C722215410 /* KeychainStorageMock.swift */; };
 		402EBD65CAEAB75D77DBD896 /* TextControl+LayoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB76D3F2A96CC05F90D59 /* TextControl+LayoutController.swift */; };
 		402EBD6CBBA4184A4517DD00 /* CardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB0E1A17D557739552F70 /* CardService.swift */; };
 		402EBD7014CFF4A56F23439F /* PresentableNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA064BCB0CAD14B2E344 /* PresentableNotification.swift */; };
@@ -431,8 +429,8 @@
 		402EBEC517E43E435F79D679 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA38EC646E32C0BA9D59 /* Button.swift */; };
 		402EBEC728884473D2963D2F /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB14D1CA49B598A9505EA /* InputView.swift */; };
 		402EBEFD045AF8060AD332F4 /* MaskedBankCardDataInputModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3E172491E532B30D64E /* MaskedBankCardDataInputModuleIO.swift */; };
-		402EBEFDB09772BF31E76445 /* DeviceInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB880D971E4B0390BF78 /* DeviceInfoService.swift */; };
-		402EBF134B3899D2D4F57F13 /* DeviceInfoProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB72D4947CCBA10551A04 /* DeviceInfoProviderAssembly.swift */; };
+		402EBEFDB09772BF31E76445 /* DeviceInfoServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB880D971E4B0390BF78 /* DeviceInfoServiceImpl.swift */; };
+		402EBF134B3899D2D4F57F13 /* DeviceInfoServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB72D4947CCBA10551A04 /* DeviceInfoServiceAssembly.swift */; };
 		402EBF16B975AAE8BD12FA20 /* WalletAuthParametersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFD655B9723BAFE547FD /* WalletAuthParametersPresenter.swift */; };
 		402EBF2A1DA4518D632CFDFF /* IconButtonItemViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAC997EF833DAC9D3ABF /* IconButtonItemViewIO.swift */; };
 		402EBF31C60A443E2591A2C2 /* NSLayoutConstraint+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1951B7BDB84585F6D93 /* NSLayoutConstraint+Tools.swift */; };
@@ -456,6 +454,9 @@
 		7817A19A25B18AB200CD5BAB /* WalletLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7817A19925B18AB200CD5BAB /* WalletLoginResponse.swift */; };
 		7817A19C25B18AD700CD5BAB /* WalletLoginProcessingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7817A19B25B18AD700CD5BAB /* WalletLoginProcessingError.swift */; };
 		7817A19E25B18C2800CD5BAB /* WalletLoginServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7817A19D25B18C2800CD5BAB /* WalletLoginServiceAssembly.swift */; };
+		784A1A8B25B5A44600637CB5 /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8A25B5A44600637CB5 /* ApplePayService.swift */; };
+		784A1A8D25B5A45000637CB5 /* ApplePayServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8C25B5A45000637CB5 /* ApplePayServiceImpl.swift */; };
+		784A1A8F25B5A5A300637CB5 /* ApplePayConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8E25B5A5A300637CB5 /* ApplePayConstants.swift */; };
 		789C373D25AF260400BA94D1 /* PaymentMethodHandlerServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C373C25AF260400BA94D1 /* PaymentMethodHandlerServiceImpl.swift */; };
 		789C373F25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C373E25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift */; };
 		789C374125AF285C00BA94D1 /* PaymentServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C374025AF285C00BA94D1 /* PaymentServiceImpl.swift */; };
@@ -529,7 +530,7 @@
 		402EB0D93DE0D413280F555E /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		402EB0E1A17D557739552F70 /* CardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardService.swift; sourceTree = "<group>"; };
 		402EB0F56126E03975B3F4FB /* PhoneNumberStyleWithPhoneDetection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberStyleWithPhoneDetection.swift; sourceTree = "<group>"; };
-		402EB10ECDD105210396D8E9 /* DeviceInfoProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoProvider.swift; sourceTree = "<group>"; };
+		402EB10ECDD105210396D8E9 /* DeviceInfoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoService.swift; sourceTree = "<group>"; };
 		402EB11FE389F14318107C2C /* IconItemView+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IconItemView+Style.swift"; sourceTree = "<group>"; };
 		402EB120B0C7D38F9640AE67 /* IconItemViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconItemViewIO.swift; sourceTree = "<group>"; };
 		402EB121A6A4E1FE6BCA48ED /* CardSecAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSecAssembly.swift; sourceTree = "<group>"; };
@@ -587,7 +588,6 @@
 		402EB406DEBC4F837EDEC846 /* TokenizationModuleInputData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationModuleInputData.swift; sourceTree = "<group>"; };
 		402EB40E45FD50302AF2C546 /* ApiLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiLogger.swift; sourceTree = "<group>"; };
 		402EB4106DE995446269BD51 /* ErrorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorAssembly.swift; sourceTree = "<group>"; };
-		402EB4140624A37C315AA60F /* ApplePayPermissionsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayPermissionsHandler.swift; sourceTree = "<group>"; };
 		402EB43CDEA9F5F132A2CF9A /* banks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = banks.json; sourceTree = "<group>"; };
 		402EB45088875FC4B1B83754 /* PhoneNumberInputAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberInputAssembly.swift; sourceTree = "<group>"; };
 		402EB451EBD2F5D80C8382EE /* PhoneNumberInputPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberInputPresenter.swift; sourceTree = "<group>"; };
@@ -601,7 +601,6 @@
 		402EB4CB069329DCBDCE0E6D /* PaymentMethodsAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsAssembly.swift; sourceTree = "<group>"; };
 		402EB4D0C2AEFC68A22F5BA3 /* UILabel+Stylable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Stylable.swift"; sourceTree = "<group>"; };
 		402EB4D9C30B0A4128ADEF96 /* TokenizationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationPresenter.swift; sourceTree = "<group>"; };
-		402EB4DADE10C17DBD59936A /* KeychainStorage+KeyValueStoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KeychainStorage+KeyValueStoring.swift"; sourceTree = "<group>"; };
 		402EB4E132DE3B37C0A25FC1 /* FunctionalPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalPromise.swift; sourceTree = "<group>"; };
 		402EB4E1EF38AE1CD9BCF105 /* SberbankStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SberbankStrategy.swift; sourceTree = "<group>"; };
 		402EB4EDCE1A900FB422808A /* SberbankPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SberbankPresenter.swift; sourceTree = "<group>"; };
@@ -650,7 +649,7 @@
 		402EB70944785DE0DF9A4AE9 /* ResourceLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLoader.swift; sourceTree = "<group>"; };
 		402EB7128379FBEB8C5B5561 /* SwitchItemView+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwitchItemView+Style.swift"; sourceTree = "<group>"; };
 		402EB71B3FA4CE37A176F38D /* Space.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Space.swift; sourceTree = "<group>"; };
-		402EB72D4947CCBA10551A04 /* DeviceInfoProviderAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoProviderAssembly.swift; sourceTree = "<group>"; };
+		402EB72D4947CCBA10551A04 /* DeviceInfoServiceAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoServiceAssembly.swift; sourceTree = "<group>"; };
 		402EB745043F7722A3F0ACEE /* NumberKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberKeyboardView.swift; sourceTree = "<group>"; };
 		402EB75BC9578F08A4096984 /* YacardPanInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YacardPanInputPresenterStyle.swift; sourceTree = "<group>"; };
 		402EB765F8091A5DFF4918EA /* BankCardRepeatPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardRepeatPresenter.swift; sourceTree = "<group>"; };
@@ -763,7 +762,7 @@
 		402EBB549599D3B7DB0DABEC /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		402EBB5972E9BA97E5350DCC /* PaymentServiceAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentServiceAssembly.swift; sourceTree = "<group>"; };
 		402EBB761608F1C750B0D45F /* PriceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
-		402EBB880D971E4B0390BF78 /* DeviceInfoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoService.swift; sourceTree = "<group>"; };
+		402EBB880D971E4B0390BF78 /* DeviceInfoServiceImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoServiceImpl.swift; sourceTree = "<group>"; };
 		402EBB8AF610282235BC5F5A /* Identifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 		402EBB8C29DBDA7B2F91763F /* ActionSheetTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetTemplate.swift; sourceTree = "<group>"; };
 		402EBBAB27562572D852C400 /* DimmingPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
@@ -784,7 +783,7 @@
 		402EBC65C7C9A4599E39EEC2 /* KeyboardNotificationInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardNotificationInfo.swift; sourceTree = "<group>"; };
 		402EBC6E1AC8DE3F0701FE15 /* HostsConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostsConfig.swift; sourceTree = "<group>"; };
 		402EBC752D3205EAC4BAC8EA /* CardSecInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSecInteractorIO.swift; sourceTree = "<group>"; };
-		402EBC8C5F2E04C722215410 /* MockKeychainStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeychainStorage.swift; sourceTree = "<group>"; };
+		402EBC8C5F2E04C722215410 /* KeychainStorageMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainStorageMock.swift; sourceTree = "<group>"; };
 		402EBC92823F6166AFC8E917 /* ContractPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractPresenter.swift; sourceTree = "<group>"; };
 		402EBC9ABFBF24C573DC88A4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		402EBCA4155A33038689C3A6 /* PriceInputPresenterStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceInputPresenterStyle.swift; sourceTree = "<group>"; };
@@ -862,6 +861,9 @@
 		7817A19925B18AB200CD5BAB /* WalletLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLoginResponse.swift; sourceTree = "<group>"; };
 		7817A19B25B18AD700CD5BAB /* WalletLoginProcessingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLoginProcessingError.swift; sourceTree = "<group>"; };
 		7817A19D25B18C2800CD5BAB /* WalletLoginServiceAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletLoginServiceAssembly.swift; sourceTree = "<group>"; };
+		784A1A8A25B5A44600637CB5 /* ApplePayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
+		784A1A8C25B5A45000637CB5 /* ApplePayServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayServiceImpl.swift; sourceTree = "<group>"; };
+		784A1A8E25B5A5A300637CB5 /* ApplePayConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayConstants.swift; sourceTree = "<group>"; };
 		789C373C25AF260400BA94D1 /* PaymentMethodHandlerServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodHandlerServiceImpl.swift; sourceTree = "<group>"; };
 		789C373E25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodHandlerServiceAssembly.swift; sourceTree = "<group>"; };
 		789C374025AF285C00BA94D1 /* PaymentServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceImpl.swift; sourceTree = "<group>"; };
@@ -1247,9 +1249,9 @@
 		402EB2741A02449E43C85DA5 /* DeviceInfo */ = {
 			isa = PBXGroup;
 			children = (
-				402EB10ECDD105210396D8E9 /* DeviceInfoProvider.swift */,
-				402EBB880D971E4B0390BF78 /* DeviceInfoService.swift */,
-				402EB72D4947CCBA10551A04 /* DeviceInfoProviderAssembly.swift */,
+				402EB10ECDD105210396D8E9 /* DeviceInfoService.swift */,
+				402EB72D4947CCBA10551A04 /* DeviceInfoServiceAssembly.swift */,
+				402EBB880D971E4B0390BF78 /* DeviceInfoServiceImpl.swift */,
 			);
 			path = DeviceInfo;
 			sourceTree = "<group>";
@@ -1978,20 +1980,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		402EBAFA3C7BD1906EFDC3BA /* KeyValueStoring */ = {
-			isa = PBXGroup;
-			children = (
-				402EBED6C43E33F60A00D47A /* KeychainStorage.swift */,
-				402EB4DADE10C17DBD59936A /* KeychainStorage+KeyValueStoring.swift */,
-				402EB009CEDEC5DB870537E1 /* KeyValueStoring.swift */,
-				402EB90A62EB2C275C5DE842 /* KeyValueStoringAssembly.swift */,
-				30B20E2A2535FC1C00941574 /* KeyValueStoringKeys.swift */,
-				402EBC8C5F2E04C722215410 /* MockKeychainStorage.swift */,
-				402EB0D93DE0D413280F555E /* UserDefaultsStorage.swift */,
-			);
-			path = KeyValueStoring;
-			sourceTree = "<group>";
-		};
 		402EBB02AE37900695528473 /* ActivityIndicator */ = {
 			isa = PBXGroup;
 			children = (
@@ -2305,18 +2293,19 @@
 			isa = PBXGroup;
 			children = (
 				402EB40E45FD50302AF2C546 /* ApiLogger.swift */,
-				402EB4140624A37C315AA60F /* ApplePayPermissionsHandler.swift */,
 				402EB0E1A17D557739552F70 /* CardService.swift */,
 				402EB6287F7DD3A3CC35816B /* HostProvider.swift */,
 				402EB8953FE1DE599CA97894 /* WebLogger.swift */,
 				402EBF2ECE99022B226CDBE6 /* Analytics */,
+				784A1A8925B5A42900637CB5 /* ApplePay */,
 				402EBEFAE69A8355E0DE0E81 /* Authorization */,
 				402EBBE1ED7002E267CEBE6A /* AuthTypeStates */,
 				402EB25C85170B43FF38903C /* BankSettingsService */,
 				402EB2741A02449E43C85DA5 /* DeviceInfo */,
-				402EBAFA3C7BD1906EFDC3BA /* KeyValueStoring */,
+				784A1A9125B5AE7200637CB5 /* KeyValueStoring */,
 				402EB8DCCA3ABCF1B5D1064A /* Payment */,
 				789C373B25AF25CC00BA94D1 /* PaymentMethodHandler */,
+				784A1A9025B5A6BB00637CB5 /* Storage */,
 				402EBFE0E277B5E418D9A8C0 /* ThreatMetrix */,
 				402EB42B6FF3543C81A7E57C /* WalletLogin */,
 			);
@@ -2438,6 +2427,36 @@
 				402EB47DA392DA9D9382598B /* UIButton+Stylable.swift */,
 			);
 			path = Stylist;
+			sourceTree = "<group>";
+		};
+		784A1A8925B5A42900637CB5 /* ApplePay */ = {
+			isa = PBXGroup;
+			children = (
+				784A1A8E25B5A5A300637CB5 /* ApplePayConstants.swift */,
+				784A1A8A25B5A44600637CB5 /* ApplePayService.swift */,
+				784A1A8C25B5A45000637CB5 /* ApplePayServiceImpl.swift */,
+			);
+			path = ApplePay;
+			sourceTree = "<group>";
+		};
+		784A1A9025B5A6BB00637CB5 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				402EBED6C43E33F60A00D47A /* KeychainStorage.swift */,
+				402EBC8C5F2E04C722215410 /* KeychainStorageMock.swift */,
+				402EB0D93DE0D413280F555E /* UserDefaultsStorage.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		784A1A9125B5AE7200637CB5 /* KeyValueStoring */ = {
+			isa = PBXGroup;
+			children = (
+				402EB009CEDEC5DB870537E1 /* KeyValueStoring.swift */,
+				402EB90A62EB2C275C5DE842 /* KeyValueStoringAssembly.swift */,
+				30B20E2A2535FC1C00941574 /* KeyValueStoringKeys.swift */,
+			);
+			path = KeyValueStoring;
 			sourceTree = "<group>";
 		};
 		789C373B25AF25CC00BA94D1 /* PaymentMethodHandler */ = {
@@ -2773,6 +2792,7 @@
 				402EBC93F0932E48D5F91361 /* IconButtonItemViewIO.swift in Sources */,
 				402EBDDEFD372F2DCD299727 /* IconButtonItemView.swift in Sources */,
 				402EB7F979D1333C112634AB /* IconButtonItemTableViewCell.swift in Sources */,
+				784A1A8F25B5A5A300637CB5 /* ApplePayConstants.swift in Sources */,
 				402EB1A5803069AB8AFC12C2 /* LargeIconButtonItemViewIO.swift in Sources */,
 				402EB762374D9D4259547825 /* LargeIconButtonItemViewCell.swift in Sources */,
 				402EB6E3FD03B79FD088DD35 /* LargeIconButtonItemView.swift in Sources */,
@@ -2921,6 +2941,7 @@
 				402EBEFD045AF8060AD332F4 /* MaskedBankCardDataInputModuleIO.swift in Sources */,
 				402EB06FC9F381B4EF8B073F /* BankCardDataInputRouter.swift in Sources */,
 				402EB74C820F58042AC058DF /* BankCardDataInputRouterIO.swift in Sources */,
+				784A1A8D25B5A45000637CB5 /* ApplePayServiceImpl.swift in Sources */,
 				402EBC3A36D0ABDDD0D0C4B4 /* PaymentMethodsAssembly.swift in Sources */,
 				402EBC78A21756A0751049CB /* PaymentMethodsPresenter.swift in Sources */,
 				402EB5D6E79FE22EFE162375 /* PaymentMethodsViewController.swift in Sources */,
@@ -2946,6 +2967,7 @@
 				402EB8E3AB7F9F898BBB856B /* ContractModuleIO.swift in Sources */,
 				308E4180238581CB00B44490 /* SavePaymentMethodInfoPresenter.swift in Sources */,
 				789C373D25AF260400BA94D1 /* PaymentMethodHandlerServiceImpl.swift in Sources */,
+				784A1A8B25B5A44600637CB5 /* ApplePayService.swift in Sources */,
 				402EB62CCA48873DB5009D74 /* SberbankModuleIO.swift in Sources */,
 				402EB4CE49D2D89E446BD4D1 /* WalletAuthParametersModuleIO.swift in Sources */,
 				402EBC41089B09F83AC6D4CA /* ApplePayContractModuleIO.swift in Sources */,
@@ -2998,10 +3020,9 @@
 				402EBCB6D5E6441798A2DC59 /* AuthorizationServiceImpl.swift in Sources */,
 				402EBC79F23AF96FD348A6DE /* AuthorizationServiceAssembly.swift in Sources */,
 				402EB55BA25BA4C0946AE0D8 /* KeyValueStoring.swift in Sources */,
-				402EB83A4368626840FE76BC /* KeychainStorage+KeyValueStoring.swift in Sources */,
 				402EB2D2D4E55172E365B1F6 /* KeyValueStoringAssembly.swift in Sources */,
 				789C376F25B06EB600BA94D1 /* AuthorizationProcessingError.swift in Sources */,
-				402EBD63F90CE9E26E3ABF36 /* MockKeychainStorage.swift in Sources */,
+				402EBD63F90CE9E26E3ABF36 /* KeychainStorageMock.swift in Sources */,
 				402EB3397345E69677F29347 /* KeychainStorage.swift in Sources */,
 				402EB52D11504C419695D49F /* UserDefaultsStorage.swift in Sources */,
 				402EBFE2285B7B73BF2290ED /* WalletLoginServiceImpl.swift in Sources */,
@@ -3009,9 +3030,9 @@
 				402EB5745ABA5C4E1A40294A /* WalletLoginServiceMock.swift in Sources */,
 				402EBF72D88566C67130C623 /* AuthTypeStatesProvider.swift in Sources */,
 				402EB4DB7D89DA8CBED9BBBB /* AuthTypeStatesService.swift in Sources */,
-				402EB9891535071C937CBBD5 /* DeviceInfoProvider.swift in Sources */,
-				402EBEFDB09772BF31E76445 /* DeviceInfoService.swift in Sources */,
-				402EBF134B3899D2D4F57F13 /* DeviceInfoProviderAssembly.swift in Sources */,
+				402EB9891535071C937CBBD5 /* DeviceInfoService.swift in Sources */,
+				402EBEFDB09772BF31E76445 /* DeviceInfoServiceImpl.swift in Sources */,
+				402EBF134B3899D2D4F57F13 /* DeviceInfoServiceAssembly.swift in Sources */,
 				402EBACF1C5CFC5C064DFA36 /* AnalyticsService.swift in Sources */,
 				402EB9FA2915EE88D6833F2B /* TokenizeSchemeFactory.swift in Sources */,
 				402EB9E3F15C7DAD7D254D24 /* AnalyticsProvider.swift in Sources */,
@@ -3021,7 +3042,6 @@
 				402EB5609877054CD489DF14 /* AnalyticsTrackable.swift in Sources */,
 				402EBB04E607A7D25433D1A8 /* AnalyticsProviding.swift in Sources */,
 				402EB4A38D9458D726EF2973 /* AnalyticsProvidingAssembly.swift in Sources */,
-				402EB66FCD5A001289831B48 /* ApplePayPermissionsHandler.swift in Sources */,
 				402EB7B158726C9D36615F9A /* WebLogger.swift in Sources */,
 				402EB10E2B1F8A4E8BD2DEB8 /* BankSettingsService.swift in Sources */,
 				402EB324EC0352C1CF0A8A59 /* BankSettingsServiceImpl.swift in Sources */,
