@@ -42,7 +42,6 @@ public enum TokenizationAssembly {
         let router = TokenizationRouter()
 
         view.output = presenter
-        view.transitioningDelegate = router
         view.modalPresentationStyle = .custom
 
         presenter.view = view
@@ -91,8 +90,6 @@ public enum TokenizationAssembly {
         )
 
         viewController.output = presenter
-        viewController.transitioningDelegate = router
-        viewController.modalPresentationStyle = .custom
 
         presenter.router = router
         presenter.interactor = interactor
@@ -103,6 +100,16 @@ public enum TokenizationAssembly {
 
         router.transitionHandler = viewController
 
-        return viewController
+        let navigationController = UINavigationController(
+            rootViewController: viewController
+        )
+
+        return navigationController
     }
+}
+
+
+// TODO: Fix it in https://jira.yamoney.ru/browse/MOC-1563
+extension UINavigationController: TokenizationModuleInput {
+    public func start3dsProcess(requestUrl: String) {}
 }

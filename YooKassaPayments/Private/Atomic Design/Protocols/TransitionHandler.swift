@@ -23,4 +23,10 @@ protocol TransitionHandler: class {
     /// If the current view controller did not present another view controller modally,
     /// the value in this property is nil.
     var presentedViewController: UIViewController? { get }
+
+    /// Push a view controller in navigation controller.
+    /// - Parameters:
+    ///   - viewController: view controller to push
+    ///   - flag: manage animation flag
+    func push(_ viewController: UIViewController, animated flag: Bool)
 }
