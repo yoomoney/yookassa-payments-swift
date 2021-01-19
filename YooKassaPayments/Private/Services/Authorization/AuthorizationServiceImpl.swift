@@ -1,4 +1,3 @@
-import class When.Promise
 import MoneyAuth
 import YooKassaWalletApi
 
@@ -128,34 +127,62 @@ extension AuthorizationServiceImpl {
         let amount = reusableToken ? nil : amount
         let paymentUsageLimit: PaymentUsageLimit = reusableToken ? .multiple : .single
 
-        let promiseTmxSessionId: Promise<String>
         if let tmxSessionId = tmxSessionId {
-            promiseTmxSessionId = Promise { return tmxSessionId }
+            loginInWalletWithTMXSessionId(
+                moneyCenterAuthorization: moneyCenterAuthorization,
+                merchantClientAuthorization: merchantClientAuthorization,
+                instanceName: instanceName,
+                singleAmountMax: amount,
+                paymentUsageLimit: paymentUsageLimit,
+                tmxSessionId: tmxSessionId,
+                completion: completion
+            )
         } else {
-            promiseTmxSessionId = ThreatMetrixService.profileApp()
-        }
+            ThreatMetrixService.profileApp { [weak self] result in
+                guard let self = self else { return }
 
-        promiseTmxSessionId.always { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .success(tmxSessionId):
-                self.walletLoginService.requestAuthorization(
-                    moneyCenterAuthorization: moneyCenterAuthorization,
-                    merchantClientAuthorization: merchantClientAuthorization,
-                    instanceName: instanceName,
-                    singleAmountMax: amount,
-                    paymentUsageLimit: paymentUsageLimit,
-                    tmxSessionId: tmxSessionId
-                ) { result in
-                    switch result {
-                    case let .success(response):
-                        self.saveWalletLoginInStorage(response: response)
-                        completion(.success(response))
-                    case let .failure(error):
-                        completion(.failure(error))
-                    }
+                switch result {
+                case let .success(tmxSessionId):
+                    self.loginInWalletWithTMXSessionId(
+                        moneyCenterAuthorization: moneyCenterAuthorization,
+                        merchantClientAuthorization: merchantClientAuthorization,
+                        instanceName: instanceName,
+                        singleAmountMax: amount,
+                        paymentUsageLimit: paymentUsageLimit,
+                        tmxSessionId: tmxSessionId,
+                        completion: completion
+                    )
+
+                case let .failure(error):
+                    completion(.failure(error))
                 }
+            }
+        }
+    }
 
+    private func loginInWalletWithTMXSessionId(
+        moneyCenterAuthorization: String,
+        merchantClientAuthorization: String,
+        instanceName: String,
+        singleAmountMax: MonetaryAmount?,
+        paymentUsageLimit: PaymentUsageLimit,
+        tmxSessionId: String,
+        completion: @escaping (Result<WalletLoginResponse, Error>) -> Void
+    ) {
+        walletLoginService.requestAuthorization(
+            moneyCenterAuthorization: moneyCenterAuthorization,
+            merchantClientAuthorization: merchantClientAuthorization,
+            instanceName: instanceName,
+            singleAmountMax: singleAmountMax,
+            paymentUsageLimit: paymentUsageLimit,
+            tmxSessionId: tmxSessionId
+        ) { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case let .success(response):
+                self.saveWalletLoginInStorage(response: response)
+                completion(.success(response))
             case let .failure(error):
                 completion(.failure(error))
             }

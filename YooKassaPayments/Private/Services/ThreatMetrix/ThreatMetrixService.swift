@@ -21,12 +21,10 @@
  * THE SOFTWARE.
  */
 
-import FunctionalSwift
 import TMXProfiling
-import When
 
 /// Profiling error or session id
-typealias ThreatMetrixProfilingCompletionHandler = (FunctionalSwift.Result<String>) -> Void
+typealias ThreatMetrixProfilingCompletionHandler = (Result<String, Error>) -> Void
 
 /// Service to manage threat metrix.
 /// ThreatMetrix should be configured on app start up.
@@ -35,8 +33,10 @@ class ThreatMetrixService {
     static var isConfigured = false
 
     fileprivate static var currentProfilingCallback: ThreatMetrixProfilingCompletionHandler?
-    fileprivate static let threatMetrixQueue = DispatchQueue(label: "ru.yookassa.payments.queue.threatMetrix",
-                                                             qos: .userInteractive)
+    fileprivate static let threatMetrixQueue = DispatchQueue(
+        label: "ru.yookassa.payments.queue.threatMetrix",
+        qos: .userInteractive
+    )
     fileprivate static var profileHandler: TMXProfileHandle?
 
     /// Initialize ThreatMetrix SDK
@@ -68,21 +68,20 @@ class ThreatMetrixService {
     /// If called while already profiling, previous callback will be called with interrupted state.
     ///
     /// - Parameter completion: callback contains error or session id on success
-    static func profileApp() -> Promise<String> {
-
-        let promise: Promise<String> = Promise()
-
+    static func profileApp(
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
         threatMetrixQueue.async {
 
             guard isConfigured else {
                 assertionFailure("ThreatMetrix must be configured before profiling")
-                promise.reject(ProfileError.invalidConfiguration)
+                completion(.failure(ProfileError.invalidConfiguration))
                 return
             }
 
-            ThreatMetrixService.currentProfilingCallback?(.left(ProfileError.interrupted))
+            ThreatMetrixService.currentProfilingCallback?(.failure(ProfileError.interrupted))
             ThreatMetrixService.currentProfilingCallback = {
-                $0.bimap(promise.reject, promise.resolve)
+                completion($0)
             }
 
             ThreatMetrixService.profileHandler =
@@ -91,14 +90,12 @@ class ThreatMetrixService {
                     handleProfilingResult(profilingResult)
                 }
         }
-
-        return promise
     }
 
     private static func handleProfilingResult(_ result: [AnyHashable: Any]?) {
         let profilingResult: String
 
-        let status = TMXStatusCode.init -<< (result?[TMXProfileStatus] as? Int)
+        let status = (result?[TMXProfileStatus] as? Int).flatMap(TMXStatusCode.init)
         if status == .notYet, currentProfilingCallback != nil {
             TMXProfiling.sharedInstance()?.profileDevice { result in
                 ThreatMetrixService.profileHandler = nil
@@ -112,14 +109,14 @@ class ThreatMetrixService {
         } else {
             profilingResult = (status ?? .internalError).thmErrorCode
         }
-        currentProfilingCallback?(.right(profilingResult))
+        currentProfilingCallback?(.success(profilingResult))
         currentProfilingCallback = nil
     }
 
     /// Cancel current profiling
     static func cancelProfiling() {
         threatMetrixQueue.async {
-            ThreatMetrixService.currentProfilingCallback?(.left(ProfileError.interrupted))
+            ThreatMetrixService.currentProfilingCallback?(.failure(ProfileError.interrupted))
             ThreatMetrixService.currentProfilingCallback = nil
             ThreatMetrixService.profileHandler?.cancel()
         }

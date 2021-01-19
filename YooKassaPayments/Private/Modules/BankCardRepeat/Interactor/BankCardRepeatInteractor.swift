@@ -1,5 +1,3 @@
-import FunctionalSwift
-import When
 import YooKassaPaymentsApi
 
 final class BankCardRepeatInteractor {
@@ -53,11 +51,12 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
         paymentMethodId: String,
         csc: String
     ) {
-        guard let output = output else { return }
+        ThreatMetrixService.profileApp { [weak self] result in
+            guard let self = self,
+                  let output = self.output else { return }
 
-        let tmxSessionId = ThreatMetrixService.profileApp()
-        tmxSessionId.done { [weak self] tmxSessionId in
-            guard let self = self else { return }
+            switch result {
+            case let .success(tmxSessionId):
             self.paymentService.tokenizeRepeatBankCard(
                 clientApplicationKey: self.clientApplicationKey,
                 amount: amount,
@@ -75,10 +74,12 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
                     output.didFailTokenize(mappedError)
                 }
             }
-        }
 
-        let tmxSessionIdWithError = tmxSessionId.recover(on: .global(), mapError)
-        tmxSessionIdWithError.fail(output.didFailTokenize)
+            case let .failure(error):
+                output.didFailTokenize(mapError(error))
+                break
+            }
+        }
     }
 
     func trackEvent(_ event: AnalyticsEvent) {
@@ -94,14 +95,5 @@ private func mapError(_ error: Error) -> Error {
         return PaymentProcessingError.internetConnection
     default:
         return error
-    }
-}
-
-private func mapError<T>(_ error: Error) throws -> Promise<T> {
-    switch error {
-    case ThreatMetrixService.ProfileError.connectionFail:
-        throw PaymentProcessingError.internetConnection
-    default:
-        throw error
     }
 }
