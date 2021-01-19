@@ -1,5 +1,3 @@
-import FunctionalSwift
-
 final class ContractPresenter {
 
     // MARK: - VIPER module properties

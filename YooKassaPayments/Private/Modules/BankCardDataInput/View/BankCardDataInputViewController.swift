@@ -22,7 +22,6 @@
  * THE SOFTWARE.
  */
 
-import FunctionalSwift
 import UIKit
 
 ///// Base view to enter bank card pan, expiry date, cvv
@@ -373,12 +372,10 @@ private extension BankCardDataInputViewController {
 
         scrollViewController.footerView = confirmButton
 
-        let subviews: [UIView] = [
+        [
             panInputTextControl,
             additionalCardDataInputView,
-        ]
-
-        contentView.addSubview <^> subviews
+        ].forEach(contentView.addSubview)
     }
 
     func setupConstraints() {

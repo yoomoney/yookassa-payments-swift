@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 final class ErrorViewController: UIViewController, PlaceholderProvider {

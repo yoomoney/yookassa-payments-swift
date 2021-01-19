@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 class IconButtonItemView: UIView {
@@ -162,14 +161,14 @@ class IconButtonItemView: UIView {
     }
 
     private func setupSubviews() {
-        let subviews: [UIView] = [
+        [
             titleLabel,
             imageView,
             button,
-        ]
-
-        subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        addSubview <^> subviews
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            addSubview($0)
+        }
     }
 
     private func setupConstraints() {

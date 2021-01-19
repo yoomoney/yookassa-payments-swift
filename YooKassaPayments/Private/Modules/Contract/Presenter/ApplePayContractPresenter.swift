@@ -1,5 +1,3 @@
-import FunctionalSwift
-
 final class ApplePayContractPresenter {
 
     // MARK: - VIPER module properties

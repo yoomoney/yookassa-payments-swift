@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 final class PaymentMethodsViewController: UIViewController, PlaceholderProvider {
@@ -112,11 +111,11 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
     private func loadSubviews() {
         titleView.contentView.addSubview(headerView)
 
-        view.addSubview <^> [
+        [
             tableView,
             separatorView,
             titleView,
-        ]
+        ].forEach(view.addSubview)
         tableViewController.didMove(toParent: self)
         setupTableView()
     }

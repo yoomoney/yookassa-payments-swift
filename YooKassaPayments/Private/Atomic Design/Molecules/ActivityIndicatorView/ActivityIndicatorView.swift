@@ -53,6 +53,6 @@ private extension ActivityIndicatorView {
         NSLayoutConstraint.activate([
             centerX.constraint(equalTo: activity.centerX),
             centerY.constraint(equalTo: activity.centerY),
-            ])
+        ])
     }
 }

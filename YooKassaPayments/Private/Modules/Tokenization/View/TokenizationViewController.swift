@@ -1,5 +1,4 @@
 import class PassKit.PKPaymentAuthorizationViewController
-import FunctionalSwift
 import UIKit
 
 final class TokenizationViewController: UIViewController {

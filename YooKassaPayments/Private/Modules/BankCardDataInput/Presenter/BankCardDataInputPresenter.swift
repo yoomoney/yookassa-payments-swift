@@ -25,7 +25,6 @@
 
 import Dispatch
 import Foundation
-import FunctionalSwift
 
 class BankCardDataInputPresenter {
 
@@ -213,13 +212,13 @@ extension BankCardDataInputPresenter: ActionTextDialogDelegate {
 extension BankCardDataInputPresenter: BankCardDataInputRouterOutput {
 
     func cardScanningDidFinish(_ scannedCardInfo: ScannedCardInfo) {
-        setPanAndMoveFocusNext <^> scannedCardInfo.number
-        setExpiryDateAndMoveFocusNext <^> scannedCardInfo.expiryDate
+        scannedCardInfo.number.map(setPanAndMoveFocusNext)
+        scannedCardInfo.expiryDate.map(setExpiryDateAndMoveFocusNext)
 
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
             self.interactor.validate(cardData: self.cardData)
-            self.interactor.fetchBankCardSettings <^> self.cardData.pan
+            self.cardData.pan.map(self.interactor.fetchBankCardSettings)
         }
     }
 

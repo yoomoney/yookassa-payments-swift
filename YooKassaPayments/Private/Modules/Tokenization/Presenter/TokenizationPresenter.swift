@@ -1,5 +1,4 @@
 import Foundation
-import FunctionalSwift
 import PassKit
 import YooKassaPaymentsApi
 import struct YooKassaWalletApi.AuthTypeState
@@ -57,7 +56,7 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
     }
 
     private var paymentMethodViewModel: PaymentMethodViewModel? {
-        return makePaymentMethodViewModel <^> paymentOption
+        return paymentOption.map(makePaymentMethodViewModel)
     }
 
     private lazy var termsOfService: TermsOfService = {

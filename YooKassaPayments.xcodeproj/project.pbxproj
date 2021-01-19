@@ -73,7 +73,6 @@
 		402EB20489B718B1F3042183 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 402EBC9ABFBF24C573DC88A4 /* Media.xcassets */; };
 		402EB2053A9B22C7BDFC449F /* BankCardDataInputModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB18D00E276257DE40E0E /* BankCardDataInputModuleIO.swift */; };
 		402EB205C1A8B8F415A69FE3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB549599D3B7DB0DABEC /* Settings.swift */; };
-		402EB2094206B1F1F567506A /* TaskPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8E2FCF62D54C5430379 /* TaskPromise.swift */; };
 		402EB2190CE442F0171240FA /* PhoneNumberOutputFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF5D11080AD50AD7F9B8 /* PhoneNumberOutputFormatter.swift */; };
 		402EB21E38868077796D07A2 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB76A45E625C03DFBA017 /* IconView.swift */; };
 		402EB230D52067A6A6CD0479 /* UIViewController+NotificationPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBCED8FF67CEAB438F4B0 /* UIViewController+NotificationPresenting.swift */; };
@@ -115,7 +114,6 @@
 		402EB3D6C3EA851FFADBC1DB /* WalletStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAD38C5EB643CD21E0DE /* WalletStrategy.swift */; };
 		402EB3D85D14E3351D0166FC /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB776A6DD755E24BEC5B8 /* KeyboardResponder.swift */; };
 		402EB3FF96557316FD2CBB8B /* YooMoneyAuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7CBA4DC00B146D0AABC /* YooMoneyAuthPresenter.swift */; };
-		402EB40CB6ED57483D5DB57D /* FunctionalPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4E132DE3B37C0A25FC1 /* FunctionalPromise.swift */; };
 		402EB40FD0FD8D76EE4D5C27 /* MonthInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDAA5D0FE0E2B30537E9 /* MonthInputPresenterStyle.swift */; };
 		402EB433B34E2E169013B85E /* PhoneNumberStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBEFF5FF3553BF51ED09F /* PhoneNumberStyle.swift */; };
 		402EB434A5D6D34C94F950D6 /* ContractTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB340F0FA43A21F9C8B95 /* ContractTemplate.swift */; };
@@ -601,7 +599,6 @@
 		402EB4CB069329DCBDCE0E6D /* PaymentMethodsAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsAssembly.swift; sourceTree = "<group>"; };
 		402EB4D0C2AEFC68A22F5BA3 /* UILabel+Stylable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Stylable.swift"; sourceTree = "<group>"; };
 		402EB4D9C30B0A4128ADEF96 /* TokenizationPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationPresenter.swift; sourceTree = "<group>"; };
-		402EB4E132DE3B37C0A25FC1 /* FunctionalPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalPromise.swift; sourceTree = "<group>"; };
 		402EB4E1EF38AE1CD9BCF105 /* SberbankStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SberbankStrategy.swift; sourceTree = "<group>"; };
 		402EB4EDCE1A900FB422808A /* SberbankPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SberbankPresenter.swift; sourceTree = "<group>"; };
 		402EB4F728CFBA828884E459 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
@@ -685,7 +682,6 @@
 		402EB8C80DD9E0B2A53B86E7 /* AuthCodeInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCodeInputViewController.swift; sourceTree = "<group>"; };
 		402EB8D335568901201F0600 /* TokenizationInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationInteractor.swift; sourceTree = "<group>"; };
 		402EB8DEF09A97F555305770 /* InputPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputPresenter.swift; sourceTree = "<group>"; };
-		402EB8E2FCF62D54C5430379 /* TaskPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskPromise.swift; sourceTree = "<group>"; };
 		402EB90A62EB2C275C5DE842 /* KeyValueStoringAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStoringAssembly.swift; sourceTree = "<group>"; };
 		402EB90AC2AB22E987F48BF5 /* UISwitch+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISwitch+Style.swift"; sourceTree = "<group>"; };
 		402EB90B3882C0E9057A2AAD /* ProcessingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessingViewController.swift; sourceTree = "<group>"; };
@@ -1182,8 +1178,6 @@
 				402EBF0B61189D45DE05B5DD /* Localization.swift */,
 				402EB01C01B0045F18C02BE0 /* PrefferedContentSizeCategory.swift */,
 				402EB70944785DE0DF9A4AE9 /* ResourceLoader.swift */,
-				402EB8E2FCF62D54C5430379 /* TaskPromise.swift */,
-				402EB4E132DE3B37C0A25FC1 /* FunctionalPromise.swift */,
 				402EB95CFDB39CEB4AD76B48 /* String+Split.swift */,
 				402EBA9EBE8B620DE9A915EB /* UIView+Tools.swift */,
 				402EBC140707FD1E08BB4760 /* UIViewController+Tools.swift */,
@@ -2652,7 +2646,6 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-YooKassaPaymentsExamplePods/Pods-YooKassaPaymentsExamplePods-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FunctionalSwift/FunctionalSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/When/When.framework",
 				"${PODS_ROOT}/YandexMobileMetrica/dynamic/YandexMobileMetrica.framework",
 				"${PODS_ROOT}/YandexMobileMetrica/dynamic/YandexMobileMetricaCrashes.framework",
 				"${PODS_ROOT}/../Frameworks/TMXProfiling.framework",
@@ -2667,7 +2660,6 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FunctionalSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/When.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexMobileMetrica.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YandexMobileMetricaCrashes.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TMXProfiling.framework",
@@ -2908,9 +2900,7 @@
 				402EB6BE01411608D225E157 /* Localization.swift in Sources */,
 				402EBFA22A30FD6DA60F6FA3 /* PrefferedContentSizeCategory.swift in Sources */,
 				402EBD79F5F3730B73E8E2B6 /* ResourceLoader.swift in Sources */,
-				402EB2094206B1F1F567506A /* TaskPromise.swift in Sources */,
 				7817A19C25B18AD700CD5BAB /* WalletLoginProcessingError.swift in Sources */,
-				402EB40CB6ED57483D5DB57D /* FunctionalPromise.swift in Sources */,
 				402EB15E980B41AA08731E66 /* String+Split.swift in Sources */,
 				402EB10A8D9BD77A5D0E64A4 /* UIView+Tools.swift in Sources */,
 				402EB85E842DBEAC4783738D /* UIViewController+Tools.swift in Sources */,

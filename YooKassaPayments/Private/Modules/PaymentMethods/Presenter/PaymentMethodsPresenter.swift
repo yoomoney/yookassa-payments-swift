@@ -1,4 +1,3 @@
-import FunctionalSwift
 import YooKassaPaymentsApi
 
 final class PaymentMethodsPresenter {
@@ -110,9 +109,13 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
                                                               methodsCount: paymentMethods.count)
             } else {
                 let walletDisplayName = strongSelf.interactor.getWalletDisplayName()
-                let viewModels = { PaymentMethodViewModelFactory
-                    .makePaymentMethodViewModel(paymentOption: $0,
-                                                walletDisplayName: walletDisplayName) } <^> paymentMethods
+
+                let viewModels = paymentMethods.map {
+                    PaymentMethodViewModelFactory.makePaymentMethodViewModel(
+                        paymentOption: $0,
+                        walletDisplayName: walletDisplayName
+                    )
+                }
                 view.hideActivity()
                 view.setPaymentMethodViewModels(viewModels)
             }

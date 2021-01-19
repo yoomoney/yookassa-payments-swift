@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 final class ActionSheetHeaderView: UIView {
@@ -107,13 +106,13 @@ final class ActionSheetHeaderView: UIView {
     }
 
     private func setupSubviews() {
-        let subviews: [UIView] = [
+        [
             titleLabel,
             imageView,
-        ]
-
-        subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        addSubview <^> subviews
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            addSubview($0)
+        }
     }
 
     private func setupConstraints() {

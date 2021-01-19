@@ -1,4 +1,3 @@
-import FunctionalSwift
 import struct YooKassaWalletApi.AuthTypeState
 
 final class WalletAuthPresenter {

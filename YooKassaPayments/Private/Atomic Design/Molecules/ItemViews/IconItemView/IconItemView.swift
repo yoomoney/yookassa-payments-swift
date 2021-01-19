@@ -81,14 +81,13 @@ final class IconItemView: UIView {
     }
 
     private func setupSubviews() {
-        let subviews: [UIView] = [
+        [
             iconView,
             badgeImageView,
             titleLabel,
-        ]
-        subviews.forEach {
+        ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            self.addSubview($0)
+            addSubview($0)
         }
     }
 

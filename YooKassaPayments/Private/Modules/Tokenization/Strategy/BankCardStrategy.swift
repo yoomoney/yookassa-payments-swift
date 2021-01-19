@@ -1,4 +1,3 @@
-import FunctionalSwift
 import PassKit
 import YooKassaPaymentsApi
 
@@ -83,8 +82,8 @@ extension BankCardStrategy: TokenizationStrategyInput {
 private func makeBankCard(_ cardData: CardData) -> BankCard? {
     guard let number = cardData.pan,
           let expiryDateComponents = cardData.expiryDate,
-          let expiryYear = String.init -<< expiryDateComponents.year,
-          let expiryMonth = String.init -<< expiryDateComponents.month,
+          let expiryYear = expiryDateComponents.year.flatMap(String.init),
+          let expiryMonth = expiryDateComponents.month.flatMap(String.init),
           let csc = cardData.csc else {
         return nil
     }

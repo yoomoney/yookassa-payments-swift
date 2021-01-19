@@ -116,7 +116,7 @@ extension TokenizationRouter: TokenizationRouterInput {
 
     func presentYooMoneyAuth(
         inputData: YooMoneyAuthModuleInputData,
-                             moduleOutput: YooMoneyAuthModuleOutput
+        moduleOutput: YooMoneyAuthModuleOutput
     ) {
         let viewController = YooMoneyAuthAssembly.makeModule(
             inputData: inputData,

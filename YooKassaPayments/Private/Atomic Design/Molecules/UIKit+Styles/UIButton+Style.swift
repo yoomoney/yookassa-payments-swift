@@ -22,7 +22,6 @@
  */
 
 import Foundation
-import FunctionalSwift
 import UIKit
 
 // MARK: - Styles
@@ -417,7 +416,7 @@ extension UIButton {
             ]
 
             for (state, title) in titles {
-                button.setAttributedTitle(makeCaption1String <^> title, for: state)
+                button.setAttributedTitle(title.flatMap(makeCaption1String), for: state)
             }
         }
     }

@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 final class SwitchItemView: UIView {
@@ -69,12 +68,13 @@ final class SwitchItemView: UIView {
     }
 
     private func setupSubviews() {
-        let subviews: [UIView] = [
+        [
             titleLabel,
             switchControl,
-        ]
-        subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        addSubview <^> subviews
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            addSubview($0)
+        }
     }
 
     private func setupConstraints() {

@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 protocol ModalTemplateDelegate: class {

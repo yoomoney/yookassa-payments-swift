@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 class ContractViewController: UIViewController, PlaceholderProvider {

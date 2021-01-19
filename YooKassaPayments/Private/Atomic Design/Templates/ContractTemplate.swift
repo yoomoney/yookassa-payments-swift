@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 protocol ContractTemplateViewOutput: class {
@@ -258,16 +257,17 @@ final class ContractTemplate: UIViewController {
     }
 
     private func loadSubviews() {
-        let subviews: [UIView] = [
+        headerView.contentView.addSubview(titleLabel)
+
+        [
             scrollView,
             headerView,
             submitButton,
-        ]
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
 
-        headerView.contentView.addSubview(titleLabel)
-
-        view.addSubview <^> subviews
-        subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.alwaysBounceVertical = true
 
@@ -275,18 +275,17 @@ final class ContractTemplate: UIViewController {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(contentView)
 
-        let views: [UIView] = [
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        [
             descriptionLabel,
             descriptionLabelSeparator,
             priceView,
             termsOfServiceTextView,
-        ]
-
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        views.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-
-        contentView.addSubview <^> views
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview($0)
+        }
     }
 
     private func loadConstraints() {
@@ -336,7 +335,7 @@ final class ContractTemplate: UIViewController {
             return NSLayoutConstraint.constraints(withVisualFormat: format, metrics: Space.metrics, views: views)
         }
 
-        constraints += makeConstraints -<< formats
+        constraints += formats.flatMap(makeConstraints)
 
         views["scrollView"] = nil
         views["headerView"] = nil
@@ -362,7 +361,7 @@ final class ContractTemplate: UIViewController {
             view.bottomMargin.constraint(equalTo: submitButton.bottom, constant: Space.double),
         ]
 
-        constraints += makeConstraints -<< horizontalFormats
+        constraints += horizontalFormats.flatMap(makeConstraints)
         constraints.append(descriptionLabelBottomConstraint)
 
         NSLayoutConstraint.activate(constraints)

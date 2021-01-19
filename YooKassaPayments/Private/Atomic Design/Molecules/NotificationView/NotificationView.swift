@@ -21,7 +21,6 @@
  * THE SOFTWARE.
  */
 
-import FunctionalSwift
 import UIKit
 
 /// Toast view with message and actions. You can use this view for presenting
@@ -60,7 +59,7 @@ class NotificationView: UIView {
         didSet {
             let buttons = actions.enumerated().map { self.makeButton(index: $0.0, action: $0.1) }
             buttonStackView.subviews.forEach { $0.removeFromSuperview() }
-            buttonStackView.addArrangedSubview <^> buttons
+            buttons.forEach(buttonStackView.addArrangedSubview)
             labelBottomSpaceConstraint.isActive = actions.isEmpty
             buttonsBottomSpaceConstraint.isActive = actions.isEmpty == false
         }
@@ -79,7 +78,11 @@ class NotificationView: UIView {
 
     fileprivate var buttonStyles: [InternalStyle] = [] {
         didSet {
-            _ = UIView.appendStyle <^> buttonStackView.subviews <*> buttonStyles
+            buttonStyles.forEach { style in
+                buttonStackView.subviews.forEach {
+                    $0.appendStyle(style)
+                }
+            }
         }
     }
 
@@ -112,13 +115,14 @@ class NotificationView: UIView {
     }
 
     private func setupSubviews() {
-        let subviews: [UIView] = [
+        [
             iconImageView,
             label,
             buttonStackView,
-        ]
-        subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        addSubview <^> subviews
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            addSubview($0)
+        }
     }
 
     private func setupConstraints() {
@@ -174,7 +178,7 @@ class NotificationView: UIView {
 
     private func makeButton(index: Int, action: Action) -> UIButton {
         let button = UIButton(type: .custom)
-        button.appendStyle <^> buttonStyles
+        buttonStyles.forEach(button.appendStyle)
         button.setStyledTitle(action.title, for: .normal)
         button.tag = index
         button.addTarget(self, action: #selector(actionButtonDidPressed(_:)), for: .touchUpInside)

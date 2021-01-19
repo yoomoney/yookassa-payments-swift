@@ -1,5 +1,3 @@
-import FunctionalSwift
-
 struct DateInputPresenterStyle: InputPresenterStyle {
 
     func removedFormatting(from string: String) -> String {

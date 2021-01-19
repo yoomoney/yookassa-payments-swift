@@ -1,4 +1,3 @@
-import FunctionalSwift
 import YooKassaPaymentsApi
 import class UIKit.UIImage
 
