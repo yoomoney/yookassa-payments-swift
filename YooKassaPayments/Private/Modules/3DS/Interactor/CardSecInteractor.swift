@@ -1,5 +1,4 @@
 import Foundation
-import FunctionalSwift
 
 class CardSecInteractor {
 
@@ -36,18 +35,12 @@ class CardSecInteractor {
 
 extension CardSecInteractor: WebBrowserInteractorInput {
     func createRequest() {
-        func makeRequest(url: URL) -> URLRequest {
-            return URLRequest(url: url)
-        }
-
-        let url = URL(string: requestUrl)
-
         guard let output = output,
-              let request = makeRequest(url:) <^> url else {
+              let url = URL(string: requestUrl) else {
             return
         }
 
-        output.didCreateRequest(request, options)
+        output.didCreateRequest(URLRequest(url: url), options)
     }
 
     func shouldProcessRequest(_ request: URLRequest) -> Bool {

@@ -108,7 +108,6 @@ public enum TokenizationAssembly {
     }
 }
 
-
 // TODO: Fix it in https://jira.yamoney.ru/browse/MOC-1563
 extension UINavigationController: TokenizationModuleInput {
     public func start3dsProcess(requestUrl: String) {}

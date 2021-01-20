@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 enum PriceViewStyle {
@@ -100,15 +99,13 @@ final class PriceView: UIView {
     }
 
     private func setupSubviews() {
-        let subviews: [UIView] = [
+        [
             textLabel,
             priceLabel,
-        ]
-
-        subviews.forEach {
+        ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
+            addSubview($0)
         }
-        addSubview <^> subviews
     }
 
     private func setupConstraints() {

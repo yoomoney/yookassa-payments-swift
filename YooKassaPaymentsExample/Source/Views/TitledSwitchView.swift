@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 class TitledSwitchView: UIView {
@@ -58,7 +57,10 @@ class TitledSwitchView: UIView {
     }
 
     private func setupUI() {
-        addSubview <^> [titleLabel, switchControl]
+        [
+            titleLabel,
+            switchControl,
+        ].forEach(addSubview)
 
         setupConstraints()
     }

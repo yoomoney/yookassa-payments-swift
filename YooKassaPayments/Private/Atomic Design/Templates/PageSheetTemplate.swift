@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 protocol PageSheetTemplateDelegate: class {
@@ -81,14 +80,14 @@ class PageSheetTemplate: UIViewController {
     }
 
     private func loadSubviews() {
-        let subviews = [
-            dummyView,
-        ]
-
         dummyView.addSubview(navigationBar)
 
-        subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        view.addSubview <^> subviews
+        [
+            dummyView,
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
     }
 
     private func loadConstraints() {

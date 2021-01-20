@@ -1,5 +1,4 @@
 import Dispatch
-import FunctionalSwift
 import UIKit
 import WebKit.WKNavigationDelegate
 import WebKit.WKUIDelegate

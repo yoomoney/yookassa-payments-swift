@@ -22,7 +22,6 @@
  * THE SOFTWARE.
  */
 
-import FunctionalSwift
 import UIKit
 
 protocol AdditionalCardDataInputViewDelegate: class {
@@ -146,12 +145,13 @@ final class AdditionalCardDataInputView: UIView {
     }
 
     private func setupSubviews() {
-        let subviews: [UIView] = [
+        [
             expiryDateTextControl,
             cvcTextControl,
-        ]
-        subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        addSubview <^> subviews
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            addSubview($0)
+        }
     }
 
     private func setupConstraints() {

@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 final class LinkedSwitchItemView: UIView {
@@ -79,12 +78,13 @@ final class LinkedSwitchItemView: UIView {
     }
 
     private func setupSubviews() {
-        let subviews: [UIView] = [
+        [
             linkedTextView,
             switchControl,
-        ]
-        subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        addSubview <^> subviews
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            addSubview($0)
+        }
     }
 
     private func setupConstraints() {

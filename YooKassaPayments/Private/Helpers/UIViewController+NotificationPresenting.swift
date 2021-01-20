@@ -22,7 +22,6 @@
  */
 
 import Foundation
-import FunctionalSwift
 import UIKit
 
 @available(iOS 9.0, *)
@@ -109,11 +108,11 @@ extension UIViewController: NotificationPresenting {
         let notificationActions = notification.actions.isEmpty
             ? [Action(title: Localized.cancel)]
             : notification.actions
-        alertController.addAction <^> notificationActions.map { action in
+        notificationActions.map { action in
             return UIAlertAction(title: action.title, style: .default) { _ in
                 NotificationCenter.default.post(name: action.notificationName, object: nil)
             }
-        }
+        }.forEach(alertController.addAction)
         present(alertController, animated: true)
     }
 

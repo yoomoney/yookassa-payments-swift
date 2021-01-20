@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit.UIViewController
 
 final class BankCardDataInputRouter {
