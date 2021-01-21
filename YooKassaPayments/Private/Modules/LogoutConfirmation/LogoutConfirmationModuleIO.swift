@@ -2,9 +2,7 @@ struct LogoutConfirmationModuleInputData {
     let accountName: String
 }
 
-protocol LogoutConfirmationModuleInput: class {
-
-}
+protocol LogoutConfirmationModuleInput: class {}
 
 protocol LogoutConfirmationModuleOutput: class {
     func logoutDidConfirm(on module: LogoutConfirmationModuleInput)

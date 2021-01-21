@@ -1,14 +1,18 @@
 final class SavePaymentMethodInfoPresenter {
 
-    // MARK: - VIPER properties
+    // MARK: - VIPER
 
     weak var view: SavePaymentMethodInfoViewInput?
 
-    // MARK: - Init
+    // MARK: - Init data
 
     private let inputData: SavePaymentMethodInfoModuleInputData
 
-    init(inputData: SavePaymentMethodInfoModuleInputData) {
+    // MARK: - Init
+
+    init(
+        inputData: SavePaymentMethodInfoModuleInputData
+    ) {
         self.inputData = inputData
     }
 }

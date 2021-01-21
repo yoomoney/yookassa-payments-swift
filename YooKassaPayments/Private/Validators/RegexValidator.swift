@@ -1,8 +1,10 @@
-import Foundation
+struct RegexValidator {
 
-struct RegexValidator: Validator {
+    // MARK: - Init data
 
     let expression: NSRegularExpression
+
+    // MARK: - Init
 
     init?(pattern: String) {
         do {
@@ -11,9 +13,17 @@ struct RegexValidator: Validator {
             return nil
         }
     }
+}
 
+// MARK: - Validator
+
+extension RegexValidator: Validator {
     func validate(text: String) -> Bool {
-        let matches = expression.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
+        let matches = expression.matches(
+            in: text,
+            options: [],
+            range: NSRange(location: 0, length: text.count)
+        )
         return matches.isEmpty == false
     }
 }

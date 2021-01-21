@@ -41,7 +41,7 @@ class PlaceholderView: UIView {
                 contentView.right.constraint(equalTo: right),
                 contentView.centerY.constraint(equalTo: centerY),
                 contentView.top.constraint(greaterThanOrEqualTo: top),
-                ])
+            ])
         }
     }
 }

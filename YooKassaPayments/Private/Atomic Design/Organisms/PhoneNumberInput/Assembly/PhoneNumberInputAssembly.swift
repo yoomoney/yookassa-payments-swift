@@ -1,8 +1,9 @@
 import UIKit
 
 enum PhoneNumberInputAssembly {
-    static func makeModule(moduleOutput: PhoneNumberInputModuleOutput?)
-            -> (UIViewController, PhoneNumberInputModuleInput) {
+    static func makeModule(
+        moduleOutput: PhoneNumberInputModuleOutput?
+    ) -> (UIViewController, PhoneNumberInputModuleInput) {
         let viewController = PhoneNumberInputViewController()
 
         let formatter = PhoneNumberFormatterAssembly.makeFormatter()

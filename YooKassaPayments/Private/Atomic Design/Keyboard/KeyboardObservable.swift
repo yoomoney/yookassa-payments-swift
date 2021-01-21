@@ -48,8 +48,10 @@ final class KeyboardObservable: NSObject { //NSObject to use kvo
     private static let observersSyncLabel = "ru.yookassa.payments.queue.KeyboardObservable.subhandlersSync"
 
     /// Queue for synchronizations 'observers' property
-    fileprivate let observersSync = DispatchQueue(label: KeyboardObservable.observersSyncLabel,
-                                                  attributes: [.concurrent])
+    fileprivate let observersSync = DispatchQueue(
+        label: KeyboardObservable.observersSyncLabel,
+        attributes: [.concurrent]
+    )
 
     /// Add observer to start receiving keyboard notifications in KeyboardObserver
     func addKeyboardObserver(_ observer: KeyboardObserver) {
@@ -87,9 +89,11 @@ final class KeyboardObservable: NSObject { //NSObject to use kvo
         isReloadingResponder = true
         if let observingResponder = currentObservingResponder {
             let observable = currentObservingResponder as? UIResponder
-            observable?.removeObserver(self,
-                                       forKeyPath: #keyPath(UIResponder.inputAccessoryView),
-                                       context: &inputAccessoryObserveContext)
+            observable?.removeObserver(
+                self,
+                forKeyPath: #keyPath(UIResponder.inputAccessoryView),
+                context: &inputAccessoryObserveContext
+            )
 
             removeObservingAccessoryView(fromResponder: observingResponder)
             currentObservingResponder = nil
@@ -99,10 +103,12 @@ final class KeyboardObservable: NSObject { //NSObject to use kvo
             currentObservingResponder = currentFirstResponder
             addObservingAccessoryView(toResponder: currentFirstResponder)
             let observable = currentObservingResponder as? UIResponder
-            observable?.addObserver(self,
-                                    forKeyPath: #keyPath(UIResponder.inputAccessoryView),
-                                    options: .new,
-                                    context: &inputAccessoryObserveContext)
+            observable?.addObserver(
+                self,
+                forKeyPath: #keyPath(UIResponder.inputAccessoryView),
+                options: .new,
+                context: &inputAccessoryObserveContext
+            )
         }
         isReloadingResponder = false
     }
@@ -136,10 +142,12 @@ private extension KeyboardObservable {
             UIResponder.keyboardDidHideNotification,
         ]
         keyboardNotifications.forEach {
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(handleKeyboardNotification(_:)),
-                                                   name: $0,
-                                                   object: nil)
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(handleKeyboardNotification(_:)),
+                name: $0,
+                object: nil
+            )
         }
         isObserving = true
     }
@@ -202,19 +210,23 @@ private extension KeyboardObservable {
         }
     }
 
-    private func parseNotificationUserInfo(_ userInfo: [AnyHashable: Any]) -> KeyboardNotificationInfo? {
+    private func parseNotificationUserInfo(
+        _ userInfo: [AnyHashable: Any]
+    ) -> KeyboardNotificationInfo? {
         guard let beginFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue).map({ $0.cgRectValue }),
               let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue).map({ $0.cgRectValue })
                 else {
             return nil
         }
-        let animationCurve
-            = (userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int).flatMap(UIView.AnimationCurve.init)
+        let animationCurve = (userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int)
+            .flatMap(UIView.AnimationCurve.init)
         let animationDuration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval)
-        return KeyboardNotificationInfo(beginKeyboardFrame: beginFrame,
-                                        endKeyboardFrame: endFrame,
-                                        animationCurve: animationCurve,
-                                        animationDuration: animationDuration)
+        return KeyboardNotificationInfo(
+            beginKeyboardFrame: beginFrame,
+            endKeyboardFrame: endFrame,
+            animationCurve: animationCurve,
+            animationDuration: animationDuration
+        )
     }
 }
 
@@ -259,10 +271,12 @@ private extension KeyboardObservable {
 
 // MARK: - KVO
 extension KeyboardObservable {
-    override func observeValue(forKeyPath keyPath: String?,
-                               of object: Any?,
-                               change: [NSKeyValueChangeKey: Any]?,
-                               context: UnsafeMutableRawPointer?) {
+    override func observeValue(
+        forKeyPath keyPath: String?,
+        of object: Any?,
+        change: [NSKeyValueChangeKey: Any]?,
+        context: UnsafeMutableRawPointer?
+    ) {
         guard context == &inputAccessoryObserveContext else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
             return

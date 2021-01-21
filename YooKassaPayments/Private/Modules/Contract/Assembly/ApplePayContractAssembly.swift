@@ -1,14 +1,17 @@
 import UIKit.UIViewController
 
 enum ApplePayContractAssembly {
-    static func makeModule(inputData: ApplePayContractModuleInputData,
-                           moduleOutput: ApplePayContractModuleOutput?) -> UIViewController {
+    static func makeModule(
+        inputData: ApplePayContractModuleInputData,
+        moduleOutput: ApplePayContractModuleOutput?
+    ) -> UIViewController {
         let viewController = ContractViewController()
         let presenter = ApplePayContractPresenter(inputData: inputData)
 
-        let analyticsService = AnalyticsProcessingAssembly
-            .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
-        let analyticsProvider = AnalyticsProvidingAssembly.makeAnalyticsProvider(
+        let analyticsService = AnalyticsServiceAssembly.makeService(
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
+        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
             testModeSettings: inputData.testModeSettings
         )
         let interactor = ContractInteractor(

@@ -3,15 +3,21 @@ import struct YooKassaWalletApi.AuthTypeState
 import PassKit
 
 final class WalletStrategy {
+
+    // MARK: - Outputs
+
     weak var output: TokenizationStrategyOutput?
     weak var contractStateHandler: ContractStateHandler?
 
+    // MARK: - Init data
+
     var savePaymentMethod: Bool
-    var shouldInvalidateTokenizeData = false
 
     private let authorizationService: AuthorizationService
     private let paymentOption: PaymentInstrumentYooMoneyWallet
     private let returnUrl: String
+
+    // MARK: - Init
 
     init(
         authorizationService: AuthorizationService,
@@ -27,7 +33,13 @@ final class WalletStrategy {
         self.returnUrl = returnUrl
         self.savePaymentMethod = savePaymentMethod
     }
+
+    // MARK: - Properties
+
+    var shouldInvalidateTokenizeData = false
 }
+
+// MARK: - TokenizationStrategyInput
 
 extension WalletStrategy: TokenizationStrategyInput {
     func beginProcess() {
@@ -52,14 +64,18 @@ extension WalletStrategy: TokenizationStrategyInput {
         output?.tokenize(tokenizeData, paymentOption: paymentOption)
     }
 
-    func walletAuthParameters(_ module: WalletAuthParametersModuleInput,
-                              loginWithReusableToken isReusableToken: Bool) {
-
+    func walletAuthParameters(
+        _ module: WalletAuthParametersModuleInput,
+        loginWithReusableToken isReusableToken: Bool
+    ) {
         contractStateHandler = module
         module.hidePlaceholder()
         module.showActivity()
 
-        output?.loginInWallet(reusableToken: isReusableToken, paymentOption: paymentOption)
+        output?.loginInWallet(
+            reusableToken: isReusableToken,
+            paymentOption: paymentOption
+        )
     }
 
     func didLoginInWallet(
@@ -102,11 +118,19 @@ extension WalletStrategy: TokenizationStrategyInput {
         _ module: BankCardDataInputModuleInput,
         didPressConfirmButton bankCardData: CardData
     ) {}
-    func sberbankModule(_ module: SberbankModuleInput, didPressConfirmButton phoneNumber: String) {}
-    func didPressConfirmButton(on module: BankCardDataInputModuleInput, cvc: String) {}
-    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController,
-                                            didAuthorizePayment payment: PKPayment,
-                                            completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {}
+    func sberbankModule(
+        _ module: SberbankModuleInput,
+        didPressConfirmButton phoneNumber: String
+    ) {}
+    func didPressConfirmButton(
+        on module: BankCardDataInputModuleInput,
+        cvc: String
+    ) {}
+    func paymentAuthorizationViewController(
+        _ controller: PKPaymentAuthorizationViewController,
+        didAuthorizePayment payment: PKPayment,
+        completion: @escaping (PKPaymentAuthorizationStatus) -> Void
+    ) {}
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {}
     func didFailPresentApplePayModule() {}
     func didPresentApplePayModule() {}

@@ -5,9 +5,10 @@ enum PaymentMethodViewModelFactory {
 
     // MARK: - Transform model to ViewModel
 
-    static func makePaymentMethodViewModel(paymentOption: PaymentOption,
-                                           walletDisplayName: String?) -> PaymentMethodViewModel {
-
+    static func makePaymentMethodViewModel(
+        paymentOption: PaymentOption,
+        walletDisplayName: String?
+    ) -> PaymentMethodViewModel {
         let viewModel: PaymentMethodViewModel
         switch paymentOption {
         case let paymentOption as PaymentInstrumentYooMoneyWallet:
@@ -33,30 +34,40 @@ enum PaymentMethodViewModelFactory {
 
     // MARK: - Making ViewModel from PaymentInstrumentYooMoneyWallet
 
-    private static func makePaymentMethodViewModel(_ paymentOption: PaymentInstrumentYooMoneyWallet,
-                                                   walletDisplayName: String?) -> PaymentMethodViewModel {
-        return PaymentMethod(name: walletDisplayName ?? paymentOption.accountId,
-                             image: PaymentMethodResources.Image.yooMoney,
-                             balance: MonetaryAmountFactory.makeAmount(paymentOption.balance))
+    private static func makePaymentMethodViewModel(
+        _ paymentOption: PaymentInstrumentYooMoneyWallet,
+        walletDisplayName: String?
+    ) -> PaymentMethodViewModel {
+        return PaymentMethod(
+            name: walletDisplayName ?? paymentOption.accountId,
+            image: PaymentMethodResources.Image.yooMoney,
+            balance: MonetaryAmountFactory.makeAmount(paymentOption.balance)
+        )
     }
 
     // MARK: - Making ViewModel from PaymentInstrumentYooMoneyLinkedBankCard
 
-    private static func makePaymentMethodViewModel(_ paymentOption: PaymentInstrumentYooMoneyLinkedBankCard)
-            -> PaymentMethodViewModel {
-        return PaymentMethod(name: makePaymentMethodViewModelName(paymentOption),
-                             image: makePaymentMethodViewModelImage(paymentOption),
-                             balance: nil)
+    private static func makePaymentMethodViewModel(
+        _ paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
+    ) -> PaymentMethodViewModel {
+        return PaymentMethod(
+            name: makePaymentMethodViewModelName(paymentOption),
+            image: makePaymentMethodViewModelImage(paymentOption),
+            balance: nil
+        )
     }
 
-    private static func makePaymentMethodViewModelName(_ paymentOption: PaymentInstrumentYooMoneyLinkedBankCard)
-            -> String {
-        return paymentOption.cardName ?? makeMaskedPan(paymentOption.cardMask)
+    private static func makePaymentMethodViewModelName(
+        _ paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
+    ) -> String {
+        return paymentOption.cardName
+            ?? makeMaskedPan(paymentOption.cardMask)
     }
 
     // swiftlint:disable cyclomatic_complexity
-    private static func makePaymentMethodViewModelImage(_ paymentOption: PaymentInstrumentYooMoneyLinkedBankCard)
-            -> UIImage {
+    private static func makePaymentMethodViewModelImage(
+        _ paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
+    ) -> UIImage {
         let image: UIImage
         switch paymentOption.cardType {
         case .masterCard:      image = PaymentMethodResources.Image.mastercard
@@ -82,13 +93,19 @@ enum PaymentMethodViewModelFactory {
 
     // MARK: - Making ViewModel from PaymentMethodType
 
-    static func makePaymentMethodViewModel(_ paymentMethodType: PaymentMethodType) -> PaymentMethodViewModel {
-        return PaymentMethod(name: makePaymentMethodViewModelName(paymentMethodType),
-                             image: makePaymentMethodViewModelImage(paymentMethodType),
-                             balance: nil)
+    static func makePaymentMethodViewModel(
+        _ paymentMethodType: PaymentMethodType
+    ) -> PaymentMethodViewModel {
+        return PaymentMethod(
+            name: makePaymentMethodViewModelName(paymentMethodType),
+            image: makePaymentMethodViewModelImage(paymentMethodType),
+            balance: nil
+        )
     }
 
-    private static func makePaymentMethodViewModelName(_ paymentMethodType: PaymentMethodType) -> String {
+    private static func makePaymentMethodViewModelName(
+        _ paymentMethodType: PaymentMethodType
+    ) -> String {
         let name: String
         switch paymentMethodType {
         case .bankCard:
@@ -106,7 +123,9 @@ enum PaymentMethodViewModelFactory {
         return name
     }
 
-    private static func makePaymentMethodViewModelImage(_ paymentMethodType: PaymentMethodType) -> UIImage {
+    private static func makePaymentMethodViewModelImage(
+        _ paymentMethodType: PaymentMethodType
+    ) -> UIImage {
         let image: UIImage
         switch paymentMethodType {
         case .bankCard:

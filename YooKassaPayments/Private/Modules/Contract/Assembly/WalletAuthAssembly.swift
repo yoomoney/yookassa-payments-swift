@@ -2,24 +2,27 @@ import UIKit.UIViewController
 import struct YooKassaWalletApi.AuthTypeState
 
 enum WalletAuthAssembly {
-    static func makeModule(inputData: WalletAuthModuleInputData,
-                           moduleOutput: WalletAuthModuleOutput?) -> UIViewController {
+    static func makeModule(
+        inputData: WalletAuthModuleInputData,
+        moduleOutput: WalletAuthModuleOutput?
+    ) -> UIViewController {
         let viewController = ContractViewController()
         let presenter = WalletAuthPresenter(inputData: inputData)
 
-        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
+        let analyticsService = AnalyticsServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled
         )
-        let analyticsProvider = AnalyticsProvidingAssembly.makeAnalyticsProvider(
+        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
             testModeSettings: inputData.testModeSettings
         )
         let interactor = ContractInteractor(analyticsService: analyticsService,
                                             analyticsProvider: analyticsProvider)
 
-        let itemView
-            = ContractViewFactory.makePaymentMethodView(paymentMethod: inputData.paymentMethod,
-                                                        viewOutput: presenter,
-                                                        shouldChangePaymentMethod: inputData.shouldChangePaymentMethod)
+        let itemView = ContractViewFactory.makePaymentMethodView(
+            paymentMethod: inputData.paymentMethod,
+            viewOutput: presenter,
+            shouldChangePaymentMethod: inputData.shouldChangePaymentMethod
+        )
 
         let authCodeType = makeAuthCodeType(authTypeState: inputData.authTypeState)
 

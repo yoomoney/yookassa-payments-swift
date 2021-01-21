@@ -1,3 +1,3 @@
-protocol ContractInteractorInput: AnalyticsTrackable, AnalyticsProviding {}
+protocol ContractInteractorInput: AnalyticsTrack, AnalyticsProvider {}
 
 protocol ContractInteractorOutput {}

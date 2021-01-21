@@ -28,7 +28,7 @@ import Foundation
 
 class BankCardDataInputPresenter {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
 
     weak var view: BankCardDataInputViewInput?
     weak var moduleOutput: BankCardDataInputModuleOutput?
@@ -36,21 +36,26 @@ class BankCardDataInputPresenter {
     var interactor: BankCardDataInputInteractorInput!
     var router: BankCardDataInputRouterInput!
 
-    // MARK: - Module interaction properties
-
-    fileprivate var cardData = CardData(pan: nil, expiryDate: nil, csc: nil)
-    fileprivate var expiryDateText = ""
-
-    // MARK: - Module data
+    // MARK: - Init data
 
     fileprivate let inputData: BankCardDataInputModuleInputData
 
-    init(inputData: BankCardDataInputModuleInputData) {
+    // MARK: - Init
+
+    init(
+        inputData: BankCardDataInputModuleInputData
+    ) {
         self.inputData = inputData
     }
+
+    // MARK: - Properties
+
+    fileprivate var cardData = CardData(pan: nil, expiryDate: nil, csc: nil)
+    fileprivate var expiryDateText = ""
 }
 
 // MARK: - BankCardDataInputViewOutput
+
 extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
     func setupView() {
         guard let view = self.view else { return }
@@ -134,6 +139,7 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
 }
 
 // MARK: - BankCardDataInputInteractorOutput
+
 extension BankCardDataInputPresenter: BankCardDataInputInteractorOutput {
     func successValidateCardData() {
         DispatchQueue.main.async { [weak self] in
@@ -156,9 +162,11 @@ extension BankCardDataInputPresenter: BankCardDataInputInteractorOutput {
             view.setExpiryDateIsValid(dateIsValid)
             view.setConfirmButtonEnabled(false)
 
-            strongSelf.moveFocusIfNeeded(in: view,
-                                         panIsValid: panIsValid,
-                                         dateIsValid: dateIsValid)
+            strongSelf.moveFocusIfNeeded(
+                in: view,
+                panIsValid: panIsValid,
+                dateIsValid: dateIsValid
+            )
         }
     }
 
@@ -179,6 +187,7 @@ extension BankCardDataInputPresenter: BankCardDataInputInteractorOutput {
 }
 
 // MARK: - BankCardDataInputModuleInput
+
 extension BankCardDataInputPresenter: BankCardDataInputModuleInput {
     func bankCardDidTokenize(_ error: Error) {
         let message = makeMessage(error)
@@ -198,19 +207,22 @@ extension BankCardDataInputPresenter: BankCardDataInputModuleInput {
 }
 
 // MARK: - PlaceholderViewDelegate
+
 extension BankCardDataInputPresenter: ActionTextDialogDelegate {
     func didPressButton() {
         guard let view = view else { return }
         view.hidePlaceholder()
         view.showActivity()
-        moduleOutput?.bankCardDataInputModule(self, didPressConfirmButton: cardData)
+        moduleOutput?.bankCardDataInputModule(
+            self,
+            didPressConfirmButton: cardData
+        )
     }
 }
 
 // MARK: - BankCardDataInputRouterOutput
 
 extension BankCardDataInputPresenter: BankCardDataInputRouterOutput {
-
     func cardScanningDidFinish(_ scannedCardInfo: ScannedCardInfo) {
         scannedCardInfo.number.map(setPanAndMoveFocusNext)
         scannedCardInfo.expiryDate.map(setExpiryDateAndMoveFocusNext)
@@ -242,8 +254,13 @@ extension BankCardDataInputPresenter: BankCardDataInputRouterOutput {
 }
 
 // MARK: - Private methods
+
 private extension BankCardDataInputPresenter {
-    func moveFocusIfNeeded(in view: BankCardDataInputViewInput, panIsValid: Bool, dateIsValid: Bool) {
+    func moveFocusIfNeeded(
+        in view: BankCardDataInputViewInput,
+        panIsValid: Bool,
+        dateIsValid: Bool
+    ) {
         switch view.focus {
         case .pan? where panIsValid:
             guard let pan = cardData.pan, pan.count >= Constants.MoveFocusLength.pan else { break }
@@ -259,6 +276,7 @@ private extension BankCardDataInputPresenter {
 }
 
 // MARK: - Constants
+
 private extension BankCardDataInputPresenter {
     enum Constants {
         enum MoveFocusLength {
@@ -269,6 +287,7 @@ private extension BankCardDataInputPresenter {
 }
 
 // MARK: - Localized
+
 private extension BankCardDataInputPresenter {
     enum Localized: String {
         case navigationBarTitle = "BankCardDataInput.navigationBarTitle"
@@ -304,5 +323,9 @@ private func makeExpiryDate(_ expiryDate: String) -> DateComponents? {
         return nil
     }
 
-    return DateComponents(calendar: Calendar(identifier: .gregorian), year: year, month: month)
+    return DateComponents(
+        calendar: Calendar(identifier: .gregorian),
+        year: year,
+        month: month
+    )
 }

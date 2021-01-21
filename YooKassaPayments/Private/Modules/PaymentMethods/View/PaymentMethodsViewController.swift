@@ -2,11 +2,11 @@ import UIKit
 
 final class PaymentMethodsViewController: UIViewController, PlaceholderProvider {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
 
     var output: PaymentMethodsViewOutput!
 
-    // MARK: - Subviews properties
+    // MARK: - UI properties
 
     private lazy var blurEffectStyle: UIBlurEffect.Style = {
         let style: UIBlurEffect.Style
@@ -72,7 +72,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
 
     fileprivate var viewModels: [PaymentMethodViewModel] = []
 
-    // MARK: - Initializers
+    // MARK: - Init
 
     convenience init() {
         self.init(nibName: nil, bundle: nil)
@@ -135,10 +135,12 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
         ]
 
         var constraints = formats.flatMap {
-            NSLayoutConstraint.constraints(withVisualFormat: $0,
-                                           options: [],
-                                           metrics: nil,
-                                           views: views)
+            NSLayoutConstraint.constraints(
+                withVisualFormat: $0,
+                options: [],
+                metrics: nil,
+                views: views
+            )
         }
 
         func makeFullwidthConstraints(view: UIView) -> [NSLayoutConstraint] {
@@ -195,16 +197,19 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
 
         let needUpdate: Bool
         let newValue = viewModels.isEmpty || shouldDefaultTableViewHeight
-            ? Constants.defaultTableViewHeight : contentEffectiveHeight
+            ? Constants.defaultTableViewHeight
+            : contentEffectiveHeight
 
         if tableViewHeightConstraint == nil {
-            tableViewHeightConstraint = NSLayoutConstraint(item: tableView,
-                                                           attribute: .height,
-                                                           relatedBy: .equal,
-                                                           toItem: nil,
-                                                           attribute: .notAnAttribute,
-                                                           multiplier: 1,
-                                                           constant: newValue)
+            tableViewHeightConstraint = NSLayoutConstraint(
+                item: tableView,
+                attribute: .height,
+                relatedBy: .equal,
+                toItem: nil,
+                attribute: .notAnAttribute,
+                multiplier: 1,
+                constant: newValue
+            )
             constraint.priority = .defaultHigh
             constraint.isActive = true
             needUpdate = true
@@ -224,21 +229,28 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
 }
 
 // MARK: - UITableViewDataSource
+
 extension PaymentMethodsViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView,
-                   numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return viewModels.count
     }
 
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let item = viewModels[indexPath.row]
 
         let cell: UITableViewCell
 
         if let balanceText = item.balanceText {
-            let largeCell = tableView.dequeueReusableCell(withType: LargeIconButtonItemViewCell.self,
-                                                          for: indexPath)
+            let largeCell = tableView.dequeueReusableCell(
+                withType: LargeIconButtonItemViewCell.self,
+                for: indexPath
+            )
             largeCell.icon = item.image
             largeCell.leftButtonTitle = item.name
             largeCell.title = balanceText
@@ -250,8 +262,10 @@ extension PaymentMethodsViewController: UITableViewDataSource {
 
             cell = largeCell
         } else {
-            let smallCell = tableView.dequeueReusableCell(withType: IconButtonItemTableViewCell.self,
-                                                          for: indexPath)
+            let smallCell = tableView.dequeueReusableCell(
+                withType: IconButtonItemTableViewCell.self,
+                for: indexPath
+            )
             smallCell.title = item.name
             smallCell.icon = item.image
 
@@ -266,11 +280,17 @@ extension PaymentMethodsViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension PaymentMethodsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(
+        _ tableView: UITableView,
+        estimatedHeightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
         return UITableView.automaticDimension
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard indexPath.row < viewModels.count else { return }
         output.didSelectViewModel(viewModels[indexPath.row], at: indexPath)
@@ -315,14 +335,16 @@ extension PaymentMethodsViewController: PaymentMethodsViewInput {
     func hideActivity() {
         shouldDefaultTableViewHeight = false
 
-        UIView.animate(withDuration: 0.2,
-                       animations: {
-                           self.activityIndicatorView?.alpha = 0
-                       },
-                       completion: { _ in
-                           self.activityIndicatorView?.removeFromSuperview()
-                           self.activityIndicatorView = nil
-                       })
+        UIView.animate(
+            withDuration: 0.2,
+            animations: {
+                self.activityIndicatorView?.alpha = 0
+            },
+            completion: { _ in
+                self.activityIndicatorView?.removeFromSuperview()
+                self.activityIndicatorView = nil
+            }
+        )
     }
 
     func showPlaceholder(message: String) {

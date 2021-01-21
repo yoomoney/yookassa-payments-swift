@@ -25,18 +25,19 @@
 import class UIKit.UIViewController
 
 enum BankCardDataInputAssembly {
-    static func makeModule(inputData: BankCardDataInputModuleInputData,
-                           moduleOutput: BankCardDataInputModuleOutput?) -> UIViewController {
-
+    static func makeModule(
+        inputData: BankCardDataInputModuleInputData,
+        moduleOutput: BankCardDataInputModuleOutput?
+    ) -> UIViewController {
         let view = BankCardDataInputViewController()
         let presenter = BankCardDataInputPresenter(inputData: inputData)
         let router = BankCardDataInputRouter(cardScanner: inputData.cardScanner)
 
         let cardService = CardService()
-        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
+        let analyticsService = AnalyticsServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled
         )
-        let analyticsProvider = AnalyticsProvidingAssembly.makeAnalyticsProvider(
+        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
             testModeSettings: inputData.testModeSettings
         )
         let interactor = BankCardDataInputInteractor(

@@ -4,31 +4,37 @@ class CardSecInteractor {
 
     private let options = WebBrowserOptions.all
 
-    // MARK: - VIPER module
+    // MARK: - VIPER
 
     weak var output: WebBrowserInteractorOutput?
     weak var cardSecPresenter: CardSecInteractorOutput?
 
-    // MARK: - VIPER module properties
+    // MARK: - Init data
 
-    private let analyticsService: AnalyticsProcessing
+    private let analyticsService: AnalyticsService
     private let requestUrl: String
     private let redirectUrl: String
-    private let logger: WebLogger
+    private let logger: WebLoggerService
 
-    fileprivate lazy var redirectPaths = [
-        redirectUrl,
-    ]
+    // MARK: - Init
 
-    init(analyticsService: AnalyticsProcessing,
-         requestUrl: String,
-         redirectUrl: String,
-         logger: WebLogger) {
+    init(
+        analyticsService: AnalyticsService,
+        requestUrl: String,
+        redirectUrl: String,
+        logger: WebLoggerService
+    ) {
         self.analyticsService = analyticsService
         self.requestUrl = requestUrl
         self.redirectUrl = redirectUrl
         self.logger = logger
     }
+
+    // MARK: - Properties
+
+    fileprivate lazy var redirectPaths = [
+        redirectUrl,
+    ]
 }
 
 // MARK: - WebBrowserInteractorInput

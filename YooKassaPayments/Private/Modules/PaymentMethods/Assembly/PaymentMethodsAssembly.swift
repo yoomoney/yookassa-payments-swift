@@ -35,10 +35,10 @@ enum PaymentMethodsAssembly {
             testModeSettings: inputData.testModeSettings,
             moneyAuthClientId: inputData.moneyAuthClientId
         )
-        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
+        let analyticsService = AnalyticsServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled
         )
-        let analyticsProvider = AnalyticsProvidingAssembly.makeAnalyticsProvider(
+        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
             testModeSettings: inputData.testModeSettings
         )
 

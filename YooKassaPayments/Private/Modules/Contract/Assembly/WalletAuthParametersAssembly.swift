@@ -3,15 +3,17 @@ import class UIKit.UIView
 import struct UIKit.UIEdgeInsets
 
 enum WalletAuthParametersAssembly {
-    static func makeModule(inputData: WalletAuthParametersModuleInputData,
-                           moduleOutput: WalletAuthParametersModuleOutput?) -> UIViewController {
+    static func makeModule(
+        inputData: WalletAuthParametersModuleInputData,
+        moduleOutput: WalletAuthParametersModuleOutput?
+    ) -> UIViewController {
         let viewController = ContractViewController()
         let presenter = WalletAuthParametersPresenter(inputData: inputData)
 
-        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
+        let analyticsService = AnalyticsServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled
         )
-        let analyticsProvider = AnalyticsProvidingAssembly.makeAnalyticsProvider(
+        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
             testModeSettings: inputData.testModeSettings
         )
         let interactor = ContractInteractor(

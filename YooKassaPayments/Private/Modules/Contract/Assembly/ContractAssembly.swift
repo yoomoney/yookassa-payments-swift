@@ -1,15 +1,17 @@
 import UIKit.UIViewController
 
 enum ContractAssembly {
-    static func makeModule(inputData: ContractModuleInputData,
-                           moduleOutput: ContractModuleOutput?) -> UIViewController {
+    static func makeModule(
+        inputData: ContractModuleInputData,
+        moduleOutput: ContractModuleOutput?
+    ) -> UIViewController {
         let viewController = ContractViewController()
         let presenter = ContractPresenter(inputData: inputData)
 
-        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
+        let analyticsService = AnalyticsServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled
         )
-        let analyticsProvider = AnalyticsProvidingAssembly.makeAnalyticsProvider(
+        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
             testModeSettings: inputData.testModeSettings
         )
         let interactor = ContractInteractor(

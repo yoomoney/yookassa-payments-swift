@@ -17,9 +17,11 @@ final class BankCardRepeatPresenter {
 
     private var savePaymentMethod = true
 
-    // MARK: - Initialization
+    // MARK: - Init data
 
     private let inputData: BankCardRepeatModuleInputData
+
+    // MARK: - Init
 
     init(inputData: BankCardRepeatModuleInputData) {
         self.inputData = inputData

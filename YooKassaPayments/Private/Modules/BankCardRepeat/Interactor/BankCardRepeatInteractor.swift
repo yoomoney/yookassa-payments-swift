@@ -6,16 +6,18 @@ final class BankCardRepeatInteractor {
 
     weak var output: BankCardRepeatInteractorOutput?
 
-    // MARK: - Initialization
+    // MARK: - Init data
 
     private let clientApplicationKey: String
     private let paymentService: PaymentService
-    private let analyticsService: AnalyticsProcessing
+    private let analyticsService: AnalyticsService
+
+    // MARK: - Init
 
     init(
         clientApplicationKey: String,
         paymentService: PaymentService,
-        analyticsService: AnalyticsProcessing
+        analyticsService: AnalyticsService
     ) {
         ThreatMetrixService.configure()
 
@@ -28,7 +30,6 @@ final class BankCardRepeatInteractor {
 // MARK: - BankCardRepeatInteractorInput
 
 extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
-
     func fetchPaymentMethod(paymentMethodId: String) {
         paymentService.fetchPaymentMethod(
             clientApplicationKey: clientApplicationKey,

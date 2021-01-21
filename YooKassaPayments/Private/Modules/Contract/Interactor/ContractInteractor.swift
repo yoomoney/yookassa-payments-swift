@@ -1,16 +1,23 @@
 final class ContractInteractor {
 
-    fileprivate let analyticsService: AnalyticsProcessing
-    fileprivate let analyticsProvider: AnalyticsProviding
+    // MARK: - Init data
 
-    init(analyticsService: AnalyticsProcessing,
-         analyticsProvider: AnalyticsProviding) {
+    fileprivate let analyticsService: AnalyticsService
+    fileprivate let analyticsProvider: AnalyticsProvider
+
+    // MARK: - Init
+
+    init(
+        analyticsService: AnalyticsService,
+        analyticsProvider: AnalyticsProvider
+    ) {
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
     }
 }
 
 // MARK: - ContractInteractorInput
+
 extension ContractInteractor: ContractInteractorInput {
 
     func trackEvent(_ event: AnalyticsEvent) {

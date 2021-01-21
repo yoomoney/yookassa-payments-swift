@@ -29,22 +29,30 @@ import class UIKit.UIImage
 
 final class MaskedBankCardDataInputPresenter {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
+
     weak var view: BankCardDataInputViewInput?
     weak var moduleOutput: MaskedBankCardDataInputModuleOutput?
     var interactor: BankCardDataInputInteractorInput!
 
-    // MARK: - Module interaction properties
-    fileprivate var csc: String?
+    // MARK: - Init data
 
-    // MARK: - Module data
     fileprivate let inputData: MaskedBankCardDataInputModuleInputData
-    init(inputData: MaskedBankCardDataInputModuleInputData) {
+
+    // MARK: - Init
+
+    init(
+        inputData: MaskedBankCardDataInputModuleInputData
+    ) {
         self.inputData = inputData
     }
+
+    // MARK: - Properties
+    fileprivate var csc: String?
 }
 
 // MARK: - BankCardDataInputViewOutput
+
 extension MaskedBankCardDataInputPresenter: BankCardDataInputViewOutput {
     func setupView() {
         guard let view = self.view else { return }
@@ -106,6 +114,7 @@ extension MaskedBankCardDataInputPresenter: BankCardDataInputViewOutput {
 }
 
 // MARK: - BankCardDataInputInteractorOutput
+
 extension MaskedBankCardDataInputPresenter: BankCardDataInputInteractorOutput {
     func successValidateCardData() {
         DispatchQueue.main.async { [weak self] in
@@ -126,8 +135,10 @@ extension MaskedBankCardDataInputPresenter: BankCardDataInputInteractorOutput {
         guard let cvc = csc else { return }
         view?.showActivity()
         view?.endEditing(true)
-        moduleOutput?.didPressConfirmButton(on: self,
-                                            cvc: cvc)
+        moduleOutput?.didPressConfirmButton(
+            on: self,
+            cvc: cvc
+        )
     }
 
     func didFetchBankSettings(_ bankSettings: BankSettings) {
@@ -147,6 +158,7 @@ extension MaskedBankCardDataInputPresenter: BankCardDataInputInteractorOutput {
 }
 
 // MARK: - BankCardDataInputModuleInput
+
 extension MaskedBankCardDataInputPresenter: BankCardDataInputModuleInput {
     func bankCardDidTokenize(_ error: Error) {
         let message = makeMessage(error)
@@ -167,18 +179,22 @@ extension MaskedBankCardDataInputPresenter: BankCardDataInputModuleInput {
 }
 
 // MARK: - PlaceholderViewDelegate
+
 extension MaskedBankCardDataInputPresenter: ActionTextDialogDelegate {
     // This is button in placeholder view. Need fix in UI library
     func didPressButton() {
         guard let cvc = csc else { return }
         view?.hidePlaceholder()
         view?.showActivity()
-        moduleOutput?.didPressConfirmButton(on: self,
-                                            cvc: cvc)
+        moduleOutput?.didPressConfirmButton(
+            on: self,
+            cvc: cvc
+        )
     }
 }
 
 // MARK: - Localized
+
 private extension MaskedBankCardDataInputPresenter {
     enum Localized: String {
         case navigationBarTitle = "BankCardDataInput.navigationBarTitle"
@@ -190,6 +206,7 @@ private extension MaskedBankCardDataInputPresenter {
 }
 
 // MARK: - Constants
+
 private extension MaskedBankCardDataInputPresenter {
     enum Constants {
         static let expiryDateValue = "•• / ••"
@@ -216,7 +233,11 @@ private func makePanFromCardMask(_ cardMask: String) -> String {
         ?? cardMask.index(cardMask.startIndex, offsetBy: cardMask.count, limitedBy: cardMask.endIndex)
         ?? cardMask.startIndex
 
-    let charsWithoutDecimals = cardMask.components(separatedBy: CharacterSet.decimalDigits).joined()
+    let charsWithoutDecimals = cardMask
+        .components(separatedBy: CharacterSet.decimalDigits)
+        .joined()
     let charsWithoutDecimalsSet = CharacterSet(charactersIn: charsWithoutDecimals)
-    return (cardMask[cardMask.startIndex..<endIndex]).components(separatedBy: charsWithoutDecimalsSet).joined()
+    return (cardMask[cardMask.startIndex..<endIndex])
+        .components(separatedBy: charsWithoutDecimalsSet)
+        .joined()
 }

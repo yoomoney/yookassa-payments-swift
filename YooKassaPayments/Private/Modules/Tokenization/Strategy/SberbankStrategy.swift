@@ -3,13 +3,17 @@ import YooKassaPaymentsApi
 
 final class SberbankStrategy {
 
-    let paymentOption: PaymentOption
+    // MARK: - Outputs
 
     weak var output: TokenizationStrategyOutput?
     weak var contractStateHandler: ContractStateHandler?
 
+    // MARK: - Init data
+
+    let paymentOption: PaymentOption
     var savePaymentMethod: Bool
-    var shouldInvalidateTokenizeData = false
+
+    // MARK: - Init
 
     init(
         paymentOption: PaymentOption,
@@ -22,7 +26,13 @@ final class SberbankStrategy {
         self.paymentOption = paymentOption
         self.savePaymentMethod = savePaymentMethod
     }
+
+    // MARK: - Properties
+
+    var shouldInvalidateTokenizeData = false
 }
+
+// MARK: - TokenizationStrategyInput
 
 extension SberbankStrategy: TokenizationStrategyInput {
     func beginProcess() {
@@ -54,11 +64,16 @@ extension SberbankStrategy: TokenizationStrategyInput {
     ) {}
     func failLoginInWallet(_ error: Error) {}
     func failResendSmsCode(_ error: Error) {}
-    func didPressConfirmButton(on module: BankCardDataInputModuleInput, cvc: String) {}
+    func didPressConfirmButton(
+        on module: BankCardDataInputModuleInput,
+        cvc: String
+    ) {}
     func didPressLogout() {}
-    func paymentAuthorizationViewController(_ controller: PassKit.PKPaymentAuthorizationViewController,
-                                            didAuthorizePayment payment: PassKit.PKPayment,
-                                            completion: @escaping (PassKit.PKPaymentAuthorizationStatus) -> Void) {}
+    func paymentAuthorizationViewController(
+        _ controller: PassKit.PKPaymentAuthorizationViewController,
+        didAuthorizePayment payment: PassKit.PKPayment,
+        completion: @escaping (PassKit.PKPaymentAuthorizationStatus) -> Void
+    ) {}
     func paymentAuthorizationViewControllerDidFinish(_ controller: PassKit.PKPaymentAuthorizationViewController) {}
     func didPresentApplePayModule() {}
     func didFailPresentApplePayModule() {}

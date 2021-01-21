@@ -10,7 +10,7 @@ enum TokenizeData {
     case sberbank(phoneNumber: String, confirmation: Confirmation, savePaymentMethod: Bool)
 }
 
-protocol TokenizationInteractorInput: AnalyticsTrackable, AnalyticsProviding {
+protocol TokenizationInteractorInput: AnalyticsTrack, AnalyticsProvider {
     func tokenize(
         _ data: TokenizeData,
         paymentOption: PaymentOption,

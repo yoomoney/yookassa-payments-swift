@@ -1,5 +1,3 @@
 import UIKit.UIAlertController
 
-extension UIAlertController: LogoutConfirmationModuleInput {
-
-}
+extension UIAlertController: LogoutConfirmationModuleInput {}

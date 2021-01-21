@@ -1,6 +1,6 @@
 final class ContractPresenter {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
 
     var interactor: ContractInteractorInput!
 
@@ -9,9 +9,11 @@ final class ContractPresenter {
     weak var contractView: ContractTemplateViewInput?
     weak var paymentMethodView: PaymentMethodViewInput?
 
-    // MARK: - Data
+    // MARK: - Init data
 
     fileprivate let inputData: ContractModuleInputData
+
+    // MARK: - Init
 
     init(inputData: ContractModuleInputData) {
         self.inputData = inputData

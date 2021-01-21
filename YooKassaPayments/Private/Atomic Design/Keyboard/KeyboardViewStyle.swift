@@ -18,9 +18,11 @@ struct KeyboardViewStyle {
     ///   - separatorLineWidth: Width of separator line
     ///   - separatorLineColor: Color of separatore line
     ///   - numberButtonStyle: Button style applied to keyboard number buttons
-    init(separatorLineWidth: CGFloat = 0,
-         separatorLineColor: UIColor = .clear,
-         numberButtonStyle: KeyboardButtonStyle = KeyboardButtonStyle()) {
+    init(
+        separatorLineWidth: CGFloat = 0,
+        separatorLineColor: UIColor = .clear,
+        numberButtonStyle: KeyboardButtonStyle = KeyboardButtonStyle()
+    ) {
         self.separatorLineWidth = separatorLineWidth
         self.separatorLineColor = separatorLineColor
         self.numberButtonStyle = numberButtonStyle

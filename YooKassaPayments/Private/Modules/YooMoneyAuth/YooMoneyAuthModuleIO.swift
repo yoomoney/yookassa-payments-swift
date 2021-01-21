@@ -16,7 +16,6 @@ struct YooMoneyAuthModuleInputData {
 protocol YooMoneyAuthModuleInput: class {}
 
 protocol YooMoneyAuthModuleOutput: class {
-
     func yooMoneyAuthModule(
         _ module: YooMoneyAuthModuleInput,
         didFetchWalletPaymentMethod paymentMethod: PaymentOption,

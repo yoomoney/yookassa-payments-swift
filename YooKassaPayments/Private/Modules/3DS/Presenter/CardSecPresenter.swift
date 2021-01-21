@@ -1,6 +1,6 @@
 final class CardSecPresenter: WebBrowserPresenter {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
 
     var cardSecInteractor: CardSecInteractorInput!
     weak var cardSecModuleOutput: CardSecModuleOutput?
@@ -28,7 +28,6 @@ final class CardSecPresenter: WebBrowserPresenter {
 // MARK: - CardSecInteractorOutput
 
 extension CardSecPresenter: CardSecInteractorOutput {
-
     func didSuccessfullyPassedCardSec() {
         guard shouldCallDidSuccessfullyPassedCardSec else { return }
         shouldCallDidSuccessfullyPassedCardSec = false

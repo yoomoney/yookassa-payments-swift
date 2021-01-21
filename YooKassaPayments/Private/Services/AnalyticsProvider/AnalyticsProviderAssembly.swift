@@ -1,9 +1,9 @@
-enum AnalyticsProvidingAssembly {
-
-    static func makeAnalyticsProvider(
+enum AnalyticsProviderAssembly {
+    static func makeProvider(
         testModeSettings: TestModeSettings?
-    ) -> AnalyticsProviding {
+    ) -> AnalyticsProvider {
         let keyValueStoring: KeyValueStoring
+
         switch testModeSettings {
         case .some(let testModeSettings):
             keyValueStoring = KeyValueStoringAssembly.makeKeychainStorageMock(
@@ -13,9 +13,9 @@ enum AnalyticsProvidingAssembly {
         case .none:
             keyValueStoring = KeyValueStoringAssembly.makeKeychainStorage()
         }
-        let analyticsProvider = AnalyticsProvider(
+
+        return AnalyticsProviderImpl(
             keyValueStoring: keyValueStoring
         )
-        return analyticsProvider
     }
 }

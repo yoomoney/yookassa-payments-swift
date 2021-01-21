@@ -2,10 +2,16 @@ import UIKit.UIViewController
 
 final class BankCardDataInputRouter {
 
+    // MARK: - Viper
+
     weak var transitionHandler: UIViewController?
     weak var output: BankCardDataInputRouterOutput?
 
+    // MARK: - Init data
+
     fileprivate let cardScanner: CardScanning?
+
+    // MARK: - Init
 
     init(cardScanner: CardScanning?) {
         self.cardScanner = cardScanner
@@ -13,6 +19,7 @@ final class BankCardDataInputRouter {
 }
 
 // MARK: - BankCardDataInputRouterInput
+
 extension BankCardDataInputRouter: BankCardDataInputRouterInput {
     func openCardScanner() {
         guard let cardScanner = cardScanner,
@@ -24,6 +31,7 @@ extension BankCardDataInputRouter: BankCardDataInputRouterInput {
 }
 
 // MARK: - CardScanningDelegate
+
 extension BankCardDataInputRouter: CardScanningDelegate {
     func cardScannerDidFinish(_ cardInfo: ScannedCardInfo?) {
         transitionHandler?.dismiss(animated: true) { [weak self] in

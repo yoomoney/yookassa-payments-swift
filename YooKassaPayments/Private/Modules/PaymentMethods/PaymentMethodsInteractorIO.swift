@@ -1,6 +1,6 @@
 import YooKassaPaymentsApi
 
-protocol PaymentMethodsInteractorInput: AnalyticsTrackable, AnalyticsProviding {
+protocol PaymentMethodsInteractorInput: AnalyticsTrack, AnalyticsProvider {
     func fetchPaymentMethods()
     func getWalletDisplayName() -> String?
 }

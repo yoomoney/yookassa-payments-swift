@@ -1,12 +1,14 @@
 final class PhoneNumberInputInteractor {
 
-    // MARK: - VIPER properties
-
-    var formatter: PhoneNumberFormatter
+    // MARK: - VIPER
 
     weak var output: PhoneNumberInputInteractorOutput?
 
-    // MARK: - Initializers
+    // MARK: - Init data
+
+    var formatter: PhoneNumberFormatter
+
+    // MARK: - Init
 
     init(formatter: PhoneNumberFormatter) {
         self.formatter = formatter

@@ -1,6 +1,6 @@
 final class SberbankPresenter {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
 
     var interactor: ContractInteractorInput!
 
@@ -10,17 +10,20 @@ final class SberbankPresenter {
     weak var paymentMethodView: PaymentMethodViewInput?
     weak var phoneInputView: PhoneNumberInputModuleInput?
 
-    // MARK: - Data
+    // MARK: - Init data
 
     fileprivate let inputData: SberbankModuleInputData
-    fileprivate var placeholderState: ContractPlaceholderState?
-    fileprivate var phoneNumber: String = ""
 
-    // MARK: - Initializers
+    // MARK: - Init
 
     init(inputData: SberbankModuleInputData) {
         self.inputData = inputData
     }
+
+    // MARK: - Properties
+
+    fileprivate var placeholderState: ContractPlaceholderState?
+    fileprivate var phoneNumber: String = ""
 }
 
 // MARK: - ContractViewInput
@@ -54,15 +57,19 @@ extension SberbankPresenter: ContractViewOutput {
             guard let strongSelf = self,
                   let interactor = strongSelf.interactor else { return }
             let (authType, _) = interactor.makeTypeAnalyticsParameters()
-            let event: AnalyticsEvent = .screenPaymentContract(authType: authType,
-                                                               scheme: strongSelf.inputData.tokenizeScheme)
+            let event: AnalyticsEvent = .screenPaymentContract(
+                authType: authType,
+                scheme: strongSelf.inputData.tokenizeScheme
+            )
             interactor.trackEvent(event)
         }
     }
 
     private func clearPhoneNumber(_ phoneNumber: String?) -> String? {
         guard let phoneNumber = phoneNumber else { return nil }
-        return phoneNumber.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+        return phoneNumber
+            .components(separatedBy: CharacterSet.decimalDigits.inverted)
+            .joined()
     }
 }
 
@@ -90,7 +97,10 @@ extension SberbankPresenter: ContractTemplateViewOutput {
         moduleOutput?.sberbank(self, didTapTermsOfService: url)
     }
 
-    func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) {}
+    func linkedSwitchItemView(
+        _ itemView: LinkedSwitchItemViewInput,
+        didChangeState state: Bool
+    ) {}
 
     func didTapOnSavePaymentMethod() {}
 }
@@ -108,7 +118,6 @@ extension SberbankPresenter: SberbankModuleInput {
     }
 
     private func handleError(_ error: Error) {
-
         hideActivity()
 
         DispatchQueue.main.async { [weak self] in

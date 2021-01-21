@@ -2,7 +2,7 @@ import struct YooKassaWalletApi.AuthTypeState
 
 final class WalletAuthPresenter {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
 
     var interactor: ContractInteractorInput!
 
@@ -12,23 +12,26 @@ final class WalletAuthPresenter {
     weak var paymentMethodView: PaymentMethodViewInput?
     weak var authCodeInputView: AuthCodeInputViewInput?
 
-    var authTypeState: AuthTypeState
-
     // MARK: - PlaceholderState
 
     fileprivate var placeholderState: ContractPlaceholderState?
 
-    // MARK: - Data
+    // MARK: - Init data
 
     fileprivate let inputData: WalletAuthModuleInputData
-    fileprivate var authCode: String = ""
-    fileprivate var requiredCodeLength = 0
+    var authTypeState: AuthTypeState
+
+    // MARK: - Init
 
     init(inputData: WalletAuthModuleInputData) {
         self.inputData = inputData
-
-        authTypeState = inputData.authTypeState
+        self.authTypeState = inputData.authTypeState
     }
+
+    // MARK: - Properties
+
+    fileprivate var authCode: String = ""
+    fileprivate var requiredCodeLength = 0
 }
 
 // MARK: - ContractViewOutput
@@ -60,17 +63,21 @@ extension WalletAuthPresenter: ActionTextDialogDelegate {
     func didPressButton() {
         guard let placeholderState = placeholderState else { return }
         switch placeholderState {
-            case .message:
-                moduleOutput?.walletAuth(self,
-                                          authContextId: inputData.authContextId,
-                                          authType: authTypeState.specific.type,
-                                          answer: authCode,
-                                          processId: inputData.processId)
+        case .message:
+            moduleOutput?.walletAuth(
+                self,
+                authContextId: inputData.authContextId,
+                authType: authTypeState.specific.type,
+                answer: authCode,
+                processId: inputData.processId
+            )
 
         case .failResendSmsCode:
-            moduleOutput?.walletAuth(self,
-                                      resendSmsCodeWithContextId: inputData.authContextId,
-                                      authType: inputData.authTypeState.specific.type)
+            moduleOutput?.walletAuth(
+                self,
+                resendSmsCodeWithContextId: inputData.authContextId,
+                authType: inputData.authTypeState.specific.type
+            )
 
         case .authCheckInvalidContext(_, let error):
             hidePlaceholder()
@@ -78,9 +85,11 @@ extension WalletAuthPresenter: ActionTextDialogDelegate {
             moduleOutput?.walletAuth(self, didFinishWithError: error)
 
         case .sessionBroken:
-            moduleOutput?.walletAuth(self,
-                                      resendSmsCodeWithContextId: inputData.authContextId,
-                                      authType: inputData.authTypeState.specific.type)
+            moduleOutput?.walletAuth(
+                self,
+                resendSmsCodeWithContextId: inputData.authContextId,
+                authType: inputData.authTypeState.specific.type
+            )
 
         case .verifyAttemptsExceeded(_, let error):
             hidePlaceholder()
@@ -131,11 +140,13 @@ extension WalletAuthPresenter: WalletAuthModuleInput {
 extension WalletAuthPresenter: ContractTemplateViewOutput {
     func didPressSubmitButton(in contractTemplate: ContractTemplateViewInput) {
         view?.endEditing(true)
-        moduleOutput?.walletAuth(self,
-                                  authContextId: inputData.authContextId,
-                                  authType: authTypeState.specific.type,
-                                  answer: authCode,
-                                  processId: inputData.processId)
+        moduleOutput?.walletAuth(
+            self,
+            authContextId: inputData.authContextId,
+            authType: authTypeState.specific.type,
+            answer: authCode,
+            processId: inputData.processId
+        )
     }
 
     func didTapContract(_ contractTemplate: ContractTemplateViewInput) {
@@ -146,23 +157,30 @@ extension WalletAuthPresenter: ContractTemplateViewOutput {
         moduleOutput?.walletAuth(self, didTapTermsOfService: url)
     }
 
-    func linkedSwitchItemView(_ itemView: LinkedSwitchItemViewInput, didChangeState state: Bool) { }
+    func linkedSwitchItemView(
+        _ itemView: LinkedSwitchItemViewInput,
+        didChangeState state: Bool
+    ) { }
 
     func didTapOnSavePaymentMethod() { }
 }
 
 extension WalletAuthPresenter: AuthCodeInputViewOutput {
     func didPressResendSmsButton(in view: AuthCodeInputViewInput) {
-
         showActivity()
         self.view?.endEditing(true)
 
-        moduleOutput?.walletAuth(self,
-                                  resendSmsCodeWithContextId: inputData.authContextId,
-                                  authType: inputData.authTypeState.specific.type)
+        moduleOutput?.walletAuth(
+            self,
+            resendSmsCodeWithContextId: inputData.authContextId,
+            authType: inputData.authTypeState.specific.type
+        )
     }
 
-    func authCodeInputView(_ view: AuthCodeInputViewInput, didChangeCode code: String) {
+    func authCodeInputView(
+        _ view: AuthCodeInputViewInput,
+        didChangeCode code: String
+    ) {
         contractView?.setSubmitButtonEnabled(code.count >= requiredCodeLength)
         authCode = code
     }
@@ -266,16 +284,13 @@ private extension WalletAuthPresenter {
         guard let authCodeInputView = authCodeInputView else { return }
 
         if case .sms(let smsDescription?) = authTypeState.specific {
-
             requiredCodeLength = smsDescription.codeLength
             authCodeInputView.setRequiredCodeLength(requiredCodeLength)
 
             if let nextSessionTimeLeft = smsDescription.nextSessionTimeLeft {
                 authCodeInputView.setSmsTimer(to: TimeInterval(nextSessionTimeLeft))
             }
-
         } else if case .totp(let totpDescription?) = authTypeState.specific {
-
             requiredCodeLength = totpDescription.codeLength
             authCodeInputView.setRequiredCodeLength(requiredCodeLength)
         }

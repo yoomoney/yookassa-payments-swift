@@ -108,9 +108,11 @@ class ActionSheetTemplate: UIViewController {
         let size = CGSize(width: dummyView.bounds.width, height: view.bounds.height)
         let layerFrame = CGRect(origin: .zero, size: size)
         maskLayer.frame = layerFrame
-        let bezierPath = UIBezierPath(roundedRect: layerFrame,
-                                      byRoundingCorners: [.topLeft, .topRight],
-                                      cornerRadii: CGSize(width: 8, height: 8))
+        let bezierPath = UIBezierPath(
+            roundedRect: layerFrame,
+            byRoundingCorners: [.topLeft, .topRight],
+            cornerRadii: CGSize(width: 8, height: 8)
+        )
         maskLayer.path = bezierPath.cgPath
     }
 
@@ -147,10 +149,12 @@ extension ActionSheetTemplate: KeyboardObserver {
 
             let options = UIView.AnimationOptions(rawValue: UInt(animationCurve.rawValue))
 
-            UIView.animate(withDuration: duration,
-                           delay: 0,
-                           options: options,
-                           animations: animation)
+            UIView.animate(
+                withDuration: duration,
+                delay: 0,
+                options: options,
+                animations: animation
+            )
         } else {
             animation()
         }
@@ -168,10 +172,12 @@ extension ActionSheetTemplate: KeyboardObserver {
 
             let options = UIView.AnimationOptions(rawValue: UInt(animationCurve.rawValue))
 
-            UIView.animate(withDuration: duration,
-                           delay: 0,
-                           options: options,
-                           animations: animation)
+            UIView.animate(
+                withDuration: duration,
+                delay: 0,
+                options: options,
+                animations: animation
+            )
         } else {
             animation()
         }
@@ -187,7 +193,10 @@ extension ActionSheetTemplate: KeyboardObserver {
 // MARK: - UIGestureRecognizerDelegate
 
 extension ActionSheetTemplate: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldReceive touch: UITouch
+    ) -> Bool {
         guard gestureRecognizer === viewTapGestureRecognizer else { return true }
         return touch.view?.isDescendant(of: dummyView) == false
     }
