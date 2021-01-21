@@ -1,6 +1,6 @@
 import YooKassaPaymentsApi
 
-protocol BankCardRepeatInteractorInput: AnalyticsTrackable {
+protocol BankCardRepeatInteractorInput: AnalyticsTrack {
     func fetchPaymentMethod(
         paymentMethodId: String
     )

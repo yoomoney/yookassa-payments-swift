@@ -3,12 +3,15 @@ import YooKassaPaymentsApi
 
 final class BankCardStrategy {
 
+    // MARK: - Outputs
+
     weak var output: TokenizationStrategyOutput?
     weak var contractStateHandler: ContractStateHandler?
 
     private weak var bankCardDataInputModule: BankCardDataInputModuleInput?
 
-    var shouldInvalidateTokenizeData = false
+    // MARK: - Init data
+
     var savePaymentMethod: Bool
 
     private let paymentOption: PaymentOption
@@ -26,7 +29,13 @@ final class BankCardStrategy {
         self.returnUrl = returnUrl
         self.savePaymentMethod = savePaymentMethod
     }
+
+    // MARK: - Properties
+
+    var shouldInvalidateTokenizeData = false
 }
+
+// MARK: - TokenizationStrategyInput
 
 extension BankCardStrategy: TokenizationStrategyInput {
     func beginProcess() {
@@ -61,15 +70,25 @@ extension BankCardStrategy: TokenizationStrategyInput {
         bankCardDataInputModule?.bankCardDidTokenize(error)
     }
 
-    func sberbankModule(_ module: SberbankModuleInput, didPressConfirmButton phoneNumber: String) {}
-    func didPressConfirmButton(on module: BankCardDataInputModuleInput, cvc: String) {}
+    func sberbankModule(
+        _ module: SberbankModuleInput,
+        didPressConfirmButton phoneNumber: String
+    ) {}
+    func didPressConfirmButton(
+        on module: BankCardDataInputModuleInput,
+        cvc: String
+    ) {}
     func failResendSmsCode(_ error: Error) {}
-    func walletAuthParameters(_ module: WalletAuthParametersModuleInput,
-                              loginWithReusableToken isReusableToken: Bool) {}
+    func walletAuthParameters(
+        _ module: WalletAuthParametersModuleInput,
+        loginWithReusableToken isReusableToken: Bool
+    ) {}
     func didPressLogout() {}
-    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController,
-                                            didAuthorizePayment payment: PKPayment,
-                                            completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {}
+    func paymentAuthorizationViewController(
+        _ controller: PKPaymentAuthorizationViewController,
+        didAuthorizePayment payment: PKPayment,
+        completion: @escaping (PKPaymentAuthorizationStatus) -> Void
+    ) {}
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {}
     func didFailPresentApplePayModule() {}
     func didPresentApplePayModule() {}
@@ -87,11 +106,13 @@ private func makeBankCard(_ cardData: CardData) -> BankCard? {
           let csc = cardData.csc else {
         return nil
     }
-    let bankCard = BankCard(number: number,
-                            expiryYear: expiryYear,
-                            expiryMonth: makeCorrectExpiryMonth(expiryMonth),
-                            csc: csc,
-                            cardholder: nil)
+    let bankCard = BankCard(
+        number: number,
+        expiryYear: expiryYear,
+        expiryMonth: makeCorrectExpiryMonth(expiryMonth),
+        csc: csc,
+        cardholder: nil
+    )
     return bankCard
 }
 

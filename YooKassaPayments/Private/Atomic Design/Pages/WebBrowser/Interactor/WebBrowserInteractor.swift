@@ -2,13 +2,15 @@ import Foundation
 
 final class WebBrowserInteractor {
 
-    // MARK: - VIPER properties
+    // MARK: - VIPER
 
     weak var output: WebBrowserInteractorOutput?
 
-    // MARK: - Initialization
+    // MARK: - Init data
 
     private let url: URL
+
+    // MARK: - Init
 
     init(url: URL) {
         self.url = url

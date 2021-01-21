@@ -3,8 +3,12 @@ import YooMoneyCoreApi
 
 final class WalletLoginServiceImpl {
 
+    // MARK: - Init data
+
     fileprivate let session: ApiSession
     fileprivate let authTypeStatesService: AuthTypeStatesProvider
+
+    // MARK: - Init
 
     init(
         session: ApiSession,
@@ -163,7 +167,6 @@ extension WalletLoginServiceImpl: WalletLoginService {
 }
 
 private extension WalletLoginServiceImpl {
-
     func handleAuthNotRequired(
         moneyCenterAuthorization: String,
         merchantClientAuthorization: String,

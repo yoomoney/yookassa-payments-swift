@@ -8,7 +8,6 @@ enum SavePaymentMethodViewModelFactory {
         _ savePaymentMethod: SavePaymentMethod,
         initialState: Bool
     ) -> SavePaymentMethodViewModel? {
-
         let savePaymentMethodViewModel: SavePaymentMethodViewModel?
         if paymentOption.savePaymentMethod == .allowed {
             switch savePaymentMethod {

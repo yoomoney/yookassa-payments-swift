@@ -111,15 +111,19 @@ private extension NumberKeyboardView {
     func setupConstraints() {
         var constraints: [NSLayoutConstraint] = []
         let views = ["rowsStackView": rowsStackView]
-        constraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|[rowsStackView]|",
-                                                      options: [],
-                                                      metrics: nil,
-                                                      views: views)
+        constraints += NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|[rowsStackView]|",
+            options: [],
+            metrics: nil,
+            views: views
+        )
 
-        constraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|[rowsStackView]|",
-                                                      options: [],
-                                                      metrics: nil,
-                                                      views: views)
+        constraints += NSLayoutConstraint.constraints(
+            withVisualFormat: "V:|[rowsStackView]|",
+            options: [],
+            metrics: nil,
+            views: views
+        )
         addConstraints(constraints)
     }
 
@@ -155,10 +159,12 @@ private extension NumberKeyboardView {
         return stackView
     }
 
-    func replace(functionButton buttonToRemove: KeyboardButton?,
-                 withButton buttonToAdd: KeyboardButton?,
-                 inStackView stackView: UIStackView,
-                 insertIndex: Int? = nil) {
+    func replace(
+        functionButton buttonToRemove: KeyboardButton?,
+        withButton buttonToAdd: KeyboardButton?,
+        inStackView stackView: UIStackView,
+        insertIndex: Int? = nil
+    ) {
         buttonToRemove?.removeFromSuperview()
 
         let newButton = buttonToAdd ?? placeHolderFunctionButton

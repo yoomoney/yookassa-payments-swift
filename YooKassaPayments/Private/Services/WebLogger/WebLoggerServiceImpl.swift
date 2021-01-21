@@ -1,19 +1,19 @@
-import Foundation
+final class WebLoggerServiceImpl {
 
-enum WebLoggerAssembly {
-    static func makeLogger(isLoggingEnabled: Bool) -> WebLogger {
-        return WebLogger(isLoggingEnabled: isLoggingEnabled)
-    }
-}
-
-final class WebLogger {
+    // MARK: - Init data
 
     private let isLoggingEnabled: Bool
+
+    // MARK: - Init
 
     init(isLoggingEnabled: Bool) {
         self.isLoggingEnabled = isLoggingEnabled
     }
+}
 
+// MARK: - WebLoggerService
+
+extension WebLoggerServiceImpl: WebLoggerService {
     func trace(_ request: URLRequest) {
         guard isLoggingEnabled else { return }
         let path = request.url?.absoluteString ?? ""

@@ -4,7 +4,7 @@ import SafariServices
 
 class TokenizationRouter: NSObject {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
 
     weak var transitionHandler: TransitionHandler?
 }

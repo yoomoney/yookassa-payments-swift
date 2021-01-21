@@ -2,20 +2,25 @@ import YooKassaPaymentsApi
 
 final class PaymentMethodsPresenter {
 
-    // MARK: - VIPER properties
+    // MARK: - VIPER
 
     weak var view: PaymentMethodsViewInput?
     weak var moduleOutput: PaymentMethodsModuleOutput?
     var interactor: PaymentMethodsInteractorInput!
 
-    // MARK: - Data
+    // MARK: - Init data
 
-    fileprivate var paymentMethods: [PaymentOption]?
     fileprivate let isLogoVisible: Bool
+
+    // MARK: - Init
 
     init(isLogoVisible: Bool) {
         self.isLogoVisible = isLogoVisible
     }
+
+    // MARK: - Properties
+
+    fileprivate var paymentMethods: [PaymentOption]?
 }
 
 // MARK: - PaymentMethodsViewOutput
@@ -34,14 +39,21 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         }
     }
 
-    func didSelectViewModel(_ viewModel: PaymentMethodViewModel, at indexPath: IndexPath) {
+    func didSelectViewModel(
+        _ viewModel: PaymentMethodViewModel,
+        at indexPath: IndexPath
+    ) {
         guard let paymentMethods = paymentMethods, indexPath.row < paymentMethods.count else { return }
-        moduleOutput?.paymentMethodsModule(self,
-                                           didSelect: paymentMethods[indexPath.row],
-                                           methodsCount: paymentMethods.count)
+        moduleOutput?.paymentMethodsModule(
+            self,
+            didSelect: paymentMethods[indexPath.row],
+            methodsCount: paymentMethods.count
+        )
     }
 
-    func logoutDidPress(at indexPath: IndexPath) {
+    func logoutDidPress(
+        at indexPath: IndexPath
+    ) {
         guard let paymentMethods = paymentMethods,
               indexPath.row < paymentMethods.count,
               let paymentOption = paymentMethods[indexPath.row] as? PaymentInstrumentYooMoneyWallet else { return }
@@ -96,20 +108,22 @@ extension PaymentMethodsPresenter: PaymentMethodsModuleInput {
 extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
     func didFetchPaymentMethods(_ paymentMethods: [PaymentOption]) {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self, let view = strongSelf.view else { return }
+            guard let self = self,
+                  let view = self.view else { return }
 
-            let (authType, _) = strongSelf.interactor.makeTypeAnalyticsParameters()
-            strongSelf.interactor.trackEvent(.screenPaymentOptions(authType))
+            let (authType, _) = self.interactor.makeTypeAnalyticsParameters()
+            self.interactor.trackEvent(.screenPaymentOptions(authType))
 
-            strongSelf.paymentMethods = paymentMethods
+            self.paymentMethods = paymentMethods
 
             if paymentMethods.count == 1, let paymentMethod = paymentMethods.first {
-                strongSelf.moduleOutput?.paymentMethodsModule(strongSelf,
-                                                              didSelect: paymentMethod,
-                                                              methodsCount: paymentMethods.count)
+                self.moduleOutput?.paymentMethodsModule(
+                    self,
+                    didSelect: paymentMethod,
+                    methodsCount: paymentMethods.count
+                )
             } else {
-                let walletDisplayName = strongSelf.interactor.getWalletDisplayName()
-
+                let walletDisplayName = self.interactor.getWalletDisplayName()
                 let viewModels = paymentMethods.map {
                     PaymentMethodViewModelFactory.makePaymentMethodViewModel(
                         paymentOption: $0,
@@ -150,7 +164,6 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
 
 private extension PaymentMethodsPresenter {
     enum Localized {
-
         enum PlaceholderView: String {
             case buttonTitle = "Common.PlaceholderView.buttonTitle"
         }

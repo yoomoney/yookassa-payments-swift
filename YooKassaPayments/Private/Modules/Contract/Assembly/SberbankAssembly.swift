@@ -1,8 +1,10 @@
 import UIKit
 
 enum SberbankAssembly {
-    static func makeModule(inputData: SberbankModuleInputData,
-                           moduleOutput: SberbankModuleOutput?) -> UIViewController {
+    static func makeModule(
+        inputData: SberbankModuleInputData,
+        moduleOutput: SberbankModuleOutput?
+    ) -> UIViewController {
         let viewController = ContractViewController()
         let presenter = SberbankPresenter(inputData: inputData)
 
@@ -10,15 +12,17 @@ enum SberbankAssembly {
 
         viewController.templateViewController.addChild(phoneController)
 
-        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
+        let analyticsService = AnalyticsServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled
         )
-        let analyticsProvider = AnalyticsProvidingAssembly.makeAnalyticsProvider(
+        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
             testModeSettings: inputData.testModeSettings
         )
 
-        let interactor = ContractInteractor(analyticsService: analyticsService,
-                                            analyticsProvider: analyticsProvider)
+        let interactor = ContractInteractor(
+            analyticsService: analyticsService,
+            analyticsProvider: analyticsProvider
+        )
 
         let itemView = ContractViewFactory.makePaymentMethodView(
             paymentMethod: inputData.paymentMethod,

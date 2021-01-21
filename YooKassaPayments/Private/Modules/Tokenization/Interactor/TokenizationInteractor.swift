@@ -3,39 +3,42 @@ import enum YooKassaWalletApi.AuthType
 
 final class TokenizationInteractor {
 
-    // MARK: - VIPER module
+    // MARK: - VIPER
 
     weak var output: TokenizationInteractorOutput?
+
+    // MARK: - Init data
+
     private let paymentService: PaymentService
     private let authorizationService: AuthorizationService
-    private let analyticsService: AnalyticsProcessing
-    private let analyticsProvider: AnalyticsProviding
-
-    // MARK: - Data properties
+    private let analyticsService: AnalyticsService
+    private let analyticsProvider: AnalyticsProvider
 
     private let clientApplicationKey: String
+
+    // MARK: - Init
 
     init(
         paymentService: PaymentService,
         authorizationService: AuthorizationService,
-        analyticsService: AnalyticsProcessing,
-        analyticsProvider: AnalyticsProviding,
+        analyticsService: AnalyticsService,
+        analyticsProvider: AnalyticsProvider,
         clientApplicationKey: String
     ) {
         ThreatMetrixService.configure()
 
-        self.clientApplicationKey = clientApplicationKey
         self.paymentService = paymentService
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
+
+        self.clientApplicationKey = clientApplicationKey
     }
 }
 
 // MARK: - TokenizationInteractorInput
 
 extension TokenizationInteractor: TokenizationInteractorInput {
-
     func tokenize(
         _ data: TokenizeData,
         paymentOption: PaymentOption,

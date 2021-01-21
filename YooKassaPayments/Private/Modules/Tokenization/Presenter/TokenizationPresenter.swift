@@ -6,27 +6,29 @@ import enum YooKassaWalletApi.AuthType
 
 class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthorizationViewControllerDelegate
 
-    // MARK: - VIPER module
+    // MARK: - VIPER
 
     var router: TokenizationRouterInput!
     var interactor: TokenizationInteractorInput!
     weak var moduleOutput: TokenizationModuleOutput?
     weak var view: TokenizationViewInput?
 
-    // MARK: - Data
+    // MARK: - Module input
+
+    private weak var walletAuthModule: WalletAuthModuleInput?
+    private weak var paymentMethodsModuleInput: PaymentMethodsModuleInput?
+
+    // MARK: - Init data
 
     private let inputData: TokenizationModuleInputData
+
+    // MARK: - Init
 
     init(inputData: TokenizationModuleInputData) {
         self.inputData = inputData
     }
 
-    // MARK: - Modules
-
-    private weak var walletAuthModule: WalletAuthModuleInput?
-    private weak var paymentMethodsModuleInput: PaymentMethodsModuleInput?
-
-    // MARK: - Module data
+    // MARK: - Properties
 
     private var paymentOptionsCount: Int = 0
     private var strategy: TokenizationStrategyInput?
@@ -128,10 +130,12 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         }
     }
 
-    func presentWalletAuthModule(paymentOption: PaymentOption,
-                                 processId: String,
-                                 authContextId: String,
-                                 authTypeState: AuthTypeState) {
+    func presentWalletAuthModule(
+        paymentOption: PaymentOption,
+        processId: String,
+        authContextId: String,
+        authTypeState: AuthTypeState
+    ) {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
         let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
 
@@ -151,9 +155,11 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             termsOfService: termsOfService
         )
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.router.presentWalletAuth(inputData: walletAuthInputData,
-                                                 moduleOutput: strongSelf)
+            guard let self = self else { return }
+            self.router.presentWalletAuth(
+                inputData: walletAuthInputData,
+                moduleOutput: self
+            )
         }
     }
 
@@ -180,10 +186,10 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         )
 
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.router.presentContract(
+            guard let self = self else { return }
+            self.router.presentContract(
                 inputData: moduleInputData,
-                moduleOutput: strongSelf
+                moduleOutput: self
             )
         }
     }
@@ -191,16 +197,21 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
     func presentBankCardDataInput() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            let bankCardDataInputData
-                = BankCardDataInputModuleInputData(cardScanner: self.inputData.cardScanning,
-                                                   testModeSettings: self.inputData.testModeSettings,
-                                                   isLoggingEnabled: self.inputData.isLoggingEnabled)
-            self.router.presentBankCardDataInput(inputData: bankCardDataInputData,
-                                                 moduleOutput: self)
+            let bankCardDataInputData = BankCardDataInputModuleInputData(
+                cardScanner: self.inputData.cardScanning,
+                testModeSettings: self.inputData.testModeSettings,
+                isLoggingEnabled: self.inputData.isLoggingEnabled
+            )
+            self.router.presentBankCardDataInput(
+                inputData: bankCardDataInputData,
+                moduleOutput: self
+            )
         }
     }
 
-    func presentMaskedBankCardDataInput(paymentOption: PaymentInstrumentYooMoneyLinkedBankCard) {
+    func presentMaskedBankCardDataInput(
+        paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
+    ) {
         let moduleInputData = MaskedBankCardDataInputModuleInputData(
             cardMask: paymentOption.cardMask,
             testModeSettings: inputData.testModeSettings,
@@ -236,17 +247,23 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             savePaymentMethodViewModel: nil
         )
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.router.presentSberbank(inputData: moduleInputData,
-                                              moduleOutput: strongSelf)
+            guard let self = self else { return }
+            self.router.presentSberbank(
+                inputData: moduleInputData,
+                moduleOutput: self
+            )
         }
     }
 
-    func present3dsModule(inputData: CardSecModuleInputData) {
+    func present3dsModule(
+        inputData: CardSecModuleInputData
+    ) {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.router.present3dsModule(inputData: inputData,
-                                               moduleOutput: strongSelf)
+            guard let self = self else { return }
+            self.router.present3dsModule(
+                inputData: inputData,
+                moduleOutput: self
+            )
         }
     }
 
@@ -264,13 +281,18 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             kassaPaymentsCustomization: inputData.customizationSettings
         )
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.router.presentYooMoneyAuth(inputData: moduleInputData,
-                                                moduleOutput: strongSelf)
+            guard let self = self else { return }
+            self.router.presentYooMoneyAuth(
+                inputData: moduleInputData,
+                moduleOutput: self
+            )
         }
     }
 
-    func tokenize(_ data: TokenizeData, paymentOption: PaymentOption) {
+    func tokenize(
+        _ data: TokenizeData,
+        paymentOption: PaymentOption
+    ) {
         tokenizeData = data
         var tmxSessionId: String?
         if paymentOption is PaymentInstrumentYooMoneyWallet {
@@ -283,7 +305,10 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         )
     }
 
-    func loginInWallet(reusableToken: Bool, paymentOption: PaymentOption) {
+    func loginInWallet(
+        reusableToken: Bool,
+        paymentOption: PaymentOption
+    ) {
         var tmxSessionId: String?
         if paymentOption is PaymentInstrumentYooMoneyWallet {
             tmxSessionId = self.tmxSessionId
@@ -316,9 +341,11 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             fee: paymentOption.fee
         )
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.router.presentApplePay(inputData: moduleInputData,
-                                              moduleOutput: strongSelf)
+            guard let self = self else { return }
+            self.router.presentApplePay(
+                inputData: moduleInputData,
+                moduleOutput: self
+            )
         }
     }
 
@@ -343,10 +370,10 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         )
 
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.router.presentApplePayContract(
+            guard let self = self else { return }
+            self.router.presentApplePayContract(
                 inputData: moduleInputData,
-                moduleOutput: strongSelf
+                moduleOutput: self
             )
         }
     }
@@ -354,9 +381,11 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
     func presentErrorWithMessage(_ message: String) {
         let moduleInputData = ErrorModuleInputData(errorTitle: message)
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.router.presentError(inputData: moduleInputData,
-                                           moduleOutput: strongSelf)
+            guard let self = self else { return }
+            self.router.presentError(
+                inputData: moduleInputData,
+                moduleOutput: self
+            )
         }
     }
 
@@ -378,9 +407,9 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
 
     func presentSavePaymentMethodInfoModule() {
         guard let paymentOption = paymentOption,
-            let savePaymentMethodInfoValues = makeSavePaymentMethodInfoValues(
+              let savePaymentMethodInfoValues = makeSavePaymentMethodInfoValues(
                 paymentOption: paymentOption
-            ) else { return }
+              ) else { return }
 
         let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
             customizationSettings: inputData.customizationSettings,
@@ -479,9 +508,11 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
             scheme = .smsSbol
         }
 
-        let event: AnalyticsEvent = .actionTokenize(scheme: scheme,
-                                                    authType: type.authType,
-                                                    tokenType: type.tokenType)
+        let event: AnalyticsEvent = .actionTokenize(
+            scheme: scheme,
+            authType: type.authType,
+            tokenType: type.tokenType
+        )
         return event
     }
 }
@@ -490,10 +521,11 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
 
 extension TokenizationPresenter: TokenizationModuleInput {
     func start3dsProcess(requestUrl: String) {
-        let moduleInputData
-            = CardSecModuleInputData(requestUrl: requestUrl,
-                                     redirectUrl: inputData.returnUrl ?? Constants.returnUrl,
-                                     isLoggingEnabled: inputData.isLoggingEnabled)
+        let moduleInputData = CardSecModuleInputData(
+            requestUrl: requestUrl,
+            redirectUrl: inputData.returnUrl ?? Constants.returnUrl,
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
         present3dsModule(inputData: moduleInputData)
     }
 }
@@ -501,28 +533,30 @@ extension TokenizationPresenter: TokenizationModuleInput {
 // MARK: - PaymentMethodsModuleOutput
 
 extension TokenizationPresenter: PaymentMethodsModuleOutput {
-    func paymentMethodsModule(_ module: PaymentMethodsModuleInput,
-                              didSelect paymentOption: PaymentOption,
-                              methodsCount: Int) {
+    func paymentMethodsModule(
+        _ module: PaymentMethodsModuleInput,
+        didSelect paymentOption: PaymentOption,
+        methodsCount: Int
+    ) {
         paymentOptionsCount = methodsCount
         paymentMethodsModuleInput = module
 
         if paymentOption is PaymentInstrumentYooMoneyWallet
-               || paymentOption is PaymentInstrumentYooMoneyLinkedBankCard
-               || paymentOption.paymentMethodType == .bankCard
-               || paymentOption.paymentMethodType == .sberbank
-               || paymentOption.paymentMethodType == .applePay {
-
+        || paymentOption is PaymentInstrumentYooMoneyLinkedBankCard
+        || paymentOption.paymentMethodType == .bankCard
+        || paymentOption.paymentMethodType == .sberbank
+        || paymentOption.paymentMethodType == .applePay {
             self.paymentOption = paymentOption
             strategy?.beginProcess()
-
         } else if paymentOption.paymentMethodType == .yooMoney {
             presentYooMoneyAuthModule(paymentOption)
         }
     }
 
-    func paymentMethodsModule(_ module: PaymentMethodsModuleInput,
-                              didPressLogout paymentOption: PaymentInstrumentYooMoneyWallet) {
+    func paymentMethodsModule(
+        _ module: PaymentMethodsModuleInput,
+        didPressLogout paymentOption: PaymentInstrumentYooMoneyWallet
+    ) {
         logout(accountId: paymentOption.accountId)
         self.paymentOption = nil
     }
@@ -554,7 +588,10 @@ extension TokenizationPresenter: ContractModuleOutput {
         strategy?.didPressLogout()
     }
 
-    func contractModule(_ module: ContractModuleInput, didTapTermsOfService url: URL) {
+    func contractModule(
+        _ module: ContractModuleInput,
+        didTapTermsOfService url: URL
+    ) {
         presentTermsOfServiceModule(url)
     }
 
@@ -575,8 +612,10 @@ extension TokenizationPresenter: ContractModuleOutput {
 // MARK: - SberbankModuleOutput
 
 extension TokenizationPresenter: SberbankModuleOutput {
-
-    func sberbank(_ module: SberbankModuleInput, phoneNumber: String) {
+    func sberbank(
+        _ module: SberbankModuleInput,
+        phoneNumber: String
+    ) {
         strategy?.sberbankModule(module, didPressConfirmButton: phoneNumber)
     }
 
@@ -589,7 +628,10 @@ extension TokenizationPresenter: SberbankModuleOutput {
         presentPaymentMethodsModule()
     }
 
-    func sberbank(_ module: SberbankModuleInput, didTapTermsOfService url: URL) {
+    func sberbank(
+        _ module: SberbankModuleInput,
+        didTapTermsOfService url: URL
+    ) {
         presentTermsOfServiceModule(url)
     }
 }
@@ -597,11 +639,13 @@ extension TokenizationPresenter: SberbankModuleOutput {
 // MARK: - BankCardDataInputModuleOutput
 
 extension TokenizationPresenter: BankCardDataInputModuleOutput {
-    func bankCardDataInputModule(_ module: BankCardDataInputModuleInput,
-                                 didPressConfirmButton bankCardData: CardData) {
+    func bankCardDataInputModule(
+        _ module: BankCardDataInputModuleInput,
+        didPressConfirmButton bankCardData: CardData
+    ) {
         DispatchQueue.global().async { [weak self] in
             guard let self = self,
-                let strategy = self.strategy else { return }
+                  let strategy = self.strategy else { return }
             strategy.bankCardDataInputModule(
                 module,
                 didPressConfirmButton: bankCardData
@@ -622,8 +666,10 @@ extension TokenizationPresenter: BankCardDataInputModuleOutput {
 // MARK: - MaskedBankCardDataInputModuleOutput
 
 extension TokenizationPresenter: MaskedBankCardDataInputModuleOutput {
-    func didPressConfirmButton(on module: BankCardDataInputModuleInput,
-                               cvc: String) {
+    func didPressConfirmButton(
+        on module: BankCardDataInputModuleInput,
+        cvc: String
+    ) {
         DispatchQueue.global().async { [weak self] in
             guard let strategy = self?.strategy else { return }
             strategy.didPressConfirmButton(on: module, cvc: cvc)
@@ -634,7 +680,6 @@ extension TokenizationPresenter: MaskedBankCardDataInputModuleOutput {
 // MARK: - YooMoneyAuthModuleOutput
 
 extension TokenizationPresenter: YooMoneyAuthModuleOutput {
-
     func yooMoneyAuthModule(
         _ module: YooMoneyAuthModuleInput,
         didFetchWalletPaymentMethod paymentMethod: PaymentOption,
@@ -668,12 +713,14 @@ extension TokenizationPresenter: YooMoneyAuthModuleOutput {
 // MARK: - WalletAuthParametersModuleOutput
 
 extension TokenizationPresenter: WalletAuthParametersModuleOutput {
-    func walletAuthParameters(_ module: WalletAuthParametersModuleInput,
-                              loginWithReusableToken isReusableToken: Bool) {
+    func walletAuthParameters(
+        _ module: WalletAuthParametersModuleInput,
+        loginWithReusableToken isReusableToken: Bool
+    ) {
         DispatchQueue.global().async { [weak self] in
-            guard let strongSelf = self,
-                  let strategy = strongSelf.strategy else { return }
-            strongSelf.isReusableToken = isReusableToken
+            guard let self = self,
+                  let strategy = self.strategy else { return }
+            self.isReusableToken = isReusableToken
             strategy.walletAuthParameters(
                 module,
                 loginWithReusableToken: isReusableToken
@@ -698,7 +745,10 @@ extension TokenizationPresenter: WalletAuthParametersModuleOutput {
         presentPaymentMethodsModule()
     }
 
-    func walletAuthParameters(_ module: WalletAuthParametersModuleInput, didTapTermsOfService url: URL) {
+    func walletAuthParameters(
+        _ module: WalletAuthParametersModuleInput,
+        didTapTermsOfService url: URL
+    ) {
         presentTermsOfServiceModule(url)
     }
 
@@ -719,34 +769,42 @@ extension TokenizationPresenter: WalletAuthParametersModuleOutput {
 // MARK: - WalletAuthModuleOutput
 
 extension TokenizationPresenter: WalletAuthModuleOutput {
-    func walletAuth(_ module: WalletAuthModuleInput,
-                    resendSmsCodeWithContextId authContextId: String,
-                    authType: AuthType) {
+    func walletAuth(
+        _ module: WalletAuthModuleInput,
+        resendSmsCodeWithContextId authContextId: String,
+        authType: AuthType
+    ) {
         walletAuthModule = module
         strategy?.contractStateHandler = module
 
         module.hidePlaceholder()
         module.showActivity()
 
-        interactor.resendSmsCode(authContextId: authContextId,
-                                 authType: authType)
+        interactor.resendSmsCode(
+            authContextId: authContextId,
+            authType: authType
+        )
     }
 
-    func walletAuth(_ module: WalletAuthModuleInput,
-                    authContextId: String,
-                    authType: AuthType,
-                    answer: String,
-                    processId: String) {
+    func walletAuth(
+        _ module: WalletAuthModuleInput,
+        authContextId: String,
+        authType: AuthType,
+        answer: String,
+        processId: String
+    ) {
         walletAuthModule = module
 
         strategy?.contractStateHandler = module
         module.hidePlaceholder()
         module.showActivity()
 
-        interactor.loginInWallet(authContextId: authContextId,
-                                      authType: authType,
-                                      answer: answer,
-                                      processId: processId)
+        interactor.loginInWallet(
+            authContextId: authContextId,
+            authType: authType,
+            answer: answer,
+            processId: processId
+        )
     }
 
     func didPressLogoutButton(on module: WalletAuthModuleInput) {
@@ -766,7 +824,10 @@ extension TokenizationPresenter: WalletAuthModuleOutput {
         presentPaymentMethodsModule()
     }
 
-    func walletAuth(_ module: WalletAuthModuleInput, didFinishWithError error: Error) {
+    func walletAuth(
+        _ module: WalletAuthModuleInput,
+        didFinishWithError error: Error
+    ) {
         guard let isReusableToken = isReusableToken,
               let paymentOption = paymentOption else { return }
         loginInWallet(
@@ -775,7 +836,10 @@ extension TokenizationPresenter: WalletAuthModuleOutput {
         )
     }
 
-    func walletAuth(_ module: WalletAuthModuleInput, didTapTermsOfService url: URL) {
+    func walletAuth(
+        _ module: WalletAuthModuleInput,
+        didTapTermsOfService url: URL
+    ) {
         presentTermsOfServiceModule(url)
     }
 }
@@ -790,17 +854,15 @@ extension TokenizationPresenter: LogoutConfirmationModuleOutput {
             interactor.trackEvent(.actionLogout)
 
             DispatchQueue.main.async {
-                guard let strongSelf = self else { return }
-                strongSelf.paymentOption = nil
-                strongSelf.strategy = nil
-                strongSelf.presentPaymentMethodsModule()
+                guard let self = self else { return }
+                self.paymentOption = nil
+                self.strategy = nil
+                self.presentPaymentMethodsModule()
             }
         }
     }
 
-    func logoutDidCancel(on module: LogoutConfirmationModuleInput) {
-
-    }
+    func logoutDidCancel(on module: LogoutConfirmationModuleInput) {}
 }
 
 // MARK: - CardSecModuleOutput
@@ -818,7 +880,6 @@ extension TokenizationPresenter: CardSecModuleOutput {
 // MARK: - ApplePayModuleOutput
 
 extension TokenizationPresenter: ApplePayModuleOutput {
-
     func didPresentApplePayModule() {
         strategy?.didPresentApplePayModule()
     }
@@ -828,23 +889,34 @@ extension TokenizationPresenter: ApplePayModuleOutput {
     }
 
     @available(iOS 11.0, *)
-    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController,
-                                            didAuthorizePayment payment: PKPayment,
-                                            handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
-        paymentAuthorizationViewController(controller, didAuthorizePayment: payment) { status in
+    func paymentAuthorizationViewController(
+        _ controller: PKPaymentAuthorizationViewController,
+        didAuthorizePayment payment: PKPayment,
+        handler completion: @escaping (PKPaymentAuthorizationResult) -> Void
+    ) {
+        paymentAuthorizationViewController(
+            controller,
+            didAuthorizePayment: payment
+        ) { status in
             completion(PKPaymentAuthorizationResult(status: status, errors: nil))
         }
     }
 
-    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController,
-                                            didAuthorizePayment payment: PKPayment,
-                                            completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
-        strategy?.paymentAuthorizationViewController(controller,
-                                                     didAuthorizePayment: payment,
-                                                     completion: completion)
+    func paymentAuthorizationViewController(
+        _ controller: PKPaymentAuthorizationViewController,
+        didAuthorizePayment payment: PKPayment,
+        completion: @escaping (PKPaymentAuthorizationStatus) -> Void
+    ) {
+        strategy?.paymentAuthorizationViewController(
+            controller,
+            didAuthorizePayment: payment,
+            completion: completion
+        )
     }
 
-    func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
+    func paymentAuthorizationViewControllerDidFinish(
+        _ controller: PKPaymentAuthorizationViewController
+    ) {
         strategy?.paymentAuthorizationViewControllerDidFinish(controller)
     }
 }
@@ -869,7 +941,10 @@ extension TokenizationPresenter: ApplePayContractModuleOutput {
          strategy?.didPressSubmitButton(on: module)
     }
 
-    func applePayContractModule(_ module: ApplePayContractModuleInput, didTapTermsOfService url: URL) {
+    func applePayContractModule(
+        _ module: ApplePayContractModuleInput,
+        didTapTermsOfService url: URL
+    ) {
         presentTermsOfServiceModule(url)
     }
 
@@ -890,7 +965,6 @@ extension TokenizationPresenter: ApplePayContractModuleOutput {
 // MARK: - ErrorModuleOutput
 
 extension TokenizationPresenter: ErrorModuleOutput {
-
     func didPressPlaceholderButton(on module: ErrorModuleInput) {
         presentPaymentMethodsModule()
     }
@@ -899,14 +973,15 @@ extension TokenizationPresenter: ErrorModuleOutput {
 // MARK: - Module helpers
 
 private extension TokenizationPresenter {
-
     func close() {
         interactor?.stopAnalyticsService()
         moduleOutput?.didFinish(on: self, with: nil)
     }
 }
 
-private func makePriceViewModel(_ paymentOption: PaymentOption) -> PriceViewModel {
+private func makePriceViewModel(
+    _ paymentOption: PaymentOption
+) -> PriceViewModel {
     let amountString = paymentOption.charge.value.description
     var integerPart = ""
     var fractionalPart = ""
@@ -918,17 +993,21 @@ private func makePriceViewModel(_ paymentOption: PaymentOption) -> PriceViewMode
         integerPart = amountString
         fractionalPart = "00"
     }
-    let currency
-        = Currency(rawValue: paymentOption.charge.currency)
+    let currency = Currency(rawValue: paymentOption.charge.currency)
         ?? Currency.custom(paymentOption.charge.currency)
-    return TempAmount(currency: currency.symbol,
-                      integerPart: integerPart,
-                      fractionalPart: fractionalPart,
-                      style: .amount)
+    return TempAmount(
+        currency: currency.symbol,
+        integerPart: integerPart,
+        fractionalPart: fractionalPart,
+        style: .amount
+    )
 }
 
-private func makeFeePriceViewModel(_ paymentOption: PaymentOption) -> PriceViewModel? {
-    guard let fee = paymentOption.fee, let service = fee.service else { return nil }
+private func makeFeePriceViewModel(
+    _ paymentOption: PaymentOption
+) -> PriceViewModel? {
+    guard let fee = paymentOption.fee,
+          let service = fee.service else { return nil }
 
     let amountString = service.charge.value.description
     var integerPart = ""
@@ -941,13 +1020,14 @@ private func makeFeePriceViewModel(_ paymentOption: PaymentOption) -> PriceViewM
         integerPart = amountString
         fractionalPart = "00"
     }
-    let currency
-        = Currency(rawValue: service.charge.currency)
+    let currency = Currency(rawValue: service.charge.currency)
         ?? Currency.custom(service.charge.currency)
-    return TempAmount(currency: currency.symbol,
-                      integerPart: integerPart,
-                      fractionalPart: fractionalPart,
-                      style: .fee)
+    return TempAmount(
+        currency: currency.symbol,
+        integerPart: integerPart,
+        fractionalPart: fractionalPart,
+        style: .fee
+    )
 }
 
 private func makeStrategy(
@@ -966,11 +1046,12 @@ private func makeStrategy(
         moneyAuthClientId: moneyAuthClientId
     )
 
-    let analyticsService = AnalyticsProcessingAssembly
-        .makeAnalyticsService(isLoggingEnabled: isLoggingEnabled)
-
-    let analyticsProvider = AnalyticsProvidingAssembly
-        .makeAnalyticsProvider(testModeSettings: testModeSettings)
+    let analyticsService = AnalyticsServiceAssembly.makeService(
+        isLoggingEnabled: isLoggingEnabled
+    )
+    let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
+        testModeSettings: testModeSettings
+    )
 
     let strategy: TokenizationStrategyInput
     if let bankCard = try? BankCardStrategy(
@@ -1019,12 +1100,15 @@ private func makeInitialSavePaymentMethod(
     _ savePaymentMethod: SavePaymentMethod
 ) -> Bool {
     let initialSavePaymentMethod: Bool
+
     switch savePaymentMethod {
     case .on:
         initialSavePaymentMethod = true
+
     case .off, .userSelects:
         initialSavePaymentMethod = false
     }
+
     return initialSavePaymentMethod
 }
 
@@ -1032,14 +1116,18 @@ private func makeGetSavePaymentMethod(
     _ savePaymentMethod: SavePaymentMethod
 ) -> Bool? {
     let getSavePaymentMethod: Bool?
+
     switch savePaymentMethod {
     case .on:
         getSavePaymentMethod = true
+
     case .off:
         getSavePaymentMethod = false
+
     case .userSelects:
         getSavePaymentMethod = nil
     }
+
     return getSavePaymentMethod
 }
 

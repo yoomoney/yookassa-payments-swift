@@ -3,27 +3,29 @@ import struct YooKassaPaymentsApi.MonetaryAmount
 
 class PaymentMethodsInteractor {
 
-    // MARK: - VIPER module
+    // MARK: - VIPER
 
     weak var output: PaymentMethodsInteractorOutput?
 
+    // MARK: - Init data
+
     private let paymentService: PaymentService
     private let authorizationService: AuthorizationService
-    private let analyticsService: AnalyticsProcessing
-    private let analyticsProvider: AnalyticsProviding
-
-    // MARK: - Data properties
+    private let analyticsService: AnalyticsService
+    private let analyticsProvider: AnalyticsProvider
 
     private let clientApplicationKey: String
     private let gatewayId: String?
     private let amount: Amount
     private let getSavePaymentMethod: Bool?
 
+    // MARK: - Init
+
     init(
         paymentService: PaymentService,
         authorizationService: AuthorizationService,
-        analyticsService: AnalyticsProcessing,
-        analyticsProvider: AnalyticsProviding,
+        analyticsService: AnalyticsService,
+        analyticsProvider: AnalyticsProvider,
         clientApplicationKey: String,
         gatewayId: String?,
         amount: Amount,

@@ -2,7 +2,7 @@ import UIKit
 
 class ContractViewController: UIViewController, PlaceholderProvider {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
 
     var output: ContractViewOutput!
 
@@ -25,6 +25,8 @@ class ContractViewController: UIViewController, PlaceholderProvider {
             additionalView?.setStyles(backgroundStyle)
         }
     }
+
+    // MARK: - Init
 
     convenience init() {
         self.init(nibName: nil, bundle: nil)
@@ -101,7 +103,6 @@ class ContractViewController: UIViewController, PlaceholderProvider {
 // MARK: - ContractViewInput
 
 extension ContractViewController: ContractViewInput {
-
     func showActivity() {
         guard self.activityIndicatorView == nil else { return }
 
@@ -124,14 +125,16 @@ extension ContractViewController: ContractViewInput {
     }
 
     func hideActivity() {
-        UIView.animate(withDuration: 0.2,
-                       animations: {
-                           self.activityIndicatorView?.alpha = 0
-                       },
-                       completion: { _ in
-                           self.activityIndicatorView?.removeFromSuperview()
-                           self.activityIndicatorView = nil
-                       })
+        UIView.animate(
+            withDuration: 0.2,
+            animations: {
+                self.activityIndicatorView?.alpha = 0
+            },
+            completion: { _ in
+                self.activityIndicatorView?.removeFromSuperview()
+                self.activityIndicatorView = nil
+            }
+        )
     }
 
     func endEditing(_ force: Bool) {
@@ -169,10 +172,8 @@ extension ContractViewController: PlaceholderPresenting {}
 
 private extension ContractViewController {
     enum Localized {
-
         enum PlaceholderView: String {
             case buttonTitle = "Common.PlaceholderView.buttonTitle"
-
             case failResendSmsCode = "Contract.PlaceholderView.failResendSmsCode"
         }
     }

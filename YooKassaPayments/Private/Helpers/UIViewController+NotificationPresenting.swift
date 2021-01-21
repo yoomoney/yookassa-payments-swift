@@ -67,44 +67,56 @@ extension UIViewController: NotificationPresenting {
         bottomConstraint.isActive = false
         bottomConstraint = notificationView.topAnchor.constraint(equalTo: topAnchor)
         bottomConstraint.isActive = true
-        UIView.animate(withDuration: Constants.showAnimationDuration,
-                       delay: 0,
-                       options: [UIView.AnimationOptions.curveEaseInOut],
-                       animations: { [weak self] in
-                           self?.view.layoutIfNeeded()
-                       },
-                       completion: { [weak self, weak notificationView] _ in
-                           guard notification.actions.isEmpty, let notificationView = notificationView else { return }
-                           self?.closeNotificationView(notificationView,
-                                                       delay: Constants.presentationDuration,
-                                                       bottomConstraint: bottomConstraint)
-                       })
+        UIView.animate(
+            withDuration: Constants.showAnimationDuration,
+            delay: 0,
+            options: [UIView.AnimationOptions.curveEaseInOut],
+            animations: { [weak self] in
+                self?.view.layoutIfNeeded()
+            },
+            completion: { [weak self, weak notificationView] _ in
+                guard notification.actions.isEmpty,
+                      let notificationView = notificationView else { return }
+                self?.closeNotificationView(
+                    notificationView,
+                    delay: Constants.presentationDuration,
+                    bottomConstraint: bottomConstraint
+                )
+            }
+        )
     }
 
-    private func closeNotificationView(_ notificationView: NotificationView,
-                                       delay: TimeInterval = 0,
-                                       bottomConstraint: NSLayoutConstraint) {
-
+    private func closeNotificationView(
+        _ notificationView: NotificationView,
+        delay: TimeInterval = 0,
+        bottomConstraint: NSLayoutConstraint
+    ) {
         let topAnchor = topLayoutGuide.bottomAnchor
         var bottomConstraint: NSLayoutConstraint = bottomConstraint
         bottomConstraint.isActive = false
         bottomConstraint = notificationView.bottomAnchor.constraint(equalTo: topAnchor)
         bottomConstraint.isActive = true
-        UIView.animate(withDuration: Constants.hideAnimationDuration,
-                       delay: delay,
-                       options: [UIView.AnimationOptions.curveEaseInOut],
-                       animations: { [weak self] in
-                            self?.view.layoutIfNeeded()
-                       },
-                       completion: { _ in
-                            notificationView.removeFromSuperview()
-                       })
+        UIView.animate(
+            withDuration: Constants.hideAnimationDuration,
+            delay: delay,
+            options: [UIView.AnimationOptions.curveEaseInOut],
+            animations: { [weak self] in
+                self?.view.layoutIfNeeded()
+            },
+            completion: { _ in
+                notificationView.removeFromSuperview()
+            }
+        )
     }
 
-    private func presentAlert(_ notification: PresentableNotification) {
-        let alertController = UIAlertController(title: notification.title,
-                                                message: notification.message,
-                                                preferredStyle: .alert)
+    private func presentAlert(
+        _ notification: PresentableNotification
+    ) {
+        let alertController = UIAlertController(
+            title: notification.title,
+            message: notification.message,
+            preferredStyle: .alert
+        )
         let notificationActions = notification.actions.isEmpty
             ? [Action(title: Localized.cancel)]
             : notification.actions
@@ -117,11 +129,13 @@ extension UIViewController: NotificationPresenting {
     }
 
     func presentError(with message: String) {
-        let notification = Notification(title: nil,
-                                        message: message,
-                                        type: .error,
-                                        style: .toast,
-                                        actions: [])
+        let notification = Notification(
+            title: nil,
+            message: message,
+            type: .error,
+            style: .toast,
+            actions: []
+        )
         present(notification)
     }
 

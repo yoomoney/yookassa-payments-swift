@@ -15,18 +15,20 @@ final class ApplePayStrategy: NSObject {
     weak var output: TokenizationStrategyOutput?
     weak var contractStateHandler: ContractStateHandler?
 
-    // MARK: - Initial data
+    // MARK: - Init data
 
     private let paymentOption: PaymentOption
-    private let analyticsService: AnalyticsProcessing
-    private let analyticsProvider: AnalyticsProviding
+    private let analyticsService: AnalyticsService
+    private let analyticsProvider: AnalyticsProvider
     private let inputSavePaymentMethod: SavePaymentMethod
+
+    // MARK: - Init
 
     init(
         paymentOption: PaymentOption,
         paymentMethodsModuleInput: PaymentMethodsModuleInput?,
-        analyticsService: AnalyticsProcessing,
-        analyticsProvider: AnalyticsProviding,
+        analyticsService: AnalyticsService,
+        analyticsProvider: AnalyticsProvider,
         savePaymentMethod: Bool,
         inputSavePaymentMethod: SavePaymentMethod
     ) throws {
@@ -56,13 +58,14 @@ final class ApplePayStrategy: NSObject {
 // MARK: - TokenizationStrategyInput
 
 extension ApplePayStrategy: TokenizationStrategyInput {
-
     func beginProcess() {
         guard let output = output else { return }
 
         let feeCondition = paymentOption.fee != nil
-        let inputSavePaymentMethodCondition = inputSavePaymentMethod == .userSelects || inputSavePaymentMethod == .on
-        let savePaymentMethodCondition = paymentOption.savePaymentMethod == .allowed && inputSavePaymentMethodCondition
+        let inputSavePaymentMethodCondition = inputSavePaymentMethod == .userSelects
+            || inputSavePaymentMethod == .on
+        let savePaymentMethodCondition = paymentOption.savePaymentMethod == .allowed
+            && inputSavePaymentMethodCondition
 
         if feeCondition || savePaymentMethodCondition {
             output.presentApplePayContract(paymentOption)

@@ -25,9 +25,11 @@
 import UIKit
 
 protocol AdditionalCardDataInputViewDelegate: class {
-    func additionalCardDataInputView(_ view: UIView,
-                                     didChangeText text: String,
-                                     inTextControl control: TextControl)
+    func additionalCardDataInputView(
+        _ view: UIView,
+        didChangeText text: String,
+        inTextControl control: TextControl
+    )
 }
 
 final class AdditionalCardDataInputView: UIView {
@@ -216,9 +218,11 @@ final class AdditionalCardDataInputView: UIView {
 // MARK: - TextControlDelegate
 
 extension AdditionalCardDataInputView: TextControlDelegate {
-    func textControl(_ textControl: TextControl,
-                     shouldChangeTextIn range: NSRange,
-                     replacementText text: String) -> Bool {
+    func textControl(
+        _ textControl: TextControl,
+        shouldChangeTextIn range: NSRange,
+        replacementText text: String
+    ) -> Bool {
         let inputPresenter: InputPresenter
         let resultText: String
 
@@ -235,9 +239,11 @@ extension AdditionalCardDataInputView: TextControlDelegate {
         default:
             return false
         }
-        inputPresenter.input(changeCharactersIn: range,
-                             replacementString: text,
-                             currentString: textControl.text ?? "")
+        inputPresenter.input(
+            changeCharactersIn: range,
+            replacementString: text,
+            currentString: textControl.text ?? ""
+        )
 
         switch textControl {
         case expiryDateTextControl:

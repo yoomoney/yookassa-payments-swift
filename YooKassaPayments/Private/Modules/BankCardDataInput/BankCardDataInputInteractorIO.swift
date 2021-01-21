@@ -25,7 +25,7 @@
 import Foundation
 
 /// Interactor input protocol
-protocol BankCardDataInputInteractorInput: AnalyticsTrackable, AnalyticsProviding {
+protocol BankCardDataInputInteractorInput: AnalyticsTrack, AnalyticsProvider {
     func validate(cardData: CardData)
     func validate(csc: String)
     func fetchBankCardSettings(_ pan: String)

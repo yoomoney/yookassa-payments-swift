@@ -1,10 +1,10 @@
 import UIKit.UIViewController
 
 enum ErrorAssembly {
-
-    static func makeModule(inputData: ErrorModuleInputData,
-                           moduleOutput: ErrorModuleOutput) -> UIViewController {
-
+    static func makeModule(
+        inputData: ErrorModuleInputData,
+        moduleOutput: ErrorModuleOutput
+    ) -> UIViewController {
         let viewController = ErrorViewController()
         let presenter = ErrorPresenter(inputData: inputData)
 

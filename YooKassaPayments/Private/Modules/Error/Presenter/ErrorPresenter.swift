@@ -2,14 +2,16 @@ import UIKit.UIImage
 
 final class ErrorPresenter {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
 
     weak var view: ErrorViewInput?
     weak var moduleOutput: ErrorModuleOutput?
 
-    // MARK: - Module Data
+    // MARK: - Init data
 
     fileprivate let inputData: ErrorModuleInputData
+
+    // MARK: - Init
 
     init(inputData: ErrorModuleInputData) {
         self.inputData = inputData
@@ -19,7 +21,6 @@ final class ErrorPresenter {
 // MARK: - ErrorViewOutput
 
 extension ErrorPresenter: ErrorViewOutput {
-
     func setupView() {
         guard let view = view else { return }
         view.showPlaceholder(message: inputData.errorTitle)
@@ -29,7 +30,6 @@ extension ErrorPresenter: ErrorViewOutput {
 // MARK: - ActionTextDialogDelegate
 
 extension ErrorPresenter: ActionTextDialogDelegate {
-
     func didPressButton() {
         moduleOutput?.didPressPlaceholderButton(on: self)
     }

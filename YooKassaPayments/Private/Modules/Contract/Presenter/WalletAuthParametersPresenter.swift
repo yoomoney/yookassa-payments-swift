@@ -2,7 +2,7 @@ import UIKit
 
 final class WalletAuthParametersPresenter {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
 
     var interactor: ContractInteractorInput!
 
@@ -12,14 +12,19 @@ final class WalletAuthParametersPresenter {
     weak var paymentMethodView: PaymentMethodViewInput?
     weak var isReusableTokenView: SwitchItemViewInput?
 
-    // MARK: - Data
+    // MARK: - Init data
 
     fileprivate let inputData: WalletAuthParametersModuleInputData
-    fileprivate var isReusableToken = true
+
+    // MARK: - Init
 
     init(inputData: WalletAuthParametersModuleInputData) {
         self.inputData = inputData
     }
+
+    // MARK: - Properties
+
+    fileprivate var isReusableToken = true
 }
 
 // MARK: - ContractViewOutput
@@ -50,8 +55,10 @@ extension WalletAuthParametersPresenter: ContractViewOutput {
             guard let strongSelf = self,
                   let interactor = strongSelf.interactor else { return }
             let (authType, _) = interactor.makeTypeAnalyticsParameters()
-            let event: AnalyticsEvent = .screenPaymentContract(authType: authType,
-                                                               scheme: strongSelf.inputData.tokenizeScheme)
+            let event: AnalyticsEvent = .screenPaymentContract(
+                authType: authType,
+                scheme: strongSelf.inputData.tokenizeScheme
+            )
             interactor.trackEvent(event)
         }
     }
@@ -97,7 +104,10 @@ extension WalletAuthParametersPresenter: ContractTemplateViewOutput {
 // MARK: - SwitchItemViewDelegate
 
 extension WalletAuthParametersPresenter: SwitchItemViewOutput {
-    func switchItemView(_ itemView: SwitchItemViewInput, didChangeState state: Bool) {
+    func switchItemView(
+        _ itemView: SwitchItemViewInput,
+        didChangeState state: Bool
+    ) {
         isReusableToken = state
     }
 }

@@ -4,17 +4,22 @@ import PassKit
 
 final class LinkedBankCardStrategy {
 
+    // MARK: - Outputs
+
     weak var output: TokenizationStrategyOutput?
     weak var contractStateHandler: ContractStateHandler?
 
     private weak var bankCardDataInputModule: BankCardDataInputModuleInput?
 
+    // MARK: - Init data
+
     var savePaymentMethod: Bool
-    var shouldInvalidateTokenizeData = false
 
     private let authorizationService: AuthorizationService
     private let paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
     private let returnUrl: String
+
+    // MARK: - Init
 
     init(
         authorizationService: AuthorizationService,
@@ -30,7 +35,13 @@ final class LinkedBankCardStrategy {
         self.returnUrl = returnUrl
         self.savePaymentMethod = savePaymentMethod
     }
+
+    // MARK: - Properties
+
+    var shouldInvalidateTokenizeData = false
 }
+
+// MARK: - TokenizationStrategyInput
 
 extension LinkedBankCardStrategy: TokenizationStrategyInput {
     func beginProcess() {
@@ -45,9 +56,10 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
         output?.presentMaskedBankCardDataInput(paymentOption: paymentOption)
     }
 
-    func walletAuthParameters(_ module: WalletAuthParametersModuleInput,
-                              loginWithReusableToken isReusableToken: Bool) {
-
+    func walletAuthParameters(
+        _ module: WalletAuthParametersModuleInput,
+        loginWithReusableToken isReusableToken: Bool
+    ) {
         contractStateHandler = module
         module.hidePlaceholder()
         module.showActivity()
@@ -62,10 +74,12 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
         case .authorized:
             output?.presentMaskedBankCardDataInput(paymentOption: paymentOption)
         case let .notAuthorized(authTypeState: authTypeState, processId: processId, authContextId: authContextId):
-            output?.presentWalletAuthModule(paymentOption: paymentOption,
-                                             processId: processId,
-                                             authContextId: authContextId,
-                                             authTypeState: authTypeState)
+            output?.presentWalletAuthModule(
+                paymentOption: paymentOption,
+                processId: processId,
+                authContextId: authContextId,
+                authTypeState: authTypeState
+            )
         }
     }
 
@@ -97,10 +111,15 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
     }
 
     func didPressLogout() {}
-    func sberbankModule(_ module: SberbankModuleInput, didPressConfirmButton phoneNumber: String) {}
-    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController,
-                                            didAuthorizePayment payment: PKPayment,
-                                            completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {}
+    func sberbankModule(
+        _ module: SberbankModuleInput,
+        didPressConfirmButton phoneNumber: String
+    ) {}
+    func paymentAuthorizationViewController(
+        _ controller: PKPaymentAuthorizationViewController,
+        didAuthorizePayment payment: PKPayment,
+        completion: @escaping (PKPaymentAuthorizationStatus) -> Void
+    ) {}
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {}
     func didFailPresentApplePayModule() {}
     func didPresentApplePayModule() {}

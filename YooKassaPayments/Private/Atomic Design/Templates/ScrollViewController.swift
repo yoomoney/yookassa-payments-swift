@@ -139,11 +139,12 @@ private extension ScrollViewController {
 
         let defaultInsets = originalScrollInsets ?? UIEdgeInsets.zero
         if keyboardOffset > 0 {
-            scrollView.contentInset = UIEdgeInsets(top: defaultInsets.top,
-                                                   left: defaultInsets.left,
-                                                   bottom: keyboardOffset,
-                                                   right: defaultInsets.right)
-
+            scrollView.contentInset = UIEdgeInsets(
+                top: defaultInsets.top,
+                left: defaultInsets.left,
+                bottom: keyboardOffset,
+                right: defaultInsets.right
+            )
         } else {
             scrollView.contentInset = defaultInsets
             originalScrollInsets = nil
@@ -197,11 +198,15 @@ private extension ScrollViewController {
 
         let bottomConstraint: NSLayoutConstraint
         if #available(iOS 9, *) {
-            bottomConstraint = footerView.bottomAnchor.constraint(equalTo: view.specificLayoutGuide.bottomAnchor,
-                                                                  constant: -footerInsets.bottom)
+            bottomConstraint = footerView.bottomAnchor.constraint(
+                equalTo: view.specificLayoutGuide.bottomAnchor,
+                constant: -footerInsets.bottom
+            )
         } else {
-            bottomConstraint = footerView.bottom.constraint(equalTo: view.bottom,
-                                                            constant: -footerInsets.bottom)
+            bottomConstraint = footerView.bottom.constraint(
+                equalTo: view.bottom,
+                constant: -footerInsets.bottom
+            )
         }
         if let keyboardOffset = currentKeyboardOffset {
             bottomConstraint.constant = -keyboardOffset - footerInsets.bottom

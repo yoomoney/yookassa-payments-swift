@@ -1,13 +1,21 @@
-struct AnalyticsProvider: AnalyticsProviding {
+struct AnalyticsProviderImpl {
+
+    // MARK: - Init data
 
     private let keyValueStoring: KeyValueStoring
+
+    // MARK: - Init
 
     init(
         keyValueStoring: KeyValueStoring
     ) {
         self.keyValueStoring = keyValueStoring
     }
+}
 
+// MARK: - AnalyticsProvider
+
+extension AnalyticsProviderImpl: AnalyticsProvider {
     func makeTypeAnalyticsParameters() -> (authType: AnalyticsEvent.AuthType,
                                            tokenType: AnalyticsEvent.AuthTokenType?) {
 

@@ -16,7 +16,6 @@ protocol PaymentMethodViewModel {
     var name: String { get }
     var image: UIImage { get }
     var balance: Amount? { get }
-
 }
 
 extension PaymentMethodViewModel {
@@ -26,9 +25,7 @@ extension PaymentMethodViewModel {
         }
 
         let balanceNumberFormatter = PaymentMethodViewModelHelper.balanceNumberFormatter
-
         balanceNumberFormatter.currencySymbol = balance.currency.symbol
-
         return balanceNumberFormatter.string(for: balance.value)
     }
 

@@ -7,12 +7,14 @@ public enum TokenizationAssembly {
     /// Creates tokenization view controller.
     ///
     /// - Returns: Tokenization view controller which implements the protocol `TokenizationModuleInput`.
-    public static func makeModule(inputData: TokenizationFlow,
-                                  moduleOutput: TokenizationModuleOutput)
-            -> UIViewController & TokenizationModuleInput {
+    public static func makeModule(
+        inputData: TokenizationFlow,
+        moduleOutput: TokenizationModuleOutput
+    ) -> UIViewController & TokenizationModuleInput {
         switch inputData {
         case .tokenization(let tokenizationModuleInputData):
             return makeTokenizationModule(tokenizationModuleInputData, moduleOutput: moduleOutput)
+
         case .bankCardRepeat(let bankCardRepeatModuleInputData):
             return makeBankCardRepeatModule(bankCardRepeatModuleInputData, moduleOutput: moduleOutput)
         }
@@ -31,8 +33,9 @@ public enum TokenizationAssembly {
             isLoggingEnabled: inputData.isLoggingEnabled
         )
 
-        let analyticsService = AnalyticsProcessingAssembly
-            .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
+        let analyticsService = AnalyticsServiceAssembly.makeService(
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
 
         let interactor = BankCardRepeatInteractor(
             clientApplicationKey: inputData.clientApplicationKey,
@@ -70,10 +73,10 @@ public enum TokenizationAssembly {
             testModeSettings: inputData.testModeSettings,
             moneyAuthClientId: inputData.moneyAuthClientId
         )
-        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
+        let analyticsService = AnalyticsServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled
         )
-        let analyticsProvider = AnalyticsProvidingAssembly.makeAnalyticsProvider(
+        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
             testModeSettings: inputData.testModeSettings
         )
 

@@ -8,6 +8,8 @@ struct MaskedBankCardDataInputModuleInputData {
 
 protocol MaskedBankCardDataInputModuleOutput: class {
     func didPressCloseBarButtonItem(on module: BankCardDataInputModuleInput)
-    func didPressConfirmButton(on module: BankCardDataInputModuleInput,
-                               cvc: String)
+    func didPressConfirmButton(
+        on module: BankCardDataInputModuleInput,
+        cvc: String
+    )
 }

@@ -27,11 +27,11 @@ import UIKit
 ///// Base view to enter bank card pan, expiry date, cvv
 class BankCardDataInputViewController: UIViewController, PlaceholderProvider {
 
-    // MARK: - Viper properties
+    // MARK: - Viper
 
     var output: BankCardDataInputViewOutput!
 
-    // UI properties
+    // MARK: - UI properties
 
     fileprivate lazy var scrollViewController: ScrollViewController = {
         $0.view.translatesAutoresizingMaskIntoConstraints = false
@@ -68,10 +68,12 @@ class BankCardDataInputViewController: UIViewController, PlaceholderProvider {
         return $0
     }(UIView())
 
-    fileprivate lazy var closeBarButtonItem = UIBarButtonItem(image: UIImage.named("Common.close"),
-                                                              style: .plain,
-                                                              target: self,
-                                                              action: #selector(closeBarButtonItemDidPress))
+    fileprivate lazy var closeBarButtonItem = UIBarButtonItem(
+        image: UIImage.named("Common.close"),
+        style: .plain,
+        target: self,
+        action: #selector(closeBarButtonItemDidPress)
+    )
 
     fileprivate var scrollView: UIScrollView {
         return scrollViewController.scrollView
@@ -163,7 +165,10 @@ extension BankCardDataInputViewController: BankCardDataInputViewInput {
     }
 
     func setExpiryDateTextControlValue(_ value: String) {
-        let formattedValue = additionalCardDataInputView.expiryDateInputPresenter.style.appendedFormatting(to: value)
+        let formattedValue = additionalCardDataInputView
+            .expiryDateInputPresenter
+            .style
+            .appendedFormatting(to: value)
         additionalCardDataInputView.expiryDateControl.text = formattedValue
     }
 
@@ -180,11 +185,16 @@ extension BankCardDataInputViewController: BankCardDataInputViewInput {
     }
 
     func setPanInputTextControlDisabledStyle() {
-        panInputTextControl.setStyles(TextControl.Styles.linkedCardDataInput, TextControl.Styles.leftIconVisible)
+        panInputTextControl.setStyles(
+            TextControl.Styles.linkedCardDataInput,
+            TextControl.Styles.leftIconVisible
+        )
     }
 
     func setExpiryDateTextControlDisabledStyle() {
-        additionalCardDataInputView.expiryDateControl.setStyles(TextControl.Styles.linkedCardDataInput)
+        additionalCardDataInputView.expiryDateControl.setStyles(
+            TextControl.Styles.linkedCardDataInput
+        )
     }
 
     func setCvcTextControlHint(_ hint: String) {
@@ -283,7 +293,11 @@ extension BankCardDataInputViewController {
 // MARK: - AdditionalCardDataInputViewDelegate
 
 extension BankCardDataInputViewController: AdditionalCardDataInputViewDelegate {
-    func additionalCardDataInputView(_ view: UIView, didChangeText text: String, inTextControl control: TextControl) {
+    func additionalCardDataInputView(
+        _ view: UIView,
+        didChangeText text: String,
+        inTextControl control: TextControl
+    ) {
         switch control {
         case additionalCardDataInputView.expiryDateControl:
             output.didSetExpiryDate(text)
@@ -298,9 +312,11 @@ extension BankCardDataInputViewController: AdditionalCardDataInputViewDelegate {
 // MARK: - TextControlDelegate
 
 extension BankCardDataInputViewController: TextControlDelegate {
-    func textControl(_ textControl: TextControl,
-                     shouldChangeTextIn range: NSRange,
-                     replacementText text: String) -> Bool {
+    func textControl(
+        _ textControl: TextControl,
+        shouldChangeTextIn range: NSRange,
+        replacementText text: String
+    ) -> Bool {
         let inputPresenter: InputPresenter
         let outputDidSet: (String) -> Void
         switch textControl {
@@ -310,9 +326,11 @@ extension BankCardDataInputViewController: TextControlDelegate {
         default:
             return false
         }
-        inputPresenter.input(changeCharactersIn: range,
-                             replacementString: text,
-                             currentString: textControl.text ?? "")
+        inputPresenter.input(
+            changeCharactersIn: range,
+            replacementString: text,
+            currentString: textControl.text ?? ""
+        )
         let text = inputPresenter.style.removedFormatting(from: textControl.text ?? "")
         outputDidSet(text)
         return false
@@ -344,7 +362,6 @@ extension BankCardDataInputViewController {
 
 private extension BankCardDataInputViewController {
     enum Localized {
-
         enum PlaceholderView: String {
             case buttonTitle = "Common.PlaceholderView.buttonTitle"
         }

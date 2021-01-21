@@ -2,11 +2,11 @@ import UIKit
 
 final class ErrorViewController: UIViewController, PlaceholderProvider {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
 
     var output: ErrorViewOutput!
 
-    // MARK: - Subviews properties
+    // MARK: - UI properties
 
     lazy var placeholderView: PlaceholderView = {
         $0.setStyles(UIView.Styles.defaultBackground)
@@ -56,7 +56,6 @@ final class ErrorViewController: UIViewController, PlaceholderProvider {
 // MARK: - ErrorViewInput
 
 extension ErrorViewController: ErrorViewInput {
-
     func showPlaceholder(message: String) {
         actionTextDialog.title = message
         showPlaceholder()

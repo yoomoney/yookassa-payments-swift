@@ -1,7 +1,8 @@
-import Foundation
+struct NonEmptyValidator {}
 
-struct NonEmptyValidator: Validator {
+// MARK: - Validator
 
+extension NonEmptyValidator: Validator {
     func validate(text: String) -> Bool {
         return !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }

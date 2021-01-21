@@ -1,6 +1,6 @@
 final class ApplePayContractPresenter {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
 
     var interactor: ContractInteractorInput!
 
@@ -9,9 +9,11 @@ final class ApplePayContractPresenter {
     weak var contractView: ContractTemplateViewInput?
     weak var paymentMethodView: PaymentMethodViewInput?
 
-    // MARK: - Data
+    // MARK: - Init data
 
     private let inputData: ApplePayContractModuleInputData
+
+    // MARK: - Init
 
     init(inputData: ApplePayContractModuleInputData) {
         self.inputData = inputData

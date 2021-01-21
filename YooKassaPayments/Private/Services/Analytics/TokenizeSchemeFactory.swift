@@ -1,9 +1,9 @@
 import YooKassaPaymentsApi
 
 enum TokenizeSchemeFactory {
-
-    static func makeTokenizeScheme(_ paymentOption: PaymentOption) -> AnalyticsEvent.TokenizeScheme {
-
+    static func makeTokenizeScheme(
+        _ paymentOption: PaymentOption
+    ) -> AnalyticsEvent.TokenizeScheme {
         let scheme: AnalyticsEvent.TokenizeScheme
 
         switch paymentOption {
@@ -18,9 +18,9 @@ enum TokenizeSchemeFactory {
         return scheme
     }
 
-    static func makeTokenizeScheme(_ paymentMethodType: PaymentMethodType)
-            -> AnalyticsEvent.TokenizeScheme {
-
+    static func makeTokenizeScheme(
+        _ paymentMethodType: PaymentMethodType
+    ) -> AnalyticsEvent.TokenizeScheme {
         let scheme: AnalyticsEvent.TokenizeScheme
 
         switch paymentMethodType {

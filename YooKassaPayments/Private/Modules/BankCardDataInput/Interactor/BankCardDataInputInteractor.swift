@@ -24,19 +24,23 @@
 
 class BankCardDataInputInteractor {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
+
     weak var output: BankCardDataInputInteractorOutput?
 
-    // MARK: - Module interaction properties
+    // MARK: - Init data
+
     private let cardService: CardService
-    private let analyticsService: AnalyticsProcessing
-    private let analyticsProvider: AnalyticsProviding
+    private let analyticsService: AnalyticsService
+    private let analyticsProvider: AnalyticsProvider
     private let bankSettingsService: BankSettingsService
+
+    // MARK: - Init
 
     init(
         cardService: CardService,
-        analyticsService: AnalyticsProcessing,
-        analyticsProvider: AnalyticsProviding,
+        analyticsService: AnalyticsService,
+        analyticsProvider: AnalyticsProvider,
         bankSettingsService: BankSettingsService
     ) {
         self.cardService = cardService
@@ -47,6 +51,7 @@ class BankCardDataInputInteractor {
 }
 
 // MARK: - BankCardDataInputInteractorInput
+
 extension BankCardDataInputInteractor: BankCardDataInputInteractorInput {
     func validate(cardData: CardData) {
         guard let errors = cardService.validate(cardData: cardData) else {

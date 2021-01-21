@@ -1,17 +1,27 @@
-import Foundation
+struct DateValidator {
 
-struct DateValidator: Validator {
+    // MARK: - Init data
 
     let min: Date?
     let max: Date?
     let formatter: DateFormatter
 
-    init(formatter: DateFormatter, min: Date?, max: Date?) {
+    // MARK: - Init
+
+    init(
+        formatter: DateFormatter,
+        min: Date?,
+        max: Date?
+    ) {
         self.formatter = formatter
         self.max = max
         self.min = min
     }
+}
 
+// MARK: - Validator
+
+extension DateValidator: Validator {
     func validate(text: String) -> Bool {
 
         guard let date = formatter.date(from: text) else {

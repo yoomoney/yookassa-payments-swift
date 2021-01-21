@@ -5,7 +5,7 @@ final class YooMoneyAuthInteractor {
     weak var output: YooMoneyAuthInteractorOutput?
 
     private let authorizationService: AuthorizationService
-    private let analyticsService: AnalyticsProcessing
+    private let analyticsService: AnalyticsService
     private let paymentService: PaymentService
 
     // MARK: - Init data
@@ -19,7 +19,7 @@ final class YooMoneyAuthInteractor {
 
     init(
         authorizationService: AuthorizationService,
-        analyticsService: AnalyticsProcessing,
+        analyticsService: AnalyticsService,
         paymentService: PaymentService,
         clientApplicationKey: String,
         gatewayId: String?,

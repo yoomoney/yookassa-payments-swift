@@ -15,10 +15,12 @@ class KeyboardNotificationInfo: NSObject { // Need NSObject to use in KeyboardOb
     /// Identifies the duration of the animation in seconds
     let animationDuration: TimeInterval?
 
-    init(beginKeyboardFrame: CGRect,
-         endKeyboardFrame: CGRect,
-         animationCurve: UIView.AnimationCurve?,
-         animationDuration: TimeInterval?) {
+    init(
+        beginKeyboardFrame: CGRect,
+        endKeyboardFrame: CGRect,
+        animationCurve: UIView.AnimationCurve?,
+        animationDuration: TimeInterval?
+    ) {
         self.beginKeyboardFrame = beginKeyboardFrame
         self.endKeyboardFrame = endKeyboardFrame
         self.animationCurve = animationCurve

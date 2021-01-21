@@ -1,6 +1,6 @@
 import class YooKassaPaymentsApi.PaymentOption
 
-protocol YooMoneyAuthInteractorInput: class, AnalyticsTrackable {
+protocol YooMoneyAuthInteractorInput: class, AnalyticsTrack {
     func fetchYooMoneyPaymentMethods(
         moneyCenterAuthToken: String,
         walletDisplayName: String?

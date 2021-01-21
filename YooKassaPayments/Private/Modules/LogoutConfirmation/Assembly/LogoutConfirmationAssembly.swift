@@ -1,22 +1,35 @@
 import UIKit.UIAlertController
 
 enum LogoutConfirmationAssembly {
-    static func makeModule(inputData: LogoutConfirmationModuleInputData,
-                           moduleOutput: LogoutConfirmationModuleOutput) -> UIViewController {
-        let viewController = UIAlertController(title: String.localizedStringWithFormat(§Localized.titleFormat,
-                                                                                       inputData.accountName),
-                                               message: nil,
-                                               preferredStyle: .alert)
-        viewController.addAction(UIAlertAction(title: §CommonLocalized.cancel,
-                                               style: .default,
-                                               handler: { [weak moduleOutput] _ in
-                                                   moduleOutput?.logoutDidCancel(on: viewController)
-                                               }))
-        viewController.addAction(UIAlertAction(title: §CommonLocalized.ok,
-                                               style: .destructive,
-                                               handler: { [weak moduleOutput] _ in
-                                                   moduleOutput?.logoutDidConfirm(on: viewController)
-                                               }))
+    static func makeModule(
+        inputData: LogoutConfirmationModuleInputData,
+        moduleOutput: LogoutConfirmationModuleOutput
+    ) -> UIViewController {
+        let viewController = UIAlertController(
+            title: String.localizedStringWithFormat(
+                §Localized.titleFormat,
+                inputData.accountName
+            ),
+            message: nil,
+            preferredStyle: .alert
+        )
+
+        [
+            UIAlertAction(
+                title: §CommonLocalized.cancel,
+                style: .default,
+                handler: { [weak moduleOutput] _ in
+                    moduleOutput?.logoutDidCancel(on: viewController)
+                }
+            ),
+            UIAlertAction(
+                title: §CommonLocalized.ok,
+                style: .destructive,
+                handler: { [weak moduleOutput] _ in
+                    moduleOutput?.logoutDidConfirm(on: viewController)
+                }
+            ),
+        ].forEach(viewController.addAction)
 
         return viewController
     }

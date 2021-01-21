@@ -20,7 +20,10 @@ enum YooMoneyAuthAssembly {
         view: PaymentMethodsViewController
     ) -> PaymentMethodsViewController {
 
-        assert(inputData.moneyAuthClientId != nil, "`moneyAuthClientId` should be in `TokenizationModuleInputData`")
+        assert(
+            inputData.moneyAuthClientId != nil,
+            "`moneyAuthClientId` should be in `TokenizationModuleInputData`"
+        )
 
         let moneyAuthConfig = MoneyAuthAssembly.makeMoneyAuthConfig(
             moneyAuthClientId: inputData.moneyAuthClientId ?? "",
@@ -42,8 +45,9 @@ enum YooMoneyAuthAssembly {
             testModeSettings: inputData.testModeSettings,
             moneyAuthClientId: inputData.moneyAuthClientId
         )
-        let analyticsService = AnalyticsProcessingAssembly
-            .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
+        let analyticsService = AnalyticsServiceAssembly.makeService(
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
         let paymentService = PaymentServiceAssembly.makeService(
             tokenizationSettings: inputData.tokenizationSettings,
             testModeSettings: inputData.testModeSettings,

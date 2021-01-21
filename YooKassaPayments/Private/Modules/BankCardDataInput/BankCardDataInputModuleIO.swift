@@ -10,6 +10,8 @@ protocol BankCardDataInputModuleInput: class {
 
 protocol BankCardDataInputModuleOutput: class {
     func didPressCloseBarButtonItem(on module: BankCardDataInputModuleInput)
-    func bankCardDataInputModule(_ module: BankCardDataInputModuleInput,
-                                 didPressConfirmButton bankCardData: CardData)
+    func bankCardDataInputModule(
+        _ module: BankCardDataInputModuleInput,
+        didPressConfirmButton bankCardData: CardData
+    )
 }

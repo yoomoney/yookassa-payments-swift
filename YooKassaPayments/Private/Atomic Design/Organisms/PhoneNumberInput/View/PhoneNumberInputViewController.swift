@@ -83,10 +83,16 @@ extension PhoneNumberInputViewController: TextControlDelegate {
         output.didFinishChangePhoneNumber()
     }
 
-    func textControl(_ textControl: TextControl,
-                     shouldChangeTextIn range: NSRange,
-                     replacementText text: String) -> Bool {
-        inputPresenter.input(changeCharactersIn: range, replacementString: text, currentString: textControl.text ?? "")
+    func textControl(
+        _ textControl: TextControl,
+        shouldChangeTextIn range: NSRange,
+        replacementText text: String
+    ) -> Bool {
+        inputPresenter.input(
+            changeCharactersIn: range,
+            replacementString: text,
+            currentString: textControl.text ?? ""
+        )
 
         output.phoneNumberDidChange(on: textInputStyle.removedFormatting(from: textControl.text ?? ""))
 

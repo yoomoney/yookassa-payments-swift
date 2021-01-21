@@ -1,6 +1,4 @@
-import Foundation
-
-struct EmailValidator: Validator {
+struct EmailValidator {
 
     // swiftlint:disable force_unwrapping
     private let internalValidator = RegexValidator(pattern: """
@@ -8,7 +6,11 @@ struct EmailValidator: Validator {
 (?:aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$
 """)!
     // swiftlint:enable force_unwrapping
+}
 
+// MARK: - Validator
+
+extension EmailValidator: Validator {
     func validate(text: String) -> Bool {
         return internalValidator.validate(text: text)
     }

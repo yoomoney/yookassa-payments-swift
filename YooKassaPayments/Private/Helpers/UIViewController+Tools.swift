@@ -32,7 +32,10 @@ extension UIViewController {
     /// - Parameters:
     ///   - target: The target object, the object whose action method is called. `self` by default.
     ///   - action: A selector identifying the action method to be called.
-    func addCloseButtonIfNeeded(target: AnyObject = self as AnyObject, action: Selector) {
+    func addCloseButtonIfNeeded(
+        target: AnyObject = self as AnyObject,
+        action: Selector
+    ) {
         guard navigationController?.viewControllers.first === self else { return }
 
         let item = UIBarButtonItem()

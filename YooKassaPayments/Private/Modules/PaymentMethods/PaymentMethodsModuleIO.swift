@@ -24,10 +24,14 @@ protocol PaymentMethodsModuleInput: class {
 }
 
 protocol PaymentMethodsModuleOutput: class {
-    func paymentMethodsModule(_ module: PaymentMethodsModuleInput,
-                              didSelect paymentOption: PaymentOption,
-                              methodsCount: Int)
-    func paymentMethodsModule(_ module: PaymentMethodsModuleInput,
-                              didPressLogout paymentOption: PaymentInstrumentYooMoneyWallet)
+    func paymentMethodsModule(
+        _ module: PaymentMethodsModuleInput,
+        didSelect paymentOption: PaymentOption,
+        methodsCount: Int
+    )
+    func paymentMethodsModule(
+        _ module: PaymentMethodsModuleInput,
+        didPressLogout paymentOption: PaymentInstrumentYooMoneyWallet
+    )
     func didFinish(on module: PaymentMethodsModuleInput)
 }

@@ -2,7 +2,7 @@ import UIKit
 
 final class SavePaymentMethodInfoViewController: UIViewController {
 
-    // MARK: - VIPER properties
+    // MARK: - VIPER
 
     var output: SavePaymentMethodInfoViewOutput!
 
@@ -89,12 +89,16 @@ private extension SavePaymentMethodInfoViewController {
 // MARK: - SavePaymentMethodInfoViewInput
 
 extension SavePaymentMethodInfoViewController: SavePaymentMethodInfoViewInput {
-    func setSavePaymentMethodInfoViewModel(_ viewModel: SavePaymentMethodInfoViewModel) {
+    func setSavePaymentMethodInfoViewModel(
+        _ viewModel: SavePaymentMethodInfoViewModel
+    ) {
         headerLabel.text = viewModel.headerText
         bodyLabel.text = viewModel.bodyText
     }
 
-    func setCustomizationSettings(_ customizationSettings: CustomizationSettings) {
+    func setCustomizationSettings(
+        _ customizationSettings: CustomizationSettings
+    ) {
         closeBarButtonItem.tintColor = customizationSettings.mainScheme
     }
 }

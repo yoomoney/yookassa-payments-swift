@@ -12,13 +12,13 @@ final class BankServiceSettingsImpl {
         qos: .userInteractive
     )
 
-    // MARK: - Initialization
+    // MARK: - Init
 
     init() {
         loadBankSettingsIfNeeded()
     }
 
-    // MARK: - Data
+    // MARK: - Properties
 
     private var bankBins: [String: BankSettings] = [:]
 }

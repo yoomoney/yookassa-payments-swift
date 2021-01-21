@@ -6,7 +6,7 @@ import MoneyAuth
 
 final class YooMoneyAuthPresenter {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
 
     var interactor: YooMoneyAuthInteractorInput!
     var router: YooMoneyAuthRouterInput!
@@ -19,13 +19,15 @@ final class YooMoneyAuthPresenter {
     private var moneyAuthCoordinator: MoneyAuth.AuthorizationCoordinator?
     private var tmxSessionId: String?
 
-    // MARK: - Initialization
+    // MARK: - Init data
 
     private let testModeSettings: TestModeSettings?
     private let moneyAuthConfig: MoneyAuth.Config
     private let moneyAuthCustomization: MoneyAuth.Customization
     private let kassaPaymentsCustomization: CustomizationSettings
     private let paymentMethodsModuleInput: PaymentMethodsModuleInput?
+
+    // MARK: - Init
 
     init(
         testModeSettings: TestModeSettings?,

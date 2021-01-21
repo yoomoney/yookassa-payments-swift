@@ -3,7 +3,7 @@ import UIKit
 
 final class TokenizationViewController: UIViewController {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
 
     var output: (TokenizationViewOutput & TokenizationModuleInput)!
 
