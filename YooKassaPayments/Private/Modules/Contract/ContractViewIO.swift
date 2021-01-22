@@ -1,5 +1,4 @@
 import class UIKit.UIImage
-import struct YooKassaPaymentsApi.MonetaryAmount
 
 enum ContractPlaceholderState {
     case message(String)
@@ -8,12 +7,6 @@ enum ContractPlaceholderState {
     case sessionBroken(message: String, error: Error)
     case verifyAttemptsExceeded(message: String, error: Error)
     case executeError(message: String, error: Error)
-}
-
-protocol ContractViewModel {
-    var name: String { get }
-    var image: UIImage { get }
-    var balance: MonetaryAmount? { get }
 }
 
 protocol ContractViewInput: ActivityIndicatorFullViewPresenting, PlaceholderPresenting {

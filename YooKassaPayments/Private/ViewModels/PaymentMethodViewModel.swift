@@ -1,6 +1,6 @@
 import UIKit.UIImage
 
-struct PaymentMethod: PaymentMethodViewModel {
+struct PaymentMethodViewModel {
     let name: String
     let image: UIImage
     let balance: Amount?

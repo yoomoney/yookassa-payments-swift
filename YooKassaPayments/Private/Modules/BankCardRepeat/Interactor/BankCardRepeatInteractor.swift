@@ -1,5 +1,3 @@
-import YooKassaPaymentsApi
-
 final class BankCardRepeatInteractor {
 
     // MARK: - VIPER

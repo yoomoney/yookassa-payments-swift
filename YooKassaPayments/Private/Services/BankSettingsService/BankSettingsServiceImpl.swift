@@ -1,5 +1,3 @@
-import Foundation
-
 final class BankServiceSettingsImpl {
     static var shared: BankSettingsService {
         return _shared

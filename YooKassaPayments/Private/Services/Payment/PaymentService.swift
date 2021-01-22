@@ -1,5 +1,4 @@
 import YooKassaPaymentsApi
-import YooMoneyCoreApi
 
 protocol PaymentService {
     func fetchPaymentOptions(
@@ -15,7 +14,7 @@ protocol PaymentService {
     func fetchPaymentMethod(
         clientApplicationKey: String,
         paymentMethodId: String,
-        completion: @escaping (Result<YooKassaPaymentsApi.PaymentMethod, Error>) -> Void
+        completion: @escaping (Result<PaymentMethod, Error>) -> Void
     )
 
     func tokenizeBankCard(

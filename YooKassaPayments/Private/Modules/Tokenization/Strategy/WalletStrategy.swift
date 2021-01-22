@@ -1,6 +1,5 @@
-import YooKassaPaymentsApi
-import struct YooKassaWalletApi.AuthTypeState
 import PassKit
+import YooKassaPaymentsApi
 
 final class WalletStrategy {
 

@@ -1,5 +1,3 @@
-import Foundation
-
 class CardSecInteractor {
 
     private let options = WebBrowserOptions.all

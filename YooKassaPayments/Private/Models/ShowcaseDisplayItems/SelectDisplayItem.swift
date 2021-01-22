@@ -1,5 +1,3 @@
-import Foundation
-
 struct SelectDisplayItem {
     let title: String?
     var value: String?

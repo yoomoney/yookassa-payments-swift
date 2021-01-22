@@ -22,8 +22,6 @@
  * THE SOFTWARE.
  */
 
-import Foundation
-
 struct PanInputPresenterStyle: InputPresenterStyle {
 
     init() { }

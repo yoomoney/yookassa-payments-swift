@@ -21,7 +21,6 @@
  * THE SOFTWARE.
  */
 
-import Foundation.NSRange
 import class UIKit.UITextPosition
 import class UIKit.UITextRange
 

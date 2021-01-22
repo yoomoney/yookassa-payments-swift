@@ -1,5 +1,3 @@
-import Foundation
-
 final class UserDefaultsStorage {
 
     // MARK: - Init data

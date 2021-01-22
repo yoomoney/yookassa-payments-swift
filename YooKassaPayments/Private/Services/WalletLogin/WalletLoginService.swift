@@ -1,5 +1,3 @@
-import YooKassaWalletApi
-
 protocol WalletLoginService {
     func requestAuthorization(
         moneyCenterAuthorization: String,

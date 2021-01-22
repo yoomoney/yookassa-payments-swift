@@ -1,5 +1,4 @@
 import YooKassaPaymentsApi
-import enum YooKassaWalletApi.AuthType
 
 final class TokenizationInteractor {
 
@@ -97,7 +96,7 @@ extension TokenizationInteractor: TokenizationInteractorInput {
                 bankCard: bankCard,
                 confirmation: confirmation,
                 savePaymentMethod: savePaymentMethod,
-                amount: monetaryAmount,
+                amount: monetaryAmount.plain,
                 tmxSessionId: tmxSessionId,
                 completion: completion
             )
@@ -113,8 +112,8 @@ extension TokenizationInteractor: TokenizationInteractorInput {
                 walletAuthorization: walletToken,
                 confirmation: confirmation,
                 savePaymentMethod: savePaymentMethod,
-                paymentMethodType: paymentOption.paymentMethodType,
-                amount: monetaryAmount,
+                paymentMethodType: paymentOption.paymentMethodType.plain,
+                amount: monetaryAmount.plain,
                 tmxSessionId: tmxSessionId,
                 completion: completion
             )
@@ -132,8 +131,8 @@ extension TokenizationInteractor: TokenizationInteractorInput {
                 csc: csc,
                 confirmation: confirmation,
                 savePaymentMethod: savePaymentMethod,
-                paymentMethodType: paymentOption.paymentMethodType,
-                amount: monetaryAmount,
+                paymentMethodType: paymentOption.paymentMethodType.plain,
+                amount: monetaryAmount.plain,
                 tmxSessionId: tmxSessionId,
                 completion: completion
             )
@@ -143,7 +142,7 @@ extension TokenizationInteractor: TokenizationInteractorInput {
                 clientApplicationKey: self.clientApplicationKey,
                 paymentData: paymentData,
                 savePaymentMethod: savePaymentMethod,
-                amount: monetaryAmount,
+                amount: monetaryAmount.plain,
                 tmxSessionId: tmxSessionId,
                 completion: completion
             )
@@ -154,7 +153,7 @@ extension TokenizationInteractor: TokenizationInteractorInput {
                 phoneNumber: phoneNumber,
                 confirmation: confirmation,
                 savePaymentMethod: savePaymentMethod,
-                amount: monetaryAmount,
+                amount: monetaryAmount.plain,
                 tmxSessionId: tmxSessionId,
                 completion: completion
             )
@@ -170,12 +169,9 @@ extension TokenizationInteractor: TokenizationInteractorInput {
         paymentOption: PaymentOption,
         tmxSessionId: String?
     ) {
-        let walletMonetaryAmount = MonetaryAmountFactory
-            .makeWalletMonetaryAmount(paymentOption.charge)
-
         authorizationService.loginInWallet(
             merchantClientAuthorization: clientApplicationKey,
-            amount: walletMonetaryAmount,
+            amount: paymentOption.charge.plain,
             reusableToken: reusableToken,
             tmxSessionId: tmxSessionId
         ) { [weak self] result in

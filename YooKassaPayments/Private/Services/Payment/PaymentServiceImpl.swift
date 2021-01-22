@@ -22,7 +22,6 @@ final class PaymentServiceImpl {
 // MARK: - PaymentService
 
 extension PaymentServiceImpl: PaymentService {
-
     func fetchPaymentOptions(
         clientApplicationKey: String,
         authorizationToken: String?,
@@ -62,7 +61,7 @@ extension PaymentServiceImpl: PaymentService {
     func fetchPaymentMethod(
         clientApplicationKey: String,
         paymentMethodId: String,
-        completion: @escaping (Result<YooKassaPaymentsApi.PaymentMethod, Error>) -> Void
+        completion: @escaping (Result<PaymentMethod, Error>) -> Void
     ) {
         let apiMethod = YooKassaPaymentsApi.PaymentMethod.Method(
             oauthToken: clientApplicationKey,
@@ -76,7 +75,7 @@ extension PaymentServiceImpl: PaymentService {
                 let mappedError = mapError(error)
                 completion(.failure(mappedError))
             case let .right(data):
-                completion(.success(data))
+                completion(.success(data.plain))
             }
         }
     }
@@ -90,15 +89,15 @@ extension PaymentServiceImpl: PaymentService {
         tmxSessionId: String,
         completion: @escaping (Result<Tokens, Error>) -> Void
     ) {
-        let paymentMethodData = PaymentMethodDataBankCard(bankCard: bankCard)
+        let paymentMethodData = PaymentMethodDataBankCard(bankCard: bankCard.paymentsModel)
         let tokensRequest = TokensRequestPaymentMethodData(
-            amount: amount,
+            amount: amount?.paymentsModel,
             tmxSessionId: tmxSessionId,
-            confirmation: confirmation,
+            confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
             paymentMethodData: paymentMethodData
         )
-        let apiMethod = Tokens.Method(
+        let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
             tokensRequest: tokensRequest
         )
@@ -110,7 +109,7 @@ extension PaymentServiceImpl: PaymentService {
                 let mappedError = mapError(error)
                 completion(.failure(mappedError))
             case let .right(data):
-                completion(.success(data))
+                completion(.success(data.plain))
             }
         }
     }
@@ -128,16 +127,16 @@ extension PaymentServiceImpl: PaymentService {
         let paymentMethodData = PaymentInstrumentDataYooMoneyWallet(
             instrumentType: .wallet,
             walletAuthorization: walletAuthorization,
-            paymentMethodType: paymentMethodType
+            paymentMethodType: paymentMethodType.paymentsModel
         )
         let tokensRequest = TokensRequestPaymentMethodData(
-            amount: amount,
+            amount: amount?.paymentsModel,
             tmxSessionId: tmxSessionId,
-            confirmation: confirmation,
+            confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
             paymentMethodData: paymentMethodData
         )
-        let apiMethod = Tokens.Method(
+        let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
             tokensRequest: tokensRequest
         )
@@ -149,7 +148,7 @@ extension PaymentServiceImpl: PaymentService {
                 let mappedError = mapError(error)
                 completion(.failure(mappedError))
             case let .right(data):
-                completion(.success(data))
+                completion(.success(data.plain))
             }
         }
     }
@@ -171,16 +170,16 @@ extension PaymentServiceImpl: PaymentService {
             cardId: cardId,
             csc: csc,
             walletAuthorization: walletAuthorization,
-            paymentMethodType: paymentMethodType
+            paymentMethodType: paymentMethodType.paymentsModel
         )
         let tokensRequest = TokensRequestPaymentMethodData(
-            amount: amount,
+            amount: amount?.paymentsModel,
             tmxSessionId: tmxSessionId,
-            confirmation: confirmation,
+            confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
             paymentMethodData: paymentMethodData
         )
-        let apiMethod = Tokens.Method(
+        let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
             tokensRequest: tokensRequest
         )
@@ -192,7 +191,7 @@ extension PaymentServiceImpl: PaymentService {
                 let mappedError = mapError(error)
                 completion(.failure(mappedError))
             case let .right(data):
-                completion(.success(data))
+                completion(.success(data.plain))
             }
         }
     }
@@ -209,13 +208,13 @@ extension PaymentServiceImpl: PaymentService {
             paymentData: paymentData
         )
         let tokensRequest = TokensRequestPaymentMethodData(
-            amount: amount,
+            amount: amount?.paymentsModel,
             tmxSessionId: tmxSessionId,
             confirmation: nil,
             savePaymentMethod: savePaymentMethod,
             paymentMethodData: paymentMethodData
         )
-        let apiMethod = Tokens.Method(
+        let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
             tokensRequest: tokensRequest
         )
@@ -227,7 +226,7 @@ extension PaymentServiceImpl: PaymentService {
                 let mappedError = mapError(error)
                 completion(.failure(mappedError))
             case let .right(data):
-                completion(.success(data))
+                completion(.success(data.plain))
             }
         }
     }
@@ -245,13 +244,13 @@ extension PaymentServiceImpl: PaymentService {
             phone: phoneNumber
         )
         let tokensRequest = TokensRequestPaymentMethodData(
-            amount: amount,
+            amount: amount?.paymentsModel,
             tmxSessionId: tmxSessionId,
-            confirmation: confirmation,
+            confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
             paymentMethodData: paymentMethodData
         )
-        let apiMethod = Tokens.Method(
+        let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
             tokensRequest: tokensRequest
         )
@@ -263,7 +262,7 @@ extension PaymentServiceImpl: PaymentService {
                 let mappedError = mapError(error)
                 completion(.failure(mappedError))
             case let .right(data):
-                completion(.success(data))
+                completion(.success(data.plain))
             }
         }
     }
@@ -279,14 +278,14 @@ extension PaymentServiceImpl: PaymentService {
         completion: @escaping (Result<Tokens, Error>) -> Void
     ) {
         let tokensRequest = TokensRequestPaymentMethodId(
-            amount: amount,
+            amount: amount.paymentsModel,
             tmxSessionId: tmxSessionId,
-            confirmation: confirmation,
+            confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
             paymentMethodId: paymentMethodId,
             csc: csc
         )
-        let apiMethod = Tokens.Method(
+        let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
             tokensRequest: tokensRequest
         )
@@ -298,7 +297,7 @@ extension PaymentServiceImpl: PaymentService {
                 let mappedError = mapError(error)
                 completion(.failure(mappedError))
             case let .right(data):
-                completion(.success(data))
+                completion(.success(data.plain))
             }
         }
     }

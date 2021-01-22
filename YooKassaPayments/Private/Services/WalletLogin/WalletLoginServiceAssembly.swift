@@ -1,5 +1,3 @@
-import YooKassaWalletApi
-
 enum WalletLoginServiceAssembly {
     static func makeService(
         isLoggingEnabled: Bool,
@@ -18,7 +16,7 @@ enum WalletLoginServiceAssembly {
             )
             service = WalletLoginServiceImpl(
                 session: session,
-                authTypeStatesService: AuthTypeStatesService()
+                authTypeStatesService: AuthTypeStatesServiceImpl()
             )
         }
 

@@ -3,7 +3,6 @@ import SafariServices
 import UIKit
 import WebKit
 import YooKassaPayments
-import YooKassaPaymentsApi
 
 final class RootViewController: UIViewController {
 

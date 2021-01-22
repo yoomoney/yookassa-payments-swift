@@ -22,8 +22,6 @@
  * THE SOFTWARE.
  */
 
-import Foundation
-
  struct PhoneNumberStyle: InputPresenterStyle {
     fileprivate let phoneNumberFormatter: PhoneNumberFormatter
 

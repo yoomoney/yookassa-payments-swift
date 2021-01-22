@@ -1,5 +1,3 @@
-import Foundation
-
 struct ContractModuleInputData {
     let shopName: String
     let purchaseDescription: String

@@ -1,6 +1,4 @@
 import YooKassaPaymentsApi
-import enum YooKassaWalletApi.AuthType
-import struct YooKassaWalletApi.AuthTypeState
 
 enum TokenizeData {
     case bankCard(bankCard: BankCard, confirmation: Confirmation, savePaymentMethod: Bool)

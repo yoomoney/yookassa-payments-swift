@@ -1,6 +1,3 @@
-import YooKassaWalletApi
-import YooMoneyCoreApi
-
 final class WalletLoginServiceMock {
 
     // MARK: - Init data
@@ -99,13 +96,13 @@ private func makeWalletLoginResponse(
 }
 
 private func makeAuthTypeState() -> AuthTypeState {
-    let smsDescription = AuthTypeState.Specific.SmsDescription(
+    let smsDescription = Specific.SmsDescription(
         codeLength: 4,
         sessionsLeft: 30,
         sessionTimeLeft: 30,
         nextSessionTimeLeft: 30
     )
-    let specific = AuthTypeState.Specific.sms(smsDescription)
+    let specific = Specific.sms(smsDescription)
     let authTypeState = AuthTypeState(
         specific: specific,
         activeSession: nil,

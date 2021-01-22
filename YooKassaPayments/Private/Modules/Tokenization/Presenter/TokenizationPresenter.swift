@@ -1,8 +1,5 @@
-import Foundation
 import PassKit
 import YooKassaPaymentsApi
-import struct YooKassaWalletApi.AuthTypeState
-import enum YooKassaWalletApi.AuthType
 
 class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthorizationViewControllerDelegate
 
@@ -338,7 +335,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
             supportedNetworks: ApplePayConstants.paymentNetworks,
-            fee: paymentOption.fee
+            fee: paymentOption.fee?.plain
         )
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -453,7 +450,7 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
             moduleOutput?.tokenizationModule(
                 self,
                 didTokenize: token,
-                paymentMethodType: paymentOption.paymentMethodType
+                paymentMethodType: paymentOption.paymentMethodType.plain
             )
         }
     }

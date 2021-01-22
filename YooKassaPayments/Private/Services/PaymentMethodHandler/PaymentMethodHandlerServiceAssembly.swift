@@ -1,5 +1,3 @@
-import enum YooKassaPaymentsApi.PaymentMethodType
-
 struct PaymentMethodHandlerServiceAssembly {
     static func makeService(
         _ tokenizationSettings: TokenizationSettings

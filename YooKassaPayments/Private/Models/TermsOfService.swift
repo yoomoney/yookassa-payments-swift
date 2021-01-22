@@ -1,5 +1,3 @@
-import Foundation
-
 enum TermsOfServiceFactory {
     static func makeTermsOfService() -> TermsOfService {
         return TermsOfService(

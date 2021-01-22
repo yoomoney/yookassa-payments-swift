@@ -22,8 +22,6 @@
  * THE SOFTWARE.
  */
 
-import Foundation
-
 struct CscInputPresenterStyle: InputPresenterStyle {
 
     init() { }

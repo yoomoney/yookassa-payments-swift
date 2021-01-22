@@ -74,7 +74,8 @@ extension BankCardRepeatPresenter: TokenizationViewOutput {
 
 extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
     func didFetchPaymentMethod(
-        _ paymentMethod: YooKassaPaymentsApi.PaymentMethod) {
+        _ paymentMethod: PaymentMethod
+    ) {
         guard let card = paymentMethod.card,
               card.first6.isEmpty == false,
               card.last4.isEmpty == false else {
@@ -203,7 +204,7 @@ extension BankCardRepeatPresenter: MaskedBankCardDataInputModuleOutput {
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
             self.interactor.tokenize(
-                amount: MonetaryAmountFactory.makePaymentsMonetaryAmount(self.inputData.amount),
+                amount: MonetaryAmountFactory.makeMonetaryAmount(self.inputData.amount),
                 confirmation: confirmation,
                 savePaymentMethod: self.savePaymentMethod,
                 paymentMethodId: self.inputData.paymentMethodId,

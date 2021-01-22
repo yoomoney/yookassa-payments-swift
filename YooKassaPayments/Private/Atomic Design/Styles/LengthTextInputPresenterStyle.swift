@@ -1,5 +1,3 @@
-import Foundation
-
 struct LengthTextInputPresenterStyle: InputPresenterStyle {
 
     let maxLength: Int

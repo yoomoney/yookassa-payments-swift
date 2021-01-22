@@ -1,6 +1,3 @@
-import Foundation
-import struct YooKassaPaymentsApi.MonetaryAmount
-
 class PaymentMethodsInteractor {
 
     // MARK: - VIPER
