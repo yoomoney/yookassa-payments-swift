@@ -6,13 +6,13 @@ final class WalletLoginServiceImpl {
     // MARK: - Init data
 
     fileprivate let session: ApiSession
-    fileprivate let authTypeStatesService: AuthTypeStatesProvider
+    fileprivate let authTypeStatesService: AuthTypeStatesService
 
     // MARK: - Init
 
     init(
         session: ApiSession,
-        authTypeStatesService: AuthTypeStatesProvider
+        authTypeStatesService: AuthTypeStatesService
     ) {
         self.session = session
         self.authTypeStatesService = authTypeStatesService
@@ -54,8 +54,8 @@ extension WalletLoginServiceImpl: WalletLoginService {
             merchantClientAuthorization: merchantClientAuthorization,
             moneyCenterAuthorization: moneyCenterAuthorization,
             instanceName: instanceName,
-            singleAmountMax: singleAmountMax,
-            paymentUsageLimit: paymentUsageLimit,
+            singleAmountMax: singleAmountMax?.walletModel,
+            paymentUsageLimit: paymentUsageLimit.walletModel,
             tmxSessionId: tmxSessionId
         )
         session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
@@ -115,7 +115,7 @@ extension WalletLoginServiceImpl: WalletLoginService {
         ) { result in
             switch result {
             case let .success(authSession):
-                completion(.success(authSession.result))
+                completion(.success(authSession.result.plain))
 
             case let .failure(error):
                 completion(.failure(mapError(error)))
@@ -207,7 +207,7 @@ private extension WalletLoginServiceImpl {
             switch result {
             case let .success(context):
                 let filteredStates = self.authTypeStatesService
-                    .filterStates(context.authTypes)
+                    .filterStates(context.authTypes.map { $0.plain })
                 do {
                     let selectedState = try self.authTypeStatesService
                         .preferredAuthTypeState(filteredStates)
@@ -258,7 +258,7 @@ private func generateSessionIfNeeded(
         ) { result in
             switch result {
             case let .success(authSession):
-                completion(.success(authSession.result))
+                completion(.success(authSession.result.plain))
 
             case let .failure(error):
                 completion(.failure(mapError(error)))
@@ -389,7 +389,7 @@ private func authSessionGenerate(
         merchantClientAuthorization: merchantClientAuthorization,
         moneyCenterAuthorization: moneyCenterAuthorization,
         authContextId: authContextId,
-        authType: authType
+        authType: authType.walletModel
     )
     session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { result in
         switch result {
@@ -415,7 +415,7 @@ private func authCheck(
         merchantClientAuthorization: merchantClientAuthorization,
         moneyCenterAuthorization: moneyCenterAuthorization,
         authContextId: authContextId,
-        authType: authType,
+        authType: authType.walletModel,
         answer: answer
     )
     session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { result in
@@ -436,7 +436,7 @@ private func tokenIssueExecute(
     processId: String,
     completion: @escaping (Result<CheckoutTokenIssueExecute, Error>) -> Void
 ) {
-    let apiMethod = CheckoutTokenIssueExecute.Method(
+    let apiMethod = YooKassaWalletApi.CheckoutTokenIssueExecute.Method(
         merchantClientAuthorization: merchantClientAuthorization,
         moneyCenterAuthorization: moneyCenterAuthorization,
         processId: processId
@@ -444,7 +444,7 @@ private func tokenIssueExecute(
     session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { result in
         switch result {
         case let .right(token):
-            completion(.success(token))
+            completion(.success(token.plain))
 
         case let .left(error):
             completion(.failure(error))

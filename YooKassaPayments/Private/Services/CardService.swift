@@ -21,8 +21,6 @@
  * THE SOFTWARE.
  */
 
-import Foundation
-
 /// Service for determination card type and validate card data.
 class CardService {
 

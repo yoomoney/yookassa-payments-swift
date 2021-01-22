@@ -16,8 +16,10 @@ public struct TokenizationSettings {
     ///                             logo will be displayed on the screen of available payment methods.
     ///
     /// - Returns: Instance of `TokenizationSettings`
-    public init(paymentMethodTypes: PaymentMethodTypes = .all,
-                showYooKassaLogo: Bool = true) {
+    public init(
+        paymentMethodTypes: PaymentMethodTypes = .all,
+        showYooKassaLogo: Bool = true
+    ) {
         self.paymentMethodTypes = paymentMethodTypes
         self.showYooKassaLogo = showYooKassaLogo
     }

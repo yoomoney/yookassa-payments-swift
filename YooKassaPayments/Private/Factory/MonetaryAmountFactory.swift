@@ -1,24 +1,41 @@
 import YooKassaPaymentsApi
-import YooKassaWalletApi
-
-typealias PaymentsMonetaryAmount = YooKassaPaymentsApi.MonetaryAmount
-typealias WalletMonetaryAmount = YooKassaWalletApi.MonetaryAmount
 
 enum MonetaryAmountFactory {
-    static func makeWalletMonetaryAmount(_ amount: Amount) -> WalletMonetaryAmount {
-        return WalletMonetaryAmount(value: amount.value, currency: amount.currency.rawValue)
+    static func makeMonetaryAmount(
+        _ amount: Amount
+    ) -> MonetaryAmount {
+        return MonetaryAmount(
+            value: amount.value,
+            currency: amount.currency.rawValue
+        )
     }
 
-    static func makeWalletMonetaryAmount(_ amount: PaymentsMonetaryAmount) -> WalletMonetaryAmount {
-        return WalletMonetaryAmount(value: amount.value, currency: amount.currency)
+    static func makePaymentsMonetaryAmount(
+        _ amount: Amount
+    ) -> YooKassaPaymentsApi.MonetaryAmount {
+        return YooKassaPaymentsApi.MonetaryAmount(
+            value: amount.value,
+            currency: amount.currency.rawValue
+        )
     }
 
-    static func makePaymentsMonetaryAmount(_ amount: Amount) -> PaymentsMonetaryAmount {
-        return PaymentsMonetaryAmount(value: amount.value, currency: amount.currency.rawValue)
-    }
-
-    static func makeAmount(_ amount: PaymentsMonetaryAmount) -> Amount {
+    static func makeAmount(
+        _ amount: MonetaryAmount
+    ) -> Amount {
         let currency = Currency(rawValue: amount.currency) ?? Currency.custom(amount.currency)
-        return Amount(value: amount.value, currency: currency)
+        return Amount(
+            value: amount.value,
+            currency: currency
+        )
+    }
+
+    static func makeAmount(
+        _ amount: YooKassaPaymentsApi.MonetaryAmount
+    ) -> Amount {
+        let currency = Currency(rawValue: amount.currency) ?? Currency.custom(amount.currency)
+        return Amount(
+            value: amount.value,
+            currency: currency
+        )
     }
 }

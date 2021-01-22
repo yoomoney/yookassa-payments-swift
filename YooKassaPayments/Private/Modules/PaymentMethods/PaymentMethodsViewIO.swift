@@ -12,12 +12,6 @@ private enum PaymentMethodViewModelHelper {
     }
 }
 
-protocol PaymentMethodViewModel {
-    var name: String { get }
-    var image: UIImage { get }
-    var balance: Amount? { get }
-}
-
 extension PaymentMethodViewModel {
     var balanceText: String? {
         guard let balance = balance else {

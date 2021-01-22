@@ -19,7 +19,7 @@ enum TokenizeSchemeFactory {
     }
 
     static func makeTokenizeScheme(
-        _ paymentMethodType: PaymentMethodType
+        _ paymentMethodType: YooKassaPaymentsApi.PaymentMethodType
     ) -> AnalyticsEvent.TokenizeScheme {
         let scheme: AnalyticsEvent.TokenizeScheme
 

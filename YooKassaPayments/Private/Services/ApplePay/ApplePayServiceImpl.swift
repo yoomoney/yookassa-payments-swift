@@ -1,5 +1,4 @@
 import class PassKit.PKPaymentAuthorizationViewController
-import enum YooKassaPaymentsApi.PaymentMethodType
 
 struct ApplePayServiceImpl {}
 

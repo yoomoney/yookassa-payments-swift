@@ -1,6 +1,5 @@
 import PassKit
 import UIKit
-import YooKassaPaymentsApi
 
 enum ApplePayAssembly {
     static func makeModule(

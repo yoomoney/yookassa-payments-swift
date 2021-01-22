@@ -1,4 +1,4 @@
-import class YooKassaPaymentsApi.PaymentOption
+import YooKassaPaymentsApi
 
 protocol PaymentMethodHandlerService {
     func filterPaymentMethods(

@@ -24,7 +24,6 @@
 //
 
 import Dispatch
-import Foundation
 import class UIKit.UIImage
 
 final class MaskedBankCardDataInputPresenter {

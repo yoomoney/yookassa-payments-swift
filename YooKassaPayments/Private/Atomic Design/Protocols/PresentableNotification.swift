@@ -21,8 +21,6 @@
  * THE SOFTWARE.
  */
 
-import Foundation
-
 /// Action for `PresentableNotification`.
 ///
 /// In default implementation of `present(_:)` this send `notificationName` through

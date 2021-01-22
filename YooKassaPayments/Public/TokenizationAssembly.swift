@@ -1,5 +1,4 @@
 import UIKit.UIViewController
-import YooKassaPaymentsApi
 
 /// Tokenization module builder.
 public enum TokenizationAssembly {

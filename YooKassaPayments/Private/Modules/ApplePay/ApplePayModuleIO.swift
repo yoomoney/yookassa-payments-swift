@@ -1,5 +1,4 @@
 import PassKit
-import YooKassaPaymentsApi
 
 struct ApplePayModuleInputData {
     let merchantIdentifier: String?
@@ -7,7 +6,7 @@ struct ApplePayModuleInputData {
     let shopName: String
     let purchaseDescription: String
     let supportedNetworks: [PKPaymentNetwork]
-    let fee: YooKassaPaymentsApi.Fee?
+    let fee: Fee?
 }
 
 protocol ApplePayModuleInput: class {}

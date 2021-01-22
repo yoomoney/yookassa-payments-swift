@@ -1,7 +1,3 @@
-import enum YooKassaWalletApi.AuthType
-import struct YooKassaWalletApi.AuthTypeState
-import struct YooKassaWalletApi.MonetaryAmount
-
 protocol AuthorizationService {
     func getMoneyCenterAuthToken() -> String?
 

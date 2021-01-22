@@ -24,7 +24,6 @@ final class PaymentServiceMock {
 // MARK: - PaymentService
 
 extension PaymentServiceMock: PaymentService {
-
     func fetchPaymentOptions(
         clientApplicationKey: String,
         authorizationToken: String?,
@@ -55,7 +54,7 @@ extension PaymentServiceMock: PaymentService {
     func fetchPaymentMethod(
         clientApplicationKey: String,
         paymentMethodId: String,
-        completion: @escaping (Result<YooKassaPaymentsApi.PaymentMethod, Error>) -> Void
+        completion: @escaping (Result<PaymentMethod, Error>) -> Void
     ) {
 //        let error = PaymentsApiError(
 //            id: "id_value",
@@ -66,7 +65,7 @@ extension PaymentServiceMock: PaymentService {
 //            errorCode: .invalidRequest
 //        )
 
-        let response = YooKassaPaymentsApi.PaymentMethod(
+        let response = PaymentMethod(
             type: .bankCard,
             id: "id_value",
             saved: false,
@@ -233,7 +232,8 @@ private func makeLinkedCards(
 }
 
 private func makeLinkedCard(
-    charge: Amount, fee: Fee?
+    charge: Amount,
+    fee: Fee?
 ) -> PaymentInstrumentYooMoneyLinkedBankCard {
     return PaymentInstrumentYooMoneyLinkedBankCard(
         paymentMethodType: .yooMoney,
@@ -245,7 +245,7 @@ private func makeLinkedCard(
         cardMask: makeRandomCardMask(),
         cardType: .masterCard,
         identificationRequirement: .simplified,
-        fee: fee,
+        fee: fee?.paymentsModel,
         savePaymentMethod: .allowed
     )
 }
@@ -257,7 +257,9 @@ private func makeRandomCardMask() -> String {
 }
 
 private func makeDefaultPaymentOptions(
-    _ charge: Amount, fee: Fee?, authorized: Bool
+    _ charge: Amount,
+    fee: Fee?,
+    authorized: Bool
 ) -> [PaymentOption] {
     var response: [PaymentOption] = []
     let charge = MonetaryAmountFactory.makePaymentsMonetaryAmount(charge)
@@ -271,9 +273,12 @@ private func makeDefaultPaymentOptions(
                 charge: charge,
                 instrumentType: .wallet,
                 accountId: "2736482364872",
-                balance: MonetaryAmount(value: 40_000, currency: charge.currency),
+                balance: YooKassaPaymentsApi.MonetaryAmount(
+                    value: 40_000,
+                    currency: charge.currency
+                ),
                 identificationRequirement: .simplified,
-                fee: fee,
+                fee: fee?.paymentsModel,
                 savePaymentMethod: .allowed
             ),
         ]
@@ -286,7 +291,7 @@ private func makeDefaultPaymentOptions(
                 confirmationTypes: [],
                 charge: charge,
                 identificationRequirement: nil,
-                fee: fee,
+                fee: fee?.paymentsModel,
                 savePaymentMethod: .allowed
             ),
         ]
@@ -298,7 +303,7 @@ private func makeDefaultPaymentOptions(
             confirmationTypes: [],
             charge: charge,
             identificationRequirement: nil,
-            fee: fee,
+            fee: fee?.paymentsModel,
             savePaymentMethod: .forbidden
         ),
         PaymentOption(
@@ -306,7 +311,7 @@ private func makeDefaultPaymentOptions(
             confirmationTypes: [],
             charge: charge,
             identificationRequirement: nil,
-            fee: fee,
+            fee: fee?.paymentsModel,
             savePaymentMethod: .allowed
         ),
         PaymentOption(
@@ -314,7 +319,7 @@ private func makeDefaultPaymentOptions(
             confirmationTypes: [],
             charge: charge,
             identificationRequirement: nil,
-            fee: fee,
+            fee: fee?.paymentsModel,
             savePaymentMethod: .forbidden
         ),
     ]

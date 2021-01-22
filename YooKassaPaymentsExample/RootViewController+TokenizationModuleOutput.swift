@@ -1,5 +1,4 @@
 import YooKassaPayments
-import YooKassaPaymentsApi
 
 // MARK: - TokenizationModuleOutput
 

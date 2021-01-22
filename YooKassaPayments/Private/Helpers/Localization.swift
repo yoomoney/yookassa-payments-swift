@@ -1,5 +1,3 @@
-import Foundation
-
 prefix operator §
 
 prefix func §<T: RawRepresentable>(_ key: T) -> String

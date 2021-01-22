@@ -22,8 +22,6 @@
  * THE SOFTWARE.
  */
 
-import Foundation
-
 /// Interactor input protocol
 protocol BankCardDataInputInteractorInput: AnalyticsTrack, AnalyticsProvider {
     func validate(cardData: CardData)

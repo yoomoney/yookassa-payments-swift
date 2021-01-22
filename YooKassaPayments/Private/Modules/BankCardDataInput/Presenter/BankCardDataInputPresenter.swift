@@ -24,7 +24,6 @@
 //
 
 import Dispatch
-import Foundation
 
 class BankCardDataInputPresenter {
 

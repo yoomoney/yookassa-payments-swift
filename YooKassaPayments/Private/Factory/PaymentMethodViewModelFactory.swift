@@ -1,5 +1,5 @@
-import YooKassaPaymentsApi
 import class UIKit.UIImage
+import YooKassaPaymentsApi
 
 enum PaymentMethodViewModelFactory {
 
@@ -38,7 +38,7 @@ enum PaymentMethodViewModelFactory {
         _ paymentOption: PaymentInstrumentYooMoneyWallet,
         walletDisplayName: String?
     ) -> PaymentMethodViewModel {
-        return PaymentMethod(
+        return PaymentMethodViewModel(
             name: walletDisplayName ?? paymentOption.accountId,
             image: PaymentMethodResources.Image.yooMoney,
             balance: MonetaryAmountFactory.makeAmount(paymentOption.balance)
@@ -50,7 +50,7 @@ enum PaymentMethodViewModelFactory {
     private static func makePaymentMethodViewModel(
         _ paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
     ) -> PaymentMethodViewModel {
-        return PaymentMethod(
+        return PaymentMethodViewModel(
             name: makePaymentMethodViewModelName(paymentOption),
             image: makePaymentMethodViewModelImage(paymentOption),
             balance: nil
@@ -88,15 +88,14 @@ enum PaymentMethodViewModelFactory {
         }
         return image
     }
-
     // swiftlint:enable cyclomatic_complexity
 
     // MARK: - Making ViewModel from PaymentMethodType
 
     static func makePaymentMethodViewModel(
-        _ paymentMethodType: PaymentMethodType
+        _ paymentMethodType: YooKassaPaymentsApi.PaymentMethodType
     ) -> PaymentMethodViewModel {
-        return PaymentMethod(
+        return PaymentMethodViewModel(
             name: makePaymentMethodViewModelName(paymentMethodType),
             image: makePaymentMethodViewModelImage(paymentMethodType),
             balance: nil
@@ -104,7 +103,7 @@ enum PaymentMethodViewModelFactory {
     }
 
     private static func makePaymentMethodViewModelName(
-        _ paymentMethodType: PaymentMethodType
+        _ paymentMethodType: YooKassaPaymentsApi.PaymentMethodType
     ) -> String {
         let name: String
         switch paymentMethodType {
@@ -124,7 +123,7 @@ enum PaymentMethodViewModelFactory {
     }
 
     private static func makePaymentMethodViewModelImage(
-        _ paymentMethodType: PaymentMethodType
+        _ paymentMethodType: YooKassaPaymentsApi.PaymentMethodType
     ) -> UIImage {
         let image: UIImage
         switch paymentMethodType {

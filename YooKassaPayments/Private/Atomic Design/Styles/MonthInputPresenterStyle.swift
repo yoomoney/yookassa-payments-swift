@@ -1,5 +1,3 @@
-import Foundation
-
 struct MonthInputPresenterStyle: InputPresenterStyle {
 
     func removedFormatting(from string: String) -> String {

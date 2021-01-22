@@ -1,5 +1,3 @@
-import Foundation
-
 final class WebBrowserInteractor {
 
     // MARK: - VIPER

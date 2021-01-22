@@ -1,5 +1,3 @@
-import Foundation
-import struct YooKassaPaymentsApi.MonetaryAmount
 import class YooKassaPaymentsApi.PaymentOption
 
 struct WalletAuthParametersModuleInputData {

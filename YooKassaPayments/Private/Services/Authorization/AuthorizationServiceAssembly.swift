@@ -1,5 +1,4 @@
 import MoneyAuth
-import YooKassaWalletApi
 
 enum AuthorizationServiceAssembly {
     static func makeService(

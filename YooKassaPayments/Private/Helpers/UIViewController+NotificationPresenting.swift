@@ -21,7 +21,6 @@
  * THE SOFTWARE.
  */
 
-import Foundation
 import UIKit
 
 @available(iOS 9.0, *)

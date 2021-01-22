@@ -1,5 +1,4 @@
-import enum YooKassaPaymentsApi.PaymentMethodType
-import class YooKassaPaymentsApi.PaymentOption
+import YooKassaPaymentsApi
 
 final class PaymentMethodHandlerServiceImpl {
 
@@ -31,7 +30,7 @@ extension PaymentMethodHandlerServiceImpl: PaymentMethodHandlerService {
         let handledSupportedTypes = applePayService
             .filteredByApplePayAvailability(supportedTypes)
         let supportedPaymentMethods = paymentMethods.filter {
-            handledSupportedTypes.contains($0.paymentMethodType)
+            handledSupportedTypes.contains($0.paymentMethodType.plain)
         }
         return supportedPaymentMethods
     }
