@@ -61,6 +61,10 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
         return $0
     }(ActionTextDialog())
 
+    // MARK: - Constraints
+
+    private var tableViewHeightConstraint: NSLayoutConstraint?
+
     // MARK: - Data
 
     fileprivate var viewModels: [PaymentMethodViewModel] = []
@@ -113,22 +117,73 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
         }
 
         let constraints = [
-            headerView.top.constraint(equalTo: titleView.top),
-            headerView.bottom.constraint(equalTo: titleView.bottom),
-            headerView.leading.constraint(equalTo: titleView.leading),
-            headerView.trailing.constraint(equalTo: titleView.trailing),
+            headerView.topAnchor.constraint(equalTo: titleView.topAnchor),
+            headerView.bottomAnchor.constraint(equalTo: titleView.bottomAnchor),
+            headerView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
 
             titleViewTopConstraint,
-            titleView.leading.constraint(equalTo: view.leading),
-            titleView.trailing.constraint(equalTo: view.trailing),
+            titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
-            tableView.top.constraint(equalTo: titleView.bottom),
-            tableView.leading.constraint(equalTo: view.leading),
-            tableView.trailing.constraint(equalTo: view.trailing),
-            tableView.bottom.constraint(equalTo: view.bottom),
+            tableView.topAnchor.constraint(equalTo: titleView.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ]
 
         NSLayoutConstraint.activate(constraints)
+    }
+
+    // MARK: - Configuring the View’s Layout Behavior
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        DispatchQueue.main.async {
+            self.fixTableViewHeight()
+        }
+    }
+
+    private func fixTableViewHeight() {
+        var constraint: NSLayoutConstraint! {
+            tableViewHeightConstraint
+        }
+
+        let contentEffectiveHeight = CGFloat(viewModels.count) * Constants.estimatedRowHeight
+            + tableView.contentInset.top
+            + tableView.contentInset.bottom
+            + UIScreen.safeAreaInsets.bottom
+
+        let needUpdate: Bool
+        let newValue = viewModels.isEmpty
+            ? Constants.defaultTableViewHeight
+            : contentEffectiveHeight
+
+        if tableViewHeightConstraint == nil {
+            tableViewHeightConstraint = NSLayoutConstraint(
+                item: tableView,
+                attribute: .height,
+                relatedBy: .equal,
+                toItem: nil,
+                attribute: .notAnAttribute,
+                multiplier: 1,
+                constant: newValue
+            )
+            constraint.priority = .defaultHigh
+            constraint.isActive = true
+            needUpdate = true
+        } else if constraint.constant != newValue {
+            constraint.constant = newValue
+            needUpdate = true
+        } else {
+            needUpdate = false
+        }
+
+        if needUpdate {
+            UIView.animate(withDuration: 0.4) {
+                self.view.superview?.superview?.superview?.layoutIfNeeded()
+            }
+        }
     }
 }
 
@@ -311,6 +366,7 @@ private extension PaymentMethodsViewController {
 
 private extension PaymentMethodsViewController {
     enum Constants {
-        static let estimatedRowHeight: CGFloat = 69
+        static let estimatedRowHeight: CGFloat = 72
+        static let defaultTableViewHeight: CGFloat = 300
     }
 }
