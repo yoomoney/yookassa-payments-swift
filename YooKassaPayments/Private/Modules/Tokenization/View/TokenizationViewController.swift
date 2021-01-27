@@ -36,6 +36,11 @@ final class TokenizationViewController: UIViewController {
             let value = UIInterfaceOrientation.portrait.rawValue
             UIDevice.current.setValue(value, forKey: "orientation")
         }
+
+        let constraints = [
+            view.heightAnchor.constraint(equalToConstant: Constants.defaultViewHeight),
+        ]
+        NSLayoutConstraint.activate(constraints)
     }
 }
 
@@ -52,5 +57,13 @@ extension TokenizationViewController: TokenizationViewInput {
 extension TokenizationViewController: TokenizationModuleInput {
     func start3dsProcess(requestUrl: String) {
         output.start3dsProcess(requestUrl: requestUrl)
+    }
+}
+
+// MARK: - Constants
+
+private extension TokenizationViewController {
+    enum Constants {
+        static let defaultViewHeight: CGFloat = 300
     }
 }

@@ -115,11 +115,16 @@ public enum TokenizationAssembly {
             rootViewController: viewController
         )
 
-        return navigationController
+        let sheetViewController = SheetViewController(
+            contentViewController: navigationController
+        )
+
+        return sheetViewController
     }
 }
 
-// TODO: Fix it in https://jira.yamoney.ru/browse/MOC-1563
-extension UINavigationController: TokenizationModuleInput {
-    public func start3dsProcess(requestUrl: String) {}
+extension SheetViewController: TokenizationModuleInput {
+    public func start3dsProcess(requestUrl: String) {
+        // TODO: Fix in https://jira.yamoney.ru/browse/MOC-1611
+    }
 }
