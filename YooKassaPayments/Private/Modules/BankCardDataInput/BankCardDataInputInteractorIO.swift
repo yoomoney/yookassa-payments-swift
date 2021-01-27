@@ -26,7 +26,7 @@
 protocol BankCardDataInputInteractorInput: AnalyticsTrack, AnalyticsProvider {
     func validate(cardData: CardData)
     func validate(csc: String)
-    func fetchBankCardSettings(_ pan: String)
+    func fetchBankCardSettings(_ cardMask: String)
 }
 
 /// Interactor output protocol

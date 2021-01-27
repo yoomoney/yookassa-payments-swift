@@ -11,11 +11,16 @@ final class PaymentMethodsPresenter {
     // MARK: - Init data
 
     fileprivate let isLogoVisible: Bool
+    fileprivate let paymentMethodViewModelFactory: PaymentMethodViewModelFactory
 
     // MARK: - Init
 
-    init(isLogoVisible: Bool) {
+    init(
+        isLogoVisible: Bool,
+        paymentMethodViewModelFactory: PaymentMethodViewModelFactory
+    ) {
         self.isLogoVisible = isLogoVisible
+        self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
     }
 
     // MARK: - Properties
@@ -79,7 +84,7 @@ extension PaymentMethodsPresenter: PaymentMethodsModuleInput {
 
     func showPlaceholder(message: String) {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self, let view = strongSelf.view else { return }
+            guard let self = self, let view = self.view else { return }
             view.showPlaceholder(message: message)
         }
     }
@@ -123,11 +128,9 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
                     methodsCount: paymentMethods.count
                 )
             } else {
-                let walletDisplayName = self.interactor.getWalletDisplayName()
                 let viewModels = paymentMethods.map {
-                    PaymentMethodViewModelFactory.makePaymentMethodViewModel(
-                        paymentOption: $0,
-                        walletDisplayName: walletDisplayName
+                    self.paymentMethodViewModelFactory.makePaymentMethodViewModel(
+                        paymentOption: $0
                     )
                 }
                 view.hideActivity()
@@ -147,7 +150,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         }
 
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self, let view = strongSelf.view else { return }
+            guard let self = self, let view = self.view else { return }
             view.hideActivity()
             view.showPlaceholder(message: message)
 

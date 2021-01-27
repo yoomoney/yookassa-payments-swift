@@ -24,8 +24,8 @@ class WebBrowserPresenter: NSObject, WebBrowserViewOutput {
     func setupView() {
         view?.setScreenName(screenName)
         DispatchQueue.global().async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.interactor.createRequest()
+            guard let self = self else { return }
+            self.interactor.createRequest()
         }
     }
 
@@ -39,7 +39,7 @@ class WebBrowserPresenter: NSObject, WebBrowserViewOutput {
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self, let view = strongSelf.view else { return }
+            guard let self = self, let view = self.view else { return }
             view.updateToolBar()
             view.hideActivity()
         }

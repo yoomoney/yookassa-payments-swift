@@ -52,12 +52,12 @@ extension WalletAuthParametersPresenter: ContractViewOutput {
         }
 
         DispatchQueue.global().async { [weak self] in
-            guard let strongSelf = self,
-                  let interactor = strongSelf.interactor else { return }
+            guard let self = self,
+                  let interactor = self.interactor else { return }
             let (authType, _) = interactor.makeTypeAnalyticsParameters()
             let event: AnalyticsEvent = .screenPaymentContract(
                 authType: authType,
-                scheme: strongSelf.inputData.tokenizeScheme
+                scheme: self.inputData.tokenizeScheme
             )
             interactor.trackEvent(event)
         }
@@ -131,9 +131,9 @@ extension WalletAuthParametersPresenter: WalletAuthParametersModuleInput {
             view.showPlaceholder(state: state)
 
             DispatchQueue.global().async { [weak self] in
-                guard let strongSelf = self, let interactor = strongSelf.interactor else { return }
+                guard let self = self, let interactor = self.interactor else { return }
                 let (authType, _) = interactor.makeTypeAnalyticsParameters()
-                interactor.trackEvent(.screenError(authType: authType, scheme: strongSelf.inputData.tokenizeScheme))
+                interactor.trackEvent(.screenError(authType: authType, scheme: self.inputData.tokenizeScheme))
             }
         }
     }

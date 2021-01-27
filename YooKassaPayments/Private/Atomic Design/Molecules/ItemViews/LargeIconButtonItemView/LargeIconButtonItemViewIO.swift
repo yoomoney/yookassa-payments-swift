@@ -6,23 +6,19 @@ protocol LargeIconButtonItemViewInput: class {
     /// Icon image
     var image: UIImage { get set }
 
-    /// Main textual content
+    /// Title text
     var title: String { get set }
 
-    /// Left button title
-    var leftButtonTitle: String { get set }
+    /// Subtitle text
+    var subtitle: String { get set }
 
     /// Right button title
     var rightButtonTitle: String { get set }
 }
 
 /// LargeIconButtonItemView output protocol
-protocol LargeIconButtonItemViewOutput: class {
 
-    /// Tells output that left button is pressd
-    ///
-    /// - Parameter itemView: An item view object informing the output
-    func didPressLeftButton(in itemView: LargeIconButtonItemViewInput)
+protocol LargeIconButtonItemViewOutput: class {
 
     /// Tells output that right button is pressd
     ///

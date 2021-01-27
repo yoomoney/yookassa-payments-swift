@@ -31,7 +31,11 @@ enum MaskedBankCardDataInputAssembly {
     ) -> UIViewController {
 
         let view = BankCardDataInputViewController()
-        let presenter = MaskedBankCardDataInputPresenter(inputData: inputData)
+
+        let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()
+        let presenter = MaskedBankCardDataInputPresenter(
+            inputData: inputData,
+            paymentMethodViewModelFactory: paymentMethodViewModelFactory)
 
         let cardService = CardService()
         let analyticsService = AnalyticsServiceAssembly.makeService(

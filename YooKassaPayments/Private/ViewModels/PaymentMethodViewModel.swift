@@ -1,7 +1,7 @@
 import UIKit.UIImage
 
 struct PaymentMethodViewModel {
-    let name: String
     let image: UIImage
-    let balance: Amount?
+    let title: String
+    let subtitle: String?
 }

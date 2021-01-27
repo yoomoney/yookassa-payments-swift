@@ -20,11 +20,16 @@ final class BankCardRepeatPresenter {
     // MARK: - Init data
 
     private let inputData: BankCardRepeatModuleInputData
+    private let paymentMethodViewModelFactory: PaymentMethodViewModelFactory
 
     // MARK: - Init
 
-    init(inputData: BankCardRepeatModuleInputData) {
+    init(
+        inputData: BankCardRepeatModuleInputData,
+        paymentMethodViewModelFactory: PaymentMethodViewModelFactory
+    ) {
         self.inputData = inputData
+        self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
     }
 }
 
@@ -42,7 +47,7 @@ extension BankCardRepeatPresenter: TokenizationViewOutput {
 
     private func presentContract() {
 
-        let viewModel = PaymentMethodViewModelFactory.makePaymentMethodViewModel(.bankCard)
+        let viewModel = paymentMethodViewModelFactory.makePaymentMethodViewModel(.bankCard)
         let tokenizeScheme = AnalyticsEvent.TokenizeScheme.recurringCard
         let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
             inputData.savePaymentMethod,
@@ -224,10 +229,10 @@ extension BankCardRepeatPresenter: TokenizationModuleInput {
             isLoggingEnabled: inputData.isLoggingEnabled
         )
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.router.present3dsModule(
+            guard let self = self else { return }
+            self.router.present3dsModule(
                 inputData: moduleInputData,
-                moduleOutput: strongSelf
+                moduleOutput: self
             )
         }
     }
@@ -239,10 +244,10 @@ extension BankCardRepeatPresenter: TokenizationModuleInput {
             isLoggingEnabled: inputData.isLoggingEnabled
         )
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.router.present3dsModule(
+            guard let self = self else { return }
+            self.router.present3dsModule(
                 inputData: moduleInputData,
-                moduleOutput: strongSelf
+                moduleOutput: self
             )
         }
     }

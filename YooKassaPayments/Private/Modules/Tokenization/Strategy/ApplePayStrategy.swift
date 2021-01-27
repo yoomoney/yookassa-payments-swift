@@ -112,10 +112,10 @@ extension ApplePayStrategy: TokenizationStrategyInput {
 
     func didPresentApplePayModule() {
         DispatchQueue.global().async { [weak self] in
-            guard let strongSelf = self else { return }
-            let (authType, _) = strongSelf.analyticsProvider.makeTypeAnalyticsParameters()
+            guard let self = self else { return }
+            let (authType, _) = self.analyticsProvider.makeTypeAnalyticsParameters()
             let event: AnalyticsEvent = .screenPaymentContract(authType: authType, scheme: .applePay)
-            strongSelf.analyticsService.trackEvent(event)
+            self.analyticsService.trackEvent(event)
         }
     }
 
@@ -141,10 +141,10 @@ extension ApplePayStrategy: TokenizationStrategyInput {
     private func trackScreenErrorAnalytics() {
 
         DispatchQueue.global().async { [weak self] in
-            guard let strongSelf = self else { return }
-            let (authType, _) = strongSelf.analyticsProvider.makeTypeAnalyticsParameters()
+            guard let self = self else { return }
+            let (authType, _) = self.analyticsProvider.makeTypeAnalyticsParameters()
             let event: AnalyticsEvent = .screenError(authType: authType, scheme: .applePay)
-            strongSelf.analyticsService.trackEvent(event)
+            self.analyticsService.trackEvent(event)
         }
     }
 

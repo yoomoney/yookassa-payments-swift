@@ -566,7 +566,7 @@ extension RootViewController: SuccessViewControllerDelegate {
                 documentationPath = Constants.documentationPathEn
             }
 
-            guard let strongSelf = self,
+            guard let self = self,
                   let url = URL(string: documentationPath) else {
                 return
             }
@@ -575,7 +575,7 @@ extension RootViewController: SuccessViewControllerDelegate {
                 if #available(iOS 11, *) {
                     viewController.dismissButtonStyle = .close
                 }
-                strongSelf.present(viewController, animated: true)
+                self.present(viewController, animated: true)
             } else {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
@@ -593,7 +593,7 @@ extension RootViewController: SuccessViewControllerDelegate {
             """
 
         dismiss(animated: true) { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let self = self else { return }
 
             let viewController: UIViewController
 
@@ -607,14 +607,14 @@ extension RootViewController: SuccessViewControllerDelegate {
             } else {
                 let mailController = MFMailComposeViewController()
 
-                mailController.mailComposeDelegate = strongSelf
+                mailController.mailComposeDelegate = self
                 mailController.setSubject("iOS App: Payment Token")
                 mailController.setMessageBody(message, isHTML: false)
 
                 viewController = mailController
             }
 
-            strongSelf.present(viewController, animated: true)
+            self.present(viewController, animated: true)
         }
     }
 

@@ -3,6 +3,7 @@ import UIKit
 final class LargeIconButtonItemView: UIView {
 
     // MARK: - Public accessors
+
     var image: UIImage {
         set {
             imageView.image = newValue
@@ -21,12 +22,12 @@ final class LargeIconButtonItemView: UIView {
         }
     }
 
-    var leftButtonTitle: String {
+    var subtitle: String {
         set {
-            leftButton.setStyledTitle(newValue, for: .normal)
+            subtitleLabel.styledText = newValue
         }
         get {
-            return leftButton.styledTitle(for: .normal) ?? ""
+            return subtitleLabel.styledText ?? ""
         }
     }
 
@@ -40,26 +41,11 @@ final class LargeIconButtonItemView: UIView {
     }
 
     // MARK: - UI properties
+
     private(set) lazy var imageView: UIImageView = {
         $0.setStyles(UIImageView.Styles.dynamicSize)
         return $0
     }(UIImageView())
-
-    private(set) lazy var leftButton: UIButton = {
-        $0.setStyles(UIButton.DynamicStyle.link)
-        $0.setContentCompressionResistancePriority(.required, for: .vertical)
-        $0.setContentHuggingPriority(.required, for: .vertical)
-        $0.addTarget(self, action: #selector(leftButtonDidPressed), for: .touchUpInside)
-        return $0
-    }(UIButton())
-
-    private(set) lazy var rightButton: UIButton = {
-        $0.setStyles(UIButton.DynamicStyle.link)
-        $0.setContentCompressionResistancePriority(.required, for: .vertical)
-        $0.setContentHuggingPriority(.required, for: .vertical)
-        $0.addTarget(self, action: #selector(rightButtonDidPressed), for: .touchUpInside)
-        return $0
-    }(UIButton())
 
     private(set) lazy var titleLabel: UILabel = {
         $0.setStyles(UILabel.DynamicStyle.bodySemibold,
@@ -70,18 +56,38 @@ final class LargeIconButtonItemView: UIView {
         return $0
     }(UILabel())
 
+    private(set) lazy var subtitleLabel: UILabel = {
+        $0.setStyles(UILabel.DynamicStyle.caption1,
+                     UILabel.Styles.multiline,
+                     UILabel.ColorStyle.secondary)
+        $0.setContentCompressionResistancePriority(.required, for: .vertical)
+        $0.setContentHuggingPriority(.required, for: .vertical)
+        return $0
+    }(UILabel())
+
+    private(set) lazy var rightButton: UIButton = {
+        $0.setStyles(UIButton.DynamicStyle.link)
+        $0.setContentCompressionResistancePriority(.required, for: .vertical)
+        $0.setContentHuggingPriority(.required, for: .vertical)
+        $0.addTarget(self, action: #selector(rightButtonDidPressed), for: .touchUpInside)
+        return $0
+    }(UIButton())
+
     private lazy var contentView: UIView = {
         $0.layoutMargins = .zero
         return $0
     }(UIView())
 
     // MARK: - LargeIconItemViewDelegate
+
     weak var output: LargeIconButtonItemViewOutput?
 
     // MARK: - Constraints
+
     private var activeConstraints: [NSLayoutConstraint] = []
 
     // MARK: - Creating a View Object, deinitializer.
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupView()
@@ -99,10 +105,12 @@ final class LargeIconButtonItemView: UIView {
     // MARK: - Setup view
     private func setupView() {
         backgroundColor = .clear
-        layoutMargins = UIEdgeInsets(top: Space.double,
-                                     left: Space.double,
-                                     bottom: Space.double,
-                                     right: Space.double)
+        layoutMargins = UIEdgeInsets(
+            top: Space.double,
+            left: Space.double,
+            bottom: Space.double,
+            right: Space.double
+        )
         subscribeOnNotifications()
         setupSubviews()
         setupConstraints()
@@ -110,8 +118,8 @@ final class LargeIconButtonItemView: UIView {
 
     private func setupSubviews() {
         [
-            leftButton,
             titleLabel,
+            subtitleLabel,
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview($0)
@@ -133,7 +141,6 @@ final class LargeIconButtonItemView: UIView {
         }
         let isAccessibilitySizeCategory = UIApplication.shared.preferredContentSizeCategory.isAccessibilitySizeCategory
         if isAccessibilitySizeCategory == false {
-
             let highPriorityConstraints = [
                 contentView.top.constraint(equalTo: topMargin),
                 contentView.bottom.constraint(equalTo: bottomMargin),
@@ -182,17 +189,16 @@ final class LargeIconButtonItemView: UIView {
             imageView.width.constraint(equalTo: imageView.height),
         ]
 
-        let leftButtonAnchorPoint = leftButton.titleLabel ?? leftButton
-
         activeConstraints += [
-            leftButton.leading.constraint(equalTo: contentView.leadingMargin),
-            leftButton.trailing.constraint(lessThanOrEqualTo: contentView.trailingMargin),
-            leftButtonAnchorPoint.top.constraint(equalTo: contentView.topMargin),
-            leftButtonAnchorPoint.bottom.constraint(equalTo: titleLabel.top),
-
             titleLabel.leading.constraint(equalTo: contentView.leadingMargin),
-            titleLabel.trailing.constraint(equalTo: contentView.trailingMargin),
-            titleLabel.bottom.constraint(equalTo: contentView.bottomMargin),
+            titleLabel.trailing.constraint(lessThanOrEqualTo: contentView.trailingMargin),
+            titleLabel.top.constraint(equalTo: contentView.topMargin),
+            titleLabel.bottom.constraint(equalTo: subtitleLabel.top,
+                                         constant: -Space.single / 4),
+
+            subtitleLabel.leading.constraint(equalTo: contentView.leadingMargin),
+            subtitleLabel.trailing.constraint(equalTo: contentView.trailingMargin),
+            subtitleLabel.bottom.constraint(equalTo: contentView.bottomMargin),
         ]
 
         NSLayoutConstraint.activate(activeConstraints)
@@ -200,10 +206,12 @@ final class LargeIconButtonItemView: UIView {
 
     // MARK: - Notifications
     private func subscribeOnNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(contentSizeCategoryDidChange),
-                                               name: UIContentSizeCategory.didChangeNotification,
-                                               object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(contentSizeCategoryDidChange),
+            name: UIContentSizeCategory.didChangeNotification,
+            object: nil
+        )
     }
 
     private func unsubscribeFromNotifications() {
@@ -212,17 +220,13 @@ final class LargeIconButtonItemView: UIView {
 
     @objc
     private func contentSizeCategoryDidChange() {
-        leftButton.applyStyles()
-        rightButton.applyStyles()
         titleLabel.applyStyles()
+        subtitleLabel.applyStyles()
+        rightButton.applyStyles()
         setupConstraints()
     }
 
     // MARK: - Actions
-    @objc
-    private func leftButtonDidPressed() {
-        output?.didPressLeftButton(in: self)
-    }
 
     @objc
     private func rightButtonDidPressed() {
@@ -231,9 +235,11 @@ final class LargeIconButtonItemView: UIView {
 }
 
 // MARK: - LargeIconButtonItemViewInput
+
 extension LargeIconButtonItemView: LargeIconButtonItemViewInput {}
 
 // MARK: - ListItemView
+
 extension LargeIconButtonItemView: ListItemView {
     var leftSeparatorInset: CGFloat {
         return titleLabel.convert(titleLabel.bounds, to: self).minX

@@ -24,12 +24,30 @@ final class BankServiceSettingsImpl {
 // MARK: - BankSettingsService
 
 extension BankServiceSettingsImpl: BankSettingsService {
-    func bankSettings(_ bin: String) -> BankSettings? {
-        var bin = bin
+    func bankSettings(
+        _ cardMask: String
+    ) -> BankSettings? {
+        var bin = makePanFromCardMask(cardMask)
         if bin.count > 6 {
             bin = String(bin[..<bin.index(bin.startIndex, offsetBy: 6)])
         }
         return bankBins[bin]
+    }
+
+    private func makePanFromCardMask(
+        _ cardMask: String
+    ) -> String {
+        let endIndex = cardMask.index(cardMask.startIndex, offsetBy: 6, limitedBy: cardMask.endIndex)
+            ?? cardMask.index(cardMask.startIndex, offsetBy: cardMask.count, limitedBy: cardMask.endIndex)
+            ?? cardMask.startIndex
+
+        let charsWithoutDecimals = cardMask
+            .components(separatedBy: CharacterSet.decimalDigits)
+            .joined()
+        let charsWithoutDecimalsSet = CharacterSet(charactersIn: charsWithoutDecimals)
+        return (cardMask[cardMask.startIndex..<endIndex])
+            .components(separatedBy: charsWithoutDecimalsSet)
+            .joined()
     }
 }
 

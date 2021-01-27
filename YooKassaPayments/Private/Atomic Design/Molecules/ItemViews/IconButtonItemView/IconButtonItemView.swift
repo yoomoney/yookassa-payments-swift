@@ -39,7 +39,7 @@ class IconButtonItemView: UIView {
     // MARK: - UI properties
 
     lazy var titleLabel: UILabel = {
-        $0.setStyles(UILabel.DynamicStyle.body, UILabel.Styles.multiline)
+        $0.setStyles(UILabel.DynamicStyle.bodySemibold, UILabel.Styles.multiline)
         $0.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
         $0.setContentHuggingPriority(.fittingSizeLevel, for: .vertical)
         return $0
