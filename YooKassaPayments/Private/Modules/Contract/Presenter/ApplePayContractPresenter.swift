@@ -104,8 +104,6 @@ extension ApplePayContractPresenter: IconButtonItemViewOutput {
 // MARK: - LargeIconButtonItemViewOutput
 
 extension ApplePayContractPresenter: LargeIconButtonItemViewOutput {
-    func didPressLeftButton(in itemView: LargeIconButtonItemViewInput) {}
-
     func didPressRightButton(in itemView: LargeIconButtonItemViewInput) {
         moduleOutput?.didPressChangeAction(on: self)
     }

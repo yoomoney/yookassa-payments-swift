@@ -1,12 +1,14 @@
 extension LargeIconItemView: PaymentMethodViewInput {
-    func setPaymentMethodViewModel(_ paymentMethodViewModel: PaymentMethodViewModel) {
-        image = paymentMethodViewModel.image
-        actionButtonTitle = paymentMethodViewModel.name
+    func setPaymentMethodViewModel(
+        _ paymentMethodViewModel: PaymentMethodViewModel
+    ) {
+        self.image = paymentMethodViewModel.image
+        self.actionButtonTitle = paymentMethodViewModel.title
 
-        guard let balanceString = paymentMethodViewModel.balanceText else {
+        guard let subtitle = paymentMethodViewModel.subtitle else {
             assertionFailure("Couldn't create balance string")
             return
         }
-        title = balanceString
+        self.title = subtitle
     }
 }

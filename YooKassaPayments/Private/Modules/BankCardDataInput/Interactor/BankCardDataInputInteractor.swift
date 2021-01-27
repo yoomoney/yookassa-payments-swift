@@ -73,8 +73,8 @@ extension BankCardDataInputInteractor: BankCardDataInputInteractorInput {
         output?.successValidateCardData()
     }
 
-    func fetchBankCardSettings(_ pan: String) {
-        guard let bankSettings = bankSettingsService.bankSettings(pan) else {
+    func fetchBankCardSettings(_ cardMask: String) {
+        guard let bankSettings = bankSettingsService.bankSettings(cardMask) else {
             output?.didFailFetchBankSettings()
             return
         }

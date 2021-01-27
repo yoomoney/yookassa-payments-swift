@@ -254,9 +254,9 @@ private extension WalletAuthPresenter {
             view.showPlaceholder(state: state)
 
             DispatchQueue.global().async { [weak self] in
-                guard let strongSelf = self, let interactor = strongSelf.interactor else { return }
+                guard let self = self, let interactor = self.interactor else { return }
                 let (authType, _) = interactor.makeTypeAnalyticsParameters()
-                interactor.trackEvent(.screenError(authType: authType, scheme: strongSelf.inputData.tokenizeScheme))
+                interactor.trackEvent(.screenError(authType: authType, scheme: self.inputData.tokenizeScheme))
             }
         }
     }
@@ -268,8 +268,8 @@ private extension WalletAuthPresenter {
 
     private func handleInvalidAnswer() {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self,
-                  let authCodeInputView = strongSelf.authCodeInputView else {
+            guard let self = self,
+                  let authCodeInputView = self.authCodeInputView else {
                 return
             }
             authCodeInputView.setInvalidAnswerTextControlState()

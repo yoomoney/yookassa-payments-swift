@@ -21,8 +21,10 @@ enum PaymentMethodsAssembly {
         view: PaymentMethodsViewController
     ) -> (view: PaymentMethodsViewController, moduleInput: PaymentMethodsModuleInput) {
 
+        let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()
         let presenter = PaymentMethodsPresenter(
-            isLogoVisible: inputData.tokenizationSettings.showYooKassaLogo
+            isLogoVisible: inputData.tokenizationSettings.showYooKassaLogo,
+            paymentMethodViewModelFactory: paymentMethodViewModelFactory
         )
 
         let paymentService = PaymentServiceAssembly.makeService(

@@ -1,28 +1,12 @@
 import UIKit.UIImage
 
 private enum PaymentMethodViewModelHelper {
-    static var balanceNumberFormatter: NumberFormatter = {
-        $0.locale = .current
-        $0.numberStyle = .currency
-        return $0
-    }(NumberFormatter())
-
     enum Localized: String {
         case change = "Contract.changePaymentMethod"
     }
 }
 
 extension PaymentMethodViewModel {
-    var balanceText: String? {
-        guard let balance = balance else {
-            return nil
-        }
-
-        let balanceNumberFormatter = PaymentMethodViewModelHelper.balanceNumberFormatter
-        balanceNumberFormatter.currencySymbol = balance.currency.symbol
-        return balanceNumberFormatter.string(for: balance.value)
-    }
-
     var change: String {
         return §PaymentMethodViewModelHelper.Localized.change
     }

@@ -35,10 +35,10 @@ extension BankCardDataInputRouter: BankCardDataInputRouterInput {
 extension BankCardDataInputRouter: CardScanningDelegate {
     func cardScannerDidFinish(_ cardInfo: ScannedCardInfo?) {
         transitionHandler?.dismiss(animated: true) { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.cardScanner?.cardScanningDelegate = nil
+            guard let self = self else { return }
+            self.cardScanner?.cardScanningDelegate = nil
             if let cardInfo = cardInfo {
-                strongSelf.output?.cardScanningDidFinish(cardInfo)
+                self.output?.cardScanningDidFinish(cardInfo)
             }
         }
     }

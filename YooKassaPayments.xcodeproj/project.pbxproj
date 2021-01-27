@@ -478,6 +478,8 @@
 		789C373F25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C373E25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift */; };
 		789C374125AF285C00BA94D1 /* PaymentServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C374025AF285C00BA94D1 /* PaymentServiceImpl.swift */; };
 		789C376F25B06EB600BA94D1 /* AuthorizationProcessingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C376E25B06EB600BA94D1 /* AuthorizationProcessingError.swift */; };
+		78B6B20E25C1647F00645D8A /* PaymentMethodViewModelFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B6B20D25C1647F00645D8A /* PaymentMethodViewModelFactoryImpl.swift */; };
+		78B6B21025C1648500645D8A /* PaymentMethodViewModelFactoryAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B6B20F25C1648500645D8A /* PaymentMethodViewModelFactoryAssembly.swift */; };
 		D9841AF6933D94F2B1240F5F /* Pods_YooKassaPaymentsExamplePods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5746D1C01E2AA9F16B231A99 /* Pods_YooKassaPaymentsExamplePods.framework */; };
 		E06532A71FF13B9B00831588 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0148CD51FE958810087CF5F /* AppDelegate.swift */; };
 		E06532A91FF13BA200831588 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0148CDC1FE958810087CF5F /* Assets.xcassets */; };
@@ -902,6 +904,8 @@
 		789C373E25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodHandlerServiceAssembly.swift; sourceTree = "<group>"; };
 		789C374025AF285C00BA94D1 /* PaymentServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceImpl.swift; sourceTree = "<group>"; };
 		789C376E25B06EB600BA94D1 /* AuthorizationProcessingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationProcessingError.swift; sourceTree = "<group>"; };
+		78B6B20D25C1647F00645D8A /* PaymentMethodViewModelFactoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewModelFactoryImpl.swift; sourceTree = "<group>"; };
+		78B6B20F25C1648500645D8A /* PaymentMethodViewModelFactoryAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewModelFactoryAssembly.swift; sourceTree = "<group>"; };
 		E0148CD51FE958810087CF5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0148CDC1FE958810087CF5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E06532951FF13B5800831588 /* YooKassaPaymentsExamplePods.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YooKassaPaymentsExamplePods.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1844,10 +1848,10 @@
 				402EB227D680A54E76696A72 /* HostProviderAssembly.swift */,
 				402EB8AB97D677AA9E36B2C8 /* MonetaryAmountFactory.swift */,
 				30C22EFA251A076400460CC0 /* MoneyAuthAssembly.swift */,
-				402EB5C4B4F0B06A58C7547E /* PaymentMethodViewModelFactory.swift */,
 				402EB033A1DFDB46B5EBA6D1 /* PhoneNumberFormatterAssembly.swift */,
 				402EB96DFA8C9D871DE124D0 /* SavePaymentMethodViewModelFactory.swift */,
 				402EBF7AC88FCC8EA3154C56 /* UserAgentFactory.swift */,
+				78B6B20C25C1646D00645D8A /* PaymentMethodViewModel */,
 			);
 			path = Factory;
 			sourceTree = "<group>";
@@ -2552,6 +2556,16 @@
 			path = PaymentMethodHandler;
 			sourceTree = "<group>";
 		};
+		78B6B20C25C1646D00645D8A /* PaymentMethodViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				402EB5C4B4F0B06A58C7547E /* PaymentMethodViewModelFactory.swift */,
+				78B6B20F25C1648500645D8A /* PaymentMethodViewModelFactoryAssembly.swift */,
+				78B6B20D25C1647F00645D8A /* PaymentMethodViewModelFactoryImpl.swift */,
+			);
+			path = PaymentMethodViewModel;
+			sourceTree = "<group>";
+		};
 		9133B1C75F52034A6FB79687 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2853,6 +2867,7 @@
 				402EB461D1438596B3505A77 /* PhoneNumberInputAssembly.swift in Sources */,
 				402EBB8B6B3E87C8044C4875 /* PhoneNumberInputPresenter.swift in Sources */,
 				402EBD61AE8F6F0E80140202 /* PhoneNumberInputInteractor.swift in Sources */,
+				78B6B21025C1648500645D8A /* PaymentMethodViewModelFactoryAssembly.swift in Sources */,
 				402EBE713055C909AA9126E6 /* PhoneNumberInputInteractorIO.swift in Sources */,
 				402EB91BEC54829B7D570406 /* PhoneNumberInputModuleOutput.swift in Sources */,
 				402EB8E359043C4623BDB3A4 /* AuthCodeInputViewController.swift in Sources */,
@@ -3035,6 +3050,7 @@
 				784A1ADE25B9C57B00637CB5 /* AuthType.swift in Sources */,
 				402EBC78A21756A0751049CB /* PaymentMethodsPresenter.swift in Sources */,
 				402EB5D6E79FE22EFE162375 /* PaymentMethodsViewController.swift in Sources */,
+				78B6B20E25C1647F00645D8A /* PaymentMethodViewModelFactoryImpl.swift in Sources */,
 				402EBF5880ECE76D7FF1BB62 /* PaymentMethodsViewIO.swift in Sources */,
 				402EB9EA1CCAA11BF60B5F05 /* PaymentMethodsInteractor.swift in Sources */,
 				402EBDB5C4E2965E370EDE25 /* PaymentMethodsInteractorIO.swift in Sources */,

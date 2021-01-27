@@ -86,38 +86,38 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
     func didSetPan(_ pan: String) {
         cardData.pan = pan
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.interactor.validate(cardData: strongSelf.cardData)
-            strongSelf.interactor.fetchBankCardSettings(pan)
+            guard let self = self else { return }
+            self.interactor.validate(cardData: self.cardData)
+            self.interactor.fetchBankCardSettings(pan)
         }
     }
 
     func didSetExpiryDate(_ expiryDate: String) {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            guard let strongSelf = self else { return }
+            guard let self = self else { return }
             defer {
-                strongSelf.interactor.validate(cardData: strongSelf.cardData)
+                self.interactor.validate(cardData: self.cardData)
             }
-            strongSelf.expiryDateText = expiryDate
+            self.expiryDateText = expiryDate
             guard expiryDate.count == 4 else {
-                strongSelf.cardData.expiryDate = nil
+                self.cardData.expiryDate = nil
                 return
             }
 
             guard let components = makeExpiryDate(expiryDate) else {
-                strongSelf.cardData.expiryDate = nil
+                self.cardData.expiryDate = nil
                 return
             }
 
-            strongSelf.cardData.expiryDate = components
+            self.cardData.expiryDate = components
         }
     }
 
     func didSetCsc(_ csc: String) {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.cardData.csc = csc
-            strongSelf.interactor.validate(cardData: strongSelf.cardData)
+            guard let self = self else { return }
+            self.cardData.csc = csc
+            self.interactor.validate(cardData: self.cardData)
         }
     }
 
@@ -150,7 +150,7 @@ extension BankCardDataInputPresenter: BankCardDataInputInteractorOutput {
 
     func failValidateCardData(errors: [CardService.ValidationError]) {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self, let view = strongSelf.view else { return }
+            guard let self = self, let view = self.view else { return }
             let panIsValid = errors.contains(.panInvalidLength) == false
                 && errors.contains(.luhnAlgorithmFail) == false
 
@@ -161,7 +161,7 @@ extension BankCardDataInputPresenter: BankCardDataInputInteractorOutput {
             view.setExpiryDateIsValid(dateIsValid)
             view.setConfirmButtonEnabled(false)
 
-            strongSelf.moveFocusIfNeeded(
+            self.moveFocusIfNeeded(
                 in: view,
                 panIsValid: panIsValid,
                 dateIsValid: dateIsValid

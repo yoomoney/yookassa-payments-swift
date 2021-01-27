@@ -37,13 +37,16 @@ final class MaskedBankCardDataInputPresenter {
     // MARK: - Init data
 
     fileprivate let inputData: MaskedBankCardDataInputModuleInputData
+    fileprivate let paymentMethodViewModelFactory: PaymentMethodViewModelFactory
 
     // MARK: - Init
 
     init(
-        inputData: MaskedBankCardDataInputModuleInputData
+        inputData: MaskedBankCardDataInputModuleInputData,
+        paymentMethodViewModelFactory: PaymentMethodViewModelFactory
     ) {
         self.inputData = inputData
+        self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
     }
 
     // MARK: - Properties
@@ -66,7 +69,7 @@ extension MaskedBankCardDataInputPresenter: BankCardDataInputViewOutput {
         view.setConfirmButtonEnabled(false)
 
         view.setPanInputTextControlDisabledStyle()
-        view.setPanInputTextControlValue(PaymentMethodViewModelFactory.replaceBullets(inputData.cardMask))
+        view.setPanInputTextControlValue(paymentMethodViewModelFactory.replaceBullets(inputData.cardMask))
         view.setPanInputTextControlIsEnabled(false)
 
         view.setExpiryDateTextControlDisabledStyle()
@@ -77,11 +80,7 @@ extension MaskedBankCardDataInputPresenter: BankCardDataInputViewOutput {
             guard let self = self,
                   let interactor = self.interactor else { return }
             self.inputData.analyticsEvent.flatMap(interactor.trackEvent)
-            interactor.fetchBankCardSettings(
-                makePanFromCardMask(
-                    self.inputData.cardMask
-                )
-            )
+            interactor.fetchBankCardSettings(self.inputData.cardMask)
         }
     }
 
@@ -99,9 +98,9 @@ extension MaskedBankCardDataInputPresenter: BankCardDataInputViewOutput {
 
     func didSetCsc(_ csc: String) {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.csc = csc
-            strongSelf.interactor.validate(csc: csc)
+            guard let self = self else { return }
+            self.csc = csc
+            self.interactor.validate(csc: csc)
         }
     }
 
@@ -124,7 +123,7 @@ extension MaskedBankCardDataInputPresenter: BankCardDataInputInteractorOutput {
 
     func failValidateCardData(errors: [CardService.ValidationError]) {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self, let view = strongSelf.view else { return }
+            guard let self = self, let view = self.view else { return }
             view.setConfirmButtonEnabled(false)
             view.focus = .csc
         }
@@ -225,18 +224,4 @@ private func makeMessage(_ error: Error) -> String {
     }
 
     return message
-}
-
-private func makePanFromCardMask(_ cardMask: String) -> String {
-    let endIndex = cardMask.index(cardMask.startIndex, offsetBy: 6, limitedBy: cardMask.endIndex)
-        ?? cardMask.index(cardMask.startIndex, offsetBy: cardMask.count, limitedBy: cardMask.endIndex)
-        ?? cardMask.startIndex
-
-    let charsWithoutDecimals = cardMask
-        .components(separatedBy: CharacterSet.decimalDigits)
-        .joined()
-    let charsWithoutDecimalsSet = CharacterSet(charactersIn: charsWithoutDecimals)
-    return (cardMask[cardMask.startIndex..<endIndex])
-        .components(separatedBy: charsWithoutDecimalsSet)
-        .joined()
 }

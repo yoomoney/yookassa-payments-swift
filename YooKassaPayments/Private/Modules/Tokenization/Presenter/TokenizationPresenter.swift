@@ -18,11 +18,16 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
     // MARK: - Init data
 
     private let inputData: TokenizationModuleInputData
+    private let paymentMethodViewModelFactory: PaymentMethodViewModelFactory
 
     // MARK: - Init
 
-    init(inputData: TokenizationModuleInputData) {
+    init(
+        inputData: TokenizationModuleInputData,
+        paymentMethodViewModelFactory: PaymentMethodViewModelFactory
+    ) {
         self.inputData = inputData
+        self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
     }
 
     // MARK: - Properties
@@ -64,7 +69,7 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
 
     private func makePaymentMethodViewModel(paymentOption: PaymentOption) -> PaymentMethodViewModel {
         let walletDisplayName = interactor.getWalletDisplayName()
-        return PaymentMethodViewModelFactory.makePaymentMethodViewModel(
+        return paymentMethodViewModelFactory.makePaymentMethodViewModel(
             paymentOption: paymentOption,
             walletDisplayName: walletDisplayName
         )
@@ -87,10 +92,10 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         )
 
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.router.presentPaymentMethods(
+            guard let self = self else { return }
+            self.router.presentPaymentMethods(
                 inputData: paymentMethodsInputData,
-                moduleOutput: strongSelf
+                moduleOutput: self
             )
         }
     }
@@ -119,10 +124,10 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             savePaymentMethodViewModel: savePaymentMethodViewModel
         )
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.router.presentWalletAuthParameters(
+            guard let self = self else { return }
+            self.router.presentWalletAuthParameters(
                 inputData: walletAuthParametersInputData,
-                moduleOutput: strongSelf
+                moduleOutput: self
             )
         }
     }

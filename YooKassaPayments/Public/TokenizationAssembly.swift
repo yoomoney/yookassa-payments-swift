@@ -24,7 +24,12 @@ public enum TokenizationAssembly {
         moduleOutput: TokenizationModuleOutput
     ) -> UIViewController & TokenizationModuleInput {
         let view = TokenizationViewController()
-        let presenter = BankCardRepeatPresenter(inputData: inputData)
+
+        let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()
+        let presenter = BankCardRepeatPresenter(
+            inputData: inputData,
+            paymentMethodViewModelFactory: paymentMethodViewModelFactory
+        )
 
         let paymentService = PaymentServiceAssembly.makeService(
             tokenizationSettings: TokenizationSettings(),
@@ -81,7 +86,11 @@ public enum TokenizationAssembly {
 
         let viewController = TokenizationViewController()
 
-        let presenter = TokenizationPresenter(inputData: inputData)
+        let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()
+        let presenter = TokenizationPresenter(
+            inputData: inputData,
+            paymentMethodViewModelFactory: paymentMethodViewModelFactory
+        )
         let router = TokenizationRouter()
         let interactor = TokenizationInteractor(
             paymentService: paymentService,

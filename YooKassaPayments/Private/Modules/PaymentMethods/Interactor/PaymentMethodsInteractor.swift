@@ -62,10 +62,6 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
         }
     }
 
-    func getWalletDisplayName() -> String? {
-        return authorizationService.getWalletDisplayName()
-    }
-
     func trackEvent(_ event: AnalyticsEvent) {
         analyticsService.trackEvent(event)
     }

@@ -6,7 +6,7 @@ enum ContractViewFactory {
                                       viewOutput: ContractViewOutput,
                                       shouldChangePaymentMethod: Bool) -> UIView & PaymentMethodViewInput {
         let itemView: UIView & PaymentMethodViewInput
-        switch (paymentMethod.balance, shouldChangePaymentMethod) {
+        switch (paymentMethod.subtitle, shouldChangePaymentMethod) {
         case (.none, false):
             itemView = makeItemView()
         case (.some, false):

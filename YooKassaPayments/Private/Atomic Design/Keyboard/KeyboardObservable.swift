@@ -236,13 +236,13 @@ private extension KeyboardObservable {
         let observingAccessoryView = KeyboardObservingAccessoryView()
         observingAccessoryView.keyboardFrameChanged = { [weak self] keyboardFrame in
 
-            guard let strongSelf = self,
-                  strongSelf.isObserving,
-                  strongSelf.isReloadingResponder == false,
-                  strongSelf.currentObservingResponder === responder else {
+            guard let self = self,
+                  self.isObserving,
+                  self.isReloadingResponder == false,
+                  self.currentObservingResponder === responder else {
                 return
             }
-            strongSelf.postNotifcation({ $0.keyboardDidUpdateFrame(keyboardFrame) })
+            self.postNotifcation({ $0.keyboardDidUpdateFrame(keyboardFrame) })
         }
 
         if let accessoryView = responder.inputAccessoryView {
