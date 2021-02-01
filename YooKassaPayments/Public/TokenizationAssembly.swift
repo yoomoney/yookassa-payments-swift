@@ -84,7 +84,16 @@ public enum TokenizationAssembly {
             testModeSettings: inputData.testModeSettings
         )
 
-        let viewController = TokenizationViewController()
+        let paymentMethodsModuleInputData = PaymentMethodsModuleInputData(
+            clientApplicationKey: inputData.clientApplicationKey,
+            gatewayId: inputData.gatewayId,
+            amount: inputData.amount,
+            tokenizationSettings: inputData.tokenizationSettings,
+            testModeSettings: inputData.testModeSettings,
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod),
+            moneyAuthClientId: inputData.moneyAuthClientId
+        )
 
         let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()
         let presenter = TokenizationPresenter(
@@ -100,12 +109,14 @@ public enum TokenizationAssembly {
             clientApplicationKey: inputData.clientApplicationKey
         )
 
-        viewController.output = presenter
+        let viewController = PaymentMethodsAssembly.makeModule(
+            inputData: paymentMethodsModuleInputData,
+            moduleOutput: presenter
+        )
 
         presenter.router = router
         presenter.interactor = interactor
         presenter.moduleOutput = moduleOutput
-        presenter.view = viewController
 
         interactor.output = presenter
 
@@ -127,4 +138,23 @@ extension SheetViewController: TokenizationModuleInput {
     public func start3dsProcess(requestUrl: String) {
         // TODO: Fix in https://jira.yamoney.ru/browse/MOC-1611
     }
+}
+
+private func makeGetSavePaymentMethod(
+    _ savePaymentMethod: SavePaymentMethod
+) -> Bool? {
+    let getSavePaymentMethod: Bool?
+
+    switch savePaymentMethod {
+    case .on:
+        getSavePaymentMethod = true
+
+    case .off:
+        getSavePaymentMethod = false
+
+    case .userSelects:
+        getSavePaymentMethod = nil
+    }
+
+    return getSavePaymentMethod
 }

@@ -5,7 +5,7 @@ final class PaymentMethodsPresenter {
     // MARK: - VIPER
 
     weak var view: PaymentMethodsViewInput?
-    weak var moduleOutput: PaymentMethodsModuleOutput?
+    var moduleOutput: PaymentMethodsModuleOutput?
     var interactor: PaymentMethodsInteractorInput!
 
     // MARK: - Init data
