@@ -200,6 +200,11 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         return $0
     }(LinkedItemView())
     
+    // MARK: - Constraints
+    
+    private lazy var scrollViewHeightConstraint =
+        scrollView.heightAnchor.constraint(equalToConstant: 0)
+    
     // MARK: - Managing the View
     
     override func loadView() {
@@ -271,6 +276,8 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         }
         
         let constraints = [
+            scrollViewHeightConstraint,
+            
             topConstraint,
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -318,10 +325,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
     }
     
     private func fixTableViewHeight() {
-        let newValue = contentStackView.bounds.height
-        let constraint = scrollView.height.constraint(equalToConstant: newValue)
-        constraint.isActive = true
-        constraint.priority = .defaultHigh
+        scrollViewHeightConstraint.constant = contentStackView.bounds.height
     }
     
     // MARK: - Action
