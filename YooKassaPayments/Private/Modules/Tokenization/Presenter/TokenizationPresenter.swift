@@ -10,11 +10,6 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
     weak var moduleOutput: TokenizationModuleOutput?
     weak var view: TokenizationViewInput?
 
-    // MARK: - Module input
-
-    private weak var walletAuthModule: WalletAuthModuleInput?
-    private weak var paymentMethodsModuleInput: PaymentMethodsModuleInput?
-
     // MARK: - Init data
 
     private let inputData: TokenizationModuleInputData
@@ -45,7 +40,6 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
                     paymentOption: $0,
                     output: self,
                     testModeSettings: inputData.testModeSettings,
-                    paymentMethodsModuleInput: paymentMethodsModuleInput,
                     returnUrl: inputData.returnUrl ?? Constants.returnUrl,
                     isLoggingEnabled: inputData.isLoggingEnabled,
                     savePaymentMethod: inputData.savePaymentMethod,
@@ -83,83 +77,22 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         let paymentMethodsInputData = PaymentMethodsModuleInputData(
             clientApplicationKey: inputData.clientApplicationKey,
             gatewayId: inputData.gatewayId,
+            shopName: inputData.shopName,
+            purchaseDescription: inputData.purchaseDescription,
             amount: inputData.amount,
             tokenizationSettings: inputData.tokenizationSettings,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
             getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod),
-            moneyAuthClientId: inputData.moneyAuthClientId
+            moneyAuthClientId: inputData.moneyAuthClientId,
+            returnUrl: inputData.returnUrl,
+            savePaymentMethod: inputData.savePaymentMethod
         )
 
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.router.presentPaymentMethods(
                 inputData: paymentMethodsInputData,
-                moduleOutput: self
-            )
-        }
-    }
-
-    func presentWalletAuthParametersModule(paymentOption: PaymentOption) {
-        let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
-        let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
-        let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
-            paymentOption,
-            inputData.savePaymentMethod,
-            initialState: makeInitialSavePaymentMethod(inputData.savePaymentMethod)
-        )
-        let walletAuthParametersInputData = WalletAuthParametersModuleInputData(
-            shopName: inputData.shopName,
-            purchaseDescription: inputData.purchaseDescription,
-            paymentMethod: viewModel,
-            price: makePriceViewModel(paymentOption),
-            fee: makeFeePriceViewModel(paymentOption),
-            shouldChangePaymentMethod: shouldChangePaymentOptions,
-            paymentOption: paymentOption,
-            testModeSettings: inputData.testModeSettings,
-            tokenizeScheme: tokenizeScheme,
-            isLoggingEnabled: inputData.isLoggingEnabled,
-            customizationSettings: inputData.customizationSettings,
-            termsOfService: termsOfService,
-            savePaymentMethodViewModel: savePaymentMethodViewModel
-        )
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.router.presentWalletAuthParameters(
-                inputData: walletAuthParametersInputData,
-                moduleOutput: self
-            )
-        }
-    }
-
-    func presentWalletAuthModule(
-        paymentOption: PaymentOption,
-        processId: String,
-        authContextId: String,
-        authTypeState: AuthTypeState
-    ) {
-        let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
-        let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
-
-        let walletAuthInputData = WalletAuthModuleInputData(
-            shopName: inputData.shopName,
-            purchaseDescription: inputData.purchaseDescription,
-            paymentMethod: viewModel,
-            price: makePriceViewModel(paymentOption),
-            fee: makeFeePriceViewModel(paymentOption),
-            processId: processId,
-            authContextId: authContextId,
-            authTypeState: authTypeState,
-            shouldChangePaymentMethod: shouldChangePaymentOptions,
-            testModeSettings: inputData.testModeSettings,
-            tokenizeScheme: tokenizeScheme,
-            isLoggingEnabled: inputData.isLoggingEnabled,
-            termsOfService: termsOfService
-        )
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.router.presentWalletAuth(
-                inputData: walletAuthInputData,
                 moduleOutput: self
             )
         }
@@ -264,28 +197,6 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
             guard let self = self else { return }
             self.router.present3dsModule(
                 inputData: inputData,
-                moduleOutput: self
-            )
-        }
-    }
-
-    func presentYooMoneyAuthModule(_ paymentOption: PaymentOption) {
-        let moduleInputData = YooMoneyAuthModuleInputData(
-            tokenizationSettings: inputData.tokenizationSettings,
-            testModeSettings: inputData.testModeSettings,
-            clientApplicationKey: inputData.clientApplicationKey,
-            gatewayId: inputData.gatewayId,
-            amount: MonetaryAmountFactory.makeAmount(paymentOption.charge),
-            isLoggingEnabled: inputData.isLoggingEnabled,
-            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod),
-            moneyAuthClientId: inputData.moneyAuthClientId,
-            paymentMethodsModuleInput: paymentMethodsModuleInput,
-            kassaPaymentsCustomization: inputData.customizationSettings
-        )
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.router.presentYooMoneyAuth(
-                inputData: moduleInputData,
                 moduleOutput: self
             )
         }
@@ -414,7 +325,6 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
               ) else { return }
 
         let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
-            customizationSettings: inputData.customizationSettings,
             headerValue: savePaymentMethodInfoValues.headerValue,
             bodyValue: savePaymentMethodInfoValues.bodyValue
         )
@@ -430,7 +340,7 @@ extension TokenizationPresenter: TokenizationViewOutput {
     }
 
     func setupView() {
-        view?.setCustomizationSettings(inputData.customizationSettings)
+        view?.setCustomizationSettings()
         interactor.startAnalyticsService()
         presentPaymentMethodsModule()
     }
@@ -484,14 +394,6 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
         }
     }
 
-    func didResendSmsCode(_ authTypeState: AuthTypeState) {
-        walletAuthModule?.setAuthTypeState(authTypeState)
-    }
-
-    func failResendSmsCode(_ error: Error) {
-        walletAuthModule?.failResendSmsCode(error)
-    }
-
     private func makeAnalyticsEventFromTokenizeData(_ tokenizeData: TokenizeData) -> AnalyticsEvent {
 
         let scheme: AnalyticsEvent.TokenizeScheme
@@ -541,7 +443,6 @@ extension TokenizationPresenter: PaymentMethodsModuleOutput {
         methodsCount: Int
     ) {
         paymentOptionsCount = methodsCount
-        paymentMethodsModuleInput = module
 
         if paymentOption is PaymentInstrumentYooMoneyWallet
         || paymentOption is PaymentInstrumentYooMoneyLinkedBankCard
@@ -550,8 +451,6 @@ extension TokenizationPresenter: PaymentMethodsModuleOutput {
         || paymentOption.paymentMethodType == .applePay {
             self.paymentOption = paymentOption
             strategy?.beginProcess()
-        } else if paymentOption.paymentMethodType == .yooMoney {
-            presentYooMoneyAuthModule(paymentOption)
         }
     }
 
@@ -565,6 +464,28 @@ extension TokenizationPresenter: PaymentMethodsModuleOutput {
 
     func didFinish(on module: PaymentMethodsModuleInput) {
         close()
+    }
+    
+    func tokenizationModule(
+        _ module: PaymentMethodsModuleInput,
+        didTokenize token: Tokens,
+        paymentMethodType: PaymentMethodType
+    ) {
+        let scheme: AnalyticsEvent.TokenizeScheme
+        let type = interactor.makeTypeAnalyticsParameters()
+        let event: AnalyticsEvent = .actionTokenize(
+            scheme: .wallet,
+            authType: type.authType,
+            tokenType: type.tokenType
+        )
+        interactor.trackEvent(event)
+        interactor.stopAnalyticsService()
+        
+        moduleOutput?.tokenizationModule(
+            self,
+            didTokenize: token,
+            paymentMethodType: paymentMethodType
+        )
     }
 }
 
@@ -676,173 +597,6 @@ extension TokenizationPresenter: MaskedBankCardDataInputModuleOutput {
             guard let strategy = self?.strategy else { return }
             strategy.didPressConfirmButton(on: module, cvc: cvc)
         }
-    }
-}
-
-// MARK: - YooMoneyAuthModuleOutput
-
-extension TokenizationPresenter: YooMoneyAuthModuleOutput {
-    func yooMoneyAuthModule(
-        _ module: YooMoneyAuthModuleInput,
-        didFetchWalletPaymentMethod paymentMethod: PaymentOption,
-        tmxSessionId: String?
-    ) {
-        self.paymentOption = paymentMethod
-        self.tmxSessionId = tmxSessionId
-        strategy?.beginProcess()
-    }
-
-    func didFetchWalletPaymentMethods(
-        on module: YooMoneyAuthModuleInput,
-        tmxSessionId: String?
-    ) {
-        self.tmxSessionId = tmxSessionId
-        presentPaymentMethodsModule()
-    }
-
-    func didFetchWalletPaymentMethodsWithoutWallet(on module: YooMoneyAuthModuleInput) {
-        interactor.trackEvent(.actionAuthWithoutWallet)
-        presentPaymentMethodsModule()
-    }
-
-    func didFailFetchWalletPaymentMethods(on module: YooMoneyAuthModuleInput) {}
-
-    func didCancelAuthorizeInYooMoney(on module: YooMoneyAuthModuleInput) {
-        handleOnePaymentOptionMethodAtReturn()
-    }
-}
-
-// MARK: - WalletAuthParametersModuleOutput
-
-extension TokenizationPresenter: WalletAuthParametersModuleOutput {
-    func walletAuthParameters(
-        _ module: WalletAuthParametersModuleInput,
-        loginWithReusableToken isReusableToken: Bool
-    ) {
-        DispatchQueue.global().async { [weak self] in
-            guard let self = self,
-                  let strategy = self.strategy else { return }
-            self.isReusableToken = isReusableToken
-            strategy.walletAuthParameters(
-                module,
-                loginWithReusableToken: isReusableToken
-            )
-        }
-    }
-
-    func didFinish(on module: WalletAuthParametersModuleInput) {
-        close()
-    }
-
-    func didPressLogoutButton(on module: WalletAuthParametersModuleInput) {
-        strategy?.didPressLogout()
-    }
-
-    func didPressChangeAction(on module: WalletAuthParametersModuleInput) {
-        DispatchQueue.global().async { [weak self] in
-            guard let interactor = self?.interactor else { return }
-            interactor.trackEvent(.actionChangePaymentMethod)
-        }
-
-        presentPaymentMethodsModule()
-    }
-
-    func walletAuthParameters(
-        _ module: WalletAuthParametersModuleInput,
-        didTapTermsOfService url: URL
-    ) {
-        presentTermsOfServiceModule(url)
-    }
-
-    func walletAuthParameters(
-        _ module: WalletAuthParametersModuleInput,
-        didChangeSavePaymentMethodState state: Bool
-    ) {
-        strategy?.savePaymentMethod = state
-    }
-
-    func didTapOnSavePaymentMethodInfo(
-        on module: WalletAuthParametersModuleInput
-    ) {
-        presentSavePaymentMethodInfoModule()
-    }
-}
-
-// MARK: - WalletAuthModuleOutput
-
-extension TokenizationPresenter: WalletAuthModuleOutput {
-    func walletAuth(
-        _ module: WalletAuthModuleInput,
-        resendSmsCodeWithContextId authContextId: String,
-        authType: AuthType
-    ) {
-        walletAuthModule = module
-        strategy?.contractStateHandler = module
-
-        module.hidePlaceholder()
-        module.showActivity()
-
-        interactor.resendSmsCode(
-            authContextId: authContextId,
-            authType: authType
-        )
-    }
-
-    func walletAuth(
-        _ module: WalletAuthModuleInput,
-        authContextId: String,
-        authType: AuthType,
-        answer: String,
-        processId: String
-    ) {
-        walletAuthModule = module
-
-        strategy?.contractStateHandler = module
-        module.hidePlaceholder()
-        module.showActivity()
-
-        interactor.loginInWallet(
-            authContextId: authContextId,
-            authType: authType,
-            answer: answer,
-            processId: processId
-        )
-    }
-
-    func didPressLogoutButton(on module: WalletAuthModuleInput) {
-        strategy?.didPressLogout()
-    }
-
-    func didFinish(on module: WalletAuthModuleInput) {
-        close()
-    }
-
-    func didPressChangeAction(on module: WalletAuthModuleInput) {
-        DispatchQueue.global().async { [weak self] in
-            guard let interactor = self?.interactor else { return }
-            interactor.trackEvent(.actionChangePaymentMethod)
-        }
-
-        presentPaymentMethodsModule()
-    }
-
-    func walletAuth(
-        _ module: WalletAuthModuleInput,
-        didFinishWithError error: Error
-    ) {
-        guard let isReusableToken = isReusableToken,
-              let paymentOption = paymentOption else { return }
-        loginInWallet(
-            reusableToken: isReusableToken,
-            paymentOption: paymentOption
-        )
-    }
-
-    func walletAuth(
-        _ module: WalletAuthModuleInput,
-        didTapTermsOfService url: URL
-    ) {
-        presentTermsOfServiceModule(url)
     }
 }
 
@@ -1036,7 +790,6 @@ private func makeStrategy(
     paymentOption: PaymentOption,
     output: TokenizationStrategyOutput?,
     testModeSettings: TestModeSettings?,
-    paymentMethodsModuleInput: PaymentMethodsModuleInput?,
     returnUrl: String,
     isLoggingEnabled: Bool,
     savePaymentMethod: SavePaymentMethod,
@@ -1062,13 +815,6 @@ private func makeStrategy(
         savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
     ) {
         strategy = bankCard
-    } else if let wallet = try? WalletStrategy(
-        authorizationService: authorizationService,
-        paymentOption: paymentOption,
-        returnUrl: returnUrl,
-        savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
-    ) {
-        strategy = wallet
     } else if let linkedBankCard = try? LinkedBankCardStrategy(
         authorizationService: authorizationService,
         paymentOption: paymentOption,
@@ -1083,7 +829,6 @@ private func makeStrategy(
         strategy = sberbankStrategy
     } else if let applePay = try? ApplePayStrategy(
         paymentOption: paymentOption,
-        paymentMethodsModuleInput: paymentMethodsModuleInput,
         analyticsService: analyticsService,
         analyticsProvider: analyticsProvider,
         savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod),

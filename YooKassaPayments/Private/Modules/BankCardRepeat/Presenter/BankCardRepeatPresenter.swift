@@ -37,7 +37,7 @@ final class BankCardRepeatPresenter {
 
 extension BankCardRepeatPresenter: TokenizationViewOutput {
     func setupView() {
-        view?.setCustomizationSettings(inputData.customizationSettings)
+        view?.setCustomizationSettings()
         presentContract()
     }
 
@@ -183,7 +183,6 @@ extension BankCardRepeatPresenter: ContractModuleOutput {
 
     func didTapOnSavePaymentMethodInfo(on module: ContractModuleInput) {
         let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
-            customizationSettings: inputData.customizationSettings,
             headerValue: §SavePaymentMethodInfoLocalization.BankCard.header,
             bodyValue: §SavePaymentMethodInfoLocalization.BankCard.body
         )

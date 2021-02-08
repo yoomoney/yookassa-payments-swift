@@ -15,7 +15,7 @@ extension TokenizationRouter: TokenizationRouterInput {
         inputData: PaymentMethodsModuleInputData,
         moduleOutput: PaymentMethodsModuleOutput
     ) {
-        let viewController = PaymentMethodsAssembly.makeModule(
+        let (viewController, _) = PaymentMethodsAssembly.makeModule(
             inputData: inputData,
             moduleOutput: moduleOutput
         )
@@ -66,28 +66,6 @@ extension TokenizationRouter: TokenizationRouterInput {
         transitionHandler?.push(viewController, animated: true)
     }
 
-    func presentWalletAuthParameters(
-        inputData: WalletAuthParametersModuleInputData,
-        moduleOutput: WalletAuthParametersModuleOutput
-    ) {
-        let viewController = WalletAuthParametersAssembly.makeModule(
-            inputData: inputData,
-            moduleOutput: moduleOutput
-        )
-        transitionHandler?.push(viewController, animated: true)
-    }
-
-    func presentWalletAuth(
-        inputData: WalletAuthModuleInputData,
-        moduleOutput: WalletAuthModuleOutput
-    ) {
-        let viewController = WalletAuthAssembly.makeModule(
-            inputData: inputData,
-            moduleOutput: moduleOutput
-        )
-        transitionHandler?.push(viewController, animated: true)
-    }
-
     func presentLogoutConfirmation(
         inputData: LogoutConfirmationModuleInputData,
         moduleOutput: LogoutConfirmationModuleOutput
@@ -108,17 +86,6 @@ extension TokenizationRouter: TokenizationRouterInput {
         moduleOutput: CardSecModuleOutput
     ) {
         let viewController = CardSecAssembly.makeModule(
-            inputData: inputData,
-            moduleOutput: moduleOutput
-        )
-        transitionHandler?.push(viewController, animated: true)
-    }
-
-    func presentYooMoneyAuth(
-        inputData: YooMoneyAuthModuleInputData,
-        moduleOutput: YooMoneyAuthModuleOutput
-    ) {
-        let viewController = YooMoneyAuthAssembly.makeModule(
             inputData: inputData,
             moduleOutput: moduleOutput
         )

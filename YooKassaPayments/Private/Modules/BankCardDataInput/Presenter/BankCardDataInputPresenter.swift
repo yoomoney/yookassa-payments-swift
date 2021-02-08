@@ -205,10 +205,12 @@ extension BankCardDataInputPresenter: BankCardDataInputModuleInput {
     }
 }
 
-// MARK: - PlaceholderViewDelegate
+// MARK: - ActionTitleTextDialogDelegate
 
-extension BankCardDataInputPresenter: ActionTextDialogDelegate {
-    func didPressButton() {
+extension BankCardDataInputPresenter: ActionTitleTextDialogDelegate {
+    func didPressButton(
+        in actionTitleTextDialog: ActionTitleTextDialog
+    ) {
         guard let view = view else { return }
         view.hidePlaceholder()
         view.showActivity()

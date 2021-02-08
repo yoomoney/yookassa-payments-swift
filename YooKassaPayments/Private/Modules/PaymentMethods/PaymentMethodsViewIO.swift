@@ -21,7 +21,7 @@ protocol PaymentMethodsViewInput: ActivityIndicatorFullViewPresenting {
     func hidePlaceholder()
 }
 
-protocol PaymentMethodsViewOutput: ActionTextDialogDelegate {
+protocol PaymentMethodsViewOutput: ActionTitleTextDialogDelegate {
     func setupView()
     func viewDidAppear()
     func didSelectViewModel(_ viewModel: PaymentMethodViewModel, at indexPath: IndexPath)

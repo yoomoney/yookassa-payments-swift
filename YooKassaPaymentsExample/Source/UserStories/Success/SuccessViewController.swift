@@ -44,7 +44,7 @@ final class SuccessViewController: UIViewController {
 
     override func loadView() {
         let view = UIView()
-
+        view.setStyles(UIView.Styles.defaultBackground)
         loadSubviews(to: view)
         loadConstraints(to: view)
 

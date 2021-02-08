@@ -56,8 +56,10 @@ extension ContractPresenter: ContractViewOutput {
 
 // MARK: - PlaceholderViewDelegate
 
-extension ContractPresenter: ActionTextDialogDelegate {
-    func didPressButton() {
+extension ContractPresenter: ActionTitleTextDialogDelegate {
+    func didPressButton(
+        in actionTitleTextDialog: ActionTitleTextDialog
+    ) {
         moduleOutput?.didPressSubmitButton(on: self)
     }
 }

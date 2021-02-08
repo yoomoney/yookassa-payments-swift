@@ -23,6 +23,22 @@
 /*С сервера пришел неподдерживаемый способ прохождения платежной авторизации.*/
 "Error.unsupportedAuthType" = "This method of receiving passwords is not supported. You can change it in the wallet settings on the YooMoney website";
 
+"PaymentAuthorization.invalidAnswer" = "Incorrect code. Check and enter again";
+
+"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Incorrect code. Attempts left: %d";
+
+"PaymentAuthorization.verifyAttemptsExceeded" = "Attempts ended. Try later";
+
+"PaymentAuthorization.verifyAttemptsExceeded.nextSession" = "Attempts ended. You can try %@";
+
+"PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM at HH:mm";
+
+"PaymentAuthorization.description.withoutPhone" = "We sent a verification code";
+
+"PaymentAuthorization.description.witPhone" = "We sent a verification code to %@";
+
+"PaymentAuthorization.remainingTime" = "Get new code via %@";
+
 /*Способ оплаты сбербанк онлайн*/
 "PaymentMethod.sberbank" = "Sberbank Online";
 
@@ -68,7 +84,13 @@
 
 "Contract.topHint.totp" = "One-time password";
 
+"Contract.format.savePaymentMethod.title" = "Allow to write off money";
+
+"Contract.format.saveAuthInApp.title" = "Remember wallet";
+
 "Contract.format.saveAuthInApp" = "Save the wallet in this app for faster payments";
+
+"Contract.logout" = "Logout";
 
 "LogoutConfirmation.format.title" = "Are you sure you want to sign out of account '%@'?";
 
@@ -85,6 +107,8 @@
 "image.logo" = "logo.kassa.en";
 
 "Common.PlaceholderView.buttonTitle" = "Try again";
+
+"Common.PlaceholderView.text" = "Please try again later.";
 
 "Common.button.ok" = "ОК";
 

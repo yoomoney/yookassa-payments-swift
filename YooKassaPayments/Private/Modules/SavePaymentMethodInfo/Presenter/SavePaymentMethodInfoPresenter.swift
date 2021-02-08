@@ -27,6 +27,5 @@ extension SavePaymentMethodInfoPresenter: SavePaymentMethodInfoViewOutput {
             bodyText: inputData.bodyValue
         )
         view.setSavePaymentMethodInfoViewModel(viewModel)
-        view.setCustomizationSettings(inputData.customizationSettings)
     }
 }

@@ -92,6 +92,36 @@ extension AuthorizationServiceImpl: AuthorizationService {
             for: Constants.Keys.walletDisplayName
         )
     }
+    
+    func setWalletPhoneTitle(
+        _ walletPhoneTitle: String?
+    ) {
+        tokenStorage.set(
+            string: walletPhoneTitle,
+            for: Constants.Keys.walletPhoneTitle
+        )
+    }
+
+    func getWalletPhoneTitle() -> String? {
+        tokenStorage.getString(
+            for: Constants.Keys.walletPhoneTitle
+        )
+    }
+    
+    func setWalletAvatarURL(
+        _ walletAvatarURL: String?
+    ) {
+        tokenStorage.set(
+            string: walletAvatarURL,
+            for: Constants.Keys.walletAvatarURL
+        )
+    }
+
+    func getWalletAvatarURL() -> String? {
+        tokenStorage.getString(
+            for: Constants.Keys.walletAvatarURL
+        )
+    }
 }
 
 // MARK: - AuthorizationService Wallet 2FA
@@ -270,6 +300,8 @@ private extension AuthorizationServiceImpl {
     enum Constants {
         enum Keys {
             static let walletDisplayName = "walletDisplayName"
+            static let walletPhoneTitle = "walletPhoneTitle"
+            static let walletAvatarURL = "walletAvatarURL"
         }
     }
 }

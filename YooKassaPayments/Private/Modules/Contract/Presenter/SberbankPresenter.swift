@@ -73,10 +73,12 @@ extension SberbankPresenter: ContractViewOutput {
     }
 }
 
-// MARK: - ActionTextDialogDelegate
+// MARK: - ActionTitleTextDialogDelegate
 
-extension SberbankPresenter: ActionTextDialogDelegate {
-    func didPressButton() {
+extension SberbankPresenter: ActionTitleTextDialogDelegate {
+    func didPressButton(
+        in actionTitleTextDialog: ActionTitleTextDialog
+    ) {
         moduleOutput?.sberbank(self, phoneNumber: phoneNumber)
     }
 }

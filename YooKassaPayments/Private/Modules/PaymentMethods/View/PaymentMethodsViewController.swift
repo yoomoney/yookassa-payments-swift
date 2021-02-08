@@ -52,14 +52,17 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
     lazy var placeholderView: PlaceholderView = {
         $0.setStyles(UIView.Styles.defaultBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.contentView = self.actionTextDialog
+        $0.contentView = self.actionTitleTextDialog
         return $0
     }(PlaceholderView())
 
-    lazy var actionTextDialog: ActionTextDialog = {
-        $0.setStyles(ActionTextDialog.Styles.fail, ActionTextDialog.Styles.light)
+    lazy var actionTitleTextDialog: ActionTitleTextDialog = {
+        $0.tintColor = CustomizationStorage.shared.mainScheme
+        $0.setStyles(ActionTitleTextDialog.Styles.fail)
+        $0.text = §Localized.PlaceholderView.text
+        $0.delegate = output
         return $0
-    }(ActionTextDialog())
+    }(ActionTitleTextDialog())
 
     // MARK: - Constraints
 
@@ -298,12 +301,12 @@ extension PaymentMethodsViewController: PaymentMethodsViewInput {
     }
 
     func showPlaceholder(message: String) {
-        actionTextDialog.title = message
+        actionTitleTextDialog.title = message
         showPlaceholder()
     }
 
     func setPlaceholderViewButtonTitle(_ title: String) {
-        actionTextDialog.buttonTitle = title
+        actionTitleTextDialog.buttonTitle = title
     }
 }
 
@@ -353,7 +356,7 @@ private extension PaymentMethodsViewController {
         case logoImage = "image.logo"
 
         enum PlaceholderView: String {
-            case buttonTitle = "Common.PlaceholderView.buttonTitle"
+            case text = "Common.PlaceholderView.text"
         }
     }
 

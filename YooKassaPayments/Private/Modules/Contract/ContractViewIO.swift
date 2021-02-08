@@ -17,6 +17,6 @@ protocol ContractViewInput: ActivityIndicatorFullViewPresenting, PlaceholderPres
 protocol ContractViewOutput: LargeIconItemViewOutput,
     IconButtonItemViewOutput,
     LargeIconButtonItemViewOutput,
-    ActionTextDialogDelegate {
+    ActionTitleTextDialogDelegate {
     func setupView()
 }

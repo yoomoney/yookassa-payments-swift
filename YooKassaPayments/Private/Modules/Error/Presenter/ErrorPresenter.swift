@@ -27,10 +27,12 @@ extension ErrorPresenter: ErrorViewOutput {
     }
 }
 
-// MARK: - ActionTextDialogDelegate
+// MARK: - ActionTitleTextDialogDelegate
 
-extension ErrorPresenter: ActionTextDialogDelegate {
-    func didPressButton() {
+extension ErrorPresenter: ActionTitleTextDialogDelegate {
+    func didPressButton(
+        in actionTitleTextDialog: ActionTitleTextDialog
+    ) {
         moduleOutput?.didPressPlaceholderButton(on: self)
     }
 }

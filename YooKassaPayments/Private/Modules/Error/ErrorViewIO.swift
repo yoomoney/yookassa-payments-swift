@@ -4,6 +4,6 @@ protocol ErrorViewInput: class, PlaceholderPresenting {
     func showPlaceholder(message: String)
 }
 
-protocol ErrorViewOutput: ActionTextDialogDelegate {
+protocol ErrorViewOutput: ActionTitleTextDialogDelegate {
     func setupView()
 }

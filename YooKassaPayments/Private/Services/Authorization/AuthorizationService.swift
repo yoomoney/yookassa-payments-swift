@@ -16,6 +16,18 @@ protocol AuthorizationService {
     )
 
     func getWalletDisplayName() -> String?
+    
+    func setWalletPhoneTitle(
+        _ walletPhoneTitle: String?
+    )
+    
+    func getWalletPhoneTitle() -> String?
+    
+    func setWalletAvatarURL(
+        _ walletAvatarURL: String?
+    )
+    
+    func getWalletAvatarURL() -> String?
 
     // MARK: - Wallet 2FA
 

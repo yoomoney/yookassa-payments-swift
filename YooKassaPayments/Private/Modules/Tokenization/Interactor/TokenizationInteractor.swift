@@ -186,25 +186,6 @@ extension TokenizationInteractor: TokenizationInteractorInput {
         }
     }
 
-    func resendSmsCode(
-        authContextId: String,
-        authType: AuthType
-    ) {
-        authorizationService.startNewAuthSession(
-            merchantClientAuthorization: clientApplicationKey,
-            contextId: authContextId,
-            authType: authType
-        ) { [weak self] result in
-            guard let output = self?.output else { return }
-            switch result {
-            case let .success(state):
-                output.didResendSmsCode(state)
-            case let .failure(error):
-                output.failLoginInWallet(error)
-            }
-        }
-    }
-
     func loginInWallet(
         authContextId: String,
         authType: AuthType,
@@ -245,7 +226,6 @@ extension TokenizationInteractor: TokenizationInteractorInput {
 
     func startAnalyticsService() {
         analyticsService.start()
-
     }
 
     func stopAnalyticsService() {

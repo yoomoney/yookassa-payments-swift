@@ -35,6 +35,10 @@ extension UIImage {
     static var error: UIImage {
         return named("errorImage")
     }
+    
+    static var avatar: UIImage {
+        return named("avatar")
+    }
 
     static var back: UIImage {
         return named("barButtonItem.back").withRenderingMode(.alwaysOriginal)
@@ -63,6 +67,9 @@ extension UIImage {
     enum PlaceholderView {
         static var fail: UIImage {
             return named("placeholderView.fail").withRenderingMode(.alwaysTemplate)
+        }
+        static var commonFail: UIImage {
+            return named("Common.placeholderView.fail")
         }
     }
 

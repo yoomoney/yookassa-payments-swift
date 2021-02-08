@@ -66,7 +66,7 @@ final class LargeIconButtonItemView: UIView {
     }(UILabel())
 
     private(set) lazy var rightButton: UIButton = {
-        $0.setStyles(UIButton.DynamicStyle.link)
+        $0.setStyles(UIButton.DynamicStyle.secondaryLink)
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
         $0.setContentHuggingPriority(.required, for: .vertical)
         $0.addTarget(self, action: #selector(rightButtonDidPressed), for: .touchUpInside)
