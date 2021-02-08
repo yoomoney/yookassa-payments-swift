@@ -47,8 +47,8 @@ final class TokenizationViewController: UIViewController {
 // MARK: - TokenizationViewInput
 
 extension TokenizationViewController: TokenizationViewInput {
-    func setCustomizationSettings(_ customizationSettings: CustomizationSettings) {
-        view.tintColor = customizationSettings.mainScheme
+    func setCustomizationSettings() {
+        view.tintColor = CustomizationStorage.shared.mainScheme
     }
 }
 

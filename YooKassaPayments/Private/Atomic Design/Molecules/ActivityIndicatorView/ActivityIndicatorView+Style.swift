@@ -47,12 +47,20 @@ extension ActivityIndicatorView {
 
         /// Heavy light style
         ///
-        /// gray background color, secondary activity indicator
+        /// gray background color, default activity indicator
         static let heavyLight = InternalStyle(
             name: "ActivityIndicatorView.Styles.heavyLight") { (view: ActivityIndicatorView) in
 
             view.setStyles(UIView.Styles.grayBackground)
-            view.activity.setStyles(ActivityIndicator.Styles.secondary)
+            view.activity.setStyles(ActivityIndicator.Styles.default)
+        }
+        
+        /// Cloudy style
+        ///
+        /// cararra 50% alpha background color, default activity indicator
+        static let cloudy = InternalStyle(name: "ActivityIndicatorView.cloudy") { (view: ActivityIndicatorView) in
+            view.backgroundColor = UIColor.cararra.withAlphaComponent(0.5)
+            view.activity.setStyles(ActivityIndicator.Styles.default)
         }
     }
 }

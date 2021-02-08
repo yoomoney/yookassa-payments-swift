@@ -48,6 +48,7 @@ class ActivityIndicatorView: UIView {
 
 private extension ActivityIndicatorView {
     func setupView() {
+        tintColor = CustomizationStorage.shared.mainScheme
         activity.translatesAutoresizingMaskIntoConstraints = false
         addSubview(activity)
         NSLayoutConstraint.activate([

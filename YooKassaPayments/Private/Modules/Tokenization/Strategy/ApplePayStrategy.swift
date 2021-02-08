@@ -26,7 +26,6 @@ final class ApplePayStrategy: NSObject {
 
     init(
         paymentOption: PaymentOption,
-        paymentMethodsModuleInput: PaymentMethodsModuleInput?,
         analyticsService: AnalyticsService,
         analyticsProvider: AnalyticsProvider,
         savePaymentMethod: Bool,
@@ -36,7 +35,6 @@ final class ApplePayStrategy: NSObject {
             throw TokenizationStrategyError.incorrectPaymentOptions
         }
         self.paymentOption = paymentOption
-        self.paymentMethodsModuleInput = paymentMethodsModuleInput
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
         self.savePaymentMethod = savePaymentMethod
@@ -45,7 +43,6 @@ final class ApplePayStrategy: NSObject {
 
     // MARK: - Stored data
 
-    private weak var paymentMethodsModuleInput: PaymentMethodsModuleInput?
     private var applePayCompletion: ((PKPaymentAuthorizationStatus) -> Void)?
     private var paymentResult: PaymentResult = .idle
 
@@ -122,7 +119,7 @@ extension ApplePayStrategy: TokenizationStrategyInput {
     func didFailPresentApplePayModule() {
         guard paymentResult != .cancel else { return }
         trackScreenErrorAnalytics()
-        paymentMethodsModuleInput?.showPlaceholder(message: §Localized.applePayUnavailableTitle)
+//        paymentMethodsModuleInput?.showPlaceholder(message: §Localized.applePayUnavailableTitle)
     }
 
     func failTokenizeData(_ error: Error) {
@@ -154,10 +151,6 @@ extension ApplePayStrategy: TokenizationStrategyInput {
         didPressConfirmButton bankCardData: CardData
     ) {}
     func didLoginInWallet(_ response: WalletLoginResponse) {}
-    func walletAuthParameters(
-        _ module: WalletAuthParametersModuleInput,
-        loginWithReusableToken isReusableToken: Bool
-    ) {}
     func failLoginInWallet(_ error: Error) {}
     func failResendSmsCode(_ error: Error) {}
     func sberbankModule(_ module: SberbankModuleInput, didPressConfirmButton phoneNumber: String) {}

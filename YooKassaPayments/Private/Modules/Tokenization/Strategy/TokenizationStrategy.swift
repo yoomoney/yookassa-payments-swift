@@ -21,10 +21,6 @@ protocol TokenizationStrategyInput: class {
     func didLoginInWallet(
         _ response: WalletLoginResponse
     )
-    func walletAuthParameters(
-        _ module: WalletAuthParametersModuleInput,
-        loginWithReusableToken isReusableToken: Bool
-    )
 
     func failTokenizeData(
         _ error: Error
@@ -83,17 +79,6 @@ protocol TokenizationStrategyInput: class {
 protocol TokenizationStrategyOutput: class {
 
     func presentPaymentMethodsModule()
-
-    func presentWalletAuthParametersModule(
-        paymentOption: PaymentOption
-    )
-
-    func presentWalletAuthModule(
-        paymentOption: PaymentOption,
-        processId: String,
-        authContextId: String,
-        authTypeState: AuthTypeState
-    )
 
     func presentContract(
         paymentOption: PaymentOption

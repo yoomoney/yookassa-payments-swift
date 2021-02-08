@@ -64,7 +64,7 @@ protocol BankCardDataInputViewInput: ActivityIndicatorPresenting, PlaceholderPre
 }
 
 /// Protocol to informing view state
-protocol BankCardDataInputViewOutput: ActionTextDialogDelegate {
+protocol BankCardDataInputViewOutput: ActionTitleTextDialogDelegate {
     func setupView()
     func viewDidAppear()
     func viewDidDisappear()

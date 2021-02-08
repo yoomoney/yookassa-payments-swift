@@ -45,8 +45,10 @@ extension ApplePayContractPresenter: ContractViewOutput {
 
 // MARK: - PlaceholderViewDelegate
 
-extension ApplePayContractPresenter: ActionTextDialogDelegate {
-    func didPressButton() {
+extension ApplePayContractPresenter: ActionTitleTextDialogDelegate {
+    func didPressButton(
+        in actionTitleTextDialog: ActionTitleTextDialog
+    ) {
         moduleOutput?.didPressSubmitButton(on: self)
     }
 }

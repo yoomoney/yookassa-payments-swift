@@ -176,11 +176,12 @@ extension MaskedBankCardDataInputPresenter: BankCardDataInputModuleInput {
     }
 }
 
-// MARK: - PlaceholderViewDelegate
+// MARK: - ActionTitleTextDialogDelegate
 
-extension MaskedBankCardDataInputPresenter: ActionTextDialogDelegate {
-    // This is button in placeholder view. Need fix in UI library
-    func didPressButton() {
+extension MaskedBankCardDataInputPresenter: ActionTitleTextDialogDelegate {
+    func didPressButton(
+        in actionTitleTextDialog: ActionTitleTextDialog
+    ) {
         guard let cvc = csc else { return }
         view?.hidePlaceholder()
         view?.showActivity()

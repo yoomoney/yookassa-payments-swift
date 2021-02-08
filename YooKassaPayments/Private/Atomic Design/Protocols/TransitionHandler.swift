@@ -16,6 +16,11 @@ protocol TransitionHandler: class {
     ///   - flag: manage animation flag
     ///   - completion: The block to execute after the dismiss finishes.
     func dismiss(animated flag: Bool, completion: (() -> Void)?)
+    
+    /// Pops the top view controller from the navigation stack and updates the display.
+    /// - Parameters:
+    ///     - animated: Set this value to true to animate the transition.
+    func popTopViewController(animated: Bool)
 
     /// When you present a view controller modally (either explicitly or implicitly)
     /// using the present(_:animated:completion:) method, the view controller that called the

@@ -10,7 +10,7 @@ extension SwitchItemView {
         static let primary =
             UIView.Styles.defaultBackground +
             InternalStyle(name: "SwitchItemView.primary") { (item: SwitchItemView) in
-                item.titleLabel.setStyles(UILabel.DynamicStyle.body,
+                item.titleLabel.setStyles(UILabel.DynamicStyle.bodySemibold,
                                           UILabel.Styles.multiline)
                 item.switchControl.onTintColor = item.tintColor
             }

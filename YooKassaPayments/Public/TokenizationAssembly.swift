@@ -10,11 +10,16 @@ public enum TokenizationAssembly {
         inputData: TokenizationFlow,
         moduleOutput: TokenizationModuleOutput
     ) -> UIViewController & TokenizationModuleInput {
+        
         switch inputData {
         case .tokenization(let tokenizationModuleInputData):
+            CustomizationStorage.shared.mainScheme
+                = tokenizationModuleInputData.customizationSettings.mainScheme
             return makeTokenizationModule(tokenizationModuleInputData, moduleOutput: moduleOutput)
 
         case .bankCardRepeat(let bankCardRepeatModuleInputData):
+            CustomizationStorage.shared.mainScheme
+                = bankCardRepeatModuleInputData.customizationSettings.mainScheme
             return makeBankCardRepeatModule(bankCardRepeatModuleInputData, moduleOutput: moduleOutput)
         }
     }
@@ -87,12 +92,16 @@ public enum TokenizationAssembly {
         let paymentMethodsModuleInputData = PaymentMethodsModuleInputData(
             clientApplicationKey: inputData.clientApplicationKey,
             gatewayId: inputData.gatewayId,
+            shopName: inputData.shopName,
+            purchaseDescription: inputData.purchaseDescription,
             amount: inputData.amount,
             tokenizationSettings: inputData.tokenizationSettings,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
             getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod),
-            moneyAuthClientId: inputData.moneyAuthClientId
+            moneyAuthClientId: inputData.moneyAuthClientId,
+            returnUrl: inputData.returnUrl,
+            savePaymentMethod: inputData.savePaymentMethod
         )
 
         let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()
@@ -109,7 +118,7 @@ public enum TokenizationAssembly {
             clientApplicationKey: inputData.clientApplicationKey
         )
 
-        let viewController = PaymentMethodsAssembly.makeModule(
+        let (viewController, _) = PaymentMethodsAssembly.makeModule(
             inputData: paymentMethodsModuleInputData,
             moduleOutput: presenter
         )

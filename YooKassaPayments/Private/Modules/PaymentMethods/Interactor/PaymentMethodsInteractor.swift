@@ -1,3 +1,5 @@
+import MoneyAuth
+
 class PaymentMethodsInteractor {
 
     // MARK: - VIPER
@@ -60,6 +62,39 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
                 output.didFetchPaymentMethods(error)
             }
         }
+    }
+    
+    func fetchYooMoneyPaymentMethods(
+        moneyCenterAuthToken: String
+    ) {
+        authorizationService.setMoneyCenterAuthToken(moneyCenterAuthToken)
+
+        paymentService.fetchPaymentOptions(
+            clientApplicationKey: clientApplicationKey,
+            authorizationToken: moneyCenterAuthToken,
+            gatewayId: gatewayId,
+            amount: amount.value.description,
+            currency: amount.currency.rawValue,
+            getSavePaymentMethod: getSavePaymentMethod
+        ) { [weak self] result in
+            guard let output = self?.output else { return }
+            switch result {
+            case let .success(data):
+                output.didFetchYooMoneyPaymentMethods(data.filter { $0.paymentMethodType == .yooMoney })
+            case let .failure(error):
+                output.didFetchYooMoneyPaymentMethods(error)
+            }
+        }
+    }
+    
+    func getWalletDisplayName() -> String? {
+        return authorizationService.getWalletDisplayName()
+    }
+    
+    func setAccount(_ account: UserAccount) {
+        authorizationService.setWalletDisplayName(account.displayName.title)
+        authorizationService.setWalletPhoneTitle(account.phone.title)
+        authorizationService.setWalletAvatarURL(account.avatar.url?.absoluteString)
     }
 
     func trackEvent(_ event: AnalyticsEvent) {

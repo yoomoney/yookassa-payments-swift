@@ -15,21 +15,6 @@ protocol TokenizationRouterInput: class {
         moduleOutput: SberbankModuleOutput
     )
 
-    func presentYooMoneyAuth(
-        inputData: YooMoneyAuthModuleInputData,
-        moduleOutput: YooMoneyAuthModuleOutput
-    )
-
-    func presentWalletAuthParameters(
-        inputData: WalletAuthParametersModuleInputData,
-        moduleOutput: WalletAuthParametersModuleOutput
-    )
-
-    func presentWalletAuth(
-        inputData: WalletAuthModuleInputData,
-        moduleOutput: WalletAuthModuleOutput
-    )
-
     func presentBankCardDataInput(
         inputData: BankCardDataInputModuleInputData,
         moduleOutput: BankCardDataInputModuleOutput

@@ -47,23 +47,13 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
         if authorizationService.hasReusableWalletToken() {
             output?.presentContract(paymentOption: paymentOption)
         } else {
-            output?.presentWalletAuthParametersModule(paymentOption: paymentOption)
+            // TODO: - Present wallet auth parameters
+//            output?.presentWalletAuthParametersModule(paymentOption: paymentOption)
         }
     }
 
     func didPressSubmitButton(on module: ContractModuleInput) {
         output?.presentMaskedBankCardDataInput(paymentOption: paymentOption)
-    }
-
-    func walletAuthParameters(
-        _ module: WalletAuthParametersModuleInput,
-        loginWithReusableToken isReusableToken: Bool
-    ) {
-        contractStateHandler = module
-        module.hidePlaceholder()
-        module.showActivity()
-
-        output?.loginInWallet(reusableToken: isReusableToken, paymentOption: paymentOption)
     }
 
     func didLoginInWallet(
@@ -73,12 +63,14 @@ extension LinkedBankCardStrategy: TokenizationStrategyInput {
         case .authorized:
             output?.presentMaskedBankCardDataInput(paymentOption: paymentOption)
         case let .notAuthorized(authTypeState: authTypeState, processId: processId, authContextId: authContextId):
-            output?.presentWalletAuthModule(
-                paymentOption: paymentOption,
-                processId: processId,
-                authContextId: authContextId,
-                authTypeState: authTypeState
-            )
+            break
+            // TODO: - https://jira.yamoney.ru/browse/MOC-1647
+//            output?.presentWalletAuthModule(
+//                paymentOption: paymentOption,
+//                processId: processId,
+//                authContextId: authContextId,
+//                authTypeState: authTypeState
+//            )
         }
     }
 

@@ -3,25 +3,19 @@ import YooKassaPaymentsApi
 struct PaymentMethodsModuleInputData {
     let clientApplicationKey: String
     let gatewayId: String?
+    let shopName: String
+    let purchaseDescription: String
     let amount: Amount
     let tokenizationSettings: TokenizationSettings
     let testModeSettings: TestModeSettings?
     let isLoggingEnabled: Bool
     let getSavePaymentMethod: Bool?
     let moneyAuthClientId: String?
+    let returnUrl: String?
+    let savePaymentMethod: SavePaymentMethod
 }
 
-protocol PaymentMethodsModuleInput: class {
-    func showPlaceholder(message: String)
-
-    func reloadData()
-
-    func yooMoneyAuthModule(
-        _ module: YooMoneyAuthModuleInput,
-        didSelectViewModel viewModel: PaymentMethodViewModel,
-        at indexPath: IndexPath
-    )
-}
+protocol PaymentMethodsModuleInput: class {}
 
 protocol PaymentMethodsModuleOutput: class {
     func paymentMethodsModule(
@@ -34,4 +28,9 @@ protocol PaymentMethodsModuleOutput: class {
         didPressLogout paymentOption: PaymentInstrumentYooMoneyWallet
     )
     func didFinish(on module: PaymentMethodsModuleInput)
+    func tokenizationModule(
+        _ module: PaymentMethodsModuleInput,
+        didTokenize token: Tokens,
+        paymentMethodType: PaymentMethodType
+    )
 }

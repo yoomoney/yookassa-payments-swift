@@ -79,10 +79,6 @@ extension BankCardStrategy: TokenizationStrategyInput {
         cvc: String
     ) {}
     func failResendSmsCode(_ error: Error) {}
-    func walletAuthParameters(
-        _ module: WalletAuthParametersModuleInput,
-        loginWithReusableToken isReusableToken: Bool
-    ) {}
     func didPressLogout() {}
     func paymentAuthorizationViewController(
         _ controller: PKPaymentAuthorizationViewController,

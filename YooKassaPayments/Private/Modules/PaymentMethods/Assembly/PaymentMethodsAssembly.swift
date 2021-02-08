@@ -2,29 +2,37 @@ import UIKit.UIViewController
 import YooMoneyCoreApi
 
 enum PaymentMethodsAssembly {
-
     static func makeModule(
         inputData: PaymentMethodsModuleInputData,
         moduleOutput: PaymentMethodsModuleOutput?
-    ) -> UIViewController {
-        let (view, _) = PaymentMethodsAssembly.makeModule(
-            inputData: inputData,
-            moduleOutput: moduleOutput,
-            view: PaymentMethodsViewController()
+    ) -> (
+        view: PaymentMethodsViewController,
+        moduleInput: PaymentMethodsModuleInput
+    ) {
+        let view = PaymentMethodsViewController()
+        
+        let moneyAuthConfig = MoneyAuthAssembly.makeMoneyAuthConfig(
+            moneyAuthClientId: inputData.moneyAuthClientId ?? "",
+            loggingEnabled: inputData.isLoggingEnabled
         )
-        return view
-    }
 
-    static func makeModule(
-        inputData: PaymentMethodsModuleInputData,
-        moduleOutput: PaymentMethodsModuleOutput?,
-        view: PaymentMethodsViewController
-    ) -> (view: PaymentMethodsViewController, moduleInput: PaymentMethodsModuleInput) {
+        let moneyAuthCustomization = MoneyAuthAssembly.makeMoneyAuthCustomization()
 
         let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()
         let presenter = PaymentMethodsPresenter(
             isLogoVisible: inputData.tokenizationSettings.showYooKassaLogo,
-            paymentMethodViewModelFactory: paymentMethodViewModelFactory
+            paymentMethodViewModelFactory: paymentMethodViewModelFactory,
+            clientApplicationKey: inputData.clientApplicationKey,
+            testModeSettings: inputData.testModeSettings,
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            moneyAuthClientId: inputData.moneyAuthClientId,
+            tokenizationSettings: inputData.tokenizationSettings,
+            moneyAuthConfig: moneyAuthConfig,
+            moneyAuthCustomization: moneyAuthCustomization,
+            shopName: inputData.shopName,
+            purchaseDescription: inputData.purchaseDescription,
+            returnUrl: inputData.returnUrl,
+            savePaymentMethod: inputData.savePaymentMethod
         )
 
         let paymentService = PaymentServiceAssembly.makeService(
@@ -54,15 +62,19 @@ enum PaymentMethodsAssembly {
             amount: inputData.amount,
             getSavePaymentMethod: inputData.getSavePaymentMethod
         )
+        
+        let router = PaymentMethodsRouter()
 
         presenter.moduleOutput = moduleOutput
         presenter.view = view
         presenter.interactor = interactor
+        presenter.router = router
 
         interactor.output = presenter
 
         view.output = presenter
-        view.actionTextDialog.delegate = presenter
+        
+        router.transitionHandler = view
 
         return (view: view, moduleInput: presenter)
     }

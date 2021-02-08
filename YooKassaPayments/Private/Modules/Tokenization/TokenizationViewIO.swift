@@ -4,5 +4,5 @@ protocol TokenizationViewOutput: class {
 }
 
 protocol TokenizationViewInput: class {
-    func setCustomizationSettings(_ customizationSettings: CustomizationSettings)
+    func setCustomizationSettings()
 }

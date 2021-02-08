@@ -21,11 +21,6 @@ protocol TokenizationInteractorInput: AnalyticsTrack, AnalyticsProvider {
         tmxSessionId: String?
     )
 
-    func resendSmsCode(
-        authContextId: String,
-        authType: AuthType
-    )
-
     func loginInWallet(
         authContextId: String,
         authType: AuthType,
@@ -45,7 +40,4 @@ protocol TokenizationInteractorOutput: class {
 
     func didLoginInWallet(_ response: WalletLoginResponse)
     func failLoginInWallet(_ error: Error)
-
-    func didResendSmsCode(_ authTypeState: AuthTypeState)
-    func failResendSmsCode(_ error: Error)
 }

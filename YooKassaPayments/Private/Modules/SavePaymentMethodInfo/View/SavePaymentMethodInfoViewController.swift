@@ -36,12 +36,15 @@ final class SavePaymentMethodInfoViewController: UIViewController {
         return view
     }()
 
-    private lazy var closeBarButtonItem = UIBarButtonItem(
+    private lazy var closeBarButtonItem: UIBarButtonItem = {
+        $0.tintColor = CustomizationStorage.shared.mainScheme
+        return $0
+    }(UIBarButtonItem(
         image: UIImage.named("Common.close"),
         style: .plain,
         target: self,
         action: #selector(closeBarButtonItemDidPress)
-    )
+    ))
 
     // MARK: - Managing the View
 
@@ -94,11 +97,5 @@ extension SavePaymentMethodInfoViewController: SavePaymentMethodInfoViewInput {
     ) {
         headerLabel.text = viewModel.headerText
         bodyLabel.text = viewModel.bodyText
-    }
-
-    func setCustomizationSettings(
-        _ customizationSettings: CustomizationSettings
-    ) {
-        closeBarButtonItem.tintColor = customizationSettings.mainScheme
     }
 }

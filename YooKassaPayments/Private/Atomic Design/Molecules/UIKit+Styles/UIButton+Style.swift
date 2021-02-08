@@ -301,6 +301,29 @@ extension UIButton {
                 button.setAttributedTitle(attributedString, for: state)
             }
         }
+        
+        /// Style for secondary link button.
+        static let secondaryLink = InternalStyle(name: "button.dynamic.secondaryLink") { (button: UIButton) in
+            button.titleLabel?.lineBreakMode = .byTruncatingTail
+
+            let font = UIFont.dynamicBody
+            let color = UIColor.doveGray
+
+            let colors: [(UIControl.State, UIColor)] = [
+                (.normal, color),
+                (.highlighted, .highlighted(from: color)),
+                (.disabled, .nobel),
+            ]
+
+            colors.forEach { (state, textColor) in
+                guard let text = button.title(for: state) else { return }
+                let attributedString = NSAttributedString(string: text, attributes: [
+                    .foregroundColor: textColor,
+                    .font: font,
+                ])
+                button.setAttributedTitle(attributedString, for: state)
+            }
+        }
 
         static let inverseLink = InternalStyle(name: "button.dynamic.inverseLink") { (button: UIButton) in
             button.titleLabel?.lineBreakMode = .byTruncatingTail

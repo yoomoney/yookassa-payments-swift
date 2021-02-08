@@ -11,16 +11,18 @@ final class ErrorViewController: UIViewController, PlaceholderProvider {
     lazy var placeholderView: PlaceholderView = {
         $0.setStyles(UIView.Styles.defaultBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.contentView = self.actionTextDialog
+        $0.contentView = self.actionTitleTextDialog
         return $0
     }(PlaceholderView())
 
-    lazy var actionTextDialog: ActionTextDialog = {
-        $0.setStyles(ActionTextDialog.Styles.fail, ActionTextDialog.Styles.light)
-        $0.buttonTitle = §Localized.repeatButton
+    lazy var actionTitleTextDialog: ActionTitleTextDialog = {
+        $0.tintColor = CustomizationStorage.shared.mainScheme
+        $0.setStyles(ActionTitleTextDialog.Styles.fail)
+        $0.buttonTitle = §Localized.PlaceholderView.repeatButton
+        $0.text = §Localized.PlaceholderView.text
         $0.delegate = output
         return $0
-    }(ActionTextDialog())
+    }(ActionTitleTextDialog())
 
     fileprivate lazy var scrollView = UIScrollView()
     fileprivate lazy var contentView = UIView()
@@ -57,7 +59,7 @@ final class ErrorViewController: UIViewController, PlaceholderProvider {
 
 extension ErrorViewController: ErrorViewInput {
     func showPlaceholder(message: String) {
-        actionTextDialog.title = message
+        actionTitleTextDialog.title = message
         showPlaceholder()
     }
 }
@@ -98,7 +100,10 @@ extension ErrorViewController: PlaceholderPresenting {
 // MARK: - Localized
 
 private extension ErrorViewController {
-    enum Localized: String {
-        case repeatButton = "Error.Button.repeat"
+    enum Localized {
+        enum PlaceholderView: String {
+            case repeatButton = "Error.Button.repeat"
+            case text = "Common.PlaceholderView.text"
+        }
     }
 }

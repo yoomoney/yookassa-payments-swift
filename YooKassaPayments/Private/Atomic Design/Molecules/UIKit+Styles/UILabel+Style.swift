@@ -336,6 +336,10 @@ extension UILabel {
         static let secondary = doveGray
 
         static let ghost = nobel
+        
+        static let alert = InternalStyle(name: "label.colorStyle.alert") { (label: UILabel) in
+            label.textColor = UIColor.redOrange
+        }
 
         static let inverse = InternalStyle(name: "label.colorStyle.inverse") { (label: UILabel) in
             label.textColor = .inverse

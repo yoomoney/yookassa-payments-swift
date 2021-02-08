@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "notificationView.info.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

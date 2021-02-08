@@ -23,6 +23,22 @@
 /*С сервера пришел неподдерживаемый способ прохождения платежной авторизации.*/
 "Error.unsupportedAuthType" = "Этот способ получения паролей не поддерживается. Поменять можно в настройках кошелька на сайте ЮMoney";
 
+"PaymentAuthorization.invalidAnswer" = "Неверный код. Проверьте и введите ещё раз";
+
+"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Неверный код. Осталось попыток: %@";
+
+"PaymentAuthorization.verifyAttemptsExceeded" = "Попытки кончались. Попробуйте позже";
+
+"PaymentAuthorization.verifyAttemptsExceeded.nextSession" = "Попытки кончались. Попробовать можно %@";
+
+"PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM в HH:mm";
+
+"PaymentAuthorization.description.withoutPhone" = "Отправили проверочный код";
+
+"PaymentAuthorization.description.witPhone" = "Отправили проверочный код на %@";
+
+"PaymentAuthorization.remainingTime" = "Получить новый код через %@";
+
 /*Способ оплаты сбербанк онлайн*/
 "PaymentMethod.sberbank" = "Сбербанк Онлайн";
 
@@ -68,7 +84,13 @@
 
 "Contract.topHint.totp" = "Одноразовый пароль";
 
+"Contract.format.savePaymentMethod.title" = "Разрешить списывать деньги";
+
+"Contract.format.saveAuthInApp.title" = "Запомнить кошелёк";
+
 "Contract.format.saveAuthInApp" = "Запомнить кошелёк в этом приложении для быстрых платежей";
+
+"Contract.logout" = "Выйти";
 
 "LogoutConfirmation.format.title" = "Уверены, что хотите выйти из аккаунта '%@'?";
 
@@ -85,6 +107,8 @@
 "image.logo" = "logo.kassa.ru";
 
 "Common.PlaceholderView.buttonTitle" = "Повторить попытку";
+
+"Common.PlaceholderView.text" = "Попробуйте повторить чуть позже.";
 
 "Common.button.ok" = "ОК";
 
