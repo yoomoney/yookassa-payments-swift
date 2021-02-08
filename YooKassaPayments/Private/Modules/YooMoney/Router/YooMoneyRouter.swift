@@ -52,20 +52,13 @@ extension YooMoneyRouter: YooMoneyRouterInput {
             inputData: inputData,
             moduleOutput: moduleOutput
         )
-        let navigationController = UINavigationController(
-            rootViewController: viewController
-        )
-        transitionHandler?.present(
-            navigationController,
-            animated: true,
-            completion: nil
+        transitionHandler?.push(
+            viewController,
+            animated: true
         )
     }
     
     func closePaymentAuthorization() {
-        transitionHandler?.dismiss(
-            animated: true,
-            completion: nil
-        )
+        transitionHandler?.popTopViewController(animated: true)
     }
 }

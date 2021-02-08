@@ -10,7 +10,7 @@ protocol SingleCharacterViewDelegate: class {
     )
 }
 
-class SingleCharacterView: UIView {
+final class SingleCharacterView: UIView {
 
     private class ExtendedTextField: UITextField {
 

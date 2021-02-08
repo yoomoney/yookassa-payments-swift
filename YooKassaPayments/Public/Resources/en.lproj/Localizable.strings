@@ -23,6 +23,22 @@
 /*С сервера пришел неподдерживаемый способ прохождения платежной авторизации.*/
 "Error.unsupportedAuthType" = "This method of receiving passwords is not supported. You can change it in the wallet settings on the YooMoney website";
 
+"PaymentAuthorization.invalidAnswer" = "Incorrect code. Check and enter again";
+
+"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Incorrect code. Attempts left: %d";
+
+"PaymentAuthorization.verifyAttemptsExceeded" = "Attempts ended. Try later";
+
+"PaymentAuthorization.verifyAttemptsExceeded.nextSession" = "Attempts ended. You can try %@";
+
+"PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM at HH:mm";
+
+"PaymentAuthorization.description.withoutPhone" = "We sent a verification code";
+
+"PaymentAuthorization.description.witPhone" = "We sent a verification code to %@";
+
+"PaymentAuthorization.remainingTime" = "Get new code via %@";
+
 /*Способ оплаты сбербанк онлайн*/
 "PaymentMethod.sberbank" = "Sberbank Online";
 

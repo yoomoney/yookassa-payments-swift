@@ -1,18 +1,18 @@
 import UIKit
 
-public protocol ActionTitleTextDialogDelegate: class {
+protocol ActionTitleTextDialogDelegate: class {
     func didPressButton(
         in actionTitleTextDialog: ActionTitleTextDialog
     )
 }
 
 /// ActionTitleTextDialog used for PlaceholderView as contentView
-public final class ActionTitleTextDialog: UIView {
+final class ActionTitleTextDialog: UIView {
 
-    public weak var delegate: ActionTitleTextDialogDelegate?
+    weak var delegate: ActionTitleTextDialogDelegate?
 
     /// Icon content
-    public var icon: UIImage {
+    var icon: UIImage {
         get {
             return iconView.image
         }
@@ -22,7 +22,7 @@ public final class ActionTitleTextDialog: UIView {
     }
 
     /// Textual content (title)
-    public var title: String {
+    var title: String {
         get {
             return titleLabel.styledText ?? ""
         }
@@ -32,7 +32,7 @@ public final class ActionTitleTextDialog: UIView {
     }
 
     /// Textual content (subtitle)
-    public var text: String {
+    var text: String {
         get {
             return textLabel.styledText ?? ""
         }
@@ -42,7 +42,7 @@ public final class ActionTitleTextDialog: UIView {
     }
 
     /// Title for button
-    public var buttonTitle: String {
+    var buttonTitle: String {
         set {
             button.setStyledTitle(newValue, for: .normal)
         }
@@ -51,7 +51,7 @@ public final class ActionTitleTextDialog: UIView {
         }
     }
 
-    override public var accessibilityIdentifier: String? {
+    override var accessibilityIdentifier: String? {
         didSet {
             guard let accessibilityIdentifier = accessibilityIdentifier else {
                 iconView.accessibilityIdentifier = nil
@@ -86,12 +86,12 @@ public final class ActionTitleTextDialog: UIView {
 
     // MARK: - Initializers
 
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupView()
     }
 
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
     }

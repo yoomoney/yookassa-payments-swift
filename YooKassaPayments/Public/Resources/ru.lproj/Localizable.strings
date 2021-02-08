@@ -25,7 +25,7 @@
 
 "PaymentAuthorization.invalidAnswer" = "Неверный код. Проверьте и введите ещё раз";
 
-"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Неверный код. Осталось попыток: %@";
+"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Неверный код. Осталось попыток: %d";
 
 "PaymentAuthorization.verifyAttemptsExceeded" = "Попытки кончались. Попробуйте позже";
 

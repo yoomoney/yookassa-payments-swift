@@ -88,10 +88,6 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationViewOutput {
         }
     }
     
-    func didPressCloseButton() {
-        moduleOutput?.didPressClose(self)
-    }
-    
     private func setRemainingTimeText(
         _ remainingTime: String
     ) {

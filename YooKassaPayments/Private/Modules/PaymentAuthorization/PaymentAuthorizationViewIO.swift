@@ -17,5 +17,4 @@ protocol PaymentAuthorizationViewOutput: ActionTitleTextDialogDelegate {
 
     func didGetCode(_ code: String)
     func didPressResendCode()
-    func didPressCloseButton()
 }

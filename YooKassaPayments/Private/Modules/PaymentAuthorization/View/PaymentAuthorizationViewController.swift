@@ -99,14 +99,12 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
     override func loadView() {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
-        addCloseButton()
         setupView()
         setupConstraints()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.setStyles(UINavigationItem.Styles.onlySmallTitle)
         navigationController?.navigationBar.setStyles(UINavigationBar.Styles.default)
         output.setupView()
     }
@@ -167,7 +165,7 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
                 equalTo: view.leadingAnchor,
                 constant: Space.double
             ),
-            titleLabel.leadingAnchor.constraint(
+            titleLabel.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
                 constant: -Space.double
             ),
@@ -219,25 +217,11 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
         NSLayoutConstraint.activate(constraints)
     }
     
-    private func addCloseButton() {
-        let button = UIBarButtonItem()
-        button.tintColor = CustomizationStorage.shared.mainScheme
-        button.setStyles(UIBarButtonItem.Styles.close)
-        button.target = self
-        button.action = #selector(closeButtonDidPress)
-        navigationItem.leftBarButtonItem = button
-    }
-    
     // MARK: - Actions
 
     @objc
     func resendCodeButtonDidPress(_ sender: UIButton) {
         output.didPressResendCode()
-    }
-    
-    @objc
-    func closeButtonDidPress() {
-        output.didPressCloseButton()
     }
 }
 

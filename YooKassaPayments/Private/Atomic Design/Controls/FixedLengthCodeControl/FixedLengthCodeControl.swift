@@ -7,7 +7,7 @@ protocol FixedLengthCodeControlDelegate: class {
     )
 }
 
-class FixedLengthCodeControl: UIView {
+final class FixedLengthCodeControl: UIView {
 
     // MARK: - Public properties
 

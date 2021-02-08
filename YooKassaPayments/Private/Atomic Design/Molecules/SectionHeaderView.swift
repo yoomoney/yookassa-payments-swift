@@ -88,11 +88,11 @@ final class SectionHeaderView: UIView {
 }
 
 extension SectionHeaderView {
-    public enum Styles {
+    enum Styles {
         /// Style for `footer` section header view.
         ///
         /// caption1, secondary color, multiline title.
-        public static let footer =
+        static let footer =
             InternalStyle(name: "SectionHeaderView.footer") { (item: SectionHeaderView) in
                 item.titleLabel.setStyles(
                     UILabel.DynamicStyle.caption1,
@@ -104,7 +104,7 @@ extension SectionHeaderView {
         /// Style for `primary` section header view.
         ///
         /// headline1, primary color, multi line title.
-        public static let primary =
+        static let primary =
             InternalStyle(name: "SectionHeaderView.primary") { (item: SectionHeaderView) in
                 item.titleLabel.setStyles(
                     UILabel.DynamicStyle.bodySemibold,

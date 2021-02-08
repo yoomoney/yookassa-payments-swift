@@ -12,11 +12,7 @@ struct PaymentAuthorizationModuleInputData {
 
 protocol PaymentAuthorizationModuleInput: class {}
 
-protocol PaymentAuthorizationModuleOutput: class {
-    func didPressClose(
-        _ module: PaymentAuthorizationModuleInput
-    )
-    
+protocol PaymentAuthorizationModuleOutput: class {    
     func didCheckUserAnswer(
         _ module: PaymentAuthorizationModuleInput,
         response: WalletLoginResponse

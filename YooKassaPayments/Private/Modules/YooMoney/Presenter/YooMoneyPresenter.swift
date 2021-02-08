@@ -302,14 +302,6 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
 // MARK: - PaymentAuthorizationModuleOutput
 
 extension YooMoneyPresenter: PaymentAuthorizationModuleOutput {
-    func didPressClose(
-        _ module: PaymentAuthorizationModuleInput
-    ) {
-        DispatchQueue.main.async { [weak self] in
-            self?.router.closePaymentAuthorization()
-        }
-    }
-    
     func didCheckUserAnswer(
         _ module: PaymentAuthorizationModuleInput,
         response: WalletLoginResponse
