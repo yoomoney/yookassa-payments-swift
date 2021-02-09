@@ -458,6 +458,8 @@
 		7817A19A25B18AB200CD5BAB /* WalletLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7817A19925B18AB200CD5BAB /* WalletLoginResponse.swift */; };
 		7817A19C25B18AD700CD5BAB /* WalletLoginProcessingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7817A19B25B18AD700CD5BAB /* WalletLoginProcessingError.swift */; };
 		7817A19E25B18C2800CD5BAB /* WalletLoginServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7817A19D25B18C2800CD5BAB /* WalletLoginServiceAssembly.swift */; };
+		781CDD6C25D2786900C34912 /* MaskedCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781CDD6B25D2786900C34912 /* MaskedCardView.swift */; };
+		781CDD6E25D2B95300C34912 /* UITextField+InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781CDD6D25D2B95300C34912 /* UITextField+InputView.swift */; };
 		784A1A8B25B5A44600637CB5 /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8A25B5A44600637CB5 /* ApplePayService.swift */; };
 		784A1A8D25B5A45000637CB5 /* ApplePayServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8C25B5A45000637CB5 /* ApplePayServiceImpl.swift */; };
 		784A1A8F25B5A5A300637CB5 /* ApplePayConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8E25B5A5A300637CB5 /* ApplePayConstants.swift */; };
@@ -505,6 +507,16 @@
 		7860292F25CDC2EB00B9E961 /* CustomizationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860292E25CDC2EB00B9E961 /* CustomizationStorage.swift */; };
 		7860293225D1231500B9E961 /* ActionTitleTextDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860293125D1231500B9E961 /* ActionTitleTextDialog.swift */; };
 		7860293425D1231F00B9E961 /* ActionTitleTextDialog+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860293325D1231F00B9E961 /* ActionTitleTextDialog+Style.swift */; };
+		7860293725D166FC00B9E961 /* LinkedCardInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860293625D166FC00B9E961 /* LinkedCardInteractorIO.swift */; };
+		7860293925D1670400B9E961 /* LinkedCardModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860293825D1670400B9E961 /* LinkedCardModuleIO.swift */; };
+		7860293D25D1671000B9E961 /* LinkedCardViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860293C25D1671000B9E961 /* LinkedCardViewIO.swift */; };
+		7860294325D1672F00B9E961 /* LinkedCardAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860294225D1672F00B9E961 /* LinkedCardAssembly.swift */; };
+		7860294525D1673800B9E961 /* LinkedCardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860294425D1673800B9E961 /* LinkedCardInteractor.swift */; };
+		7860294725D1673E00B9E961 /* LinkedCardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860294625D1673E00B9E961 /* LinkedCardPresenter.swift */; };
+		7860294A25D1675500B9E961 /* LinkedCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860294925D1675500B9E961 /* LinkedCardViewController.swift */; };
+		7860294D25D1723B00B9E961 /* LinkedCardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860294C25D1723B00B9E961 /* LinkedCardRouter.swift */; };
+		7860294F25D1726800B9E961 /* LinkedCardRouterIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860294E25D1726800B9E961 /* LinkedCardRouterIO.swift */; };
+		7860295225D194D300B9E961 /* LinkedCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860295125D194D300B9E961 /* LinkedCardViewModel.swift */; };
 		789C373D25AF260400BA94D1 /* PaymentMethodHandlerServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C373C25AF260400BA94D1 /* PaymentMethodHandlerServiceImpl.swift */; };
 		789C373F25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C373E25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift */; };
 		789C374125AF285C00BA94D1 /* PaymentServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C374025AF285C00BA94D1 /* PaymentServiceImpl.swift */; };
@@ -918,6 +930,8 @@
 		7817A19925B18AB200CD5BAB /* WalletLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLoginResponse.swift; sourceTree = "<group>"; };
 		7817A19B25B18AD700CD5BAB /* WalletLoginProcessingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletLoginProcessingError.swift; sourceTree = "<group>"; };
 		7817A19D25B18C2800CD5BAB /* WalletLoginServiceAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletLoginServiceAssembly.swift; sourceTree = "<group>"; };
+		781CDD6B25D2786900C34912 /* MaskedCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskedCardView.swift; sourceTree = "<group>"; };
+		781CDD6D25D2B95300C34912 /* UITextField+InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+InputView.swift"; sourceTree = "<group>"; };
 		784A1A8A25B5A44600637CB5 /* ApplePayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
 		784A1A8C25B5A45000637CB5 /* ApplePayServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayServiceImpl.swift; sourceTree = "<group>"; };
 		784A1A8E25B5A5A300637CB5 /* ApplePayConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayConstants.swift; sourceTree = "<group>"; };
@@ -965,6 +979,16 @@
 		7860292E25CDC2EB00B9E961 /* CustomizationStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizationStorage.swift; sourceTree = "<group>"; };
 		7860293125D1231500B9E961 /* ActionTitleTextDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTitleTextDialog.swift; sourceTree = "<group>"; };
 		7860293325D1231F00B9E961 /* ActionTitleTextDialog+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionTitleTextDialog+Style.swift"; sourceTree = "<group>"; };
+		7860293625D166FC00B9E961 /* LinkedCardInteractorIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedCardInteractorIO.swift; sourceTree = "<group>"; };
+		7860293825D1670400B9E961 /* LinkedCardModuleIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedCardModuleIO.swift; sourceTree = "<group>"; };
+		7860293C25D1671000B9E961 /* LinkedCardViewIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedCardViewIO.swift; sourceTree = "<group>"; };
+		7860294225D1672F00B9E961 /* LinkedCardAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedCardAssembly.swift; sourceTree = "<group>"; };
+		7860294425D1673800B9E961 /* LinkedCardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedCardInteractor.swift; sourceTree = "<group>"; };
+		7860294625D1673E00B9E961 /* LinkedCardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedCardPresenter.swift; sourceTree = "<group>"; };
+		7860294925D1675500B9E961 /* LinkedCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedCardViewController.swift; sourceTree = "<group>"; };
+		7860294C25D1723B00B9E961 /* LinkedCardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedCardRouter.swift; sourceTree = "<group>"; };
+		7860294E25D1726800B9E961 /* LinkedCardRouterIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedCardRouterIO.swift; sourceTree = "<group>"; };
+		7860295125D194D300B9E961 /* LinkedCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedCardViewModel.swift; sourceTree = "<group>"; };
 		789C373C25AF260400BA94D1 /* PaymentMethodHandlerServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodHandlerServiceImpl.swift; sourceTree = "<group>"; };
 		789C373E25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodHandlerServiceAssembly.swift; sourceTree = "<group>"; };
 		789C374025AF285C00BA94D1 /* PaymentServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServiceImpl.swift; sourceTree = "<group>"; };
@@ -1467,6 +1491,7 @@
 				402EB03AF715BD6339B32F52 /* BankCardRepeat */,
 				402EB92A56B31303DE7A7151 /* Contract */,
 				402EB5B369BAB441B6F483B7 /* Error */,
+				7860293525D166E200B9E961 /* LinkedCard */,
 				402EB84797D7E864A73001A0 /* LogoutConfirmation */,
 				786028F125C981CF00B9E961 /* PaymentAuthorization */,
 				402EBA5D1D4920494878050E /* PaymentMethods */,
@@ -1724,6 +1749,7 @@
 				402EB12114BA5FBF04075BAB /* Button */,
 				402EB95D4399B06C5C92280B /* IconView */,
 				402EB5955724BED0443AEBC5 /* ItemViews */,
+				781CDD6A25D2785500C34912 /* MaskedCardView */,
 				402EBCC197FE30C498F5E43B /* NotificationView */,
 				402EBC8C494983AD7DA811B5 /* PaymentMethodView */,
 				402EBF6C8C9339744A871AA8 /* TextControl */,
@@ -1789,6 +1815,7 @@
 			children = (
 				402EB35771FFB12A221F3905 /* String+Tools.swift */,
 				402EBB2E2AFE4B180DCBF726 /* UIDevice+Hardware.swift */,
+				781CDD6D25D2B95300C34912 /* UITextField+InputView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2167,11 +2194,11 @@
 		402EBC8C494983AD7DA811B5 /* PaymentMethodView */ = {
 			isa = PBXGroup;
 			children = (
-				402EBB4590024E606203F3FE /* PaymentMethodView.swift */,
-				402EB6E2CAD557DE17F72A3D /* ItemView+PaymentMethodView.swift */,
-				402EBF2CD9A728A332E07EA6 /* LargeIconItemView+PaymentMethodView.swift */,
 				402EB7E13404098FC7E76549 /* IconButtonItemView+PaymentMethodView.swift */,
+				402EB6E2CAD557DE17F72A3D /* ItemView+PaymentMethodView.swift */,
 				402EB12FE30A89CB58969D2E /* LargeIconButtonItemView+PaymentMethodView.swift */,
+				402EBF2CD9A728A332E07EA6 /* LargeIconItemView+PaymentMethodView.swift */,
+				402EBB4590024E606203F3FE /* PaymentMethodView.swift */,
 			);
 			path = PaymentMethodView;
 			sourceTree = "<group>";
@@ -2576,6 +2603,14 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		781CDD6A25D2785500C34912 /* MaskedCardView */ = {
+			isa = PBXGroup;
+			children = (
+				781CDD6B25D2786900C34912 /* MaskedCardView.swift */,
+			);
+			path = MaskedCardView;
+			sourceTree = "<group>";
+		};
 		784A1A8925B5A42900637CB5 /* ApplePay */ = {
 			isa = PBXGroup;
 			children = (
@@ -2755,6 +2790,71 @@
 				7860293325D1231F00B9E961 /* ActionTitleTextDialog+Style.swift */,
 			);
 			path = ActionTitleTextDialog;
+			sourceTree = "<group>";
+		};
+		7860293525D166E200B9E961 /* LinkedCard */ = {
+			isa = PBXGroup;
+			children = (
+				7860293625D166FC00B9E961 /* LinkedCardInteractorIO.swift */,
+				7860293825D1670400B9E961 /* LinkedCardModuleIO.swift */,
+				7860294E25D1726800B9E961 /* LinkedCardRouterIO.swift */,
+				7860293C25D1671000B9E961 /* LinkedCardViewIO.swift */,
+				7860293E25D1671300B9E961 /* Assembly */,
+				7860293F25D1671800B9E961 /* Interactor */,
+				7860294025D1671D00B9E961 /* Presenter */,
+				7860294B25D1722B00B9E961 /* Router */,
+				7860294825D1674D00B9E961 /* View */,
+			);
+			path = LinkedCard;
+			sourceTree = "<group>";
+		};
+		7860293E25D1671300B9E961 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				7860294225D1672F00B9E961 /* LinkedCardAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		7860293F25D1671800B9E961 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				7860294425D1673800B9E961 /* LinkedCardInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		7860294025D1671D00B9E961 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				7860294625D1673E00B9E961 /* LinkedCardPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		7860294825D1674D00B9E961 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7860294925D1675500B9E961 /* LinkedCardViewController.swift */,
+				7860295025D194C800B9E961 /* ViewModel */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7860294B25D1722B00B9E961 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				7860294C25D1723B00B9E961 /* LinkedCardRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		7860295025D194C800B9E961 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7860295125D194D300B9E961 /* LinkedCardViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		789C373B25AF25CC00BA94D1 /* PaymentMethodHandler */ = {
@@ -3068,6 +3168,7 @@
 				402EBAA666772AAB2FA2149D /* InputPresenter.swift in Sources */,
 				402EB433B34E2E169013B85E /* PhoneNumberStyle.swift in Sources */,
 				402EB87BAE962D317D13D7F4 /* CscInputPresenterStyle.swift in Sources */,
+				7860293D25D1671000B9E961 /* LinkedCardViewIO.swift in Sources */,
 				402EBB1D932FB9AA14055422 /* PanInputPresenterStyle.swift in Sources */,
 				402EB89BAA82D42EFC923E63 /* YacardPanInputPresenterStyle.swift in Sources */,
 				402EBCE6F2A52CBB1C0D225A /* ExpiryDateInputPresenterStyle.swift in Sources */,
@@ -3112,6 +3213,7 @@
 				402EB762374D9D4259547825 /* LargeIconButtonItemViewCell.swift in Sources */,
 				402EB6E3FD03B79FD088DD35 /* LargeIconButtonItemView.swift in Sources */,
 				3089EF4B23846F6C00CB7319 /* StrictSavePaymentMethodViewModel.swift in Sources */,
+				781CDD6C25D2786900C34912 /* MaskedCardView.swift in Sources */,
 				308E41832385820800B44490 /* SavePaymentMethodInfoAssembly.swift in Sources */,
 				402EB58531C87EFDDE780DF1 /* SwitchItemViewIO.swift in Sources */,
 				402EBB88B7D401A4ED196F88 /* SwitchItemView.swift in Sources */,
@@ -3127,6 +3229,7 @@
 				30C22EFE251A0C1100460CC0 /* GlobalConstants.swift in Sources */,
 				402EB68B63F0A64521AB3359 /* IconView+Style.swift in Sources */,
 				402EB89B755BC51A4F70F7EE /* UIView+Style.swift in Sources */,
+				7860294A25D1675500B9E961 /* LinkedCardViewController.swift in Sources */,
 				402EBBF0FD1BA6CE4ACA7A4E /* UIColor+Style.swift in Sources */,
 				402EB3272BDFCACFC7470D81 /* UIButton+Style.swift in Sources */,
 				402EBB0834948CFD4278DF96 /* UILabel+Style.swift in Sources */,
@@ -3155,6 +3258,7 @@
 				402EB76D8FBAE02DBBCCE9BC /* TextControl+InputView.swift in Sources */,
 				402EB588CFCE2DD9628E0D13 /* TextControl+TopHintMode.swift in Sources */,
 				402EB30252ECBCF281C9F422 /* TextControl+LeftIconMode.swift in Sources */,
+				7860294325D1672F00B9E961 /* LinkedCardAssembly.swift in Sources */,
 				402EB563A97BFDD0F784ADBE /* TextControl+BottomHintMode.swift in Sources */,
 				402EBB328CFCD40CBE47F81F /* TextControl+PlaceholderMode.swift in Sources */,
 				402EB3942ABCD301CF285927 /* TextControl+RightButtonMode.swift in Sources */,
@@ -3228,9 +3332,11 @@
 				402EB48E3F3E325F075B9306 /* SubmitDisplayItem.swift in Sources */,
 				402EB8EFE9F78322E4253F18 /* TextDisplayItem.swift in Sources */,
 				402EB9158F25782723DD2595 /* SelectDisplayItem.swift in Sources */,
+				7860294525D1673800B9E961 /* LinkedCardInteractor.swift in Sources */,
 				402EB9C4BBC1F6EF4241A9C9 /* CardData.swift in Sources */,
 				7811066C25C2CD7B004DB71D /* YooMoneyAssembly.swift in Sources */,
 				402EBDEA03C1BFD97AE64116 /* TempAmount.swift in Sources */,
+				7860293925D1670400B9E961 /* LinkedCardModuleIO.swift in Sources */,
 				402EB9C37ECFBE9D2B402043 /* PaymentMethodViewModel.swift in Sources */,
 				402EB9CF3E1CEA91F61C39DE /* PaymentMethodResources.swift in Sources */,
 				402EB9E7626589A984FC9F72 /* Settings.swift in Sources */,
@@ -3245,6 +3351,7 @@
 				402EBBC990C2C0F2A2A0BD69 /* PhoneNumberFormatterAssembly.swift in Sources */,
 				402EB7C3CF2DBEAF200479D6 /* UserAgentFactory.swift in Sources */,
 				402EB6BE01411608D225E157 /* Localization.swift in Sources */,
+				7860294D25D1723B00B9E961 /* LinkedCardRouter.swift in Sources */,
 				402EBFA22A30FD6DA60F6FA3 /* PrefferedContentSizeCategory.swift in Sources */,
 				402EBD79F5F3730B73E8E2B6 /* ResourceLoader.swift in Sources */,
 				7817A19C25B18AD700CD5BAB /* WalletLoginProcessingError.swift in Sources */,
@@ -3302,6 +3409,7 @@
 				7860291925CC2CE300B9E961 /* LinkedItemViewInput.swift in Sources */,
 				784A1ADC25B9C57B00637CB5 /* Specific.swift in Sources */,
 				402EBA925E18196D8A4C173B /* SberbankPresenter.swift in Sources */,
+				7860293725D166FC00B9E961 /* LinkedCardInteractorIO.swift in Sources */,
 				402EBD28BA87CC3549C6FE49 /* ApplePayContractPresenter.swift in Sources */,
 				402EB98572483EEC2B1B9EC8 /* ContractViewController.swift in Sources */,
 				402EBA72FED97D180CBD09E9 /* ContractStateHandler.swift in Sources */,
@@ -3329,6 +3437,7 @@
 				784A1A9625B974CD00637CB5 /* WebLoggerService.swift in Sources */,
 				789C373F25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift in Sources */,
 				786028FE25C982C100B9E961 /* PaymentAuthorizationViewIO.swift in Sources */,
+				7860295225D194D300B9E961 /* LinkedCardViewModel.swift in Sources */,
 				402EB47F6CCA4E88344F22C6 /* BankCardStrategy.swift in Sources */,
 				402EB068FD623715284B9D60 /* SberbankStrategy.swift in Sources */,
 				402EB538C925C13B7041B914 /* LinkedCardStrategy.swift in Sources */,
@@ -3405,6 +3514,7 @@
 				402EB337CF8A33565554E71D /* CardScanning.swift in Sources */,
 				789C374125AF285C00BA94D1 /* PaymentServiceImpl.swift in Sources */,
 				402EB10CCFF98C935D4F18FF /* YooKassaPaymentsError.swift in Sources */,
+				781CDD6E25D2B95300C34912 /* UITextField+InputView.swift in Sources */,
 				402EB933D69EDDFED2DDAB44 /* Amount.swift in Sources */,
 				402EBDA6F7FFB24269195FFD /* TestModeSettings.swift in Sources */,
 				786028F825C982B100B9E961 /* PaymentAuthorizationInteractorIO.swift in Sources */,
@@ -3412,8 +3522,10 @@
 				308E417A2385501E00B44490 /* SavePaymentMethodInfoViewController.swift in Sources */,
 				784A1AEA25B9CFA700637CB5 /* PaymentMethodBankCard.swift in Sources */,
 				402EBB5BA886912050991DEC /* PaymentMethodTypes.swift in Sources */,
+				7860294F25D1726800B9E961 /* LinkedCardRouterIO.swift in Sources */,
 				402EB1162640933D8CD20B33 /* Currency.swift in Sources */,
 				402EB32E6A6837771A082A37 /* BankCardRepeatModuleInputData.swift in Sources */,
+				7860294725D1673E00B9E961 /* LinkedCardPresenter.swift in Sources */,
 				308E41852385822300B44490 /* SavePaymentMethodInfoModuleIO.swift in Sources */,
 				402EB77D248BF8D00B67D192 /* TokenizationModuleInputData.swift in Sources */,
 				402EB148A4DB43F678C9C993 /* TokenizationFlow.swift in Sources */,

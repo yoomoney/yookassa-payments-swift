@@ -138,36 +138,6 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
         return replacedPan.chunks(of: 4).joined(separator: " ")
     }
 
-    // swiftlint:disable cyclomatic_complexity
-    private func makePaymentMethodViewModelImage(
-        _ paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
-    ) -> UIImage {
-        if let bankSettings = bankSettingsService.bankSettings(paymentOption.cardMask) {
-            return UIImage.named(bankSettings.logoName)
-        } else {
-            let image: UIImage
-            switch paymentOption.cardType {
-            case .masterCard:      image = PaymentMethodResources.Image.mastercard
-            case .visa:            image = PaymentMethodResources.Image.visa
-            case .mir:             image = PaymentMethodResources.Image.mir
-            case .americanExpress: image = PaymentMethodResources.Image.americanExpress
-            case .jcb:             image = PaymentMethodResources.Image.jcb
-            case .cup:             image = PaymentMethodResources.Image.cup
-            case .dinersClub:      image = PaymentMethodResources.Image.dinersClub
-            case .bankCard:        image = PaymentMethodResources.Image.bankCard
-            case .discoverCard:    image = PaymentMethodResources.Image.discoverCard
-            case .instaPayment:    image = PaymentMethodResources.Image.instapay
-            case .laser:           image = PaymentMethodResources.Image.lazer
-            case .dankort:         image = PaymentMethodResources.Image.dankort
-            case .solo:            image = PaymentMethodResources.Image.solo
-            case .switch:          image = PaymentMethodResources.Image.switch
-            case .unknown:         image = PaymentMethodResources.Image.unknown
-            }
-            return image
-        }
-    }
-    // swiftlint:enable cyclomatic_complexity
-
     // MARK: - Making ViewModel from PaymentMethodType
 
     func makePaymentMethodViewModel(
@@ -199,8 +169,40 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
         }
         return name
     }
-
-    private func makePaymentMethodViewModelImage(
+    
+    // MARK: - Make Image for PaymentMethodType
+    
+    // swiftlint:disable cyclomatic_complexity
+    func makePaymentMethodViewModelImage(
+        _ paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
+    ) -> UIImage {
+        if let bankSettings = bankSettingsService.bankSettings(paymentOption.cardMask) {
+            return UIImage.named(bankSettings.logoName)
+        } else {
+            let image: UIImage
+            switch paymentOption.cardType {
+            case .masterCard:      image = PaymentMethodResources.Image.mastercard
+            case .visa:            image = PaymentMethodResources.Image.visa
+            case .mir:             image = PaymentMethodResources.Image.mir
+            case .americanExpress: image = PaymentMethodResources.Image.americanExpress
+            case .jcb:             image = PaymentMethodResources.Image.jcb
+            case .cup:             image = PaymentMethodResources.Image.cup
+            case .dinersClub:      image = PaymentMethodResources.Image.dinersClub
+            case .bankCard:        image = PaymentMethodResources.Image.bankCard
+            case .discoverCard:    image = PaymentMethodResources.Image.discoverCard
+            case .instaPayment:    image = PaymentMethodResources.Image.instapay
+            case .laser:           image = PaymentMethodResources.Image.lazer
+            case .dankort:         image = PaymentMethodResources.Image.dankort
+            case .solo:            image = PaymentMethodResources.Image.solo
+            case .switch:          image = PaymentMethodResources.Image.switch
+            case .unknown:         image = PaymentMethodResources.Image.unknown
+            }
+            return image
+        }
+    }
+    // swiftlint:enable cyclomatic_complexity
+    
+    func makePaymentMethodViewModelImage(
         _ paymentMethodType: YooKassaPaymentsApi.PaymentMethodType
     ) -> UIImage {
         let image: UIImage
@@ -219,4 +221,5 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
         }
         return image
     }
+
 }

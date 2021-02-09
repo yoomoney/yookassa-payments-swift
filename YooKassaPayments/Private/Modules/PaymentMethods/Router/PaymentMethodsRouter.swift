@@ -25,6 +25,21 @@ extension PaymentMethodsRouter: PaymentMethodsRouterInput {
         transitionHandler?.popTopViewController(animated: true)
     }
     
+    func presentLinkedCard(
+        inputData: LinkedCardModuleInputData,
+        moduleOutput: LinkedCardModuleOutput?
+    ) {
+        let viewController = LinkedCardAssembly.makeModule(
+            inputData: inputData,
+            moduleOutput: moduleOutput
+        )
+        transitionHandler?.push(viewController, animated: true)
+    }
+    
+    func closeLinkedCardModule() {
+        transitionHandler?.popTopViewController(animated: true)
+    }
+    
     func presentYooMoneyAuthorizationModule(
         config: MoneyAuth.Config,
         customization: MoneyAuth.Customization,

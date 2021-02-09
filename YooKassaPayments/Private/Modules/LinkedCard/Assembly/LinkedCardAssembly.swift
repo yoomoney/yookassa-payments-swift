@@ -1,11 +1,16 @@
-enum YooMoneyAssembly {
+enum LinkedCardAssembly {
     static func makeModule(
-        inputData: YooMoneyModuleInputData,
-        moduleOutput: YooMoneyModuleOutput?
+        inputData: LinkedCardModuleInputData,
+        moduleOutput: LinkedCardModuleOutput?
     ) -> UIViewController {
-        let view = YooMoneyViewController()
+        let view = LinkedCardViewController()
         
-        let presenter = YooMoneyPresenter(
+        let cardService = CardService()
+        let paymentMethodViewModelFactory =
+            PaymentMethodViewModelFactoryAssembly.makeFactory()
+        let presenter = LinkedCardPresenter(
+            cardService: cardService,
+            paymentMethodViewModelFactory: paymentMethodViewModelFactory,
             clientApplicationKey: inputData.clientApplicationKey,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
@@ -14,11 +19,9 @@ enum YooMoneyAssembly {
             purchaseDescription: inputData.purchaseDescription,
             price: inputData.price,
             fee: inputData.fee,
-            paymentMethod: inputData.paymentMethod,
             paymentOption: inputData.paymentOption,
             termsOfService: inputData.termsOfService,
             returnUrl: inputData.returnUrl,
-            savePaymentMethodViewModel: inputData.savePaymentMethodViewModel,
             tmxSessionId: inputData.tmxSessionId,
             initialSavePaymentMethod: inputData.initialSavePaymentMethod
         )
@@ -31,25 +34,23 @@ enum YooMoneyAssembly {
         let analyticsService = AnalyticsServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled
         )
-        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
-            testModeSettings: inputData.testModeSettings
-        )
         let paymentService = PaymentServiceAssembly.makeService(
             tokenizationSettings: inputData.tokenizationSettings,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled
         )
-        let imageDownloadService = ImageDownloadServiceFactory.makeService()
-        let interactor = YooMoneyInteractor(
+        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
+            testModeSettings: inputData.testModeSettings
+        )
+        let interactor = LinkedCardInteractor(
             authorizationService: authorizationService,
             analyticsService: analyticsService,
             analyticsProvider: analyticsProvider,
             paymentService: paymentService,
-            imageDownloadService: imageDownloadService,
             clientApplicationKey: inputData.clientApplicationKey
         )
         
-        let router = YooMoneyRouter()
+        let router = LinkedCardRouter()
         
         presenter.view = view
         presenter.interactor = interactor

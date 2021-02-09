@@ -44,7 +44,6 @@ extension UITextView {
                 NSAttributedString.Key.foregroundColor: textView.tintColor ?? .blueRibbon,
             ]
         }
-        
     }
     
     // MARK: - Dynamic Fonts

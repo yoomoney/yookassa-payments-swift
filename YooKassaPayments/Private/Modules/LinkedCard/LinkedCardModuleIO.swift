@@ -1,6 +1,6 @@
 import YooKassaPaymentsApi
 
-struct YooMoneyModuleInputData {
+struct LinkedCardModuleInputData {
     let clientApplicationKey: String
     let testModeSettings: TestModeSettings?
     let isLoggingEnabled: Bool
@@ -11,26 +11,19 @@ struct YooMoneyModuleInputData {
     let purchaseDescription: String
     let price: PriceViewModel
     let fee: PriceViewModel?
-    let paymentMethod: PaymentMethodViewModel
-    let paymentOption: PaymentInstrumentYooMoneyWallet
+    let paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
     let termsOfService: TermsOfService
     let returnUrl: String?
-    let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     let tmxSessionId: String?
     let initialSavePaymentMethod: Bool
 }
 
-protocol YooMoneyModuleInput: class {}
+protocol LinkedCardModuleInput: class {}
 
-protocol YooMoneyModuleOutput: class {
-    func didLogout(
-        _ module: YooMoneyModuleInput
-    )
-    
+protocol LinkedCardModuleOutput: class {
     func tokenizationModule(
-        _ module: YooMoneyModuleInput,
+        _ module: LinkedCardModuleInput,
         didTokenize token: Tokens,
         paymentMethodType: PaymentMethodType
     )
 }
-

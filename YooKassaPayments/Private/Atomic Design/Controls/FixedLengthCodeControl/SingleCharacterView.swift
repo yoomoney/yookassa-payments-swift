@@ -48,7 +48,8 @@ final class SingleCharacterView: UIView {
         field.translatesAutoresizingMaskIntoConstraints = false
         field.setStyles(
             UITextField.Styles.title3,
-            UITextField.Styles.numeric
+            UITextField.Styles.numeric,
+            UITextField.Styles.center
         )
         field.spellCheckingType = .no
         field.autocorrectionType = .no

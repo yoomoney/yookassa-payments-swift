@@ -1,20 +1,17 @@
-import YooKassaPaymentsApi
-
-final class YooMoneyInteractor {
+final class LinkedCardInteractor {
 
     // MARK: - VIPER
 
-    weak var output: YooMoneyInteractorOutput?
-
+    weak var output: LinkedCardInteractorOutput?
+    
     // MARK: - Init data
     
-    fileprivate let authorizationService: AuthorizationService
-    fileprivate let analyticsService: AnalyticsService
-    fileprivate let paymentService: PaymentService
-    fileprivate let analyticsProvider: AnalyticsProvider
-    fileprivate let imageDownloadService: ImageDownloadService
-
-    fileprivate let clientApplicationKey: String
+    private let authorizationService: AuthorizationService
+    private let analyticsService: AnalyticsService
+    private let analyticsProvider: AnalyticsProvider
+    private let paymentService: PaymentService
+    
+    private let clientApplicationKey: String
 
     // MARK: - Init
 
@@ -23,21 +20,20 @@ final class YooMoneyInteractor {
         analyticsService: AnalyticsService,
         analyticsProvider: AnalyticsProvider,
         paymentService: PaymentService,
-        imageDownloadService: ImageDownloadService,
         clientApplicationKey: String
     ) {
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
         self.paymentService = paymentService
-        self.imageDownloadService = imageDownloadService
+        
         self.clientApplicationKey = clientApplicationKey
     }
 }
 
-// MARK: - YooMoneyInteractorInput
+// MARK: - LinkedCardInteractorInput
 
-extension YooMoneyInteractor: YooMoneyInteractorInput {
+extension LinkedCardInteractor: LinkedCardInteractorInput {
     func loginInWallet(
         amount: MonetaryAmount,
         reusableToken: Bool,
@@ -61,6 +57,8 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
     }
     
     func tokenize(
+        id: String,
+        csc: String,
         confirmation: Confirmation,
         savePaymentMethod: Bool,
         paymentMethodType: PaymentMethodType,
@@ -69,6 +67,8 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
     ) {
         if let tmxSessionId = tmxSessionId {
             tokenizeWithTMXSessionId(
+                id: id,
+                csc: csc,
                 confirmation: confirmation,
                 savePaymentMethod: savePaymentMethod,
                 paymentMethodType: paymentMethodType,
@@ -83,6 +83,8 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
                 switch result {
                 case let .success(tmxSessionId):
                     self.tokenizeWithTMXSessionId(
+                        id: id,
+                        csc: csc,
                         confirmation: confirmation,
                         savePaymentMethod: savePaymentMethod,
                         paymentMethodType: paymentMethodType,
@@ -98,29 +100,10 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
         }
     }
     
-    func loadAvatar() {
-        guard let avatarURL = authorizationService.getWalletAvatarURL(),
-              let url = URL(string: avatarURL) else {
-            return
-        }
-        
-        imageDownloadService.fetchImage(url: url) { [weak self] result in
-            guard let self = self,
-                  let output = self.output else { return }
-            
-            switch result {
-            case let .success(avatar):
-                output.didLoadAvatar(avatar)
-            case let .failure(error):
-                output.didFailLoadAvatar(error)
-            }
-        }
-    }
-    
     func hasReusableWalletToken() -> Bool {
         return authorizationService.hasReusableWalletToken()
     }
-
+    
     func trackEvent(_ event: AnalyticsEvent) {
         analyticsService.trackEvent(event)
     }
@@ -132,15 +115,9 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
         return analyticsProvider.makeTypeAnalyticsParameters()
     }
     
-    func getWalletDisplayName() -> String? {
-        return authorizationService.getWalletDisplayName()
-    }
-    
-    func logout() {
-        authorizationService.logout()
-    }
-    
     private func tokenizeWithTMXSessionId(
+        id: String,
+        csc: String,
         confirmation: Confirmation,
         savePaymentMethod: Bool,
         paymentMethodType: PaymentMethodType,
@@ -164,9 +141,11 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
             return
         }
 
-        paymentService.tokenizeWallet(
+        paymentService.tokenizeLinkedBankCard(
             clientApplicationKey: clientApplicationKey,
             walletAuthorization: walletToken,
+            cardId: id,
+            csc: csc,
             confirmation: confirmation,
             savePaymentMethod: savePaymentMethod,
             paymentMethodType: paymentMethodType,
@@ -176,6 +155,7 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
         )
     }
 }
+
 
 private func mapError(_ error: Error) -> Error {
     switch error {
