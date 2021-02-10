@@ -98,9 +98,13 @@
 
 "BankCardDataInput.panInput" = "Номер карты";
 
+"BankCardDataInput.hintCardCode" = "Код";
+
 "BankCardDataInput.expiryDate" = "ММ / ГГ";
 
 "BankCardDataInput.cvc" = "CVC";
+
+"BankCardDataInput.errorCvc" = "Проверьте CVC";
 
 "BankCardDataInput.confirmButtonTitle" = "Заплатить";
 

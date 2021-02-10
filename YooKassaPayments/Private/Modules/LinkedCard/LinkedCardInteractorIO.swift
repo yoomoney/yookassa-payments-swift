@@ -1,6 +1,4 @@
-import class YooKassaPaymentsApi.PaymentOption
-
-protocol YooMoneyInteractorInput: class, AnalyticsTrack {
+protocol LinkedCardInteractorInput: class, AnalyticsTrack {
     func loginInWallet(
         amount: MonetaryAmount,
         reusableToken: Bool,
@@ -8,6 +6,8 @@ protocol YooMoneyInteractorInput: class, AnalyticsTrack {
     )
     
     func tokenize(
+        id: String,
+        csc: String,
         confirmation: Confirmation,
         savePaymentMethod: Bool,
         paymentMethodType: PaymentMethodType,
@@ -15,20 +15,15 @@ protocol YooMoneyInteractorInput: class, AnalyticsTrack {
         tmxSessionId: String?
     )
     
-    func loadAvatar()
-    
     func hasReusableWalletToken() -> Bool
     
     func makeTypeAnalyticsParameters() -> (
         authType: AnalyticsEvent.AuthType,
         tokenType: AnalyticsEvent.AuthTokenType?
     )
-    
-    func getWalletDisplayName() -> String?
-    func logout()
 }
 
-protocol YooMoneyInteractorOutput: class {
+protocol LinkedCardInteractorOutput: class {
     func didLoginInWallet(
         _ response: WalletLoginResponse
     )
@@ -40,13 +35,6 @@ protocol YooMoneyInteractorOutput: class {
         _ token: Tokens
     )
     func failTokenizeData(
-        _ error: Error
-    )
-    
-    func didLoadAvatar(
-        _ avatar: UIImage
-    )
-    func didFailLoadAvatar(
         _ error: Error
     )
 }

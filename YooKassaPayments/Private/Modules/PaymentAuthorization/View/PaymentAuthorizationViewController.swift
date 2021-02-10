@@ -33,8 +33,6 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
         return $0
     }(UILabel())
     
-    private var codeLength = 0
-    
     private lazy var descriptionLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setStyles(

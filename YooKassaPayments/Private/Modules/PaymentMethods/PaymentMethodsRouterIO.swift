@@ -8,6 +8,13 @@ protocol PaymentMethodsRouterInput: class {
     
     func closeYooMoneyModule()
     
+    func presentLinkedCard(
+        inputData: LinkedCardModuleInputData,
+        moduleOutput: LinkedCardModuleOutput?
+    )
+    
+    func closeLinkedCardModule()
+    
     func presentYooMoneyAuthorizationModule(
         config: MoneyAuth.Config,
         customization: MoneyAuth.Customization,

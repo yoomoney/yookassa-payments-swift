@@ -98,9 +98,13 @@
 
 "BankCardDataInput.panInput" = "Card number";
 
+"BankCardDataInput.hintCardCode" = "Code";
+
 "BankCardDataInput.expiryDate" = "MM / YY";
 
 "BankCardDataInput.cvc" = "CVC";
+
+"BankCardDataInput.errorCvc" = "Check CVC";
 
 "BankCardDataInput.confirmButtonTitle" = "Pay";
 

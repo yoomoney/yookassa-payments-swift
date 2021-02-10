@@ -1,37 +1,40 @@
 import YooKassaPaymentsApi
 
-final class YooMoneyPresenter {
+final class LinkedCardPresenter {
     
     // MARK: - VIPER
+
+    var interactor: LinkedCardInteractorInput!
+    var router: LinkedCardRouterInput!
     
-    var interactor: YooMoneyInteractorInput!
-    var router: YooMoneyRouterInput!
-    
-    weak var view: YooMoneyViewInput?
-    weak var moduleOutput: YooMoneyModuleOutput?
+    weak var view: LinkedCardViewInput?
+    weak var moduleOutput: LinkedCardModuleOutput?
     
     // MARK: - Init data
     
-    fileprivate let clientApplicationKey: String
-    fileprivate let testModeSettings: TestModeSettings?
-    fileprivate let isLoggingEnabled: Bool
-    fileprivate let moneyAuthClientId: String?
+    private let cardService: CardService
+    private let paymentMethodViewModelFactory: PaymentMethodViewModelFactory
     
-    fileprivate let shopName: String
-    fileprivate let purchaseDescription: String
-    fileprivate let price: PriceViewModel
-    fileprivate let fee: PriceViewModel?
-    fileprivate let paymentMethod: PaymentMethodViewModel
-    fileprivate let paymentOption: PaymentInstrumentYooMoneyWallet
-    fileprivate let termsOfService: TermsOfService
-    fileprivate let returnUrl: String?
-    fileprivate let savePaymentMethodViewModel: SavePaymentMethodViewModel?
-    fileprivate let tmxSessionId: String?
-    fileprivate var initialSavePaymentMethod: Bool
+    private let clientApplicationKey: String
+    private let testModeSettings: TestModeSettings?
+    private let isLoggingEnabled: Bool
+    private let moneyAuthClientId: String?
     
+    private let shopName: String
+    private let purchaseDescription: String
+    private let price: PriceViewModel
+    private let fee: PriceViewModel?
+    private let paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
+    private let termsOfService: TermsOfService
+    private let returnUrl: String?
+    private let tmxSessionId: String?
+    private var initialSavePaymentMethod: Bool
+
     // MARK: - Init
-    
+
     init(
+        cardService: CardService,
+        paymentMethodViewModelFactory: PaymentMethodViewModelFactory,
         clientApplicationKey: String,
         testModeSettings: TestModeSettings?,
         isLoggingEnabled: Bool,
@@ -40,14 +43,15 @@ final class YooMoneyPresenter {
         purchaseDescription: String,
         price: PriceViewModel,
         fee: PriceViewModel?,
-        paymentMethod: PaymentMethodViewModel,
-        paymentOption: PaymentInstrumentYooMoneyWallet,
+        paymentOption: PaymentInstrumentYooMoneyLinkedBankCard,
         termsOfService: TermsOfService,
         returnUrl: String?,
-        savePaymentMethodViewModel: SavePaymentMethodViewModel?,
         tmxSessionId: String?,
         initialSavePaymentMethod: Bool
     ) {
+        self.cardService = cardService
+        self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
+        
         self.clientApplicationKey = clientApplicationKey
         self.testModeSettings = testModeSettings
         self.isLoggingEnabled = isLoggingEnabled
@@ -57,61 +61,80 @@ final class YooMoneyPresenter {
         self.purchaseDescription = purchaseDescription
         self.price = price
         self.fee = fee
-        self.paymentMethod = paymentMethod
         self.paymentOption = paymentOption
         self.termsOfService = termsOfService
         self.returnUrl = returnUrl
-        self.savePaymentMethodViewModel = savePaymentMethodViewModel
         self.tmxSessionId = tmxSessionId
         self.initialSavePaymentMethod = initialSavePaymentMethod
     }
     
     // MARK: - Properties
-
-    fileprivate var isReusableToken = true
+    
+    private var csc: String?
+    private var isReusableToken = true
 }
 
-// MARK: - YooMoneyViewOutput
+// MARK: - LinkedCardViewOutput
 
-extension YooMoneyPresenter: YooMoneyViewOutput {
+extension LinkedCardPresenter: LinkedCardViewOutput {
     func setupView() {
         guard let view = view else { return }
-
-        let viewModel = YooMoneyViewModel(
+        
+        let cardMask =
+            paymentMethodViewModelFactory.replaceBullets(paymentOption.cardMask)
+        let cardLogo =
+            paymentMethodViewModelFactory.makePaymentMethodViewModelImage(paymentOption)
+        
+        let viewModel = LinkedCardViewModel(
             shopName: shopName,
             description: purchaseDescription,
             price: price,
             fee: fee,
-            paymentMethod: paymentMethod,
+            cardMask: formattingCardMask(cardMask),
+            cardLogo: cardLogo,
             terms: termsOfService
         )
         view.setupViewModel(viewModel)
+        
+        view.setConfirmButtonEnabled(false)
         
         if !interactor.hasReusableWalletToken() {
             view.setSaveAuthInAppSwitchItemView()
         }
         
-        if let savePaymentMethodViewModel = savePaymentMethodViewModel {
-            view.setSavePaymentMethodViewModel(
-                savePaymentMethodViewModel
-            )
-        }
-        
         DispatchQueue.global().async { [weak self] in
             guard let self = self,
                   let interactor = self.interactor else { return }
-            interactor.loadAvatar()
-            
-            let (authType, _) = interactor.makeTypeAnalyticsParameters()
-            let event: AnalyticsEvent = .screenPaymentContract(
-                authType: authType,
-                scheme: .wallet
-            )
-            interactor.trackEvent(event)
+            interactor.trackEvent(.screenLinkedCardForm)
+        }
+    }
+    
+    func didSetCsc(
+        _ csc: String
+    ) {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            self.csc = csc
+            do {
+                try self.cardService.validate(csc: csc)
+            } catch {
+                if let error = error as? CardService.ValidationError {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let view = self?.view else { return }
+                        view.setConfirmButtonEnabled(false)
+                    }
+                    return
+                }
+            }
+            DispatchQueue.main.async { [weak self] in
+                guard let view = self?.view else { return }
+                view.setConfirmButtonEnabled(true)
+            }
         }
     }
     
     func didTapActionButton() {
+        view?.endEditing(true)
         view?.showActivity()
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
@@ -127,35 +150,8 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
         }
     }
     
-    func didTapLogout() {
-        let walletDisplayName = interactor.getWalletDisplayName()
-        let inputData = LogoutConfirmationModuleInputData(
-            accountName: walletDisplayName ?? paymentOption.accountId
-        )
-        router.presentLogoutConfirmation(
-            inputData: inputData,
-            moduleOutput: self
-        )
-    }
-    
     func didTapTermsOfService(_ url: URL) {
         router.presentTermsOfServiceModule(url)
-    }
-    
-    func didTapOnSavePaymentMethod() {
-        let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
-            headerValue: §SavePaymentMethodInfoLocalization.Wallet.header,
-            bodyValue: §SavePaymentMethodInfoLocalization.Wallet.body
-        )
-        router.presentSavePaymentMethodInfo(
-            inputData: savePaymentMethodModuleinputData
-        )
-    }
-    
-    func didChangeSavePaymentMethodState(
-        _ state: Bool
-    ) {
-        initialSavePaymentMethod = state
     }
     
     func didChangeSaveAuthInAppState(
@@ -163,11 +159,37 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
     ) {
         isReusableToken = state
     }
+    
+    func endEditing() {
+        guard let csc = csc else {
+            view?.setCardErrorState(true)
+            return
+        }
+        
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            do {
+                try self.cardService.validate(csc: csc)
+            } catch {
+                if let error = error as? CardService.ValidationError {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let view = self?.view else { return }
+                        view.setCardErrorState(true)
+                    }
+                    return
+                }
+            }
+            DispatchQueue.main.async { [weak self] in
+                guard let view = self?.view else { return }
+                view.setCardErrorState(false)
+            }
+        }
+    }
 }
 
 // MARK: - ActionTitleTextDialogDelegate
 
-extension YooMoneyPresenter: ActionTitleTextDialogDelegate {
+extension LinkedCardPresenter: ActionTitleTextDialogDelegate {
     func didPressButton(
         in actionTitleTextDialog: ActionTitleTextDialog
     ) {
@@ -182,9 +204,9 @@ extension YooMoneyPresenter: ActionTitleTextDialogDelegate {
     }
 }
 
-// MARK: - YooMoneyInteractorOutput
+// MARK: - LinkedCardInteractorOutput
 
-extension YooMoneyPresenter: YooMoneyInteractorOutput {
+extension LinkedCardPresenter: LinkedCardInteractorOutput {
     func didLoginInWallet(
         _ response: WalletLoginResponse
     ) {
@@ -207,7 +229,7 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
                     moneyAuthClientId: self.moneyAuthClientId,
                     authContextId: authContextId,
                     processId: processId,
-                    tokenizeScheme: .wallet,
+                    tokenizeScheme: .linkedCard,
                     authTypeState: authTypeState
                 )
                 self.router.presentPaymentAuthorizationModule(
@@ -231,7 +253,7 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
             DispatchQueue.global().async { [weak self] in
                 guard let self = self, let interactor = self.interactor else { return }
                 let (authType, _) = interactor.makeTypeAnalyticsParameters()
-                interactor.trackEvent(.screenError(authType: authType, scheme: .wallet))
+                interactor.trackEvent(.screenError(authType: authType, scheme: .linkedCard))
             }
         }
     }
@@ -251,7 +273,7 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
                 guard let self = self, let interactor = self.interactor else { return }
                 let type = interactor.makeTypeAnalyticsParameters()
                 let event: AnalyticsEvent = .actionTokenize(
-                    scheme: .wallet,
+                    scheme: .linkedCard,
                     authType: type.authType,
                     tokenType: type.tokenType
                 )
@@ -270,20 +292,12 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
         }
     }
     
-    func didLoadAvatar(
-        _ avatar: UIImage
-    ) {
-        DispatchQueue.main.async { [weak self] in
-            self?.view?.setupAvatar(avatar)
-        }
-    }
-    
-    func didFailLoadAvatar(
-        _ error: Error
-    ) {}
-    
     private func tokenize() {
+        guard let csc = csc else { return }
+        
         interactor.tokenize(
+            id: paymentOption.cardId,
+            csc: csc,
             confirmation: Confirmation(type: .redirect, returnUrl: returnUrl),
             savePaymentMethod: initialSavePaymentMethod,
             paymentMethodType: paymentOption.paymentMethodType.plain,
@@ -297,7 +311,7 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
 
 // MARK: - PaymentAuthorizationModuleOutput
 
-extension YooMoneyPresenter: PaymentAuthorizationModuleOutput {
+extension LinkedCardPresenter: PaymentAuthorizationModuleOutput {
     func didCheckUserAnswer(
         _ module: PaymentAuthorizationModuleInput,
         response: WalletLoginResponse
@@ -311,25 +325,9 @@ extension YooMoneyPresenter: PaymentAuthorizationModuleOutput {
     }
 }
 
-// MARK: - LogoutConfirmationModuleOutput
+// MARK: - LinkedCardModuleInput
 
-extension YooMoneyPresenter: LogoutConfirmationModuleOutput {
-    func logoutDidConfirm(on module: LogoutConfirmationModuleInput) {
-        DispatchQueue.global().async { [weak self] in
-            guard let self = self,
-                  let interactor = self.interactor else { return }
-            interactor.logout()
-            interactor.trackEvent(.actionLogout)
-            self.moduleOutput?.didLogout(self)
-        }
-    }
-
-    func logoutDidCancel(on module: LogoutConfirmationModuleInput) {}
-}
-
-// MARK: - YooMoneyModuleInput
-
-extension YooMoneyPresenter: YooMoneyModuleInput {}
+extension LinkedCardPresenter: LinkedCardModuleInput {}
 
 // MARK: - Make message from Error
 
@@ -344,4 +342,8 @@ private func makeMessage(_ error: Error) -> String {
     }
 
     return message
+}
+
+private func formattingCardMask(_ string: String) -> String {
+    return string.splitEvery(4, separator: " ")
 }

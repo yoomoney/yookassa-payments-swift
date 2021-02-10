@@ -179,7 +179,7 @@ extension PaymentServiceMock: PaymentService {
 
 // MARK: - Promise helper
 
-private let timeout: Double = 2
+private let timeout: Double = 1
 
 // MARK: - Data for Error
 

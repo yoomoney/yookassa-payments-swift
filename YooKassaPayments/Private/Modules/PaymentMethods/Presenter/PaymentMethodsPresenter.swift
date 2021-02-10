@@ -103,39 +103,17 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         }
         
         let paymentOption = paymentMethods[indexPath.row]
-        if let paymentOption = paymentOption as? PaymentInstrumentYooMoneyWallet {
+        switch paymentOption {
+        case let paymentOption as PaymentInstrumentYooMoneyLinkedBankCard:
+            openLinkedCard(paymentOption: paymentOption)
+            
+        case let paymentOption as PaymentInstrumentYooMoneyWallet:
             openYooMoneyWallet(paymentOption: paymentOption)
-        } else if paymentOption.paymentMethodType == .yooMoney {
-            if self.testModeSettings != nil {
-                view?.showActivity()
-                DispatchQueue.global().async {
-                    self.interactor.fetchYooMoneyPaymentMethods(
-                        moneyCenterAuthToken: "MOCK_TOKEN"
-                    )
-                }
-            } else {
-                do {
-                    moneyAuthCoordinator = try router.presentYooMoneyAuthorizationModule(
-                        config: moneyAuthConfig,
-                        customization: moneyAuthCustomization,
-                        output: self
-                    )
-                    let event = AnalyticsEvent.userStartAuthorization
-                    self.interactor.trackEvent(event)
-                } catch {
-                    DispatchQueue.main.async { [weak self] in
-                        guard let self = self else { return }
-                        self.view?.showActivity()
-                        DispatchQueue.global().async { [weak self] in
-                            self?.interactor.fetchPaymentMethods()
-                        }
-                    }
-                    
-                    let event = AnalyticsEvent.userCancelAuthorization
-                    self.interactor.trackEvent(event)
-                }
-            }
-        } else {
+            
+        case let paymentOption where paymentOption.paymentMethodType == .yooMoney:
+            openYooMoneyAuthorization()
+            
+        default:
             moduleOutput?.paymentMethodsModule(
                 self,
                 didSelect: paymentMethods[indexPath.row],
@@ -153,6 +131,38 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         moduleOutput?.paymentMethodsModule(self, didPressLogout: paymentOption)
     }
     
+    private func openYooMoneyAuthorization() {
+        if self.testModeSettings != nil {
+            view?.showActivity()
+            DispatchQueue.global().async {
+                self.interactor.fetchYooMoneyPaymentMethods(
+                    moneyCenterAuthToken: "MOCK_TOKEN"
+                )
+            }
+        } else {
+            do {
+                moneyAuthCoordinator = try router.presentYooMoneyAuthorizationModule(
+                    config: moneyAuthConfig,
+                    customization: moneyAuthCustomization,
+                    output: self
+                )
+                let event = AnalyticsEvent.userStartAuthorization
+                self.interactor.trackEvent(event)
+            } catch {
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.view?.showActivity()
+                    DispatchQueue.global().async { [weak self] in
+                        self?.interactor.fetchPaymentMethods()
+                    }
+                }
+                
+                let event = AnalyticsEvent.userCancelAuthorization
+                self.interactor.trackEvent(event)
+            }
+        }
+    }
+    
     private func openYooMoneyWallet(
         paymentOption: PaymentInstrumentYooMoneyWallet
     ) {
@@ -161,7 +171,6 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             paymentOption: paymentOption,
             walletDisplayName: walletDisplayName
         )
-        let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
         let initialSavePaymentMethod = makeInitialSavePaymentMethod(savePaymentMethod)
         let savePaymentMethodViewModel =  SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
             paymentOption,
@@ -180,7 +189,6 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             fee: makeFeePriceViewModel(paymentOption),
             paymentMethod: paymentMethod,
             paymentOption: paymentOption,
-            tokenizeScheme: tokenizeScheme,
             termsOfService: termsOfService,
             returnUrl: returnUrl,
             savePaymentMethodViewModel: savePaymentMethodViewModel,
@@ -188,6 +196,32 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             initialSavePaymentMethod: initialSavePaymentMethod
         )
         router?.presentYooMoney(
+            inputData: inputData,
+            moduleOutput: self
+        )
+    }
+    
+    private func openLinkedCard(
+        paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
+    ) {
+        let initialSavePaymentMethod = makeInitialSavePaymentMethod(savePaymentMethod)
+        let inputData = LinkedCardModuleInputData(
+            clientApplicationKey: clientApplicationKey,
+            testModeSettings: testModeSettings,
+            isLoggingEnabled: isLoggingEnabled,
+            moneyAuthClientId: moneyAuthClientId,
+            tokenizationSettings: tokenizationSettings,
+            shopName: shopName,
+            purchaseDescription: purchaseDescription,
+            price: makePriceViewModel(paymentOption),
+            fee: makeFeePriceViewModel(paymentOption),
+            paymentOption: paymentOption,
+            termsOfService: termsOfService,
+            returnUrl: returnUrl,
+            tmxSessionId: tmxSessionId,
+            initialSavePaymentMethod: initialSavePaymentMethod
+        )
+        router?.presentLinkedCard(
             inputData: inputData,
             moduleOutput: self
         )
@@ -420,6 +454,22 @@ extension PaymentMethodsPresenter: YooMoneyModuleOutput {
     
     func tokenizationModule(
         _ module: YooMoneyModuleInput,
+        didTokenize token: Tokens,
+        paymentMethodType: PaymentMethodType
+    ) {
+        moduleOutput?.tokenizationModule(
+            self,
+            didTokenize: token,
+            paymentMethodType: paymentMethodType
+        )
+    }
+}
+
+// MARK: - LinkedCardModuleOutput
+
+extension PaymentMethodsPresenter: LinkedCardModuleOutput {
+    func tokenizationModule(
+        _ module: LinkedCardModuleInput,
         didTokenize token: Tokens,
         paymentMethodType: PaymentMethodType
     ) {

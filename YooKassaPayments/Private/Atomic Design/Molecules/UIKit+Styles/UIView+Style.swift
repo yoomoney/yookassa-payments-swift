@@ -111,5 +111,15 @@ extension UIView {
         static let shadowOffsetToTop = InternalStyle(name: "shadowOffsetToTop") { (view: UIView) in
             view.layer.shadowOffset = CGSize(width: 0, height: -2)
         }
+        
+        /// Style for rounded view with shadow
+        static let roundedShadow = InternalStyle(name: "UIView.roundedShadow") { (view: UIView) in
+            view.layer.shadowColor = UIColor.black.cgColor
+            view.layer.shadowOpacity = 0.12
+            view.layer.shadowRadius = 8
+            view.layer.shadowOffset = CGSize(width: 0, height: 2)
+            view.layer.masksToBounds = false
+            view.layer.cornerRadius = 8
+        }
     }
 }

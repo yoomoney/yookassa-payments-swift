@@ -115,4 +115,4 @@ private func makeAuthTypeState() -> AuthTypeState {
 
 // MARK: - Promise helper
 
-private let timeout: Double = 2
+private let timeout: Double = 1
