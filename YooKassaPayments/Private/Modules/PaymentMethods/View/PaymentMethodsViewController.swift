@@ -8,20 +8,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
 
     // MARK: - UI properties
 
-    fileprivate lazy var titleView: UIView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(UIView())
-
-    fileprivate lazy var headerView: ActionSheetHeaderView = {
-        $0.title = §Localized.paymentMethods
-        $0.setStyles(UIView.Styles.defaultBackground)
-        $0.setContentHuggingPriority(.fittingSizeLevel, for: .vertical)
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(ActionSheetHeaderView())
-
-    fileprivate lazy var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let view = UITableView()
         view.setStyles(UIView.Styles.defaultBackground)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -42,10 +29,10 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
         return view
     }()
 
-    fileprivate var activityIndicatorView: UIView?
+    private var activityIndicatorView: UIView?
 
-    fileprivate lazy var scrollView = UIScrollView()
-    fileprivate lazy var contentView = UIView()
+    private lazy var scrollView = UIScrollView()
+    private lazy var contentView = UIView()
 
     // MARK: - PlaceholderProvider
 
@@ -70,7 +57,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
 
     // MARK: - Data
 
-    fileprivate var viewModels: [PaymentMethodViewModel] = []
+    private var viewModels: [PaymentMethodViewModel] = []
 
     // MARK: - Init
 
@@ -95,6 +82,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
     override func viewDidLoad() {
         super.viewDidLoad()
         output.setupView()
+        setupNavigationBar()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -103,39 +91,33 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
     }
 
     private func setupView() {
-        titleView.addSubview(headerView)
-
         [
             tableView,
-            titleView,
         ].forEach(view.addSubview)
     }
 
     private func setupConstraints() {
-        let titleViewTopConstraint: NSLayoutConstraint
-        if #available(iOS 11.0, *) {
-            titleViewTopConstraint = titleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-        } else {
-            titleViewTopConstraint = titleView.topAnchor.constraint(equalTo: topLayoutGuide.topAnchor)
-        }
-
         let constraints = [
-            headerView.topAnchor.constraint(equalTo: titleView.topAnchor),
-            headerView.bottomAnchor.constraint(equalTo: titleView.bottomAnchor),
-            headerView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
-
-            titleViewTopConstraint,
-            titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
-            tableView.topAnchor.constraint(equalTo: titleView.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ]
 
         NSLayoutConstraint.activate(constraints)
+    }
+
+    private func setupNavigationBar() {
+        guard let navigationBar = navigationController?.navigationBar else { return }
+        navigationBar.shadowImage = UIImage()
+        navigationBar.barTintColor = UIColor.AdaptiveColors.systemBackground
+        navigationBar.isTranslucent = false
+        navigationBar.tintColor = CustomizationStorage.shared.mainScheme
+
+        let leftItem = UILabel()
+        leftItem.setStyles(UILabel.DynamicStyle.headline2)
+        leftItem.text = §Localized.paymentMethods
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftItem)
     }
 
     // MARK: - Configuring the View’s Layout Behavior
@@ -152,10 +134,11 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
             tableViewHeightConstraint
         }
 
-        let contentEffectiveHeight = CGFloat(viewModels.count) * Constants.estimatedRowHeight
+        let contentEffectiveHeight = tableView.contentSize.height
             + tableView.contentInset.top
             + tableView.contentInset.bottom
             + UIScreen.safeAreaInsets.bottom
+            + Constants.navigationBarHeight
 
         let needUpdate: Bool
         let newValue = viewModels.isEmpty
@@ -197,7 +180,7 @@ extension PaymentMethodsViewController: UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return viewModels.count
+        viewModels.count
     }
 
     func tableView(
@@ -241,7 +224,7 @@ extension PaymentMethodsViewController: UITableViewDelegate {
         _ tableView: UITableView,
         estimatedHeightForRowAt indexPath: IndexPath
     ) -> CGFloat {
-        return UITableView.automaticDimension
+        UITableView.automaticDimension
     }
 
     func tableView(
@@ -258,7 +241,13 @@ extension PaymentMethodsViewController: UITableViewDelegate {
 
 extension PaymentMethodsViewController: PaymentMethodsViewInput {
     func setLogoVisible(_ isVisible: Bool) {
-        headerView.logo = isVisible ? Resources.kassaLogo : nil
+        guard isVisible else {
+            navigationItem.rightBarButtonItem = nil
+            return
+        }
+        let image = UIImageView(image: Resources.kassaLogo)
+        let rightItem = UIBarButtonItem(customView: image)
+        navigationItem.rightBarButtonItem = rightItem
     }
 
     func setPaymentMethodViewModels(_ models: [PaymentMethodViewModel]) {
@@ -267,7 +256,7 @@ extension PaymentMethodsViewController: PaymentMethodsViewInput {
     }
 
     func showActivity() {
-        guard self.activityIndicatorView == nil else { return }
+        guard activityIndicatorView == nil else { return }
 
         let activityIndicatorView = ActivityIndicatorView()
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -278,10 +267,11 @@ extension PaymentMethodsViewController: PaymentMethodsViewInput {
         self.activityIndicatorView = activityIndicatorView
 
         let constraints = [
-            activityIndicatorView.leading.constraint(equalTo: view.leading),
-            activityIndicatorView.trailing.constraint(equalTo: view.trailing),
-            activityIndicatorView.top.constraint(equalTo: view.top),
-            activityIndicatorView.bottom.constraint(equalTo: view.bottom),
+            activityIndicatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            activityIndicatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            activityIndicatorView.topAnchor.constraint(equalTo: view.topAnchor),
+            activityIndicatorView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            activityIndicatorView.heightAnchor.constraint(equalToConstant: Constants.defaultTableViewHeight),
         ]
 
         NSLayoutConstraint.activate(constraints)
@@ -314,7 +304,6 @@ extension PaymentMethodsViewController: PaymentMethodsViewInput {
 
 extension PaymentMethodsViewController: PlaceholderPresenting {
     func showPlaceholder() {
-        titleView.isHidden = true
         tableView.isHidden = true
 
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -342,7 +331,6 @@ extension PaymentMethodsViewController: PlaceholderPresenting {
     }
 
     func hidePlaceholder() {
-        titleView.isHidden = false
         tableView.isHidden = false
         scrollView.removeFromSuperview()
     }
@@ -370,6 +358,7 @@ private extension PaymentMethodsViewController {
 private extension PaymentMethodsViewController {
     enum Constants {
         static let estimatedRowHeight: CGFloat = 72
-        static let defaultTableViewHeight: CGFloat = 300
+        static let defaultTableViewHeight: CGFloat = 395
+        static let navigationBarHeight: CGFloat = 44
     }
 }

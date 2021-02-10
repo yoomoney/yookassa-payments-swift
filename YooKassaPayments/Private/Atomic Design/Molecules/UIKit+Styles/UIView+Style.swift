@@ -45,11 +45,7 @@ extension UIView {
         ///
         /// cararra background color.
         static let defaultBackground = InternalStyle(name: "defaultBackground") { (view: UIView) in
-            if #available(iOS 13.0, *) {
-                view.backgroundColor = .systemBackground
-            } else {
-                view.backgroundColor = .cararra
-            }
+            view.backgroundColor = UIColor.AdaptiveColors.systemBackground
         }
 
         /// Style for view with tint background.

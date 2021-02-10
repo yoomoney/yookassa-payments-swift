@@ -293,6 +293,14 @@ extension SheetContentViewController: UINavigationControllerDelegate {
         animated: Bool
     ) {
         navigationController.view.endEditing(true)
+
+        let item = UIBarButtonItem(
+            title: "",
+            style: .plain,
+            target: nil,
+            action: nil
+        )
+        viewController.navigationItem.backBarButtonItem = item
     }
 
     func navigationController(
