@@ -10,7 +10,7 @@ public enum TokenizationAssembly {
         inputData: TokenizationFlow,
         moduleOutput: TokenizationModuleOutput
     ) -> UIViewController & TokenizationModuleInput {
-        
+
         switch inputData {
         case .tokenization(let tokenizationModuleInputData):
             CustomizationStorage.shared.mainScheme

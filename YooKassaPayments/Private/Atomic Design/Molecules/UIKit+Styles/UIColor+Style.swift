@@ -148,5 +148,15 @@ extension UIColor {
             }
             return color
         }()
+
+        static var systemBackground: UIColor = {
+            let color: UIColor
+            if #available(iOS 13.0, *) {
+                color = .systemBackground
+            } else {
+                color = .cararra
+            }
+            return color
+        }()
     }
 }
