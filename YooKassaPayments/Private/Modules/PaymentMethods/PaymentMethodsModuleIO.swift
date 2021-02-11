@@ -2,6 +2,7 @@ import YooKassaPaymentsApi
 
 struct PaymentMethodsModuleInputData {
     let clientApplicationKey: String
+    let applePayMerchantIdentifier: String?
     let gatewayId: String?
     let shopName: String
     let purchaseDescription: String
@@ -31,6 +32,7 @@ protocol PaymentMethodsModuleOutput: class {
     func tokenizationModule(
         _ module: PaymentMethodsModuleInput,
         didTokenize token: Tokens,
-        paymentMethodType: PaymentMethodType
+        paymentMethodType: PaymentMethodType,
+        scheme: AnalyticsEvent.TokenizeScheme
     )
 }

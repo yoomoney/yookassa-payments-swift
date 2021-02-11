@@ -53,22 +53,6 @@ protocol TokenizationStrategyInput: class {
 
     func didPressLogout()
 
-    // MARK: - ApplePay
-
-    func paymentAuthorizationViewController(
-        _ controller: PKPaymentAuthorizationViewController,
-        didAuthorizePayment payment: PKPayment,
-        completion: @escaping (PKPaymentAuthorizationStatus) -> Void
-    )
-
-    func paymentAuthorizationViewControllerDidFinish(
-        _ controller: PKPaymentAuthorizationViewController
-    )
-
-    func didPresentApplePayModule()
-
-    func didFailPresentApplePayModule()
-
     // MARK: - ApplePayContract
 
     func didPressSubmitButton(
@@ -114,15 +98,5 @@ protocol TokenizationStrategyOutput: class {
 
     func didFinish(
         on module: TokenizationStrategyInput
-    )
-
-    // MARK: - ApplePay
-
-    func presentApplePay(
-        _ paymentOption: PaymentOption
-    )
-
-    func presentApplePayContract(
-        _ paymentOption: PaymentOption
     )
 }

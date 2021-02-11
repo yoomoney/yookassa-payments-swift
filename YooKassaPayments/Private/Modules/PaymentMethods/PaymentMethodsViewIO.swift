@@ -12,7 +12,7 @@ extension PaymentMethodViewModel {
     }
 }
 
-protocol PaymentMethodsViewInput: ActivityIndicatorFullViewPresenting {
+protocol PaymentMethodsViewInput: ActivityIndicatorFullViewPresenting, NotificationPresenting {
     func setLogoVisible(_ isVisible: Bool)
     func setPaymentMethodViewModels(_ models: [PaymentMethodViewModel])
     func setPlaceholderViewButtonTitle(_ title: String)

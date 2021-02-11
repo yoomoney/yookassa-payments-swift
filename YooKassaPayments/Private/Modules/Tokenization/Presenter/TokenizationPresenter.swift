@@ -76,6 +76,7 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
     func presentPaymentMethodsModule() {
         let paymentMethodsInputData = PaymentMethodsModuleInputData(
             clientApplicationKey: inputData.clientApplicationKey,
+            applePayMerchantIdentifier: inputData.applePayMerchantIdentifier,
             gatewayId: inputData.gatewayId,
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
@@ -244,53 +245,6 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         )
     }
 
-    func presentApplePay(_ paymentOption: PaymentOption) {
-        let moduleInputData = ApplePayModuleInputData(
-            merchantIdentifier: inputData.applePayMerchantIdentifier,
-            amount: MonetaryAmountFactory.makeAmount(paymentOption.charge),
-            shopName: inputData.shopName,
-            purchaseDescription: inputData.purchaseDescription,
-            supportedNetworks: ApplePayConstants.paymentNetworks,
-            fee: paymentOption.fee?.plain
-        )
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.router.presentApplePay(
-                inputData: moduleInputData,
-                moduleOutput: self
-            )
-        }
-    }
-
-    func presentApplePayContract(_ paymentOption: PaymentOption) {
-        let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
-        let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
-            paymentOption,
-            inputData.savePaymentMethod,
-            initialState: makeInitialSavePaymentMethod(inputData.savePaymentMethod)
-        )
-        let moduleInputData = ApplePayContractModuleInputData(
-            shopName: inputData.shopName,
-            purchaseDescription: inputData.purchaseDescription,
-            paymentMethod: viewModel,
-            price: makePriceViewModel(paymentOption),
-            fee: makeFeePriceViewModel(paymentOption),
-            shouldChangePaymentMethod: shouldChangePaymentOptions,
-            testModeSettings: inputData.testModeSettings,
-            isLoggingEnabled: inputData.isLoggingEnabled,
-            termsOfService: termsOfService,
-            savePaymentMethodViewModel: savePaymentMethodViewModel
-        )
-
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.router.presentApplePayContract(
-                inputData: moduleInputData,
-                moduleOutput: self
-            )
-        }
-    }
-
     func presentErrorWithMessage(_ message: String) {
         let moduleInputData = ErrorModuleInputData(errorTitle: message)
         DispatchQueue.main.async { [weak self] in
@@ -444,11 +398,8 @@ extension TokenizationPresenter: PaymentMethodsModuleOutput {
     ) {
         paymentOptionsCount = methodsCount
 
-        if paymentOption is PaymentInstrumentYooMoneyWallet
-        || paymentOption is PaymentInstrumentYooMoneyLinkedBankCard
-        || paymentOption.paymentMethodType == .bankCard
-        || paymentOption.paymentMethodType == .sberbank
-        || paymentOption.paymentMethodType == .applePay {
+        if paymentOption.paymentMethodType == .bankCard
+        || paymentOption.paymentMethodType == .sberbank {
             self.paymentOption = paymentOption
             strategy?.beginProcess()
         }
@@ -469,12 +420,12 @@ extension TokenizationPresenter: PaymentMethodsModuleOutput {
     func tokenizationModule(
         _ module: PaymentMethodsModuleInput,
         didTokenize token: Tokens,
-        paymentMethodType: PaymentMethodType
+        paymentMethodType: PaymentMethodType,
+        scheme: AnalyticsEvent.TokenizeScheme
     ) {
-        let scheme: AnalyticsEvent.TokenizeScheme
         let type = interactor.makeTypeAnalyticsParameters()
         let event: AnalyticsEvent = .actionTokenize(
-            scheme: .wallet,
+            scheme: scheme,
             authType: type.authType,
             tokenType: type.tokenType
         )
@@ -633,91 +584,6 @@ extension TokenizationPresenter: CardSecModuleOutput {
     }
 }
 
-// MARK: - ApplePayModuleOutput
-
-extension TokenizationPresenter: ApplePayModuleOutput {
-    func didPresentApplePayModule() {
-        strategy?.didPresentApplePayModule()
-    }
-
-    func didFailPresentApplePayModule() {
-        strategy?.didFailPresentApplePayModule()
-    }
-
-    @available(iOS 11.0, *)
-    func paymentAuthorizationViewController(
-        _ controller: PKPaymentAuthorizationViewController,
-        didAuthorizePayment payment: PKPayment,
-        handler completion: @escaping (PKPaymentAuthorizationResult) -> Void
-    ) {
-        paymentAuthorizationViewController(
-            controller,
-            didAuthorizePayment: payment
-        ) { status in
-            completion(PKPaymentAuthorizationResult(status: status, errors: nil))
-        }
-    }
-
-    func paymentAuthorizationViewController(
-        _ controller: PKPaymentAuthorizationViewController,
-        didAuthorizePayment payment: PKPayment,
-        completion: @escaping (PKPaymentAuthorizationStatus) -> Void
-    ) {
-        strategy?.paymentAuthorizationViewController(
-            controller,
-            didAuthorizePayment: payment,
-            completion: completion
-        )
-    }
-
-    func paymentAuthorizationViewControllerDidFinish(
-        _ controller: PKPaymentAuthorizationViewController
-    ) {
-        strategy?.paymentAuthorizationViewControllerDidFinish(controller)
-    }
-}
-
-// MARK: - ApplePayContractModuleOutput
-
-extension TokenizationPresenter: ApplePayContractModuleOutput {
-    func didFinish(on module: ApplePayContractModuleInput) {
-        close()
-    }
-
-    func didPressChangeAction(on module: ApplePayContractModuleInput) {
-        DispatchQueue.global().async { [weak self] in
-            guard let interactor = self?.interactor else { return }
-            interactor.trackEvent(.actionChangePaymentMethod)
-        }
-
-        presentPaymentMethodsModule()
-    }
-
-    func didPressSubmitButton(on module: ApplePayContractModuleInput) {
-         strategy?.didPressSubmitButton(on: module)
-    }
-
-    func applePayContractModule(
-        _ module: ApplePayContractModuleInput,
-        didTapTermsOfService url: URL
-    ) {
-        presentTermsOfServiceModule(url)
-    }
-
-    func applePayContractModule(
-        _ module: ApplePayContractModuleInput,
-        didChangeSavePaymentMethodState state: Bool
-    ) {
-        strategy?.savePaymentMethod = state
-    }
-
-    func didTapOnSavePaymentMethodInfo(
-        on module: ApplePayContractModuleInput
-    ) {
-        presentSavePaymentMethodInfoModule()
-    }
-}
-
 // MARK: - ErrorModuleOutput
 
 extension TokenizationPresenter: ErrorModuleOutput {
@@ -815,26 +681,11 @@ private func makeStrategy(
         savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
     ) {
         strategy = bankCard
-    } else if let linkedBankCard = try? LinkedBankCardStrategy(
-        authorizationService: authorizationService,
-        paymentOption: paymentOption,
-        returnUrl: returnUrl,
-        savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
-    ) {
-        strategy = linkedBankCard
     } else if let sberbankStrategy = try? SberbankStrategy(
         paymentOption: paymentOption,
         savePaymentMethod: false
     ) {
         strategy = sberbankStrategy
-    } else if let applePay = try? ApplePayStrategy(
-        paymentOption: paymentOption,
-        analyticsService: analyticsService,
-        analyticsProvider: analyticsProvider,
-        savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod),
-        inputSavePaymentMethod: savePaymentMethod
-    ) {
-        strategy = applePay
     } else {
         fatalError("Unsupported strategy")
     }

@@ -14,6 +14,9 @@
 /*В процессе токенизации ApplePay произошла ошибка*/
 "Error.ApplePayStrategy.failTokenizeData" = "An error occurred during ApplePay tokenization";
 
+/*После авторизации в кошельке при запросе доступных методов кошелёк отсутствует*/
+"Error.noWalletTitle" = "Wallet payment is not available";
+
 /*Пользователь потратил все попытки ввода. Создаем новую сессию на авторизацию*/
 "Error.endedAttemptsToEnterStartOver" = "Too many attempts. Try again later";
 
@@ -91,6 +94,14 @@
 "Contract.format.saveAuthInApp" = "Save the wallet in this app for faster payments";
 
 "Contract.logout" = "Logout";
+
+"ApplePayContract.paymentMethodTitle" = "Next open Apple Pay - confirm payment";
+
+"ApplePayContract.title" = "Apple Pay";
+
+"YooMoney.title" = "YooMoney";
+
+"LinkedCard.title" = "Linked card";
 
 "LogoutConfirmation.format.title" = "Are you sure you want to sign out of account '%@'?";
 

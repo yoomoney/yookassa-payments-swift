@@ -1,7 +1,14 @@
-import YooKassaPaymentsApi
+import PassKit
 import MoneyAuth
+import YooKassaPaymentsApi
 
-final class PaymentMethodsPresenter {
+final class PaymentMethodsPresenter: NSObject {
+    
+    private enum ApplePayState {
+        case idle
+        case success
+        case cancel
+    }
 
     // MARK: - VIPER
 
@@ -17,6 +24,7 @@ final class PaymentMethodsPresenter {
     private let paymentMethodViewModelFactory: PaymentMethodViewModelFactory
     
     private let clientApplicationKey: String
+    private let applePayMerchantIdentifier: String?
     private let testModeSettings: TestModeSettings?
     private let isLoggingEnabled: Bool
     private let moneyAuthClientId: String?
@@ -36,6 +44,7 @@ final class PaymentMethodsPresenter {
         isLogoVisible: Bool,
         paymentMethodViewModelFactory: PaymentMethodViewModelFactory,
         clientApplicationKey: String,
+        applePayMerchantIdentifier: String?,
         testModeSettings: TestModeSettings?,
         isLoggingEnabled: Bool,
         moneyAuthClientId: String?,
@@ -51,6 +60,7 @@ final class PaymentMethodsPresenter {
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
         
         self.clientApplicationKey = clientApplicationKey
+        self.applePayMerchantIdentifier = applePayMerchantIdentifier
         self.testModeSettings = testModeSettings
         self.isLoggingEnabled = isLoggingEnabled
         self.moneyAuthClientId = moneyAuthClientId
@@ -67,14 +77,20 @@ final class PaymentMethodsPresenter {
 
     // MARK: - Stored properties
 
-    fileprivate var moneyAuthCoordinator: MoneyAuth.AuthorizationCoordinator?
-    fileprivate var tmxSessionId: String?
+    private var moneyAuthCoordinator: MoneyAuth.AuthorizationCoordinator?
+    private var yooMoneyTMXSessionId: String?
 
-    fileprivate var paymentMethods: [PaymentOption]?
+    private var paymentMethods: [PaymentOption]?
     
     private lazy var termsOfService: TermsOfService = {
         TermsOfServiceFactory.makeTermsOfService()
     }()
+    
+    // MARK: - Apple Pay properties
+    
+    private var applePayCompletion: ((PKPaymentAuthorizationStatus) -> Void)?
+    private var applePayState: ApplePayState = .idle
+    private var applePayPaymentOption: PaymentOption?
 }
 
 // MARK: - PaymentMethodsViewOutput
@@ -112,6 +128,9 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             
         case let paymentOption where paymentOption.paymentMethodType == .yooMoney:
             openYooMoneyAuthorization()
+            
+        case let paymentOption where paymentOption.paymentMethodType == .applePay:
+            openApplePay(paymentOption: paymentOption)
             
         default:
             moduleOutput?.paymentMethodsModule(
@@ -192,7 +211,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             termsOfService: termsOfService,
             returnUrl: returnUrl,
             savePaymentMethodViewModel: savePaymentMethodViewModel,
-            tmxSessionId: tmxSessionId,
+            tmxSessionId: yooMoneyTMXSessionId,
             initialSavePaymentMethod: initialSavePaymentMethod
         )
         router?.presentYooMoney(
@@ -218,13 +237,66 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             paymentOption: paymentOption,
             termsOfService: termsOfService,
             returnUrl: returnUrl,
-            tmxSessionId: tmxSessionId,
+            tmxSessionId: yooMoneyTMXSessionId,
             initialSavePaymentMethod: initialSavePaymentMethod
         )
         router?.presentLinkedCard(
             inputData: inputData,
             moduleOutput: self
         )
+    }
+    
+    private func openApplePay(
+        paymentOption: PaymentOption
+    ) {
+        let feeCondition = paymentOption.fee != nil
+        let inputSavePaymentMethodCondition = savePaymentMethod == .userSelects
+            || savePaymentMethod == .on
+        let savePaymentMethodCondition = paymentOption.savePaymentMethod == .allowed
+            && inputSavePaymentMethodCondition
+
+        if feeCondition || savePaymentMethodCondition {
+            let initialSavePaymentMethod = makeInitialSavePaymentMethod(savePaymentMethod)
+            let savePaymentMethodViewModel =  SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
+                paymentOption,
+                savePaymentMethod,
+                initialState: initialSavePaymentMethod
+            )
+            let inputData = ApplePayContractModuleInputData(
+                clientApplicationKey: clientApplicationKey,
+                testModeSettings: testModeSettings,
+                isLoggingEnabled: isLoggingEnabled,
+                tokenizationSettings: tokenizationSettings,
+                shopName: shopName,
+                purchaseDescription: purchaseDescription,
+                price: makePriceViewModel(paymentOption),
+                fee: makeFeePriceViewModel(paymentOption),
+                paymentOption: paymentOption,
+                termsOfService: termsOfService,
+                merchantIdentifier: applePayMerchantIdentifier,
+                savePaymentMethodViewModel: savePaymentMethodViewModel,
+                initialSavePaymentMethod: initialSavePaymentMethod
+            )
+            router.presentApplePayContractModule(
+                inputData: inputData,
+                moduleOutput: self
+            )
+        } else {
+            applePayPaymentOption = paymentOption
+            
+            let moduleInputData = ApplePayModuleInputData(
+                merchantIdentifier: applePayMerchantIdentifier,
+                amount: MonetaryAmountFactory.makeAmount(paymentOption.charge),
+                shopName: shopName,
+                purchaseDescription: purchaseDescription,
+                supportedNetworks: ApplePayConstants.paymentNetworks,
+                fee: paymentOption.fee?.plain
+            )
+            router.presentApplePay(
+                inputData: moduleInputData,
+                moduleOutput: self
+            )
+        }
     }
 }
 
@@ -302,13 +374,11 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
                 self.openYooMoneyWallet(paymentOption: paymentOption)
             }
         } else if paymentMethods.contains(where: condition) == false {
-            // TODO: - Need present error no wallet
             interactor.fetchPaymentMethods()
-//            DispatchQueue.main.async { [weak self] in
-//                guard let view = self?.view else { return }
-//                view.hideActivity()
-//                view.showPlaceholder(message: §Localized.noWalletTitle)
-//            }
+            DispatchQueue.main.async { [weak self] in
+                guard let view = self?.view else { return }
+                view.presentError(with: §Localized.Error.noWalletTitle)
+            }
         } else {
             interactor.fetchPaymentMethods()
         }
@@ -316,6 +386,50 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
 
     func didFetchYooMoneyPaymentMethods(_ error: Error) {
         presentError(error)
+    }
+    
+    func didTokenizeApplePay(
+        _ token: Tokens
+    ) {
+        guard applePayState == .success else {
+            return
+        }
+        
+        applePayCompletion?(.success)
+        
+        DispatchQueue.main.asyncAfter(
+            deadline: .now() + Constants.dismissApplePayTimeout
+        ) { [weak self] in
+            guard let self = self else { return }
+            self.router.closeApplePay() {
+                self.moduleOutput?.tokenizationModule(
+                    self,
+                    didTokenize: token,
+                    paymentMethodType: .applePay,
+                    scheme: .applePay
+                )
+            }
+        }
+    }
+    
+    func failTokenizeApplePay(
+        _ error: Error
+    ) {
+        guard applePayState == .success else {
+            return
+        }
+        
+        trackScreenErrorAnalytics(scheme: .applePay)
+        applePayCompletion?(.failure)
+        
+        DispatchQueue.main.asyncAfter(
+            deadline: .now() + Constants.dismissApplePayTimeout
+        ) { [weak self] in
+            guard let self = self else { return }
+            self.router.closeApplePay() {
+                self.view?.presentError(with: §Localized.Error.failTokenizeData)
+            }
+        }
     }
     
     private func presentError(_ error: Error) {
@@ -333,11 +447,27 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
             view.hideActivity()
             view.showPlaceholder(message: message)
 
-            DispatchQueue.global().async { [weak self] in
-                guard let interactor = self?.interactor else { return }
-                let (authType, _) = interactor.makeTypeAnalyticsParameters()
-                interactor.trackEvent(.screenError(authType: authType, scheme: nil))
-            }
+            self.trackScreenErrorAnalytics(scheme: nil)
+        }
+    }
+    
+    private func trackScreenErrorAnalytics(
+        scheme: AnalyticsEvent.TokenizeScheme?
+    ) {
+        DispatchQueue.global().async { [weak self] in
+            guard let interactor = self?.interactor else { return }
+            let (authType, _) = interactor.makeTypeAnalyticsParameters()
+            interactor.trackEvent(.screenError(authType: authType, scheme: scheme))
+        }
+    }
+    
+    private func trackScreenPaymentAnalytics(
+        scheme: AnalyticsEvent.TokenizeScheme
+    ) {
+        DispatchQueue.global().async { [weak self] in
+            guard let interactor = self?.interactor else { return }
+            let (authType, _) = interactor.makeTypeAnalyticsParameters()
+            interactor.trackEvent(.screenPaymentContract(authType: authType, scheme: scheme))
         }
     }
 }
@@ -356,7 +486,7 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
         userAgreementAccepted: Bool
     ) {
         self.moneyAuthCoordinator = nil
-        self.tmxSessionId = tmxSessionId
+        self.yooMoneyTMXSessionId = tmxSessionId
 
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -460,7 +590,8 @@ extension PaymentMethodsPresenter: YooMoneyModuleOutput {
         moduleOutput?.tokenizationModule(
             self,
             didTokenize: token,
-            paymentMethodType: paymentMethodType
+            paymentMethodType: paymentMethodType,
+            scheme: .wallet
         )
     }
 }
@@ -476,15 +607,111 @@ extension PaymentMethodsPresenter: LinkedCardModuleOutput {
         moduleOutput?.tokenizationModule(
             self,
             didTokenize: token,
-            paymentMethodType: paymentMethodType
+            paymentMethodType: paymentMethodType,
+            scheme: .linkedCard
         )
+    }
+}
+
+// MARK: - ApplePayModuleOutput
+
+extension PaymentMethodsPresenter: ApplePayModuleOutput {
+    func didPresentApplePayModule() {
+        applePayState = .idle
+        trackScreenPaymentAnalytics(scheme: .applePay)
+    }
+
+    func didFailPresentApplePayModule() {
+        applePayState = .idle
+        trackScreenErrorAnalytics(scheme: .applePay)
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let view = self?.view else { return }
+            view.presentError(with: §Localized.applePayUnavailableTitle)
+        }
+    }
+
+    @available(iOS 11.0, *)
+    func paymentAuthorizationViewController(
+        _ controller: PKPaymentAuthorizationViewController,
+        didAuthorizePayment payment: PKPayment,
+        handler completion: @escaping (PKPaymentAuthorizationResult) -> Void
+    ) {
+        paymentAuthorizationViewController(
+            controller,
+            didAuthorizePayment: payment
+        ) { status in
+            completion(PKPaymentAuthorizationResult(status: status, errors: nil))
+        }
+    }
+
+    func paymentAuthorizationViewController(
+        _ controller: PKPaymentAuthorizationViewController,
+        didAuthorizePayment payment: PKPayment,
+        completion: @escaping (PKPaymentAuthorizationStatus) -> Void
+    ) {
+        guard applePayState != .cancel,
+              let paymentOption = applePayPaymentOption else { return }
+        
+        applePayState = .success
+        applePayCompletion = completion
+        
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+            
+            let initialSavePaymentMethod = makeInitialSavePaymentMethod(self.savePaymentMethod)
+            self.interactor.tokenizeApplePay(
+                paymentData: payment.token.paymentData.base64EncodedString(),
+                savePaymentMethod: initialSavePaymentMethod,
+                amount: paymentOption.charge.plain
+            )
+        }
+    }
+
+    func paymentAuthorizationViewControllerDidFinish(
+        _ controller: PKPaymentAuthorizationViewController
+    ) {
+        router.closeApplePay(completion: nil)
+        applePayState = .cancel
+    }
+}
+
+// MARK: - ApplePayContractModuleOutput
+
+extension PaymentMethodsPresenter: ApplePayContractModuleOutput {
+    func tokenizationModule(
+        _ module: ApplePayContractModuleInput,
+        didTokenize token: Tokens,
+        paymentMethodType: PaymentMethodType
+    ) {
+        moduleOutput?.tokenizationModule(
+            self,
+            didTokenize: token,
+            paymentMethodType: paymentMethodType,
+            scheme: .applePay
+        )
+    }
+}
+
+// MARK: - Constants
+
+private extension PaymentMethodsPresenter {
+    enum Constants {
+        static let dismissApplePayTimeout: TimeInterval = 0.5
     }
 }
 
 // MARK: - Localized
 
 private extension PaymentMethodsPresenter {
-    enum Localized {
+    enum Localized: String {
+        case applePayUnavailableTitle = "ApplePayUnavailable.title"
+        
+        enum Error: String {
+            case failTokenizeData = "Error.ApplePayStrategy.failTokenizeData"
+            case noWalletTitle = "Error.noWalletTitle"
+        }
+        
         enum PlaceholderView: String {
             case buttonTitle = "Common.PlaceholderView.buttonTitle"
         }

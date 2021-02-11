@@ -92,21 +92,6 @@ extension TokenizationRouter: TokenizationRouterInput {
         transitionHandler?.push(viewController, animated: true)
     }
 
-    func presentApplePay(
-        inputData: ApplePayModuleInputData,
-        moduleOutput: ApplePayModuleOutput
-    ) {
-        if let viewController = ApplePayAssembly.makeModule(
-            inputData: inputData,
-            moduleOutput: moduleOutput
-        ) {
-            moduleOutput.didPresentApplePayModule()
-            transitionHandler?.present(viewController, animated: true, completion: nil)
-        } else {
-            moduleOutput.didFailPresentApplePayModule()
-        }
-    }
-
     func presentError(
         inputData: ErrorModuleInputData,
         moduleOutput: ErrorModuleOutput
@@ -122,17 +107,6 @@ extension TokenizationRouter: TokenizationRouterInput {
         let viewController = SFSafariViewController(url: url)
         viewController.modalPresentationStyle = .overFullScreen
         transitionHandler?.present(viewController, animated: true, completion: nil)
-    }
-
-    func presentApplePayContract(
-        inputData: ApplePayContractModuleInputData,
-        moduleOutput: ApplePayContractModuleOutput
-    ) {
-        let viewController = ApplePayContractAssembly.makeModule(
-            inputData: inputData,
-            moduleOutput: moduleOutput
-        )
-        transitionHandler?.push(viewController, animated: true)
     }
 
     func presentSavePaymentMethodInfo(

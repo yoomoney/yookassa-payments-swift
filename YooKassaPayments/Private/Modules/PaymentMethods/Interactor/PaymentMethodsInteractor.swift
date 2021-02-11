@@ -106,3 +106,71 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
         return analyticsProvider.makeTypeAnalyticsParameters()
     }
 }
+
+// MARK: - Apple Pay Tokenize
+
+extension PaymentMethodsInteractor {
+    func tokenizeApplePay(
+        paymentData: String,
+        savePaymentMethod: Bool,
+        amount: MonetaryAmount
+    ) {
+        ThreatMetrixService.profileApp { [weak self] result in
+            guard let self = self,
+                  let output = self.output else { return }
+
+            switch result {
+            case let .success(tmxSessionId):
+                self.tokenizeApplePayWithTMXSessionId(
+                    paymentData: paymentData,
+                    savePaymentMethod: savePaymentMethod,
+                    amount: amount,
+                    tmxSessionId: tmxSessionId
+                )
+
+            case let .failure(error):
+                let mappedError = mapError(error)
+                output.failTokenizeApplePay(mappedError)
+            }
+        }
+    }
+    
+    private func tokenizeApplePayWithTMXSessionId(
+        paymentData: String,
+        savePaymentMethod: Bool,
+        amount: MonetaryAmount,
+        tmxSessionId: String
+    ) {
+        guard let output = output else { return }
+
+        let completion: (Result<Tokens, Error>) -> Void = { result in
+            switch result {
+            case let .success(data):
+                output.didTokenizeApplePay(data)
+            case let .failure(error):
+                let mappedError = mapError(error)
+                output.failTokenizeApplePay(mappedError)
+            }
+        }
+
+        paymentService.tokenizeApplePay(
+            clientApplicationKey: clientApplicationKey,
+            paymentData: paymentData,
+            savePaymentMethod: savePaymentMethod,
+            amount: amount,
+            tmxSessionId: tmxSessionId,
+            completion: completion
+        )
+    }
+}
+
+private func mapError(_ error: Error) -> Error {
+    switch error {
+    case ThreatMetrixService.ProfileError.connectionFail:
+        return PaymentProcessingError.internetConnection
+    case let error as NSError where error.domain == NSURLErrorDomain:
+        return PaymentProcessingError.internetConnection
+    default:
+        return error
+    }
+}

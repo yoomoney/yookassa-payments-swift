@@ -381,6 +381,12 @@ extension LinkedCardViewController: LinkedCardViewInput {
         view.endEditing(force)
     }
     
+    func setupTitle(
+        _ title: String?
+    ) {
+        navigationItem.title = title ?? §Localized.title
+    }
+    
     func setupViewModel(
         _ viewModel: LinkedCardViewModel
     ) {
@@ -590,6 +596,7 @@ extension LinkedCardViewController: SwitchItemViewOutput {
 
 private extension LinkedCardViewController {
     enum Localized: String {
+        case title = "LinkedCard.title"
         case `continue` = "Contract.next"
         case fee = "Contract.fee"
         case saveAuthInApp = "Contract.format.saveAuthInApp"

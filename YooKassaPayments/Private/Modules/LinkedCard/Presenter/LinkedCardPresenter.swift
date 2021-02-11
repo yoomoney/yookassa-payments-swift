@@ -80,6 +80,8 @@ extension LinkedCardPresenter: LinkedCardViewOutput {
     func setupView() {
         guard let view = view else { return }
         
+        view.setupTitle(paymentOption.cardName)
+        
         let cardMask =
             paymentMethodViewModelFactory.replaceBullets(paymentOption.cardMask)
         let cardLogo =

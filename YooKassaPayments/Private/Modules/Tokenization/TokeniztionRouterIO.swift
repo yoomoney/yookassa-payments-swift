@@ -35,11 +35,6 @@ protocol TokenizationRouterInput: class {
         moduleOutput: CardSecModuleOutput
     )
 
-    func presentApplePay(
-        inputData: ApplePayModuleInputData,
-        moduleOutput: ApplePayModuleOutput
-    )
-
     func presentError(
         inputData: ErrorModuleInputData,
         moduleOutput: ErrorModuleOutput
@@ -48,12 +43,6 @@ protocol TokenizationRouterInput: class {
     func presentTermsOfServiceModule(
         _ url: URL
     )
-
-    func presentApplePayContract(
-        inputData: ApplePayContractModuleInputData,
-        moduleOutput: ApplePayContractModuleOutput
-    )
-
     func presentSavePaymentMethodInfo(
         inputData: SavePaymentMethodInfoModuleInputData
     )

@@ -22,6 +22,22 @@ protocol PaymentMethodsRouterInput: class {
     ) throws -> MoneyAuth.AuthorizationCoordinator
 
     func closeAuthorizationModule()
+    
+    func presentApplePay(
+        inputData: ApplePayModuleInputData,
+        moduleOutput: ApplePayModuleOutput
+    )
+    
+    func closeApplePay(
+        completion: (() -> Void)?
+    )
+    
+    func presentApplePayContractModule(
+        inputData: ApplePayContractModuleInputData,
+        moduleOutput: ApplePayContractModuleOutput
+    )
+    
+    func closeApplePayContractModule()
 
     func shouldDismissAuthorizationModule() -> Bool
 }

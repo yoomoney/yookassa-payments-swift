@@ -11,6 +11,14 @@ protocol PaymentMethodsInteractorInput: AnalyticsTrack, AnalyticsProvider {
     func getWalletDisplayName() -> String?
     
     func setAccount(_ account: UserAccount)
+    
+    // MARK: - Apple Pay Tokenize
+    
+    func tokenizeApplePay(
+        paymentData: String,
+        savePaymentMethod: Bool,
+        amount: MonetaryAmount
+    )
 }
 
 protocol PaymentMethodsInteractorOutput: class {
@@ -25,6 +33,13 @@ protocol PaymentMethodsInteractorOutput: class {
         _ paymentMethods: [PaymentOption]
     )
     func didFetchYooMoneyPaymentMethods(
+        _ error: Error
+    )
+    
+    func didTokenizeApplePay(
+        _ token: Tokens
+    )
+    func failTokenizeApplePay(
         _ error: Error
     )
 }

@@ -9,7 +9,7 @@ extension LargeIconButtonItemView {
                 UILabel.ColorStyle.primary
             )
             item.subtitleLabel.setStyles(
-                UILabel.DynamicStyle.bodySemibold,
+                UILabel.DynamicStyle.bodyMedium,
                 UILabel.ColorStyle.secondary
             )
         }
