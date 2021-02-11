@@ -65,6 +65,49 @@ extension PaymentMethodsRouter: PaymentMethodsRouterInput {
     func closeAuthorizationModule() {
         transitionHandler?.dismiss(animated: true, completion: nil)
     }
+    
+    func presentApplePay(
+        inputData: ApplePayModuleInputData,
+        moduleOutput: ApplePayModuleOutput
+    ) {
+        if let viewController = ApplePayAssembly.makeModule(
+            inputData: inputData,
+            moduleOutput: moduleOutput
+        ) {
+            moduleOutput.didPresentApplePayModule()
+            transitionHandler?.present(
+                viewController,
+                animated: true,
+                completion: nil
+            )
+        } else {
+            moduleOutput.didFailPresentApplePayModule()
+        }
+    }
+    
+    func closeApplePay(
+        completion: (() -> Void)?
+    ) {
+        transitionHandler?.dismiss(
+            animated: true,
+            completion: completion
+        )
+    }
+    
+    func presentApplePayContractModule(
+        inputData: ApplePayContractModuleInputData,
+        moduleOutput: ApplePayContractModuleOutput
+    ) {
+        let viewController = ApplePayContractAssembly.makeModule(
+            inputData: inputData,
+            moduleOutput: moduleOutput
+        )
+        transitionHandler?.push(viewController, animated: true)
+    }
+    
+    func closeApplePayContractModule() {
+        transitionHandler?.popTopViewController(animated: true)
+    }
 
     func shouldDismissAuthorizationModule() -> Bool {
         return transitionHandler?.presentedViewController != nil

@@ -91,6 +91,7 @@ public enum TokenizationAssembly {
 
         let paymentMethodsModuleInputData = PaymentMethodsModuleInputData(
             clientApplicationKey: inputData.clientApplicationKey,
+            applePayMerchantIdentifier: inputData.applePayMerchantIdentifier,
             gatewayId: inputData.gatewayId,
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,

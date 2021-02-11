@@ -1,4 +1,4 @@
-protocol LinkedCardInteractorInput: class, AnalyticsTrack {
+protocol LinkedCardInteractorInput: AnalyticsTrack, AnalyticsProvider {
     func loginInWallet(
         amount: MonetaryAmount,
         reusableToken: Bool,
@@ -16,11 +16,6 @@ protocol LinkedCardInteractorInput: class, AnalyticsTrack {
     )
     
     func hasReusableWalletToken() -> Bool
-    
-    func makeTypeAnalyticsParameters() -> (
-        authType: AnalyticsEvent.AuthType,
-        tokenType: AnalyticsEvent.AuthTokenType?
-    )
 }
 
 protocol LinkedCardInteractorOutput: class {

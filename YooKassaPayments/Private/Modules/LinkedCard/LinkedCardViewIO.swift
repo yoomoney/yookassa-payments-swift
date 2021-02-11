@@ -1,5 +1,8 @@
-protocol LinkedCardViewInput: ActivityIndicatorFullViewPresenting, PlaceholderPresenting, NotificationPresenting {
+protocol LinkedCardViewInput: ActivityIndicatorPresenting, PlaceholderPresenting, NotificationPresenting {
     func endEditing(_ force: Bool)
+    func setupTitle(
+        _ title: String?
+    )
     func setupViewModel(
         _ viewModel: LinkedCardViewModel
     )

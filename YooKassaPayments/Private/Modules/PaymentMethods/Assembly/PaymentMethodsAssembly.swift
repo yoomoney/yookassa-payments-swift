@@ -23,6 +23,7 @@ enum PaymentMethodsAssembly {
             isLogoVisible: inputData.tokenizationSettings.showYooKassaLogo,
             paymentMethodViewModelFactory: paymentMethodViewModelFactory,
             clientApplicationKey: inputData.clientApplicationKey,
+            applePayMerchantIdentifier: inputData.applePayMerchantIdentifier,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
             moneyAuthClientId: inputData.moneyAuthClientId,
