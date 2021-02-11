@@ -13,7 +13,7 @@ extension UITextField {
             textField.font = .dynamicBody
             textField.autocapitalizationType = .none
             textField.autocorrectionType = .no
-            textField.clearButtonMode = .never
+            textField.clearButtonMode = .whileEditing
             textField.spellCheckingType = .no
         }
         
@@ -24,9 +24,16 @@ extension UITextField {
         }
         
         /// Numeric style.
-        /// Numeric keyboard; Center alignment.
+        /// Numeric keyboard.
         static let numeric = InternalStyle(name: "UITextField.numeric") { (textField: UITextField) in
             textField.keyboardType = .numberPad
+        }
+
+        /// Phone style.
+        /// Phone keyboard; Text content type phone number.
+        static let phone = InternalStyle(name: "UITextField.numeric") { (textField: UITextField) in
+            textField.keyboardType = .phonePad
+            textField.textContentType = .telephoneNumber
         }
         
         /// Center alignment.

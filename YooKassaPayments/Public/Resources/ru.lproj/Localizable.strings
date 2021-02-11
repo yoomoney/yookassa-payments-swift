@@ -2,14 +2,18 @@
 "ApplePayUnavailable.title" = "Apple Pay недоступен";
 
 /*Подсказка под текстовым полем для ввода номера телефона*/
-"Contract.bottomHint.sberbank" = "Для смс от Сбербанка с кодом для оплаты";
+"Contract.Sberbank.PhoneInput.BottomHint" = "Для смс от Сбербанка с кодом для оплаты";
 
 "Contract.bottomHint.smsCode.invalidAnswer" = "Неправильный код из смс";
 
 "Contract.bottomHint.totp.invalidAnswer" = "Неправильный одноразовый пароль";
 
 /*Placeholder текстового поля для ввода номера телефона*/
-"Contract.placeholder.sberbank" = "Телефон для мобильного банка";
+"Contract.Sberbank.PhoneInput.Title" = "Номер в Сбербанк Онлайн";
+
+"Contract.Sberbank.PhoneInput.Placeholder" = "+ 7 987 654 32 10";
+
+"Sberbank.Contract.Title" = "СберБанк Онлайн";
 
 /*В процессе токенизации ApplePay произошла ошибка*/
 "Error.ApplePayStrategy.failTokenizeData" = "В процессе токенизации ApplePay произошла ошибка";

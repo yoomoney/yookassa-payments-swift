@@ -3,7 +3,7 @@ import MoneyAuth
 import YooKassaPaymentsApi
 
 final class PaymentMethodsPresenter: NSObject {
-    
+
     private enum ApplePayState {
         case idle
         case success
@@ -37,6 +37,7 @@ final class PaymentMethodsPresenter: NSObject {
     private let purchaseDescription: String
     private let returnUrl: String?
     private let savePaymentMethod: SavePaymentMethod
+    private let userPhoneNumber: String?
 
     // MARK: - Init
 
@@ -54,7 +55,8 @@ final class PaymentMethodsPresenter: NSObject {
         shopName: String,
         purchaseDescription: String,
         returnUrl: String?,
-        savePaymentMethod: SavePaymentMethod
+        savePaymentMethod: SavePaymentMethod,
+        userPhoneNumber: String?
     ) {
         self.isLogoVisible = isLogoVisible
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
@@ -73,6 +75,7 @@ final class PaymentMethodsPresenter: NSObject {
         self.purchaseDescription = purchaseDescription
         self.returnUrl = returnUrl
         self.savePaymentMethod = savePaymentMethod
+        self.userPhoneNumber = userPhoneNumber
     }
 
     // MARK: - Stored properties
@@ -85,9 +88,9 @@ final class PaymentMethodsPresenter: NSObject {
     private lazy var termsOfService: TermsOfService = {
         TermsOfServiceFactory.makeTermsOfService()
     }()
-    
+
     // MARK: - Apple Pay properties
-    
+
     private var applePayCompletion: ((PKPaymentAuthorizationStatus) -> Void)?
     private var applePayState: ApplePayState = .idle
     private var applePayPaymentOption: PaymentOption?
@@ -128,10 +131,13 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             
         case let paymentOption where paymentOption.paymentMethodType == .yooMoney:
             openYooMoneyAuthorization()
-            
+
+        case let paymentOption where paymentOption.paymentMethodType == .sberbank:
+            openSberbankModule(paymentOption: paymentOption)
+
         case let paymentOption where paymentOption.paymentMethodType == .applePay:
             openApplePay(paymentOption: paymentOption)
-            
+
         default:
             moduleOutput?.paymentMethodsModule(
                 self,
@@ -245,7 +251,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             moduleOutput: self
         )
     }
-    
+
     private func openApplePay(
         paymentOption: PaymentOption
     ) {
@@ -283,7 +289,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             )
         } else {
             applePayPaymentOption = paymentOption
-            
+
             let moduleInputData = ApplePayModuleInputData(
                 merchantIdentifier: applePayMerchantIdentifier,
                 amount: MonetaryAmountFactory.makeAmount(paymentOption.charge),
@@ -297,6 +303,33 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
                 moduleOutput: self
             )
         }
+    }
+
+    private func openSberbankModule(
+        paymentOption: PaymentOption
+    ) {
+        let paymentMethod = paymentMethodViewModelFactory.makePaymentMethodViewModel(
+            paymentOption: paymentOption
+        )
+        let priceViewModel = makePriceViewModel(paymentOption)
+        let feeViewModel = makeFeePriceViewModel(paymentOption)
+        let inputData = SberbankModuleInputData(
+            paymentOption: paymentOption,
+            clientApplicationKey: clientApplicationKey,
+            tokenizationSettings: tokenizationSettings,
+            testModeSettings: testModeSettings,
+            isLoggingEnabled: isLoggingEnabled,
+            shopName: shopName,
+            purchaseDescription: purchaseDescription,
+            priceViewModel: priceViewModel,
+            feeViewModel: feeViewModel,
+            termsOfService: termsOfService,
+            userPhoneNumber: userPhoneNumber
+        )
+        router.openSberbankModule(
+            inputData: inputData,
+            moduleOutput: self
+        )
     }
 }
 
@@ -394,9 +427,9 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         guard applePayState == .success else {
             return
         }
-        
+
         applePayCompletion?(.success)
-        
+
         DispatchQueue.main.asyncAfter(
             deadline: .now() + Constants.dismissApplePayTimeout
         ) { [weak self] in
@@ -411,17 +444,17 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
             }
         }
     }
-    
+
     func failTokenizeApplePay(
         _ error: Error
     ) {
         guard applePayState == .success else {
             return
         }
-        
+
         trackScreenErrorAnalytics(scheme: .applePay)
         applePayCompletion?(.failure)
-        
+
         DispatchQueue.main.asyncAfter(
             deadline: .now() + Constants.dismissApplePayTimeout
         ) { [weak self] in
@@ -431,7 +464,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
             }
         }
     }
-    
+
     private func presentError(_ error: Error) {
         let message: String
 
@@ -450,7 +483,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
             self.trackScreenErrorAnalytics(scheme: nil)
         }
     }
-    
+
     private func trackScreenErrorAnalytics(
         scheme: AnalyticsEvent.TokenizeScheme?
     ) {
@@ -460,7 +493,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
             interactor.trackEvent(.screenError(authType: authType, scheme: scheme))
         }
     }
-    
+
     private func trackScreenPaymentAnalytics(
         scheme: AnalyticsEvent.TokenizeScheme
     ) {
@@ -624,7 +657,7 @@ extension PaymentMethodsPresenter: ApplePayModuleOutput {
     func didFailPresentApplePayModule() {
         applePayState = .idle
         trackScreenErrorAnalytics(scheme: .applePay)
-        
+
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
             view.presentError(with: §Localized.applePayUnavailableTitle)
@@ -652,13 +685,13 @@ extension PaymentMethodsPresenter: ApplePayModuleOutput {
     ) {
         guard applePayState != .cancel,
               let paymentOption = applePayPaymentOption else { return }
-        
+
         applePayState = .success
         applePayCompletion = completion
-        
+
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
-            
+
             let initialSavePaymentMethod = makeInitialSavePaymentMethod(self.savePaymentMethod)
             self.interactor.tokenizeApplePay(
                 paymentData: payment.token.paymentData.base64EncodedString(),
@@ -701,17 +734,34 @@ private extension PaymentMethodsPresenter {
     }
 }
 
+// MARK: - SberbankModuleOutput
+
+extension PaymentMethodsPresenter: SberbankModuleOutput {
+    func sberbankModule(
+        _ module: SberbankModuleInput,
+        didTokenize token: Tokens,
+        paymentMethodType: PaymentMethodType
+    ) {
+        moduleOutput?.tokenizationModule(
+            self,
+            didTokenize: token,
+            paymentMethodType: paymentMethodType,
+            scheme: .smsSbol
+        )
+    }
+}
+
 // MARK: - Localized
 
 private extension PaymentMethodsPresenter {
     enum Localized: String {
         case applePayUnavailableTitle = "ApplePayUnavailable.title"
-        
+
         enum Error: String {
             case failTokenizeData = "Error.ApplePayStrategy.failTokenizeData"
             case noWalletTitle = "Error.noWalletTitle"
         }
-        
+
         enum PlaceholderView: String {
             case buttonTitle = "Common.PlaceholderView.buttonTitle"
         }

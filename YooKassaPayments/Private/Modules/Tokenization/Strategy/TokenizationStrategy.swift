@@ -32,13 +32,6 @@ protocol TokenizationStrategyInput: class {
         _ error: Error
     )
 
-    // MARK: - Sberbank
-
-    func sberbankModule(
-        _ module: SberbankModuleInput,
-        didPressConfirmButton phoneNumber: String
-    )
-
     // MARK: - Bank card inputs
 
     func bankCardDataInputModule(
@@ -72,10 +65,6 @@ protocol TokenizationStrategyOutput: class {
 
     func presentMaskedBankCardDataInput(
         paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
-    )
-
-    func presentSberbankContract(
-        paymentOption: PaymentOption
     )
 
     func tokenize(

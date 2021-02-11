@@ -1,3 +1,5 @@
+import UIKit
+
 protocol MaskedCardViewDelegate: class {
     func textField(
         _ textField: UITextField,

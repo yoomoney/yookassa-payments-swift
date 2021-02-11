@@ -1,3 +1,5 @@
+import UIKit
+
 final class LinkedCardViewController: UIViewController, PlaceholderProvider {
     
     // MARK: - VIPER

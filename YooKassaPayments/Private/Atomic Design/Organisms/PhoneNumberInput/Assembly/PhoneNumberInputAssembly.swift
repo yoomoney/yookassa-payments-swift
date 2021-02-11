@@ -3,24 +3,28 @@ import UIKit
 enum PhoneNumberInputAssembly {
     static func makeModule(
         moduleOutput: PhoneNumberInputModuleOutput?
-    ) -> (UIViewController, PhoneNumberInputModuleInput) {
-        let viewController = PhoneNumberInputViewController()
+    ) -> (PhoneNumberInputView, PhoneNumberInputModuleInput) {
+        let view = PhoneNumberInputView()
 
         let formatter = PhoneNumberFormatterAssembly.makeFormatter()
-        let textInputStyle = PhoneNumberStyleWithAutoCorrection(phoneNumberFormatter: formatter)
+        let textInputStyle = PhoneNumberStyleWithAutoCorrection(
+            phoneNumberFormatter: formatter
+        )
 
         let presenter = PhoneNumberInputPresenter()
-        let interactor = PhoneNumberInputInteractor(formatter: formatter)
+        let interactor = PhoneNumberInputInteractor(
+            formatter: formatter
+        )
 
-        viewController.textInputStyle = textInputStyle
-        viewController.output = presenter
+        view.textInputStyle = textInputStyle
+        view.output = presenter
 
-        presenter.view = viewController
+        presenter.view = view
         presenter.moduleOutput = moduleOutput
         presenter.interactor = interactor
 
         interactor.output = presenter
 
-        return (viewController, presenter)
+        return (view, presenter)
     }
 }

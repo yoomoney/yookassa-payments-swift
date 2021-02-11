@@ -33,17 +33,6 @@ extension TokenizationRouter: TokenizationRouterInput {
         transitionHandler?.push(viewController, animated: true)
     }
 
-    func presentSberbank(
-        inputData: SberbankModuleInputData,
-        moduleOutput: SberbankModuleOutput
-    ) {
-        let viewController = SberbankAssembly.makeModule(
-            inputData: inputData,
-            moduleOutput: moduleOutput
-        )
-        transitionHandler?.push(viewController, animated: true)
-    }
-
     func presentBankCardDataInput(
         inputData: BankCardDataInputModuleInputData,
         moduleOutput: BankCardDataInputModuleOutput
