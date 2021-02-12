@@ -58,7 +58,7 @@ final class UnderlinedTextField: UIView {
     private lazy var lineView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .clear
+        view.setStyles(UIView.Styles.separator)
         return view
     }()
 
@@ -155,6 +155,6 @@ extension UnderlinedTextField: UITextFieldDelegate {
         _ textField: UITextField,
         reason: UITextField.DidEndEditingReason
     ) {
-        lineView.backgroundColor = .clear
+        lineView.setStyles(UIView.Styles.separator)
     }
 }
