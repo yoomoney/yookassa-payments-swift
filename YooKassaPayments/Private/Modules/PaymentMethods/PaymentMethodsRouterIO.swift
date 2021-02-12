@@ -40,4 +40,9 @@ protocol PaymentMethodsRouterInput: class {
     func closeApplePayContractModule()
 
     func shouldDismissAuthorizationModule() -> Bool
+
+    func openSberbankModule(
+        inputData: SberbankModuleInputData,
+        moduleOutput: SberbankModuleOutput
+    )
 }

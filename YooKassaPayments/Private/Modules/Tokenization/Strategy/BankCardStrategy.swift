@@ -70,10 +70,6 @@ extension BankCardStrategy: TokenizationStrategyInput {
         bankCardDataInputModule?.bankCardDidTokenize(error)
     }
 
-    func sberbankModule(
-        _ module: SberbankModuleInput,
-        didPressConfirmButton phoneNumber: String
-    ) {}
     func didPressConfirmButton(
         on module: BankCardDataInputModuleInput,
         cvc: String

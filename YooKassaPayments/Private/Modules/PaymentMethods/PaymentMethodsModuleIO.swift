@@ -14,6 +14,7 @@ struct PaymentMethodsModuleInputData {
     let moneyAuthClientId: String?
     let returnUrl: String?
     let savePaymentMethod: SavePaymentMethod
+    let userPhoneNumber: String?
 }
 
 protocol PaymentMethodsModuleInput: class {}

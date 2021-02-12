@@ -1,6 +1,6 @@
 import MoneyAuth
 
-class PaymentMethodsRouter: NSObject {
+final class PaymentMethodsRouter {
     
     // MARK: - VIPER
     
@@ -111,5 +111,16 @@ extension PaymentMethodsRouter: PaymentMethodsRouterInput {
 
     func shouldDismissAuthorizationModule() -> Bool {
         return transitionHandler?.presentedViewController != nil
+    }
+
+    func openSberbankModule(
+        inputData: SberbankModuleInputData,
+        moduleOutput: SberbankModuleOutput
+    ) {
+        let viewController = SberbankAssembly.makeModule(
+            inputData: inputData,
+            moduleOutput: moduleOutput
+        )
+        transitionHandler?.push(viewController, animated: true)
     }
 }

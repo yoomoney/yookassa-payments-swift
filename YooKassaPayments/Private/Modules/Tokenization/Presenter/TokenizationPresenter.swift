@@ -73,31 +73,9 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
 // MARK: - Modules presenting
 
 extension TokenizationPresenter: TokenizationStrategyOutput {
-    func presentPaymentMethodsModule() {
-        let paymentMethodsInputData = PaymentMethodsModuleInputData(
-            clientApplicationKey: inputData.clientApplicationKey,
-            applePayMerchantIdentifier: inputData.applePayMerchantIdentifier,
-            gatewayId: inputData.gatewayId,
-            shopName: inputData.shopName,
-            purchaseDescription: inputData.purchaseDescription,
-            amount: inputData.amount,
-            tokenizationSettings: inputData.tokenizationSettings,
-            testModeSettings: inputData.testModeSettings,
-            isLoggingEnabled: inputData.isLoggingEnabled,
-            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod),
-            moneyAuthClientId: inputData.moneyAuthClientId,
-            returnUrl: inputData.returnUrl,
-            savePaymentMethod: inputData.savePaymentMethod
-        )
 
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.router.presentPaymentMethods(
-                inputData: paymentMethodsInputData,
-                moduleOutput: self
-            )
-        }
-    }
+    // TODO: Delete method
+    func presentPaymentMethodsModule() {}
 
     func presentContract(paymentOption: PaymentOption) {
         let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
@@ -158,33 +136,6 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.router.presenMaskedBankCardDataInput(
-                inputData: moduleInputData,
-                moduleOutput: self
-            )
-        }
-    }
-
-    func presentSberbankContract(paymentOption: PaymentOption) {
-        let viewModel = makePaymentMethodViewModel(paymentOption: paymentOption)
-        let priceViewModel = makePriceViewModel(paymentOption)
-        let tokenizeScheme = TokenizeSchemeFactory.makeTokenizeScheme(paymentOption)
-        let moduleInputData = SberbankModuleInputData(
-            shopName: inputData.shopName,
-            purchaseDescription: inputData.purchaseDescription,
-            paymentMethod: viewModel,
-            price: priceViewModel,
-            fee: makeFeePriceViewModel(paymentOption),
-            shouldChangePaymentMethod: shouldChangePaymentOptions,
-            testModeSettings: inputData.testModeSettings,
-            tokenizeScheme: tokenizeScheme,
-            isLoggingEnabled: inputData.isLoggingEnabled,
-            phoneNumber: inputData.userPhoneNumber,
-            termsOfService: termsOfService,
-            savePaymentMethodViewModel: nil
-        )
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.router.presentSberbank(
                 inputData: moduleInputData,
                 moduleOutput: self
             )
@@ -483,33 +434,6 @@ extension TokenizationPresenter: ContractModuleOutput {
     }
 }
 
-// MARK: - SberbankModuleOutput
-
-extension TokenizationPresenter: SberbankModuleOutput {
-    func sberbank(
-        _ module: SberbankModuleInput,
-        phoneNumber: String
-    ) {
-        strategy?.sberbankModule(module, didPressConfirmButton: phoneNumber)
-    }
-
-    func didFinish(on module: SberbankModuleInput) {
-        close()
-    }
-
-    func didPressChangeAction(on module: SberbankModuleInput) {
-        interactor.trackEvent(.actionChangePaymentMethod)
-        presentPaymentMethodsModule()
-    }
-
-    func sberbank(
-        _ module: SberbankModuleInput,
-        didTapTermsOfService url: URL
-    ) {
-        presentTermsOfServiceModule(url)
-    }
-}
-
 // MARK: - BankCardDataInputModuleOutput
 
 extension TokenizationPresenter: BankCardDataInputModuleOutput {
@@ -681,11 +605,6 @@ private func makeStrategy(
         savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
     ) {
         strategy = bankCard
-    } else if let sberbankStrategy = try? SberbankStrategy(
-        paymentOption: paymentOption,
-        savePaymentMethod: false
-    ) {
-        strategy = sberbankStrategy
     } else {
         fatalError("Unsupported strategy")
     }

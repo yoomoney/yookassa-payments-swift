@@ -10,11 +10,6 @@ protocol TokenizationRouterInput: class {
         moduleOutput: ContractModuleOutput
     )
 
-    func presentSberbank(
-        inputData: SberbankModuleInputData,
-        moduleOutput: SberbankModuleOutput
-    )
-
     func presentBankCardDataInput(
         inputData: BankCardDataInputModuleInputData,
         moduleOutput: BankCardDataInputModuleOutput
