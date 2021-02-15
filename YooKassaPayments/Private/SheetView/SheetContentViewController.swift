@@ -8,7 +8,10 @@ final class SheetContentViewController: UIViewController {
 
     // MARK: - UI properties
 
-    var contentView = UIView()
+    lazy var contentView: UIView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIView())
 
     private var contentWrapperView = UIView()
     private var pullBarView = UIView()
@@ -106,12 +109,20 @@ final class SheetContentViewController: UIViewController {
 
     private func setupContentView() {
         view.addSubview(contentView)
-        Constraints(for: contentView) {
-            $0.left.pinToSuperview()
-            $0.right.pinToSuperview()
-            $0.bottom.pinToSuperview()
-            contentTopConstraint = $0.top.pinToSuperview()
+        
+        NSLayoutConstraint.activate([
+            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+        
+        contentTopConstraint = contentView.topAnchor.constraint(equalTo: view.topAnchor)
+        if let contentTopConstraint = contentTopConstraint {
+            NSLayoutConstraint.activate([
+                contentTopConstraint,
+            ])
         }
+        
         contentView.addSubview(contentWrapperView) {
             $0.edges.pinToSuperview()
         }
@@ -143,12 +154,22 @@ final class SheetContentViewController: UIViewController {
         childViewController.willMove(toParent: self)
         addChild(childViewController)
         childContainerView.addSubview(childViewController.view)
-        Constraints(for: childViewController.view) { view in
-            view.left.pinToSuperview()
-            view.right.pinToSuperview()
-            contentBottomConstraint = view.bottom.pinToSuperview()
-            view.top.pinToSuperview()
+        
+        childViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            childViewController.view.leadingAnchor.constraint(equalTo: childContainerView.leadingAnchor),
+            childViewController.view.trailingAnchor.constraint(equalTo: childContainerView.trailingAnchor),
+            childViewController.view.topAnchor.constraint(equalTo: childContainerView.topAnchor),
+        ])
+        
+        contentBottomConstraint = childViewController.view.bottomAnchor.constraint(equalTo: childContainerView.bottomAnchor)
+        if let contentBottomConstraint = contentBottomConstraint {
+            NSLayoutConstraint.activate([
+                contentBottomConstraint,
+            ])
         }
+        
         childViewController.didMove(toParent: self)
 
         childContainerView.layer.masksToBounds = true
@@ -228,8 +249,8 @@ extension SheetContentViewController {
             : UIScreen.main.bounds.width
 
         let oldPreferredHeight = preferredHeight
-        var fittingSize = UIView.layoutFittingCompressedSize;
-        fittingSize.width = width;
+        var fittingSize = UIView.layoutFittingCompressedSize
+        fittingSize.width = width
         contentTopConstraint?.isActive = false
 
         UIView.performWithoutAnimation {

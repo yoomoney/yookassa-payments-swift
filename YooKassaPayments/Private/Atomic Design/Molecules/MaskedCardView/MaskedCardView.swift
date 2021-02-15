@@ -18,25 +18,37 @@ protocol MaskedCardViewDelegate: class {
 
 final class MaskedCardView: UIView {
     
+    enum CscState {
+        case `default`
+        case selected
+        case error
+    }
+    
     // MARK: - Delegates
     
     weak var delegate: MaskedCardViewDelegate?
     
     // MARK: - Public accessors
     
-    var cscErrorState: Bool = false {
+    var cscState: CscState = .default {
         didSet {
-            if cscErrorState {
-                layer.borderWidth = 1
-                layer.borderColor = UIColor.redOrange.cgColor
+            switch cscState {
+            case .default:
+                setStyles(UIView.Styles.grayBorder)
                 hintCardCodeLabel.setStyles(
-                    UILabel.ColorStyle.alert
+                    UILabel.ColorStyle.ghost
                 )
-            } else {
-                layer.borderWidth = 0
-                layer.borderColor = nil
+                
+            case .selected:
+                setStyles(UIView.Styles.grayBorder)
                 hintCardCodeLabel.setStyles(
                     UILabel.ColorStyle.secondary
+                )
+                
+            case .error:
+                setStyles(UIView.Styles.alertBorder)
+                hintCardCodeLabel.setStyles(
+                    UILabel.ColorStyle.alert
                 )
             }
         }
@@ -101,7 +113,7 @@ final class MaskedCardView: UIView {
     private(set) lazy var hintCardCodeLabel: UILabel = {
         $0.setStyles(
             UILabel.DynamicStyle.caption1,
-            UILabel.ColorStyle.secondary,
+            UILabel.ColorStyle.ghost,
             UILabel.Styles.singleLine
         )
         return $0
@@ -127,6 +139,7 @@ final class MaskedCardView: UIView {
             UITextField.Styles.left,
             UITextField.Styles.secure
         )
+        $0.clearButtonMode = .never
         $0.delegate = self
         return $0
     }(UITextField())

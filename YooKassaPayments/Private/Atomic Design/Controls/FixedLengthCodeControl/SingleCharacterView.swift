@@ -51,6 +51,9 @@ final class SingleCharacterView: UIView {
             UITextField.Styles.numeric,
             UITextField.Styles.center
         )
+        if #available(iOS 12.0, *) {
+            field.textContentType = .oneTimeCode
+        }
         field.spellCheckingType = .no
         field.autocorrectionType = .no
         field.autocapitalizationType = .none

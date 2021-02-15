@@ -111,7 +111,6 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
         guard let navigationBar = navigationController?.navigationBar else { return }
         navigationBar.shadowImage = UIImage()
         navigationBar.barTintColor = UIColor.AdaptiveColors.systemBackground
-        navigationBar.isTranslucent = false
         navigationBar.tintColor = CustomizationStorage.shared.mainScheme
 
         let leftItem = UILabel()

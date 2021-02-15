@@ -103,7 +103,6 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.setStyles(UINavigationBar.Styles.default)
         output.setupView()
     }
     
@@ -136,7 +135,12 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
     }
     
     private func setupConstraints() {
+        let titleLabelTopConstraint: NSLayoutConstraint
         if #available(iOS 11.0, *) {
+            titleLabelTopConstraint = titleLabel.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: Space.single / 4
+            )
             resendButtonBottomConstraint = resendCodeButton.bottomAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.bottomAnchor,
                 constant: -Space.double
@@ -145,6 +149,10 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
                 equalTo: view.safeAreaLayoutGuide.bottomAnchor
             )
         } else {
+            titleLabelTopConstraint = titleLabel.topAnchor.constraint(
+                equalTo: topLayoutGuide.bottomAnchor,
+                constant: Space.single / 4
+            )
             resendButtonBottomConstraint = resendCodeButton.bottomAnchor.constraint(
                 equalTo: bottomLayoutGuide.topAnchor,
                 constant: -Space.double
@@ -155,10 +163,7 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
         }
         
         let constraints = [
-            titleLabel.topAnchor.constraint(
-                equalTo: view.topAnchor,
-                constant: Space.single / 4
-            ),
+            titleLabelTopConstraint,
             titleLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: Space.double

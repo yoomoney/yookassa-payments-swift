@@ -19,7 +19,7 @@ extension UITextField {
         
         /// Secure style
         /// Default + isSecureTextEntry true.
-        static let secure = UITextField.Styles.default + InternalStyle(name: "UITextField.default") { (textField: UITextField) in
+        static let secure = UITextField.Styles.default + InternalStyle(name: "UITextField.secure") { (textField: UITextField) in
             textField.isSecureTextEntry = true
         }
         
@@ -31,7 +31,7 @@ extension UITextField {
 
         /// Phone style.
         /// Phone keyboard; Text content type phone number.
-        static let phone = InternalStyle(name: "UITextField.numeric") { (textField: UITextField) in
+        static let phone = InternalStyle(name: "UITextField.phone") { (textField: UITextField) in
             textField.keyboardType = .phonePad
             textField.textContentType = .telephoneNumber
         }

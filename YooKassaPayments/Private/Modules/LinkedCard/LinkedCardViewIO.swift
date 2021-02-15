@@ -9,7 +9,7 @@ protocol LinkedCardViewInput: ActivityIndicatorPresenting, PlaceholderPresenting
     func setSaveAuthInAppSwitchItemView()
     func setConfirmButtonEnabled(_ isEnabled: Bool)
     func showPlaceholder(with message: String)
-    func setCardErrorState(_ state: Bool)
+    func setCardState(_ state: MaskedCardView.CscState)
 }
 
 protocol LinkedCardViewOutput: ActionTitleTextDialogDelegate {

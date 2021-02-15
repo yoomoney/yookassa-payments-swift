@@ -164,7 +164,7 @@ extension LinkedCardPresenter: LinkedCardViewOutput {
     
     func endEditing() {
         guard let csc = csc else {
-            view?.setCardErrorState(true)
+            view?.setCardState(.error)
             return
         }
         
@@ -176,14 +176,14 @@ extension LinkedCardPresenter: LinkedCardViewOutput {
                 if let error = error as? CardService.ValidationError {
                     DispatchQueue.main.async { [weak self] in
                         guard let view = self?.view else { return }
-                        view.setCardErrorState(true)
+                        view.setCardState(.error)
                     }
                     return
                 }
             }
             DispatchQueue.main.async { [weak self] in
                 guard let view = self?.view else { return }
-                view.setCardErrorState(false)
+                view.setCardState(.default)
             }
         }
     }

@@ -65,7 +65,6 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
     }(MaskedCardView())
     
     private lazy var errorCscView: UIView = {
-        $0.isHidden = true
         $0.setStyles(
             UIView.Styles.grayBackground
         )
@@ -73,6 +72,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
     }(UIView())
     
     private lazy var errorCscLabel: UILabel = {
+        $0.isHidden = true
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.text = §Localized.errorCvc
         $0.setStyles(
@@ -115,8 +115,6 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         $0.delegate = self
         return $0
     }(LinkedTextView())
-    
-    private var activityIndicatorView: UIView?
     
     // MARK: - PlaceholderProvider
 
@@ -215,11 +213,6 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         output.setupView()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        maskedCardView.cardCodeTextView.becomeFirstResponder()
-    }
-    
     // MARK: - Setup
     
     private func setupView() {
@@ -275,6 +268,8 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
             )
         }
         
+        scrollViewHeightConstraint.priority = .defaultLow
+        
         let constraints = [
             scrollViewHeightConstraint,
             
@@ -329,10 +324,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
                 equalTo: errorCscView.leadingAnchor,
                 constant: Space.double
             ),
-            errorCscLabel.bottomAnchor.constraint(
-                equalTo: errorCscView.bottomAnchor,
-                constant: -Space.single
-            ),
+            errorCscLabel.bottomAnchor.constraint(equalTo: errorCscView.bottomAnchor),
             errorCscLabel.trailingAnchor.constraint(
                 equalTo: errorCscView.trailingAnchor,
                 constant: -Space.double
@@ -352,6 +344,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
     
     private func fixTableViewHeight() {
         scrollViewHeightConstraint.constant = contentStackView.bounds.height
+        scrollViewHeightConstraint.priority = .defaultLow
     }
     
     // MARK: - Action
@@ -425,40 +418,6 @@ extension LinkedCardViewController: LinkedCardViewInput {
         submitButton.isEnabled = isEnabled
     }
     
-    func showActivity() {
-        guard self.activityIndicatorView == nil else { return }
-
-        let activityIndicatorView = ActivityIndicatorView()
-        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicatorView.activity.startAnimating()
-        activityIndicatorView.setStyles(ActivityIndicatorView.Styles.heavyLight)
-        view.addSubview(activityIndicatorView)
-
-        self.activityIndicatorView = activityIndicatorView
-
-        let constraints = [
-            activityIndicatorView.leading.constraint(equalTo: view.leading),
-            activityIndicatorView.trailing.constraint(equalTo: view.trailing),
-            activityIndicatorView.top.constraint(equalTo: view.top),
-            activityIndicatorView.bottom.constraint(equalTo: view.bottom),
-        ]
-
-        NSLayoutConstraint.activate(constraints)
-    }
-
-    func hideActivity() {
-        UIView.animate(
-            withDuration: 0.2,
-            animations: {
-                self.activityIndicatorView?.alpha = 0
-            },
-            completion: { _ in
-                self.activityIndicatorView?.removeFromSuperview()
-                self.activityIndicatorView = nil
-            }
-        )
-    }
-    
     func showPlaceholder(
         with message: String
     ) {
@@ -466,11 +425,11 @@ extension LinkedCardViewController: LinkedCardViewInput {
         showPlaceholder()
     }
     
-    func setCardErrorState(
-        _ state: Bool
+    func setCardState(
+        _ state: MaskedCardView.CscState
     ) {
-        maskedCardView.cscErrorState = state
-        errorCscView.isHidden = !state
+        maskedCardView.cscState = state
+        errorCscLabel.isHidden = state != .error
     }
     
     private func makePrice(
@@ -507,6 +466,18 @@ extension LinkedCardViewController: LinkedCardViewInput {
         attributedText.append(linkAttributedText)
 
         return attributedText
+    }
+}
+
+// MARK: - ActivityIndicatorFullViewPresenting
+
+extension LinkedCardViewController: ActivityIndicatorFullViewPresenting {
+    func showActivity() {
+        showFullViewActivity(style: ActivityIndicatorView.Styles.heavyLight)
+    }
+
+    func hideActivity() {
+        hideFullViewActivity()
     }
 }
 
@@ -550,7 +521,7 @@ extension LinkedCardViewController: MaskedCardViewDelegate {
     func textFieldDidBeginEditing(
         _ textField: UITextField
     ) {
-        setCardErrorState(false)
+        setCardState(.selected)
     }
     
     func textFieldDidEndEditing(
