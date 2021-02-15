@@ -84,8 +84,6 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         return $0
     }(LinkedTextView())
     
-    fileprivate var activityIndicatorView: UIView?
-    
     // MARK: - PlaceholderProvider
 
     lazy var placeholderView: PlaceholderView = {
@@ -273,6 +271,8 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
             )
         }
         
+        scrollViewHeightConstraint.priority = .defaultLow
+        
         let constraints = [
             scrollViewHeightConstraint,
             
@@ -422,40 +422,6 @@ extension YooMoneyViewController: YooMoneyViewInput {
         ].forEach(contentStackView.addArrangedSubview)
     }
     
-    func showActivity() {
-        guard self.activityIndicatorView == nil else { return }
-
-        let activityIndicatorView = ActivityIndicatorView()
-        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicatorView.activity.startAnimating()
-        activityIndicatorView.setStyles(ActivityIndicatorView.Styles.heavyLight)
-        view.addSubview(activityIndicatorView)
-
-        self.activityIndicatorView = activityIndicatorView
-
-        let constraints = [
-            activityIndicatorView.leading.constraint(equalTo: view.leading),
-            activityIndicatorView.trailing.constraint(equalTo: view.trailing),
-            activityIndicatorView.top.constraint(equalTo: view.top),
-            activityIndicatorView.bottom.constraint(equalTo: view.bottom),
-        ]
-
-        NSLayoutConstraint.activate(constraints)
-    }
-
-    func hideActivity() {
-        UIView.animate(
-            withDuration: 0.2,
-            animations: {
-                self.activityIndicatorView?.alpha = 0
-            },
-            completion: { _ in
-                self.activityIndicatorView?.removeFromSuperview()
-                self.activityIndicatorView = nil
-            }
-        )
-    }
-    
     func showPlaceholder(
         with message: String
     ) {
@@ -519,6 +485,18 @@ extension YooMoneyViewController: YooMoneyViewInput {
         attributedText.append(linkAttributedText)
 
         return attributedText
+    }
+}
+
+// MARK: - ActivityIndicatorFullViewPresenting
+
+extension YooMoneyViewController: ActivityIndicatorFullViewPresenting {
+    func showActivity() {
+        showFullViewActivity(style: ActivityIndicatorView.Styles.heavyLight)
+    }
+
+    func hideActivity() {
+        hideFullViewActivity()
     }
 }
 

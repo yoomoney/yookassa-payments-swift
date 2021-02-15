@@ -23,7 +23,7 @@ final class LargeIconView: UIView {
     // MARK: - UI properties
     
     private(set) lazy var imageView: UIImageView = {
-        $0.setStyles(UIImageView.Styles.dynamicSize)
+        $0.contentMode = .scaleAspectFit
         return $0
     }(UIImageView())
 
@@ -72,8 +72,8 @@ final class LargeIconView: UIView {
 
     private func setupConstraints() {
         let constraints = [
-            imageView.top.constraint(equalTo: topMargin),
             imageView.leading.constraint(equalTo: leadingMargin),
+            imageView.centerY.constraint(equalTo: titleLabel.centerY),
             imageView.height.constraint(equalToConstant: Space.fivefold),
             imageView.width.constraint(equalTo: imageView.height),
             

@@ -69,6 +69,8 @@ final class LargeIconButtonItemView: UIView {
         $0.setStyles(UIButton.DynamicStyle.secondaryLink)
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
         $0.setContentHuggingPriority(.required, for: .vertical)
+        $0.setContentCompressionResistancePriority(.required, for: .horizontal)
+        $0.setContentHuggingPriority(.required, for: .horizontal)
         $0.addTarget(self, action: #selector(rightButtonDidPressed), for: .touchUpInside)
         return $0
     }(UIButton())

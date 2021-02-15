@@ -5,6 +5,16 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
     // MARK: - VIPER
 
     var output: SberbankViewOutput!
+    
+    // MARK: - Touches, Presses, and Gestures
+
+    private lazy var viewTapGestureRecognizer: UITapGestureRecognizer = {
+        $0.delegate = self
+        return $0
+    }(UITapGestureRecognizer(
+        target: self,
+        action: #selector(viewTapGestureRecognizerHandle)
+    ))
 
     // MARK: - UI modules
 
@@ -101,6 +111,7 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
     override func loadView() {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
+        view.addGestureRecognizer(viewTapGestureRecognizer)
 
         navigationItem.title = §Localized.title
         setupView()
@@ -216,6 +227,14 @@ private extension SberbankViewController {
     ) {
         output?.didPressSubmitButton()
     }
+    
+    @objc
+    private func viewTapGestureRecognizerHandle(
+        _ gestureRecognizer: UITapGestureRecognizer
+    ) {
+        guard gestureRecognizer.state == .recognized else { return }
+        view.endEditing(true)
+    }
 }
 
 // MARK: - LinkedCardViewInput
@@ -299,6 +318,21 @@ extension SberbankViewController: UITextViewDelegate {
             output?.didPressTermsOfService(URL)
         default:
             assertionFailure("Unsupported textView")
+        }
+        return false
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension SberbankViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldReceive touch: UITouch
+    ) -> Bool {
+        guard gestureRecognizer === viewTapGestureRecognizer,
+              touch.view is UIControl else {
+            return true
         }
         return false
     }

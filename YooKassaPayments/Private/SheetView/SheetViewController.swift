@@ -216,6 +216,24 @@ final class SheetViewController: UIViewController {
             object: nil
         )
     }
+    
+    func keyboardYOffset(
+        from keyboardFrame: CGRect
+    ) -> CGFloat? {
+        let convertedKeyboardFrame = view.convert(keyboardFrame, from: nil)
+        let intersectionViewFrame = convertedKeyboardFrame.intersection(view.bounds)
+        var safeOffset: CGFloat = 0
+        if #available(iOS 11.0, *) {
+            let intersectionSafeFrame = convertedKeyboardFrame.intersection(view.safeAreaLayoutGuide.layoutFrame)
+            safeOffset = intersectionViewFrame.height - intersectionSafeFrame.height
+        }
+        let intersectionOffset = intersectionViewFrame.size.height
+        guard convertedKeyboardFrame.minY.isInfinite == false else {
+            return nil
+        }
+        let keyboardOffset = intersectionOffset - safeOffset
+        return keyboardOffset
+    }
 }
 
 // MARK: - Internal helpers
@@ -419,20 +437,26 @@ private extension SheetViewController {
     func keyboardShown(
         _ notification: Notification
     ) {
+        
         guard let info: [AnyHashable: Any] = notification.userInfo,
               let keyboardRect: CGRect = (
                   info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
-              )?.cgRectValue else { return }
+              )?.cgRectValue,
+              let keyboardOffset = keyboardYOffset(from: keyboardRect) else { return }
 
-        let windowRect = view.convert(view.bounds, to: nil)
-        let actualHeight = windowRect.maxY - keyboardRect.origin.y
-        adjustForKeyboard(height: actualHeight, from: notification)
+        adjustForKeyboard(height: keyboardOffset, from: notification)
     }
 
     func keyboardDismissed(
         _ notification: Notification
     ) {
-        adjustForKeyboard(height: 0, from: notification)
+        guard let info: [AnyHashable: Any] = notification.userInfo,
+              let keyboardRect: CGRect = (
+                  info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+              )?.cgRectValue,
+              let keyboardOffset = keyboardYOffset(from: keyboardRect) else { return }
+        
+        adjustForKeyboard(height: keyboardOffset, from: notification)
     }
 
     func adjustForKeyboard(
