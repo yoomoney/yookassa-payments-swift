@@ -1,3 +1,5 @@
+import UIKit
+
 final class YooMoneyViewController: UIViewController, PlaceholderProvider {
     
     // MARK: - VIPER
