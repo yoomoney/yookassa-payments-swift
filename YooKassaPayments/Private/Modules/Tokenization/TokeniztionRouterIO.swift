@@ -20,11 +20,6 @@ protocol TokenizationRouterInput: class {
         moduleOutput: MaskedBankCardDataInputModuleOutput
     )
 
-    func presentLogoutConfirmation(
-        inputData: LogoutConfirmationModuleInputData,
-        moduleOutput: LogoutConfirmationModuleOutput
-    )
-
     func present3dsModule(
         inputData: CardSecModuleInputData,
         moduleOutput: CardSecModuleOutput

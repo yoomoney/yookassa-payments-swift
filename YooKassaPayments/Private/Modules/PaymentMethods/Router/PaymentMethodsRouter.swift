@@ -12,13 +12,24 @@ final class PaymentMethodsRouter {
 extension PaymentMethodsRouter: PaymentMethodsRouterInput {
     func presentYooMoney(
         inputData: YooMoneyModuleInputData,
-        moduleOutput: YooMoneyModuleOutput?
+        moduleOutput: YooMoneyModuleOutput?,
+        needReplace: Bool
     ) {
         let viewController = YooMoneyAssembly.makeModule(
             inputData: inputData,
             moduleOutput: moduleOutput
         )
-        transitionHandler?.push(viewController, animated: true)
+        if needReplace {
+            transitionHandler?.replaceViewControllers(
+                [viewController],
+                animated: true
+            )
+        } else {
+            transitionHandler?.push(
+                viewController,
+                animated: true
+            )
+        }
     }
     
     func closeYooMoneyModule() {
@@ -27,17 +38,24 @@ extension PaymentMethodsRouter: PaymentMethodsRouterInput {
     
     func presentLinkedCard(
         inputData: LinkedCardModuleInputData,
-        moduleOutput: LinkedCardModuleOutput?
+        moduleOutput: LinkedCardModuleOutput?,
+        needReplace: Bool
     ) {
         let viewController = LinkedCardAssembly.makeModule(
             inputData: inputData,
             moduleOutput: moduleOutput
         )
-        transitionHandler?.push(viewController, animated: true)
-    }
-    
-    func closeLinkedCardModule() {
-        transitionHandler?.popTopViewController(animated: true)
+        if needReplace {
+            transitionHandler?.replaceViewControllers(
+                [viewController],
+                animated: true
+            )
+        } else {
+            transitionHandler?.push(
+                viewController,
+                animated: true
+            )
+        }
     }
     
     func presentYooMoneyAuthorizationModule(
@@ -96,17 +114,24 @@ extension PaymentMethodsRouter: PaymentMethodsRouterInput {
     
     func presentApplePayContractModule(
         inputData: ApplePayContractModuleInputData,
-        moduleOutput: ApplePayContractModuleOutput
+        moduleOutput: ApplePayContractModuleOutput,
+        needReplace: Bool
     ) {
         let viewController = ApplePayContractAssembly.makeModule(
             inputData: inputData,
             moduleOutput: moduleOutput
         )
-        transitionHandler?.push(viewController, animated: true)
-    }
-    
-    func closeApplePayContractModule() {
-        transitionHandler?.popTopViewController(animated: true)
+        if needReplace {
+            transitionHandler?.replaceViewControllers(
+                [viewController],
+                animated: true
+            )
+        } else {
+            transitionHandler?.push(
+                viewController,
+                animated: true
+            )
+        }
     }
 
     func shouldDismissAuthorizationModule() -> Bool {
@@ -115,12 +140,23 @@ extension PaymentMethodsRouter: PaymentMethodsRouterInput {
 
     func openSberbankModule(
         inputData: SberbankModuleInputData,
-        moduleOutput: SberbankModuleOutput
+        moduleOutput: SberbankModuleOutput,
+        needReplace: Bool
     ) {
         let viewController = SberbankAssembly.makeModule(
             inputData: inputData,
             moduleOutput: moduleOutput
         )
-        transitionHandler?.push(viewController, animated: true)
+        if needReplace {
+            transitionHandler?.replaceViewControllers(
+                [viewController],
+                animated: true
+            )
+        } else {
+            transitionHandler?.push(
+                viewController,
+                animated: true
+            )
+        }
     }
 }

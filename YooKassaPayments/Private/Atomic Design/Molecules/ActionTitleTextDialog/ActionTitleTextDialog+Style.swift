@@ -13,7 +13,7 @@ extension ActionTitleTextDialog {
                                           UILabel.ColorStyle.primary,
                                           UILabel.Styles.multiline,
                                           UILabel.Styles.alignCenter)
-                view.textLabel.setStyles(UILabel.DynamicStyle.caption1,
+                view.textLabel.setStyles(UILabel.DynamicStyle.body,
                                          UILabel.ColorStyle.secondary,
                                          UILabel.Styles.multiline,
                                          UILabel.Styles.alignCenter)

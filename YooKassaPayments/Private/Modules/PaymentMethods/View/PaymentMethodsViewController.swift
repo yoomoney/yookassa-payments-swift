@@ -47,6 +47,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(ActionTitleTextDialog.Styles.fail)
         $0.text = §Localized.PlaceholderView.text
+        $0.buttonTitle = §Localized.PlaceholderView.buttonTitle
         $0.delegate = output
         return $0
     }(ActionTitleTextDialog())
@@ -54,10 +55,6 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
     // MARK: - Constraints
 
     private var tableViewHeightConstraint: NSLayoutConstraint?
-
-    // MARK: - Data
-
-    private var viewModels: [PaymentMethodViewModel] = []
 
     // MARK: - Init
 
@@ -140,20 +137,12 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
             + Constants.navigationBarHeight
 
         let needUpdate: Bool
-        let newValue = viewModels.isEmpty
+        let newValue = output.numberOfRows() == 0
             ? Constants.defaultTableViewHeight
             : contentEffectiveHeight
 
         if tableViewHeightConstraint == nil {
-            tableViewHeightConstraint = NSLayoutConstraint(
-                item: tableView,
-                attribute: .height,
-                relatedBy: .equal,
-                toItem: nil,
-                attribute: .notAnAttribute,
-                multiplier: 1,
-                constant: newValue
-            )
+            tableViewHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: newValue)
             constraint.priority = .defaultHigh
             constraint.isActive = true
             needUpdate = true
@@ -179,24 +168,26 @@ extension PaymentMethodsViewController: UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        viewModels.count
+        output.numberOfRows()
     }
 
     func tableView(
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        let item = viewModels[indexPath.row]
+        guard let viewModel = output.viewModelForRow(at: indexPath) else {
+            return .init()
+        }
 
         let cell: UITableViewCell
 
-        if let subtitle = item.subtitle {
+        if let subtitle = viewModel.subtitle {
             let largeCell = tableView.dequeueReusableCell(
                 withType: LargeIconButtonItemViewCell.self,
                 for: indexPath
             )
-            largeCell.icon = item.image
-            largeCell.title = item.title
+            largeCell.icon = viewModel.image
+            largeCell.title = viewModel.title
             largeCell.subtitle = subtitle
 
             cell = largeCell
@@ -205,8 +196,8 @@ extension PaymentMethodsViewController: UITableViewDataSource {
                 withType: IconButtonItemTableViewCell.self,
                 for: indexPath
             )
-            smallCell.icon = item.image
-            smallCell.title = item.title
+            smallCell.icon = viewModel.image
+            smallCell.title = viewModel.title
 
             cell = smallCell
         }
@@ -231,14 +222,17 @@ extension PaymentMethodsViewController: UITableViewDelegate {
         didSelectRowAt indexPath: IndexPath
     ) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard indexPath.row < viewModels.count else { return }
-        output.didSelectViewModel(viewModels[indexPath.row], at: indexPath)
+        output.didSelect(at: indexPath)
     }
 }
 
 // MARK: - PaymentMethodsViewInput
 
 extension PaymentMethodsViewController: PaymentMethodsViewInput {
+    func reloadData() {
+        tableView.reloadData()
+    }
+    
     func setLogoVisible(_ isVisible: Bool) {
         guard isVisible else {
             navigationItem.rightBarButtonItem = nil
@@ -247,11 +241,6 @@ extension PaymentMethodsViewController: PaymentMethodsViewInput {
         let image = UIImageView(image: Resources.kassaLogo)
         let rightItem = UIBarButtonItem(customView: image)
         navigationItem.rightBarButtonItem = rightItem
-    }
-
-    func setPaymentMethodViewModels(_ models: [PaymentMethodViewModel]) {
-        viewModels = models
-        tableView.reloadData()
     }
 
     func showActivity() {
@@ -292,10 +281,6 @@ extension PaymentMethodsViewController: PaymentMethodsViewInput {
     func showPlaceholder(message: String) {
         actionTitleTextDialog.title = message
         showPlaceholder()
-    }
-
-    func setPlaceholderViewButtonTitle(_ title: String) {
-        actionTitleTextDialog.buttonTitle = title
     }
 }
 
@@ -344,6 +329,7 @@ private extension PaymentMethodsViewController {
 
         enum PlaceholderView: String {
             case text = "Common.PlaceholderView.text"
+            case buttonTitle = "Common.PlaceholderView.buttonTitle"
         }
     }
 

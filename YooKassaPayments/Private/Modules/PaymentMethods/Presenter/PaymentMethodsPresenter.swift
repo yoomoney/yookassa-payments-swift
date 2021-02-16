@@ -84,6 +84,7 @@ final class PaymentMethodsPresenter: NSObject {
     private var yooMoneyTMXSessionId: String?
 
     private var paymentMethods: [PaymentOption]?
+    private var viewModels: [PaymentMethodViewModel] = []
     
     private lazy var termsOfService: TermsOfService = {
         TermsOfServiceFactory.makeTermsOfService()
@@ -103,7 +104,6 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         guard let view = self.view else { return }
         view.showActivity()
         view.setLogoVisible(isLogoVisible)
-        view.setPlaceholderViewButtonTitle(§Localized.PlaceholderView.buttonTitle)
     }
 
     func viewDidAppear() {
@@ -111,49 +111,58 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             self?.interactor.fetchPaymentMethods()
         }
     }
-
-    func didSelectViewModel(
-        _ viewModel: PaymentMethodViewModel,
+    
+    func numberOfRows() -> Int {
+        viewModels.count
+    }
+    
+    func viewModelForRow(
         at indexPath: IndexPath
-    ) {
+    ) -> PaymentMethodViewModel? {
+        guard viewModels.indices.contains(indexPath.row) else {
+            assertionFailure("ViewModel at index \(indexPath.row) should be")
+            return nil
+        }
+
+        return viewModels[indexPath.row]
+    }
+    
+    func didSelect(at indexPath: IndexPath) {
         guard let paymentMethods = paymentMethods,
-              indexPath.row < paymentMethods.count else {
+              paymentMethods.indices.contains(indexPath.row) else {
+            assertionFailure("ViewModel at index \(indexPath.row) should be")
             return
         }
         
-        let paymentOption = paymentMethods[indexPath.row]
+        openPaymentMethod(
+            paymentMethods[indexPath.row],
+            needReplace: false
+        )
+    }
+    
+    private func openPaymentMethod(
+        _ paymentOption: PaymentOption,
+        needReplace: Bool
+    ) {
         switch paymentOption {
         case let paymentOption as PaymentInstrumentYooMoneyLinkedBankCard:
-            openLinkedCard(paymentOption: paymentOption)
+            openLinkedCard(paymentOption: paymentOption, needReplace: needReplace)
             
         case let paymentOption as PaymentInstrumentYooMoneyWallet:
-            openYooMoneyWallet(paymentOption: paymentOption)
+            openYooMoneyWallet(paymentOption: paymentOption, needReplace: needReplace)
             
         case let paymentOption where paymentOption.paymentMethodType == .yooMoney:
             openYooMoneyAuthorization()
 
         case let paymentOption where paymentOption.paymentMethodType == .sberbank:
-            openSberbankModule(paymentOption: paymentOption)
+            openSberbankModule(paymentOption: paymentOption, needReplace: needReplace)
 
         case let paymentOption where paymentOption.paymentMethodType == .applePay:
-            openApplePay(paymentOption: paymentOption)
+            openApplePay(paymentOption: paymentOption, needReplace: needReplace)
 
         default:
-            moduleOutput?.paymentMethodsModule(
-                self,
-                didSelect: paymentMethods[indexPath.row],
-                methodsCount: paymentMethods.count
-            )
+            break
         }
-    }
-
-    func logoutDidPress(
-        at indexPath: IndexPath
-    ) {
-        guard let paymentMethods = paymentMethods,
-              indexPath.row < paymentMethods.count,
-              let paymentOption = paymentMethods[indexPath.row] as? PaymentInstrumentYooMoneyWallet else { return }
-        moduleOutput?.paymentMethodsModule(self, didPressLogout: paymentOption)
     }
     
     private func openYooMoneyAuthorization() {
@@ -189,7 +198,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
     }
     
     private func openYooMoneyWallet(
-        paymentOption: PaymentInstrumentYooMoneyWallet
+        paymentOption: PaymentInstrumentYooMoneyWallet,
+        needReplace: Bool
     ) {
         let walletDisplayName = interactor.getWalletDisplayName()
         let paymentMethod = paymentMethodViewModelFactory.makePaymentMethodViewModel(
@@ -222,12 +232,14 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         )
         router?.presentYooMoney(
             inputData: inputData,
-            moduleOutput: self
+            moduleOutput: self,
+            needReplace: needReplace
         )
     }
     
     private func openLinkedCard(
-        paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
+        paymentOption: PaymentInstrumentYooMoneyLinkedBankCard,
+        needReplace: Bool
     ) {
         let initialSavePaymentMethod = makeInitialSavePaymentMethod(savePaymentMethod)
         let inputData = LinkedCardModuleInputData(
@@ -248,12 +260,14 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         )
         router?.presentLinkedCard(
             inputData: inputData,
-            moduleOutput: self
+            moduleOutput: self,
+            needReplace: needReplace
         )
     }
 
     private func openApplePay(
-        paymentOption: PaymentOption
+        paymentOption: PaymentOption,
+        needReplace: Bool
     ) {
         let feeCondition = paymentOption.fee != nil
         let inputSavePaymentMethodCondition = savePaymentMethod == .userSelects
@@ -285,7 +299,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             )
             router.presentApplePayContractModule(
                 inputData: inputData,
-                moduleOutput: self
+                moduleOutput: self,
+                needReplace: needReplace
             )
         } else {
             applePayPaymentOption = paymentOption
@@ -306,7 +321,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
     }
 
     private func openSberbankModule(
-        paymentOption: PaymentOption
+        paymentOption: PaymentOption,
+        needReplace: Bool
     ) {
         let paymentMethod = paymentMethodViewModelFactory.makePaymentMethodViewModel(
             paymentOption: paymentOption
@@ -328,7 +344,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         )
         router.openSberbankModule(
             inputData: inputData,
-            moduleOutput: self
+            moduleOutput: self,
+            needReplace: needReplace
         )
     }
 }
@@ -358,32 +375,27 @@ extension PaymentMethodsPresenter: PaymentMethodsModuleInput {}
 
 extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
     func didFetchPaymentMethods(_ paymentMethods: [PaymentOption]) {
+        let (authType, _) = interactor.makeTypeAnalyticsParameters()
+        interactor.trackEvent(.screenPaymentOptions(authType))
+        
         DispatchQueue.main.async { [weak self] in
             guard let self = self,
                   let view = self.view else { return }
-
-            let (authType, _) = self.interactor.makeTypeAnalyticsParameters()
-            self.interactor.trackEvent(.screenPaymentOptions(authType))
-
+            
             self.paymentMethods = paymentMethods
 
             if paymentMethods.count == 1, let paymentMethod = paymentMethods.first {
-                // TODO: - Open only first. https://jira.yamoney.ru/browse/MOC-1645
-                self.moduleOutput?.paymentMethodsModule(
-                    self,
-                    didSelect: paymentMethod,
-                    methodsCount: paymentMethods.count
-                )
+                self.openPaymentMethod(paymentMethod, needReplace: true)
             } else {
                 let walletDisplayName = self.interactor.getWalletDisplayName()
-                let viewModels = paymentMethods.map {
+                self.viewModels = paymentMethods.map {
                     self.paymentMethodViewModelFactory.makePaymentMethodViewModel(
                         paymentOption: $0,
                         walletDisplayName: walletDisplayName
                     )
                 }
                 view.hideActivity()
-                view.setPaymentMethodViewModels(viewModels)
+                view.reloadData()
             }
         }
     }
@@ -400,11 +412,9 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
 
         if let paymentOption = paymentMethods.first as? PaymentInstrumentYooMoneyWallet,
            paymentMethods.count == 1 {
-            // TODO: - Open only YooMoney without payment methods. https://jira.yamoney.ru/browse/MOC-1645
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                self.view?.hideActivity()
-                self.openYooMoneyWallet(paymentOption: paymentOption)
+                self.openYooMoneyWallet(paymentOption: paymentOption, needReplace: true)
             }
         } else if paymentMethods.contains(where: condition) == false {
             interactor.fetchPaymentMethods()
@@ -459,8 +469,16 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
             deadline: .now() + Constants.dismissApplePayTimeout
         ) { [weak self] in
             guard let self = self else { return }
-            self.router.closeApplePay() {
-                self.view?.presentError(with: §Localized.Error.failTokenizeData)
+            self.router.closeApplePay() { [weak self] in
+                guard let self = self else { return }
+                
+                let message = §Localized.Error.failTokenizeData
+                if self.paymentMethods?.count == 1 {
+                    self.view?.hideActivity()
+                    self.view?.showPlaceholder(message: message)
+                } else {
+                    self.view?.presentError(with: message)
+                }
             }
         }
     }
@@ -659,8 +677,16 @@ extension PaymentMethodsPresenter: ApplePayModuleOutput {
         trackScreenErrorAnalytics(scheme: .applePay)
 
         DispatchQueue.main.async { [weak self] in
-            guard let view = self?.view else { return }
-            view.presentError(with: §Localized.applePayUnavailableTitle)
+            guard let self = self,
+                  let view = self.view else { return }
+            
+            let message = §Localized.applePayUnavailableTitle
+            if self.paymentMethods?.count == 1 {
+                self.view?.hideActivity()
+                self.view?.showPlaceholder(message: message)
+            } else {
+                self.view?.presentError(with: message)
+            }
         }
     }
 
@@ -706,6 +732,10 @@ extension PaymentMethodsPresenter: ApplePayModuleOutput {
     ) {
         router.closeApplePay(completion: nil)
         applePayState = .cancel
+        
+        if paymentMethods?.count == 1 {
+            moduleOutput?.didFinish(on: self)
+        }
     }
 }
 
@@ -726,14 +756,6 @@ extension PaymentMethodsPresenter: ApplePayContractModuleOutput {
     }
 }
 
-// MARK: - Constants
-
-private extension PaymentMethodsPresenter {
-    enum Constants {
-        static let dismissApplePayTimeout: TimeInterval = 0.5
-    }
-}
-
 // MARK: - SberbankModuleOutput
 
 extension PaymentMethodsPresenter: SberbankModuleOutput {
@@ -751,6 +773,14 @@ extension PaymentMethodsPresenter: SberbankModuleOutput {
     }
 }
 
+// MARK: - Constants
+
+private extension PaymentMethodsPresenter {
+    enum Constants {
+        static let dismissApplePayTimeout: TimeInterval = 0.5
+    }
+}
+
 // MARK: - Localized
 
 private extension PaymentMethodsPresenter {
@@ -760,10 +790,6 @@ private extension PaymentMethodsPresenter {
         enum Error: String {
             case failTokenizeData = "Error.ApplePayStrategy.failTokenizeData"
             case noWalletTitle = "Error.noWalletTitle"
-        }
-
-        enum PlaceholderView: String {
-            case buttonTitle = "Common.PlaceholderView.buttonTitle"
         }
     }
 }

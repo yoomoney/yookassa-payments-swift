@@ -25,10 +25,6 @@ protocol PaymentMethodsModuleOutput: class {
         didSelect paymentOption: PaymentOption,
         methodsCount: Int
     )
-    func paymentMethodsModule(
-        _ module: PaymentMethodsModuleInput,
-        didPressLogout paymentOption: PaymentInstrumentYooMoneyWallet
-    )
     func didFinish(on module: PaymentMethodsModuleInput)
     func tokenizationModule(
         _ module: PaymentMethodsModuleInput,

@@ -140,6 +140,7 @@ public enum TokenizationAssembly {
         let sheetViewController = SheetViewController(
             contentViewController: navigationController
         )
+        sheetViewController.moduleOutput = moduleOutput
 
         return sheetViewController
     }
