@@ -55,21 +55,6 @@ extension TokenizationRouter: TokenizationRouterInput {
         transitionHandler?.push(viewController, animated: true)
     }
 
-    func presentLogoutConfirmation(
-        inputData: LogoutConfirmationModuleInputData,
-        moduleOutput: LogoutConfirmationModuleOutput
-    ) {
-        let viewController = LogoutConfirmationAssembly.makeModule(
-            inputData: inputData,
-            moduleOutput: moduleOutput
-        )
-        transitionHandler?.present(
-            viewController,
-            animated: true,
-            completion: nil
-        )
-    }
-
     func present3dsModule(
         inputData: CardSecModuleInputData,
         moduleOutput: CardSecModuleOutput

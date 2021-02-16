@@ -185,17 +185,6 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         )
     }
 
-    func logout(accountId: String) {
-        let walletDisplayName = interactor.getWalletDisplayName()
-        let inputData = LogoutConfirmationModuleInputData(
-            accountName: walletDisplayName ?? accountId
-        )
-        router.presentLogoutConfirmation(
-            inputData: inputData,
-            moduleOutput: self
-        )
-    }
-
     func presentErrorWithMessage(_ message: String) {
         let moduleInputData = ErrorModuleInputData(errorTitle: message)
         DispatchQueue.main.async { [weak self] in
@@ -354,14 +343,6 @@ extension TokenizationPresenter: PaymentMethodsModuleOutput {
             self.paymentOption = paymentOption
             strategy?.beginProcess()
         }
-    }
-
-    func paymentMethodsModule(
-        _ module: PaymentMethodsModuleInput,
-        didPressLogout paymentOption: PaymentInstrumentYooMoneyWallet
-    ) {
-        logout(accountId: paymentOption.accountId)
-        self.paymentOption = nil
     }
 
     func didFinish(on module: PaymentMethodsModuleInput) {

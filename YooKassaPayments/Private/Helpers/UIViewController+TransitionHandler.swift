@@ -14,4 +14,14 @@ extension UIViewController: TransitionHandler {
     func popTopViewController(animated: Bool) {
         navigationController?.popViewController(animated: animated)
     }
+    
+    func replaceViewControllers(
+        _ viewControllers: [UIViewController],
+        animated: Bool
+    ) {
+        navigationController?.setViewControllers(
+            viewControllers,
+            animated: animated
+        )
+    }
 }

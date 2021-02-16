@@ -77,10 +77,6 @@ protocol TokenizationStrategyOutput: class {
         paymentOption: PaymentOption
     )
 
-    func logout(
-        accountId: String
-    )
-
     func presentErrorWithMessage(
         _ message: String
     )

@@ -1,6 +1,10 @@
 import UIKit
 
 final class SheetViewController: UIViewController {
+    
+    // MARK: - VIPER
+    
+    weak var moduleOutput: TokenizationModuleOutput?
 
     // MARK: - UI
 
@@ -308,8 +312,11 @@ private extension SheetViewController {
         return min(fullscreenHeight, contentHeight)
     }
 
-    func attemptDismiss(animated: Bool) {
-        dismiss(animated: animated, completion: nil)
+    func attemptDismiss() {
+        moduleOutput?.didFinish(
+            on: self,
+            with: nil
+        )
     }
 
 }
@@ -321,7 +328,7 @@ private extension SheetViewController {
     func overlayTapGestureRecognizerHandle(
         _ sender: UITapGestureRecognizer
     ) {
-        attemptDismiss(animated: true)
+        attemptDismiss()
     }
 
     func initialTouchPanGestureRecognizerHandle(
@@ -400,7 +407,7 @@ private extension SheetViewController {
                         self.overlayView.alpha = 0
                     },
                     completion: { complete in
-                        self.attemptDismiss(animated: false)
+                        self.attemptDismiss()
                     })
                 return
             }

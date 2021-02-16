@@ -13,9 +13,8 @@ extension PaymentMethodViewModel {
 }
 
 protocol PaymentMethodsViewInput: ActivityIndicatorFullViewPresenting, NotificationPresenting {
+    func reloadData()
     func setLogoVisible(_ isVisible: Bool)
-    func setPaymentMethodViewModels(_ models: [PaymentMethodViewModel])
-    func setPlaceholderViewButtonTitle(_ title: String)
 
     func showPlaceholder(message: String)
     func hidePlaceholder()
@@ -24,6 +23,7 @@ protocol PaymentMethodsViewInput: ActivityIndicatorFullViewPresenting, Notificat
 protocol PaymentMethodsViewOutput: ActionTitleTextDialogDelegate {
     func setupView()
     func viewDidAppear()
-    func didSelectViewModel(_ viewModel: PaymentMethodViewModel, at indexPath: IndexPath)
-    func logoutDidPress(at indexPath: IndexPath)
+    func numberOfRows() -> Int
+    func viewModelForRow(at indexPath: IndexPath) -> PaymentMethodViewModel?
+    func didSelect(at indexPath: IndexPath)
 }
