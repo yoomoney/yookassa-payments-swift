@@ -93,9 +93,15 @@
 
 "Contract.format.savePaymentMethod.title" = "Allow to write off money";
 
+"BankCardRepeat.savePaymentMethod.title" = "Link card";
+
 "Contract.format.saveAuthInApp.title" = "Remember wallet";
 
 "Contract.format.saveAuthInApp" = "Save the wallet in this app for faster payments";
+
+"LinkedCard.saveAuthInApp.title" = "Remember me";
+
+"LinkedCard.saveAuthInApp" = "No need to enter next time in profile - you can pay faster";
 
 "Contract.logout" = "Logout";
 
@@ -106,6 +112,8 @@
 "YooMoney.title" = "YooMoney";
 
 "LinkedCard.title" = "Linked card";
+
+"BankCardRepeat.title" = "Saved card";
 
 "LogoutConfirmation.format.title" = "Are you sure you want to sign out of account '%@'?";
 

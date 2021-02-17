@@ -142,18 +142,6 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         }
     }
 
-    func present3dsModule(
-        inputData: CardSecModuleInputData
-    ) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.router.present3dsModule(
-                inputData: inputData,
-                moduleOutput: self
-            )
-        }
-    }
-
     func tokenize(
         _ data: TokenizeData,
         paymentOption: PaymentOption
@@ -319,12 +307,13 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
 
 extension TokenizationPresenter: TokenizationModuleInput {
     func start3dsProcess(requestUrl: String) {
-        let moduleInputData = CardSecModuleInputData(
-            requestUrl: requestUrl,
-            redirectUrl: inputData.returnUrl ?? Constants.returnUrl,
-            isLoggingEnabled: inputData.isLoggingEnabled
-        )
-        present3dsModule(inputData: moduleInputData)
+        // TODO: - Present 3ds https://jira.yamoney.ru/browse/MOC-1611
+//        let moduleInputData = CardSecModuleInputData(
+//            requestUrl: requestUrl,
+//            redirectUrl: inputData.returnUrl ?? Constants.returnUrl,
+//            isLoggingEnabled: inputData.isLoggingEnabled
+//        )
+//        present3dsModule(inputData: moduleInputData)
     }
 }
 

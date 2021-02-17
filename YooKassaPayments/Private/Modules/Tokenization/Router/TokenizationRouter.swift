@@ -55,17 +55,6 @@ extension TokenizationRouter: TokenizationRouterInput {
         transitionHandler?.push(viewController, animated: true)
     }
 
-    func present3dsModule(
-        inputData: CardSecModuleInputData,
-        moduleOutput: CardSecModuleOutput
-    ) {
-        let viewController = CardSecAssembly.makeModule(
-            inputData: inputData,
-            moduleOutput: moduleOutput
-        )
-        transitionHandler?.push(viewController, animated: true)
-    }
-
     func presentError(
         inputData: ErrorModuleInputData,
         moduleOutput: ErrorModuleOutput

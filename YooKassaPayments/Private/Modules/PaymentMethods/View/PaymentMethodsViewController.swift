@@ -54,7 +54,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
 
     // MARK: - Constraints
 
-    private var tableViewHeightConstraint: NSLayoutConstraint?
+    private lazy var tableViewHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: 0)
 
     // MARK: - Init
 
@@ -95,6 +95,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
 
     private func setupConstraints() {
         let constraints = [
+            tableViewHeightConstraint,
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -126,37 +127,22 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
     }
 
     private func fixTableViewHeight() {
-        var constraint: NSLayoutConstraint! {
-            tableViewHeightConstraint
-        }
-
         let contentEffectiveHeight = tableView.contentSize.height
             + tableView.contentInset.top
             + tableView.contentInset.bottom
             + UIScreen.safeAreaInsets.bottom
             + Constants.navigationBarHeight
 
-        let needUpdate: Bool
         let newValue = output.numberOfRows() == 0
             ? Constants.defaultTableViewHeight
             : contentEffectiveHeight
 
-        if tableViewHeightConstraint == nil {
-            tableViewHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: newValue)
-            constraint.priority = .defaultHigh
-            constraint.isActive = true
-            needUpdate = true
-        } else if constraint.constant != newValue {
-            constraint.constant = newValue
-            needUpdate = true
-        } else {
-            needUpdate = false
-        }
-
-        if needUpdate {
-            UIView.animate(withDuration: 0.4) {
-                self.view.superview?.superview?.superview?.layoutIfNeeded()
-            }
+        if tableViewHeightConstraint.constant != newValue {
+            tableViewHeightConstraint.constant = newValue
+            NotificationCenter.default.post(
+                name: .needUpdatePreferredHeight,
+                object: nil
+            )
         }
     }
 }

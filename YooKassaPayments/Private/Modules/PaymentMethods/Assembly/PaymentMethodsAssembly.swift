@@ -6,7 +6,7 @@ enum PaymentMethodsAssembly {
         inputData: PaymentMethodsModuleInputData,
         moduleOutput: PaymentMethodsModuleOutput?
     ) -> (
-        view: PaymentMethodsViewController,
+        view: UIViewController,
         moduleInput: PaymentMethodsModuleInput
     ) {
         let view = PaymentMethodsViewController()

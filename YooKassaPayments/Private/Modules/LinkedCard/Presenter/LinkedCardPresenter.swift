@@ -68,7 +68,7 @@ final class LinkedCardPresenter {
         self.initialSavePaymentMethod = initialSavePaymentMethod
     }
     
-    // MARK: - Properties
+    // MARK: - Stored Data
     
     private var csc: String?
     private var isReusableToken = true
@@ -85,7 +85,7 @@ extension LinkedCardPresenter: LinkedCardViewOutput {
         let cardMask =
             paymentMethodViewModelFactory.replaceBullets(paymentOption.cardMask)
         let cardLogo =
-            paymentMethodViewModelFactory.makePaymentMethodViewModelImage(paymentOption)
+            paymentMethodViewModelFactory.makeBankCardImage(paymentOption)
         
         let viewModel = LinkedCardViewModel(
             shopName: shopName,
@@ -105,9 +105,7 @@ extension LinkedCardPresenter: LinkedCardViewOutput {
         }
         
         DispatchQueue.global().async { [weak self] in
-            guard let self = self,
-                  let interactor = self.interactor else { return }
-            interactor.trackEvent(.screenLinkedCardForm)
+            self?.interactor.trackEvent(.screenLinkedCardForm)
         }
     }
     
@@ -261,26 +259,21 @@ extension LinkedCardPresenter: LinkedCardInteractorOutput {
     }
     
     func didTokenizeData(_ token: Tokens) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self,
-                  let view = self.view else { return }
-            view.hideActivity()
-            self.moduleOutput?.tokenizationModule(
-                self,
-                didTokenize: token,
-                paymentMethodType: self.paymentOption.paymentMethodType.plain
-            )
+        moduleOutput?.tokenizationModule(
+            self,
+            didTokenize: token,
+            paymentMethodType: paymentOption.paymentMethodType.plain
+        )
 
-            DispatchQueue.global().async { [weak self] in
-                guard let self = self, let interactor = self.interactor else { return }
-                let type = interactor.makeTypeAnalyticsParameters()
-                let event: AnalyticsEvent = .actionTokenize(
-                    scheme: .linkedCard,
-                    authType: type.authType,
-                    tokenType: type.tokenType
-                )
-                interactor.trackEvent(event)
-            }
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self, let interactor = self.interactor else { return }
+            let type = interactor.makeTypeAnalyticsParameters()
+            let event: AnalyticsEvent = .actionTokenize(
+                scheme: .linkedCard,
+                authType: type.authType,
+                tokenType: type.tokenType
+            )
+            interactor.trackEvent(event)
         }
     }
 
