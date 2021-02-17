@@ -20,11 +20,6 @@ protocol TokenizationRouterInput: class {
         moduleOutput: MaskedBankCardDataInputModuleOutput
     )
 
-    func present3dsModule(
-        inputData: CardSecModuleInputData,
-        moduleOutput: CardSecModuleOutput
-    )
-
     func presentError(
         inputData: ErrorModuleInputData,
         moduleOutput: ErrorModuleOutput

@@ -12,22 +12,22 @@ final class YooMoneyPresenter {
     
     // MARK: - Init data
     
-    fileprivate let clientApplicationKey: String
-    fileprivate let testModeSettings: TestModeSettings?
-    fileprivate let isLoggingEnabled: Bool
-    fileprivate let moneyAuthClientId: String?
+    private let clientApplicationKey: String
+    private let testModeSettings: TestModeSettings?
+    private let isLoggingEnabled: Bool
+    private let moneyAuthClientId: String?
     
-    fileprivate let shopName: String
-    fileprivate let purchaseDescription: String
-    fileprivate let price: PriceViewModel
-    fileprivate let fee: PriceViewModel?
-    fileprivate let paymentMethod: PaymentMethodViewModel
-    fileprivate let paymentOption: PaymentInstrumentYooMoneyWallet
-    fileprivate let termsOfService: TermsOfService
-    fileprivate let returnUrl: String?
-    fileprivate let savePaymentMethodViewModel: SavePaymentMethodViewModel?
-    fileprivate let tmxSessionId: String?
-    fileprivate var initialSavePaymentMethod: Bool
+    private let shopName: String
+    private let purchaseDescription: String
+    private let price: PriceViewModel
+    private let fee: PriceViewModel?
+    private let paymentMethod: PaymentMethodViewModel
+    private let paymentOption: PaymentInstrumentYooMoneyWallet
+    private let termsOfService: TermsOfService
+    private let returnUrl: String?
+    private let savePaymentMethodViewModel: SavePaymentMethodViewModel?
+    private let tmxSessionId: String?
+    private var initialSavePaymentMethod: Bool
     
     // MARK: - Init
     
@@ -68,7 +68,7 @@ final class YooMoneyPresenter {
     
     // MARK: - Properties
 
-    fileprivate var isReusableToken = true
+    private var isReusableToken = true
 }
 
 // MARK: - YooMoneyViewOutput

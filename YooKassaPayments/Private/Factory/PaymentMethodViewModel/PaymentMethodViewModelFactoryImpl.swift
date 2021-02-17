@@ -109,20 +109,20 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
         _ paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
     ) -> PaymentMethodViewModel {
         return PaymentMethodViewModel(
-            image: makePaymentMethodViewModelImage(paymentOption),
-            title: makePaymentMethodViewModelTitle(paymentOption),
-            subtitle: makePaymentMethodViewModelSubtitle(paymentOption)
+            image: makeBankCardImage(paymentOption),
+            title: makeBankCardTitle(paymentOption),
+            subtitle: makeBankCardSubtitle(paymentOption)
         )
     }
 
-    private func makePaymentMethodViewModelTitle(
+    private func makeBankCardTitle(
         _ paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
     ) -> String {
         return paymentOption.cardName
             ?? makeMaskedPan(paymentOption.cardMask)
     }
 
-    private func makePaymentMethodViewModelSubtitle(
+    private func makeBankCardSubtitle(
         _ paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
     ) -> String? {
         guard paymentOption.cardName != nil else {
@@ -144,13 +144,13 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
         _ paymentMethodType: YooKassaPaymentsApi.PaymentMethodType
     ) -> PaymentMethodViewModel {
         return PaymentMethodViewModel(
-            image: makePaymentMethodViewModelImage(paymentMethodType),
-            title: makePaymentMethodViewModelTitle(paymentMethodType),
+            image: makePaymentMethodTypeImage(paymentMethodType),
+            title: makePaymentMethodTypeTitle(paymentMethodType),
             subtitle: nil
         )
     }
 
-    private func makePaymentMethodViewModelTitle(
+    private func makePaymentMethodTypeTitle(
         _ paymentMethodType: YooKassaPaymentsApi.PaymentMethodType
     ) -> String {
         let name: String
@@ -170,39 +170,34 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
         return name
     }
     
-    // MARK: - Make Image for PaymentMethodType
+    // MARK: - Make Image
     
-    // swiftlint:disable cyclomatic_complexity
-    func makePaymentMethodViewModelImage(
+    func makeBankCardImage(
         _ paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
     ) -> UIImage {
         if let bankSettings = bankSettingsService.bankSettings(paymentOption.cardMask) {
             return UIImage.named(bankSettings.logoName)
         } else {
-            let image: UIImage
-            switch paymentOption.cardType {
-            case .masterCard:      image = PaymentMethodResources.Image.mastercard
-            case .visa:            image = PaymentMethodResources.Image.visa
-            case .mir:             image = PaymentMethodResources.Image.mir
-            case .americanExpress: image = PaymentMethodResources.Image.americanExpress
-            case .jcb:             image = PaymentMethodResources.Image.jcb
-            case .cup:             image = PaymentMethodResources.Image.cup
-            case .dinersClub:      image = PaymentMethodResources.Image.dinersClub
-            case .bankCard:        image = PaymentMethodResources.Image.bankCard
-            case .discoverCard:    image = PaymentMethodResources.Image.discoverCard
-            case .instaPayment:    image = PaymentMethodResources.Image.instapay
-            case .laser:           image = PaymentMethodResources.Image.lazer
-            case .dankort:         image = PaymentMethodResources.Image.dankort
-            case .solo:            image = PaymentMethodResources.Image.solo
-            case .switch:          image = PaymentMethodResources.Image.switch
-            case .unknown:         image = PaymentMethodResources.Image.unknown
-            }
-            return image
+            return makeBankCardImage(
+                cardType: paymentOption.cardType
+            )
         }
     }
-    // swiftlint:enable cyclomatic_complexity
     
-    func makePaymentMethodViewModelImage(
+    
+    func makeBankCardImage(
+        _ paymentMethodBankCard: PaymentMethodBankCard
+    ) -> UIImage {
+        if let bankSettings = bankSettingsService.bankSettings(paymentMethodBankCard.first6) {
+            return UIImage.named(bankSettings.logoName)
+        } else {
+            return makeBankCardImage(
+                cardType: paymentMethodBankCard.cardType
+            )
+        }
+    }
+    
+    func makePaymentMethodTypeImage(
         _ paymentMethodType: YooKassaPaymentsApi.PaymentMethodType
     ) -> UIImage {
         let image: UIImage
@@ -222,4 +217,27 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
         return image
     }
 
+    private func makeBankCardImage(
+        cardType: BankCardType
+    ) -> UIImage {
+        let image: UIImage
+        switch cardType {
+        case .masterCard:      image = PaymentMethodResources.Image.mastercard
+        case .visa:            image = PaymentMethodResources.Image.visa
+        case .mir:             image = PaymentMethodResources.Image.mir
+        case .americanExpress: image = PaymentMethodResources.Image.americanExpress
+        case .jcb:             image = PaymentMethodResources.Image.jcb
+        case .cup:             image = PaymentMethodResources.Image.cup
+        case .dinersClub:      image = PaymentMethodResources.Image.dinersClub
+        case .bankCard:        image = PaymentMethodResources.Image.bankCard
+        case .discoverCard:    image = PaymentMethodResources.Image.discoverCard
+        case .instaPayment:    image = PaymentMethodResources.Image.instapay
+        case .laser:           image = PaymentMethodResources.Image.lazer
+        case .dankort:         image = PaymentMethodResources.Image.dankort
+        case .solo:            image = PaymentMethodResources.Image.solo
+        case .switch:          image = PaymentMethodResources.Image.switch
+        case .unknown:         image = PaymentMethodResources.Image.unknown
+        }
+        return image
+    }
 }

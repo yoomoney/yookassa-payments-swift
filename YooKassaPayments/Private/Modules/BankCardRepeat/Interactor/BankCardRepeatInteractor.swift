@@ -6,29 +6,36 @@ final class BankCardRepeatInteractor {
 
     // MARK: - Init data
 
-    private let clientApplicationKey: String
-    private let paymentService: PaymentService
     private let analyticsService: AnalyticsService
+    private let analyticsProvider: AnalyticsProvider
+    private let paymentService: PaymentService
+    
+    private let clientApplicationKey: String
 
     // MARK: - Init
 
     init(
-        clientApplicationKey: String,
+        analyticsService: AnalyticsService,
+        analyticsProvider: AnalyticsProvider,
         paymentService: PaymentService,
-        analyticsService: AnalyticsService
+        clientApplicationKey: String
     ) {
         ThreatMetrixService.configure()
 
-        self.clientApplicationKey = clientApplicationKey
-        self.paymentService = paymentService
         self.analyticsService = analyticsService
+        self.analyticsProvider = analyticsProvider
+        self.paymentService = paymentService
+        
+        self.clientApplicationKey = clientApplicationKey
     }
 }
 
 // MARK: - BankCardRepeatInteractorInput
 
 extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
-    func fetchPaymentMethod(paymentMethodId: String) {
+    func fetchPaymentMethod(
+        paymentMethodId: String
+    ) {
         paymentService.fetchPaymentMethod(
             clientApplicationKey: clientApplicationKey,
             paymentMethodId: paymentMethodId
@@ -83,6 +90,13 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
 
     func trackEvent(_ event: AnalyticsEvent) {
         analyticsService.trackEvent(event)
+    }
+    
+    func makeTypeAnalyticsParameters() -> (
+        authType: AnalyticsEvent.AuthType,
+        tokenType: AnalyticsEvent.AuthTokenType?
+    ) {
+        return analyticsProvider.makeTypeAnalyticsParameters()
     }
 }
 

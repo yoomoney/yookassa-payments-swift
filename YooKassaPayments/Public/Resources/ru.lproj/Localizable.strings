@@ -93,9 +93,15 @@
 
 "Contract.format.savePaymentMethod.title" = "Разрешить списывать деньги";
 
+"BankCardRepeat.savePaymentMethod.title" = "Привязать карту";
+
 "Contract.format.saveAuthInApp.title" = "Запомнить кошелёк";
 
 "Contract.format.saveAuthInApp" = "Запомнить кошелёк в этом приложении для быстрых платежей";
+
+"LinkedCard.saveAuthInApp.title" = "Запомнить меня";
+
+"LinkedCard.saveAuthInApp" = "В следующий раз не придётся входить в профиль — можно будет оплатить быстрее";
 
 "Contract.logout" = "Выйти";
 
@@ -106,6 +112,8 @@
 "YooMoney.title" = "ЮMoney";
 
 "LinkedCard.title" = "Привязанная карта";
+
+"BankCardRepeat.title" = "Сохраненная карта";
 
 "LogoutConfirmation.format.title" = "Уверены, что хотите выйти из аккаунта '%@'?";
 

@@ -1,4 +1,4 @@
-protocol BankCardRepeatInteractorInput: AnalyticsTrack {
+protocol BankCardRepeatInteractorInput: AnalyticsTrack, AnalyticsProvider {
     func fetchPaymentMethod(
         paymentMethodId: String
     )
@@ -12,8 +12,17 @@ protocol BankCardRepeatInteractorInput: AnalyticsTrack {
 }
 
 protocol BankCardRepeatInteractorOutput: class {
-    func didFetchPaymentMethod(_ paymentMethod: PaymentMethod)
-    func didFailFetchPaymentMethod(_ error: Error)
-    func didTokenize(_ tokens: Tokens)
-    func didFailTokenize(_ error: Error)
+    func didFetchPaymentMethod(
+        _ paymentMethod: PaymentMethod
+    )
+    func didFailFetchPaymentMethod(
+        _ error: Error
+    )
+    
+    func didTokenize(
+        _ tokens: Tokens
+    )
+    func didFailTokenize(
+        _ error: Error
+    )
 }

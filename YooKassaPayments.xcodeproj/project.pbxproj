@@ -447,6 +447,13 @@
 		402EBFDEAFFA87286AFE557C /* IconView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB3DB2CCC018A9DBE0CAD /* IconView+Style.swift */; };
 		402EBFE2285B7B73BF2290ED /* WalletLoginServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7058326C3DABBC52C15 /* WalletLoginServiceImpl.swift */; };
 		559073921FF3C2B90094AE5D /* YooKassaPayments.h in Headers */ = {isa = PBXBuildFile; fileRef = 559073911FF3C2B90094AE5D /* YooKassaPayments.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		780D0D3725DC0DE800CF15D1 /* BankCardRepeatViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780D0D3625DC0DE800CF15D1 /* BankCardRepeatViewIO.swift */; };
+		780D0D3925DC0DF100CF15D1 /* BankCardRepeatModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780D0D3825DC0DF100CF15D1 /* BankCardRepeatModuleIO.swift */; };
+		780D0D3C25DC0E0300CF15D1 /* BankCardRepeatAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780D0D3B25DC0E0300CF15D1 /* BankCardRepeatAssembly.swift */; };
+		780D0D3E25DC0E0F00CF15D1 /* BankCardRepeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780D0D3D25DC0E0F00CF15D1 /* BankCardRepeatViewController.swift */; };
+		780D0D4125DC115F00CF15D1 /* BankCardRepeatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780D0D4025DC115F00CF15D1 /* BankCardRepeatViewModel.swift */; };
+		780D0D4425DC11FB00CF15D1 /* BankCardRepeatRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780D0D4325DC11FB00CF15D1 /* BankCardRepeatRouter.swift */; };
+		780D0D4625DC134000CF15D1 /* BankCardRepeatRouterIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780D0D4525DC134000CF15D1 /* BankCardRepeatRouterIO.swift */; };
 		7811066C25C2CD7B004DB71D /* YooMoneyAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7811066B25C2CD7B004DB71D /* YooMoneyAssembly.swift */; };
 		7811066E25C2CD91004DB71D /* YooMoneyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7811066D25C2CD91004DB71D /* YooMoneyInteractor.swift */; };
 		7811067025C2D202004DB71D /* YooMoneyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7811066F25C2D202004DB71D /* YooMoneyPresenter.swift */; };
@@ -931,6 +938,13 @@
 		559073911FF3C2B90094AE5D /* YooKassaPayments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YooKassaPayments.h; sourceTree = "<group>"; };
 		559073AD1FF3CE910094AE5D /* Gemfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gemfile; sourceTree = "<group>"; };
 		5746D1C01E2AA9F16B231A99 /* Pods_YooKassaPaymentsExamplePods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YooKassaPaymentsExamplePods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		780D0D3625DC0DE800CF15D1 /* BankCardRepeatViewIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardRepeatViewIO.swift; sourceTree = "<group>"; };
+		780D0D3825DC0DF100CF15D1 /* BankCardRepeatModuleIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardRepeatModuleIO.swift; sourceTree = "<group>"; };
+		780D0D3B25DC0E0300CF15D1 /* BankCardRepeatAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardRepeatAssembly.swift; sourceTree = "<group>"; };
+		780D0D3D25DC0E0F00CF15D1 /* BankCardRepeatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardRepeatViewController.swift; sourceTree = "<group>"; };
+		780D0D4025DC115F00CF15D1 /* BankCardRepeatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardRepeatViewModel.swift; sourceTree = "<group>"; };
+		780D0D4325DC11FB00CF15D1 /* BankCardRepeatRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardRepeatRouter.swift; sourceTree = "<group>"; };
+		780D0D4525DC134000CF15D1 /* BankCardRepeatRouterIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardRepeatRouterIO.swift; sourceTree = "<group>"; };
 		7811066B25C2CD7B004DB71D /* YooMoneyAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooMoneyAssembly.swift; sourceTree = "<group>"; };
 		7811066D25C2CD91004DB71D /* YooMoneyInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooMoneyInteractor.swift; sourceTree = "<group>"; };
 		7811066F25C2D202004DB71D /* YooMoneyPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooMoneyPresenter.swift; sourceTree = "<group>"; };
@@ -1198,8 +1212,14 @@
 			isa = PBXGroup;
 			children = (
 				402EB400C05ECE87E091432C /* BankCardRepeatInteractorIO.swift */,
+				780D0D3825DC0DF100CF15D1 /* BankCardRepeatModuleIO.swift */,
+				780D0D4525DC134000CF15D1 /* BankCardRepeatRouterIO.swift */,
+				780D0D3625DC0DE800CF15D1 /* BankCardRepeatViewIO.swift */,
+				780D0D3A25DC0DFA00CF15D1 /* Assembly */,
 				402EB112A3CC9E647B438B95 /* Interactor */,
 				402EB1408A9D3DABCA0125DA /* Presenter */,
+				780D0D4225DC11EF00CF15D1 /* Router */,
+				780D0D3525DC0DD500CF15D1 /* View */,
 			);
 			path = BankCardRepeat;
 			sourceTree = "<group>";
@@ -2606,6 +2626,39 @@
 			path = Stylist;
 			sourceTree = "<group>";
 		};
+		780D0D3525DC0DD500CF15D1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				780D0D3D25DC0E0F00CF15D1 /* BankCardRepeatViewController.swift */,
+				780D0D3F25DC115100CF15D1 /* ViewModel */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		780D0D3A25DC0DFA00CF15D1 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				780D0D3B25DC0E0300CF15D1 /* BankCardRepeatAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		780D0D3F25DC115100CF15D1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				780D0D4025DC115F00CF15D1 /* BankCardRepeatViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		780D0D4225DC11EF00CF15D1 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				780D0D4325DC11FB00CF15D1 /* BankCardRepeatRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
 		7811066625C2CD4D004DB71D /* YooMoney */ = {
 			isa = PBXGroup;
 			children = (
@@ -3362,6 +3415,7 @@
 				402EB33EFF6B15F112C8E8AE /* SwitchItemView+Style.swift in Sources */,
 				402EB8D0BA8EDE19116CED88 /* ListItemView.swift in Sources */,
 				402EBC0D2A2DF6D02E60FA1C /* ActionTextDialog.swift in Sources */,
+				780D0D3E25DC0E0F00CF15D1 /* BankCardRepeatViewController.swift in Sources */,
 				402EB6F7E3B4CC73D716C22B /* ActionTextDialog+Style.swift in Sources */,
 				402EB9A12072A819B9A76CCE /* IconView.swift in Sources */,
 				402EBBCE94439738B462887E /* IconViewIO.swift in Sources */,
@@ -3373,6 +3427,7 @@
 				7860294A25D1675500B9E961 /* LinkedCardViewController.swift in Sources */,
 				402EBBF0FD1BA6CE4ACA7A4E /* UIColor+Style.swift in Sources */,
 				402EB3272BDFCACFC7470D81 /* UIButton+Style.swift in Sources */,
+				780D0D3925DC0DF100CF15D1 /* BankCardRepeatModuleIO.swift in Sources */,
 				402EBB0834948CFD4278DF96 /* UILabel+Style.swift in Sources */,
 				402EB52D1B69D9D12BA05F02 /* UIFont+Style.swift in Sources */,
 				784A1AE625B9CE8A00637CB5 /* PaymentMethod.swift in Sources */,
@@ -3438,6 +3493,7 @@
 				3089EF4923846F6300CB7319 /* SwitcherSavePaymentMethodViewModel.swift in Sources */,
 				7860291025C9913A00B9E961 /* UITextField+Style.swift in Sources */,
 				402EBD7014CFF4A56F23439F /* PresentableNotification.swift in Sources */,
+				780D0D3C25DC0E0300CF15D1 /* BankCardRepeatAssembly.swift in Sources */,
 				402EBB848067B66B2FEAC704 /* TransitionHandler.swift in Sources */,
 				402EB9AF1EC6377E4EB997A7 /* NotificationPresenting.swift in Sources */,
 				402EB3B8F359111B86058AB0 /* ActivityIndicatorFullViewPresenting.swift in Sources */,
@@ -3502,6 +3558,7 @@
 				7817A19C25B18AD700CD5BAB /* WalletLoginProcessingError.swift in Sources */,
 				402EB15E980B41AA08731E66 /* String+Split.swift in Sources */,
 				402EB10A8D9BD77A5D0E64A4 /* UIView+Tools.swift in Sources */,
+				780D0D4125DC115F00CF15D1 /* BankCardRepeatViewModel.swift in Sources */,
 				784A1AD125B9C57B00637CB5 /* Fee.swift in Sources */,
 				402EB85E842DBEAC4783738D /* UIViewController+Tools.swift in Sources */,
 				402EB230D52067A6A6CD0479 /* UIViewController+NotificationPresenting.swift in Sources */,
@@ -3546,6 +3603,7 @@
 				402EBDB5C4E2965E370EDE25 /* PaymentMethodsInteractorIO.swift in Sources */,
 				402EBB82A4F1F43C1B480F4B /* PaymentMethodsModuleIO.swift in Sources */,
 				784A1AD625B9C57B00637CB5 /* PaymentMethodType.swift in Sources */,
+				780D0D4625DC134000CF15D1 /* BankCardRepeatRouterIO.swift in Sources */,
 				402EB7DDDEF0317BDBD63B92 /* ContractAssembly.swift in Sources */,
 				7860291425CC1F3B00B9E961 /* SectionHeaderView.swift in Sources */,
 				402EB88C4CA9D4A9F8F651E9 /* ApplePayContractAssembly.swift in Sources */,
@@ -3624,6 +3682,7 @@
 				402EB9891535071C937CBBD5 /* DeviceInfoService.swift in Sources */,
 				402EBEFDB09772BF31E76445 /* DeviceInfoServiceImpl.swift in Sources */,
 				784A1ADD25B9C57B00637CB5 /* AuthTypeState.swift in Sources */,
+				780D0D3725DC0DE800CF15D1 /* BankCardRepeatViewIO.swift in Sources */,
 				402EBF134B3899D2D4F57F13 /* DeviceInfoServiceAssembly.swift in Sources */,
 				402EBACF1C5CFC5C064DFA36 /* AnalyticsServiceImpl.swift in Sources */,
 				402EB9FA2915EE88D6833F2B /* TokenizeSchemeFactory.swift in Sources */,
@@ -3655,6 +3714,7 @@
 				402EB933D69EDDFED2DDAB44 /* Amount.swift in Sources */,
 				402EBDA6F7FFB24269195FFD /* TestModeSettings.swift in Sources */,
 				786028F825C982B100B9E961 /* PaymentAuthorizationInteractorIO.swift in Sources */,
+				780D0D4425DC11FB00CF15D1 /* BankCardRepeatRouter.swift in Sources */,
 				402EB0FBD2A8AFE719A2A013 /* TokenizationSettings.swift in Sources */,
 				308E417A2385501E00B44490 /* SavePaymentMethodInfoViewController.swift in Sources */,
 				78CF11E025D438AC00F7154E /* ApplePayContractViewModel.swift in Sources */,

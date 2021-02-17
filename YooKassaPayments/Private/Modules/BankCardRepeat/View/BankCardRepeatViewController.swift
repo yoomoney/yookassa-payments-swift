@@ -1,10 +1,10 @@
 import UIKit
 
-final class LinkedCardViewController: UIViewController, PlaceholderProvider {
+final class BankCardRepeatViewController: UIViewController, PlaceholderProvider {
     
     // MARK: - VIPER
     
-    var output: LinkedCardViewOutput!
+    var output: BankCardRepeatViewOutput!
     
     // MARK: - Touches, Presses, and Gestures
 
@@ -116,6 +116,8 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         return $0
     }(LinkedTextView())
     
+    private var activityIndicatorView: UIView?
+    
     // MARK: - PlaceholderProvider
 
     lazy var placeholderView: PlaceholderView = {
@@ -134,9 +136,9 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         return $0
     }(ActionTitleTextDialog())
     
-    // MARK: - Switcher save auth in app
+    // MARK: - Switch save payment method UI Properties
     
-    private lazy var saveAuthInAppSwitchItemView: SwitchItemView = {
+    fileprivate lazy var savePaymentMethodSwitchItemView: SwitchItemView = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.layoutMargins = UIEdgeInsets(
             top: Space.double,
@@ -144,24 +146,51 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
             bottom: Space.double,
             right: Space.double
         )
-        $0.state = true
         $0.setStyles(SwitchItemView.Styles.primary)
-        $0.title = §Localized.saveAuthInAppTitle
+        $0.title = §Localized.savePaymentMethodTitle
         $0.delegate = self
         return $0
     }(SwitchItemView())
     
-    private lazy var saveAuthInAppSectionHeaderView: SectionHeaderView = {
+    fileprivate lazy var savePaymentMethodSwitchLinkedItemView: LinkedItemView = {
+        $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.layoutMargins = UIEdgeInsets(
             top: Space.single / 2,
             left: Space.double,
             bottom: Space.double,
             right: Space.double
         )
-        $0.title = §Localized.saveAuthInApp
-        $0.setStyles(SectionHeaderView.Styles.footer)
+        $0.setStyles(LinkedItemView.Styles.linked)
+        $0.delegate = self
+        return $0
+    }(LinkedItemView())
+    
+    // MARK: - Strict save payment method UI Properties
+    
+    fileprivate lazy var savePaymentMethodStrictSectionHeaderView: SectionHeaderView = {
+        $0.layoutMargins = UIEdgeInsets(
+            top: Space.double,
+            left: Space.double,
+            bottom: 0,
+            right: Space.double
+        )
+        $0.title = §Localized.savePaymentMethodTitle
+        $0.setStyles(SectionHeaderView.Styles.primary)
         return $0
     }(SectionHeaderView())
+
+    fileprivate lazy var savePaymentMethodStrictLinkedItemView: LinkedItemView = {
+        $0.tintColor = CustomizationStorage.shared.mainScheme
+        $0.layoutMargins = UIEdgeInsets(
+            top: Space.single / 4,
+            left: Space.double,
+            bottom: Space.double,
+            right: Space.double
+        )
+        $0.setStyles(LinkedItemView.Styles.linked)
+        $0.delegate = self
+        return $0
+    }(LinkedItemView())
     
     // MARK: - Input Presenter
     
@@ -203,6 +232,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
         view.addGestureRecognizer(viewTapGestureRecognizer)
+        navigationItem.title = §Localized.title
         
         setupView()
         setupConstraints()
@@ -343,7 +373,14 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
     }
     
     private func fixTableViewHeight() {
-        scrollViewHeightConstraint.constant = contentStackView.bounds.height
+        let newValue = contentStackView.bounds.height
+        if scrollViewHeightConstraint.constant != newValue {
+            scrollViewHeightConstraint.constant = newValue
+            NotificationCenter.default.post(
+                name: .needUpdatePreferredHeight,
+                object: nil
+            )
+        }
     }
     
     // MARK: - Action
@@ -368,30 +405,20 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
     private var cachedCvc = ""
 }
 
-// MARK: - LinkedCardViewInput
+// MARK: - BankCardRepeatViewInput
 
-extension LinkedCardViewController: LinkedCardViewInput {
+extension BankCardRepeatViewController: BankCardRepeatViewInput {
     func endEditing(_ force: Bool) {
         view.endEditing(force)
     }
     
-    func setupTitle(
-        _ title: String?
-    ) {
-        navigationItem.title = title ?? §Localized.title
-    }
-    
     func setupViewModel(
-        _ viewModel: LinkedCardViewModel
+        _ viewModel: BankCardRepeatViewModel
     ) {
         orderView.title = viewModel.shopName
         orderView.subtitle = viewModel.description
         orderView.value = makePrice(viewModel.price)
-        if let fee = viewModel.fee {
-            orderView.subvalue = "\(§Localized.fee) " + makePrice(fee)
-        } else {
-            orderView.subvalue = nil
-        }
+        orderView.subvalue = nil
         
         maskedCardView.cardNumber = viewModel.cardMask
         maskedCardView.cardLogo = viewModel.cardLogo
@@ -404,17 +431,41 @@ extension LinkedCardViewController: LinkedCardViewInput {
         termsOfServiceLinkedTextView.textAlignment = .center
     }
     
-    func setSaveAuthInAppSwitchItemView() {
-        [
-            saveAuthInAppSwitchItemView,
-            saveAuthInAppSectionHeaderView,
-        ].forEach(contentStackView.addArrangedSubview)
-    }
-    
     func setConfirmButtonEnabled(
         _ isEnabled: Bool
     ) {
         submitButton.isEnabled = isEnabled
+    }
+    
+    func setSavePaymentMethodViewModel(
+        _ savePaymentMethodViewModel: SavePaymentMethodViewModel
+    ) {
+        switch savePaymentMethodViewModel {
+        case .switcher(let viewModel):
+            savePaymentMethodSwitchItemView.state = viewModel.state
+            savePaymentMethodSwitchLinkedItemView.attributedString = makeSavePaymentMethodAttributedString(
+                text: viewModel.text,
+                hyperText: viewModel.hyperText,
+                font: UIFont.dynamicCaption1,
+                foregroundColor: UIColor.AdaptiveColors.secondary
+            )
+            [
+                savePaymentMethodSwitchItemView,
+                savePaymentMethodSwitchLinkedItemView,
+            ].forEach(contentStackView.addArrangedSubview)
+            
+        case .strict(let viewModel):
+            savePaymentMethodStrictLinkedItemView.attributedString = makeSavePaymentMethodAttributedString(
+                text: viewModel.text,
+                hyperText: viewModel.hyperText,
+                font: UIFont.dynamicCaption1,
+                foregroundColor: UIColor.AdaptiveColors.secondary
+            )
+            [
+                savePaymentMethodStrictSectionHeaderView,
+                savePaymentMethodStrictLinkedItemView,
+            ].forEach(contentStackView.addArrangedSubview)
+        }
     }
     
     func showPlaceholder(
@@ -466,23 +517,64 @@ extension LinkedCardViewController: LinkedCardViewInput {
 
         return attributedText
     }
+    
+    private func makeSavePaymentMethodAttributedString(
+        text: String,
+        hyperText: String,
+        font: UIFont,
+        foregroundColor: UIColor
+    ) -> NSAttributedString {
+        let attributedText: NSMutableAttributedString
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: foregroundColor,
+        ]
+        attributedText = NSMutableAttributedString(string: "\(text) ", attributes: attributes)
+
+        let linkAttributedText = NSMutableAttributedString(string: hyperText, attributes: attributes)
+        let linkRange = NSRange(location: 0, length: hyperText.count)
+        let fakeLink = URL(string: "https://yookassa.ru")
+        linkAttributedText.addAttribute(.link, value: fakeLink, range: linkRange)
+        attributedText.append(linkAttributedText)
+
+        return attributedText
+    }
 }
 
 // MARK: - ActivityIndicatorFullViewPresenting
 
-extension LinkedCardViewController: ActivityIndicatorFullViewPresenting {
+extension BankCardRepeatViewController: ActivityIndicatorFullViewPresenting {
     func showActivity() {
-        showFullViewActivity(style: ActivityIndicatorView.Styles.heavyLight)
+        guard activityIndicatorView == nil else { return }
+
+        let activityIndicatorView = ActivityIndicatorView()
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView.activity.startAnimating()
+        activityIndicatorView.setStyles(ActivityIndicatorView.Styles.heavyLight)
+        view.addSubview(activityIndicatorView)
+
+        self.activityIndicatorView = activityIndicatorView
+
+        let constraints = [
+            activityIndicatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            activityIndicatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            activityIndicatorView.topAnchor.constraint(equalTo: view.topAnchor),
+            activityIndicatorView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            activityIndicatorView.heightAnchor.constraint(equalToConstant: Constants.defaultViewHeight),
+        ]
+
+        NSLayoutConstraint.activate(constraints)
     }
 
     func hideActivity() {
-        hideFullViewActivity()
+        self.activityIndicatorView?.removeFromSuperview()
+        self.activityIndicatorView = nil
     }
 }
 
 // MARK: - UIGestureRecognizerDelegate
 
-extension LinkedCardViewController: UIGestureRecognizerDelegate {
+extension BankCardRepeatViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(
         _ gestureRecognizer: UIGestureRecognizer,
         shouldReceive touch: UITouch
@@ -497,7 +589,7 @@ extension LinkedCardViewController: UIGestureRecognizerDelegate {
 
 // MARK: - MaskedCardViewDelegate
 
-extension LinkedCardViewController: MaskedCardViewDelegate {
+extension BankCardRepeatViewController: MaskedCardViewDelegate {
     func textField(
         _ textField: UITextField,
         shouldChangeCharactersIn range: NSRange,
@@ -532,7 +624,7 @@ extension LinkedCardViewController: MaskedCardViewDelegate {
 
 // MARK: - UITextViewDelegate
 
-extension LinkedCardViewController: UITextViewDelegate {
+extension BankCardRepeatViewController: UITextViewDelegate {
     func textView(
         _ textView: UITextView,
         shouldInteractWith URL: URL,
@@ -548,36 +640,58 @@ extension LinkedCardViewController: UITextViewDelegate {
     }
 }
 
-// MARK: - SwitchItemViewOutput
+// MARK: - LinkedItemViewOutput
 
-extension LinkedCardViewController: SwitchItemViewOutput {
-    func switchItemView(
-        _ itemView: SwitchItemViewInput,
-        didChangeState state: Bool
-    ) {
+extension BankCardRepeatViewController: LinkedItemViewOutput {
+    func didTapOnLinkedView(on itemView: LinkedItemViewInput) {
         switch itemView {
-        case _ where itemView === saveAuthInAppSwitchItemView:
-            output?.didChangeSaveAuthInAppState(state)
+        case _ where itemView === savePaymentMethodSwitchLinkedItemView,
+             _ where itemView === savePaymentMethodStrictLinkedItemView:
+            output?.didTapOnSavePaymentMethod()
         default:
             assertionFailure("Unsupported itemView")
         }
     }
 }
 
+// MARK: - SwitchItemViewOutput
+
+extension BankCardRepeatViewController: SwitchItemViewOutput {
+    func switchItemView(
+        _ itemView: SwitchItemViewInput,
+        didChangeState state: Bool
+    ) {
+        switch itemView {
+        case _ where itemView === savePaymentMethodSwitchItemView:
+            output?.didChangeSavePaymentMethodState(state)
+        default:
+            assertionFailure("Unsupported itemView")
+        }
+    }
+}
+
+// MARK: - Constants
+
+private extension BankCardRepeatViewController {
+    enum Constants {
+        static let defaultViewHeight: CGFloat = 300
+    }
+}
+
 // MARK: - Localized
 
-private extension LinkedCardViewController {
+private extension BankCardRepeatViewController {
     enum Localized: String {
-        case title = "LinkedCard.title"
+        case title = "BankCardRepeat.title"
         case `continue` = "Contract.next"
         case fee = "Contract.fee"
-        case saveAuthInApp = "LinkedCard.saveAuthInApp"
-        case saveAuthInAppTitle = "LinkedCard.saveAuthInApp.title"
         
         case hintCardNumber = "BankCardDataInput.panInput"
         case hintCardCode = "BankCardDataInput.hintCardCode"
         case cvc = "BankCardDataInput.cvc"
         case errorCvc = "BankCardDataInput.errorCvc"
+        
+        case savePaymentMethodTitle = "BankCardRepeat.savePaymentMethod.title"
         
         enum PlaceholderView: String {
             case buttonTitle = "Common.PlaceholderView.buttonTitle"

@@ -39,6 +39,10 @@ final class SheetContentViewController: UIViewController {
     // MARK: - Logic properties
 
     private(set) var preferredHeight: CGFloat = 0
+    
+    // MARK: - Notification center
+    
+    private let notificationCenter = NotificationCenter.default
 
     // MARK: - Initialization
 
@@ -80,6 +84,7 @@ final class SheetContentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupNotificationCenter()
         setupContentView()
         setupChildContainerView()
         setupChildViewController()
@@ -106,6 +111,15 @@ final class SheetContentViewController: UIViewController {
     }
 
     // MARK: - SetupView
+    
+    private func setupNotificationCenter() {
+        notificationCenter.addObserver(
+            self,
+            selector: #selector(needUpdatePreferredHeight),
+            name: .needUpdatePreferredHeight,
+            object: nil
+        )
+    }
 
     private func setupContentView() {
         view.addSubview(contentView)
@@ -229,6 +243,18 @@ final class SheetContentViewController: UIViewController {
             ? cornerRadius
             : 0
     }
+    
+    // MARK: - Actions
+    
+    @objc
+    private func needUpdatePreferredHeight(
+        _ notification: Notification
+    ) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.updatePreferredHeight()
+        }
+    }
 }
 
 // MARK: - Internal helpers
@@ -331,5 +357,11 @@ extension SheetContentViewController: UINavigationControllerDelegate {
     ) {
         navigationHeightConstraint?.isActive = true
         updatePreferredHeight()
+    }
+}
+
+extension Notification.Name {
+    static var needUpdatePreferredHeight: Notification.Name {
+        return .init(rawValue: "SheetView.needUpdatePreferredHeight")
     }
 }
