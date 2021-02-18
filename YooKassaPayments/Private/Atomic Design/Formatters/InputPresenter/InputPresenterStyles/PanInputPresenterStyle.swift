@@ -24,8 +24,6 @@
 
 struct PanInputPresenterStyle: InputPresenterStyle {
 
-    init() { }
-
     func removedFormatting(from string: String) -> String {
         return string.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
     }

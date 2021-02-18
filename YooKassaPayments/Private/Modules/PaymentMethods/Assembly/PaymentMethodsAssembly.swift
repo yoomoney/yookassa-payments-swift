@@ -34,7 +34,8 @@ enum PaymentMethodsAssembly {
             purchaseDescription: inputData.purchaseDescription,
             returnUrl: inputData.returnUrl,
             savePaymentMethod: inputData.savePaymentMethod,
-            userPhoneNumber: inputData.userPhoneNumber
+            userPhoneNumber: inputData.userPhoneNumber,
+            cardScanning: inputData.cardScanning
         )
 
         let paymentService = PaymentServiceAssembly.makeService(

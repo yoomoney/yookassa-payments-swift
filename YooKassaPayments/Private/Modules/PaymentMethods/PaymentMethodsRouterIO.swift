@@ -45,4 +45,10 @@ protocol PaymentMethodsRouterInput: class {
         moduleOutput: SberbankModuleOutput,
         needReplace: Bool
     )
+
+    func openBankCardModule(
+        inputData: BankCardModuleInputData,
+        moduleOutput: BankCardModuleOutput?,
+        needReplace: Bool
+    )
 }

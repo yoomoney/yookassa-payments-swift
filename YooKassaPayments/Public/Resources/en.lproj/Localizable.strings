@@ -207,3 +207,10 @@
 
 /* Текст на кнопке баннера миграции https://yadi.sk/i/IuBf_A1_uq2zSg */
 "Wallet.Authorization.migrationBannerButtonText" = "Learn more";
+
+"BankCardView.inputPanHint" = "Card number";
+"BankCardView.inputPanPlaceholder" = "Enter or scan";
+"BankCardView.expiryDateHint" = "Expiry date";
+"BankCardView.inputExpiryDatePlaceholder" = "MM/YY";
+"BankCardView.inputCvcHint" = "Code";
+"BankCardView.inputCvcPlaceholder" = "CVC";

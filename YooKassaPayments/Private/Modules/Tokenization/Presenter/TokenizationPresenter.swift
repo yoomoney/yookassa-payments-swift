@@ -173,17 +173,6 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
         )
     }
 
-    func presentErrorWithMessage(_ message: String) {
-        let moduleInputData = ErrorModuleInputData(errorTitle: message)
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.router.presentError(
-                inputData: moduleInputData,
-                moduleOutput: self
-            )
-        }
-    }
-
     func didFinish(on module: TokenizationStrategyInput) {
         handleOnePaymentOptionMethodAtReturn()
     }
@@ -475,14 +464,6 @@ extension TokenizationPresenter: CardSecModuleOutput {
 
     func didPressCloseButton(on module: CardSecModuleInput) {
         close()
-    }
-}
-
-// MARK: - ErrorModuleOutput
-
-extension TokenizationPresenter: ErrorModuleOutput {
-    func didPressPlaceholderButton(on module: ErrorModuleInput) {
-        presentPaymentMethodsModule()
     }
 }
 

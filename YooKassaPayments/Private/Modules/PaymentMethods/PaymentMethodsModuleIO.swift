@@ -15,6 +15,7 @@ struct PaymentMethodsModuleInputData {
     let returnUrl: String?
     let savePaymentMethod: SavePaymentMethod
     let userPhoneNumber: String?
+    let cardScanning: CardScanning?
 }
 
 protocol PaymentMethodsModuleInput: class {}

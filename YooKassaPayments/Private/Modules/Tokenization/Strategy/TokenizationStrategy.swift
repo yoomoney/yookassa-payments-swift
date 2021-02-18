@@ -77,10 +77,6 @@ protocol TokenizationStrategyOutput: class {
         paymentOption: PaymentOption
     )
 
-    func presentErrorWithMessage(
-        _ message: String
-    )
-
     func didFinish(
         on module: TokenizationStrategyInput
     )

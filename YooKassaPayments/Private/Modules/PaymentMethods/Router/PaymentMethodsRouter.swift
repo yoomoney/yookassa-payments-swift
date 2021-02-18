@@ -159,4 +159,26 @@ extension PaymentMethodsRouter: PaymentMethodsRouterInput {
             )
         }
     }
+
+    func openBankCardModule(
+        inputData: BankCardModuleInputData,
+        moduleOutput: BankCardModuleOutput?,
+        needReplace: Bool
+    ) {
+        let viewController = BankCardAssembly.makeModule(
+            inputData: inputData,
+            moduleOutput: moduleOutput
+        )
+        if needReplace {
+            transitionHandler?.replaceViewControllers(
+                [viewController],
+                animated: true
+            )
+        } else {
+            transitionHandler?.push(
+                viewController,
+                animated: true
+            )
+        }
+    }
 }

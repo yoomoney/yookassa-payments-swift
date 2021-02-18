@@ -34,26 +34,7 @@ protocol AdditionalCardDataInputViewDelegate: class {
 
 final class AdditionalCardDataInputView: UIView {
 
-    private struct CscInputPresenterStyle: InputPresenterStyle {
 
-        func removedFormatting(from string: String) -> String {
-            return string.components(separatedBy: removeFormattingCharacterSet).joined()
-        }
-
-        func appendedFormatting(to string: String) -> String {
-            return string.map { _ in "•" }.joined()
-        }
-
-        var maximalLength: Int {
-            return 4
-        }
-
-        private let removeFormattingCharacterSet: CharacterSet = {
-            var set = CharacterSet.decimalDigits
-            set.insert(charactersIn: "•")
-            return set.inverted
-        }()
-    }
 
     weak var delegate: AdditionalCardDataInputViewDelegate?
 

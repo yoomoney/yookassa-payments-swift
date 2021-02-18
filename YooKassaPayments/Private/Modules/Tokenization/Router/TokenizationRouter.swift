@@ -55,17 +55,6 @@ extension TokenizationRouter: TokenizationRouterInput {
         transitionHandler?.push(viewController, animated: true)
     }
 
-    func presentError(
-        inputData: ErrorModuleInputData,
-        moduleOutput: ErrorModuleOutput
-    ) {
-        let viewController = ErrorAssembly.makeModule(
-            inputData: inputData,
-            moduleOutput: moduleOutput
-        )
-        transitionHandler?.present(viewController, animated: true, completion: nil)
-    }
-
     func presentTermsOfServiceModule(_ url: URL) {
         let viewController = SFSafariViewController(url: url)
         viewController.modalPresentationStyle = .overFullScreen
