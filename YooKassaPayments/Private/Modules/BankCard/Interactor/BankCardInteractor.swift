@@ -44,7 +44,8 @@ final class BankCardInteractor {
 
 extension BankCardInteractor: BankCardInteractorInput {
     func validate(
-        cardData: CardData
+        cardData: CardData,
+        shouldMoveFocus: Bool
     ) {
         guard let errors = cardService.validate(
             cardData: cardData
@@ -53,7 +54,8 @@ extension BankCardInteractor: BankCardInteractorInput {
             return
         }
         output?.didFailValidateCardData(
-            errors: errors
+            errors: errors,
+            shouldMoveFocus: shouldMoveFocus
         )
     }
 

@@ -11,6 +11,7 @@ protocol BankCardViewDelegate: class {
         _ value: String
     )
     func scanDidPress()
+    func panDidBeginEditing()
 }
 
 final class BankCardView: UIView {
@@ -78,6 +79,7 @@ final class BankCardView: UIView {
         }
         set {
             inputPanCardView.text = newValue
+            pan = newValue ?? ""
         }
     }
 
@@ -300,8 +302,8 @@ extension BankCardView: InputPanCardViewDelegate {
     }
 
     func panDidBeginEditing() {
-        inputPanText = pan
-        inputPanRightButtonMode = .next
+        inputPanCardView.text = pan
+        delegate?.panDidBeginEditing()
         setInputState(.collapsed)
     }
 
@@ -320,7 +322,7 @@ extension BankCardView: InputPanCardViewDelegate {
             }
         case .uncollapsed:
             let panText = "••••" + pan.suffix(4)
-            inputPanText = panText
+            inputPanCardView.text = panText
             inputPanRightButtonMode = .empty
             expiryDateView.isHidden = false
             inputCvcView.isHidden = false

@@ -484,6 +484,10 @@ extension BankCardViewController: BankCardViewDelegate {
     func scanDidPress() {
         output.scanDidPress()
     }
+
+    func panDidBeginEditing() {
+        output.panDidBeginEditing()
+    }
 }
 
 // MARK: - LinkedItemViewOutput

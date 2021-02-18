@@ -1,6 +1,7 @@
 protocol BankCardInteractorInput: AnalyticsTrack {
     func validate(
-        cardData: CardData
+        cardData: CardData,
+        shouldMoveFocus: Bool
     )
     func fetchBankCardSettings(
         _ cardMask: String
@@ -18,7 +19,8 @@ protocol BankCardInteractorInput: AnalyticsTrack {
 protocol BankCardInteractorOutput: class {
     func didSuccessValidateCardData()
     func didFailValidateCardData(
-        errors: [CardService.ValidationError]
+        errors: [CardService.ValidationError],
+        shouldMoveFocus: Bool
     )
 
     func didFetchBankSettings(
