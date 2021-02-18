@@ -35,9 +35,10 @@ final class PaymentMethodsPresenter: NSObject {
     
     private let shopName: String
     private let purchaseDescription: String
-    private let returnUrl: String?
+    private let returnUrl: String
     private let savePaymentMethod: SavePaymentMethod
     private let userPhoneNumber: String?
+    private let cardScanning: CardScanning?
 
     // MARK: - Init
 
@@ -56,7 +57,8 @@ final class PaymentMethodsPresenter: NSObject {
         purchaseDescription: String,
         returnUrl: String?,
         savePaymentMethod: SavePaymentMethod,
-        userPhoneNumber: String?
+        userPhoneNumber: String?,
+        cardScanning: CardScanning?
     ) {
         self.isLogoVisible = isLogoVisible
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
@@ -73,9 +75,10 @@ final class PaymentMethodsPresenter: NSObject {
         
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
-        self.returnUrl = returnUrl
+        self.returnUrl = returnUrl ?? Constants.returnUrl
         self.savePaymentMethod = savePaymentMethod
         self.userPhoneNumber = userPhoneNumber
+        self.cardScanning = cardScanning
     }
 
     // MARK: - Stored properties
@@ -101,7 +104,7 @@ final class PaymentMethodsPresenter: NSObject {
 
 extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
     func setupView() {
-        guard let view = self.view else { return }
+        guard let view = view else { return }
         view.showActivity()
         view.setLogoVisible(isLogoVisible)
     }
@@ -159,6 +162,9 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
 
         case let paymentOption where paymentOption.paymentMethodType == .applePay:
             openApplePay(paymentOption: paymentOption, needReplace: needReplace)
+
+        case let paymentOption where paymentOption.paymentMethodType == .bankCard:
+            openBankCardModule(paymentOption: paymentOption, needReplace: needReplace)
 
         default:
             break
@@ -343,6 +349,41 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             userPhoneNumber: userPhoneNumber
         )
         router.openSberbankModule(
+            inputData: inputData,
+            moduleOutput: self,
+            needReplace: needReplace
+        )
+    }
+
+    private func openBankCardModule(
+        paymentOption: PaymentOption,
+        needReplace: Bool
+    ) {
+        let priceViewModel = makePriceViewModel(paymentOption)
+        let feeViewModel = makeFeePriceViewModel(paymentOption)
+        let initialSavePaymentMethod = makeInitialSavePaymentMethod(savePaymentMethod)
+        let savePaymentMethodViewModel =  SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
+            paymentOption,
+            savePaymentMethod,
+            initialState: initialSavePaymentMethod
+        )
+        let inputData = BankCardModuleInputData(
+            clientApplicationKey: clientApplicationKey,
+            testModeSettings: testModeSettings,
+            isLoggingEnabled: isLoggingEnabled,
+            tokenizationSettings: tokenizationSettings,
+            shopName: shopName,
+            purchaseDescription: purchaseDescription,
+            priceViewModel: priceViewModel,
+            feeViewModel: feeViewModel,
+            paymentOption: paymentOption,
+            termsOfService: termsOfService,
+            cardScanning: cardScanning,
+            returnUrl: returnUrl,
+            savePaymentMethodViewModel: savePaymentMethodViewModel,
+            initialSavePaymentMethod: initialSavePaymentMethod
+        )
+        router.openBankCardModule(
             inputData: inputData,
             moduleOutput: self,
             needReplace: needReplace
@@ -773,11 +814,29 @@ extension PaymentMethodsPresenter: SberbankModuleOutput {
     }
 }
 
+// MARK: - BankCardModuleOutput
+
+extension PaymentMethodsPresenter: BankCardModuleOutput {
+    func bankCardModule(
+        _ module: BankCardModuleInput,
+        didTokenize token: Tokens,
+        paymentMethodType: PaymentMethodType
+    ) {
+        moduleOutput?.tokenizationModule(
+            self,
+            didTokenize: token,
+            paymentMethodType: paymentMethodType,
+            scheme: .bankCard
+        )
+    }
+}
+
 // MARK: - Constants
 
 private extension PaymentMethodsPresenter {
     enum Constants {
         static let dismissApplePayTimeout: TimeInterval = 0.5
+        static let returnUrl = "https://custom.redirect.url/"
     }
 }
 

@@ -1,3 +1,9 @@
+enum BankSettingsServiceAssembly {
+    static func makeService() -> BankSettingsService {
+        BankServiceSettingsImpl()
+    }
+}
+
 final class BankServiceSettingsImpl {
     static var shared: BankSettingsService {
         return _shared

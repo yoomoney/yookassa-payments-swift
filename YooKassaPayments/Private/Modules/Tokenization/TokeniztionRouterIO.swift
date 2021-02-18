@@ -20,10 +20,6 @@ protocol TokenizationRouterInput: class {
         moduleOutput: MaskedBankCardDataInputModuleOutput
     )
 
-    func presentError(
-        inputData: ErrorModuleInputData,
-        moduleOutput: ErrorModuleOutput
-    )
 
     func presentTermsOfServiceModule(
         _ url: URL

@@ -14,7 +14,7 @@ struct YooMoneyModuleInputData {
     let paymentMethod: PaymentMethodViewModel
     let paymentOption: PaymentInstrumentYooMoneyWallet
     let termsOfService: TermsOfService
-    let returnUrl: String?
+    let returnUrl: String
     let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     let tmxSessionId: String?
     let initialSavePaymentMethod: Bool

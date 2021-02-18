@@ -194,16 +194,19 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
     
     // MARK: - Constraints
     
-    private lazy var scrollViewHeightConstraint =
-        scrollView.heightAnchor.constraint(equalToConstant: 0)
-    
+    private lazy var scrollViewHeightConstraint: NSLayoutConstraint = {
+        let constraint = scrollView.heightAnchor.constraint(equalToConstant: 0)
+        constraint.priority = .defaultLow
+        return constraint
+    }()
+
     // MARK: - Managing the View
     
     override func loadView() {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
         view.addGestureRecognizer(viewTapGestureRecognizer)
-        
+
         setupView()
         setupConstraints()
     }

@@ -143,12 +143,12 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
     }
     
     func didTapOnSavePaymentMethod() {
-        let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
+        let savePaymentMethodModuleInputData = SavePaymentMethodInfoModuleInputData(
             headerValue: §SavePaymentMethodInfoLocalization.Wallet.header,
             bodyValue: §SavePaymentMethodInfoLocalization.Wallet.body
         )
         router.presentSavePaymentMethodInfo(
-            inputData: savePaymentMethodModuleinputData
+            inputData: savePaymentMethodModuleInputData
         )
     }
     

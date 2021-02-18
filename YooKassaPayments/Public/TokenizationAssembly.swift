@@ -80,7 +80,8 @@ public enum TokenizationAssembly {
             moneyAuthClientId: inputData.moneyAuthClientId,
             returnUrl: inputData.returnUrl,
             savePaymentMethod: inputData.savePaymentMethod,
-            userPhoneNumber: inputData.userPhoneNumber
+            userPhoneNumber: inputData.userPhoneNumber,
+            cardScanning: inputData.cardScanning
         )
 
         let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()

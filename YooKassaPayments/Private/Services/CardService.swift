@@ -74,7 +74,10 @@ extension CardService {
     ///
     /// - throws: `ValidationError.panInvalidLength` or `ValidationError.luhnAlgorithmFail`
     func validate(pan: String?) throws {
-        guard let pan = pan else { throw ValidationError.panEmpty }
+        guard let pan = pan,
+              !pan.isEmpty else {
+            throw ValidationError.panEmpty
+        }
         try validateLength(pan: pan)
         try validateLuhn(pan: pan)
     }
@@ -112,7 +115,7 @@ extension CardService {
         let panLength = pan.count
 
         // Validate default pan length
-        if (12...19 ~= panLength) == false {
+        if (13...19 ~= panLength) == false {
             throw ValidationError.panInvalidLength
         }
     }
