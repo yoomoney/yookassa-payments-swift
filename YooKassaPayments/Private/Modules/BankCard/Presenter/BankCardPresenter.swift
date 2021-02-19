@@ -118,7 +118,10 @@ extension BankCardPresenter: BankCardViewOutput {
         cardData.pan = value
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
-            self.interactor.validate(cardData: self.cardData)
+            self.interactor.validate(
+                cardData: self.cardData,
+                shouldMoveFocus: true
+            )
             self.interactor.fetchBankCardSettings(value)
         }
     }
@@ -130,7 +133,8 @@ extension BankCardPresenter: BankCardViewOutput {
             guard let self = self else { return }
             defer {
                 self.interactor.validate(
-                    cardData: self.cardData
+                    cardData: self.cardData,
+                    shouldMoveFocus: true
                 )
             }
             self.expiryDateText = value
@@ -155,7 +159,8 @@ extension BankCardPresenter: BankCardViewOutput {
             guard let self = self else { return }
             self.cardData.csc = value
             self.interactor.validate(
-                cardData: self.cardData
+                cardData: self.cardData,
+                shouldMoveFocus: true
             )
         }
     }
@@ -175,6 +180,16 @@ extension BankCardPresenter: BankCardViewOutput {
     ) {
         initialSavePaymentMethod = state
     }
+
+    func panDidBeginEditing() {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            self.interactor.validate(
+                cardData: self.cardData,
+                shouldMoveFocus: false
+            )
+        }
+    }
 }
 
 // MARK: - BankCardInteractorOutput
@@ -192,7 +207,8 @@ extension BankCardPresenter: BankCardInteractorOutput {
     }
 
     func didFailValidateCardData(
-        errors: [CardService.ValidationError]
+        errors: [CardService.ValidationError],
+        shouldMoveFocus: Bool
     ) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self,
@@ -207,11 +223,13 @@ extension BankCardPresenter: BankCardInteractorOutput {
 
             view.setSubmitButtonEnabled(false)
 
-            self.moveFocusIfNeeded(
-                in: view,
-                panIsValid: panIsValid,
-                dateIsValid: dateIsValid
-            )
+            if shouldMoveFocus {
+                self.moveFocusIfNeeded(
+                    in: view,
+                    panIsValid: panIsValid,
+                    dateIsValid: dateIsValid
+                )
+            }
         }
     }
 
@@ -284,7 +302,10 @@ extension BankCardPresenter: BankCardDataInputRouterOutput {
 
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
-            self.interactor.validate(cardData: self.cardData)
+            self.interactor.validate(
+                cardData: self.cardData,
+                shouldMoveFocus: false
+            )
             self.cardData.pan.map(self.interactor.fetchBankCardSettings)
         }
     }

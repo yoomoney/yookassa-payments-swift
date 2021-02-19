@@ -50,4 +50,5 @@ protocol BankCardViewOutput: class {
     func didChangeSavePaymentMethodState(
         _ state: Bool
     )
+    func panDidBeginEditing()
 }
