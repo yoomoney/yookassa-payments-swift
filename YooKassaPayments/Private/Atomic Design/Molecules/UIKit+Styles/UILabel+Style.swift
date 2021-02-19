@@ -344,6 +344,10 @@ extension UILabel {
         static let inverse = InternalStyle(name: "label.colorStyle.inverse") { (label: UILabel) in
             label.textColor = .inverse
         }
+        
+        static let overlay = InternalStyle(name: "label.colorStyle.overlay") { (label: UILabel) in
+            label.textColor = .black65
+        }
 
         static let inverseTranslucent = InternalStyle(name: "label.colorStyle.inverseTranslucent") { (label: UILabel) in
             label.textColor = .inverseTranslucent

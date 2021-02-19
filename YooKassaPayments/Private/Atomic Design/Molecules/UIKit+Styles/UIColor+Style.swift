@@ -36,6 +36,7 @@ extension UIColor {
     static let warmGray = UIColor(white: 153 / 255, alpha: 1)
     static let alto = UIColor(white: 219 / 255, alpha: 1)
     static let mousegrey = UIColor(white: 224 / 255, alpha: 1)
+    static let darkMousegrey = UIColor(white: 21 / 255, alpha: 1)
     static let mercury = UIColor(white: 225 / 255, alpha: 1)
     static let gallery = UIColor(white: 236 / 255, alpha: 1)
     static let darkSkyBlue = UIColor(red: 70 / 255, green: 142 / 255, blue: 229 / 255, alpha: 1)
@@ -155,6 +156,29 @@ extension UIColor {
                 color = .systemBackground
             } else {
                 color = .cararra
+            }
+            return color
+        }()
+        
+        static var mousegrey: UIColor = {
+            let color: UIColor
+            if #available(iOS 13.0, *) {
+                color = .init(dynamicProvider: { (trait) -> UIColor in
+                    let dynamicProviderColor: UIColor
+                    switch trait.userInterfaceStyle {
+                    case .dark:
+                        dynamicProviderColor = .darkMousegrey
+                    case .light:
+                        dynamicProviderColor = .mousegrey
+                    case .unspecified:
+                        dynamicProviderColor = .mousegrey
+                    @unknown default:
+                        dynamicProviderColor = .mousegrey
+                    }
+                    return dynamicProviderColor
+                })
+            } else {
+                color = .mousegrey
             }
             return color
         }()
