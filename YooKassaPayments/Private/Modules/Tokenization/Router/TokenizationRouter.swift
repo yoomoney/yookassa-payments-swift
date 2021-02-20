@@ -11,16 +11,6 @@ class TokenizationRouter: NSObject {
 
 // MARK: - TokenizationRouterInput
 extension TokenizationRouter: TokenizationRouterInput {
-    func presentPaymentMethods(
-        inputData: PaymentMethodsModuleInputData,
-        moduleOutput: PaymentMethodsModuleOutput
-    ) {
-        let (viewController, _) = PaymentMethodsAssembly.makeModule(
-            inputData: inputData,
-            moduleOutput: moduleOutput
-        )
-        transitionHandler?.push(viewController, animated: true)
-    }
 
     func presentContract(
         inputData: ContractModuleInputData,

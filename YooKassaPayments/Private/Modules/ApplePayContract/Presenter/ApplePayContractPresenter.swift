@@ -13,7 +13,7 @@ final class ApplePayContractPresenter: NSObject {
 
     var interactor: ApplePayContractInteractorInput!
     var router: ApplePayContractRouterInput!
-    
+
     weak var view: ApplePayContractViewInput?
     weak var moduleOutput: ApplePayContractModuleOutput?
 
@@ -28,6 +28,7 @@ final class ApplePayContractPresenter: NSObject {
     private let merchantIdentifier: String?
     private let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     private var initialSavePaymentMethod: Bool
+    private let isBackBarButtonHidden: Bool
 
     // MARK: - Init
 
@@ -40,7 +41,8 @@ final class ApplePayContractPresenter: NSObject {
         termsOfService: TermsOfService,
         merchantIdentifier: String?,
         savePaymentMethodViewModel: SavePaymentMethodViewModel?,
-        initialSavePaymentMethod: Bool
+        initialSavePaymentMethod: Bool,
+        isBackBarButtonHidden: Bool
     ) {
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -51,6 +53,7 @@ final class ApplePayContractPresenter: NSObject {
         self.merchantIdentifier = merchantIdentifier
         self.savePaymentMethodViewModel = savePaymentMethodViewModel
         self.initialSavePaymentMethod = initialSavePaymentMethod
+        self.isBackBarButtonHidden = isBackBarButtonHidden
     }
     
     // MARK: - Stored properties
@@ -80,6 +83,8 @@ extension ApplePayContractPresenter: ApplePayContractViewOutput {
                 savePaymentMethodViewModel
             )
         }
+
+        view.setBackBarButtonHidden(isBackBarButtonHidden)
     }
     
     func didTapActionButton() {

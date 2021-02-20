@@ -24,4 +24,5 @@ protocol CardSecModuleInput: class {}
 protocol CardSecModuleOutput: class {
     func didSuccessfullyPassedCardSec(on module: CardSecModuleInput)
     func didPressCloseButton(on module: CardSecModuleInput)
+    func viewWillDisappear()
 }

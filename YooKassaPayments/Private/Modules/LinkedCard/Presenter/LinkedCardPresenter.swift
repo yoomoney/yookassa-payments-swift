@@ -6,10 +6,10 @@ final class LinkedCardPresenter {
 
     var interactor: LinkedCardInteractorInput!
     var router: LinkedCardRouterInput!
-    
+
     weak var view: LinkedCardViewInput?
     weak var moduleOutput: LinkedCardModuleOutput?
-    
+
     // MARK: - Init data
     
     private let cardService: CardService
@@ -29,6 +29,7 @@ final class LinkedCardPresenter {
     private let returnUrl: String?
     private let tmxSessionId: String?
     private var initialSavePaymentMethod: Bool
+    private let isBackBarButtonHidden: Bool
 
     // MARK: - Init
 
@@ -47,7 +48,8 @@ final class LinkedCardPresenter {
         termsOfService: TermsOfService,
         returnUrl: String?,
         tmxSessionId: String?,
-        initialSavePaymentMethod: Bool
+        initialSavePaymentMethod: Bool,
+        isBackBarButtonHidden: Bool
     ) {
         self.cardService = cardService
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
@@ -66,6 +68,7 @@ final class LinkedCardPresenter {
         self.returnUrl = returnUrl
         self.tmxSessionId = tmxSessionId
         self.initialSavePaymentMethod = initialSavePaymentMethod
+        self.isBackBarButtonHidden = isBackBarButtonHidden
     }
     
     // MARK: - Stored Data
@@ -103,6 +106,8 @@ extension LinkedCardPresenter: LinkedCardViewOutput {
         if !interactor.hasReusableWalletToken() {
             view.setSaveAuthInAppSwitchItemView()
         }
+
+        view.setBackBarButtonHidden(isBackBarButtonHidden)
         
         DispatchQueue.global().async { [weak self] in
             self?.interactor.trackEvent(.screenLinkedCardForm)
@@ -322,7 +327,11 @@ extension LinkedCardPresenter: PaymentAuthorizationModuleOutput {
 
 // MARK: - LinkedCardModuleInput
 
-extension LinkedCardPresenter: LinkedCardModuleInput {}
+extension LinkedCardPresenter: LinkedCardModuleInput {
+    func hideActivity() {
+        view?.hideActivity()
+    }
+}
 
 // MARK: - Make message from Error
 

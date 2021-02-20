@@ -105,6 +105,14 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
                                            tokenType: AnalyticsEvent.AuthTokenType?) {
         return analyticsProvider.makeTypeAnalyticsParameters()
     }
+
+    func startAnalyticsService() {
+        analyticsService.start()
+    }
+
+    func stopAnalyticsService() {
+        analyticsService.stop()
+    }
 }
 
 // MARK: - Apple Pay Tokenize

@@ -36,4 +36,5 @@ protocol WebBrowserViewInput: NotificationPresenting, ActivityIndicatorPresentin
 protocol WebBrowserViewOutput: class, WKNavigationDelegate, WKUIDelegate {
     func setupView()
     func didPressCloseButton()
+    func viewWillDisappear()
 }

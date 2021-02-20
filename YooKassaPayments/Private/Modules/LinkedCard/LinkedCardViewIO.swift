@@ -10,6 +10,9 @@ protocol LinkedCardViewInput: ActivityIndicatorPresenting, PlaceholderPresenting
     func setConfirmButtonEnabled(_ isEnabled: Bool)
     func showPlaceholder(with message: String)
     func setCardState(_ state: MaskedCardView.CscState)
+    func setBackBarButtonHidden(
+        _ isHidden: Bool
+    )
 }
 
 protocol LinkedCardViewOutput: ActionTitleTextDialogDelegate {

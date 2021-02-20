@@ -27,4 +27,8 @@ protocol SberbankViewInput:
     func endEditing(
         _ force: Bool
     )
+
+    func setBackBarButtonHidden(
+        _ isHidden: Bool
+    )
 }

@@ -41,6 +41,20 @@ extension BankCardRepeatRouter: BankCardRepeatRouterInput {
             inputData: inputData,
             moduleOutput: moduleOutput
         )
-        transitionHandler?.push(viewController, animated: true)
+        let navigationController = UINavigationController(
+            rootViewController: viewController
+        )
+        transitionHandler?.present(
+            navigationController,
+            animated: true,
+            completion: nil
+        )
+    }
+
+    func closeCardSecModule() {
+        transitionHandler?.dismiss(
+            animated: true,
+            completion: nil
+        )
     }
 }

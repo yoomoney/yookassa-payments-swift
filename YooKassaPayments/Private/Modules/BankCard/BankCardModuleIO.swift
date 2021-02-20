@@ -16,6 +16,7 @@ struct BankCardModuleInputData {
     let returnUrl: String
     let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     let initialSavePaymentMethod: Bool
+    let isBackBarButtonHidden: Bool
 }
 
 protocol BankCardModuleOutput: class {
@@ -26,4 +27,6 @@ protocol BankCardModuleOutput: class {
     )
 }
 
-protocol BankCardModuleInput: class {}
+protocol BankCardModuleInput: class {
+    func hideActivity()
+}

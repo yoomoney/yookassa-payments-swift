@@ -21,6 +21,7 @@ final class SberbankPresenter {
     private let feeViewModel: PriceViewModel?
     private let termsOfService: TermsOfService
     private let userPhoneNumber: String?
+    private let isBackBarButtonHidden: Bool
 
     init(
         shopName: String,
@@ -28,7 +29,8 @@ final class SberbankPresenter {
         priceViewModel: PriceViewModel,
         feeViewModel: PriceViewModel?,
         termsOfService: TermsOfService,
-        userPhoneNumber: String?
+        userPhoneNumber: String?,
+        isBackBarButtonHidden: Bool
     ) {
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -36,6 +38,7 @@ final class SberbankPresenter {
         self.feeViewModel = feeViewModel
         self.termsOfService = termsOfService
         self.userPhoneNumber = userPhoneNumber
+        self.isBackBarButtonHidden = isBackBarButtonHidden
     }
 
     // MARK: - Stored properties
@@ -84,6 +87,8 @@ extension SberbankPresenter: SberbankViewOutput {
         } else {
             view.setSubmitButtonEnabled(false)
         }
+
+        view.setBackBarButtonHidden(isBackBarButtonHidden)
 
         DispatchQueue.global().async { [weak self] in
             guard let self = self,

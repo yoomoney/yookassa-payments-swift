@@ -6,10 +6,10 @@ final class YooMoneyPresenter {
     
     var interactor: YooMoneyInteractorInput!
     var router: YooMoneyRouterInput!
-    
+
     weak var view: YooMoneyViewInput?
     weak var moduleOutput: YooMoneyModuleOutput?
-    
+
     // MARK: - Init data
     
     private let clientApplicationKey: String
@@ -28,6 +28,7 @@ final class YooMoneyPresenter {
     private let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     private let tmxSessionId: String?
     private var initialSavePaymentMethod: Bool
+    private let isBackBarButtonHidden: Bool
     
     // MARK: - Init
     
@@ -46,7 +47,8 @@ final class YooMoneyPresenter {
         returnUrl: String?,
         savePaymentMethodViewModel: SavePaymentMethodViewModel?,
         tmxSessionId: String?,
-        initialSavePaymentMethod: Bool
+        initialSavePaymentMethod: Bool,
+        isBackBarButtonHidden: Bool
     ) {
         self.clientApplicationKey = clientApplicationKey
         self.testModeSettings = testModeSettings
@@ -64,6 +66,7 @@ final class YooMoneyPresenter {
         self.savePaymentMethodViewModel = savePaymentMethodViewModel
         self.tmxSessionId = tmxSessionId
         self.initialSavePaymentMethod = initialSavePaymentMethod
+        self.isBackBarButtonHidden = isBackBarButtonHidden
     }
     
     // MARK: - Properties
@@ -96,6 +99,8 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
                 savePaymentMethodViewModel
             )
         }
+
+        view.setBackBarButtonHidden(isBackBarButtonHidden)
         
         DispatchQueue.global().async { [weak self] in
             guard let self = self,

@@ -23,7 +23,8 @@ enum LinkedCardAssembly {
             termsOfService: inputData.termsOfService,
             returnUrl: inputData.returnUrl,
             tmxSessionId: inputData.tmxSessionId,
-            initialSavePaymentMethod: inputData.initialSavePaymentMethod
+            initialSavePaymentMethod: inputData.initialSavePaymentMethod,
+            isBackBarButtonHidden: inputData.isBackBarButtonHidden
         )
         
         let authorizationService = AuthorizationServiceAssembly.makeService(

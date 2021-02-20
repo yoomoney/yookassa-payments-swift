@@ -3,16 +3,14 @@ import MoneyAuth
 protocol PaymentMethodsRouterInput: class {
     func presentYooMoney(
         inputData: YooMoneyModuleInputData,
-        moduleOutput: YooMoneyModuleOutput?,
-        needReplace: Bool
+        moduleOutput: YooMoneyModuleOutput?
     )
     
     func closeYooMoneyModule()
     
     func presentLinkedCard(
         inputData: LinkedCardModuleInputData,
-        moduleOutput: LinkedCardModuleOutput?,
-        needReplace: Bool
+        moduleOutput: LinkedCardModuleOutput?
     )
     
     func presentYooMoneyAuthorizationModule(
@@ -34,21 +32,25 @@ protocol PaymentMethodsRouterInput: class {
     
     func presentApplePayContractModule(
         inputData: ApplePayContractModuleInputData,
-        moduleOutput: ApplePayContractModuleOutput,
-        needReplace: Bool
+        moduleOutput: ApplePayContractModuleOutput
     )
 
     func shouldDismissAuthorizationModule() -> Bool
 
     func openSberbankModule(
         inputData: SberbankModuleInputData,
-        moduleOutput: SberbankModuleOutput,
-        needReplace: Bool
+        moduleOutput: SberbankModuleOutput
     )
 
     func openBankCardModule(
         inputData: BankCardModuleInputData,
-        moduleOutput: BankCardModuleOutput?,
-        needReplace: Bool
+        moduleOutput: BankCardModuleOutput?
     )
+
+    func openCardSecModule(
+        inputData: CardSecModuleInputData,
+        moduleOutput: CardSecModuleOutput
+    )
+
+    func closeCardSecModule()
 }

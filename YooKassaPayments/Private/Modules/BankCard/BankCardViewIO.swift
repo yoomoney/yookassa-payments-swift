@@ -28,6 +28,10 @@ protocol BankCardViewInput: ActivityIndicatorPresenting, NotificationPresenting 
     func setExpiryDateValue(
         _ value: String
     )
+
+    func setBackBarButtonHidden(
+        _ isHidden: Bool
+    )
 }
 
 protocol BankCardViewOutput: class {

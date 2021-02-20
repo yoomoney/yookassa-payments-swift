@@ -1,10 +1,5 @@
 protocol TokenizationRouterInput: class {
 
-    func presentPaymentMethods(
-        inputData: PaymentMethodsModuleInputData,
-        moduleOutput: PaymentMethodsModuleOutput
-    )
-
     func presentContract(
         inputData: ContractModuleInputData,
         moduleOutput: ContractModuleOutput

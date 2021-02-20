@@ -13,6 +13,7 @@ struct SberbankModuleInputData {
     let feeViewModel: PriceViewModel?
     let termsOfService: TermsOfService
     let userPhoneNumber: String?
+    let isBackBarButtonHidden: Bool
 }
 
 protocol SberbankModuleOutput: class {

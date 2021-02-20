@@ -40,7 +40,7 @@ class TokenizationPresenter: NSObject { // NSObject needs for PKPaymentAuthoriza
                     paymentOption: $0,
                     output: self,
                     testModeSettings: inputData.testModeSettings,
-                    returnUrl: inputData.returnUrl ?? Constants.returnUrl,
+                    returnUrl: inputData.returnUrl ?? GlobalConstants.returnUrl,
                     isLoggingEnabled: inputData.isLoggingEnabled,
                     savePaymentMethod: inputData.savePaymentMethod,
                     moneyAuthClientId: inputData.moneyAuthClientId
@@ -233,11 +233,6 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
         if strategy?.shouldInvalidateTokenizeData == true {
             strategy?.shouldInvalidateTokenizeData = false
         } else {
-            moduleOutput?.tokenizationModule(
-                self,
-                didTokenize: token,
-                paymentMethodType: paymentOption.paymentMethodType.plain
-            )
         }
     }
 
@@ -289,64 +284,6 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
             tokenType: type.tokenType
         )
         return event
-    }
-}
-
-// MARK: - TokenizationModuleInput
-
-extension TokenizationPresenter: TokenizationModuleInput {
-    func start3dsProcess(requestUrl: String) {
-        // TODO: - Present 3ds https://jira.yamoney.ru/browse/MOC-1611
-//        let moduleInputData = CardSecModuleInputData(
-//            requestUrl: requestUrl,
-//            redirectUrl: inputData.returnUrl ?? Constants.returnUrl,
-//            isLoggingEnabled: inputData.isLoggingEnabled
-//        )
-//        present3dsModule(inputData: moduleInputData)
-    }
-}
-
-// MARK: - PaymentMethodsModuleOutput
-
-extension TokenizationPresenter: PaymentMethodsModuleOutput {
-    func paymentMethodsModule(
-        _ module: PaymentMethodsModuleInput,
-        didSelect paymentOption: PaymentOption,
-        methodsCount: Int
-    ) {
-        paymentOptionsCount = methodsCount
-
-        if paymentOption.paymentMethodType == .bankCard
-        || paymentOption.paymentMethodType == .sberbank {
-            self.paymentOption = paymentOption
-            strategy?.beginProcess()
-        }
-    }
-
-    func didFinish(on module: PaymentMethodsModuleInput) {
-        close()
-    }
-    
-    func tokenizationModule(
-        _ module: PaymentMethodsModuleInput,
-        didTokenize token: Tokens,
-        paymentMethodType: PaymentMethodType,
-        scheme: AnalyticsEvent.TokenizeScheme
-    ) {
-        let type = interactor.makeTypeAnalyticsParameters()
-        let event: AnalyticsEvent = .actionTokenize(
-            scheme: scheme,
-            authType: type.authType,
-            tokenType: type.tokenType
-        )
-        interactor.trackEvent(event)
-        interactor.stopAnalyticsService()
-        
-        moduleOutput?.tokenizationModule(
-            self,
-            didTokenize: token,
-            paymentMethodType: paymentMethodType
-        )
     }
 }
 
@@ -455,24 +392,12 @@ extension TokenizationPresenter: LogoutConfirmationModuleOutput {
     func logoutDidCancel(on module: LogoutConfirmationModuleInput) {}
 }
 
-// MARK: - CardSecModuleOutput
-
-extension TokenizationPresenter: CardSecModuleOutput {
-    func didSuccessfullyPassedCardSec(on module: CardSecModuleInput) {
-        moduleOutput?.didSuccessfullyPassedCardSec(on: self)
-    }
-
-    func didPressCloseButton(on module: CardSecModuleInput) {
-        close()
-    }
-}
-
 // MARK: - Module helpers
 
 private extension TokenizationPresenter {
     func close() {
         interactor?.stopAnalyticsService()
-        moduleOutput?.didFinish(on: self, with: nil)
+        
     }
 }
 
@@ -623,6 +548,5 @@ private func makeSavePaymentMethodInfoValues(
 // MARK: - Constants
 
 private enum Constants {
-    static let returnUrl = "https://custom.redirect.url/"
     static let minimalRecommendedPaymentsOptions = 1
 }

@@ -14,7 +14,8 @@ enum BankCardAssembly {
             termsOfService: inputData.termsOfService,
             cardScanning: inputData.cardScanning,
             savePaymentMethodViewModel: inputData.savePaymentMethodViewModel,
-            initialSavePaymentMethod: inputData.initialSavePaymentMethod
+            initialSavePaymentMethod: inputData.initialSavePaymentMethod,
+            isBackBarButtonHidden: inputData.isBackBarButtonHidden
         )
 
         let cardService = CardService()

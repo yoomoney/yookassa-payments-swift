@@ -307,7 +307,13 @@ extension ApplePayContractViewController: ApplePayContractViewInput {
             ].forEach(contentStackView.addArrangedSubview)
         }
     }
-    
+
+    func setBackBarButtonHidden(
+        _ isHidden: Bool
+    ) {
+        navigationItem.hidesBackButton = isHidden
+    }
+
     private func makePrice(
         _ price: PriceViewModel
     ) -> String {

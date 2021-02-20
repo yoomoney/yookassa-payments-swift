@@ -393,6 +393,12 @@ extension BankCardViewController: BankCardViewInput {
         bankCardView.inputExpiryDateText = value
     }
 
+    func setBackBarButtonHidden(
+        _ isHidden: Bool
+    ) {
+        navigationItem.hidesBackButton = isHidden
+    }
+
     private func makeSavePaymentMethodAttributedString(
         text: String,
         hyperText: String,

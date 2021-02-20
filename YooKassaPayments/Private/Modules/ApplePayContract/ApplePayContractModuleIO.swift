@@ -15,6 +15,7 @@ struct ApplePayContractModuleInputData {
     let merchantIdentifier: String?
     let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     let initialSavePaymentMethod: Bool
+    let isBackBarButtonHidden: Bool
 }
 
 protocol ApplePayContractModuleInput: class {}
