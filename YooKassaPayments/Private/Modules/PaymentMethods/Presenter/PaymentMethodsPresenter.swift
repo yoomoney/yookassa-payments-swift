@@ -629,13 +629,8 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
             if self.router.shouldDismissAuthorizationModule() {
                 self.router.closeAuthorizationModule()
             }
-            self.view?.showActivity()
             if self.paymentMethods?.count == 1 {
                 self.didFinish(module: self, error: nil)
-            } else {
-                DispatchQueue.global().async { [weak self] in
-                    self?.interactor.fetchPaymentMethods()
-                }
             }
         }
     }
