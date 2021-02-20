@@ -110,13 +110,13 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         view.showActivity()
         view.setLogoVisible(isLogoVisible)
         interactor.startAnalyticsService()
-    }
 
-    func viewDidAppear() {
         DispatchQueue.global().async { [weak self] in
             self?.interactor.fetchPaymentMethods()
         }
     }
+
+    func viewDidAppear() {}
     
     func numberOfRows() -> Int {
         viewModels.count
@@ -418,11 +418,7 @@ extension PaymentMethodsPresenter: PaymentMethodsModuleInput {
         on module: TokenizationModuleInput,
         with error: YooKassaPaymentsError?
     ) {
-        interactor.stopAnalyticsService()
-        tokenizationModuleOutput?.didFinish(
-            on: module,
-            with: error
-        )
+        didFinish(module: module, error: error)
     }
 }
 
@@ -634,8 +630,12 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
                 self.router.closeAuthorizationModule()
             }
             self.view?.showActivity()
-            DispatchQueue.global().async { [weak self] in
-                self?.interactor.fetchPaymentMethods()
+            if self.paymentMethods?.count == 1 {
+                self.didFinish(module: self, error: nil)
+            } else {
+                DispatchQueue.global().async { [weak self] in
+                    self?.interactor.fetchPaymentMethods()
+                }
             }
         }
     }
@@ -787,11 +787,7 @@ extension PaymentMethodsPresenter: ApplePayModuleOutput {
         applePayState = .cancel
         
         if paymentMethods?.count == 1 {
-            interactor.stopAnalyticsService()
-            tokenizationModuleOutput?.didFinish(
-                on: self,
-                with: nil
-            )
+            didFinish(module: self, error: nil)
         }
     }
 }
@@ -909,6 +905,17 @@ private extension PaymentMethodsPresenter {
                 paymentMethodType: paymentMethodType
             )
         }
+    }
+
+    func didFinish(
+        module: TokenizationModuleInput,
+        error: YooKassaPaymentsError?
+    ) {
+        interactor.stopAnalyticsService()
+        tokenizationModuleOutput?.didFinish(
+            on: module,
+            with: error
+        )
     }
 }
 
