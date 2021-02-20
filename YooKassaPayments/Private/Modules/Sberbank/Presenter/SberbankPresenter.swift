@@ -81,13 +81,6 @@ extension SberbankPresenter: SberbankViewOutput {
             phoneNumberModuleInput?.setValue(userPhoneNumber)
         }
 
-        if let userPhoneNumber = userPhoneNumber,
-           phoneNumberModuleInput?.isValidPhoneNumber(userPhoneNumber) == true {
-            view.setSubmitButtonEnabled(true)
-        } else {
-            view.setSubmitButtonEnabled(false)
-        }
-
         view.setBackBarButtonHidden(isBackBarButtonHidden)
 
         DispatchQueue.global().async { [weak self] in

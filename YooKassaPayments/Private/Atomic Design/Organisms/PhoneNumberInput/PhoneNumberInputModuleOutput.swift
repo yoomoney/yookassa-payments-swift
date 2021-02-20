@@ -11,9 +11,6 @@ protocol PhoneNumberInputModuleInput: class {
     func setSubtitle(
         _ value: String
     )
-    func isValidPhoneNumber(
-        _ phoneNumber: String
-    ) -> Bool
 }
 
 protocol PhoneNumberInputModuleOutput: class {
