@@ -167,8 +167,8 @@ extension BankCardPresenter: BankCardViewOutput {
 
     func didTapOnSavePaymentMethod() {
         let savePaymentMethodModuleInputData = SavePaymentMethodInfoModuleInputData(
-            headerValue: §SavePaymentMethodInfoLocalization.Wallet.header,
-            bodyValue: §SavePaymentMethodInfoLocalization.Wallet.body
+            headerValue: §SavePaymentMethodInfoLocalization.BankCard.header,
+            bodyValue: §SavePaymentMethodInfoLocalization.BankCard.body
         )
         router.presentSavePaymentMethodInfo(
             inputData: savePaymentMethodModuleInputData

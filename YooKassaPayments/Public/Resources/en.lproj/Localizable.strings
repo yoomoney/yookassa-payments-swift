@@ -172,6 +172,8 @@
 
 "SavePaymentMethodInfo.BankCard.Body" = "It means that you are giving YooMoney your prior consent to debit money upon store's request without any additional confirmation from your side from this card or a new one in case it is reissued (if your bank can update the data automatically).\n\nYou can unlink the card at any moment via store's support service.";
 
+"SavePaymentMethodInfo.Button.GotIt" = "Got it";
+
 /* Текст условий сервиса с ссылкой на экране установки пароля для пользователя без установленной почты https://yadi.sk/i/DgL-5V4hQL15WQ */
 "Wallet.Authorization.addEmailTitle" = "For receipts and notifications";
 

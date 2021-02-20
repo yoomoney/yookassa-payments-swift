@@ -323,6 +323,7 @@ extension BankCardViewController: BankCardViewInput {
         orderView.value = viewModel.priceValue
         orderView.subvalue = viewModel.feeValue
         termsOfServiceLinkedTextView.attributedText = viewModel.termsOfService
+        termsOfServiceLinkedTextView.textAlignment = .center
     }
 
     func setBankLogoImage(
