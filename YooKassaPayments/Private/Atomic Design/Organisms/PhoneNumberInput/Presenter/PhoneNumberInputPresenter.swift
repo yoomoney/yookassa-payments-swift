@@ -36,6 +36,7 @@ extension PhoneNumberInputPresenter: PhoneNumberInputModuleInput {
     func setValue(_ value: String) {
         phoneNumber = value
         view?.setValue(value)
+        validatePhoneNumber()
     }
 
     func setPlaceholder(_ value: String) {
@@ -48,10 +49,6 @@ extension PhoneNumberInputPresenter: PhoneNumberInputModuleInput {
 
     func setSubtitle(_ value: String) {
         view?.setSubtitle(value)
-    }
-
-    func isValidPhoneNumber(_ phoneNumber: String) -> Bool {
-        interactor.isValidPhoneNumber(phoneNumber)
     }
 }
 
