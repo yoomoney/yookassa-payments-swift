@@ -16,9 +16,12 @@ struct LinkedCardModuleInputData {
     let returnUrl: String
     let tmxSessionId: String?
     let initialSavePaymentMethod: Bool
+    let isBackBarButtonHidden: Bool
 }
 
-protocol LinkedCardModuleInput: class {}
+protocol LinkedCardModuleInput: class {
+    func hideActivity()
+}
 
 protocol LinkedCardModuleOutput: class {
     func tokenizationModule(

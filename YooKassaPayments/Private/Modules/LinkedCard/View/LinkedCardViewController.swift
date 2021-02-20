@@ -433,6 +433,12 @@ extension LinkedCardViewController: LinkedCardViewInput {
         maskedCardView.cscState = state
         errorCscLabel.isHidden = state != .error
     }
+
+    func setBackBarButtonHidden(
+        _ isHidden: Bool
+    ) {
+        navigationItem.hidesBackButton = isHidden
+    }
     
     private func makePrice(
         _ price: PriceViewModel

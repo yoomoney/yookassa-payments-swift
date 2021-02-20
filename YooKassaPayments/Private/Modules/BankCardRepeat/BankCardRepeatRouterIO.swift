@@ -9,4 +9,6 @@ protocol BankCardRepeatRouterInput: class {
         inputData: CardSecModuleInputData,
         moduleOutput: CardSecModuleOutput
     )
+
+    func closeCardSecModule()
 }

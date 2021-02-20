@@ -6,8 +6,8 @@ final class BankCardRepeatPresenter {
 
     var router: BankCardRepeatRouterInput!
     var interactor: BankCardRepeatInteractorInput!
-    var moduleOutput: TokenizationModuleOutput?
 
+    weak var moduleOutput: TokenizationModuleOutput?
     weak var view: BankCardRepeatViewInput?
 
     // MARK: - Init data
@@ -287,7 +287,7 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
         
         let confirmation = Confirmation(
             type: .redirect,
-            returnUrl: Constants.returnUrl
+            returnUrl: returnUrl ?? GlobalConstants.returnUrl
         )
         
         interactor.tokenize(
@@ -327,29 +327,11 @@ extension BankCardRepeatPresenter: ActionTitleTextDialogDelegate {
 
 extension BankCardRepeatPresenter: TokenizationModuleInput {
     func start3dsProcess(
-        requestUrl: String,
-        redirectUrl: String
-    ) {
-        let moduleInputData = CardSecModuleInputData(
-            requestUrl: requestUrl,
-            redirectUrl: returnUrl ?? Constants.returnUrl,
-            isLoggingEnabled: isLoggingEnabled
-        )
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.router.present3dsModule(
-                inputData: moduleInputData,
-                moduleOutput: self
-            )
-        }
-    }
-
-    func start3dsProcess(
         requestUrl: String
     ) {
         let moduleInputData = CardSecModuleInputData(
             requestUrl: requestUrl,
-            redirectUrl: returnUrl ?? Constants.returnUrl,
+            redirectUrl: returnUrl ?? GlobalConstants.returnUrl,
             isLoggingEnabled: isLoggingEnabled
         )
         DispatchQueue.main.async { [weak self] in
@@ -370,14 +352,27 @@ extension BankCardRepeatPresenter: CardSecModuleOutput {
     }
 
     func didPressCloseButton(on module: CardSecModuleInput) {
-        moduleOutput?.didFinish(on: self, with: nil)
+        view?.hideActivity()
+        router.closeCardSecModule()
+    }
+
+    func viewWillDisappear() {
+        view?.hideActivity()
     }
 }
 
-// MARK: - Constants
+// MARK: - BankCardRepeatModuleInput
 
-private enum Constants {
-    static let returnUrl = "https://custom.redirect.url/"
+extension BankCardRepeatPresenter: BankCardRepeatModuleInput {
+    func didFinish(
+        on module: TokenizationModuleInput,
+        with error: YooKassaPaymentsError?
+    ) {
+        moduleOutput?.didFinish(
+            on: module,
+            with: error
+        )
+    }
 }
 
 // MARK: - Private global helpers

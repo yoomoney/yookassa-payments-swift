@@ -19,6 +19,10 @@ protocol YooMoneyViewInput: ActivityIndicatorFullViewPresenting, PlaceholderPres
     )
     func setSaveAuthInAppSwitchItemView()
     func showPlaceholder(with message: String)
+
+    func setBackBarButtonHidden(
+        _ isHidden: Bool
+    )
 }
 
 protocol YooMoneyViewOutput: ActionTitleTextDialogDelegate {

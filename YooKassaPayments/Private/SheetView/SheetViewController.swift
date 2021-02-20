@@ -1,10 +1,21 @@
 import UIKit
 
+protocol SheetViewModuleOutput: class {
+    func start3dsProcess(
+        requestUrl: String
+    )
+
+    func didFinish(
+        on module: TokenizationModuleInput,
+        with error: YooKassaPaymentsError?
+    )
+}
+
 final class SheetViewController: UIViewController {
     
     // MARK: - VIPER
     
-    weak var moduleOutput: TokenizationModuleOutput?
+    weak var moduleOutput: SheetViewModuleOutput?
 
     // MARK: - UI
 
@@ -576,5 +587,13 @@ extension SheetViewController: UIViewControllerTransitioningDelegate {
     ) -> UIViewControllerAnimatedTransitioning? {
         transition.presenting = false
         return transition
+    }
+}
+
+// MARK: - TokenizationModuleInput
+
+extension SheetViewController: TokenizationModuleInput {
+    func start3dsProcess(requestUrl: String) {
+        moduleOutput?.start3dsProcess(requestUrl: requestUrl)
     }
 }

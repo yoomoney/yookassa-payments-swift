@@ -18,19 +18,4 @@ struct PaymentMethodsModuleInputData {
     let cardScanning: CardScanning?
 }
 
-protocol PaymentMethodsModuleInput: class {}
-
-protocol PaymentMethodsModuleOutput: class {
-    func paymentMethodsModule(
-        _ module: PaymentMethodsModuleInput,
-        didSelect paymentOption: PaymentOption,
-        methodsCount: Int
-    )
-    func didFinish(on module: PaymentMethodsModuleInput)
-    func tokenizationModule(
-        _ module: PaymentMethodsModuleInput,
-        didTokenize token: Tokens,
-        paymentMethodType: PaymentMethodType,
-        scheme: AnalyticsEvent.TokenizeScheme
-    )
-}
+protocol PaymentMethodsModuleInput: SheetViewModuleOutput {}

@@ -1,3 +1,1 @@
-protocol BankCardRepeatModuleInput: class {}
-
-protocol BankCardRepeatModuleOutput: class {}
+protocol BankCardRepeatModuleInput: SheetViewModuleOutput {}

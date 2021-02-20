@@ -11,6 +11,10 @@ protocol PaymentMethodsInteractorInput: AnalyticsTrack, AnalyticsProvider {
     func getWalletDisplayName() -> String?
     
     func setAccount(_ account: UserAccount)
+
+    func startAnalyticsService()
+
+    func stopAnalyticsService()
     
     // MARK: - Apple Pay Tokenize
     

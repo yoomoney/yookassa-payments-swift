@@ -14,9 +14,11 @@ final class PaymentMethodsPresenter: NSObject {
 
     var interactor: PaymentMethodsInteractorInput!
     var router: PaymentMethodsRouterInput!
-    var moduleOutput: PaymentMethodsModuleOutput?
-    
     weak var view: PaymentMethodsViewInput?
+    weak var tokenizationModuleOutput: TokenizationModuleOutput?
+
+    weak var bankCardModuleInput: BankCardModuleInput?
+    weak var linkedCardModuleInput: LinkedCardModuleInput?
 
     // MARK: - Init data
 
@@ -75,7 +77,7 @@ final class PaymentMethodsPresenter: NSObject {
         
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
-        self.returnUrl = returnUrl ?? Constants.returnUrl
+        self.returnUrl = returnUrl ?? GlobalConstants.returnUrl
         self.savePaymentMethod = savePaymentMethod
         self.userPhoneNumber = userPhoneNumber
         self.cardScanning = cardScanning
@@ -107,6 +109,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         guard let view = view else { return }
         view.showActivity()
         view.setLogoVisible(isLogoVisible)
+        interactor.startAnalyticsService()
     }
 
     func viewDidAppear() {
@@ -234,12 +237,12 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             returnUrl: returnUrl,
             savePaymentMethodViewModel: savePaymentMethodViewModel,
             tmxSessionId: yooMoneyTMXSessionId,
-            initialSavePaymentMethod: initialSavePaymentMethod
+            initialSavePaymentMethod: initialSavePaymentMethod,
+            isBackBarButtonHidden: needReplace
         )
         router?.presentYooMoney(
             inputData: inputData,
-            moduleOutput: self,
-            needReplace: needReplace
+            moduleOutput: self
         )
     }
     
@@ -262,12 +265,12 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             termsOfService: termsOfService,
             returnUrl: returnUrl,
             tmxSessionId: yooMoneyTMXSessionId,
-            initialSavePaymentMethod: initialSavePaymentMethod
+            initialSavePaymentMethod: initialSavePaymentMethod,
+            isBackBarButtonHidden: needReplace
         )
         router?.presentLinkedCard(
             inputData: inputData,
-            moduleOutput: self,
-            needReplace: needReplace
+            moduleOutput: self
         )
     }
 
@@ -301,12 +304,12 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
                 termsOfService: termsOfService,
                 merchantIdentifier: applePayMerchantIdentifier,
                 savePaymentMethodViewModel: savePaymentMethodViewModel,
-                initialSavePaymentMethod: initialSavePaymentMethod
+                initialSavePaymentMethod: initialSavePaymentMethod,
+                isBackBarButtonHidden: needReplace
             )
             router.presentApplePayContractModule(
                 inputData: inputData,
-                moduleOutput: self,
-                needReplace: needReplace
+                moduleOutput: self
             )
         } else {
             applePayPaymentOption = paymentOption
@@ -346,12 +349,12 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             priceViewModel: priceViewModel,
             feeViewModel: feeViewModel,
             termsOfService: termsOfService,
-            userPhoneNumber: userPhoneNumber
+            userPhoneNumber: userPhoneNumber,
+            isBackBarButtonHidden: needReplace
         )
         router.openSberbankModule(
             inputData: inputData,
-            moduleOutput: self,
-            needReplace: needReplace
+            moduleOutput: self
         )
     }
 
@@ -381,12 +384,12 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             cardScanning: cardScanning,
             returnUrl: returnUrl,
             savePaymentMethodViewModel: savePaymentMethodViewModel,
-            initialSavePaymentMethod: initialSavePaymentMethod
+            initialSavePaymentMethod: initialSavePaymentMethod,
+            isBackBarButtonHidden: needReplace
         )
         router.openBankCardModule(
             inputData: inputData,
-            moduleOutput: self,
-            needReplace: needReplace
+            moduleOutput: self
         )
     }
 }
@@ -410,7 +413,18 @@ extension PaymentMethodsPresenter: ActionTitleTextDialogDelegate {
 
 // MARK: - PaymentMethodsModuleInput
 
-extension PaymentMethodsPresenter: PaymentMethodsModuleInput {}
+extension PaymentMethodsPresenter: PaymentMethodsModuleInput {
+    func didFinish(
+        on module: TokenizationModuleInput,
+        with error: YooKassaPaymentsError?
+    ) {
+        interactor.stopAnalyticsService()
+        tokenizationModuleOutput?.didFinish(
+            on: module,
+            with: error
+        )
+    }
+}
 
 // MARK: - PaymentMethodsInteractorOutput
 
@@ -485,10 +499,9 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
             deadline: .now() + Constants.dismissApplePayTimeout
         ) { [weak self] in
             guard let self = self else { return }
-            self.router.closeApplePay() {
-                self.moduleOutput?.tokenizationModule(
-                    self,
-                    didTokenize: token,
+            self.router.closeApplePay {
+                self.didTokenize(
+                    tokens: token,
                     paymentMethodType: .applePay,
                     scheme: .applePay
                 )
@@ -679,9 +692,8 @@ extension PaymentMethodsPresenter: YooMoneyModuleOutput {
         didTokenize token: Tokens,
         paymentMethodType: PaymentMethodType
     ) {
-        moduleOutput?.tokenizationModule(
-            self,
-            didTokenize: token,
+        didTokenize(
+            tokens: token,
             paymentMethodType: paymentMethodType,
             scheme: .wallet
         )
@@ -696,9 +708,9 @@ extension PaymentMethodsPresenter: LinkedCardModuleOutput {
         didTokenize token: Tokens,
         paymentMethodType: PaymentMethodType
     ) {
-        moduleOutput?.tokenizationModule(
-            self,
-            didTokenize: token,
+        linkedCardModuleInput = module
+        didTokenize(
+            tokens: token,
             paymentMethodType: paymentMethodType,
             scheme: .linkedCard
         )
@@ -775,7 +787,11 @@ extension PaymentMethodsPresenter: ApplePayModuleOutput {
         applePayState = .cancel
         
         if paymentMethods?.count == 1 {
-            moduleOutput?.didFinish(on: self)
+            interactor.stopAnalyticsService()
+            tokenizationModuleOutput?.didFinish(
+                on: self,
+                with: nil
+            )
         }
     }
 }
@@ -788,9 +804,8 @@ extension PaymentMethodsPresenter: ApplePayContractModuleOutput {
         didTokenize token: Tokens,
         paymentMethodType: PaymentMethodType
     ) {
-        moduleOutput?.tokenizationModule(
-            self,
-            didTokenize: token,
+        didTokenize(
+            tokens: token,
             paymentMethodType: paymentMethodType,
             scheme: .applePay
         )
@@ -805,9 +820,8 @@ extension PaymentMethodsPresenter: SberbankModuleOutput {
         didTokenize token: Tokens,
         paymentMethodType: PaymentMethodType
     ) {
-        moduleOutput?.tokenizationModule(
-            self,
-            didTokenize: token,
+        didTokenize(
+            tokens: token,
             paymentMethodType: paymentMethodType,
             scheme: .smsSbol
         )
@@ -822,12 +836,79 @@ extension PaymentMethodsPresenter: BankCardModuleOutput {
         didTokenize token: Tokens,
         paymentMethodType: PaymentMethodType
     ) {
-        moduleOutput?.tokenizationModule(
-            self,
-            didTokenize: token,
+        bankCardModuleInput = module
+        didTokenize(
+            tokens: token,
             paymentMethodType: paymentMethodType,
             scheme: .bankCard
         )
+    }
+}
+
+// MARK: - TokenizationModuleInput
+
+extension PaymentMethodsPresenter: TokenizationModuleInput {
+    func start3dsProcess(
+        requestUrl: String
+    ) {
+        let inputData = CardSecModuleInputData(
+            requestUrl: requestUrl,
+            redirectUrl: GlobalConstants.returnUrl,
+            isLoggingEnabled: isLoggingEnabled
+        )
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.router.openCardSecModule(
+                inputData: inputData,
+                moduleOutput: self
+            )
+        }
+    }
+}
+
+// MARK: - CardSecModuleOutput
+
+extension PaymentMethodsPresenter: CardSecModuleOutput {
+    func didSuccessfullyPassedCardSec(
+        on module: CardSecModuleInput
+    ) {
+        interactor.stopAnalyticsService()
+        tokenizationModuleOutput?.didSuccessfullyPassedCardSec(
+            on: self
+        )
+    }
+
+    func didPressCloseButton(
+        on module: CardSecModuleInput
+    ) {
+        router.closeCardSecModule()
+        bankCardModuleInput?.hideActivity()
+        linkedCardModuleInput?.hideActivity()
+    }
+
+    func viewWillDisappear() {
+        bankCardModuleInput?.hideActivity()
+        linkedCardModuleInput?.hideActivity()
+    }
+}
+
+// MARK: - Private helpers
+
+private extension PaymentMethodsPresenter {
+    func didTokenize(
+        tokens: Tokens,
+        paymentMethodType: PaymentMethodType,
+        scheme: AnalyticsEvent.TokenizeScheme
+    ) {
+        interactor.stopAnalyticsService()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.tokenizationModuleOutput?.tokenizationModule(
+                self,
+                didTokenize: tokens,
+                paymentMethodType: paymentMethodType
+            )
+        }
     }
 }
 
@@ -836,7 +917,6 @@ extension PaymentMethodsPresenter: BankCardModuleOutput {
 private extension PaymentMethodsPresenter {
     enum Constants {
         static let dismissApplePayTimeout: TimeInterval = 0.5
-        static let returnUrl = "https://custom.redirect.url/"
     }
 }
 

@@ -4,7 +4,7 @@ import YooMoneyCoreApi
 enum PaymentMethodsAssembly {
     static func makeModule(
         inputData: PaymentMethodsModuleInputData,
-        moduleOutput: PaymentMethodsModuleOutput?
+        tokenizationModuleOutput: TokenizationModuleOutput?
     ) -> (
         view: UIViewController,
         moduleInput: PaymentMethodsModuleInput
@@ -68,7 +68,7 @@ enum PaymentMethodsAssembly {
         
         let router = PaymentMethodsRouter()
 
-        presenter.moduleOutput = moduleOutput
+        presenter.tokenizationModuleOutput = tokenizationModuleOutput
         presenter.view = view
         presenter.interactor = interactor
         presenter.router = router

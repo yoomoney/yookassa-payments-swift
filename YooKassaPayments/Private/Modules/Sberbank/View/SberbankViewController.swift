@@ -302,7 +302,11 @@ extension SberbankViewController: SberbankViewInput {
         showPlaceholder()
     }
 
-
+    func setBackBarButtonHidden(
+        _ isHidden: Bool
+    ) {
+        navigationItem.hidesBackButton = isHidden
+    }
 }
 
 // MARK: - UITextViewDelegate

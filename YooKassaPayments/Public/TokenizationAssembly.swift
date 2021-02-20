@@ -40,7 +40,7 @@ public enum TokenizationAssembly {
         let sheetViewController = SheetViewController(
             contentViewController: navigationController
         )
-        sheetViewController.moduleOutput = moduleOutput
+        sheetViewController.moduleOutput = moduleInput
 
         return sheetViewController
     }
@@ -98,9 +98,9 @@ public enum TokenizationAssembly {
             clientApplicationKey: inputData.clientApplicationKey
         )
 
-        let (viewController, _) = PaymentMethodsAssembly.makeModule(
+        let (viewController, moduleInput) = PaymentMethodsAssembly.makeModule(
             inputData: paymentMethodsModuleInputData,
-            moduleOutput: presenter
+            tokenizationModuleOutput: moduleOutput
         )
 
         presenter.router = router
@@ -118,15 +118,9 @@ public enum TokenizationAssembly {
         let sheetViewController = SheetViewController(
             contentViewController: navigationController
         )
-        sheetViewController.moduleOutput = moduleOutput
+        sheetViewController.moduleOutput = moduleInput
 
         return sheetViewController
-    }
-}
-
-extension SheetViewController: TokenizationModuleInput {
-    public func start3dsProcess(requestUrl: String) {
-        // TODO: Fix in https://jira.yamoney.ru/browse/MOC-1611
     }
 }
 

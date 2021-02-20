@@ -172,7 +172,6 @@ extension PaymentServiceMock: PaymentService {
             } else {
                 completion(.success(mockTokens))
             }
-
         }
     }
 }

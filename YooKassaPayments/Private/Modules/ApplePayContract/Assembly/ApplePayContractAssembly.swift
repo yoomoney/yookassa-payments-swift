@@ -16,7 +16,8 @@ enum ApplePayContractAssembly {
             termsOfService: inputData.termsOfService,
             merchantIdentifier: inputData.merchantIdentifier,
             savePaymentMethodViewModel: inputData.savePaymentMethodViewModel,
-            initialSavePaymentMethod: inputData.initialSavePaymentMethod
+            initialSavePaymentMethod: inputData.initialSavePaymentMethod,
+            isBackBarButtonHidden: inputData.isBackBarButtonHidden
         )
         
         let analyticsService = AnalyticsServiceAssembly.makeService(

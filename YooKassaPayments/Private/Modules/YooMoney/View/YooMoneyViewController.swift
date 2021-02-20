@@ -429,7 +429,13 @@ extension YooMoneyViewController: YooMoneyViewInput {
         actionTitleTextDialog.title = message
         showPlaceholder()
     }
-    
+
+    func setBackBarButtonHidden(
+        _ isHidden: Bool
+    ) {
+        navigationItem.hidesBackButton = isHidden
+    }
+
     private func makePrice(
         _ price: PriceViewModel
     ) -> String {

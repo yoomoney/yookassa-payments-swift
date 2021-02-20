@@ -19,6 +19,7 @@ class BankCardPresenter {
     private let cardScanning: CardScanning?
     private let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     private var initialSavePaymentMethod: Bool
+    private let isBackBarButtonHidden: Bool
 
     init(
         shopName: String,
@@ -28,7 +29,8 @@ class BankCardPresenter {
         termsOfService: TermsOfService,
         cardScanning: CardScanning?,
         savePaymentMethodViewModel: SavePaymentMethodViewModel?,
-        initialSavePaymentMethod: Bool
+        initialSavePaymentMethod: Bool,
+        isBackBarButtonHidden: Bool
     ) {
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -38,6 +40,7 @@ class BankCardPresenter {
         self.cardScanning = cardScanning
         self.savePaymentMethodViewModel = savePaymentMethodViewModel
         self.initialSavePaymentMethod = initialSavePaymentMethod
+        self.isBackBarButtonHidden = isBackBarButtonHidden
     }
 
     // MARK: - Stored properties
@@ -85,6 +88,8 @@ extension BankCardPresenter: BankCardViewOutput {
                 savePaymentMethodViewModel
             )
         }
+
+        view.setBackBarButtonHidden(isBackBarButtonHidden)
     }
 
     func didPressSubmitButton() {
@@ -291,7 +296,11 @@ extension BankCardPresenter: BankCardInteractorOutput {
 
 // MARK: - BankCardModuleInput
 
-extension BankCardPresenter: BankCardModuleInput {}
+extension BankCardPresenter: BankCardModuleInput {
+    func hideActivity() {
+        view?.hideActivity()
+    }
+}
 
 // MARK: - BankCardRouterOutput
 

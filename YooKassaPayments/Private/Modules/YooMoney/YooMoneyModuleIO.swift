@@ -18,6 +18,7 @@ struct YooMoneyModuleInputData {
     let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     let tmxSessionId: String?
     let initialSavePaymentMethod: Bool
+    let isBackBarButtonHidden: Bool
 }
 
 protocol YooMoneyModuleInput: class {}

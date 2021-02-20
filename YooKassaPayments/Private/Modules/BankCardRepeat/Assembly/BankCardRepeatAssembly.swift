@@ -1,10 +1,12 @@
+import UIKit
+
 enum BankCardRepeatAssembly {
     static func makeModule(
         inputData: BankCardRepeatModuleInputData,
         moduleOutput: TokenizationModuleOutput?
     ) -> (
         view: UIViewController,
-        moduleInput: TokenizationModuleInput
+        moduleInput: BankCardRepeatModuleInput
     ) {
         let view = BankCardRepeatViewController()
         

@@ -1,9 +1,9 @@
 import MoneyAuth
 
 final class PaymentMethodsRouter {
-    
+
     // MARK: - VIPER
-    
+
     weak var transitionHandler: TransitionHandler?
 }
 
@@ -12,52 +12,36 @@ final class PaymentMethodsRouter {
 extension PaymentMethodsRouter: PaymentMethodsRouterInput {
     func presentYooMoney(
         inputData: YooMoneyModuleInputData,
-        moduleOutput: YooMoneyModuleOutput?,
-        needReplace: Bool
+        moduleOutput: YooMoneyModuleOutput?
     ) {
         let viewController = YooMoneyAssembly.makeModule(
             inputData: inputData,
             moduleOutput: moduleOutput
         )
-        if needReplace {
-            transitionHandler?.replaceViewControllers(
-                [viewController],
-                animated: true
-            )
-        } else {
-            transitionHandler?.push(
-                viewController,
-                animated: true
-            )
-        }
+        transitionHandler?.push(
+            viewController,
+            animated: true
+        )
     }
-    
+
     func closeYooMoneyModule() {
         transitionHandler?.popTopViewController(animated: true)
     }
-    
+
     func presentLinkedCard(
         inputData: LinkedCardModuleInputData,
-        moduleOutput: LinkedCardModuleOutput?,
-        needReplace: Bool
+        moduleOutput: LinkedCardModuleOutput?
     ) {
         let viewController = LinkedCardAssembly.makeModule(
             inputData: inputData,
             moduleOutput: moduleOutput
         )
-        if needReplace {
-            transitionHandler?.replaceViewControllers(
-                [viewController],
-                animated: true
-            )
-        } else {
-            transitionHandler?.push(
-                viewController,
-                animated: true
-            )
-        }
+        transitionHandler?.push(
+            viewController,
+            animated: true
+        )
     }
-    
+
     func presentYooMoneyAuthorizationModule(
         config: MoneyAuth.Config,
         customization: MoneyAuth.Customization,
@@ -83,7 +67,7 @@ extension PaymentMethodsRouter: PaymentMethodsRouterInput {
     func closeAuthorizationModule() {
         transitionHandler?.dismiss(animated: true, completion: nil)
     }
-    
+
     func presentApplePay(
         inputData: ApplePayModuleInputData,
         moduleOutput: ApplePayModuleOutput
@@ -102,7 +86,7 @@ extension PaymentMethodsRouter: PaymentMethodsRouterInput {
             moduleOutput.didFailPresentApplePayModule()
         }
     }
-    
+
     func closeApplePay(
         completion: (() -> Void)?
     ) {
@@ -111,27 +95,19 @@ extension PaymentMethodsRouter: PaymentMethodsRouterInput {
             completion: completion
         )
     }
-    
+
     func presentApplePayContractModule(
         inputData: ApplePayContractModuleInputData,
-        moduleOutput: ApplePayContractModuleOutput,
-        needReplace: Bool
+        moduleOutput: ApplePayContractModuleOutput
     ) {
         let viewController = ApplePayContractAssembly.makeModule(
             inputData: inputData,
             moduleOutput: moduleOutput
         )
-        if needReplace {
-            transitionHandler?.replaceViewControllers(
-                [viewController],
-                animated: true
-            )
-        } else {
-            transitionHandler?.push(
-                viewController,
-                animated: true
-            )
-        }
+        transitionHandler?.push(
+            viewController,
+            animated: true
+        )
     }
 
     func shouldDismissAuthorizationModule() -> Bool {
@@ -140,45 +116,54 @@ extension PaymentMethodsRouter: PaymentMethodsRouterInput {
 
     func openSberbankModule(
         inputData: SberbankModuleInputData,
-        moduleOutput: SberbankModuleOutput,
-        needReplace: Bool
+        moduleOutput: SberbankModuleOutput
     ) {
         let viewController = SberbankAssembly.makeModule(
             inputData: inputData,
             moduleOutput: moduleOutput
         )
-        if needReplace {
-            transitionHandler?.replaceViewControllers(
-                [viewController],
-                animated: true
-            )
-        } else {
-            transitionHandler?.push(
-                viewController,
-                animated: true
-            )
-        }
+        transitionHandler?.push(
+            viewController,
+            animated: true
+        )
     }
 
     func openBankCardModule(
         inputData: BankCardModuleInputData,
-        moduleOutput: BankCardModuleOutput?,
-        needReplace: Bool
+        moduleOutput: BankCardModuleOutput?
     ) {
         let viewController = BankCardAssembly.makeModule(
             inputData: inputData,
             moduleOutput: moduleOutput
         )
-        if needReplace {
-            transitionHandler?.replaceViewControllers(
-                [viewController],
-                animated: true
-            )
-        } else {
-            transitionHandler?.push(
-                viewController,
-                animated: true
-            )
-        }
+        transitionHandler?.push(
+            viewController,
+            animated: true
+        )
+    }
+
+    func openCardSecModule(
+        inputData: CardSecModuleInputData,
+        moduleOutput: CardSecModuleOutput
+    ) {
+        let viewController = CardSecAssembly.makeModule(
+            inputData: inputData,
+            moduleOutput: moduleOutput
+        )
+        let navigationController = UINavigationController(
+            rootViewController: viewController
+        )
+        transitionHandler?.present(
+            navigationController,
+            animated: true,
+            completion: nil
+        )
+    }
+
+    func closeCardSecModule() {
+        transitionHandler?.dismiss(
+            animated: true,
+            completion: nil
+        )
     }
 }

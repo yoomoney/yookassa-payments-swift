@@ -5,6 +5,9 @@ protocol ApplePayContractViewInput: class, NotificationPresenting {
     func setSavePaymentMethodViewModel(
         _ savePaymentMethodViewModel: SavePaymentMethodViewModel
     )
+    func setBackBarButtonHidden(
+        _ isHidden: Bool
+    )
 }
 
 protocol ApplePayContractViewOutput {

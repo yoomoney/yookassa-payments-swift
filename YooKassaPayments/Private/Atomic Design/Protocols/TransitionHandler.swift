@@ -34,14 +34,4 @@ protocol TransitionHandler: class {
     ///   - viewController: view controller to push
     ///   - flag: manage animation flag
     func push(_ viewController: UIViewController, animated flag: Bool)
-    
-    /// Replace view controllers in navigation controller.
-    /// - Parameters:
-    ///   - viewControllers: view controllers to push or pop depending on
-    ///                      whether the new top view controller was previously in the stack
-    ///   - flag: manage animation flag
-    func replaceViewControllers(
-        _ viewControllers: [UIViewController],
-        animated: Bool
-    )
 }

@@ -20,6 +20,10 @@ final class CardSecPresenter: WebBrowserPresenter {
         cardSecModuleOutput?.didPressCloseButton(on: self)
     }
 
+    override func viewWillDisappear() {
+        cardSecModuleOutput?.viewWillDisappear()
+    }
+
     private func trackAnalyticsEvent() {
         cardSecInteractor.trackEvent(.screen3ds)
     }

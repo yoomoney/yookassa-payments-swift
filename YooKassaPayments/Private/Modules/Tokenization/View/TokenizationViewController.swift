@@ -52,14 +52,6 @@ extension TokenizationViewController: TokenizationViewInput {
     }
 }
 
-// MARK: - TokenizationModuleInput
-
-extension TokenizationViewController: TokenizationModuleInput {
-    func start3dsProcess(requestUrl: String) {
-        output.start3dsProcess(requestUrl: requestUrl)
-    }
-}
-
 // MARK: - Constants
 
 private extension TokenizationViewController {
