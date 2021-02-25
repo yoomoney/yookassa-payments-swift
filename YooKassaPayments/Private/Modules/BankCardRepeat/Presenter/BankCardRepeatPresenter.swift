@@ -219,22 +219,17 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
     }
 
     func didFailFetchPaymentMethod(_ error: Error) {
-        if let error = error as? PaymentsApiError {
-            switch error.errorCode {
-            case .invalidRequest, .notSupported:
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    self.moduleOutput?.didFinish(
-                        on: self,
-                        with: .paymentMethodNotFound
-                    )
-                }
-                
-            default:
-                showError(error)
-            }
-        } else {
-            showError(error)
+        let authType = AnalyticsEvent.AuthType.withoutAuth
+        let scheme = AnalyticsEvent.TokenizeScheme.recurringCard
+        let event = AnalyticsEvent.screenError(authType: authType, scheme: scheme)
+        interactor.trackEvent(event)
+
+        let message = makeMessage(error)
+
+        DispatchQueue.main.async { [weak self] in
+            guard let view = self?.view else { return }
+            view.hideActivity()
+            view.showPlaceholder(with: message)
         }
     }
 
@@ -267,21 +262,6 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
         }
     }
 
-    private func showError(_ error: Error) {
-        let authType = AnalyticsEvent.AuthType.withoutAuth
-        let scheme = AnalyticsEvent.TokenizeScheme.recurringCard
-        let event = AnalyticsEvent.screenError(authType: authType, scheme: scheme)
-        interactor.trackEvent(event)
-
-        let message = makeMessage(error)
-        
-        DispatchQueue.main.async { [weak self] in
-            guard let view = self?.view else { return }
-            view.hideActivity()
-            view.showPlaceholder(with: message)
-        }
-    }
-    
     private func tokenize() {
         guard let csc = csc else { return }
         
