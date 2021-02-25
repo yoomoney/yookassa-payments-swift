@@ -109,37 +109,11 @@ extension TokenizationPresenter: TokenizationStrategyOutput {
     }
 
     func presentBankCardDataInput() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            let bankCardDataInputData = BankCardDataInputModuleInputData(
-                cardScanner: self.inputData.cardScanning,
-                testModeSettings: self.inputData.testModeSettings,
-                isLoggingEnabled: self.inputData.isLoggingEnabled
-            )
-            self.router.presentBankCardDataInput(
-                inputData: bankCardDataInputData,
-                moduleOutput: self
-            )
-        }
     }
 
     func presentMaskedBankCardDataInput(
         paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
     ) {
-        let moduleInputData = MaskedBankCardDataInputModuleInputData(
-            cardMask: paymentOption.cardMask,
-            testModeSettings: inputData.testModeSettings,
-            isLoggingEnabled: inputData.isLoggingEnabled,
-            analyticsEvent: .screenLinkedCardForm,
-            tokenizeScheme: .linkedCard
-        )
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.router.presenMaskedBankCardDataInput(
-                inputData: moduleInputData,
-                moduleOutput: self
-            )
-        }
     }
 
     func tokenize(
@@ -330,47 +304,6 @@ extension TokenizationPresenter: ContractModuleOutput {
     }
 }
 
-// MARK: - BankCardDataInputModuleOutput
-
-extension TokenizationPresenter: BankCardDataInputModuleOutput {
-    func bankCardDataInputModule(
-        _ module: BankCardDataInputModuleInput,
-        didPressConfirmButton bankCardData: CardData
-    ) {
-        DispatchQueue.global().async { [weak self] in
-            guard let self = self,
-                  let strategy = self.strategy else { return }
-            strategy.bankCardDataInputModule(
-                module,
-                didPressConfirmButton: bankCardData
-            )
-        }
-    }
-
-    func didPressCloseBarButtonItem(on module: BankCardDataInputModuleInput) {
-        if paymentOptionsCount > Constants.minimalRecommendedPaymentsOptions {
-            strategy?.shouldInvalidateTokenizeData = true
-            presentPaymentMethodsModule()
-        } else {
-            close()
-        }
-    }
-}
-
-// MARK: - MaskedBankCardDataInputModuleOutput
-
-extension TokenizationPresenter: MaskedBankCardDataInputModuleOutput {
-    func didPressConfirmButton(
-        on module: BankCardDataInputModuleInput,
-        cvc: String
-    ) {
-        DispatchQueue.global().async { [weak self] in
-            guard let strategy = self?.strategy else { return }
-            strategy.didPressConfirmButton(on: module, cvc: cvc)
-        }
-    }
-}
-
 // MARK: - LogoutConfirmationModuleOutput
 
 extension TokenizationPresenter: LogoutConfirmationModuleOutput {
@@ -475,15 +408,8 @@ private func makeStrategy(
     )
 
     let strategy: TokenizationStrategyInput
-    if let bankCard = try? BankCardStrategy(
-        paymentOption: paymentOption,
-        returnUrl: returnUrl,
-        savePaymentMethod: makeInitialSavePaymentMethod(savePaymentMethod)
-    ) {
-        strategy = bankCard
-    } else {
-        fatalError("Unsupported strategy")
-    }
+
+    fatalError("Unsupported strategy")
 
     strategy.output = output
     return strategy

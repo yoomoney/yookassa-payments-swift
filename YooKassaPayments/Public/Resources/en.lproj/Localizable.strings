@@ -212,7 +212,10 @@
 
 "BankCardView.inputPanHint" = "Card number";
 "BankCardView.inputPanPlaceholder" = "Enter or scan";
-"BankCardView.expiryDateHint" = "Expiry date";
+"BankCardView.inputExpiryDateHint" = "Expiry date";
 "BankCardView.inputExpiryDatePlaceholder" = "MM/YY";
 "BankCardView.inputCvcHint" = "Code";
 "BankCardView.inputCvcPlaceholder" = "CVC";
+
+"BankCardDataInputView.BottomHint.invalidPan" = "Check the card number";
+"BankCardDataInputView.BottomHint.invalidExpiry" = "Check the month and year";

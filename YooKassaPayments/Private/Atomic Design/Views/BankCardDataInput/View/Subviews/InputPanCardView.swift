@@ -259,3 +259,24 @@ private extension InputPanCardView {
         }
     }
 }
+
+// MARK: Styles
+
+extension InputPanCardView {
+    enum Styles {
+        static let `default` = InternalStyle(name: "InputPanCardView.Default") { (view: InputPanCardView) in
+            view.cardPanHintLabel.setStyles(
+                UILabel.DynamicStyle.caption1,
+                UILabel.ColorStyle.ghost,
+                UILabel.Styles.singleLine
+            )
+        }
+        static let error = InternalStyle(name: "InputPanCardView.Error") { (view: InputPanCardView) in
+            view.cardPanHintLabel.setStyles(
+                UILabel.DynamicStyle.caption1,
+                UILabel.ColorStyle.alert,
+                UILabel.Styles.singleLine
+            )
+        }
+    }
+}

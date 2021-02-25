@@ -6,8 +6,6 @@ final class BankCardInteractor {
 
     // MARK: - Initialization
 
-    private let cardService: CardService
-    private let bankSettingsService: BankSettingsService
     private let paymentService: PaymentService
     private let analyticsService: AnalyticsService
     private let analyticsProvider: AnalyticsProvider
@@ -16,8 +14,6 @@ final class BankCardInteractor {
     private let returnUrl: String
 
     init(
-        cardService: CardService,
-        bankSettingsService: BankSettingsService,
         paymentService: PaymentService,
         analyticsService: AnalyticsService,
         analyticsProvider: AnalyticsProvider,
@@ -25,8 +21,6 @@ final class BankCardInteractor {
         amount: MonetaryAmount,
         returnUrl: String
     ) {
-        self.cardService = cardService
-        self.bankSettingsService = bankSettingsService
         self.paymentService = paymentService
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
@@ -43,34 +37,6 @@ final class BankCardInteractor {
 // MARK: - BankCardInteractorInput
 
 extension BankCardInteractor: BankCardInteractorInput {
-    func validate(
-        cardData: CardData,
-        shouldMoveFocus: Bool
-    ) {
-        guard let errors = cardService.validate(
-            cardData: cardData
-        ) else {
-            output?.didSuccessValidateCardData()
-            return
-        }
-        output?.didFailValidateCardData(
-            errors: errors,
-            shouldMoveFocus: shouldMoveFocus
-        )
-    }
-
-    func fetchBankCardSettings(
-        _ cardMask: String
-    ) {
-        guard let bankSettings = bankSettingsService.bankSettings(
-            cardMask
-        ) else {
-            output?.didFailFetchBankSettings()
-            return
-        }
-        output?.didFetchBankSettings(bankSettings)
-    }
-
     func tokenizeBankCard(
         cardData: CardData,
         savePaymentMethod: Bool
