@@ -1,19 +1,17 @@
-import UIKit.UIViewController
-
 final class BankCardDataInputRouter {
 
-    // MARK: - Viper
+    // MARK: - VIPER
 
-    weak var transitionHandler: UIViewController?
+    weak var transitionHandler: TransitionHandler?
     weak var output: BankCardDataInputRouterOutput?
 
-    // MARK: - Init data
+    // MARK: - Initialization
 
-    fileprivate let cardScanner: CardScanning?
+    private let cardScanner: CardScanning?
 
-    // MARK: - Init
-
-    init(cardScanner: CardScanning?) {
+    init(
+        cardScanner: CardScanning?
+    ) {
         self.cardScanner = cardScanner
     }
 }
@@ -28,12 +26,15 @@ extension BankCardDataInputRouter: BankCardDataInputRouterInput {
         cardScanner.cardScanningDelegate = self
         transitionHandler.present(viewController, animated: true, completion: nil)
     }
+
 }
 
 // MARK: - CardScanningDelegate
 
 extension BankCardDataInputRouter: CardScanningDelegate {
-    func cardScannerDidFinish(_ cardInfo: ScannedCardInfo?) {
+    func cardScannerDidFinish(
+        _ cardInfo: ScannedCardInfo?
+    ) {
         transitionHandler?.dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
             self.cardScanner?.cardScanningDelegate = nil

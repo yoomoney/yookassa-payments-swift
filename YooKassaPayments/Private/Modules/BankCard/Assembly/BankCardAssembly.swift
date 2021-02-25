@@ -5,8 +5,44 @@ enum BankCardAssembly {
         inputData: BankCardModuleInputData,
         moduleOutput: BankCardModuleOutput?
     ) -> UIViewController {
-        let view = BankCardViewController()
-        let presenter = BankCardPresenter.init(
+        let view = makeView()
+        let presenter = makePresenter(inputData: inputData)
+        let interactor = makeInteractor(inputData: inputData)
+        let router = makeRouter()
+
+        let (
+            bankCardDataInputView,
+            bankCardDataInputModuleInput
+        ) = makeBankCardDataInputView(
+            cardScanner: inputData.cardScanning,
+            moduleOutput: presenter,
+            transitionHandler: view
+        )
+
+        view.output = presenter
+        view.bankCardDataInputView = bankCardDataInputView
+
+        presenter.view = view
+        presenter.interactor = interactor
+        presenter.router = router
+        presenter.moduleOutput = moduleOutput
+        presenter.bankCardDataInputModuleInput = bankCardDataInputModuleInput
+
+        router.transitionHandler = view
+
+        interactor.output = presenter
+        return view
+    }
+
+    private static func makeView() -> BankCardViewController {
+        let viewController = BankCardViewController()
+        return viewController
+    }
+
+    private static func makePresenter(
+        inputData: BankCardModuleInputData
+    ) -> BankCardPresenter {
+        let presenter = BankCardPresenter(
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
             priceViewModel: inputData.priceViewModel,
@@ -17,9 +53,12 @@ enum BankCardAssembly {
             initialSavePaymentMethod: inputData.initialSavePaymentMethod,
             isBackBarButtonHidden: inputData.isBackBarButtonHidden
         )
+        return presenter
+    }
 
-        let cardService = CardService()
-        let bankSettingsService = BankSettingsServiceAssembly.makeService()
+    private static func makeInteractor(
+        inputData: BankCardModuleInputData
+    ) -> BankCardInteractor {
         let paymentService = PaymentServiceAssembly.makeService(
             tokenizationSettings: inputData.tokenizationSettings,
             testModeSettings: inputData.testModeSettings,
@@ -32,8 +71,6 @@ enum BankCardAssembly {
             testModeSettings: inputData.testModeSettings
         )
         let interactor = BankCardInteractor(
-            cardService: cardService,
-            bankSettingsService: bankSettingsService,
             paymentService: paymentService,
             analyticsService: analyticsService,
             analyticsProvider: analyticsProvider,
@@ -41,22 +78,51 @@ enum BankCardAssembly {
             amount: inputData.paymentOption.charge.plain,
             returnUrl: inputData.returnUrl
         )
+        return interactor
+    }
 
-        let router = BankCardRouter(
-            cardScanner: inputData.cardScanning
+    private static func makeRouter() -> BankCardRouter {
+        let router = BankCardRouter()
+        return router
+    }
+
+    private static func makeBankCardDataInputView(
+        cardScanner: CardScanning?,
+        moduleOutput: BankCardDataInputModuleOutput?,
+        transitionHandler: TransitionHandler?
+    ) -> (
+        view: BankCardDataInputView,
+        moduleInput: BankCardDataInputModuleInput
+    ) {
+        let inputData = BankCardDataInputModuleInputData(
+            inputPanHint: §Localized.BankCardView.inputPanHint,
+            inputPanPlaceholder: §Localized.BankCardView.inputPanPlaceholder,
+            inputExpiryDateHint: §Localized.BankCardView.inputExpiryDateHint,
+            inputExpiryDatePlaceholder: §Localized.BankCardView.inputExpiryDatePlaceholder,
+            inputCvcHint: §Localized.BankCardView.inputCvcHint,
+            inputCvcPlaceholder: §Localized.BankCardView.inputCvcPlaceholder,
+            cardScanner: cardScanner
         )
+        let (view, moduleInput) = BankCardDataInputAssembly.makeModule(
+            inputData: inputData,
+            moduleOutput: moduleOutput,
+            transitionHandler: transitionHandler
+        )
+        return (view, moduleInput)
+    }
+}
 
-        view.output = presenter
+// MARK: - Localized
 
-        presenter.view = view
-        presenter.interactor = interactor
-        presenter.router = router
-        presenter.moduleOutput = moduleOutput
-
-        router.transitionHandler = view
-        router.output = presenter
-
-        interactor.output = presenter
-        return view
+private extension BankCardAssembly {
+    enum Localized {
+        enum BankCardView: String {
+            case inputPanHint = "BankCardView.inputPanHint"
+            case inputPanPlaceholder = "BankCardView.inputPanPlaceholder"
+            case inputExpiryDateHint = "BankCardView.inputExpiryDateHint"
+            case inputExpiryDatePlaceholder = "BankCardView.inputExpiryDatePlaceholder"
+            case inputCvcHint = "BankCardView.inputCvcHint"
+            case inputCvcPlaceholder = "BankCardView.inputCvcPlaceholder"
+        }
     }
 }

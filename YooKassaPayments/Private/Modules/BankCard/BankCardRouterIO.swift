@@ -5,12 +5,4 @@ protocol BankCardRouterInput: class {
     func presentSavePaymentMethodInfo(
         inputData: SavePaymentMethodInfoModuleInputData
     )
-    func openCardScanner()
 }
-
-protocol BankCardRouterOutput: class {
-    func cardScanningDidFinish(
-        _ scannedCardInfo: ScannedCardInfo
-    )
-}
-

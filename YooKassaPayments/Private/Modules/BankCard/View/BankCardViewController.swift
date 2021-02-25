@@ -18,6 +18,8 @@ final class BankCardViewController: UIViewController {
 
     // MARK: - UI properties
 
+    var bankCardDataInputView: BankCardDataInputView!
+
     private lazy var scrollView: UIScrollView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -42,31 +44,6 @@ final class BankCardViewController: UIViewController {
         $0.setStyles(UIView.Styles.grayBackground)
         return $0
     }(OrderView())
-
-    private lazy var bankCardViewContainer: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.setStyles(UIView.Styles.grayBackground)
-        return view
-    }()
-
-    private lazy var bankCardView: BankCardView = {
-        let view = BankCardView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.setStyles(
-            UIView.Styles.grayBackground,
-            UIView.Styles.roundedShadow
-        )
-        view.delegate = self
-        view.inputPanHint = §Localized.BankCardView.inputPanHint
-        view.inputPanPlaceholder = §Localized.BankCardView.inputPanPlaceholder
-        view.expiryDateHint = §Localized.BankCardView.expiryDateHint
-        view.inputExpiryDatePlaceholder = §Localized.BankCardView.inputExpiryDatePlaceholder
-        view.inputCvcHint = §Localized.BankCardView.inputCvcHint
-        view.inputCvcPlaceholder = §Localized.BankCardView.inputCvcPlaceholder
-
-        return view
-    }()
 
     private lazy var actionButtonStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
@@ -197,11 +174,8 @@ final class BankCardViewController: UIViewController {
             contentStackView,
         ].forEach(contentView.addSubview)
         [
-            bankCardView,
-        ].forEach(bankCardViewContainer.addSubview)
-        [
             orderView,
-            bankCardViewContainer,
+            bankCardDataInputView,
         ].forEach(contentStackView.addArrangedSubview)
 
         [
@@ -264,26 +238,9 @@ final class BankCardViewController: UIViewController {
             contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-            bankCardView.topAnchor.constraint(
-                equalTo: bankCardViewContainer.topAnchor,
-                constant: Space.double
+            bankCardDataInputView.heightAnchor.constraint(
+                lessThanOrEqualToConstant: 126
             ),
-            bankCardView.bottomAnchor.constraint(
-                equalTo: bankCardViewContainer.bottomAnchor,
-                constant: -Space.double
-            ),
-            bankCardView.leadingAnchor.constraint(
-                equalTo: bankCardViewContainer.leadingAnchor,
-                constant: Space.double
-            ),
-            bankCardView.trailingAnchor.constraint(
-                equalTo: bankCardViewContainer.trailingAnchor,
-                constant: -Space.double
-            ),
-
-            bankCardViewContainer.heightAnchor.constraint(
-                equalToConstant: 102
-            )
         ]
         NSLayoutConstraint.activate(constraints)
     }
@@ -305,16 +262,6 @@ final class BankCardViewController: UIViewController {
 // MARK: - BankCardViewInput
 
 extension BankCardViewController: BankCardViewInput {
-
-    var focus: BankCardView.BankCardFocus? {
-        get {
-            bankCardView.focus
-        }
-        set {
-            bankCardView.focus = newValue
-        }
-    }
-
     func setViewModel(
         _ viewModel: BankCardViewModel
     ) {
@@ -324,18 +271,6 @@ extension BankCardViewController: BankCardViewInput {
         orderView.subvalue = viewModel.feeValue
         termsOfServiceLinkedTextView.attributedText = viewModel.termsOfService
         termsOfServiceLinkedTextView.textAlignment = .center
-    }
-
-    func setBankLogoImage(
-        _ image: UIImage?
-    ) {
-        bankCardView.inputPanLogo = image
-    }
-
-    func setCardViewMode(
-        _ mode: InputPanCardView.RightButtonMode
-    ) {
-        bankCardView.inputPanRightButtonMode = mode
     }
 
     func setSubmitButtonEnabled(
@@ -379,18 +314,6 @@ extension BankCardViewController: BankCardViewInput {
                 savePaymentMethodStrictLinkedItemView,
             ].forEach(contentStackView.addArrangedSubview)
         }
-    }
-
-    func setPanValue(
-        _ value: String
-    ) {
-        bankCardView.inputPanText = value
-    }
-
-    func setExpiryDateValue(
-        _ value: String
-    ) {
-        bankCardView.inputExpiryDateText = value
     }
 
     func setBackBarButtonHidden(
@@ -467,36 +390,6 @@ extension BankCardViewController: UITextViewDelegate {
     }
 }
 
-// MARK: - BankCardViewDelegate
-
-extension BankCardViewController: BankCardViewDelegate {
-    func bankCardPanDidChange(
-        _ value: String
-    ) {
-        output.didChangePan(value)
-    }
-
-    func bankCardExpiryDateDidChange(
-        _ value: String
-    ) {
-        output.didChangeExpiryDate(value)
-    }
-
-    func bankCardCvcDidChange(
-        _ value: String
-    ) {
-        output.didChangeCvc(value)
-    }
-
-    func scanDidPress() {
-        output.scanDidPress()
-    }
-
-    func panDidBeginEditing() {
-        output.panDidBeginEditing()
-    }
-}
-
 // MARK: - LinkedItemViewOutput
 
 extension BankCardViewController: LinkedItemViewOutput {
@@ -555,13 +448,5 @@ private extension BankCardViewController {
         case `continue` = "Contract.next"
         case savePaymentMethodTitle = "Contract.format.savePaymentMethod.title"
 
-        enum BankCardView: String {
-            case inputPanHint = "BankCardView.inputPanHint"
-            case inputPanPlaceholder = "BankCardView.inputPanPlaceholder"
-            case expiryDateHint = "BankCardView.expiryDateHint"
-            case inputExpiryDatePlaceholder = "BankCardView.inputExpiryDatePlaceholder"
-            case inputCvcHint = "BankCardView.inputCvcHint"
-            case inputCvcPlaceholder = "BankCardView.inputCvcPlaceholder"
-        }
     }
 }

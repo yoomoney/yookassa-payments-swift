@@ -23,28 +23,6 @@ extension TokenizationRouter: TokenizationRouterInput {
         transitionHandler?.push(viewController, animated: true)
     }
 
-    func presentBankCardDataInput(
-        inputData: BankCardDataInputModuleInputData,
-        moduleOutput: BankCardDataInputModuleOutput
-    ) {
-        let viewController = BankCardDataInputAssembly.makeModule(
-            inputData: inputData,
-            moduleOutput: moduleOutput
-        )
-        transitionHandler?.push(viewController, animated: true)
-    }
-
-    func presenMaskedBankCardDataInput(
-        inputData: MaskedBankCardDataInputModuleInputData,
-        moduleOutput: MaskedBankCardDataInputModuleOutput
-    ) {
-        let viewController = MaskedBankCardDataInputAssembly.makeModule(
-            inputData: inputData,
-            moduleOutput: moduleOutput
-        )
-        transitionHandler?.push(viewController, animated: true)
-    }
-
     func presentTermsOfServiceModule(_ url: URL) {
         let viewController = SFSafariViewController(url: url)
         viewController.modalPresentationStyle = .overFullScreen

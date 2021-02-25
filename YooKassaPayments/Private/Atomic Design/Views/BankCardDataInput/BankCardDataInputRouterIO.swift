@@ -3,5 +3,7 @@ protocol BankCardDataInputRouterInput: class {
 }
 
 protocol BankCardDataInputRouterOutput: class {
-    func cardScanningDidFinish(_ scannedCardInfo: ScannedCardInfo)
+    func cardScanningDidFinish(
+        _ scannedCardInfo: ScannedCardInfo
+    )
 }

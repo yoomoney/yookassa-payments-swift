@@ -212,7 +212,10 @@
 
 "BankCardView.inputPanHint" = "Номер карты";
 "BankCardView.inputPanPlaceholder" = "Введите или отсканируйте";
-"BankCardView.expiryDateHint" = "Срок действия";
+"BankCardView.inputExpiryDateHint" = "Срок действия";
 "BankCardView.inputExpiryDatePlaceholder" = "ММ/ГГ";
 "BankCardView.inputCvcHint" = "Код";
 "BankCardView.inputCvcPlaceholder" = "CVC";
+
+"BankCardDataInputView.BottomHint.invalidPan" = "Проверьте номер карты";
+"BankCardDataInputView.BottomHint.invalidExpiry" = "Проверьте месяц и год";

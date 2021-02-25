@@ -1,16 +1,17 @@
 import UIKit
 
-protocol ExpiryDateViewDelegate: class {
+protocol InputExpiryDateViewDelegate: class {
     func expiryDateDidChange(
         _ value: String
     )
+    func expiryDateDidBeginEditing()
 }
 
-final class ExpiryDateView: UIView {
+final class InputExpiryDateView: UIView {
 
-    // MARK: - ExpiryDateViewDelegate
+    // MARK: - InputExpiryDateViewDelegate
 
-    weak var delegate: ExpiryDateViewDelegate?
+    weak var delegate: InputExpiryDateViewDelegate?
 
     // MARK: - Public accessors
 
@@ -137,7 +138,7 @@ final class ExpiryDateView: UIView {
 
 // MARK: - UITextFieldDelegate
 
-extension ExpiryDateView: UITextFieldDelegate {
+extension InputExpiryDateView: UITextFieldDelegate {
     func textField(
         _ textField: UITextField,
         shouldChangeCharactersIn range: NSRange,
@@ -153,5 +154,33 @@ extension ExpiryDateView: UITextFieldDelegate {
         )
         delegate?.expiryDateDidChange(value)
         return false
+    }
+
+    func textFieldDidBeginEditing(
+        _ textField: UITextField
+    ) {
+        delegate?.expiryDateDidBeginEditing()
+    }
+
+}
+
+// MARK: Styles
+
+extension InputExpiryDateView {
+    enum Styles {
+        static let `default` = InternalStyle(name: "InputExpiryDateView.Default") { (view: InputExpiryDateView) in
+            view.expiryDateHintLabel.setStyles(
+                UILabel.DynamicStyle.caption1,
+                UILabel.ColorStyle.ghost,
+                UILabel.Styles.singleLine
+            )
+        }
+        static let error = InternalStyle(name: "InputExpiryDateView.Error") { (view: InputExpiryDateView) in
+            view.expiryDateHintLabel.setStyles(
+                UILabel.DynamicStyle.caption1,
+                UILabel.ColorStyle.alert,
+                UILabel.Styles.singleLine
+            )
+        }
     }
 }
