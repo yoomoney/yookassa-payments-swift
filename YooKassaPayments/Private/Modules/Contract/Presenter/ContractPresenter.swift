@@ -47,7 +47,8 @@ extension ContractPresenter: ContractViewOutput {
             let (authType, _) = interactor.makeTypeAnalyticsParameters()
             let event: AnalyticsEvent = .screenPaymentContract(
                 authType: authType,
-                scheme: self.inputData.tokenizeScheme
+                scheme: self.inputData.tokenizeScheme,
+                sdkVersion: Bundle.frameworkVersion
             )
             interactor.trackEvent(event)
         }
@@ -80,7 +81,12 @@ extension ContractPresenter: ContractModuleInput {
             DispatchQueue.global().async { [weak self] in
                 guard let self = self, let interactor = self.interactor else { return }
                 let (authType, _) = interactor.makeTypeAnalyticsParameters()
-                interactor.trackEvent(.screenError(authType: authType, scheme: self.inputData.tokenizeScheme))
+                let event: AnalyticsEvent = .screenError(
+                    authType: authType,
+                    scheme: self.inputData.tokenizeScheme,
+                    sdkVersion: Bundle.frameworkVersion
+                )
+                interactor.trackEvent(event)
             }
         }
     }

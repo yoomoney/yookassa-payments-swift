@@ -40,7 +40,7 @@ extension AnalyticsServiceImpl: AnalyticsService {
         trackEventNamed(eventName, parameters: parameters)
     }
 
-    func trackEventNamed(
+    private func trackEventNamed(
         _ name: String,
         parameters: [String: String]?
     ) {
@@ -92,9 +92,6 @@ extension AnalyticsServiceImpl: AnalyticsService {
         case .actionLogout:
             eventName = EventKey.actionLogout.rawValue
 
-        case .actionChangePaymentMethod:
-            eventName = EventKey.actionChangePaymentMethod.rawValue
-
         case .actionAuthWithoutWallet:
             eventName = EventKey.actionAuthWithoutWallet.rawValue
 
@@ -121,76 +118,95 @@ extension AnalyticsServiceImpl: AnalyticsService {
         var parameters: [String: String]?
 
         switch event {
-        case .screenPaymentOptions(let authType):
+        case let .screenPaymentOptions(authType, sdkVersion):
             parameters = [
                 authType.key: authType.rawValue,
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
             ]
 
-        case .screenPaymentContract(let authType, let scheme):
+        case let .screenPaymentContract(authType, scheme, sdkVersion):
             parameters = [
                 authType.key: authType.rawValue,
                 scheme.key: scheme.rawValue,
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
             ]
 
-        case .screenLinkedCardForm:
-            parameters = nil
-
-        case .screenBankCardForm(let authType):
+        case let .screenLinkedCardForm(sdkVersion):
             parameters = [
-                authType.key: authType.rawValue,
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
             ]
 
-        case .screenError(let authType, let scheme):
+        case let .screenBankCardForm(authType, sdkVersion):
             parameters = [
                 authType.key: authType.rawValue,
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
+            ]
+
+        case let .screenError(authType, scheme, sdkVersion):
+            parameters = [
+                authType.key: authType.rawValue,
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
             ]
             if let scheme = scheme {
                 parameters?[scheme.key] = scheme.rawValue
             }
 
-        case .screen3ds:
-            parameters = nil
+        case let .screen3ds(sdkVersion):
+            parameters = [
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
+            ]
 
-        case .screenRecurringCardForm:
-            parameters = nil
+        case let .screenRecurringCardForm(sdkVersion):
+            parameters = [
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
+            ]
 
-        case .actionTokenize(let scheme, let authType, let tokenType):
+        case let .actionTokenize(scheme, authType, tokenType, sdkVersion):
             parameters = [
                 scheme.key: scheme.rawValue,
                 authType.key: authType.rawValue,
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
             ]
             if let tokenType = tokenType {
                 parameters?[tokenType.key] = tokenType.rawValue
             }
 
-        case .actionPaymentAuthorization(let authStatus):
+        case let .actionPaymentAuthorization(authPaymentStatus, sdkVersion):
             parameters = [
-                authStatus.key: authStatus.rawValue,
+                authPaymentStatus.key: authPaymentStatus.rawValue,
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
             ]
 
-        case .actionLogout:
-            parameters = nil
+        case let .actionLogout(sdkVersion):
+            parameters = [
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
+            ]
 
-        case .actionChangePaymentMethod:
-            parameters = nil
+        case let .actionAuthWithoutWallet(sdkVersion):
+            parameters = [
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
+            ]
 
-        case .actionAuthWithoutWallet:
-            parameters = nil
+        case let .userStartAuthorization(sdkVersion):
+            parameters = [
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
+            ]
 
-        case .userStartAuthorization:
-            parameters = nil
+        case let .userCancelAuthorization(sdkVersion):
+            parameters = [
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
+            ]
 
-        case .userCancelAuthorization:
-            parameters = nil
-
-        case .userSuccessAuthorization(let moneyAuthProcessType):
+        case let .userSuccessAuthorization(moneyAuthProcessType, sdkVersion):
             parameters = [
                 moneyAuthProcessType.key: moneyAuthProcessType.rawValue,
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
             ]
 
-        case .userFailedAuthorization(let errorLocalizedDescription):
+        case let .userFailedAuthorization(errorLocalizedDescription, sdkVersion):
             parameters = [
-                "error": errorLocalizedDescription,
+                AnalyticsEvent.Keys.error.rawValue: errorLocalizedDescription,
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
             ]
         }
 
@@ -209,7 +225,6 @@ extension AnalyticsServiceImpl: AnalyticsService {
         case actionTokenize
         case actionPaymentAuthorization
         case actionLogout
-        case actionChangePaymentMethod
         case actionAuthWithoutWallet
 
         // MARK: - Authorization

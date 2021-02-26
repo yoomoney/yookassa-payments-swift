@@ -25,7 +25,10 @@ final class CardSecPresenter: WebBrowserPresenter {
     }
 
     private func trackAnalyticsEvent() {
-        cardSecInteractor.trackEvent(.screen3ds)
+        let event: AnalyticsEvent = .screen3ds(
+            sdkVersion: Bundle.frameworkVersion
+        )
+        cardSecInteractor.trackEvent(event)
     }
 }
 

@@ -92,6 +92,16 @@ extension BankCardPresenter: BankCardViewOutput {
         }
 
         view.setBackBarButtonHidden(isBackBarButtonHidden)
+
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+            let parameters = self.interactor.makeTypeAnalyticsParameters()
+            let event: AnalyticsEvent = .screenBankCardForm(
+                authType: parameters.authType,
+                sdkVersion: Bundle.frameworkVersion
+            )
+            self.interactor.trackEvent(event)
+        }
     }
 
     func didPressSubmitButton() {
@@ -153,7 +163,8 @@ extension BankCardPresenter: BankCardInteractorOutput {
                 let event: AnalyticsEvent = .actionTokenize(
                     scheme: .bankCard,
                     authType: type.authType,
-                    tokenType: type.tokenType
+                    tokenType: type.tokenType,
+                    sdkVersion: Bundle.frameworkVersion
                 )
                 interactor.trackEvent(event)
             }
@@ -163,6 +174,14 @@ extension BankCardPresenter: BankCardInteractorOutput {
     func didFailTokenize(
         _ error: Error
     ) {
+        let parameters = interactor.makeTypeAnalyticsParameters()
+        let event: AnalyticsEvent = .screenError(
+            authType: parameters.authType,
+            scheme: .bankCard,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        interactor.trackEvent(event)
+
         let message = makeMessage(error)
 
         DispatchQueue.main.async { [weak self] in

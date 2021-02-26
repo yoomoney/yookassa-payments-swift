@@ -189,8 +189,10 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
                     customization: moneyAuthCustomization,
                     output: self
                 )
-                let event = AnalyticsEvent.userStartAuthorization
-                self.interactor.trackEvent(event)
+                let event = AnalyticsEvent.userStartAuthorization(
+                    sdkVersion: Bundle.frameworkVersion
+                )
+                interactor.trackEvent(event)
             } catch {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
@@ -200,8 +202,10 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
                     }
                 }
                 
-                let event = AnalyticsEvent.userCancelAuthorization
-                self.interactor.trackEvent(event)
+                let event = AnalyticsEvent.userCancelAuthorization(
+                    sdkVersion: Bundle.frameworkVersion
+                )
+                interactor.trackEvent(event)
             }
         }
     }
@@ -427,7 +431,11 @@ extension PaymentMethodsPresenter: PaymentMethodsModuleInput {
 extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
     func didFetchPaymentMethods(_ paymentMethods: [PaymentOption]) {
         let (authType, _) = interactor.makeTypeAnalyticsParameters()
-        interactor.trackEvent(.screenPaymentOptions(authType))
+        let event: AnalyticsEvent = .screenPaymentOptions(
+            authType: authType,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        interactor.trackEvent(event)
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self,
@@ -468,6 +476,10 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
                 self.openYooMoneyWallet(paymentOption: paymentOption, needReplace: true)
             }
         } else if paymentMethods.contains(where: condition) == false {
+            let event: AnalyticsEvent = .actionAuthWithoutWallet(
+                sdkVersion: Bundle.frameworkVersion
+            )
+            interactor.trackEvent(event)
             interactor.fetchPaymentMethods()
             DispatchQueue.main.async { [weak self] in
                 guard let view = self?.view else { return }
@@ -490,6 +502,15 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         }
 
         applePayCompletion?(.success)
+
+        let parameters = interactor.makeTypeAnalyticsParameters()
+        let event: AnalyticsEvent = .actionTokenize(
+            scheme: .applePay,
+            authType: parameters.authType,
+            tokenType: parameters.tokenType,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        interactor.trackEvent(event)
 
         DispatchQueue.main.asyncAfter(
             deadline: .now() + Constants.dismissApplePayTimeout
@@ -558,7 +579,12 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         DispatchQueue.global().async { [weak self] in
             guard let interactor = self?.interactor else { return }
             let (authType, _) = interactor.makeTypeAnalyticsParameters()
-            interactor.trackEvent(.screenError(authType: authType, scheme: scheme))
+            let event: AnalyticsEvent = .screenError(
+                authType: authType,
+                scheme: scheme,
+                sdkVersion: Bundle.frameworkVersion
+            )
+            interactor.trackEvent(event)
         }
     }
 
@@ -568,7 +594,12 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         DispatchQueue.global().async { [weak self] in
             guard let interactor = self?.interactor else { return }
             let (authType, _) = interactor.makeTypeAnalyticsParameters()
-            interactor.trackEvent(.screenPaymentContract(authType: authType, scheme: scheme))
+            let event: AnalyticsEvent = .screenPaymentContract(
+                authType: authType,
+                scheme: scheme,
+                sdkVersion: Bundle.frameworkVersion
+            )
+            interactor.trackEvent(event)
         }
     }
 }
@@ -603,13 +634,25 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
                 let event: AnalyticsEvent
                 switch authorizationProcess {
                 case .login:
-                    event = .userSuccessAuthorization(.login)
+                    event = .userSuccessAuthorization(
+                        moneyAuthProcessType: .login,
+                        sdkVersion: Bundle.frameworkVersion
+                    )
                 case .enrollment:
-                    event = .userSuccessAuthorization(.enrollment)
+                    event = .userSuccessAuthorization(
+                        moneyAuthProcessType: .enrollment,
+                        sdkVersion: Bundle.frameworkVersion
+                    )
                 case .migration:
-                    event = .userSuccessAuthorization(.migration)
+                    event = .userSuccessAuthorization(
+                        moneyAuthProcessType: .migration,
+                        sdkVersion: Bundle.frameworkVersion
+                    )
                 case .none:
-                    event = .userSuccessAuthorization(.unknown)
+                    event = .userSuccessAuthorization(
+                        moneyAuthProcessType: .unknown,
+                        sdkVersion: Bundle.frameworkVersion
+                    )
                 }
                 self.interactor.trackEvent(event)
             }
@@ -621,7 +664,9 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
     ) {
         self.moneyAuthCoordinator = nil
 
-        let event = AnalyticsEvent.userCancelAuthorization
+        let event = AnalyticsEvent.userCancelAuthorization(
+            sdkVersion: Bundle.frameworkVersion
+        )
         interactor.trackEvent(event)
 
         DispatchQueue.main.async { [weak self] in
@@ -642,7 +687,8 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
         self.moneyAuthCoordinator = nil
 
         let event = AnalyticsEvent.userFailedAuthorization(
-            error.localizedDescription
+            error: error.localizedDescription,
+            sdkVersion: Bundle.frameworkVersion
         )
         interactor.trackEvent(event)
 

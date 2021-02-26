@@ -208,7 +208,12 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
             DispatchQueue.global().async { [weak self] in
                 guard let self = self, let interactor = self.interactor else { return }
                 let (authType, _) = interactor.makeTypeAnalyticsParameters()
-                interactor.trackEvent(.screenError(authType: authType, scheme: self.tokenizeScheme))
+                let event: AnalyticsEvent = .screenError(
+                    authType: authType,
+                    scheme: self.tokenizeScheme,
+                    sdkVersion: Bundle.frameworkVersion
+                )
+                interactor.trackEvent(event)
             }
         }
     }
@@ -224,7 +229,11 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
         if case .authorized = response {
             DispatchQueue.global().async { [weak self] in
                 guard let interactor = self?.interactor else { return }
-                interactor.trackEvent(.actionPaymentAuthorization(.success))
+                let event: AnalyticsEvent = .actionPaymentAuthorization(
+                    authPaymentStatus: .success,
+                    sdkVersion: Bundle.frameworkVersion
+                )
+                interactor.trackEvent(event)
             }
         }
     }
@@ -240,7 +249,11 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
             
             DispatchQueue.global().async { [weak self] in
                 guard let interactor = self?.interactor else { return }
-                interactor.trackEvent(.actionPaymentAuthorization(.fail))
+                let event: AnalyticsEvent = .actionPaymentAuthorization(
+                    authPaymentStatus: .fail,
+                    sdkVersion: Bundle.frameworkVersion
+                )
+                interactor.trackEvent(event)
             }
         }
     }

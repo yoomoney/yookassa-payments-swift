@@ -220,7 +220,11 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
         if case .authorized = response {
             DispatchQueue.global().async { [weak self] in
                 guard let interactor = self?.interactor else { return }
-                interactor.trackEvent(.actionPaymentAuthorization(.success))
+                let event: AnalyticsEvent = .actionPaymentAuthorization(
+                    authPaymentStatus: .success,
+                    sdkVersion: Bundle.frameworkVersion
+                )
+                interactor.trackEvent(event)
             }
         }
     }
@@ -230,7 +234,11 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
 
         DispatchQueue.global().async { [weak self] in
             guard let interactor = self?.interactor else { return }
-            interactor.trackEvent(.actionPaymentAuthorization(.fail))
+            let event: AnalyticsEvent = .actionPaymentAuthorization(
+                authPaymentStatus: .fail,
+                sdkVersion: Bundle.frameworkVersion
+            )
+            interactor.trackEvent(event)
         }
     }
 
@@ -255,7 +263,8 @@ extension TokenizationPresenter: TokenizationInteractorOutput {
         let event: AnalyticsEvent = .actionTokenize(
             scheme: scheme,
             authType: type.authType,
-            tokenType: type.tokenType
+            tokenType: type.tokenType,
+            sdkVersion: Bundle.frameworkVersion
         )
         return event
     }
@@ -271,7 +280,6 @@ extension TokenizationPresenter: ContractModuleOutput {
     }
 
     func didPressChangeAction(on module: ContractModuleInput) {
-        interactor.trackEvent(.actionChangePaymentMethod)
         presentPaymentMethodsModule()
     }
 
@@ -311,7 +319,10 @@ extension TokenizationPresenter: LogoutConfirmationModuleOutput {
         DispatchQueue.global().async { [weak self] in
             guard let interactor = self?.interactor else { return }
             interactor.logout()
-            interactor.trackEvent(.actionLogout)
+            let event: AnalyticsEvent = .actionLogout(
+                sdkVersion: Bundle.frameworkVersion
+            )
+            interactor.trackEvent(event)
 
             DispatchQueue.main.async {
                 guard let self = self else { return }

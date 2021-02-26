@@ -128,7 +128,12 @@ extension ApplePayContractPresenter: ApplePayContractViewOutput {
         DispatchQueue.global().async { [weak self] in
             guard let interactor = self?.interactor else { return }
             let (authType, _) = interactor.makeTypeAnalyticsParameters()
-            interactor.trackEvent(.screenError(authType: authType, scheme: scheme))
+            let event = AnalyticsEvent.screenError(
+                authType: authType,
+                scheme: scheme,
+                sdkVersion: Bundle.frameworkVersion
+            )
+            interactor.trackEvent(event)
         }
     }
     
@@ -138,7 +143,12 @@ extension ApplePayContractPresenter: ApplePayContractViewOutput {
         DispatchQueue.global().async { [weak self] in
             guard let interactor = self?.interactor else { return }
             let (authType, _) = interactor.makeTypeAnalyticsParameters()
-            interactor.trackEvent(.screenPaymentContract(authType: authType, scheme: scheme))
+            let event = AnalyticsEvent.screenPaymentContract(
+                authType: authType,
+                scheme: scheme,
+                sdkVersion: Bundle.frameworkVersion
+            )
+            interactor.trackEvent(event)
         }
     }
 }

@@ -89,7 +89,8 @@ extension SberbankPresenter: SberbankViewOutput {
             let (authType, _) = interactor.makeTypeAnalyticsParameters()
             let event: AnalyticsEvent = .screenPaymentContract(
                 authType: authType,
-                scheme: .smsSbol
+                scheme: .smsSbol,
+                sdkVersion: Bundle.frameworkVersion
             )
             interactor.trackEvent(event)
         }
@@ -123,7 +124,8 @@ extension SberbankPresenter: SberbankInteractorOutput {
         let event: AnalyticsEvent = .actionTokenize(
             scheme: .smsSbol,
             authType: analyticsParameters.authType,
-            tokenType: analyticsParameters.tokenType
+            tokenType: analyticsParameters.tokenType,
+            sdkVersion: Bundle.frameworkVersion
         )
         interactor.trackEvent(event)
         moduleOutput?.sberbankModule(
@@ -135,6 +137,14 @@ extension SberbankPresenter: SberbankInteractorOutput {
     func didFailTokenize(
         _ error: Error
     ) {
+        let parameters = interactor.makeTypeAnalyticsParameters()
+        let event: AnalyticsEvent = .screenError(
+            authType: parameters.authType,
+            scheme: .smsSbol,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        interactor.trackEvent(event)
+
         let message = makeMessage(error)
 
         DispatchQueue.main.async { [weak self] in
