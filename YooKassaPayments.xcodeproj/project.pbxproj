@@ -347,6 +347,7 @@
 		402EBBCE94439738B462887E /* IconViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA8DB39B24DBE1A6F4B1 /* IconViewIO.swift */; };
 		402EBBDAFDAC4B19B4A76DF8 /* TextInputDisplayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8BEF23878B776C64AA5 /* TextInputDisplayItem.swift */; };
 		402EBBDD111CC680E37ECE81 /* IconButtonItemView+PaymentMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB7E13404098FC7E76549 /* IconButtonItemView+PaymentMethodView.swift */; };
+		402EBBDF51F6662CEE54298A /* Bundle+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB93F77A21ACAE76D751D /* Bundle+Tools.swift */; };
 		402EBBE3986C5A7F4A220321 /* TextControl+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA8E24E3CAD56361581C /* TextControl+Layout.swift */; };
 		402EBBE45D43FB68B4D751EC /* RootViewController+CardScanning+Pods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB9D4435E4C37E367DF6A /* RootViewController+CardScanning+Pods.swift */; };
 		402EBBE8B24BE37166C1A1FA /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA9B7AFC1779BE35D378 /* Formatter.swift */; };
@@ -772,6 +773,7 @@
 		402EB90DA607ABBDC720DA28 /* PhoneNumberInputInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberInputInteractor.swift; sourceTree = "<group>"; };
 		402EB90E43119606C39C3A8E /* RootViewController+CardScanning+Carthage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RootViewController+CardScanning+Carthage.swift"; sourceTree = "<group>"; };
 		402EB91A8FA7B74992FE889C /* KeyValueStoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStoring.swift; sourceTree = "<group>"; };
+		402EB93F77A21ACAE76D751D /* Bundle+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Tools.swift"; sourceTree = "<group>"; };
 		402EB94E653C072F4708CB50 /* Amount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Amount.swift; sourceTree = "<group>"; };
 		402EB95572117E0F7D1D666E /* CompoundValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompoundValidator.swift; sourceTree = "<group>"; };
 		402EB95615CB4B5DDEF91CA2 /* KeyboardButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardButtonStyle.swift; sourceTree = "<group>"; };
@@ -1922,6 +1924,7 @@
 				402EB35771FFB12A221F3905 /* String+Tools.swift */,
 				402EBB2E2AFE4B180DCBF726 /* UIDevice+Hardware.swift */,
 				781CDD6D25D2B95300C34912 /* UITextField+InputView.swift */,
+				402EB93F77A21ACAE76D751D /* Bundle+Tools.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3823,6 +3826,7 @@
 				402EBC0068B54B26322892F1 /* BankCardDataInputRouter.swift in Sources */,
 				402EBC42507159E3CD4859EC /* BankCardDataInputRouterIO.swift in Sources */,
 				402EB3AB073F3C17EAE8919C /* BankCardDataInputViewModel.swift in Sources */,
+				402EBBDF51F6662CEE54298A /* Bundle+Tools.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

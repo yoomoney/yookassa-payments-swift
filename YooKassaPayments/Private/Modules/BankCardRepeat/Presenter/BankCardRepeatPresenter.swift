@@ -77,7 +77,8 @@ extension BankCardRepeatPresenter: BankCardRepeatViewOutput {
             let (authType, _) = interactor.makeTypeAnalyticsParameters()
             let event: AnalyticsEvent = .screenPaymentContract(
                 authType: authType,
-                scheme: .recurringCard
+                scheme: .recurringCard,
+                sdkVersion: Bundle.frameworkVersion
             )
             interactor.trackEvent(event)
             interactor.fetchPaymentMethod(
@@ -213,7 +214,10 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
             }
             
             DispatchQueue.global().async { [weak self] in
-                self?.interactor.trackEvent(.screenRecurringCardForm)
+                let event: AnalyticsEvent = .screenRecurringCardForm(
+                    sdkVersion: Bundle.frameworkVersion
+                )
+                self?.interactor.trackEvent(event)
             }
         }
     }
@@ -221,7 +225,11 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
     func didFailFetchPaymentMethod(_ error: Error) {
         let authType = AnalyticsEvent.AuthType.withoutAuth
         let scheme = AnalyticsEvent.TokenizeScheme.recurringCard
-        let event = AnalyticsEvent.screenError(authType: authType, scheme: scheme)
+        let event = AnalyticsEvent.screenError(
+            authType: authType,
+            scheme: scheme,
+            sdkVersion: Bundle.frameworkVersion
+        )
         interactor.trackEvent(event)
 
         let message = makeMessage(error)
@@ -246,7 +254,8 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
             let event: AnalyticsEvent = .actionTokenize(
                 scheme: .bankCard,
                 authType: type.authType,
-                tokenType: type.tokenType
+                tokenType: type.tokenType,
+                sdkVersion: Bundle.frameworkVersion
             )
             interactor.trackEvent(event)
         }

@@ -110,7 +110,10 @@ extension LinkedCardPresenter: LinkedCardViewOutput {
         view.setBackBarButtonHidden(isBackBarButtonHidden)
         
         DispatchQueue.global().async { [weak self] in
-            self?.interactor.trackEvent(.screenLinkedCardForm)
+            let event: AnalyticsEvent = .screenLinkedCardForm(
+                sdkVersion: Bundle.frameworkVersion
+            )
+            self?.interactor.trackEvent(event)
         }
     }
     
@@ -244,21 +247,26 @@ extension LinkedCardPresenter: LinkedCardInteractorOutput {
             }
         }
     }
-    
+
     func failLoginInWallet(
         _ error: Error
     ) {
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
             view.hideActivity()
-            
+
             let message = makeMessage(error)
             view.presentError(with: message)
 
             DispatchQueue.global().async { [weak self] in
                 guard let self = self, let interactor = self.interactor else { return }
                 let (authType, _) = interactor.makeTypeAnalyticsParameters()
-                interactor.trackEvent(.screenError(authType: authType, scheme: .linkedCard))
+                let event: AnalyticsEvent = .screenError(
+                    authType: authType,
+                    scheme: .linkedCard,
+                    sdkVersion: Bundle.frameworkVersion
+                )
+                interactor.trackEvent(event)
             }
         }
     }
@@ -276,7 +284,8 @@ extension LinkedCardPresenter: LinkedCardInteractorOutput {
             let event: AnalyticsEvent = .actionTokenize(
                 scheme: .linkedCard,
                 authType: type.authType,
-                tokenType: type.tokenType
+                tokenType: type.tokenType,
+                sdkVersion: Bundle.frameworkVersion
             )
             interactor.trackEvent(event)
         }
@@ -304,8 +313,6 @@ extension LinkedCardPresenter: LinkedCardInteractorOutput {
             amount: paymentOption.charge.plain,
             tmxSessionId: tmxSessionId
         )
-
-        interactor.trackEvent(.actionPaymentAuthorization(.success))
     }
 }
 

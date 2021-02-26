@@ -3,42 +3,44 @@ enum AnalyticsEvent {
     // MARK: - Screen viewing events.
 
     /// Open the payment method selection screen.
-    case screenPaymentOptions(AuthType)
+    case screenPaymentOptions(authType: AuthType, sdkVersion: String)
 
     /// The opening screen of the contract.
-    case screenPaymentContract(authType: AuthType, scheme: TokenizeScheme)
+    case screenPaymentContract(authType: AuthType, scheme: TokenizeScheme, sdkVersion: String)
 
     /// Open the Linked Bank card for data entry screen.
-    case screenLinkedCardForm
+    case screenLinkedCardForm(sdkVersion: String)
 
     /// Open the Bank card screen for entering Data.
-    case screenBankCardForm(AuthType)
+    case screenBankCardForm(authType: AuthType, sdkVersion: String)
 
     /// The opening screen of the error.
-    case screenError(authType: AuthType, scheme: TokenizeScheme?)
+    case screenError(authType: AuthType, scheme: TokenizeScheme?, sdkVersion: String)
 
     /// The opening pages 3DS.
-    case screen3ds
+    case screen3ds(sdkVersion: String)
 
     /// Open Bank Card screen with screen recurring
-    case screenRecurringCardForm
+    case screenRecurringCardForm(sdkVersion: String)
 
     // MARK: - Actions
 
     /// Create a payment token with the payment method selected.
-    case actionTokenize(scheme: TokenizeScheme, authType: AuthType, tokenType: AuthTokenType?)
+    case actionTokenize(scheme: TokenizeScheme, authType: AuthType, tokenType: AuthTokenType?, sdkVersion: String)
 
     /// Payment authorization.
-    case actionPaymentAuthorization(AuthPaymentStatus)
+    case actionPaymentAuthorization(authPaymentStatus: AuthPaymentStatus, sdkVersion: String)
 
     /// The user is logged out.
-    case actionLogout
-
-    /// The user changed the payment method.
-    case actionChangePaymentMethod
+    case actionLogout(sdkVersion: String)
 
     /// Authorization without wallet.
-    case actionAuthWithoutWallet
+    case actionAuthWithoutWallet(sdkVersion: String)
+
+    case userStartAuthorization(sdkVersion: String)
+    case userCancelAuthorization(sdkVersion: String)
+    case userSuccessAuthorization(moneyAuthProcessType: MoneyAuthProcessType, sdkVersion: String)
+    case userFailedAuthorization(error: String, sdkVersion: String)
 
     // MARK: - Analytic parameters.
 
@@ -117,9 +119,11 @@ enum AnalyticsEvent {
             return Key.moneyAuthProcessType.rawValue
         }
     }
+}
 
-    case userStartAuthorization
-    case userCancelAuthorization
-    case userSuccessAuthorization(MoneyAuthProcessType)
-    case userFailedAuthorization(String)
+extension AnalyticsEvent {
+    enum Keys: String {
+        case error
+        case msdkVersion
+    }
 }

@@ -110,7 +110,8 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
             let (authType, _) = interactor.makeTypeAnalyticsParameters()
             let event: AnalyticsEvent = .screenPaymentContract(
                 authType: authType,
-                scheme: .wallet
+                scheme: .wallet,
+                sdkVersion: Bundle.frameworkVersion
             )
             interactor.trackEvent(event)
         }
@@ -236,7 +237,12 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
             DispatchQueue.global().async { [weak self] in
                 guard let self = self, let interactor = self.interactor else { return }
                 let (authType, _) = interactor.makeTypeAnalyticsParameters()
-                interactor.trackEvent(.screenError(authType: authType, scheme: .wallet))
+                let event: AnalyticsEvent = .screenError(
+                    authType: authType,
+                    scheme: .wallet,
+                    sdkVersion: Bundle.frameworkVersion
+                )
+                interactor.trackEvent(event)
             }
         }
     }
@@ -258,7 +264,8 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
                 let event: AnalyticsEvent = .actionTokenize(
                     scheme: .wallet,
                     authType: type.authType,
-                    tokenType: type.tokenType
+                    tokenType: type.tokenType,
+                    sdkVersion: Bundle.frameworkVersion
                 )
                 interactor.trackEvent(event)
             }
@@ -295,8 +302,6 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
             amount: paymentOption.charge.plain,
             tmxSessionId: tmxSessionId
         )
-
-        interactor.trackEvent(.actionPaymentAuthorization(.success))
     }
 }
 
@@ -324,7 +329,10 @@ extension YooMoneyPresenter: LogoutConfirmationModuleOutput {
             guard let self = self,
                   let interactor = self.interactor else { return }
             interactor.logout()
-            interactor.trackEvent(.actionLogout)
+            let event: AnalyticsEvent = .actionLogout(
+                sdkVersion: Bundle.frameworkVersion
+            )
+            interactor.trackEvent(event)
             self.moduleOutput?.didLogout(self)
         }
     }
