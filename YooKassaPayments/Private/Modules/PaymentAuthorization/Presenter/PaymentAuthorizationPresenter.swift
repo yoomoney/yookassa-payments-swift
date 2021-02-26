@@ -177,6 +177,8 @@ extension PaymentAuthorizationPresenter: ActionTitleTextDialogDelegate {
     }
 }
 
+// MARK: - PaymentAuthorizationInteractorOutput
+
 extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
     func didResendCode(
         authTypeState: AuthTypeState
@@ -257,7 +259,7 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
             }
         }
     }
-    
+
     private func handleError(
         _ error: Error
     ) {
@@ -267,28 +269,27 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
                 view?.setCodeError(§Localized.Error.invalidAnswer)
                 return
             }
-            
-            
+
             view?.setCodeError(String(
                 format: §Localized.Error.invalidAnswerSessionsLeft,
                 smsDescription.sessionsLeft
             ))
-            
+
         case WalletLoginProcessingError.verifyAttemptsExceeded:
             guard case .sms(let smsDescription?) = authTypeState.specific,
                   let nextSessionTimeLeft = smsDescription.nextSessionTimeLeft else {
                 presentError(message: §Localized.Error.verifyAttemptsExceeded)
                 return
             }
-            
+
             let nextSessionDate = Date().addingTimeInterval(TimeInterval(nextSessionTimeLeft))
-            
+
             let nextSessionTimeText = String(
                 format: §Localized.Error.verifyAttemptsExceededNextSession,
                 nextSessionTimeFormatter.string(from: nextSessionDate)
             )
             presentError(message: nextSessionTimeText)
-            
+
         case WalletLoginProcessingError.sessionDoesNotExist:
             showPlaceholder(error: error)
 
@@ -304,10 +305,8 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
     }
     
     private func presentError(message: String) {
-        view?.endEditing()
         view?.setDescriptionError(message)
         view?.setCodeError(nil)
-        view?.setResendCodeButtonHidden(true)
     }
 }
 
