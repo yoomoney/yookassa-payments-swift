@@ -106,6 +106,9 @@ extension AnalyticsServiceImpl: AnalyticsService {
 
         case .userFailedAuthorization:
             eventName = EventKey.userFailedAuthorization.rawValue
+
+        case .actionBankCardForm:
+            eventName = EventKey.actionBankCardForm.rawValue
         }
         return eventName
     }
@@ -208,6 +211,12 @@ extension AnalyticsServiceImpl: AnalyticsService {
                 AnalyticsEvent.Keys.error.rawValue: errorLocalizedDescription,
                 AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
             ]
+
+        case let .actionBankCardForm(action, sdkVersion):
+            parameters = [
+                action.key: action.rawValue,
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
+            ]
         }
 
         return parameters
@@ -226,6 +235,7 @@ extension AnalyticsServiceImpl: AnalyticsService {
         case actionPaymentAuthorization
         case actionLogout
         case actionAuthWithoutWallet
+        case actionBankCardForm
 
         // MARK: - Authorization
 

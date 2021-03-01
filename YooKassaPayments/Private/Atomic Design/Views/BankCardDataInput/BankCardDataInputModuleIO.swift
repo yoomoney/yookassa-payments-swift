@@ -6,6 +6,7 @@ struct BankCardDataInputModuleInputData {
     let inputCvcHint: String
     let inputCvcPlaceholder: String
     let cardScanner: CardScanning?
+    let isLoggingEnabled: Bool
 }
 
 protocol BankCardDataInputModuleInput: class {}

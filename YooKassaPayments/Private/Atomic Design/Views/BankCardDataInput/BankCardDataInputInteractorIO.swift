@@ -1,4 +1,4 @@
-protocol BankCardDataInputInteractorInput: class {
+protocol BankCardDataInputInteractorInput: AnalyticsTrack {
     func validate(
         cardData: CardData,
         shouldMoveFocus: Bool

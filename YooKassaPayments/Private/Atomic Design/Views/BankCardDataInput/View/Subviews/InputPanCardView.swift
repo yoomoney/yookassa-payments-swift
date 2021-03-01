@@ -7,6 +7,7 @@ protocol InputPanCardViewDelegate: class {
     func scanDidPress()
     func nextDidPress()
     func panDidBeginEditing()
+    func clearDidPress()
 }
 
 final class InputPanCardView: UIView {
@@ -252,6 +253,7 @@ private extension InputPanCardView {
         case .clear:
             cardPanTextField.text = ""
             delegate?.panDidChange("")
+            delegate?.clearDidPress()
         case .scan:
             delegate?.scanDidPress()
         case .next:

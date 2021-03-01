@@ -37,6 +37,9 @@ enum AnalyticsEvent {
     /// Authorization without wallet.
     case actionAuthWithoutWallet(sdkVersion: String)
 
+    /// BankCard form interactions.
+    case actionBankCardForm(action: BankCardFormAction, sdkVersion: String)
+
     case userStartAuthorization(sdkVersion: String)
     case userCancelAuthorization(sdkVersion: String)
     case userSuccessAuthorization(moneyAuthProcessType: MoneyAuthProcessType, sdkVersion: String)
@@ -105,6 +108,7 @@ enum AnalyticsEvent {
         case authTokenType
         case authPaymentStatus
         case moneyAuthProcessType
+        case action
     }
 
     // MARK: - Authorization
@@ -119,7 +123,34 @@ enum AnalyticsEvent {
             return Key.moneyAuthProcessType.rawValue
         }
     }
+
+    // MARK: - BankCardForm actions
+
+    enum BankCardFormAction: String {
+        /// The user clicked on the scan button;
+        case scanBankCardAction
+        /// The user entered the wrong card number;
+        case cardNumberInputError
+        /// The user entered the wrong card expiration date;
+        case cardExpiryInputError
+        /// The user entered an incorrect CVC;
+        case cardCvcInputError
+        /// The user erased the card number (tap on the cross);
+        case cardNumberClearAction
+        /// Successful entry of bank card information;
+        case cardNumberInputSuccess
+        /// The user clicked on the arrow and moved to the next field;
+        case cardNumberContinueAction
+        /// Returns to the card number input field.
+        case cardNumberReturnToEdit
+
+        var key: String {
+            Key.action.rawValue
+        }
+    }
 }
+
+// MARK: - Primitive type keys
 
 extension AnalyticsEvent {
     enum Keys: String {

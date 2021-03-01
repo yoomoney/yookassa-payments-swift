@@ -122,6 +122,7 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
 
     func didPressScan() {
         router?.openCardScanner()
+        trackScanBankCardAction()
     }
 
     func panDidBeginEditing() {
@@ -129,6 +130,7 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
               let view = view else { return }
         view.setPanValue(panValue)
         view.setInputState(.collapsed)
+        trackCardNumberReturnToEdit()
 
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
@@ -151,6 +153,11 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
 
     func nextDidPress() {
         setViewFocus(.expiryDate)
+        trackCardNumberContinueAction()
+    }
+
+    func clearDidPress() {
+        trackCardNumberClearAction()
     }
 
     private func setModifiedPan() {
@@ -293,12 +300,14 @@ private extension BankCardDataInputPresenter {
            errors.contains(.luhnAlgorithmFail),
            view.focus == .pan {
             view.setErrorState(.panError)
+            trackCardNumberInputError()
         } else if expiryDateText.count == Constants.MoveFocusLength.expiryDate,
                   errors.contains(.expirationDateIsExpired)
                       || errors.contains(.expiryDateEmpty)
                       || errors.contains(.invalidMonth),
                   view.focus == .expiryDate {
             view.setErrorState(.expiryDateError)
+            trackCardExpiryInputError()
         } else {
             view.setErrorState(.noError)
         }
@@ -316,6 +325,7 @@ private extension BankCardDataInputPresenter {
                 break
             }
             setViewFocus(.expiryDate)
+            trackCardNumberInputSuccess()
 
         case .expiryDate where dateIsValid:
             guard expiryDateText.count == Constants.MoveFocusLength.expiryDate else {
@@ -345,6 +355,74 @@ private extension BankCardDataInputPresenter {
             break
         }
         view.focus = focus
+    }
+}
+
+// MARK: - Metrics tracking
+
+private extension BankCardDataInputPresenter {
+
+    func trackScanBankCardAction() {
+        let event: AnalyticsEvent = .actionBankCardForm(
+            action: .scanBankCardAction,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        trackEvent(event)
+    }
+
+    func trackCardNumberInputError() {
+        let event: AnalyticsEvent = .actionBankCardForm(
+            action: .cardNumberInputError,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        trackEvent(event)
+    }
+
+    func trackCardExpiryInputError() {
+        let event: AnalyticsEvent = .actionBankCardForm(
+            action: .cardExpiryInputError,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        trackEvent(event)
+    }
+
+    func trackCardNumberClearAction() {
+        let event: AnalyticsEvent = .actionBankCardForm(
+            action: .cardNumberClearAction,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        trackEvent(event)
+    }
+
+    func trackCardNumberInputSuccess() {
+        let event: AnalyticsEvent = .actionBankCardForm(
+            action: .cardNumberInputSuccess,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        trackEvent(event)
+    }
+
+    func trackCardNumberContinueAction() {
+        let event: AnalyticsEvent = .actionBankCardForm(
+            action: .cardNumberContinueAction,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        trackEvent(event)
+    }
+
+    func trackCardNumberReturnToEdit() {
+        let event: AnalyticsEvent = .actionBankCardForm(
+            action: .cardNumberReturnToEdit,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        trackEvent(event)
+    }
+
+    func trackEvent(_ event: AnalyticsEvent) {
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+            self.interactor.trackEvent(event)
+        }
     }
 }
 
