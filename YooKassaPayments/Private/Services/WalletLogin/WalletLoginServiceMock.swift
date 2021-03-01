@@ -66,7 +66,8 @@ extension WalletLoginServiceMock: WalletLoginService {
             if answer == correctAnswer {
                 completion(.success(response))
             } else {
-                completion(.failure(WalletLoginProcessingError.invalidAnswer))
+                let authTypeState = makeAuthTypeState()
+                completion(.failure(WalletLoginProcessingError.invalidAnswer(authTypeState)))
             }
         }
     }

@@ -1,11 +1,11 @@
 enum WalletLoginProcessingError: Error {
     case unsupportedAuthType
-    case invalidAnswer
+    case invalidAnswer(AuthTypeState?)
     case invalidContext
     case authCheckInvalidContext
     case sessionsExceeded
     case sessionDoesNotExist
-    case verifyAttemptsExceeded
+    case verifyAttemptsExceeded(AuthTypeState?)
     case executeError
 }
 

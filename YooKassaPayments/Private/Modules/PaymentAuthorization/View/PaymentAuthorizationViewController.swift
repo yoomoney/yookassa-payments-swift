@@ -310,6 +310,12 @@ extension PaymentAuthorizationViewController: PaymentAuthorizationViewInput {
 
     func setDescription(_ description: String) {
         descriptionLabel.styledText = description
+        descriptionLabel.setStyles(
+            UILabel.DynamicStyle.body,
+            UILabel.ColorStyle.secondary,
+            UILabel.Styles.alignCenter,
+            UILabel.Styles.multiline
+        )
     }
     
     func setDescriptionError(_ description: String) {

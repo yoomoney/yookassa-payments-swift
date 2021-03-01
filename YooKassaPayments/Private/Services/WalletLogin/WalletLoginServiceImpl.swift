@@ -321,8 +321,8 @@ private func mapError(_ error: Error) -> Error {
 
     switch error {
 
-    case CheckoutAuthCheckError.invalidAnswer:
-        resultError = WalletLoginProcessingError.invalidAnswer
+    case CheckoutAuthCheckError.invalidAnswer(let authTypeState):
+        resultError = WalletLoginProcessingError.invalidAnswer(authTypeState?.plain)
 
     case CheckoutAuthContextGetError.invalidContext,
          CheckoutAuthSessionGenerateError.invalidContext:
@@ -338,8 +338,8 @@ private func mapError(_ error: Error) -> Error {
          CheckoutAuthCheckError.sessionExpired:
         resultError = WalletLoginProcessingError.sessionDoesNotExist
 
-    case CheckoutAuthCheckError.verifyAttemptsExceeded:
-        resultError = WalletLoginProcessingError.verifyAttemptsExceeded
+    case CheckoutAuthCheckError.verifyAttemptsExceeded(let authTypeState):
+        resultError = WalletLoginProcessingError.verifyAttemptsExceeded(authTypeState?.plain)
 
     case CheckoutTokenIssueExecuteError.authRequired,
          CheckoutTokenIssueExecuteError.authExpired:

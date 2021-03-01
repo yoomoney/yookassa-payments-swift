@@ -16,12 +16,12 @@ PODS:
     - MoneyAuth (~> 2.0.0)
     - YandexMobileMetrica/Dynamic (~> 3.12.0)
     - YooKassaPaymentsApi (~> 2.3.0)
-    - YooKassaWalletApi (~> 2.2.0)
+    - YooKassaWalletApi (~> 2.3.0)
     - YooMoneyCoreApi (~> 1.9.0)
   - YooKassaPaymentsApi (2.3.0):
     - FunctionalSwift (~> 1.2.0)
     - YooMoneyCoreApi (~> 1.9.0)
-  - YooKassaWalletApi (2.2.0):
+  - YooKassaWalletApi (2.3.0):
     - FunctionalSwift (~> 1.2.0)
     - YooMoneyCoreApi (~> 1.9.0)
   - YooMoneyCoreApi (1.9.0):
@@ -57,9 +57,9 @@ SPEC CHECKSUMS:
   Reveal-SDK: 306e2880395ee396f5a8b4c485c3a86dd19866c7
   SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
   YandexMobileMetrica: 7ba67267e1ef841f77d5db17a5091b8e9eba911f
-  YooKassaPayments: 7fde286a4a27ceed71932a373d6a843eb966d6be
+  YooKassaPayments: d4b97e231717b22c38e9c8fc1ff684bd8fe96dcd
   YooKassaPaymentsApi: 66302803d0389fbc27238d8ff9447c10ac1e31bf
-  YooKassaWalletApi: 5fa5f93ebd08d926f8f4adaa5f50863ce6602013
+  YooKassaWalletApi: 9ca2fa3c2827721d646ee8f770509e7eeea98743
   YooMoneyCoreApi: 4f40673a79d11e95af850bb97f264995ac47a873
 
 PODFILE CHECKSUM: ecceb3f227ebee8f464a40c7b9ed3b7a0bc72774
