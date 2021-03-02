@@ -49,23 +49,6 @@ public enum TokenizationAssembly {
         _ inputData: TokenizationModuleInputData,
         moduleOutput: TokenizationModuleOutput
     ) -> UIViewController & TokenizationModuleInput {
-        let paymentService = PaymentServiceAssembly.makeService(
-            tokenizationSettings: inputData.tokenizationSettings,
-            testModeSettings: inputData.testModeSettings,
-            isLoggingEnabled: inputData.isLoggingEnabled
-        )
-        let authorizationService = AuthorizationServiceAssembly.makeService(
-            isLoggingEnabled: inputData.isLoggingEnabled,
-            testModeSettings: inputData.testModeSettings,
-            moneyAuthClientId: inputData.moneyAuthClientId
-        )
-        let analyticsService = AnalyticsServiceAssembly.makeService(
-            isLoggingEnabled: inputData.isLoggingEnabled
-        )
-        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
-            testModeSettings: inputData.testModeSettings
-        )
-
         let paymentMethodsModuleInputData = PaymentMethodsModuleInputData(
             clientApplicationKey: inputData.clientApplicationKey,
             applePayMerchantIdentifier: inputData.applePayMerchantIdentifier,
@@ -84,32 +67,10 @@ public enum TokenizationAssembly {
             cardScanning: inputData.cardScanning
         )
 
-        let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()
-        let presenter = TokenizationPresenter(
-            inputData: inputData,
-            paymentMethodViewModelFactory: paymentMethodViewModelFactory
-        )
-        let router = TokenizationRouter()
-        let interactor = TokenizationInteractor(
-            paymentService: paymentService,
-            authorizationService: authorizationService,
-            analyticsService: analyticsService,
-            analyticsProvider: analyticsProvider,
-            clientApplicationKey: inputData.clientApplicationKey
-        )
-
         let (viewController, moduleInput) = PaymentMethodsAssembly.makeModule(
             inputData: paymentMethodsModuleInputData,
             tokenizationModuleOutput: moduleOutput
         )
-
-        presenter.router = router
-        presenter.interactor = interactor
-        presenter.moduleOutput = moduleOutput
-
-        interactor.output = presenter
-
-        router.transitionHandler = viewController
 
         let navigationController = UINavigationController(
             rootViewController: viewController

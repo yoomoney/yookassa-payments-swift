@@ -1,3 +1,3 @@
 enum AuthorizationProcessingError: Error {
-    case passportNotAuthorized
+    case moneyCenterNotAuthorized
 }
