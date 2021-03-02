@@ -140,7 +140,7 @@ extension AuthorizationServiceImpl {
         }
 
         guard let moneyCenterAuthorization = getMoneyCenterAuthToken() else {
-            completion(.failure(AuthorizationProcessingError.passportNotAuthorized))
+            completion(.failure(AuthorizationProcessingError.moneyCenterNotAuthorized))
             return
         }
 
@@ -226,7 +226,7 @@ extension AuthorizationServiceImpl {
         completion: @escaping (Result<AuthTypeState, Error>) -> Void
     ) {
         guard let moneyCenterAuthorization = getMoneyCenterAuthToken() else {
-            completion(.failure(AuthorizationProcessingError.passportNotAuthorized))
+            completion(.failure(AuthorizationProcessingError.moneyCenterNotAuthorized))
             return
         }
 
@@ -254,7 +254,7 @@ extension AuthorizationServiceImpl {
         completion: @escaping (Result<WalletLoginResponse, Error>) -> Void
     ) {
         guard let moneyCenterAuthorization = getMoneyCenterAuthToken() else {
-            completion(.failure(AuthorizationProcessingError.passportNotAuthorized))
+            completion(.failure(AuthorizationProcessingError.moneyCenterNotAuthorized))
             return
         }
 
