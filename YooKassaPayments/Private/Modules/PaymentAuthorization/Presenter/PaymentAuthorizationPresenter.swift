@@ -51,16 +51,9 @@ final class PaymentAuthorizationPresenter {
 
 extension PaymentAuthorizationPresenter: PaymentAuthorizationViewOutput {
     func setupView() {
-        if let phoneTitle = interactor.getWalletPhoneTitle() {
-            view?.setDescription(String(
-                format: §Localized.descriptionWithPhone,
-                phoneTitle
-            ))
-        } else {
-            view?.setDescription(§Localized.descriptionWithoutPhone)
-        }
-        
-        view?.setResendCodeButtonIsEnabled(false)
+        guard let view = view else { return }
+        setupDescription()
+        view.setResendCodeButtonIsEnabled(false)
         restartTimer(authTypeState: authTypeState)
     }
 
@@ -123,8 +116,8 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationViewOutput {
         
         view?.setCodeLength(smsDescription.codeLength)
 
-        if let sessionTimeLeft = smsDescription.sessionTimeLeft {
-            possibleResendTime = Date().addingTimeInterval(TimeInterval(sessionTimeLeft))
+        if let nextSessionTimeLeft = smsDescription.nextSessionTimeLeft {
+            possibleResendTime = Date().addingTimeInterval(TimeInterval(nextSessionTimeLeft))
         }
         
         timer?.invalidate()
@@ -164,6 +157,17 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationViewOutput {
         setResendCodeButtonTitle(§Localized.resendSms)
         setResendCodeButtonIsEnabled(true)
     }
+
+    private func setupDescription() {
+        if let phoneTitle = interactor.getWalletPhoneTitle() {
+            view?.setDescription(String(
+                format: §Localized.descriptionWithPhone,
+                phoneTitle
+            ))
+        } else {
+            view?.setDescription(§Localized.descriptionWithoutPhone)
+        }
+    }
 }
 
 // MARK: - ActionTitleTextDialogDelegate
@@ -184,9 +188,12 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
         authTypeState: AuthTypeState
     ) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.view?.clearCode()
-            self.view?.hideActivity()
+            guard let self = self,
+                  let view = self.view else { return }
+            view.clearCode()
+            view.setCodeError(nil)
+            self.setupDescription()
+            view.hideActivity()
             self.authTypeState = authTypeState
             self.restartTimer(authTypeState: authTypeState)
         }
@@ -264,19 +271,19 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
         _ error: Error
     ) {
         switch error {
-        case WalletLoginProcessingError.invalidAnswer:
-            guard case .sms(let smsDescription?) = authTypeState.specific else {
+        case WalletLoginProcessingError.invalidAnswer(let authTypeState):
+            guard let activeSession = authTypeState?.activeSession else {
                 view?.setCodeError(§Localized.Error.invalidAnswer)
                 return
             }
 
             view?.setCodeError(String(
                 format: §Localized.Error.invalidAnswerSessionsLeft,
-                smsDescription.sessionsLeft
+                activeSession.attemptsLeft
             ))
 
-        case WalletLoginProcessingError.verifyAttemptsExceeded:
-            guard case .sms(let smsDescription?) = authTypeState.specific,
+        case WalletLoginProcessingError.verifyAttemptsExceeded(let authTypeState):
+            guard case .sms(let smsDescription?) = authTypeState?.specific,
                   let nextSessionTimeLeft = smsDescription.nextSessionTimeLeft else {
                 presentError(message: §Localized.Error.verifyAttemptsExceeded)
                 return

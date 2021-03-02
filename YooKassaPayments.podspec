@@ -41,7 +41,7 @@ Pod::Spec.new do |s|
 
   s.ios.dependency 'YooMoneyCoreApi', '~> 1.9.0'
   s.ios.dependency 'YooKassaPaymentsApi', '~> 2.3.0'
-  s.ios.dependency 'YooKassaWalletApi', '~> 2.2.0'
+  s.ios.dependency 'YooKassaWalletApi', '~> 2.3.0'
   s.ios.dependency 'YandexMobileMetrica/Dynamic', '~> 3.12.0'
 
   s.ios.dependency 'MoneyAuth', '~> 2.0.0'
