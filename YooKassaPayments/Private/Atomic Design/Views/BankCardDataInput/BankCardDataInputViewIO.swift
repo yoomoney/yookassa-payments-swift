@@ -39,6 +39,7 @@ protocol BankCardDataInputViewOutput: class {
     func panDidBeginEditing()
     func expiryDateDidBeginEditing()
     func nextDidPress()
+    func clearDidPress()
 
     func didChangePan(
         _ value: String

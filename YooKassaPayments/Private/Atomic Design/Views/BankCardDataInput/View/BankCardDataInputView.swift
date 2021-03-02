@@ -357,6 +357,9 @@ extension BankCardDataInputView: InputPanCardViewDelegate {
         output.panDidBeginEditing()
     }
 
+    func clearDidPress() {
+        output.clearDidPress()
+    }
 }
 
 // MARK: - InputExpiryDateViewDelegate

@@ -14,7 +14,7 @@ enum BankCardAssembly {
             bankCardDataInputView,
             bankCardDataInputModuleInput
         ) = makeBankCardDataInputView(
-            cardScanner: inputData.cardScanning,
+            inputData: inputData,
             moduleOutput: presenter,
             transitionHandler: view
         )
@@ -87,7 +87,7 @@ enum BankCardAssembly {
     }
 
     private static func makeBankCardDataInputView(
-        cardScanner: CardScanning?,
+        inputData: BankCardModuleInputData,
         moduleOutput: BankCardDataInputModuleOutput?,
         transitionHandler: TransitionHandler?
     ) -> (
@@ -101,7 +101,8 @@ enum BankCardAssembly {
             inputExpiryDatePlaceholder: §Localized.BankCardView.inputExpiryDatePlaceholder,
             inputCvcHint: §Localized.BankCardView.inputCvcHint,
             inputCvcPlaceholder: §Localized.BankCardView.inputCvcPlaceholder,
-            cardScanner: cardScanner
+            cardScanner: inputData.cardScanning,
+            isLoggingEnabled: inputData.isLoggingEnabled
         )
         let (view, moduleInput) = BankCardDataInputAssembly.makeModule(
             inputData: inputData,
