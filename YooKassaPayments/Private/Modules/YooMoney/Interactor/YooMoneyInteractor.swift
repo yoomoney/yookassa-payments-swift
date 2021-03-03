@@ -32,6 +32,10 @@ final class YooMoneyInteractor {
         self.paymentService = paymentService
         self.imageDownloadService = imageDownloadService
         self.clientApplicationKey = clientApplicationKey
+
+        if !ThreatMetrixService.isConfigured {
+            ThreatMetrixService.configure()
+        }
     }
 }
 

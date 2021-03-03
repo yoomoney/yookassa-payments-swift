@@ -263,6 +263,7 @@
 		402EBB1D932FB9AA14055422 /* PanInputPresenterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA599B2479B086E7EC2A /* PanInputPresenterStyle.swift */; };
 		402EBB302AB46E50088A5B40 /* AnalyticsServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBF4B20C030067340B10D /* AnalyticsServiceAssembly.swift */; };
 		402EBB3F73CC2B61B7E4185B /* TestSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBC11D69B61F49F3804D0 /* TestSettingsViewController.swift */; };
+		402EBB42DE308BDC3E21CA74 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB15B276B126AC1A628AD /* NavigationController.swift */; };
 		402EBB5BA886912050991DEC /* PaymentMethodTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB487A00F4E5CBA7498D9 /* PaymentMethodTypes.swift */; };
 		402EBB63E95FBBA1BA1B59BE /* InternalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1EEE3DFE557080259B2 /* InternalStyle.swift */; };
 		402EBB6E80134E0C43050D07 /* SheetSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB046F2F92BF86F22CE06 /* SheetSize.swift */; };
@@ -532,6 +533,7 @@
 		402EB10ECDD105210396D8E9 /* DeviceInfoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoService.swift; sourceTree = "<group>"; };
 		402EB121A6A4E1FE6BCA48ED /* CardSecAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSecAssembly.swift; sourceTree = "<group>"; };
 		402EB14D1CA49B598A9505EA /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		402EB15B276B126AC1A628AD /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		402EB16CBAD5D724F5FB9679 /* AuthorizationServiceImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationServiceImpl.swift; sourceTree = "<group>"; };
 		402EB179E2E8A2381A0AEBAD /* Anchor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Anchor.swift; sourceTree = "<group>"; };
 		402EB17BB3A1CB6CEF3A6554 /* TextControl+ClearMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextControl+ClearMode.swift"; sourceTree = "<group>"; };
@@ -1211,6 +1213,7 @@
 				402EB3A8ED8334D338C7DAEC /* UnderlinedTextField */,
 				402EB09BDE187E570A3EECBC /* BankCardDataInput */,
 				402EB05B21E70E9A2E81515C /* PlaceholderView.swift */,
+				402EB15B276B126AC1A628AD /* NavigationController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3369,6 +3372,7 @@
 				402EBD76466A7E8153264B72 /* Identifier.swift in Sources */,
 				402EB4E93D7A00A973BB93FA /* UITableViewHeaderFooterView+Identifier.swift in Sources */,
 				402EBF5E02044CFB30A2A40A /* UITableViewCell+Identifier.swift in Sources */,
+				402EBB42DE308BDC3E21CA74 /* NavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

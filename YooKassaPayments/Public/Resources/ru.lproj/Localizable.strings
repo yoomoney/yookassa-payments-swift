@@ -49,12 +49,6 @@
 /*Способ оплаты сбербанк онлайн*/
 "PaymentMethod.sberbank" = "Сбербанк Онлайн";
 
-/* https://yadi.sk/i/e-y9WwBb3VwYzm Текст на кнопке, рядом с текстом ошибки, когда пользователь успешно авторизовался в аккаунте YooMoney и у него нет кошелька.*/
-"PaymentOptionsNoWallet.buttonTitle" = "Продолжить без кошелька";
-
-/*https://yadi.sk/i/e-y9WwBb3VwYzm Текст ошибки, когда пользователь успешно авторизовался в аккаунте ЮMoney и у него нет кошелька.*/
-"PaymentOptionsNoWallet.title" = "У вас нет кошелька ЮMoney";
-
 "PaymentMethods.paymentMethods" = "СПОСОБЫ ОПЛАТЫ";
 
 "PaymentMethod.wallet" = "ЮMoney";
@@ -62,8 +56,6 @@
 "PaymentMethod.applePay" = "Apple Pay";
 
 "PaymentMethod.bankCard" = "Банковская карта";
-
-"Error.Button.repeat" = "Повторить попытку";
 
 "Error.internet" = "Проблема с интернетом. Попробуйте еще раз, когда будете онлайн";
 
@@ -73,23 +65,13 @@
 
 "Contract.next" = "Продолжить";
 
-"Contract.price" = "К оплате";
-
 "Contract.fee" = "Включая комиссию";
 
 "ApplePayContract.fee" = "Комиссия";
 
 "Contract.resendSms" = "Отправить снова";
 
-"Contract.format.resendSmsAfter" = "Новый пароль можно получить через %d";
-
 "Contract.placeholder.smsCode" = "Введите пароль из смс";
-
-"Contract.placeholder.totp" = "Введите одноразовый пароль";
-
-"Contract.topHint.smsCode" = "Пароль из смс";
-
-"Contract.topHint.totp" = "Одноразовый пароль";
 
 "Contract.format.savePaymentMethod.title" = "Разрешить списывать деньги";
 

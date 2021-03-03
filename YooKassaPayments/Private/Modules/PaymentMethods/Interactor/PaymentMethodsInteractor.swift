@@ -39,6 +39,10 @@ class PaymentMethodsInteractor {
         self.gatewayId = gatewayId
         self.amount = amount
         self.getSavePaymentMethod = getSavePaymentMethod
+
+        if !ThreatMetrixService.isConfigured {
+            ThreatMetrixService.configure()
+        }
     }
 }
 

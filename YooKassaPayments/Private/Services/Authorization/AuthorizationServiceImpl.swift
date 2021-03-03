@@ -25,6 +25,10 @@ final class AuthorizationServiceImpl {
         self.deviceInfoService = deviceInfoService
         self.settingsStorage = settingsStorage
         self.moneyAuthRevokeTokenService = moneyAuthRevokeTokenService
+
+        if !ThreatMetrixService.isConfigured {
+            ThreatMetrixService.configure()
+        }
     }
 }
 

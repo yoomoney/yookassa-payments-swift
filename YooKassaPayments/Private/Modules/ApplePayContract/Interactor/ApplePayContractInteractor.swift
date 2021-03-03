@@ -25,6 +25,10 @@ final class ApplePayContractInteractor {
         self.analyticsProvider = analyticsProvider
 
         self.clientApplicationKey = clientApplicationKey
+
+        if !ThreatMetrixService.isConfigured {
+            ThreatMetrixService.configure()
+        }
     }
 }
 

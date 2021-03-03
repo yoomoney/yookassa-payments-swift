@@ -28,6 +28,10 @@ final class LinkedCardInteractor {
         self.paymentService = paymentService
         
         self.clientApplicationKey = clientApplicationKey
+
+        if !ThreatMetrixService.isConfigured {
+            ThreatMetrixService.configure()
+        }
     }
 }
 
