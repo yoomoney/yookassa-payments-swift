@@ -15,7 +15,7 @@ final class AnalyticsServiceImpl {
     // MARK: - Properties
 
     #if DEBUG
-    private let yandexMetricaKey = "4f547440-406e-4734-81f4-bb695ef8e3fc"
+    private let yandexMetricaKey = "fdeb958c-8bfd-4dab-98df-f9be4bdb6646"
     #else
     private let yandexMetricaKey = "b1ddbdc0-dca6-489c-a205-f71e0158bfcb"
     #endif
