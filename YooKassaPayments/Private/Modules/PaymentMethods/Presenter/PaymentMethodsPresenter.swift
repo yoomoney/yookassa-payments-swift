@@ -621,8 +621,10 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
         self.yooMoneyTMXSessionId = tmxSessionId
 
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+            guard let self = self,
+                  let view = self.view else { return }
             self.router.closeAuthorizationModule()
+            view.showActivity()
 
             DispatchQueue.global().async { [weak self] in
                 guard let self = self else { return }

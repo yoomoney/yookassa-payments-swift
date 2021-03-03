@@ -55,7 +55,6 @@ extension PaymentMethodsRouter: PaymentMethodsRouterInput {
         )
         coordinator.delegate = output
         let viewController = try coordinator.makeInitialViewController()
-        viewController.view.tintColor = CustomizationStorage.shared.mainScheme
         transitionHandler?.present(
             viewController,
             animated: true,

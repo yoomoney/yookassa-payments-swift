@@ -4,10 +4,6 @@
 /*Подсказка под текстовым полем для ввода номера телефона*/
 "Contract.Sberbank.PhoneInput.BottomHint" = "For text message with code from Sberbank";
 
-"Contract.bottomHint.smsCode.invalidAnswer" = "Incorrect text message password";
-
-"Contract.bottomHint.totp.invalidAnswer" = "Incorrect one-time password";
-
 /*Placeholder текстового поля для ввода номера телефона*/
 "Contract.Sberbank.PhoneInput.Title" = "Phone number for Mobile Bank";
 
@@ -47,12 +43,6 @@
 /*Способ оплаты сбербанк онлайн*/
 "PaymentMethod.sberbank" = "Sberbank Online";
 
-/* https://yadi.sk/i/e-y9WwBb3VwYzm Текст на кнопке, рядом с текстом ошибки, когда пользователь успешно авторизовался в аккаунте YooMoney и у него нет кошелька.*/
-"PaymentOptionsNoWallet.buttonTitle" = "Continue without wallet";
-
-/*https://yadi.sk/i/e-y9WwBb3VwYzm Текст ошибки, когда пользователь успешно авторизовался в аккаунте YooMoney и у него нет кошелька.*/
-"PaymentOptionsNoWallet.title" = "You don't have a YooMoney Wallet";
-
 "PaymentMethods.paymentMethods" = "PAYMENT METHODS";
 
 "PaymentMethod.wallet" = "YooMoney";
@@ -60,8 +50,6 @@
 "PaymentMethod.applePay" = "Apple Pay";
 
 "PaymentMethod.bankCard" = "Bank card";
-
-"Error.Button.repeat" = "Try again";
 
 "Error.internet" = "Connection error. Try again once you're online.";
 
@@ -71,8 +59,6 @@
 
 "Contract.next" = "Next";
 
-"Contract.price" = "To be paid";
-
 "Contract.fee" = "Including commission";
 
 "ApplePayContract.fee" = "Commission";
@@ -81,15 +67,7 @@
 
 "Contract.resendSms" = "Send again";
 
-"Contract.format.resendSmsAfter" = "New password can be issued in %d";
-
 "Contract.placeholder.smsCode" = "Enter a text message password";
-
-"Contract.placeholder.totp" = "Enter a one-time password";
-
-"Contract.topHint.smsCode" = "Text message password";
-
-"Contract.topHint.totp" = "One-time password";
 
 "Contract.format.savePaymentMethod.title" = "Allow to write off money";
 

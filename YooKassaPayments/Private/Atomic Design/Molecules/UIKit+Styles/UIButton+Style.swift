@@ -199,7 +199,7 @@ extension UIButton {
 
             let disabledBackgroundColor: UIColor
             if #available(iOS 13.0, *) {
-                disabledBackgroundColor = .systemGray2
+                disabledBackgroundColor = .systemGray5
             } else {
                 disabledBackgroundColor = .mousegrey
             }

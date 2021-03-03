@@ -20,13 +20,15 @@ final class BankCardRepeatInteractor {
         paymentService: PaymentService,
         clientApplicationKey: String
     ) {
-        ThreatMetrixService.configure()
-
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
         self.paymentService = paymentService
         
         self.clientApplicationKey = clientApplicationKey
+
+        if !ThreatMetrixService.isConfigured {
+            ThreatMetrixService.configure()
+        }
     }
 }
 

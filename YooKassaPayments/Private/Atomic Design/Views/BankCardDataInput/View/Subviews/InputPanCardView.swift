@@ -117,6 +117,7 @@ final class InputPanCardView: UIView {
         let view = UITextField()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setStyles(UITextField.Styles.numeric)
+        view.tintColor = CustomizationStorage.shared.mainScheme
         view.delegate = self
         return view
     }()
@@ -204,10 +205,17 @@ final class InputPanCardView: UIView {
             cardPanRightButton.setImage(.clear, for: .normal)
             cardPanRightButton.isHidden = false
         case .scan:
-            cardPanRightButton.setImage(UIImage.PaymentSystem.TextControl.scan, for: .normal)
+            let image = UIImage.PaymentSystem.TextControl.scan.colorizedImage(
+                color: CustomizationStorage.shared.mainScheme
+            )
+            cardPanRightButton.setImage(image, for: .normal)
             cardPanRightButton.isHidden = false
+
         case .next:
-            cardPanRightButton.setImage(UIImage.named("action_forward"), for: .normal)
+            let image = UIImage.named("action_forward").colorizedImage(
+                color: CustomizationStorage.shared.mainScheme
+            )
+            cardPanRightButton.setImage(image, for: .normal)
             cardPanRightButton.isHidden = false
         }
     }

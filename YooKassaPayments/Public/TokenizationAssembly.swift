@@ -1,4 +1,4 @@
-import UIKit.UIViewController
+import UIKit
 
 /// Tokenization module builder.
 public enum TokenizationAssembly {
@@ -72,16 +72,26 @@ public enum TokenizationAssembly {
             tokenizationModuleOutput: moduleOutput
         )
 
-        let navigationController = UINavigationController(
+        let navigationController = NavigationController(
             rootViewController: viewController
         )
 
-        let sheetViewController = SheetViewController(
-            contentViewController: navigationController
-        )
-        sheetViewController.moduleOutput = moduleInput
+        let viewControllerToReturn: UIViewController & TokenizationModuleInput
+        switch UIScreen.main.traitCollection.userInterfaceIdiom {
+        case .pad:
+            navigationController.moduleOutput = moduleInput
+            navigationController.modalPresentationStyle = .formSheet
+            viewControllerToReturn = navigationController
+        default:
+            let sheetViewController = SheetViewController(
+                contentViewController: navigationController
+            )
+            sheetViewController.moduleOutput = moduleInput
+            viewControllerToReturn = sheetViewController
 
-        return sheetViewController
+        }
+
+        return viewControllerToReturn
     }
 }
 
