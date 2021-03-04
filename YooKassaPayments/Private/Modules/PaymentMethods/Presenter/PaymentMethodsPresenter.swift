@@ -95,6 +95,8 @@ final class PaymentMethodsPresenter: NSObject {
         TermsOfServiceFactory.makeTermsOfService()
     }()
 
+    private var shouldReloadOnViewDidAppear = false
+
     // MARK: - Apple Pay properties
 
     private var applePayCompletion: ((PKPaymentAuthorizationStatus) -> Void)?
@@ -116,7 +118,14 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         }
     }
 
-    func viewDidAppear() {}
+    func viewDidAppear() {
+        guard shouldReloadOnViewDidAppear else { return }
+        shouldReloadOnViewDidAppear = false
+        DispatchQueue.global().async { [weak self] in
+            guard let interactor = self?.interactor else { return }
+            interactor.fetchPaymentMethods()
+        }
+    }
     
     func numberOfRows() -> Int {
         viewModels.count
@@ -466,14 +475,19 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
     func didFetchYooMoneyPaymentMethods(
         _ paymentMethods: [PaymentOption]
     ) {
-        
         let condition: (PaymentOption) -> Bool = { $0 is PaymentInstrumentYooMoneyWallet }
 
         if let paymentOption = paymentMethods.first as? PaymentInstrumentYooMoneyWallet,
            paymentMethods.count == 1 {
+            let needReplace = self.paymentMethods?.count == 1
             DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.openYooMoneyWallet(paymentOption: paymentOption, needReplace: true)
+                guard let self = self,
+                      let view = self.view else { return }
+                self.openYooMoneyWallet(
+                    paymentOption: paymentOption,
+                    needReplace: needReplace
+                )
+                self.shouldReloadOnViewDidAppear = true
             }
         } else if paymentMethods.contains(where: condition) == false {
             let event: AnalyticsEvent = .actionAuthWithoutWallet(
