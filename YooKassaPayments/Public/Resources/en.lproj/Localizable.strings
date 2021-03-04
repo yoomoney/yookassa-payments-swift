@@ -40,8 +40,8 @@
 
 "PaymentAuthorization.remainingTime" = "Get new code via %@";
 
-/*Способ оплаты сбербанк онлайн*/
-"PaymentMethod.sberbank" = "Sberbank Online";
+/*Способ оплаты SberPay*/
+"PaymentMethod.sberpay" = "SberPay";
 
 "PaymentMethods.paymentMethods" = "PAYMENT METHODS";
 
@@ -63,7 +63,7 @@
 
 "ApplePayContract.fee" = "Commission";
 
-"Sberbank.Contract.Title" = "Sberbank Online";
+"Sberpay.Contract.Title" = "SberPay";
 
 "Contract.resendSms" = "Send again";
 
@@ -86,6 +86,8 @@
 "ApplePayContract.paymentMethodTitle" = "Next open Apple Pay - confirm payment";
 
 "ApplePayContract.title" = "Apple Pay";
+
+"Sberpay.paymentMethodTitle" = "Next open the Sberbank Online application - confirm the payment";
 
 "YooMoney.title" = "YooMoney";
 

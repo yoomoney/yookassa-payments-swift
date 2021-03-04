@@ -266,6 +266,41 @@ extension PaymentServiceImpl: PaymentService {
             }
         }
     }
+    
+    func tokenizeSberpay(
+        clientApplicationKey: String,
+        confirmation: Confirmation,
+        savePaymentMethod: Bool,
+        amount: MonetaryAmount?,
+        tmxSessionId: String,
+        completion: @escaping (Result<Tokens, Error>) -> Void
+    ) {
+        let paymentMethodData = PaymentMethodDataSberbank(
+            phone: nil
+        )
+        let tokensRequest = TokensRequestPaymentMethodData(
+            amount: amount?.paymentsModel,
+            tmxSessionId: tmxSessionId,
+            confirmation: confirmation.paymentsModel,
+            savePaymentMethod: savePaymentMethod,
+            paymentMethodData: paymentMethodData
+        )
+        let apiMethod = YooKassaPaymentsApi.Tokens.Method(
+            oauthToken: clientApplicationKey,
+            tokensRequest: tokensRequest
+        )
+
+        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .left(error):
+                let mappedError = mapError(error)
+                completion(.failure(mappedError))
+            case let .right(data):
+                completion(.success(data.plain))
+            }
+        }
+    }
 
     func tokenizeRepeatBankCard(
         clientApplicationKey: String,

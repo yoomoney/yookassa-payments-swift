@@ -126,6 +126,20 @@ extension PaymentMethodsRouter: PaymentMethodsRouterInput {
             animated: true
         )
     }
+    
+    func openSberpayModule(
+        inputData: SberpayModuleInputData,
+        moduleOutput: SberpayModuleOutput
+    ) {
+        let viewController = SberpayAssembly.makeModule(
+            inputData: inputData,
+            moduleOutput: moduleOutput
+        )
+        transitionHandler?.push(
+            viewController,
+            animated: true
+        )
+    }
 
     func openBankCardModule(
         inputData: BankCardModuleInputData,
