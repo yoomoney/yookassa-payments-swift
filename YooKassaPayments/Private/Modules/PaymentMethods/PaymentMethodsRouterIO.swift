@@ -41,6 +41,11 @@ protocol PaymentMethodsRouterInput: class {
         inputData: SberbankModuleInputData,
         moduleOutput: SberbankModuleOutput
     )
+    
+    func openSberpayModule(
+        inputData: SberpayModuleInputData,
+        moduleOutput: SberpayModuleOutput
+    )
 
     func openBankCardModule(
         inputData: BankCardModuleInputData,

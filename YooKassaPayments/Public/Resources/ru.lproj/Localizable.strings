@@ -13,7 +13,7 @@
 
 "Contract.Sberbank.PhoneInput.Placeholder" = "+ 7 987 654 32 10";
 
-"Sberbank.Contract.Title" = "СберБанк Онлайн";
+"Sberpay.Contract.Title" = "SberPay";
 
 /*В процессе токенизации ApplePay произошла ошибка*/
 "Error.ApplePayStrategy.failTokenizeData" = "В процессе токенизации ApplePay произошла ошибка";
@@ -46,8 +46,8 @@
 
 "PaymentAuthorization.remainingTime" = "Получить новый код через %@";
 
-/*Способ оплаты сбербанк онлайн*/
-"PaymentMethod.sberbank" = "Сбербанк Онлайн";
+/*Способ оплаты SberPay*/
+"PaymentMethod.sberpay" = "SberPay";
 
 "PaymentMethods.paymentMethods" = "СПОСОБЫ ОПЛАТЫ";
 
@@ -90,6 +90,8 @@
 "ApplePayContract.paymentMethodTitle" = "Дальше откроем Apple Pay — подтвердите оплату";
 
 "ApplePayContract.title" = "Apple Pay";
+
+"Sberpay.paymentMethodTitle" = "Дальше откроем приложение Сбербанк Онлайн — подтвердите оплату";
 
 "YooMoney.title" = "ЮMoney";
 

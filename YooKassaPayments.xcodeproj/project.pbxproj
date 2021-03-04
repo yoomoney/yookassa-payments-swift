@@ -468,6 +468,16 @@
 		789C376F25B06EB600BA94D1 /* AuthorizationProcessingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C376E25B06EB600BA94D1 /* AuthorizationProcessingError.swift */; };
 		78B6B20E25C1647F00645D8A /* PaymentMethodViewModelFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B6B20D25C1647F00645D8A /* PaymentMethodViewModelFactoryImpl.swift */; };
 		78B6B21025C1648500645D8A /* PaymentMethodViewModelFactoryAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B6B20F25C1648500645D8A /* PaymentMethodViewModelFactoryAssembly.swift */; };
+		78C1BD1925EFA1010058080F /* SberpayInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD1825EFA1010058080F /* SberpayInteractorIO.swift */; };
+		78C1BD1B25EFA1090058080F /* SberpayModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD1A25EFA1090058080F /* SberpayModuleIO.swift */; };
+		78C1BD1D25EFA1100058080F /* SberpayRouterIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD1C25EFA1100058080F /* SberpayRouterIO.swift */; };
+		78C1BD1F25EFA11B0058080F /* SberpayViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD1E25EFA11B0058080F /* SberpayViewIO.swift */; };
+		78C1BD2125EFA1280058080F /* SberpayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD2025EFA1280058080F /* SberpayViewController.swift */; };
+		78C1BD2325EFA1330058080F /* SberpayRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD2225EFA1330058080F /* SberpayRouter.swift */; };
+		78C1BD2525EFA13C0058080F /* SberpayPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD2425EFA13C0058080F /* SberpayPresenter.swift */; };
+		78C1BD2725EFA1430058080F /* SberpayInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD2625EFA1430058080F /* SberpayInteractor.swift */; };
+		78C1BD2925EFA14C0058080F /* SberpayAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD2825EFA14C0058080F /* SberpayAssembly.swift */; };
+		78C1BD2C25EFA2470058080F /* SberpayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD2B25EFA2470058080F /* SberpayViewModel.swift */; };
 		78CF11DD25D4361300F7154E /* ApplePayContractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CF11DC25D4361300F7154E /* ApplePayContractViewController.swift */; };
 		78CF11E025D438AC00F7154E /* ApplePayContractViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CF11DF25D438AC00F7154E /* ApplePayContractViewModel.swift */; };
 		D9841AF6933D94F2B1240F5F /* Pods_YooKassaPaymentsExamplePods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5746D1C01E2AA9F16B231A99 /* Pods_YooKassaPaymentsExamplePods.framework */; };
@@ -898,6 +908,16 @@
 		789C376E25B06EB600BA94D1 /* AuthorizationProcessingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationProcessingError.swift; sourceTree = "<group>"; };
 		78B6B20D25C1647F00645D8A /* PaymentMethodViewModelFactoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewModelFactoryImpl.swift; sourceTree = "<group>"; };
 		78B6B20F25C1648500645D8A /* PaymentMethodViewModelFactoryAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewModelFactoryAssembly.swift; sourceTree = "<group>"; };
+		78C1BD1825EFA1010058080F /* SberpayInteractorIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayInteractorIO.swift; sourceTree = "<group>"; };
+		78C1BD1A25EFA1090058080F /* SberpayModuleIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayModuleIO.swift; sourceTree = "<group>"; };
+		78C1BD1C25EFA1100058080F /* SberpayRouterIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayRouterIO.swift; sourceTree = "<group>"; };
+		78C1BD1E25EFA11B0058080F /* SberpayViewIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayViewIO.swift; sourceTree = "<group>"; };
+		78C1BD2025EFA1280058080F /* SberpayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayViewController.swift; sourceTree = "<group>"; };
+		78C1BD2225EFA1330058080F /* SberpayRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayRouter.swift; sourceTree = "<group>"; };
+		78C1BD2425EFA13C0058080F /* SberpayPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayPresenter.swift; sourceTree = "<group>"; };
+		78C1BD2625EFA1430058080F /* SberpayInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayInteractor.swift; sourceTree = "<group>"; };
+		78C1BD2825EFA14C0058080F /* SberpayAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayAssembly.swift; sourceTree = "<group>"; };
+		78C1BD2B25EFA2470058080F /* SberpayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayViewModel.swift; sourceTree = "<group>"; };
 		78CF11DC25D4361300F7154E /* ApplePayContractViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayContractViewController.swift; sourceTree = "<group>"; };
 		78CF11DF25D438AC00F7154E /* ApplePayContractViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayContractViewModel.swift; sourceTree = "<group>"; };
 		E0148CD51FE958810087CF5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1390,15 +1410,16 @@
 				402EBFD0D5D351F93484B633 /* 3DS */,
 				402EB6ADA278BB94CDCE91CD /* ApplePay */,
 				781CDD6F25D4053400C34912 /* ApplePayContract */,
+				402EB8DC7B8A023C9B3961A7 /* BankCard */,
 				402EB03AF715BD6339B32F52 /* BankCardRepeat */,
 				7860293525D166E200B9E961 /* LinkedCard */,
 				402EB84797D7E864A73001A0 /* LogoutConfirmation */,
 				786028F125C981CF00B9E961 /* PaymentAuthorization */,
 				402EBA5D1D4920494878050E /* PaymentMethods */,
 				308E41782385500E00B44490 /* SavePaymentMethodInfo */,
-				7811066625C2CD4D004DB71D /* YooMoney */,
 				402EB8437EC5A9EC41268B10 /* Sberbank */,
-				402EB8DC7B8A023C9B3961A7 /* BankCard */,
+				78E1BA6325EEA99000E5F275 /* Sberpay */,
+				7811066625C2CD4D004DB71D /* YooMoney */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1732,15 +1753,15 @@
 		402EB8437EC5A9EC41268B10 /* Sberbank */ = {
 			isa = PBXGroup;
 			children = (
-				402EB6BB7C6741CD830FA20D /* View */,
-				402EBCACE6EE65EF9B341007 /* SberbankViewIO.swift */,
-				402EB675A587DD13842E5702 /* Assembly */,
-				402EB492C4DA8738C0F8DBCF /* Presenter */,
-				402EBADCF9C4CF55E0B06A5E /* Interactor */,
 				402EB9A46DDCE237E4AB1B00 /* SberbankInteractorIO.swift */,
 				402EBB4D71D63BBDA95DB6C4 /* SberbankModuleIO.swift */,
-				402EB46229DE0340B1F89025 /* Router */,
 				402EBD5D02739AA84ECC7981 /* SberbankRouterIO.swift */,
+				402EBCACE6EE65EF9B341007 /* SberbankViewIO.swift */,
+				402EB675A587DD13842E5702 /* Assembly */,
+				402EBADCF9C4CF55E0B06A5E /* Interactor */,
+				402EB492C4DA8738C0F8DBCF /* Presenter */,
+				402EB46229DE0340B1F89025 /* Router */,
+				402EB6BB7C6741CD830FA20D /* View */,
 			);
 			path = Sberbank;
 			sourceTree = "<group>";
@@ -1793,14 +1814,14 @@
 			isa = PBXGroup;
 			children = (
 				402EBC0AAB711E47B4FDF1E4 /* BankCardInteractorIO.swift */,
-				402EBCE7F595FBF58EEEF96F /* BankCardViewIO.swift */,
-				402EBE3EEE70AA9D7309A7A0 /* Assembly */,
 				402EB3C75516A9743F28AAB5 /* BankCardModuleIO.swift */,
 				402EB02843790D7A273BDA2A /* BankCardRouterIO.swift */,
-				402EB9BBCDD811A24D83A302 /* View */,
+				402EBCE7F595FBF58EEEF96F /* BankCardViewIO.swift */,
+				402EBE3EEE70AA9D7309A7A0 /* Assembly */,
 				402EB2244D468BB6D6BF9AFB /* Interactor */,
 				402EB8DC46E920C41B8F0991 /* Presenter */,
 				402EB1ED411EC5BD00482333 /* Router */,
+				402EB9BBCDD811A24D83A302 /* View */,
 			);
 			path = BankCard;
 			sourceTree = "<group>";
@@ -2732,12 +2753,77 @@
 			path = PaymentMethodViewModel;
 			sourceTree = "<group>";
 		};
+		78C1BD1325EFA0D40058080F /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				78C1BD2825EFA14C0058080F /* SberpayAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		78C1BD1425EFA0E10058080F /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				78C1BD2625EFA1430058080F /* SberpayInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		78C1BD1525EFA0E80058080F /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				78C1BD2425EFA13C0058080F /* SberpayPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		78C1BD1625EFA0ED0058080F /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				78C1BD2225EFA1330058080F /* SberpayRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		78C1BD1725EFA0F10058080F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				78C1BD2025EFA1280058080F /* SberpayViewController.swift */,
+				78C1BD2A25EFA23C0058080F /* ViewModel */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		78C1BD2A25EFA23C0058080F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				78C1BD2B25EFA2470058080F /* SberpayViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		78CF11DE25D438A100F7154E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				78CF11DF25D438AC00F7154E /* ApplePayContractViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		78E1BA6325EEA99000E5F275 /* Sberpay */ = {
+			isa = PBXGroup;
+			children = (
+				78C1BD1825EFA1010058080F /* SberpayInteractorIO.swift */,
+				78C1BD1A25EFA1090058080F /* SberpayModuleIO.swift */,
+				78C1BD1C25EFA1100058080F /* SberpayRouterIO.swift */,
+				78C1BD1E25EFA11B0058080F /* SberpayViewIO.swift */,
+				78C1BD1325EFA0D40058080F /* Assembly */,
+				78C1BD1425EFA0E10058080F /* Interactor */,
+				78C1BD1525EFA0E80058080F /* Presenter */,
+				78C1BD1625EFA0ED0058080F /* Router */,
+				78C1BD1725EFA0F10058080F /* View */,
+			);
+			path = Sberpay;
 			sourceTree = "<group>";
 		};
 		9133B1C75F52034A6FB79687 /* Frameworks */ = {
@@ -3079,6 +3165,7 @@
 				780D0D3925DC0DF100CF15D1 /* BankCardRepeatModuleIO.swift in Sources */,
 				402EBB0834948CFD4278DF96 /* UILabel+Style.swift in Sources */,
 				402EB52D1B69D9D12BA05F02 /* UIFont+Style.swift in Sources */,
+				78C1BD1F25EFA11B0058080F /* SberpayViewIO.swift in Sources */,
 				784A1AE625B9CE8A00637CB5 /* PaymentMethod.swift in Sources */,
 				402EBC73F5045B2B33EED401 /* UIImage+Style.swift in Sources */,
 				402EB2F13EA4EBCE01956D61 /* UIImageView+Style.swift in Sources */,
@@ -3086,6 +3173,7 @@
 				402EBD2767032917D2486044 /* UINavigationBar+Style.swift in Sources */,
 				402EBFAAC2EC4686CE4488A8 /* UIBarButtonItem+Style.swift in Sources */,
 				784A1ADB25B9C57B00637CB5 /* CheckoutTokenIssueExecute.swift in Sources */,
+				78C1BD2725EFA1430058080F /* SberpayInteractor.swift in Sources */,
 				402EB00B9EC9B560D706EC06 /* UIScrollView+Style.swift in Sources */,
 				402EB43FAD5652F9095B47FF /* ActivityIndicatorView+Style.swift in Sources */,
 				402EB1BC568F568FD6E10047 /* ActivityIndicatorView.swift in Sources */,
@@ -3118,6 +3206,7 @@
 				78CF11DD25D4361300F7154E /* ApplePayContractViewController.swift in Sources */,
 				402EBE3D748B1AD41EBD2771 /* PresentableError.swift in Sources */,
 				3089EF4923846F6300CB7319 /* SwitcherSavePaymentMethodViewModel.swift in Sources */,
+				78C1BD1925EFA1010058080F /* SberpayInteractorIO.swift in Sources */,
 				7860291025C9913A00B9E961 /* UITextField+Style.swift in Sources */,
 				402EBD7014CFF4A56F23439F /* PresentableNotification.swift in Sources */,
 				780D0D3C25DC0E0300CF15D1 /* BankCardRepeatAssembly.swift in Sources */,
@@ -3125,6 +3214,7 @@
 				402EB9AF1EC6377E4EB997A7 /* NotificationPresenting.swift in Sources */,
 				402EB3B8F359111B86058AB0 /* ActivityIndicatorFullViewPresenting.swift in Sources */,
 				402EB469B4798293A88ABAF4 /* ActivityIndicatorPresenting.swift in Sources */,
+				78C1BD2925EFA14C0058080F /* SberpayAssembly.swift in Sources */,
 				402EB45C4D87D353D57D4A2C /* WebBrowserViewController.swift in Sources */,
 				781CDD7725D4063000C34912 /* ApplePayContractInteractorIO.swift in Sources */,
 				402EB12A36444BFD7ECCD081 /* WebBrowserRouter.swift in Sources */,
@@ -3169,6 +3259,7 @@
 				402EBBC990C2C0F2A2A0BD69 /* PhoneNumberFormatterAssembly.swift in Sources */,
 				402EB7C3CF2DBEAF200479D6 /* UserAgentFactory.swift in Sources */,
 				402EB6BE01411608D225E157 /* Localization.swift in Sources */,
+				78C1BD2C25EFA2470058080F /* SberpayViewModel.swift in Sources */,
 				7860294D25D1723B00B9E961 /* LinkedCardRouter.swift in Sources */,
 				402EBFA22A30FD6DA60F6FA3 /* PrefferedContentSizeCategory.swift in Sources */,
 				402EBD79F5F3730B73E8E2B6 /* ResourceLoader.swift in Sources */,
@@ -3228,6 +3319,7 @@
 				402EB636FC3E40E0EDE5A096 /* LogoutConfirmationModuleIO.swift in Sources */,
 				402EB002BD1EC142641CB2D4 /* LogoutConfirmationAssembly.swift in Sources */,
 				402EB90A3E9FD8733C4EBEA9 /* LoginConfirmationViewController.swift in Sources */,
+				78C1BD1D25EFA1100058080F /* SberpayRouterIO.swift in Sources */,
 				402EBBE91DE40AA08E3AB8B5 /* ApplePayAssembly.swift in Sources */,
 				402EB7C74860DFA65827A00C /* ApplePayModuleIO.swift in Sources */,
 				30B20E2B2535FC1C00941574 /* KeyValueStoringKeys.swift in Sources */,
@@ -3243,6 +3335,7 @@
 				402EB70F599439C2EAF90432 /* ApiLogger.swift in Sources */,
 				402EBD50CA9522F54150D2FD /* ThreatMetrixService.swift in Sources */,
 				402EB96B6F077D9807AD790B /* PaymentMethodHandlerService.swift in Sources */,
+				78C1BD2525EFA13C0058080F /* SberpayPresenter.swift in Sources */,
 				7811067C25C3FCB8004DB71D /* OrderView.swift in Sources */,
 				402EB8D9C4C6674F176C1E2C /* AuthorizationService.swift in Sources */,
 				402EBCB6D5E6441798A2DC59 /* AuthorizationServiceImpl.swift in Sources */,
@@ -3277,6 +3370,7 @@
 				402EB10E2B1F8A4E8BD2DEB8 /* BankSettingsService.swift in Sources */,
 				402EB324EC0352C1CF0A8A59 /* BankSettingsServiceImpl.swift in Sources */,
 				7860292C25CD406500B9E961 /* ImageCacheImpl.swift in Sources */,
+				78C1BD1B25EFA1090058080F /* SberpayModuleIO.swift in Sources */,
 				402EBF6F0AF3AB32E9C844AC /* TokenizationAssembly.swift in Sources */,
 				402EB337CF8A33565554E71D /* CardScanning.swift in Sources */,
 				789C374125AF285C00BA94D1 /* PaymentServiceImpl.swift in Sources */,
@@ -3341,6 +3435,7 @@
 				402EB408F40569680354E993 /* BankCardRouter.swift in Sources */,
 				402EB571173B519C0F71C65A /* InputCvcView.swift in Sources */,
 				402EB420CBCEF91141DDBD23 /* InputPanCardView.swift in Sources */,
+				78C1BD2125EFA1280058080F /* SberpayViewController.swift in Sources */,
 				402EBD521E90D0EE32F6611D /* InputExpiryDateView.swift in Sources */,
 				402EBAAC323B2686A6C43781 /* BankCardDataInputView.swift in Sources */,
 				402EBC52D30F0A1A37263A97 /* BankCardDataInputAssembly.swift in Sources */,
@@ -3354,6 +3449,7 @@
 				402EB3AB073F3C17EAE8919C /* BankCardDataInputViewModel.swift in Sources */,
 				402EBBDF51F6662CEE54298A /* Bundle+Tools.swift in Sources */,
 				402EBB94AB27CC90E71D3A6D /* TextControl.swift in Sources */,
+				78C1BD2325EFA1330058080F /* SberpayRouter.swift in Sources */,
 				402EBAA71096200333711566 /* TextControl+State.swift in Sources */,
 				402EB53E4E9278E5E38D3773 /* TextControl+Layout.swift in Sources */,
 				402EB35B6BF9FBB145DCCA2A /* TextControl+LineMode.swift in Sources */,

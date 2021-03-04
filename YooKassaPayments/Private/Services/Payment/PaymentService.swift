@@ -60,6 +60,15 @@ protocol PaymentService {
         tmxSessionId: String,
         completion: @escaping (Result<Tokens, Error>) -> Void
     )
+    
+    func tokenizeSberpay(
+        clientApplicationKey: String,
+        confirmation: Confirmation,
+        savePaymentMethod: Bool,
+        amount: MonetaryAmount?,
+        tmxSessionId: String,
+        completion: @escaping (Result<Tokens, Error>) -> Void
+    )
 
     func tokenizeApplePay(
         clientApplicationKey: String,

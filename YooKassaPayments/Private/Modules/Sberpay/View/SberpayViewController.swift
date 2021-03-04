@@ -1,27 +1,11 @@
-import UIKit
-
-final class SberbankViewController: UIViewController, PlaceholderProvider {
-
-    // MARK: - VIPER
-
-    var output: SberbankViewOutput!
+final class SberpayViewController: UIViewController, PlaceholderProvider {
     
-    // MARK: - Touches, Presses, and Gestures
-
-    private lazy var viewTapGestureRecognizer: UITapGestureRecognizer = {
-        $0.delegate = self
-        return $0
-    }(UITapGestureRecognizer(
-        target: self,
-        action: #selector(viewTapGestureRecognizerHandle)
-    ))
-
-    // MARK: - UI modules
-
-    var phoneNumberInputView: PhoneNumberInputView!
-
+    // MARK: - VIPER
+    
+    var output: SberpayViewOutput!
+    
     // MARK: - UI properties
-
+    
     private lazy var scrollView: UIScrollView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -34,19 +18,28 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
-
+    
     private lazy var contentStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .vertical
         return $0
     }(UIStackView())
-
+    
     private lazy var orderView: OrderView = {
         $0.setStyles(UIView.Styles.grayBackground)
         return $0
     }(OrderView())
-
+    
+    private lazy var sberpayMethodView: LargeIconView = {
+        $0.setStyles(
+            UIView.Styles.grayBackground
+        )
+        $0.image = PaymentMethodResources.Image.sberpay
+        $0.title = §Localized.paymentMethodTitle
+        return $0
+    }(LargeIconView())
+    
     private lazy var actionButtonStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +47,7 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
         $0.spacing = Space.double
         return $0
     }(UIStackView())
-
+    
     private lazy var submitButton: Button = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(
@@ -64,25 +57,24 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
         $0.setStyledTitle(§Localized.continue, for: .normal)
         $0.addTarget(
             self,
-            action: #selector(didPressSubmitButton),
+            action: #selector(didPressActionButton),
             for: .touchUpInside
         )
         return $0
     }(Button(type: .custom))
-
+    
     private lazy var termsOfServiceLinkedTextView: LinkedTextView = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(
             UIView.Styles.grayBackground,
             UITextView.Styles.linked
         )
-        $0.textAlignment = .center
         $0.delegate = self
         return $0
     }(LinkedTextView())
-
+    
     private var activityIndicatorView: UIView?
-
+    
     // MARK: - PlaceholderProvider
 
     lazy var placeholderView: PlaceholderView = {
@@ -100,23 +92,19 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
         $0.delegate = output
         return $0
     }(ActionTitleTextDialog())
-
+    
     // MARK: - Constraints
-
-    private lazy var scrollViewHeightConstraint: NSLayoutConstraint = {
-        let constraint = scrollView.heightAnchor.constraint(equalToConstant: 0)
-        constraint.priority = .defaultLow
-        return constraint
-    }()
-
+    
+    private lazy var scrollViewHeightConstraint =
+        scrollView.heightAnchor.constraint(equalToConstant: 0)
+    
     // MARK: - Managing the View
-
+    
     override func loadView() {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
-        view.addGestureRecognizer(viewTapGestureRecognizer)
-
         navigationItem.title = §Localized.title
+        
         setupView()
         setupConstraints()
     }
@@ -125,9 +113,9 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
         super.viewDidLoad()
         output.setupView()
     }
-
-    // MARK: - SetupView
-
+    
+    // MARK: - Setup
+    
     private func setupView() {
         [
             scrollView,
@@ -139,12 +127,12 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
         [
             contentStackView,
         ].forEach(contentView.addSubview)
-
+        
         [
             orderView,
-            phoneNumberInputView,
+            sberpayMethodView,
         ].forEach(contentStackView.addArrangedSubview)
-
+        
         [
             submitButton,
             termsOfServiceLinkedTextView,
@@ -171,10 +159,10 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
                 equalTo: topLayoutGuide.bottomAnchor
             )
         }
-
+        
         let constraints = [
             scrollViewHeightConstraint,
-
+            
             topConstraint,
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -206,49 +194,35 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-
+    
     // MARK: - Configuring the View’s Layout Behavior
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         DispatchQueue.main.async {
-            self.updateContentHeight()
+            self.fixTableViewHeight()
         }
     }
-
-    private func updateContentHeight() {
+    
+    private func fixTableViewHeight() {
         scrollViewHeightConstraint.constant = contentStackView.bounds.height
     }
-}
-
-// MARK: - Actions
-
-private extension SberbankViewController {
-    @objc
-    private func didPressSubmitButton(
-        _ sender: UIButton
-    ) {
-        output?.didPressSubmitButton()
-    }
+    
+    // MARK: - Action
     
     @objc
-    private func viewTapGestureRecognizerHandle(
-        _ gestureRecognizer: UITapGestureRecognizer
+    private func didPressActionButton(
+        _ sender: UIButton
     ) {
-        guard gestureRecognizer.state == .recognized else { return }
-        view.endEditing(true)
+        output?.didTapActionButton()
     }
 }
 
-// MARK: - LinkedCardViewInput
+// MARK: - SberpayViewInput
 
-extension SberbankViewController: SberbankViewInput {
-    func endEditing(_ force: Bool) {
-        view.endEditing(force)
-    }
-
-    func setViewModel(
-        _ viewModel: SberbankViewModel
+extension SberpayViewController: SberpayViewInput {
+    func setupViewModel(
+        _ viewModel: SberpayViewModel
     ) {
         orderView.title = viewModel.shopName
         orderView.subtitle = viewModel.description
@@ -258,12 +232,12 @@ extension SberbankViewController: SberbankViewInput {
         termsOfServiceLinkedTextView.textAlignment = .center
     }
 
-    func setSubmitButtonEnabled(
-        _ isEnabled: Bool
+    func setBackBarButtonHidden(
+        _ isHidden: Bool
     ) {
-        submitButton.isEnabled = isEnabled
+        navigationItem.hidesBackButton = isHidden
     }
-
+    
     func showActivity() {
         guard activityIndicatorView == nil else { return }
 
@@ -304,17 +278,11 @@ extension SberbankViewController: SberbankViewInput {
         actionTitleTextDialog.title = message
         showPlaceholder()
     }
-
-    func setBackBarButtonHidden(
-        _ isHidden: Bool
-    ) {
-        navigationItem.hidesBackButton = isHidden
-    }
 }
 
 // MARK: - UITextViewDelegate
 
-extension SberbankViewController: UITextViewDelegate {
+extension SberpayViewController: UITextViewDelegate {
     func textView(
         _ textView: UITextView,
         shouldInteractWith URL: URL,
@@ -322,7 +290,7 @@ extension SberbankViewController: UITextViewDelegate {
     ) -> Bool {
         switch textView {
         case termsOfServiceLinkedTextView:
-            output?.didPressTermsOfService(URL)
+            output?.didTapTermsOfService(URL)
         default:
             assertionFailure("Unsupported textView")
         }
@@ -330,28 +298,15 @@ extension SberbankViewController: UITextViewDelegate {
     }
 }
 
-// MARK: - UIGestureRecognizerDelegate
-
-extension SberbankViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(
-        _ gestureRecognizer: UIGestureRecognizer,
-        shouldReceive touch: UITouch
-    ) -> Bool {
-        guard gestureRecognizer === viewTapGestureRecognizer,
-              touch.view is UIControl else {
-            return true
-        }
-        return false
-    }
-}
-
 // MARK: - Localized
 
-private extension SberbankViewController {
+private extension SberpayViewController {
     enum Localized: String {
         case title = "Sberpay.Contract.Title"
         case `continue` = "Contract.next"
-
+        case fee = "Contract.fee"
+        case paymentMethodTitle = "Sberpay.paymentMethodTitle"
+        
         enum PlaceholderView: String {
             case buttonTitle = "Common.PlaceholderView.buttonTitle"
             case text = "Common.PlaceholderView.text"

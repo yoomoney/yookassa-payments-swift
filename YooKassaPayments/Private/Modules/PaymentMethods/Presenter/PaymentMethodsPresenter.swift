@@ -170,7 +170,11 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             openYooMoneyAuthorization()
 
         case let paymentOption where paymentOption.paymentMethodType == .sberbank:
-            openSberbankModule(paymentOption: paymentOption, needReplace: needReplace)
+            if shouldOpenSberpay(paymentOption) {
+                openSberpayModule(paymentOption: paymentOption, needReplace: needReplace)
+            } else {
+                openSberbankModule(paymentOption: paymentOption, needReplace: needReplace)
+            }
 
         case let paymentOption where paymentOption.paymentMethodType == .applePay:
             openApplePay(paymentOption: paymentOption, needReplace: needReplace)
@@ -370,6 +374,35 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             moduleOutput: self
         )
     }
+    
+    private func openSberpayModule(
+        paymentOption: PaymentOption,
+        needReplace: Bool
+    ) {
+        let paymentMethod = paymentMethodViewModelFactory.makePaymentMethodViewModel(
+            paymentOption: paymentOption
+        )
+        let priceViewModel = makePriceViewModel(paymentOption)
+        let feeViewModel = makeFeePriceViewModel(paymentOption)
+        let inputData = SberpayModuleInputData(
+            paymentOption: paymentOption,
+            clientApplicationKey: clientApplicationKey,
+            tokenizationSettings: tokenizationSettings,
+            testModeSettings: testModeSettings,
+            isLoggingEnabled: isLoggingEnabled,
+            shopName: shopName,
+            purchaseDescription: purchaseDescription,
+            priceViewModel: priceViewModel,
+            feeViewModel: feeViewModel,
+            termsOfService: termsOfService,
+            returnUrl: returnUrl,
+            isBackBarButtonHidden: needReplace
+        )
+        router.openSberpayModule(
+            inputData: inputData,
+            moduleOutput: self
+        )
+    }
 
     private func openBankCardModule(
         paymentOption: PaymentOption,
@@ -404,6 +437,17 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             inputData: inputData,
             moduleOutput: self
         )
+    }
+    
+    private func shouldOpenSberpay(
+        _ paymentOption: PaymentOption
+    ) -> Bool {
+        guard let confirmationTypes = paymentOption.confirmationTypes,
+              confirmationTypes.contains(.mobileApplication) else {
+            return false
+        }
+        
+        return UIApplication.shared.canOpenURL(Constants.sberbankOnlineInvoicingUrlScheme)
     }
 }
 
@@ -881,6 +925,22 @@ extension PaymentMethodsPresenter: SberbankModuleOutput {
     }
 }
 
+// MARK: - SberpayModuleOutput
+
+extension PaymentMethodsPresenter: SberpayModuleOutput {
+    func sberpayModule(
+        _ module: SberpayModuleInput,
+        didTokenize token: Tokens,
+        paymentMethodType: PaymentMethodType
+    ) {
+        didTokenize(
+            tokens: token,
+            paymentMethodType: paymentMethodType,
+            scheme: .sberpay
+        )
+    }
+}
+
 // MARK: - BankCardModuleOutput
 
 extension PaymentMethodsPresenter: BankCardModuleOutput {
@@ -981,6 +1041,9 @@ private extension PaymentMethodsPresenter {
 private extension PaymentMethodsPresenter {
     enum Constants {
         static let dismissApplePayTimeout: TimeInterval = 0.5
+        
+        // swiftlint:disable:next force_unwrapping
+        static let sberbankOnlineInvoicingUrlScheme = URL(string: "sberbankonlineinvoicing://")!
     }
 }
 
