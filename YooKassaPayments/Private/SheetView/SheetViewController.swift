@@ -4,6 +4,11 @@ protocol SheetViewModuleOutput: class {
     func start3dsProcess(
         requestUrl: String
     )
+    
+    func startConfirmationProcess(
+        confirmationUrl: String,
+        paymentMethodType: PaymentMethodType
+    )
 
     func didFinish(
         on module: TokenizationModuleInput,
@@ -595,5 +600,15 @@ extension SheetViewController: UIViewControllerTransitioningDelegate {
 extension SheetViewController: TokenizationModuleInput {
     func start3dsProcess(requestUrl: String) {
         moduleOutput?.start3dsProcess(requestUrl: requestUrl)
+    }
+    
+    func startConfirmationProcess(
+        confirmationUrl: String,
+        paymentMethodType: PaymentMethodType
+    ) {
+        moduleOutput?.startConfirmationProcess(
+            confirmationUrl: confirmationUrl,
+            paymentMethodType: paymentMethodType
+        )
     }
 }

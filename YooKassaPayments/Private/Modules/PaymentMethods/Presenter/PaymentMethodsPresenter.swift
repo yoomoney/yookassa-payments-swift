@@ -977,6 +977,21 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
             )
         }
     }
+    
+    func startConfirmationProcess(
+        confirmationUrl: String,
+        paymentMethodType: PaymentMethodType
+    ) {
+        switch paymentMethodType {
+        case .sberbank:
+            // TODO: - Open sberbank app with app scheme https://jira.yamoney.ru/browse/MOC-1757
+            break
+            
+        default:
+            assertionFailure("Need implement open process confirmation for \(paymentMethodType)")
+            break
+        }
+    }
 }
 
 // MARK: - CardSecModuleOutput

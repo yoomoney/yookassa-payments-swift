@@ -478,6 +478,7 @@
 		78C1BD2725EFA1430058080F /* SberpayInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD2625EFA1430058080F /* SberpayInteractor.swift */; };
 		78C1BD2925EFA14C0058080F /* SberpayAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD2825EFA14C0058080F /* SberpayAssembly.swift */; };
 		78C1BD2C25EFA2470058080F /* SberpayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD2B25EFA2470058080F /* SberpayViewModel.swift */; };
+		78C1BDF225F13EDE0058080F /* ConfirmationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BDF125F13EDE0058080F /* ConfirmationService.swift */; };
 		78CF11DD25D4361300F7154E /* ApplePayContractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CF11DC25D4361300F7154E /* ApplePayContractViewController.swift */; };
 		78CF11E025D438AC00F7154E /* ApplePayContractViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CF11DF25D438AC00F7154E /* ApplePayContractViewModel.swift */; };
 		D9841AF6933D94F2B1240F5F /* Pods_YooKassaPaymentsExamplePods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5746D1C01E2AA9F16B231A99 /* Pods_YooKassaPaymentsExamplePods.framework */; };
@@ -918,6 +919,7 @@
 		78C1BD2625EFA1430058080F /* SberpayInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayInteractor.swift; sourceTree = "<group>"; };
 		78C1BD2825EFA14C0058080F /* SberpayAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayAssembly.swift; sourceTree = "<group>"; };
 		78C1BD2B25EFA2470058080F /* SberpayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayViewModel.swift; sourceTree = "<group>"; };
+		78C1BDF125F13EDE0058080F /* ConfirmationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationService.swift; sourceTree = "<group>"; };
 		78CF11DC25D4361300F7154E /* ApplePayContractViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayContractViewController.swift; sourceTree = "<group>"; };
 		78CF11DF25D438AC00F7154E /* ApplePayContractViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayContractViewModel.swift; sourceTree = "<group>"; };
 		E0148CD51FE958810087CF5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1207,6 +1209,7 @@
 		402EB13ECBDC29975E13A501 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				78C1BDF125F13EDE0058080F /* ConfirmationService.swift */,
 				402EB36269018072CE3287E2 /* TokenizationAssembly.swift */,
 				402EB47F1567A31864612F7C /* TokenizationModuleIO.swift */,
 				402EB1E94429DDB4E260133C /* YooKassaPaymentsError.swift */,
@@ -3448,6 +3451,7 @@
 				402EBC42507159E3CD4859EC /* BankCardDataInputRouterIO.swift in Sources */,
 				402EB3AB073F3C17EAE8919C /* BankCardDataInputViewModel.swift in Sources */,
 				402EBBDF51F6662CEE54298A /* Bundle+Tools.swift in Sources */,
+				78C1BDF225F13EDE0058080F /* ConfirmationService.swift in Sources */,
 				402EBB94AB27CC90E71D3A6D /* TextControl.swift in Sources */,
 				78C1BD2325EFA1330058080F /* SberpayRouter.swift in Sources */,
 				402EBAA71096200333711566 /* TextControl+State.swift in Sources */,
