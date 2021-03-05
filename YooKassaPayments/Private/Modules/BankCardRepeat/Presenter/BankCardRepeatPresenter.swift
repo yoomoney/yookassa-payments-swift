@@ -331,6 +331,11 @@ extension BankCardRepeatPresenter: TokenizationModuleInput {
             )
         }
     }
+    
+    func startConfirmationProcess(
+        confirmationUrl: String,
+        paymentMethodType: PaymentMethodType
+    ) {}
 }
 
 // MARK: - CardSecModuleOutput
