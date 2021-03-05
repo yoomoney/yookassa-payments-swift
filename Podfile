@@ -5,7 +5,6 @@ platform :ios, '10.0'
 use_frameworks!
 
 target 'YooKassaPaymentsExamplePods' do
-  pod 'FunctionalSwift'
   pod 'CardIO'
   pod 'SwiftLint'
   pod 'Reveal-SDK', :configurations => ['Debug']

@@ -1,10 +1,10 @@
-import Foundation
-
 enum TermsOfServiceFactory {
     static func makeTermsOfService() -> TermsOfService {
-        return TermsOfService(text: §Localized.TermsOfService.text,
-                              hyperlink: §Localized.TermsOfService.hyperlink,
-                              url: Constants.termsOfServiceUrl)
+        return TermsOfService(
+            text: §Localized.TermsOfService.text,
+            hyperlink: §Localized.TermsOfService.hyperlink,
+            url: Constants.termsOfServiceUrl
+        )
     }
 }
 

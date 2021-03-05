@@ -1,5 +1,3 @@
-import enum YooKassaPaymentsApi.PaymentMethodType
-
 /// Type of the source of funds for the payment.
 public struct PaymentMethodTypes: OptionSet {
 

@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 protocol ActionTextDialogDelegate: class {
@@ -93,13 +92,14 @@ final class ActionTextDialog: UIView {
     }
 
     private func setupSubviews() {
-        let subviews: [UIView] = [
+        [
             iconView,
             titleLabel,
             button,
-            ]
-        subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        addSubview <^> subviews
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            addSubview($0)
+        }
     }
 
     private func setupConstraints() {

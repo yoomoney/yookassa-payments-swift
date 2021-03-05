@@ -1,10 +1,8 @@
-import struct YooKassaWalletApi.AuthTypeState
-import enum YooKassaWalletApi.AuthType
+final class AuthTypeStatesServiceImpl {}
 
-final class AuthTypeStatesService {}
+// MARK: - AuthTypeStatesService
 
-// MARK: - AuthTypeStatesProvider
-extension AuthTypeStatesService: AuthTypeStatesProvider {
+extension AuthTypeStatesServiceImpl: AuthTypeStatesService {
     func filterStates(_ states: [AuthTypeState]) -> [AuthTypeState] {
         return states.filter { $0.enabled && supportedTypes.keys.contains($0.specific.type) }
     }

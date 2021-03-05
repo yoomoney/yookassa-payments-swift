@@ -1,6 +1,3 @@
-import struct YooKassaPaymentsApi.Tokens
-import enum YooKassaPaymentsApi.PaymentMethodType
-
 /// Input for tokenization module.
 ///
 /// In the process of running mSDK, allows you to run processes using the `TokenizationModuleInput` protocol methods.

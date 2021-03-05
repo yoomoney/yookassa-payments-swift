@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 class TextValueView: UIView {
@@ -63,7 +62,10 @@ class TextValueView: UIView {
     // MARK: - Private methods
 
     private func setupUI() {
-        addSubview <^> [titleLabel, valueLabel]
+        [
+            titleLabel,
+            valueLabel,
+        ].forEach(addSubview)
 
         setupConstraints()
     }

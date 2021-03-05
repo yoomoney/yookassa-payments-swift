@@ -2,17 +2,18 @@
 "ApplePayUnavailable.title" = "Apple Pay is unavailable";
 
 /*Подсказка под текстовым полем для ввода номера телефона*/
-"Contract.bottomHint.sberbank" = "For text message with code from Sberbank";
-
-"Contract.bottomHint.smsCode.invalidAnswer" = "Incorrect text message password";
-
-"Contract.bottomHint.totp.invalidAnswer" = "Incorrect one-time password";
+"Contract.Sberbank.PhoneInput.BottomHint" = "For text message with code from Sberbank";
 
 /*Placeholder текстового поля для ввода номера телефона*/
-"Contract.placeholder.sberbank" = "Phone number for Mobile Bank";
+"Contract.Sberbank.PhoneInput.Title" = "Phone number for Mobile Bank";
+
+"Contract.Sberbank.PhoneInput.Placeholder" = "+ 7 987 654 32 10";
 
 /*В процессе токенизации ApplePay произошла ошибка*/
 "Error.ApplePayStrategy.failTokenizeData" = "An error occurred during ApplePay tokenization";
+
+/*После авторизации в кошельке при запросе доступных методов кошелёк отсутствует*/
+"Error.noWalletTitle" = "Wallet payment is not available";
 
 /*Пользователь потратил все попытки ввода. Создаем новую сессию на авторизацию*/
 "Error.endedAttemptsToEnterStartOver" = "Too many attempts. Try again later";
@@ -23,14 +24,24 @@
 /*С сервера пришел неподдерживаемый способ прохождения платежной авторизации.*/
 "Error.unsupportedAuthType" = "This method of receiving passwords is not supported. You can change it in the wallet settings on the YooMoney website";
 
+"PaymentAuthorization.invalidAnswer" = "Incorrect code. Check and enter again";
+
+"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Incorrect code. Attempts left: %d";
+
+"PaymentAuthorization.verifyAttemptsExceeded" = "Attempts ended. Try later";
+
+"PaymentAuthorization.verifyAttemptsExceeded.nextSession" = "Attempts ended. You can try %@";
+
+"PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM at HH:mm";
+
+"PaymentAuthorization.description.withoutPhone" = "We sent a verification code";
+
+"PaymentAuthorization.description.witPhone" = "We sent a verification code to %@";
+
+"PaymentAuthorization.remainingTime" = "Get new code via %@";
+
 /*Способ оплаты сбербанк онлайн*/
 "PaymentMethod.sberbank" = "Sberbank Online";
-
-/* https://yadi.sk/i/e-y9WwBb3VwYzm Текст на кнопке, рядом с текстом ошибки, когда пользователь успешно авторизовался в аккаунте YooMoney и у него нет кошелька.*/
-"PaymentOptionsNoWallet.buttonTitle" = "Continue without wallet";
-
-/*https://yadi.sk/i/e-y9WwBb3VwYzm Текст ошибки, когда пользователь успешно авторизовался в аккаунте YooMoney и у него нет кошелька.*/
-"PaymentOptionsNoWallet.title" = "You don't have a YooMoney Wallet";
 
 "PaymentMethods.paymentMethods" = "PAYMENT METHODS";
 
@@ -40,8 +51,6 @@
 
 "PaymentMethod.bankCard" = "Bank card";
 
-"Error.Button.repeat" = "Try again";
-
 "Error.internet" = "Connection error. Try again once you're online.";
 
 "Error.emptyPaymentOptions" = "No available payment methods";
@@ -50,25 +59,39 @@
 
 "Contract.next" = "Next";
 
-"Contract.price" = "To be paid";
-
 "Contract.fee" = "Including commission";
 
 "ApplePayContract.fee" = "Commission";
 
-"Contract.resendSms" = "Send again";
+"Sberbank.Contract.Title" = "Sberbank Online";
 
-"Contract.format.resendSmsAfter" = "New password can be issued in %d";
+"Contract.resendSms" = "Send again";
 
 "Contract.placeholder.smsCode" = "Enter a text message password";
 
-"Contract.placeholder.totp" = "Enter a one-time password";
+"Contract.format.savePaymentMethod.title" = "Allow to write off money";
 
-"Contract.topHint.smsCode" = "Text message password";
+"BankCardRepeat.savePaymentMethod.title" = "Link card";
 
-"Contract.topHint.totp" = "One-time password";
+"Contract.format.saveAuthInApp.title" = "Remember wallet";
 
 "Contract.format.saveAuthInApp" = "Save the wallet in this app for faster payments";
+
+"LinkedCard.saveAuthInApp.title" = "Remember me";
+
+"LinkedCard.saveAuthInApp" = "No need to enter next time in profile - you can pay faster";
+
+"Contract.logout" = "Logout";
+
+"ApplePayContract.paymentMethodTitle" = "Next open Apple Pay - confirm payment";
+
+"ApplePayContract.title" = "Apple Pay";
+
+"YooMoney.title" = "YooMoney";
+
+"LinkedCard.title" = "Linked card";
+
+"BankCardRepeat.title" = "Saved card";
 
 "LogoutConfirmation.format.title" = "Are you sure you want to sign out of account '%@'?";
 
@@ -76,15 +99,21 @@
 
 "BankCardDataInput.panInput" = "Card number";
 
+"BankCardDataInput.hintCardCode" = "Code";
+
 "BankCardDataInput.expiryDate" = "MM / YY";
 
 "BankCardDataInput.cvc" = "CVC";
+
+"BankCardDataInput.errorCvc" = "Check CVC";
 
 "BankCardDataInput.confirmButtonTitle" = "Pay";
 
 "image.logo" = "logo.kassa.en";
 
 "Common.PlaceholderView.buttonTitle" = "Try again";
+
+"Common.PlaceholderView.text" = "Please try again later.";
 
 "Common.button.ok" = "ОК";
 
@@ -121,6 +150,8 @@
 
 "SavePaymentMethodInfo.BankCard.Body" = "It means that you are giving YooMoney your prior consent to debit money upon store's request without any additional confirmation from your side from this card or a new one in case it is reissued (if your bank can update the data automatically).\n\nYou can unlink the card at any moment via store's support service.";
 
+"SavePaymentMethodInfo.Button.GotIt" = "Got it";
+
 /* Текст условий сервиса с ссылкой на экране установки пароля для пользователя без установленной почты https://yadi.sk/i/DgL-5V4hQL15WQ */
 "Wallet.Authorization.addEmailTitle" = "For receipts and notifications";
 
@@ -156,3 +187,13 @@
 
 /* Текст на кнопке баннера миграции https://yadi.sk/i/IuBf_A1_uq2zSg */
 "Wallet.Authorization.migrationBannerButtonText" = "Learn more";
+
+"BankCardView.inputPanHint" = "Card number";
+"BankCardView.inputPanPlaceholder" = "Enter or scan";
+"BankCardView.inputExpiryDateHint" = "Expiry date";
+"BankCardView.inputExpiryDatePlaceholder" = "MM/YY";
+"BankCardView.inputCvcHint" = "Code";
+"BankCardView.inputCvcPlaceholder" = "CVC";
+
+"BankCardDataInputView.BottomHint.invalidPan" = "Check the card number";
+"BankCardDataInputView.BottomHint.invalidExpiry" = "Check the month and year";

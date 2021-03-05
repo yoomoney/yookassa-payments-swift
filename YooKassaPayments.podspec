@@ -39,12 +39,9 @@ Pod::Spec.new do |s|
     'FRAMEWORK_SEARCH_PATHS' => '"${PODS_ROOT}/../Frameworks"'
   }
 
-  s.ios.dependency 'FunctionalSwift', '~> 1.2.0'
-  s.ios.dependency 'When', '~> 4.0.0'
-
   s.ios.dependency 'YooMoneyCoreApi', '~> 1.9.0'
   s.ios.dependency 'YooKassaPaymentsApi', '~> 2.3.0'
-  s.ios.dependency 'YooKassaWalletApi', '~> 2.2.0'
+  s.ios.dependency 'YooKassaWalletApi', '~> 2.3.0'
   s.ios.dependency 'YandexMobileMetrica/Dynamic', '~> 3.12.0'
 
   s.ios.dependency 'MoneyAuth', '~> 2.0.0'

@@ -10,15 +10,17 @@ enum KeyValueStoringAssembly {
         return UserDefaultsStorage(userDefaults: .standard)
     }
 
-    static func makeMockKeychainStorage(testModeSettings: TestModeSettings) -> KeyValueStoring {
+    static func makeKeychainStorageMock(
+        testModeSettings: TestModeSettings
+    ) -> KeyValueStoring {
         let storage: KeyValueStoring
         if let shared = KeyValueStoringAssembly.shared {
             storage = shared
         } else if testModeSettings.paymentAuthorizationPassed {
-            storage = makeAuthorizedMockKeychainStroage()
+            storage = makeAuthorizedKeychainStroageMock()
             shared = storage
         } else {
-            storage = MockKeychainStorage()
+            storage = KeychainStorageMock()
             shared = storage
         }
         return storage
@@ -26,6 +28,7 @@ enum KeyValueStoringAssembly {
 }
 
 // MARK: - Constants
+
 private extension KeyValueStoringAssembly {
     enum Constants {
         enum Keys {
@@ -34,8 +37,8 @@ private extension KeyValueStoringAssembly {
     }
 }
 
-private func makeAuthorizedMockKeychainStroage() -> MockKeychainStorage {
-    let storage = MockKeychainStorage()
+private func makeAuthorizedKeychainStroageMock() -> KeychainStorageMock {
+    let storage = KeychainStorageMock()
     storage.set(
         string: Constants.Values.moneyCenterAuthToken,
         for: KeyValueStoringKeys.moneyCenterAuthToken

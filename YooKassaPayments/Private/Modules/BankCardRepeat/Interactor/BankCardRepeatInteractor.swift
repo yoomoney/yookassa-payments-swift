@@ -1,43 +1,55 @@
-import FunctionalSwift
-import When
-import YooKassaPaymentsApi
-
 final class BankCardRepeatInteractor {
 
     // MARK: - VIPER
 
     weak var output: BankCardRepeatInteractorOutput?
 
-    // MARK: - Initialization
+    // MARK: - Init data
 
+    private let analyticsService: AnalyticsService
+    private let analyticsProvider: AnalyticsProvider
+    private let paymentService: PaymentService
+    
     private let clientApplicationKey: String
-    private let paymentService: PaymentProcessing
-    private let analyticsService: AnalyticsProcessing
 
-    init(clientApplicationKey: String,
-         paymentService: PaymentProcessing,
-         analyticsService: AnalyticsProcessing) {
-        ThreatMetrixService.configure()
+    // MARK: - Init
 
-        self.clientApplicationKey = clientApplicationKey
-        self.paymentService = paymentService
+    init(
+        analyticsService: AnalyticsService,
+        analyticsProvider: AnalyticsProvider,
+        paymentService: PaymentService,
+        clientApplicationKey: String
+    ) {
         self.analyticsService = analyticsService
+        self.analyticsProvider = analyticsProvider
+        self.paymentService = paymentService
+        
+        self.clientApplicationKey = clientApplicationKey
+
+        if !ThreatMetrixService.isConfigured {
+            ThreatMetrixService.configure()
+        }
     }
 }
 
 // MARK: - BankCardRepeatInteractorInput
 
 extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
-
-    func fetchPaymentMethod(paymentMethodId: String) {
-        guard let output = output else { return }
-
-        let paymentMethod = paymentService.fetchPaymentMethod(
+    func fetchPaymentMethod(
+        paymentMethodId: String
+    ) {
+        paymentService.fetchPaymentMethod(
             clientApplicationKey: clientApplicationKey,
             paymentMethodId: paymentMethodId
-        )
-        paymentMethod.done(output.didFetchPaymentMethod)
-        paymentMethod.fail(output.didFailFetchPaymentMethod)
+        ) { [weak self] result in
+            guard let output = self?.output else { return }
+            switch result {
+            case let .success(data):
+                output.didFetchPaymentMethod(data)
+            case let .failure(error):
+                output.didFailFetchPaymentMethod(error)
+            }
+        }
     }
 
     func tokenize(
@@ -47,12 +59,13 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
         paymentMethodId: String,
         csc: String
     ) {
-        guard let output = output else { return }
+        ThreatMetrixService.profileApp { [weak self] result in
+            guard let self = self,
+                  let output = self.output else { return }
 
-        let tmxSessionId = ThreatMetrixService.profileApp()
-        tmxSessionId.done { [weak self] tmxSessionId in
-            guard let self = self else { return }
-            let response = self.paymentService.tokenizeRepeatBankCard(
+            switch result {
+            case let .success(tmxSessionId):
+            self.paymentService.tokenizeRepeatBankCard(
                 clientApplicationKey: self.clientApplicationKey,
                 amount: amount,
                 tmxSessionId: tmxSessionId,
@@ -60,30 +73,42 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
                 savePaymentMethod: savePaymentMethod,
                 paymentMethodId: paymentMethodId,
                 csc: csc
-            )
+            ) { result in
+                switch result {
+                case let .success(data):
+                    output.didTokenize(data)
+                case let .failure(error):
+                    let mappedError = mapError(error)
+                    output.didFailTokenize(mappedError)
+                }
+            }
 
-            let responseWithError = response.recover(on: .global(), mapError)
-
-            responseWithError.done(output.didTokenize)
-            responseWithError.fail(output.didFailTokenize)
+            case let .failure(error):
+                output.didFailTokenize(mapError(error))
+                break
+            }
         }
-
-        let tmxSessionIdWithError = tmxSessionId.recover(on: .global(), mapError)
-        tmxSessionIdWithError.fail(output.didFailTokenize)
     }
 
     func trackEvent(_ event: AnalyticsEvent) {
         analyticsService.trackEvent(event)
     }
+    
+    func makeTypeAnalyticsParameters() -> (
+        authType: AnalyticsEvent.AuthType,
+        tokenType: AnalyticsEvent.AuthTokenType?
+    ) {
+        return analyticsProvider.makeTypeAnalyticsParameters()
+    }
 }
 
 // MARK: - Private global helpers
 
-private func mapError<T>(_ error: Error) throws -> Promise<T> {
+private func mapError(_ error: Error) -> Error {
     switch error {
     case ThreatMetrixService.ProfileError.connectionFail:
-        throw PaymentProcessingError.internetConnection
+        return PaymentProcessingError.internetConnection
     default:
-        throw error
+        return error
     }
 }

@@ -1,12 +1,10 @@
-import Foundation
 import UIKit
 
 private class Class { }
 
 enum UserAgentFactory {
     static func makeHeaderValue() -> String {
-        let frameworkVersion
-            = Bundle(for: Class.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+        let frameworkVersion = Bundle.frameworkVersion
         let osVersion = UIDevice.current.systemVersion
         let deviceClass: String
 

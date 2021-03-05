@@ -22,8 +22,6 @@
  * THE SOFTWARE.
  */
 
-import Foundation
-
 struct CardData {
 
     /// Payment card number
@@ -35,7 +33,11 @@ struct CardData {
     /// Card security code
     var csc: String?
 
-    init(pan: String?, expiryDate: DateComponents?, csc: String? = nil) {
+    init(
+        pan: String?,
+        expiryDate: DateComponents?,
+        csc: String? = nil
+    ) {
         self.pan = pan
         self.expiryDate = expiryDate
         self.csc = csc

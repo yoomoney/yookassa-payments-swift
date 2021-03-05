@@ -28,25 +28,33 @@ extension PhoneNumberInputPresenter: PhoneNumberInputViewOutput {
 
 // MARK: - PhoneNumberInputInteractorOutput
 
-extension PhoneNumberInputPresenter: PhoneNumberInputInteractorOutput {
-}
+extension PhoneNumberInputPresenter: PhoneNumberInputInteractorOutput {}
 
 // MARK: - PhoneNumberInputModuleInput
 
 extension PhoneNumberInputPresenter: PhoneNumberInputModuleInput {
-    func setPlaceholder(_ placeholder: String) {
-        view?.setPlaceholder(placeholder)
-    }
-
-    func setHint(_ hint: String) {
-        view?.setHint(hint)
-    }
-
     func setValue(_ value: String) {
         phoneNumber = value
         view?.setValue(value)
+        validatePhoneNumber()
     }
 
+    func setPlaceholder(_ value: String) {
+        view?.setPlaceholder(value)
+    }
+
+    func setTitle(_ value: String) {
+        view?.setTitle(value)
+    }
+
+    func setSubtitle(_ value: String) {
+        view?.setSubtitle(value)
+    }
+}
+
+// MARK: - Private helpers
+
+private extension PhoneNumberInputPresenter {
     func validatePhoneNumber() {
         if interactor.isValidPhoneNumber(phoneNumber) {
             view?.markTextFieldValid(true)
@@ -55,5 +63,4 @@ extension PhoneNumberInputPresenter: PhoneNumberInputModuleInput {
             moduleOutput?.didChangePhoneNumber("")
         }
     }
-
 }

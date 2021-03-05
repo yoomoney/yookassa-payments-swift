@@ -4,66 +4,165 @@ final class BankCardRepeatPresenter {
 
     // MARK: - VIPER
 
-    var router: TokenizationRouterInput!
+    var router: BankCardRepeatRouterInput!
     var interactor: BankCardRepeatInteractorInput!
 
     weak var moduleOutput: TokenizationModuleOutput?
-    weak var view: TokenizationViewInput?
+    weak var view: BankCardRepeatViewInput?
 
-    weak var contractModuleInput: ContractModuleInput?
-    weak var bankCardDataInputModuleInput: BankCardDataInputModuleInput?
+    // MARK: - Init data
+    
+    private let cardService: CardService
+    private let paymentMethodViewModelFactory: PaymentMethodViewModelFactory
+    
+    private let isLoggingEnabled: Bool
+    private let returnUrl: String?
 
+    private let paymentMethodId: String
+    private let shopName: String
+    private let purchaseDescription: String
+    private let amount: Amount
+    private let termsOfService: TermsOfService
+    private let savePaymentMethodViewModel: SavePaymentMethodViewModel?
+    private var initialSavePaymentMethod: Bool
+
+    // MARK: - Init
+
+    init(
+        cardService: CardService,
+        paymentMethodViewModelFactory: PaymentMethodViewModelFactory,
+        isLoggingEnabled: Bool,
+        returnUrl: String?,
+        paymentMethodId: String,
+        shopName: String,
+        purchaseDescription: String,
+        amount: Amount,
+        termsOfService: TermsOfService,
+        savePaymentMethodViewModel: SavePaymentMethodViewModel?,
+        initialSavePaymentMethod: Bool
+    ) {
+        self.cardService = cardService
+        self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
+        
+        self.isLoggingEnabled = isLoggingEnabled
+        self.returnUrl = returnUrl
+        
+        self.paymentMethodId = paymentMethodId
+        self.shopName = shopName
+        self.purchaseDescription = purchaseDescription
+        self.amount = amount
+        self.termsOfService = termsOfService
+        self.savePaymentMethodViewModel = savePaymentMethodViewModel
+        self.initialSavePaymentMethod = initialSavePaymentMethod
+    }
+    
     // MARK: - Stored Data
 
-    private var savePaymentMethod = true
-
-    // MARK: - Initialization
-
-    private let inputData: BankCardRepeatModuleInputData
-
-    init(inputData: BankCardRepeatModuleInputData) {
-        self.inputData = inputData
-    }
+    private var paymentMethod: PaymentMethod?
+    private var csc: String?
 }
 
-// MARK: - TokenizationViewOutput
+// MARK: - BankCardRepeatViewOutput
 
-extension BankCardRepeatPresenter: TokenizationViewOutput {
+extension BankCardRepeatPresenter: BankCardRepeatViewOutput {
     func setupView() {
-        view?.setCustomizationSettings(inputData.customizationSettings)
-        presentContract()
+        guard let view = view else { return }
+        
+        view.showActivity()
+        
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self,
+                  let interactor = self.interactor else { return }
+            
+            let (authType, _) = interactor.makeTypeAnalyticsParameters()
+            let event: AnalyticsEvent = .screenPaymentContract(
+                authType: authType,
+                scheme: .recurringCard,
+                sdkVersion: Bundle.frameworkVersion
+            )
+            interactor.trackEvent(event)
+            interactor.fetchPaymentMethod(
+                paymentMethodId: self.paymentMethodId
+            )
+        }
     }
-
-    func closeDidPress() {
-        moduleOutput?.didFinish(on: self, with: nil)
-    }
-
-    private func presentContract() {
-
-        let viewModel = PaymentMethodViewModelFactory.makePaymentMethodViewModel(.bankCard)
-        let tokenizeScheme = AnalyticsEvent.TokenizeScheme.recurringCard
-        let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
-            inputData.savePaymentMethod,
-            initialState: makeInitialSavePaymentMethod(inputData.savePaymentMethod)
-        )
-        let moduleInputData = ContractModuleInputData(
-            shopName: inputData.shopName,
-            purchaseDescription: inputData.purchaseDescription,
-            paymentMethod: viewModel,
-            price: makePriceViewModel(inputData.amount),
-            fee: nil,
-            shouldChangePaymentMethod: false,
-            testModeSettings: inputData.testModeSettings,
-            tokenizeScheme: tokenizeScheme,
-            isLoggingEnabled: inputData.isLoggingEnabled,
-            termsOfService: TermsOfServiceFactory.makeTermsOfService(),
-            savePaymentMethodViewModel: savePaymentMethodViewModel
-        )
-
-        DispatchQueue.main.async { [weak self] in
+    
+    func didTapActionButton() {
+        view?.endEditing(true)
+        view?.showActivity()
+        DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
-            self.router.presentContract(inputData: moduleInputData,
-                                        moduleOutput: self)
+            self.tokenize()
+        }
+    }
+    
+    func didTapTermsOfService(_ url: URL) {
+        router.presentTermsOfServiceModule(url)
+    }
+    
+    func didTapOnSavePaymentMethod() {
+        let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
+            headerValue: §SavePaymentMethodInfoLocalization.BankCard.header,
+            bodyValue: §SavePaymentMethodInfoLocalization.BankCard.body
+        )
+        router.presentSavePaymentMethodInfo(
+            inputData: savePaymentMethodModuleinputData
+        )
+    }
+    
+    func didChangeSavePaymentMethodState(
+        _ state: Bool
+    ) {
+        initialSavePaymentMethod = state
+    }
+    
+    func didSetCsc(
+        _ csc: String
+    ) {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            self.csc = csc
+            do {
+                try self.cardService.validate(csc: csc)
+            } catch {
+                if let error = error as? CardService.ValidationError {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let view = self?.view else { return }
+                        view.setConfirmButtonEnabled(false)
+                    }
+                    return
+                }
+            }
+            DispatchQueue.main.async { [weak self] in
+                guard let view = self?.view else { return }
+                view.setConfirmButtonEnabled(true)
+            }
+        }
+    }
+    
+    func endEditing() {
+        guard let csc = csc else {
+            view?.setCardState(.error)
+            return
+        }
+        
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            do {
+                try self.cardService.validate(csc: csc)
+            } catch {
+                if let error = error as? CardService.ValidationError {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let view = self?.view else { return }
+                        view.setCardState(.error)
+                    }
+                    return
+                }
+            }
+            DispatchQueue.main.async { [weak self] in
+                guard let view = self?.view else { return }
+                view.setCardState(.default)
+            }
         }
     }
 }
@@ -72,47 +171,73 @@ extension BankCardRepeatPresenter: TokenizationViewOutput {
 
 extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
     func didFetchPaymentMethod(
-        _ paymentMethod: YooKassaPaymentsApi.PaymentMethod) {
+        _ paymentMethod: PaymentMethod
+    ) {
+        self.paymentMethod = paymentMethod
+        
         guard let card = paymentMethod.card,
               card.first6.isEmpty == false,
               card.last4.isEmpty == false else {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                self.moduleOutput?.didFinish(on: self, with: .paymentMethodNotFound)
+                self.moduleOutput?.didFinish(
+                    on: self,
+                    with: .paymentMethodNotFound
+                )
             }
             return
         }
-        let cardMask = card.first6 + "******" + card.last4
-        let moduleInputData = MaskedBankCardDataInputModuleInputData(
-            cardMask: cardMask,
-            testModeSettings: inputData.testModeSettings,
-            isLoggingEnabled: inputData.isLoggingEnabled,
-            analyticsEvent: .screenRecurringCardForm,
-            tokenizeScheme: .recurringCard
+        
+        let cardMask = card.first6 + "••••••" + card.last4
+        let cardLogo = paymentMethodViewModelFactory.makeBankCardImage(card)
+        
+        let viewModel = BankCardRepeatViewModel(
+            shopName: shopName,
+            description: purchaseDescription,
+            price: makePriceViewModel(amount),
+            cardMask: formattingCardMask(cardMask),
+            cardLogo: cardLogo,
+            terms: termsOfService
         )
 
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.router.presenMaskedBankCardDataInput(
-                inputData: moduleInputData,
-                moduleOutput: self
-            )
+            guard let self = self,
+                  let view = self.view else { return }
+            
+            view.hideActivity()
+            
+            view.setupViewModel(viewModel)
+            view.setConfirmButtonEnabled(false)
+            
+            if let savePaymentMethodViewModel = self.savePaymentMethodViewModel {
+                view.setSavePaymentMethodViewModel(savePaymentMethodViewModel)
+            }
+            
+            DispatchQueue.global().async { [weak self] in
+                let event: AnalyticsEvent = .screenRecurringCardForm(
+                    sdkVersion: Bundle.frameworkVersion
+                )
+                self?.interactor.trackEvent(event)
+            }
         }
     }
 
     func didFailFetchPaymentMethod(_ error: Error) {
-        if let error = error as? PaymentsApiError {
-            switch error.errorCode {
-            case .invalidRequest, .notSupported:
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    self.moduleOutput?.didFinish(on: self, with: .paymentMethodNotFound)
-                }
-            default:
-                showError(error)
-            }
-        } else {
-            showError(error)
+        let authType = AnalyticsEvent.AuthType.withoutAuth
+        let scheme = AnalyticsEvent.TokenizeScheme.recurringCard
+        let event = AnalyticsEvent.screenError(
+            authType: authType,
+            scheme: scheme,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        interactor.trackEvent(event)
+
+        let message = makeMessage(error)
+
+        DispatchQueue.main.async { [weak self] in
+            guard let view = self?.view else { return }
+            view.hideActivity()
+            view.showPlaceholder(with: message)
         }
     }
 
@@ -122,91 +247,67 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
             didTokenize: tokens,
             paymentMethodType: .bankCard
         )
-    }
-
-    func didFailTokenize(_ error: Error) {
-        bankCardDataInputModuleInput?.bankCardDidTokenize(error)
-    }
-
-    private func showError(_ error: Error) {
-        let authType = AnalyticsEvent.AuthType.withoutAuth
-        let scheme = AnalyticsEvent.TokenizeScheme.recurringCard
-        let event = AnalyticsEvent.screenError(authType: authType, scheme: scheme)
-        interactor.trackEvent(event)
-
-        let message = makeMessage(error)
-        contractModuleInput?.hideActivity()
-        contractModuleInput?.showPlaceholder(message: message)
-    }
-}
-
-// MARK: - ContractModuleOutput
-
-extension BankCardRepeatPresenter: ContractModuleOutput {
-    func didPressSubmitButton(on module: ContractModuleInput) {
-        contractModuleInput = module
-
-        module.hidePlaceholder()
-        module.showActivity()
-
+        
         DispatchQueue.global().async { [weak self] in
-            guard let self = self else { return }
-            self.interactor.fetchPaymentMethod(
-                paymentMethodId: self.inputData.paymentMethodId
+            guard let self = self, let interactor = self.interactor else { return }
+            let type = interactor.makeTypeAnalyticsParameters()
+            let event: AnalyticsEvent = .actionTokenize(
+                scheme: .bankCard,
+                authType: type.authType,
+                tokenType: type.tokenType,
+                sdkVersion: Bundle.frameworkVersion
             )
+            interactor.trackEvent(event)
         }
     }
 
-    func didPressChangeAction(on module: ContractModuleInput) {}
-
-    func didPressLogoutButton(on module: ContractModuleInput) {}
-
-    func didFinish(on module: ContractModuleInput) {
-        moduleOutput?.didFinish(on: self, with: nil)
+    func didFailTokenize(_ error: Error) {
+        let message = makeMessage(error)
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let view = self?.view else { return }
+            view.hideActivity()
+            view.showPlaceholder(with: message)
+        }
     }
 
-    func contractModule(_ module: ContractModuleInput, didTapTermsOfService url: URL) {
-        router.presentTermsOfServiceModule(url)
-    }
-
-    func contractModule(_ module: ContractModuleInput, didChangeSavePaymentMethodState state: Bool) {
-        savePaymentMethod = state
-    }
-
-    func didTapOnSavePaymentMethodInfo(on module: ContractModuleInput) {
-        let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
-            customizationSettings: inputData.customizationSettings,
-            headerValue: §SavePaymentMethodInfoLocalization.BankCard.header,
-            bodyValue: §SavePaymentMethodInfoLocalization.BankCard.body
+    private func tokenize() {
+        guard let csc = csc else { return }
+        
+        let confirmation = Confirmation(
+            type: .redirect,
+            returnUrl: returnUrl ?? GlobalConstants.returnUrl
         )
-        router.presentSavePaymentMethodInfo(inputData: savePaymentMethodModuleinputData)
+        
+        interactor.tokenize(
+            amount: MonetaryAmountFactory.makeMonetaryAmount(amount),
+            confirmation: confirmation,
+            savePaymentMethod: initialSavePaymentMethod,
+            paymentMethodId: paymentMethodId,
+            csc: csc
+        )
     }
 }
 
-// MARK: - MaskedBankCardDataInputModuleOutput
+// MARK: - ActionTitleTextDialogDelegate
 
-extension BankCardRepeatPresenter: MaskedBankCardDataInputModuleOutput {
-    func didPressCloseBarButtonItem(on module: BankCardDataInputModuleInput) {
-        moduleOutput?.didFinish(on: self, with: nil)
-    }
-
-    func didPressConfirmButton(on module: BankCardDataInputModuleInput, cvc: String) {
-        bankCardDataInputModuleInput = module
-
-        let confirmation = Confirmation(
-            type: .redirect,
-            returnUrl: "https://custom.redirect.url/"
-        )
-
+extension BankCardRepeatPresenter: ActionTitleTextDialogDelegate {
+    func didPressButton(
+        in actionTitleTextDialog: ActionTitleTextDialog
+    ) {
+        guard let view = view else { return }
+        view.hidePlaceholder()
+        view.showActivity()
+        
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
-            self.interactor.tokenize(
-                amount: MonetaryAmountFactory.makePaymentsMonetaryAmount(self.inputData.amount),
-                confirmation: confirmation,
-                savePaymentMethod: self.savePaymentMethod,
-                paymentMethodId: self.inputData.paymentMethodId,
-                csc: cvc
-            )
+            if self.paymentMethod == nil {
+                self.interactor.fetchPaymentMethod(
+                    paymentMethodId: self.paymentMethodId
+                )
+            } else {
+                self.tokenize()
+            }
         }
     }
 }
@@ -214,32 +315,19 @@ extension BankCardRepeatPresenter: MaskedBankCardDataInputModuleOutput {
 // MARK: - TokenizationModuleInput
 
 extension BankCardRepeatPresenter: TokenizationModuleInput {
-    func start3dsProcess(requestUrl: String, redirectUrl: String) {
+    func start3dsProcess(
+        requestUrl: String
+    ) {
         let moduleInputData = CardSecModuleInputData(
             requestUrl: requestUrl,
-            redirectUrl: inputData.returnUrl ?? Constants.returnUrl,
-            isLoggingEnabled: inputData.isLoggingEnabled
+            redirectUrl: returnUrl ?? GlobalConstants.returnUrl,
+            isLoggingEnabled: isLoggingEnabled
         )
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.router.present3dsModule(
+            guard let self = self else { return }
+            self.router.present3dsModule(
                 inputData: moduleInputData,
-                moduleOutput: strongSelf
-            )
-        }
-    }
-
-    func start3dsProcess(requestUrl: String) {
-        let moduleInputData = CardSecModuleInputData(
-            requestUrl: requestUrl,
-            redirectUrl: inputData.returnUrl ?? Constants.returnUrl,
-            isLoggingEnabled: inputData.isLoggingEnabled
-        )
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.router.present3dsModule(
-                inputData: moduleInputData,
-                moduleOutput: strongSelf
+                moduleOutput: self
             )
         }
     }
@@ -253,19 +341,34 @@ extension BankCardRepeatPresenter: CardSecModuleOutput {
     }
 
     func didPressCloseButton(on module: CardSecModuleInput) {
-        moduleOutput?.didFinish(on: self, with: nil)
+        view?.hideActivity()
+        router.closeCardSecModule()
+    }
+
+    func viewWillDisappear() {
+        view?.hideActivity()
     }
 }
 
-// MARK: - Constants
+// MARK: - BankCardRepeatModuleInput
 
-private enum Constants {
-    static let returnUrl = "https://custom.redirect.url/"
+extension BankCardRepeatPresenter: BankCardRepeatModuleInput {
+    func didFinish(
+        on module: TokenizationModuleInput,
+        with error: YooKassaPaymentsError?
+    ) {
+        moduleOutput?.didFinish(
+            on: module,
+            with: error
+        )
+    }
 }
 
 // MARK: - Private global helpers
 
-private func makePriceViewModel(_ amount: Amount) -> PriceViewModel {
+private func makePriceViewModel(
+    _ amount: Amount
+) -> PriceViewModel {
     let amountString = amount.value.description
     var integerPart = ""
     var fractionalPart = ""
@@ -277,23 +380,12 @@ private func makePriceViewModel(_ amount: Amount) -> PriceViewModel {
         integerPart = amountString
         fractionalPart = "00"
     }
-    return TempAmount(currency: amount.currency.symbol,
-                      integerPart: integerPart,
-                      fractionalPart: fractionalPart,
-                      style: .amount)
-}
-
-private func makeInitialSavePaymentMethod(
-    _ savePaymentMethod: SavePaymentMethod
-) -> Bool {
-    let initialSavePaymentMethod: Bool
-    switch savePaymentMethod {
-    case .on:
-        initialSavePaymentMethod = true
-    case .off, .userSelects:
-        initialSavePaymentMethod = false
-    }
-    return initialSavePaymentMethod
+    return TempAmount(
+        currency: amount.currency.symbol,
+        integerPart: integerPart,
+        fractionalPart: fractionalPart,
+        style: .amount
+    )
 }
 
 private func makeMessage(_ error: Error) -> String {
@@ -307,4 +399,8 @@ private func makeMessage(_ error: Error) -> String {
     }
 
     return message
+}
+
+private func formattingCardMask(_ string: String) -> String {
+    return string.splitEvery(4, separator: " ")
 }

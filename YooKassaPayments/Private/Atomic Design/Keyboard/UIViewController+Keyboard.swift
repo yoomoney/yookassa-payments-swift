@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit.UIViewController
 
 extension KeyboardObserver where Self: UIViewController {

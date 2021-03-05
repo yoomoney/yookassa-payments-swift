@@ -1,5 +1,4 @@
-import UIKit.UIViewController
-import YooKassaPaymentsApi
+import UIKit
 
 /// Tokenization module builder.
 public enum TokenizationAssembly {
@@ -7,13 +6,20 @@ public enum TokenizationAssembly {
     /// Creates tokenization view controller.
     ///
     /// - Returns: Tokenization view controller which implements the protocol `TokenizationModuleInput`.
-    public static func makeModule(inputData: TokenizationFlow,
-                                  moduleOutput: TokenizationModuleOutput)
-            -> UIViewController & TokenizationModuleInput {
+    public static func makeModule(
+        inputData: TokenizationFlow,
+        moduleOutput: TokenizationModuleOutput
+    ) -> UIViewController & TokenizationModuleInput {
+
         switch inputData {
         case .tokenization(let tokenizationModuleInputData):
+            CustomizationStorage.shared.mainScheme
+                = tokenizationModuleInputData.customizationSettings.mainScheme
             return makeTokenizationModule(tokenizationModuleInputData, moduleOutput: moduleOutput)
+
         case .bankCardRepeat(let bankCardRepeatModuleInputData):
+            CustomizationStorage.shared.mainScheme
+                = bankCardRepeatModuleInputData.customizationSettings.mainScheme
             return makeBankCardRepeatModule(bankCardRepeatModuleInputData, moduleOutput: moduleOutput)
         }
     }
@@ -22,84 +28,88 @@ public enum TokenizationAssembly {
         _ inputData: BankCardRepeatModuleInputData,
         moduleOutput: TokenizationModuleOutput
     ) -> UIViewController & TokenizationModuleInput {
-        let view = TokenizationViewController()
-        let presenter = BankCardRepeatPresenter(inputData: inputData)
-
-        let paymentService = PaymentProcessingAssembly
-            .makeService(tokenizationSettings: TokenizationSettings(),
-                         testModeSettings: inputData.testModeSettings,
-                         isLoggingEnabled: inputData.isLoggingEnabled)
-
-        let analyticsService = AnalyticsProcessingAssembly
-            .makeAnalyticsService(isLoggingEnabled: inputData.isLoggingEnabled)
-
-        let interactor = BankCardRepeatInteractor(
-            clientApplicationKey: inputData.clientApplicationKey,
-            paymentService: paymentService,
-            analyticsService: analyticsService
+        let (viewController, moduleInput) = BankCardRepeatAssembly.makeModule(
+            inputData: inputData,
+            moduleOutput: moduleOutput
         )
-        let router = TokenizationRouter()
 
-        view.output = presenter
-        view.transitioningDelegate = router
-        view.modalPresentationStyle = .custom
+        let navigationController = UINavigationController(
+            rootViewController: viewController
+        )
 
-        presenter.view = view
-        presenter.moduleOutput = moduleOutput
-        presenter.interactor = interactor
-        presenter.router = router
+        let sheetViewController = SheetViewController(
+            contentViewController: navigationController
+        )
+        sheetViewController.moduleOutput = moduleInput
 
-        interactor.output = presenter
-
-        router.transitionHandler = view
-
-        return view
+        return sheetViewController
     }
 
     private static func makeTokenizationModule(
         _ inputData: TokenizationModuleInputData,
         moduleOutput: TokenizationModuleOutput
     ) -> UIViewController & TokenizationModuleInput {
-        let paymentService = PaymentProcessingAssembly
-            .makeService(tokenizationSettings: inputData.tokenizationSettings,
-                         testModeSettings: inputData.testModeSettings,
-                         isLoggingEnabled: inputData.isLoggingEnabled)
-        let authorizationService = AuthorizationProcessingAssembly
-            .makeService(isLoggingEnabled: inputData.isLoggingEnabled,
-                         testModeSettings: inputData.testModeSettings,
-                         moneyAuthClientId: inputData.moneyAuthClientId)
-        let analyticsService = AnalyticsProcessingAssembly.makeAnalyticsService(
-            isLoggingEnabled: inputData.isLoggingEnabled
-        )
-        let analyticsProvider = AnalyticsProvidingAssembly.makeAnalyticsProvider(
-            testModeSettings: inputData.testModeSettings
-        )
-
-        let viewController = TokenizationViewController()
-
-        let presenter = TokenizationPresenter(inputData: inputData)
-        let router = TokenizationRouter()
-        let interactor = TokenizationInteractor(
-            paymentService: paymentService,
-            authorizationService: authorizationService,
-            analyticsService: analyticsService,
-            analyticsProvider: analyticsProvider,
-            clientApplicationKey: inputData.clientApplicationKey
+        let paymentMethodsModuleInputData = PaymentMethodsModuleInputData(
+            clientApplicationKey: inputData.clientApplicationKey,
+            applePayMerchantIdentifier: inputData.applePayMerchantIdentifier,
+            gatewayId: inputData.gatewayId,
+            shopName: inputData.shopName,
+            purchaseDescription: inputData.purchaseDescription,
+            amount: inputData.amount,
+            tokenizationSettings: inputData.tokenizationSettings,
+            testModeSettings: inputData.testModeSettings,
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod),
+            moneyAuthClientId: inputData.moneyAuthClientId,
+            returnUrl: inputData.returnUrl,
+            savePaymentMethod: inputData.savePaymentMethod,
+            userPhoneNumber: inputData.userPhoneNumber,
+            cardScanning: inputData.cardScanning
         )
 
-        viewController.output = presenter
-        viewController.transitioningDelegate = router
-        viewController.modalPresentationStyle = .custom
+        let (viewController, moduleInput) = PaymentMethodsAssembly.makeModule(
+            inputData: paymentMethodsModuleInputData,
+            tokenizationModuleOutput: moduleOutput
+        )
 
-        presenter.router = router
-        presenter.interactor = interactor
-        presenter.moduleOutput = moduleOutput
-        presenter.view = viewController
+        let navigationController = NavigationController(
+            rootViewController: viewController
+        )
 
-        interactor.output = presenter
+        let viewControllerToReturn: UIViewController & TokenizationModuleInput
+        switch UIScreen.main.traitCollection.userInterfaceIdiom {
+        case .pad:
+            navigationController.moduleOutput = moduleInput
+            navigationController.modalPresentationStyle = .formSheet
+            viewControllerToReturn = navigationController
+        default:
+            let sheetViewController = SheetViewController(
+                contentViewController: navigationController
+            )
+            sheetViewController.moduleOutput = moduleInput
+            viewControllerToReturn = sheetViewController
 
-        router.transitionHandler = viewController
+        }
 
-        return viewController
+        return viewControllerToReturn
     }
+}
+
+private func makeGetSavePaymentMethod(
+    _ savePaymentMethod: SavePaymentMethod
+) -> Bool? {
+    let getSavePaymentMethod: Bool?
+
+    switch savePaymentMethod {
+    case .on:
+        getSavePaymentMethod = true
+
+    case .off:
+        getSavePaymentMethod = false
+
+    case .userSelects:
+        getSavePaymentMethod = nil
+    }
+
+    return getSavePaymentMethod
 }

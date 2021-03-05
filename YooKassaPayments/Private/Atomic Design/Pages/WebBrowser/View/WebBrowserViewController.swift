@@ -71,6 +71,11 @@ class WebBrowserViewController: UIViewController {
         automaticallyAdjustsScrollViewInsets = true
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        output.viewWillDisappear()
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
         webView.stopLoading()
         super.viewDidDisappear(animated)

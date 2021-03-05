@@ -1,5 +1,4 @@
 import YooKassaPayments
-import YooKassaPaymentsApi
 
 // MARK: - TokenizationModuleOutput
 
@@ -14,14 +13,14 @@ extension RootViewController: TokenizationModuleOutput {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
-            let successViewController = SuccessViewController()
-            successViewController.delegate = self
+            self.dismiss(animated: true)
 
-            if let presentedViewController = self.presentedViewController {
-                presentedViewController.show(successViewController, sender: self)
-            } else {
-                self.present(successViewController, animated: true)
-            }
+            let successViewController = SuccessViewController()
+            let navigationController = UINavigationController(
+                rootViewController: successViewController
+            )
+            successViewController.delegate = self
+            self.present(navigationController, animated: true)
         }
     }
 
