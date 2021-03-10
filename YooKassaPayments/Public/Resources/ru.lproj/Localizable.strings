@@ -16,6 +16,7 @@
 "BankCardView.inputCvcPlaceholder" = "CVC";
 "BankCardDataInputView.BottomHint.invalidPan" = "Проверьте номер карты";
 "BankCardDataInputView.BottomHint.invalidExpiry" = "Проверьте месяц и год";
+"BankCard.savePaymentMethod.title" = "Привязать карту";
 
 // Contract
 
@@ -23,11 +24,17 @@
 "Contract.placeholder.smsCode" = "Введите код из смс";
 "Contract.logout" = "Выйти";
 "Contract.format.saveAuthInApp.title" = "Запомнить меня";
+"Contract.format.saveAuthInApp" = "В следующий раз не придётся входить в профиль ЮMoney — можно будет оплатить быстрее";
+"Contract.format.savePaymentMethod.title" = "Разрешить списывать деньги";
+
+// Wallet
+
+"Wallet.savePaymentMethod.title" = "Привязать кошелек";
 
 // Linked card
 
-"LinkedCard.saveAuthInApp" = "В следующий раз не придётся входить в профиль ЮMoney — можно будет оплатить быстрее";
 "LinkedCard.title" = "Привязанная карта";
+
 
 // License agreement
 
@@ -63,7 +70,7 @@
 
 "PaymentAuthorization.remainingTime" = "Получить новый код через %@";
 "PaymentAuthorization.invalidAnswer" = "Это не тот код. Проверьте и введите ещё раз";
-"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Снова не тот. Осталось попыток: %d";
+"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Это не тот код. Осталось попыток: %d";
 "PaymentAuthorization.verifyAttemptsExceeded" = "Попытки закончились";
 "PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM в HH:mm";
 
@@ -124,12 +131,6 @@
 "ApplePayContract.fee" = "Комиссия";
 
 "Contract.resendSms" = "Отправить снова";
-
-"Contract.format.savePaymentMethod.title" = "Разрешить списывать деньги";
-
-"Contract.format.saveAuthInApp" = "Запомнить кошелёк в этом приложении для быстрых платежей";
-
-"LinkedCard.saveAuthInApp.title" = "Запомнить меня";
 
 "ApplePayContract.title" = "Apple Pay";
 

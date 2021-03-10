@@ -16,6 +16,7 @@
 "BankCardView.inputCvcPlaceholder" = "CVC";
 "BankCardDataInputView.BottomHint.invalidPan" = "Check the card number";
 "BankCardDataInputView.BottomHint.invalidExpiry" = "Check the month and date";
+"BankCard.savePaymentMethod.title" = "Link a card";
 
 // Contract
 
@@ -23,11 +24,17 @@
 "Contract.placeholder.smsCode" = "Enter text message code";
 "Contract.logout" = "Sign out";
 "Contract.format.saveAuthInApp.title" = "Remember me";
+"Contract.format.saveAuthInApp" = "Next time, you won't have to sign in to your YooMoney account, which will make payments faster";
+"Contract.format.savePaymentMethod.title" = "Allow to write off money";
+
+// Wallet
+
+"Wallet.savePaymentMethod.title" = "Link a wallet";
 
 // Linked card
 
-"LinkedCard.saveAuthInApp" = "Next time, you won't have to sign in to your YooMoney account, which will make payments faster";
 "LinkedCard.title" = "Linked card";
+
 
 // License agreement
 
@@ -63,7 +70,7 @@
 
 "PaymentAuthorization.remainingTime" = "Get a new code in %@";
 "PaymentAuthorization.invalidAnswer" = "Invalid code. Double-check and try again";
-"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Invalid again. Attempts left: %d";
+"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Invalid code. Attempts left: %d";
 "PaymentAuthorization.verifyAttemptsExceeded" = "No attempts left";
 "PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM в HH:mm";
 
@@ -124,12 +131,6 @@
 "Sberbank.Contract.Title" = "Sberbank Online";
 
 "Contract.resendSms" = "Send again";
-
-"Contract.format.savePaymentMethod.title" = "Allow to write off money";
-
-"Contract.format.saveAuthInApp" = "Save the wallet in this app for faster payments";
-
-"LinkedCard.saveAuthInApp.title" = "Remember me";
 
 "ApplePayContract.title" = "Apple Pay";
 
