@@ -446,7 +446,7 @@ private extension BankCardViewController {
     enum Localized: String {
         case title = "BankCardDataInput.navigationBarTitle"
         case `continue` = "Contract.next"
-        case savePaymentMethodTitle = "Contract.format.savePaymentMethod.title"
+        case savePaymentMethodTitle = "BankCard.savePaymentMethod.title"
 
     }
 }
