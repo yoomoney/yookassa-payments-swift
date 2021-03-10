@@ -1,9 +1,5 @@
 /// Input data for tokenization flow.
 public struct TokenizationModuleInputData {
-    
-    /// Application scheme for returning after opening a deeplink.
-    /// Example: myapplication://
-    let applicationScheme: String?
 
     /// Client application key.
     let clientApplicationKey: String
@@ -51,11 +47,14 @@ public struct TokenizationModuleInputData {
 
     /// Money center authorization identifier.
     let moneyAuthClientId: String?
+    
+    /// Application scheme for returning after opening a deeplink.
+    /// Example: myapplication://
+    let applicationScheme: String?
 
     /// Creates instance of `TokenizationModuleInputData`.
     ///
     /// - Parameters:
-    ///   - applicationScheme: Application scheme for returning after opening a deeplink.
     ///   - clientApplicationKey: Client application key.
     ///   - shopName: Name of shop.
     ///   - purchaseDescription: Purchase description.
@@ -73,10 +72,10 @@ public struct TokenizationModuleInputData {
     ///   - customizationSettings: Settings to customize SDK interface.
     ///   - savePaymentMethod: Setting for saving payment method.
     ///   - moneyAuthClientId: Money center authorization identifier
+    ///   - applicationScheme: Application scheme for returning after opening a deeplink.
     ///
     /// - Returns: Instance of `TokenizationModuleInputData`.
     public init(
-        applicationScheme: String? = nil,
         clientApplicationKey: String,
         shopName: String,
         purchaseDescription: String,
@@ -91,9 +90,9 @@ public struct TokenizationModuleInputData {
         userPhoneNumber: String? = nil,
         customizationSettings: CustomizationSettings = CustomizationSettings(),
         savePaymentMethod: SavePaymentMethod,
-        moneyAuthClientId: String? = nil
+        moneyAuthClientId: String? = nil,
+        applicationScheme: String? = nil
     ) {
-        self.applicationScheme = applicationScheme
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -109,5 +108,6 @@ public struct TokenizationModuleInputData {
         self.customizationSettings = customizationSettings
         self.savePaymentMethod = savePaymentMethod
         self.moneyAuthClientId = moneyAuthClientId
+        self.applicationScheme = applicationScheme
     }
 }

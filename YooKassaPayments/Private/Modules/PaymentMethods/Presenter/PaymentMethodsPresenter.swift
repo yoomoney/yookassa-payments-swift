@@ -988,6 +988,7 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
         switch paymentMethodType {
         case .sberbank:
             guard let applicationScheme = applicationScheme else {
+                assertionFailure("Application scheme should be")
                 return
             }
             
@@ -1000,6 +1001,7 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
             guard let url = URL(string: fullPathUrl) else {
                 return
             }
+            
             DispatchQueue.main.async {
                 UIApplication.shared.open(
                     url,
@@ -1007,7 +1009,6 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
                     completionHandler: nil
                 )
             }
-            // TODO: - Open sberbank app with app scheme https://jira.yamoney.ru/browse/MOC-1757
             break
             
         default:
