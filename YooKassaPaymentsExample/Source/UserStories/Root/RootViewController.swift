@@ -344,6 +344,7 @@ final class RootViewController: UIViewController {
         }
 
         let inputData: TokenizationFlow = .tokenization(TokenizationModuleInputData(
+            applicationScheme: "yookassapaymentsexample://",
             clientApplicationKey: oauthToken,
             shopName: translate(Localized.name),
             purchaseDescription: translate(Localized.description),

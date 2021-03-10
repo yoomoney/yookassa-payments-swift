@@ -1,6 +1,7 @@
 import YooKassaPaymentsApi
 
 struct PaymentMethodsModuleInputData {
+    let applicationScheme: String?
     let clientApplicationKey: String
     let applePayMerchantIdentifier: String?
     let gatewayId: String?

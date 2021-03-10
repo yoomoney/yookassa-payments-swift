@@ -1,5 +1,9 @@
 /// Input data for tokenization flow.
 public struct TokenizationModuleInputData {
+    
+    /// Application scheme for returning after opening a deeplink.
+    /// Example: myapplication://
+    let applicationScheme: String?
 
     /// Client application key.
     let clientApplicationKey: String
@@ -51,6 +55,7 @@ public struct TokenizationModuleInputData {
     /// Creates instance of `TokenizationModuleInputData`.
     ///
     /// - Parameters:
+    ///   - applicationScheme: Application scheme for returning after opening a deeplink.
     ///   - clientApplicationKey: Client application key.
     ///   - shopName: Name of shop.
     ///   - purchaseDescription: Purchase description.
@@ -71,6 +76,7 @@ public struct TokenizationModuleInputData {
     ///
     /// - Returns: Instance of `TokenizationModuleInputData`.
     public init(
+        applicationScheme: String? = nil,
         clientApplicationKey: String,
         shopName: String,
         purchaseDescription: String,
@@ -87,6 +93,7 @@ public struct TokenizationModuleInputData {
         savePaymentMethod: SavePaymentMethod,
         moneyAuthClientId: String? = nil
     ) {
+        self.applicationScheme = applicationScheme
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
