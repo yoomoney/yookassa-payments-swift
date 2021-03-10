@@ -25,6 +25,7 @@ final class PaymentMethodsPresenter: NSObject {
     private let isLogoVisible: Bool
     private let paymentMethodViewModelFactory: PaymentMethodViewModelFactory
     
+    private let applicationScheme: String?
     private let clientApplicationKey: String
     private let applePayMerchantIdentifier: String?
     private let testModeSettings: TestModeSettings?
@@ -47,6 +48,7 @@ final class PaymentMethodsPresenter: NSObject {
     init(
         isLogoVisible: Bool,
         paymentMethodViewModelFactory: PaymentMethodViewModelFactory,
+        applicationScheme: String?,
         clientApplicationKey: String,
         applePayMerchantIdentifier: String?,
         testModeSettings: TestModeSettings?,
@@ -65,6 +67,7 @@ final class PaymentMethodsPresenter: NSObject {
         self.isLogoVisible = isLogoVisible
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
         
+        self.applicationScheme = applicationScheme
         self.clientApplicationKey = clientApplicationKey
         self.applePayMerchantIdentifier = applePayMerchantIdentifier
         self.testModeSettings = testModeSettings
@@ -447,7 +450,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             return false
         }
         
-        return UIApplication.shared.canOpenURL(Constants.sberbankOnlineInvoicingUrlScheme)
+        return UIApplication.shared.canOpenURL(Constants.sberpayUrlScheme)
     }
 }
 
@@ -984,7 +987,28 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
     ) {
         switch paymentMethodType {
         case .sberbank:
-            // TODO: - Open sberbank app with app scheme https://jira.yamoney.ru/browse/MOC-1757
+            guard let applicationScheme = applicationScheme else {
+                assertionFailure("Application scheme should be")
+                return
+            }
+            
+            let fullPathUrl = confirmationUrl
+                + applicationScheme
+                + DeepLinkFactory.invoicingHost
+                + "/"
+                + DeepLinkFactory.sberpayPath
+            
+            guard let url = URL(string: fullPathUrl) else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.open(
+                    url,
+                    options: [:],
+                    completionHandler: nil
+                )
+            }
             break
             
         default:
@@ -1058,7 +1082,7 @@ private extension PaymentMethodsPresenter {
         static let dismissApplePayTimeout: TimeInterval = 0.5
         
         // swiftlint:disable:next force_unwrapping
-        static let sberbankOnlineInvoicingUrlScheme = URL(string: "sberbankonlineinvoicing://")!
+        static let sberpayUrlScheme = URL(string: "sberpay://")!
     }
 }
 

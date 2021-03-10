@@ -53,7 +53,6 @@ extension RootViewController: TokenizationModuleOutput {
     }
     
     func didSuccessfullyConfirmation(
-        on module: TokenizationModuleInput,
         paymentMethodType: PaymentMethodType
     ) {
         DispatchQueue.main.async { [weak self] in

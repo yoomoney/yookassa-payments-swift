@@ -48,12 +48,8 @@ public protocol TokenizationModuleOutput: class {
     /// Will be called when the confirmation process successfully passes.
     ///
     /// - Parameters:
-    ///   - module: Input for tokenization module.
-    ///             In the process of running mSDK, allows you to run processes using the
-    ///             `TokenizationModuleInput` protocol methods.
     ///   - paymentMethodType: Type of the source of funds for the payment.
     func didSuccessfullyConfirmation(
-        on module: TokenizationModuleInput,
         paymentMethodType: PaymentMethodType
     )
 
