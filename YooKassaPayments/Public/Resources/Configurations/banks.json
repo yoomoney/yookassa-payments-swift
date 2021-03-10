@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 11,
   "banks": [
     {
       "id": "sberbank",
@@ -498,11 +498,13 @@
       "logo": {
         "card": "sberbank_card",
         "list": "sberbank_list",
+        "circle": "sberbank",
         "color": "sberbank_color"
       }
     },
     {
       "id": "gazprombank",
+      "sbpBankId": "100000000001",
       "name": {
         "ru": "Газпромбанк",
         "en": "Gazprombank"
@@ -599,11 +601,13 @@
       "logo": {
         "card": "gazprombank_card",
         "list": "gazprombank_list",
-        "color": "gazprombank_color"
+        "color": "gazprombank_color",
+        "circle": "bank_gzpr"
       }
     },
     {
       "id": "vtb24",
+      "sbpBankId": "100000000005",
       "name": {
         "ru": "ВТБ",
         "en": "VTB"
@@ -789,11 +793,13 @@
       "logo": {
         "card": "vtb24_card",
         "list": "vtb24_list",
+        "circle": "bank_vtb24",
         "color": "vtb24_color"
       }
     },
     {
       "id": "russian_agricultural_bank",
+      "sbpBankId": "100000000020",
       "name": {
         "ru": "Россельхозбанк",
         "en": "Russian Agricultural Bank"
@@ -834,11 +840,13 @@
       "logo": {
         "card": "russian_agricultural_bank_card",
         "list": "russian_agricultural_bank_list",
-        "color": "russian_agricultural_bank_color"
+        "color": "russian_agricultural_bank_color",
+        "circle": "bank_russian_agricultural"
       }
     },
     {
       "id": "bank_otkritie",
+      "sbpBankId": "100000000015",
       "name": {
         "ru": "Банк Открытие",
         "en": "Bank Otkritie"
@@ -998,11 +1006,13 @@
       "logo": {
         "card": "bank_otkritie_card",
         "list": "bank_otkritie_list",
+        "circle": "bank_otkr",
         "color": "bank_otkritie_color"
       }
     },
     {
       "id": "alfa_bank",
+      "sbpBankId": "100000000008",
       "name": {
         "ru": "Альфа-Банк",
         "en": "Alfa-Bank"
@@ -1098,11 +1108,13 @@
       "logo": {
         "card": "alfa_bank_card",
         "list": "alfa_bank_list",
+        "circle": "bank_alfa",
         "color": "alfa_bank_color"
       }
     },
     {
       "id": "unicredit_bank",
+      "sbpBankId": "100000000030",
       "name": {
         "ru": "ЮниКредит Банк",
         "en": "UniCredit Bank"
@@ -1149,11 +1161,13 @@
       "logo": {
         "card": "unicredit_bank_card",
         "list": "unicredit_bank_list",
+        "circle": "bank_unicredit",
         "color": "unicredit_bank_color"
       }
     },
     {
       "id": "promsvyazbank",
+      "sbpBankId": "100000000010",
       "name": {
         "ru": "Промсвязьбанк",
         "en": "Promsvyazbank"
@@ -1222,11 +1236,13 @@
       "logo": {
         "card": "promsvyazbank_card",
         "list": "promsvyazbank_list",
-        "color": "promsvyazbank_color"
+        "color": "promsvyazbank_color",
+        "circle": "bank_promsvyz"
       }
     },
     {
       "id": "rosbank",
+      "sbpBankId": "100000000012",
       "name": {
         "ru": "РОСБАНК",
         "en": "Rosbank"
@@ -1382,11 +1398,13 @@
       },
       "logo": {
         "card": "rosbank_card",
-        "list": "rosbank_list"
+        "list": "rosbank_list",
+        "circle": "bank_rosbank"
       }
     },
     {
       "id": "raiffeisenbank",
+      "sbpBankId": "100000000007",
       "name": {
         "ru": "РайффайзенБанк",
         "en": "Raiffeisenbank"
@@ -1455,11 +1473,13 @@
       },
       "logo": {
         "card": "raiffeisenbank_card",
-        "list": "raiffeisenbank_list"
+        "list": "raiffeisenbank_list",
+        "circle": "bank_rf"
       }
     },
     {
       "id": "credit_bank_of_moscow",
+      "sbpBankId": "100000000025",
       "name": {
         "ru": "МОСКОВСКИЙ КРЕДИТНЫЙ БАНК",
         "en": "CREDIT BANK OF MOSCOW"
@@ -1497,6 +1517,7 @@
       "logo": {
         "card": "credit_bank_of_moscow_card",
         "list": "credit_bank_of_moscow_list",
+        "circle": "bank_credit_bank_of_moscow",
         "color": "credit_bank_of_moscow_color"
       }
     },
@@ -1741,6 +1762,7 @@
     },
     {
       "id": "ak_bars_bank",
+      "sbpBankId": "100000000006",
       "name": {
         "ru": "ПАО «АК БАРС» БАНК",
         "en": "AK BARS Bank"
@@ -1777,11 +1799,13 @@
       "logo": {
         "card": "ak_bars_bank_card",
         "list": "ak_bars_bank_list",
-        "color": "ak_bars_bank_color"
+        "color": "ak_bars_bank_color",
+        "circle": "bank_akbars"
       }
     },
     {
       "id": "bank_russkiy_standart",
+      "sbpBankId": "100000000014",
       "name": {
         "ru": "Банк Русский Стандарт",
         "en": "Bank Russkiy Standart"
@@ -1854,6 +1878,7 @@
       "logo": {
         "card": "bank_russkiy_standart_card",
         "list": "bank_russkiy_standart_list",
+        "circle": "bank_russt",
         "color": "bank_russkiy_standart_color"
       }
     },
@@ -2011,6 +2036,7 @@
     },
     {
       "id": "bank_zenit",
+      "sbpBankId": "100000000045",
       "name": {
         "ru": "Банк ЗЕНИТ",
         "en": "Bank ZENIT"
@@ -2085,7 +2111,8 @@
       "logo": {
         "card": "bank_zenit_card",
         "list": "bank_zenit_list",
-        "color": "bank_zenit_color"
+        "color": "bank_zenit_color",
+        "circle": "bank_zenit"
       }
     },
     {
@@ -2221,7 +2248,8 @@
         "515491",
         "521159",
         "526220",
-        "549518"
+        "549518",
+        "527379"
       ],
       "background": {
         "shade": "dark",
@@ -2256,6 +2284,7 @@
       "logo": {
         "card": "transkapitalbank_card",
         "list": "transkapitalbank_list",
+        "circle": "transkapital",
         "color": "transkapitalbank_color"
       }
     },
@@ -2313,11 +2342,13 @@
       "logo": {
         "card": "credit_europe_bank_card",
         "list": "credit_europe_bank_list",
+        "circle": "credit_europe",
         "color": "credit_europe_bank_color"
       }
     },
     {
       "id": "tinkoff_bank",
+      "sbpBankId": "100000000004",
       "name": {
         "ru": "Тинькофф",
         "en": "Tinkoff Bank"
@@ -2364,6 +2395,7 @@
       "logo": {
         "card": "tinkoff_bank_card",
         "list": "tinkoff_bank_list",
+        "circle": "bank_tinkoff",
         "color": "tinkoff_bank_color"
       }
     },
@@ -2428,6 +2460,7 @@
     },
     {
       "id": "bank_avangard",
+      "sbpBankId": "100000000028",
       "name": {
         "ru": "Банк АВАНГАРД",
         "en": "Bank AVANGARD"
@@ -2466,11 +2499,13 @@
       "logo": {
         "card": "bank_avangard_card",
         "list": "bank_avangard_list",
-        "color": "bank_avangard_color"
+        "color": "bank_avangard_color",
+        "circle": "bank_avangard"
       }
     },
     {
       "id": "skb_bank",
+      "sbpBankId": "100000000003",
       "name": {
         "ru": "СКБ-Банк",
         "en": "SKB-Bank"
@@ -2505,7 +2540,8 @@
       "logo": {
         "card": "skb_bank_card",
         "list": "skb_bank_list",
-        "color": "skb_bank_color"
+        "color": "skb_bank_color",
+        "circle": "bank_skb"
       }
     },
     {
@@ -2646,6 +2682,7 @@
     },
     {
       "id": "pochta_bank",
+      "sbpBankId": "100000000016",
       "name": {
         "ru": "Почта Банк",
         "en": "Pochta Bank"
@@ -2665,7 +2702,8 @@
       },
       "logo": {
         "card": "pochta_bank_card",
-        "list": "pochta_bank_list"
+        "list": "pochta_bank_list",
+        "circle": "bank_pochta"
       }
     },
     {
@@ -2696,6 +2734,7 @@
     },
     {
       "id": "qiwi",
+      "sbpBankId": "100000000009",
       "name": {
         "ru": "QIWI",
         "en": "QIWI"
@@ -2718,6 +2757,7 @@
       "logo": {
         "card": "qiwi_card",
         "list": "qiwi_list",
+        "circle": "bank_qiwi_wallet",
         "color": "qiwi_color"
       }
     },
@@ -2741,7 +2781,62 @@
       }
     },
     {
-      "id": "yoo_money",
+      "id": "sovcombank",
+      "sbpBankId": "100000000013",
+      "name": {
+        "ru": "Совкомбанк",
+        "en": "Sovcombank"
+      },
+      "bins": [],
+      "background": {
+        "shade": "dark",
+        "solid": "#0A2972"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_svk"
+      }
+    },
+    {
+      "id": "rnko",
+      "sbpBankId": "100000000002",
+      "name": {
+        "ru": "РНКО Платежный Центр",
+        "en": "RNKO"
+      },
+      "bins": [],
+      "background": {
+        "shade": "dark",
+        "solid": "#0A2972"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_rnko"
+      }
+    },
+    {
+      "id": "gazenergobank",
+      "sbpBankId": "100000000043",
+      "name": {
+        "ru": "Газэнергобанк",
+        "en": "Gazenergobank"
+      },
+      "bins": [],
+      "background": {
+        "shade": "dark",
+        "solid": "#0A2972"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_gazenergo"
+      }
+    },
+    {
+      "id": "yoomoney",
+      "sbpBankId": "100000000022",
       "name": {
         "ru": "ЮMoney",
         "en": "YooMoney"
@@ -2762,13 +2857,14 @@
         }
       },
       "logo": {
-        "card": "yoo_money_card",
-        "list": "yoo_money_list",
-        "color": "yoo_money_color"
+        "card": "yoomoney_card",
+        "list": "yoomoney_card_list",
+        "color": "yoomoney_color",
+        "circle": "bank_yoomoney_wallet"
       }
     },
     {
-      "id": "yoo_money_virtual",
+      "id": "yoomoney_virtual",
       "name": {
         "ru": "ЮMoney",
         "en": "YooMoney"
@@ -2788,8 +2884,8 @@
         }
       },
       "logo": {
-        "card": "yoo_money_virtual_card",
-        "list": "yoo_money_virtual_list"
+        "card": "yoomoney_virtual_card",
+        "list": "yoomoney_virtual_list"
       }
     },
     {
@@ -2806,6 +2902,600 @@
       "logo": {
         "card": "unknown_card",
         "list": "unknown_list"
+      }
+    },
+    {
+      "id": "finam",
+      "sbpBankId": "100000000040",
+      "name": {
+        "ru": "Банк ФИНАМ",
+        "en": "Bank FINAM"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_finam"
+      }
+    },
+    {
+      "id": "levoberejniy",
+      "sbpBankId": "100000000052",
+      "name": {
+        "ru": "Банк Левобережный",
+        "en": "Bank Levoberezhny"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_levoberejniy"
+      }
+    },
+    {
+      "id": "neiva",
+      "sbpBankId": "100000000063",
+      "name": {
+        "ru": "Банк Нейва",
+        "en": "Neiva Bank"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_neiva"
+      }
+    },
+    {
+      "id": "platina",
+      "sbpBankId": "100000000048",
+      "name": {
+        "ru": "КБ Платина",
+        "en": "CB Platina"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_platina"
+      }
+    },
+    {
+      "id": "rocketbank",
+      "sbpBankId": "100000000077",
+      "name": {
+        "ru": "Рокетбанк",
+        "en": "Rocketbank"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_rocketbank"
+      }
+    },
+    {
+      "id": "sdm",
+      "sbpBankId": "100000000069",
+      "name": {
+        "ru": "СДМ-Банк",
+        "en": "SDM-Bank"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_sdm"
+      }
+    },
+    {
+      "id": "tochka",
+      "sbpBankId": "100000000065",
+      "name": {
+        "ru": "Точка",
+        "en": "Tochka"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_tochka"
+      }
+    },
+    {
+      "id": "vesta",
+      "sbpBankId": "100000000053",
+      "name": {
+        "ru": "Банк Веста",
+        "en": "Bank Vesta"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_vesta"
+      }
+    },
+    {
+      "id": "garant_invest",
+      "sbpBankId": "100000000112",
+      "name": {
+        "ru": "Гарант-Инвест",
+        "en": "Garant-Invest"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_garantinvest"
+      }
+    },
+    {
+      "id": "niko",
+      "sbpBankId": "100000000115",
+      "name": {
+        "ru": "НИКО-БАНК",
+        "en": "NICO-BANK"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_niko"
+      }
+    },
+    {
+      "id": "promsocial",
+      "sbpBankId": "100000000088",
+      "name": {
+        "ru": "ПримСоцБанк",
+        "en": "PrimSocBank"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_promsocial"
+      }
+    },
+    {
+      "id": "expobank",
+      "sbpBankId": "100000000044",
+      "name": {
+        "ru": "ЭкспоБанк",
+        "en": "ExpoBank"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_expobank"
+      }
+    },
+    {
+      "id": "elplat",
+      "sbpBankId": "100000000086",
+      "name": {
+        "ru": "ЭЛПЛАТ",
+        "en": "ELPLAT"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_elplat"
+      }
+    },
+    {
+      "id": "creditural",
+      "sbpBankId": "100000000064",
+      "name": {
+        "ru": "КредитУралБанк",
+        "en": "CreditUralBank"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_creditural"
+      }
+    },
+    {
+      "id": "absolutbank",
+      "sbpBankId": "100000000047",
+      "name": {
+        "ru": "АбсолютБанк",
+        "en": "AbsolutBank"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_absolute"
+      }
+    },
+    {
+      "id": "metallinvestbank",
+      "sbpBankId": "100000000046",
+      "name": {
+        "ru": "Металлинвестбанк",
+        "en": "MetallInvestBank"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_metallinvest"
+      }
+    },
+    {
+      "id": "webmoney",
+      "sbpBankId": "100000000054",
+      "name": {
+        "ru": "WebMoney (Банк ККБ)",
+        "en": "WebMoney"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_webmoney"
+      }
+    },
+    {
+      "id": "vladbussines",
+      "sbpBankId": "100000000058",
+      "name": {
+        "ru": "ВладБизнесБанк",
+        "en": "VladBisnesBank"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_vladbussines"
+      }
+    },
+    {
+      "id": "akcept",
+      "sbpBankId": "100000000135",
+      "name": {
+        "ru": "Банк Акцепт",
+        "en": "Bank Akcept"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_akcept"
+      }
+    },
+    {
+      "id": "moneta",
+      "sbpBankId": "100000000061",
+      "name": {
+        "ru": "МОНЕТА",
+        "en": "MONETA"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_moneta"
+      }
+    },
+    {
+      "id": "spbbank",
+      "sbpBankId": "100000000029",
+      "name": {
+        "ru": "Банк Санкт-Петербург",
+        "en": "Bank Saint Petersburg"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_spbbank"
+      }
+    },
+    {
+      "id": "ubrir",
+      "sbpBankId": "100000000031",
+      "name": {
+        "ru": "УБРиР",
+        "en": "UBRD"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_ubrir"
+      }
+    },
+    {
+      "id": "alefbank",
+      "sbpBankId": "100000000113",
+      "name": {
+        "ru": "Алеф-Банк",
+        "en": "Alef-Bank"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_alefbank"
+      }
+    },
+    {
+      "id": "domrf",
+      "sbpBankId": "100000000082",
+      "name": {
+        "ru": "Банк Дом.РФ",
+        "en": "Bank DOM.RF"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_domrf"
+      }
+    },
+    {
+      "id": "solidarnost",
+      "sbpBankId": "100000000121",
+      "name": {
+        "ru": "КБ Солидарность",
+        "en": "CB Solidarnost"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_solidarnost"
+      }
+    },
+    {
+      "id": "pskb",
+      "sbpBankId": "100000000087",
+      "name": {
+        "ru": "Банк ПСКБ",
+        "en": "Bank PSCB"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_pskb"
+      }
+    },
+    {
+      "id": "uralring",
+      "sbpBankId": "100000000089",
+      "name": {
+        "ru": "КБ КОЛЬЦО УРАЛА",
+        "en": "KB KOLTSO URALA"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_uralring"
+      }
+    },
+    {
+      "id": "aresbank",
+      "sbpBankId": "100000000129",
+      "name": {
+        "ru": "КБ АРЕСБАНК",
+        "en": "CB ARESBANK"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_aresbank"
+      }
+    },
+    {
+      "id": "vbrr",
+      "sbpBankId": "100000000049",
+      "name": {
+        "ru": "Банк ВБРР",
+        "en": "Bank RRDB"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_vbrr"
+      }
+    },
+    {
+      "id": "rossiabank",
+      "sbpBankId": "100000000095",
+      "name": {
+        "ru": "АБ РОССИЯ",
+        "en": "BANK ROSSIYA"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_rossiabank"
+      }
+    },
+    {
+      "id": "kubankredit",
+      "sbpBankId": "100000000050",
+      "name": {
+        "ru": "Кубань Кредит",
+        "en": "Kuban Credit"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_kubankredit"
+      }
+    },
+    {
+      "id": "bistrobank",
+      "sbpBankId": "100000000092",
+      "name": {
+        "ru": "БыстроБанк",
+        "en": "BystroBank"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_bistrobank"
+      }
+    },
+    {
+      "id": "rnkb",
+      "sbpBankId": "100000000011",
+      "name": {
+        "ru": "РНКБ Банк",
+        "en": "Bank RNCB"
+      },
+      "bins": [],
+      "background": {
+        "shade": "light",
+        "solid": "#ffffff"
+      },
+      "logo": {
+        "card": "unknown_card",
+        "list": "unknown_list",
+        "circle": "bank_rnkb"
       }
     }
   ]

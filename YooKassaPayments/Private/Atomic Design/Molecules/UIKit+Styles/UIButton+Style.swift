@@ -21,8 +21,6 @@
  * THE SOFTWARE.
  */
 
-import Foundation
-import FunctionalSwift
 import UIKit
 
 // MARK: - Styles
@@ -201,7 +199,7 @@ extension UIButton {
 
             let disabledBackgroundColor: UIColor
             if #available(iOS 13.0, *) {
-                disabledBackgroundColor = .systemGray2
+                disabledBackgroundColor = .systemGray5
             } else {
                 disabledBackgroundColor = .mousegrey
             }
@@ -291,6 +289,29 @@ extension UIButton {
             let colors: [(UIControl.State, UIColor)] = [
                 (.normal, tintColor),
                 (.highlighted, .highlighted(from: tintColor)),
+                (.disabled, .nobel),
+            ]
+
+            colors.forEach { (state, textColor) in
+                guard let text = button.title(for: state) else { return }
+                let attributedString = NSAttributedString(string: text, attributes: [
+                    .foregroundColor: textColor,
+                    .font: font,
+                ])
+                button.setAttributedTitle(attributedString, for: state)
+            }
+        }
+        
+        /// Style for secondary link button.
+        static let secondaryLink = InternalStyle(name: "button.dynamic.secondaryLink") { (button: UIButton) in
+            button.titleLabel?.lineBreakMode = .byTruncatingTail
+
+            let font = UIFont.dynamicBody
+            let color = UIColor.doveGray
+
+            let colors: [(UIControl.State, UIColor)] = [
+                (.normal, color),
+                (.highlighted, .highlighted(from: color)),
                 (.disabled, .nobel),
             ]
 
@@ -417,7 +438,7 @@ extension UIButton {
             ]
 
             for (state, title) in titles {
-                button.setAttributedTitle(makeCaption1String <^> title, for: state)
+                button.setAttributedTitle(title.flatMap(makeCaption1String), for: state)
             }
         }
     }

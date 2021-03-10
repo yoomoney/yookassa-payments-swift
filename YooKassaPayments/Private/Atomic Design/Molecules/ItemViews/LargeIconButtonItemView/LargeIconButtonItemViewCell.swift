@@ -3,14 +3,6 @@ import UIKit
 final class LargeIconButtonItemViewCell: UITableViewCell {
 
     // MARK: - Public accessors
-    var title: String {
-        get {
-            return itemView.title
-        }
-        set {
-            itemView.title = newValue
-        }
-    }
 
     var icon: UIImage {
         get {
@@ -21,12 +13,21 @@ final class LargeIconButtonItemViewCell: UITableViewCell {
         }
     }
 
-    var leftButtonTitle: String {
+    var title: String {
         get {
-            return itemView.leftButtonTitle
+            return itemView.title
         }
         set {
-            itemView.leftButtonTitle = newValue
+            itemView.title = newValue
+        }
+    }
+
+    var subtitle: String {
+        get {
+            return itemView.subtitle
+        }
+        set {
+            itemView.subtitle = newValue
         }
     }
 
@@ -39,11 +40,10 @@ final class LargeIconButtonItemViewCell: UITableViewCell {
         }
     }
 
-    var leftButtonPressHandler: (() -> Void)?
-
     var rightButtonPressHandler: (() -> Void)?
 
     // MARK: - Creating a View Object
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupView()
@@ -55,6 +55,7 @@ final class LargeIconButtonItemViewCell: UITableViewCell {
     }
 
     // MARK: - UI properties
+
     private lazy var itemView: LargeIconButtonItemView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.output = self
@@ -82,10 +83,6 @@ final class LargeIconButtonItemViewCell: UITableViewCell {
 }
 
 extension LargeIconButtonItemViewCell: LargeIconButtonItemViewOutput {
-    func didPressLeftButton(in itemView: LargeIconButtonItemViewInput) {
-        leftButtonPressHandler?()
-    }
-
     func didPressRightButton(in itemView: LargeIconButtonItemViewInput) {
         rightButtonPressHandler?()
     }

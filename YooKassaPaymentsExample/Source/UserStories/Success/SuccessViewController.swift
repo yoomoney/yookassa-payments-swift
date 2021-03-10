@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 protocol SuccessViewControllerDelegate: class {
@@ -45,7 +44,7 @@ final class SuccessViewController: UIViewController {
 
     override func loadView() {
         let view = UIView()
-
+        view.setStyles(UIView.Styles.defaultBackground)
         loadSubviews(to: view)
         loadConstraints(to: view)
 
@@ -63,14 +62,13 @@ final class SuccessViewController: UIViewController {
     }
 
     private func loadSubviews(to view: UIView) {
-        let subviews: [UIView] = [
+        [
             dialog,
             sendTokenButton,
-        ]
-
-        subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-
-        view.addSubview <^> subviews
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+        }
     }
 
     private func loadConstraints(to view: UIView) {

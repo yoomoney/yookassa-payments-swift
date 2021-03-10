@@ -1,21 +1,11 @@
 import PassKit
 import UIKit
-import YooKassaPaymentsApi
-
-struct ApplePayModuleInputData {
-    let merchantIdentifier: String?
-    let amount: Amount
-    let shopName: String
-    let purchaseDescription: String
-    let supportedNetworks: [PKPaymentNetwork]
-    let fee: YooKassaPaymentsApi.Fee?
-}
 
 enum ApplePayAssembly {
-
-    static func makeModule(inputData: ApplePayModuleInputData,
-                           moduleOutput: ApplePayModuleOutput) -> UIViewController? {
-
+    static func makeModule(
+        inputData: ApplePayModuleInputData,
+        moduleOutput: ApplePayModuleOutput
+    ) -> UIViewController? {
         guard PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: inputData.supportedNetworks),
               let merchantIdentifier = inputData.merchantIdentifier,
               let countryCode = Locale.current.regionCode else {
@@ -30,13 +20,18 @@ enum ApplePayAssembly {
         paymentRequest.merchantCapabilities = .capability3DS
 
         let amountValue = inputData.amount.value as NSDecimalNumber
-        let shopNameAmount = PKPaymentSummaryItem(label: inputData.shopName, amount: amountValue)
+        let shopNameAmount = PKPaymentSummaryItem(
+            label: inputData.shopName,
+            amount: amountValue
+        )
         var feePaymentSummaryItem: PKPaymentSummaryItem?
-        let purchaseDescriptionAmount = PKPaymentSummaryItem(label: inputData.purchaseDescription, amount: amountValue)
+        let purchaseDescriptionAmount = PKPaymentSummaryItem(
+            label: inputData.purchaseDescription,
+            amount: amountValue
+        )
 
         if let fee = inputData.fee,
-            let service = fee.service {
-
+           let service = fee.service {
             let chargeValue = service.charge.value as NSDecimalNumber
             feePaymentSummaryItem = PKPaymentSummaryItem(label: §Localized.fee, amount: chargeValue)
             purchaseDescriptionAmount.amount = (inputData.amount.value - service.charge.value) as NSDecimalNumber
@@ -56,7 +51,6 @@ enum ApplePayAssembly {
 // MARK: - Localized
 
 private extension ApplePayAssembly {
-
     enum Localized: String {
         case fee = "ApplePayContract.fee"
     }

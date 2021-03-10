@@ -32,8 +32,8 @@ extension ActivityIndicator {
 
         /// Default style
         ///
-        /// Yellow color, medium size, medium stroke
-        static let `default` = Styles.primary + Styles.medium + Styles.mediumStroke
+        /// Yellow color, large size, medium stroke
+        static let `default` = Styles.primary + Styles.large + Styles.mediumStroke
 
         /// Secondary style
         ///

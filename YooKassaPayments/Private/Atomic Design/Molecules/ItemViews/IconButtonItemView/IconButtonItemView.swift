@@ -1,4 +1,3 @@
-import FunctionalSwift
 import UIKit
 
 class IconButtonItemView: UIView {
@@ -40,7 +39,7 @@ class IconButtonItemView: UIView {
     // MARK: - UI properties
 
     lazy var titleLabel: UILabel = {
-        $0.setStyles(UILabel.DynamicStyle.body, UILabel.Styles.multiline)
+        $0.setStyles(UILabel.DynamicStyle.bodySemibold, UILabel.Styles.multiline)
         $0.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
         $0.setContentHuggingPriority(.fittingSizeLevel, for: .vertical)
         return $0
@@ -162,14 +161,14 @@ class IconButtonItemView: UIView {
     }
 
     private func setupSubviews() {
-        let subviews: [UIView] = [
+        [
             titleLabel,
             imageView,
             button,
-        ]
-
-        subviews.forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        addSubview <^> subviews
+        ].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            addSubview($0)
+        }
     }
 
     private func setupConstraints() {

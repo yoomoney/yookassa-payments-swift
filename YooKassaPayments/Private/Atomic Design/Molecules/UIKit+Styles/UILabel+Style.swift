@@ -21,8 +21,6 @@
  * THE SOFTWARE.
  */
 
-import Foundation
-import FunctionalSwift
 import UIKit
 
 extension UILabel {
@@ -122,7 +120,7 @@ extension UILabel {
         /// Uppercasing all characters
         static let uppercased = InternalStyle(name: "uppercased") { (label: UILabel) in
             guard let text = label.text,
-                let attributedText = NSMutableAttributedString.init <^> label.attributedText else { return }
+                  let attributedText = label.attributedText.flatMap(NSMutableAttributedString.init)  else { return }
             let range = NSRange(location: 0, length: (text as NSString).length)
             attributedText.replaceCharacters(in: range, with: text.uppercased())
             label.attributedText = attributedText
@@ -132,7 +130,7 @@ extension UILabel {
         static let ultralightFractionalPart
             = InternalStyle(name: "UILabel.ultralightFractionalPart") { (label: UILabel) in
                 guard let text = label.text,
-                    let attributedText = NSMutableAttributedString.init <^> label.attributedText else { return }
+                      let attributedText = label.attributedText.flatMap(NSMutableAttributedString.init) else { return }
 
                 let decimalSeparator = Character(NSLocale.current.decimalSeparator ?? ".")
                 let decimalParts = text.split(separator: decimalSeparator)
@@ -338,9 +336,17 @@ extension UILabel {
         static let secondary = doveGray
 
         static let ghost = nobel
+        
+        static let alert = InternalStyle(name: "label.colorStyle.alert") { (label: UILabel) in
+            label.textColor = UIColor.redOrange
+        }
 
         static let inverse = InternalStyle(name: "label.colorStyle.inverse") { (label: UILabel) in
             label.textColor = .inverse
+        }
+        
+        static let overlay = InternalStyle(name: "label.colorStyle.overlay") { (label: UILabel) in
+            label.textColor = .black65
         }
 
         static let inverseTranslucent = InternalStyle(name: "label.colorStyle.inverseTranslucent") { (label: UILabel) in
@@ -363,15 +369,17 @@ extension UILabel {
 
 private func makeStyle(name: String, attributes: [NSAttributedString.Key: Any]) -> InternalStyle {
     return InternalStyle(name: name) { (label: UILabel) in
-        label.attributedText = liftA2(makeAttributedString, label.attributedText, attributes)
+        label.attributedText = label.attributedText.flatMap {
+            makeAttributedString(attributedString: $0, attributes: attributes)
+        }
     }
 }
 
 private func makeStyle(name: String,
                        paragraphModifier: @escaping (NSMutableParagraphStyle) -> NSParagraphStyle) -> InternalStyle {
     return InternalStyle(name: name) { (label: UILabel) in
-        guard let attributedText = NSMutableAttributedString.init <^> label.attributedText,
-            attributedText.length > 0 else { return }
+        guard let attributedText = label.attributedText.flatMap(NSMutableAttributedString.init),
+              attributedText.length > 0 else { return }
         let range = NSRange(location: 0, length: (attributedText.string as NSString).length)
         var paragraph = (attributedText.attribute(.paragraphStyle,
                                                   at: 0,

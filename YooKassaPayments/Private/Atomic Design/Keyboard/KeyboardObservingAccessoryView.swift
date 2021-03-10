@@ -28,24 +28,30 @@ extension KeyboardObservingAccessoryView {
         guard let newSuperview = newSuperview else {
             return
         }
-        newSuperview.addObserver(self,
-                                 forKeyPath: #keyPath(UIView.frame),
-                                 options: .new,
-                                 context: &frameObserveContext)
-        newSuperview.addObserver(self,
-                                 forKeyPath: #keyPath(UIView.center),
-                                 options: .new,
-                                 context: &centerObserveContext)
+        newSuperview.addObserver(
+            self,
+            forKeyPath: #keyPath(UIView.frame),
+            options: .new,
+            context: &frameObserveContext
+        )
+        newSuperview.addObserver(
+            self,
+            forKeyPath: #keyPath(UIView.center),
+            options: .new,
+            context: &centerObserveContext
+        )
         isActiveObserver = true
     }
 }
 
 // MARK: - Managing Managed Objects
 extension KeyboardObservingAccessoryView {
-    override func observeValue(forKeyPath keyPath: String?,
-                               of object: Any?,
-                               change: [NSKeyValueChangeKey: Any]?,
-                               context: UnsafeMutableRawPointer?) {
+    override func observeValue(
+        forKeyPath keyPath: String?,
+        of object: Any?,
+        change: [NSKeyValueChangeKey: Any]?,
+        context: UnsafeMutableRawPointer?
+    ) {
         guard context == &frameObserveContext || context == &centerObserveContext else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
             return
@@ -60,8 +66,16 @@ extension KeyboardObservingAccessoryView {
 private extension KeyboardObservingAccessoryView {
     func removeObservers() {
         if isActiveObserver, let superview = superview {
-            superview.removeObserver(self, forKeyPath: #keyPath(UIView.frame), context: &frameObserveContext)
-            superview.removeObserver(self, forKeyPath: #keyPath(UIView.center), context: &centerObserveContext)
+            superview.removeObserver(
+                self,
+                forKeyPath: #keyPath(UIView.frame),
+                context: &frameObserveContext
+            )
+            superview.removeObserver(
+                self,
+                forKeyPath: #keyPath(UIView.center),
+                context: &centerObserveContext
+            )
             isActiveObserver = false
         }
     }

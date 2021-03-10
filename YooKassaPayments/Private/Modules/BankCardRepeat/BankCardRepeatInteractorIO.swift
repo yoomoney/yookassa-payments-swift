@@ -1,6 +1,4 @@
-import YooKassaPaymentsApi
-
-protocol BankCardRepeatInteractorInput: AnalyticsTrackable {
+protocol BankCardRepeatInteractorInput: AnalyticsTrack, AnalyticsProvider {
     func fetchPaymentMethod(
         paymentMethodId: String
     )
@@ -14,8 +12,17 @@ protocol BankCardRepeatInteractorInput: AnalyticsTrackable {
 }
 
 protocol BankCardRepeatInteractorOutput: class {
-    func didFetchPaymentMethod(_ paymentMethod: YooKassaPaymentsApi.PaymentMethod)
-    func didFailFetchPaymentMethod(_ error: Error)
-    func didTokenize(_ tokens: Tokens)
-    func didFailTokenize(_ error: Error)
+    func didFetchPaymentMethod(
+        _ paymentMethod: PaymentMethod
+    )
+    func didFailFetchPaymentMethod(
+        _ error: Error
+    )
+    
+    func didTokenize(
+        _ tokens: Tokens
+    )
+    func didFailTokenize(
+        _ error: Error
+    )
 }

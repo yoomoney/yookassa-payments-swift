@@ -1,10 +1,20 @@
 protocol PhoneNumberInputModuleInput: class {
-    func setPlaceholder(_ placeholder: String)
-    func setHint(_ hint: String)
-    func setValue(_ value: String)
-    func validatePhoneNumber()
+    func setValue(
+        _ value: String
+    )
+    func setPlaceholder(
+        _ value: String
+    )
+    func setTitle(
+        _ value: String
+    )
+    func setSubtitle(
+        _ value: String
+    )
 }
 
 protocol PhoneNumberInputModuleOutput: class {
-    func didChangePhoneNumber(_ phoneNumber: String)
+    func didChangePhoneNumber(
+        _ phoneNumber: String
+    )
 }

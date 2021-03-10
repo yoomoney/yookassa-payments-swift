@@ -1,92 +1,69 @@
-import FunctionalSwift
 import UIKit
 
 final class PaymentMethodsViewController: UIViewController, PlaceholderProvider {
 
-    // MARK: - VIPER module properties
+    // MARK: - VIPER
 
     var output: PaymentMethodsViewOutput!
 
-    // MARK: - Subviews properties
+    // MARK: - UI properties
 
-    private lazy var blurEffectStyle: UIBlurEffect.Style = {
-        let style: UIBlurEffect.Style
+    private lazy var tableView: UITableView = {
+        let view = UITableView()
+        view.setStyles(UIView.Styles.defaultBackground)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.dataSource = self
+        view.delegate = self
+        view.rowHeight = UITableView.automaticDimension
+        view.estimatedRowHeight = Constants.estimatedRowHeight
+        view.register(IconButtonItemTableViewCell.self)
+        view.register(LargeIconButtonItemViewCell.self)
+        view.tableFooterView = UIView()
+
         if #available(iOS 13.0, *) {
-            style = .systemUltraThinMaterial
+            view.separatorColor = .separator
         } else {
-            style = .light
+            view.separatorColor = .alto
         }
-        return style
+
+        return view
     }()
 
-    fileprivate lazy var titleView: UIVisualEffectView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(UIVisualEffectView(effect: UIBlurEffect(style: blurEffectStyle)))
+    private var activityIndicatorView: UIView?
 
-    fileprivate lazy var headerView: ActionSheetHeaderView = {
-        $0.title = §Localized.paymentMethods
-        $0.backgroundColor = .clear
-        $0.setContentHuggingPriority(.fittingSizeLevel, for: .vertical)
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(ActionSheetHeaderView())
-
-    fileprivate lazy var separatorView: UIView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.setStyles(UIView.Styles.separator)
-        return $0
-    }(UIView())
-
-    fileprivate var tableView: UITableView {
-        return tableViewController.tableView
-    }
-
-    private let tableViewController = UITableViewController(style: .plain)
-
-    fileprivate var activityIndicatorView: UIView?
-
-    fileprivate lazy var scrollView = UIScrollView()
-    fileprivate lazy var contentView = UIView()
+    private lazy var scrollView = UIScrollView()
+    private lazy var contentView = UIView()
 
     // MARK: - PlaceholderProvider
-
-    fileprivate var shouldDefaultTableViewHeight = true
 
     lazy var placeholderView: PlaceholderView = {
         $0.setStyles(UIView.Styles.defaultBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.contentView = self.actionTextDialog
+        $0.contentView = self.actionTitleTextDialog
         return $0
     }(PlaceholderView())
 
-    lazy var actionTextDialog: ActionTextDialog = {
-        $0.setStyles(ActionTextDialog.Styles.fail, ActionTextDialog.Styles.light)
+    lazy var actionTitleTextDialog: ActionTitleTextDialog = {
+        $0.tintColor = CustomizationStorage.shared.mainScheme
+        $0.setStyles(ActionTitleTextDialog.Styles.fail)
+        $0.text = §Localized.PlaceholderView.text
+        $0.buttonTitle = §Localized.PlaceholderView.buttonTitle
+        $0.delegate = output
         return $0
-    }(ActionTextDialog())
+    }(ActionTitleTextDialog())
 
     // MARK: - Constraints
 
-    private var tableViewHeightConstraint: NSLayoutConstraint?
+    private lazy var tableViewHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: 0)
 
-    // MARK: - Data
-
-    fileprivate var viewModels: [PaymentMethodViewModel] = []
-
-    // MARK: - Initializers
-
-    convenience init() {
-        self.init(nibName: nil, bundle: nil)
-    }
+    // MARK: - Init
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        addChild(tableViewController)
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        addChild(tableViewController)
     }
 
     // MARK: - Managing the view
@@ -95,13 +72,14 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
         view = UIView()
         view.preservesSuperviewLayoutMargins = true
         view.backgroundColor = .clear
-        loadSubviews()
-        loadConstraints()
+        setupView()
+        setupConstraints()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         output.setupView()
+        setupNavigationBar()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -109,67 +87,34 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
         output.viewDidAppear()
     }
 
-    private func loadSubviews() {
-        titleView.contentView.addSubview(headerView)
-
-        view.addSubview <^> [
+    private func setupView() {
+        [
             tableView,
-            separatorView,
-            titleView,
-        ]
-        tableViewController.didMove(toParent: self)
-        setupTableView()
+        ].forEach(view.addSubview)
     }
 
-    private func loadConstraints() {
-        let views: [String: UIView] = [
-            "titleView": titleView,
-            "tableView": tableView,
-            "headerView": headerView,
-            "separatorView": separatorView,
+    private func setupConstraints() {
+        let constraints = [
+            tableViewHeightConstraint,
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ]
-
-        let formats = [
-            "V:|[titleView][separatorView]",
-            "V:|[tableView]|",
-            "V:|[headerView]|",
-        ]
-
-        var constraints = formats.flatMap {
-            NSLayoutConstraint.constraints(withVisualFormat: $0,
-                                           options: [],
-                                           metrics: nil,
-                                           views: views)
-        }
-
-        func makeFullwidthConstraints(view: UIView) -> [NSLayoutConstraint] {
-            return [
-                view.superview?.leading.constraint(equalTo: view.leading),
-                view.superview?.trailing.constraint(equalTo: view.trailing),
-            ].compactMap { $0 }
-        }
-
-        constraints += views.values.flatMap(makeFullwidthConstraints)
 
         NSLayoutConstraint.activate(constraints)
     }
 
-    private func setupTableView() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.estimatedRowHeight = 69
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.tableFooterView = UIView()
-        tableView.appendStyle(UIView.Styles.grayBackground)
-        tableView.register(IconButtonItemTableViewCell.self)
-        tableView.register(LargeIconButtonItemViewCell.self)
+    private func setupNavigationBar() {
+        guard let navigationBar = navigationController?.navigationBar else { return }
+        navigationBar.shadowImage = UIImage()
+        navigationBar.barTintColor = UIColor.AdaptiveColors.systemBackground
+        navigationBar.tintColor = CustomizationStorage.shared.mainScheme
 
-        if #available(iOS 13.0, *) {
-            tableView.separatorColor = .separator
-        } else {
-            tableView.separatorColor = .alto
-        }
+        let leftItem = UILabel()
+        leftItem.setStyles(UILabel.DynamicStyle.headline1)
+        leftItem.text = §Localized.paymentMethods
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftItem)
     }
 
     // MARK: - Configuring the View’s Layout Behavior
@@ -182,94 +127,63 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
     }
 
     private func fixTableViewHeight() {
-        var constraint: NSLayoutConstraint! {
-            return tableViewHeightConstraint
-        }
-
-        tableView.contentInset.top = separatorView.frame.maxY
-        tableView.scrollIndicatorInsets.top = separatorView.frame.maxY
-
         let contentEffectiveHeight = tableView.contentSize.height
             + tableView.contentInset.top
             + tableView.contentInset.bottom
             + UIScreen.safeAreaInsets.bottom
+            + Constants.navigationBarHeight
 
-        let needUpdate: Bool
-        let newValue = viewModels.isEmpty || shouldDefaultTableViewHeight
-            ? Constants.defaultTableViewHeight : contentEffectiveHeight
+        let newValue = output.numberOfRows() == 0
+            ? Constants.defaultTableViewHeight
+            : contentEffectiveHeight
 
-        if tableViewHeightConstraint == nil {
-            tableViewHeightConstraint = NSLayoutConstraint(item: tableView,
-                                                           attribute: .height,
-                                                           relatedBy: .equal,
-                                                           toItem: nil,
-                                                           attribute: .notAnAttribute,
-                                                           multiplier: 1,
-                                                           constant: newValue)
-            constraint.priority = .defaultHigh
-            constraint.isActive = true
-            needUpdate = true
-        } else if constraint.constant != newValue {
-            constraint.constant = newValue
-            needUpdate = true
-        } else {
-            needUpdate = false
+        if tableViewHeightConstraint.constant != newValue {
+            tableViewHeightConstraint.constant = newValue
+            NotificationCenter.default.post(
+                name: .needUpdatePreferredHeight,
+                object: nil
+            )
         }
-
-        if needUpdate {
-            UIView.animate(withDuration: 0.4) {
-                self.view.superview?.superview?.layoutIfNeeded()
-            }
-        }
-    }
-}
-
-// MARK: - Presentable
-
-extension PaymentMethodsViewController: Presentable {
-    var iPhonePresentationStyle: PresentationStyle {
-        return .actionSheet
-    }
-
-    var iPadPresentationStyle: PresentationStyle {
-        return .pageSheet
-    }
-    var hasNavigationBar: Bool {
-        return false
     }
 }
 
 // MARK: - UITableViewDataSource
+
 extension PaymentMethodsViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView,
-                   numberOfRowsInSection section: Int) -> Int {
-        return viewModels.count
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
+        output.numberOfRows()
     }
 
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = viewModels[indexPath.row]
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let viewModel = output.viewModelForRow(at: indexPath) else {
+            return .init()
+        }
 
         let cell: UITableViewCell
 
-        if let balanceText = item.balanceText {
-            let largeCell = tableView.dequeueReusableCell(withType: LargeIconButtonItemViewCell.self,
-                                                          for: indexPath)
-            largeCell.icon = item.image
-            largeCell.leftButtonTitle = item.name
-            largeCell.title = balanceText
-
-            largeCell.leftButtonPressHandler = { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.output.logoutDidPress(at: indexPath)
-            }
+        if let subtitle = viewModel.subtitle {
+            let largeCell = tableView.dequeueReusableCell(
+                withType: LargeIconButtonItemViewCell.self,
+                for: indexPath
+            )
+            largeCell.icon = viewModel.image
+            largeCell.title = viewModel.title
+            largeCell.subtitle = subtitle
 
             cell = largeCell
         } else {
-            let smallCell = tableView.dequeueReusableCell(withType: IconButtonItemTableViewCell.self,
-                                                          for: indexPath)
-            smallCell.title = item.name
-            smallCell.icon = item.image
+            let smallCell = tableView.dequeueReusableCell(
+                withType: IconButtonItemTableViewCell.self,
+                for: indexPath
+            )
+            smallCell.icon = viewModel.image
+            smallCell.title = viewModel.title
 
             cell = smallCell
         }
@@ -282,33 +196,41 @@ extension PaymentMethodsViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension PaymentMethodsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+    func tableView(
+        _ tableView: UITableView,
+        estimatedHeightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
+        UITableView.automaticDimension
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard indexPath.row < viewModels.count else { return }
-        output.didSelectViewModel(viewModels[indexPath.row], at: indexPath)
+        output.didSelect(at: indexPath)
     }
 }
 
 // MARK: - PaymentMethodsViewInput
 
 extension PaymentMethodsViewController: PaymentMethodsViewInput {
-    func setLogoVisible(_ isVisible: Bool) {
-        headerView.logo = isVisible ? Resources.kassaLogo : nil
-    }
-
-    func setPaymentMethodViewModels(_ models: [PaymentMethodViewModel]) {
-        viewModels = models
+    func reloadData() {
         tableView.reloadData()
+    }
+    
+    func setLogoVisible(_ isVisible: Bool) {
+        guard isVisible else {
+            navigationItem.rightBarButtonItem = nil
+            return
+        }
+        let image = UIImageView(image: Resources.kassaLogo)
+        let rightItem = UIBarButtonItem(customView: image)
+        navigationItem.rightBarButtonItem = rightItem
     }
 
     func showActivity() {
-        shouldDefaultTableViewHeight = true
-
-        guard self.activityIndicatorView == nil else { return }
+        guard activityIndicatorView == nil else { return }
 
         let activityIndicatorView = ActivityIndicatorView()
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -319,44 +241,40 @@ extension PaymentMethodsViewController: PaymentMethodsViewInput {
         self.activityIndicatorView = activityIndicatorView
 
         let constraints = [
-            activityIndicatorView.leading.constraint(equalTo: view.leading),
-            activityIndicatorView.trailing.constraint(equalTo: view.trailing),
-            activityIndicatorView.top.constraint(equalTo: view.top),
-            activityIndicatorView.bottom.constraint(equalTo: view.bottom),
+            activityIndicatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            activityIndicatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            activityIndicatorView.topAnchor.constraint(equalTo: view.topAnchor),
+            activityIndicatorView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            activityIndicatorView.heightAnchor.constraint(equalToConstant: Constants.defaultTableViewHeight),
         ]
 
         NSLayoutConstraint.activate(constraints)
     }
 
     func hideActivity() {
-        shouldDefaultTableViewHeight = false
-
-        UIView.animate(withDuration: 0.2,
-                       animations: {
-                           self.activityIndicatorView?.alpha = 0
-                       },
-                       completion: { _ in
-                           self.activityIndicatorView?.removeFromSuperview()
-                           self.activityIndicatorView = nil
-                       })
+        UIView.animate(
+            withDuration: 0.2,
+            animations: {
+                self.activityIndicatorView?.alpha = 0
+            },
+            completion: { _ in
+                self.activityIndicatorView?.removeFromSuperview()
+                self.activityIndicatorView = nil
+            }
+        )
     }
 
     func showPlaceholder(message: String) {
-        actionTextDialog.title = message
+        actionTitleTextDialog.title = message
         showPlaceholder()
-    }
-
-    func setPlaceholderViewButtonTitle(_ title: String) {
-        actionTextDialog.buttonTitle = title
     }
 }
 
 // MARK: - PlaceholderPresenting
+
 extension PaymentMethodsViewController: PlaceholderPresenting {
     func showPlaceholder() {
-        titleView.isHidden = true
         tableView.isHidden = true
-        shouldDefaultTableViewHeight = true
 
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
@@ -383,9 +301,7 @@ extension PaymentMethodsViewController: PlaceholderPresenting {
     }
 
     func hidePlaceholder() {
-        titleView.isHidden = false
         tableView.isHidden = false
-        shouldDefaultTableViewHeight = false
         scrollView.removeFromSuperview()
     }
 }
@@ -398,6 +314,7 @@ private extension PaymentMethodsViewController {
         case logoImage = "image.logo"
 
         enum PlaceholderView: String {
+            case text = "Common.PlaceholderView.text"
             case buttonTitle = "Common.PlaceholderView.buttonTitle"
         }
     }
@@ -411,6 +328,8 @@ private extension PaymentMethodsViewController {
 
 private extension PaymentMethodsViewController {
     enum Constants {
-        static let defaultTableViewHeight: CGFloat = 300
+        static let estimatedRowHeight: CGFloat = 72
+        static let defaultTableViewHeight: CGFloat = 395
+        static let navigationBarHeight: CGFloat = 44
     }
 }

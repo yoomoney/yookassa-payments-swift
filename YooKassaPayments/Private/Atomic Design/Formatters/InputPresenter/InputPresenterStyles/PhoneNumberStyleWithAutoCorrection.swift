@@ -22,8 +22,6 @@
  * THE SOFTWARE.
  */
 
-import Foundation
-
 struct PhoneNumberStyleWithAutoCorrection: InputPresenterStyle {
     fileprivate let phoneNumberFormatter: PhoneNumberFormatter
 

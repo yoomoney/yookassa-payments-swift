@@ -1,8 +1,10 @@
 import UIKit
 
 class WebBrowserAssembly {
-    static func makeModule(presenter: WebBrowserPresenter,
-                           interactor: WebBrowserInteractorInput) -> UIViewController {
+    static func makeModule(
+        presenter: WebBrowserPresenter,
+        interactor: WebBrowserInteractorInput
+    ) -> UIViewController {
         let router = WebBrowserRouter()
         let viewController = WebBrowserViewController()
         viewController.output = presenter

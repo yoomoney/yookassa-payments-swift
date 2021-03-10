@@ -22,21 +22,23 @@
  * THE SOFTWARE.
  */
 
-import Foundation
-
 struct CscInputPresenterStyle: InputPresenterStyle {
 
-    init() { }
-
     func removedFormatting(from string: String) -> String {
-        return string.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+        string.components(separatedBy: removeFormattingCharacterSet).joined()
     }
 
     func appendedFormatting(to string: String) -> String {
-        return string
+        string.map { _ in "•" }.joined()
     }
 
     var maximalLength: Int {
-        return 4
+        4
     }
+
+    private let removeFormattingCharacterSet: CharacterSet = {
+        var set = CharacterSet.decimalDigits
+        set.insert(charactersIn: "•")
+        return set.inverted
+    }()
 }

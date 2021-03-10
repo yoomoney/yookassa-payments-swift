@@ -1,15 +1,21 @@
 import Dispatch
-import FunctionalSwift
 import UIKit
 import WebKit.WKNavigationDelegate
 import WebKit.WKUIDelegate
 
 class WebBrowserPresenter: NSObject, WebBrowserViewOutput {
+
+    // MARK: - Viper
+
     var interactor: WebBrowserInteractorInput!
     var router: WebBrowserRouterInput!
     weak var view: WebBrowserViewInput?
 
+    // MARK: - Init data
+
     fileprivate let screenName: String?
+
+    // MARK: - Init
 
     init(screenName: String? = nil) {
         self.screenName = screenName
@@ -18,8 +24,8 @@ class WebBrowserPresenter: NSObject, WebBrowserViewOutput {
     func setupView() {
         view?.setScreenName(screenName)
         DispatchQueue.global().async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.interactor.createRequest()
+            guard let self = self else { return }
+            self.interactor.createRequest()
         }
     }
 
@@ -33,7 +39,7 @@ class WebBrowserPresenter: NSObject, WebBrowserViewOutput {
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self, let view = strongSelf.view else { return }
+            guard let self = self, let view = self.view else { return }
             view.updateToolBar()
             view.hideActivity()
         }
@@ -54,9 +60,11 @@ class WebBrowserPresenter: NSObject, WebBrowserViewOutput {
         }
     }
 
-    func webView(_ webView: WKWebView,
-                 decidePolicyFor navigationAction: WKNavigationAction,
-                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction,
+        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+    ) {
 
         let request = navigationAction.request
         let interactorShouldProcessRequest = interactor.shouldProcessRequest(request)
@@ -68,11 +76,12 @@ class WebBrowserPresenter: NSObject, WebBrowserViewOutput {
         }
     }
 
-    func webView(_ webView: WKWebView,
-                 createWebViewWith configuration: WKWebViewConfiguration,
-                 for navigationAction: WKNavigationAction,
-                 windowFeatures: WKWindowFeatures) -> WKWebView? {
-
+    func webView(
+        _ webView: WKWebView,
+        createWebViewWith configuration: WKWebViewConfiguration,
+        for navigationAction: WKNavigationAction,
+        windowFeatures: WKWindowFeatures
+    ) -> WKWebView? {
         if (navigationAction.targetFrame?.isMainFrame ?? false) == false {
             webView.load(navigationAction.request)
         }
@@ -82,12 +91,17 @@ class WebBrowserPresenter: NSObject, WebBrowserViewOutput {
     func didPressCloseButton() {
         router.closeModule()
     }
+
+    func viewWillDisappear() {}
 }
 
 // MARK: - WebBrowserInteractorOutput
 
 extension WebBrowserPresenter: WebBrowserInteractorOutput {
-    func didCreateRequest(_ request: URLRequest, _ options: WebBrowserOptions = []) {
+    func didCreateRequest(
+        _ request: URLRequest,
+        _ options: WebBrowserOptions = []
+    ) {
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
             view.showRequest(request)

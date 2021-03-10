@@ -1,0 +1,1 @@
+protocol BankCardRepeatModuleInput: SheetViewModuleOutput {}

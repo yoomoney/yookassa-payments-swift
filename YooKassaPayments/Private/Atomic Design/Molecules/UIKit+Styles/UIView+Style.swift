@@ -45,11 +45,7 @@ extension UIView {
         ///
         /// cararra background color.
         static let defaultBackground = InternalStyle(name: "defaultBackground") { (view: UIView) in
-            if #available(iOS 13.0, *) {
-                view.backgroundColor = .systemBackground
-            } else {
-                view.backgroundColor = .cararra
-            }
+            view.backgroundColor = UIColor.AdaptiveColors.systemBackground
         }
 
         /// Style for view with tint background.
@@ -110,6 +106,30 @@ extension UIView {
 
         static let shadowOffsetToTop = InternalStyle(name: "shadowOffsetToTop") { (view: UIView) in
             view.layer.shadowOffset = CGSize(width: 0, height: -2)
+        }
+        
+        /// Style for rounded view with shadow
+        static let roundedShadow = InternalStyle(name: "UIView.roundedShadow") { (view: UIView) in
+            view.layer.borderColor = UIColor(white: 1, alpha: 0.12).cgColor
+            view.layer.borderWidth = 1
+            view.layer.shadowColor = UIColor.black.cgColor
+            view.layer.shadowOpacity = 0.12
+            view.layer.shadowRadius = 8
+            view.layer.shadowOffset = CGSize(width: 0, height: 2)
+            view.layer.masksToBounds = false
+            view.layer.cornerRadius = 8
+        }
+        
+        /// Style for gray border
+        static let grayBorder = InternalStyle(name: "UIView.grayBorder") { (view: UIView) in
+            view.layer.borderColor = UIColor(white: 1, alpha: 0.12).cgColor
+            view.layer.borderWidth = 1
+        }
+        
+        /// Style for alert border
+        static let alertBorder = InternalStyle(name: "UIView.alertBorder") { (view: UIView) in
+            view.layer.borderColor = UIColor.redOrange.cgColor
+            view.layer.borderWidth = 1
         }
     }
 }

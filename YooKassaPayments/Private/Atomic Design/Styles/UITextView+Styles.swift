@@ -33,16 +33,28 @@ extension UITextView {
 
         /// Linked style
         ///
-        /// Text: Light font, 12pt size, Link:
+        /// Text: secondary color.
         static let linked = InternalStyle(name: "linked") { (textView: UITextView) in
+            textView.setStyles(UITextView.ColorStyle.secondary)
             textView.isEditable = false
             textView.isScrollEnabled = false
-            textView.font = .systemFont(ofSize: 13)
             textView.textContainerInset = .zero
             textView.textContainer.lineFragmentPadding = 0
             textView.linkTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor.blueRibbon,
+                NSAttributedString.Key.foregroundColor: textView.tintColor ?? .blueRibbon,
             ]
+        }
+    }
+    
+    // MARK: - Dynamic Fonts
+    
+    enum ColorStyle {
+        static let secondary = InternalStyle(name: "textview.color.doveGray") { (textView: UITextView) in
+            if #available(iOS 13.0, *) {
+                textView.textColor = .secondaryLabel
+            } else {
+                textView.textColor = .doveGray
+            }
         }
     }
 }
