@@ -112,6 +112,11 @@ extension SberpayPresenter: SberpayInteractorOutput {
             didTokenize: data,
             paymentMethodType: .sberbank
         )
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let view = self?.view else { return }
+            view.hideActivity()
+        }
     }
 
     func didFailTokenize(

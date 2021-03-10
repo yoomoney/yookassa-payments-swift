@@ -18,7 +18,7 @@ public final class ConfirmationService {
     ) -> Bool {
         guard let scheme = url.scheme,
               let applicationScheme = applicationScheme,
-              scheme == applicationScheme,
+              "\(scheme)://" == applicationScheme,
               let deeplink = DeepLinkFactory.makeDeepLink(url: url) else {
             return false
         }
