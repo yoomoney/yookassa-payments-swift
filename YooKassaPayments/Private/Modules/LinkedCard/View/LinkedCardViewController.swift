@@ -583,7 +583,7 @@ private extension LinkedCardViewController {
         case saveAuthInApp = "LinkedCard.saveAuthInApp"
         case saveAuthInAppTitle = "LinkedCard.saveAuthInApp.title"
         
-        case hintCardNumber = "BankCardDataInput.panInput"
+        case hintCardNumber = "BankCardView.inputPanHint"
         case hintCardCode = "BankCardDataInput.hintCardCode"
         case cvc = "BankCardDataInput.cvc"
         case errorCvc = "BankCardDataInput.errorCvc"
