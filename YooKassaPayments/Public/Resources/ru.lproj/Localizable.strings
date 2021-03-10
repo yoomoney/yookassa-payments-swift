@@ -1,15 +1,98 @@
+// Payment methods
+
+"PaymentMethods.paymentMethods" = "Способ оплаты";
+"PaymentMethod.sberbank" = "Сбербанк Онлайн";
+"PaymentMethod.wallet" = "ЮMoney";
+"PaymentMethod.applePay" = "Apple Pay";
+"PaymentMethod.bankCard" = "Банковская карта";
+
+// Bank card
+
+"BankCardView.inputPanHint" = "Номер карты";
+"BankCardView.inputPanPlaceholder" = "Введите или отсканируйте";
+"BankCardView.inputExpiryDatePlaceholder" = "ММ/ГГ";
+"BankCardView.inputExpiryDateHint" = "Срок действия";
+"BankCardView.inputCvcHint" = "Код";
+"BankCardView.inputCvcPlaceholder" = "CVC";
+"BankCardDataInputView.BottomHint.invalidPan" = "Проверьте номер карты";
+"BankCardDataInputView.BottomHint.invalidExpiry" = "Проверьте месяц и год";
+
+// Contract
+
+"Contract.fee" = "Включая комиссию";
+"Contract.placeholder.smsCode" = "Введите код из смс";
+"Contract.logout" = "Выйти";
+"Contract.format.saveAuthInApp.title" = "Запомнить меня";
+
+// Linked card
+
+"LinkedCard.saveAuthInApp" = "В следующий раз не придётся входить в профиль ЮMoney — можно будет оплатить быстрее";
+"LinkedCard.title" = "Привязанная карта";
+
+// License agreement
+
+"TermsOfService.Text" = "Нажимая кнопку, вы принимаете";
+"TermsOfService.Hyperlink" = "условия сервиса";
+
+// Save payment method
+
+"SavePaymentMethodInfo.Wallet.Header" = "Разрешение списывать деньги без вашего участия";
+"SavePaymentMethodInfo.Wallet.Body" = "Это значит, что вы разрешаете ЮMoney списывать деньги с кошелька по запросу магазина — без дополнительного подтверждения с вашей стороны. Отменить такие списания можно в любой момент — в настройках кошелька (на сайте ЮMoney).";
+
+"SavePaymentMethod.Wallet.UserPriority.Text" = "Разрешить магазину";
+"SavePaymentMethod.Wallet.UserPriority.hyperText" = "списывать деньги без моего участия";
+
+"SavePaymentMethod.Wallet.Force.Text" = "После оплаты привяжем кошелёк: магазин сможет";
+"SavePaymentMethod.Wallet.Force.hyperText" = "списывать деньги без вашего участия";
+
+"SavePaymentMethodInfo.BankCard.Header" = "Разрешение списывать деньги по запросу магазина";
+"SavePaymentMethodInfo.BankCard.Body" = "Это значит, что вы разрешаете ЮMoney списывать деньги по запросу магазина без отдельного подтверждения — с этой карты или с новой, при перевыпуске (если ваш банк умеет автоматически обновлять данные).\n\nОтменить привязку можно в любой момент — через службу поддержки магазина.";
+
+"SavePaymentMethod.BankCard.UserPriority.Text" = "Привязать карту и";
+"SavePaymentMethod.BankCard.UserPriority.hyperText" = "списывать деньги по запросу магазина";
+
+"SavePaymentMethod.BankCard.Force.Text" = "После оплаты привяжем карту, чтобы";
+"SavePaymentMethod.BankCard.Force.hyperText" = "списывать деньги по запросу магазина";
+
+// Bank card repeat
+
+"BankCardRepeat.savePaymentMethod.title" = "Привязать карту";
+"BankCardRepeat.title" = "Сохраненная карта";
+
+// Payment authorization
+
+"PaymentAuthorization.remainingTime" = "Получить новый код через %@";
+"PaymentAuthorization.invalidAnswer" = "Это не тот код. Проверьте и введите ещё раз";
+"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Снова не тот. Осталось попыток: %d";
+"PaymentAuthorization.verifyAttemptsExceeded" = "Попытки закончились";
+"PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM в HH:mm";
+
+"PaymentAuthorization.description.withoutPhone" = "Отправили проверочный код";
+"PaymentAuthorization.description.witPhone" = "Отправили проверочный код на %@";
+
+"PaymentAuthorization.verifyAttemptsExceeded.nextSession" = "Попытки закончились. Попробовать можно %@";
+
+// Apple Pay
+
+"ApplePayContract.paymentMethodTitle" = "Дальше откроем Apple Pay — подтвердите оплату";
+
+// Sberbank
+
+"Contract.Sberbank.PhoneInput.BottomHint" = "Для смс от Сбербанка с кодом для оплаты";
+"Contract.Sberbank.PhoneInput.Title" = "Номер в Сбербанк Онлайн";
+
+// Common
+
+"Common.PlaceholderView.buttonTitle" = "Повторить";
+"Common.PlaceholderView.text" = "Попробуйте повторить чуть позже.";
+"Common.button.ok" = "ОК";
+"Common.button.cancel" = "Отменить";
+"Common.Error.unknown" = "Что то пошло не так";
+
+// -------------
+
 /*По неизвестным нам причинам экран ApplePay не отобразился*/
 "ApplePayUnavailable.title" = "Apple Pay недоступен";
-
-/*Подсказка под текстовым полем для ввода номера телефона*/
-"Contract.Sberbank.PhoneInput.BottomHint" = "Для смс от Сбербанка с кодом для оплаты";
-
-"Contract.bottomHint.smsCode.invalidAnswer" = "Неправильный код из смс";
-
-"Contract.bottomHint.totp.invalidAnswer" = "Неправильный одноразовый пароль";
-
-/*Placeholder текстового поля для ввода номера телефона*/
-"Contract.Sberbank.PhoneInput.Title" = "Номер в Сбербанк Онлайн";
 
 "Contract.Sberbank.PhoneInput.Placeholder" = "+ 7 987 654 32 10";
 
@@ -30,33 +113,6 @@
 /*С сервера пришел неподдерживаемый способ прохождения платежной авторизации.*/
 "Error.unsupportedAuthType" = "Этот способ получения паролей не поддерживается. Поменять можно в настройках кошелька на сайте ЮMoney";
 
-"PaymentAuthorization.invalidAnswer" = "Неверный код. Проверьте и введите ещё раз";
-
-"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Неверный код. Осталось попыток: %d";
-
-"PaymentAuthorization.verifyAttemptsExceeded" = "Попытки кончались. Попробуйте позже";
-
-"PaymentAuthorization.verifyAttemptsExceeded.nextSession" = "Попытки кончались. Попробовать можно %@";
-
-"PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM в HH:mm";
-
-"PaymentAuthorization.description.withoutPhone" = "Отправили проверочный код";
-
-"PaymentAuthorization.description.witPhone" = "Отправили проверочный код на %@";
-
-"PaymentAuthorization.remainingTime" = "Получить новый код через %@";
-
-/*Способ оплаты сбербанк онлайн*/
-"PaymentMethod.sberbank" = "Сбербанк Онлайн";
-
-"PaymentMethods.paymentMethods" = "СПОСОБЫ ОПЛАТЫ";
-
-"PaymentMethod.wallet" = "ЮMoney";
-
-"PaymentMethod.applePay" = "Apple Pay";
-
-"PaymentMethod.bankCard" = "Банковская карта";
-
 "Error.internet" = "Проблема с интернетом. Попробуйте еще раз, когда будете онлайн";
 
 "Error.emptyPaymentOptions" = "Нет доступных способов оплаты";
@@ -65,94 +121,31 @@
 
 "Contract.next" = "Продолжить";
 
-"Contract.fee" = "Включая комиссию";
-
 "ApplePayContract.fee" = "Комиссия";
 
 "Contract.resendSms" = "Отправить снова";
 
-"Contract.placeholder.smsCode" = "Введите пароль из смс";
-
 "Contract.format.savePaymentMethod.title" = "Разрешить списывать деньги";
-
-"BankCardRepeat.savePaymentMethod.title" = "Привязать карту";
-
-"Contract.format.saveAuthInApp.title" = "Запомнить кошелёк";
 
 "Contract.format.saveAuthInApp" = "Запомнить кошелёк в этом приложении для быстрых платежей";
 
 "LinkedCard.saveAuthInApp.title" = "Запомнить меня";
 
-"LinkedCard.saveAuthInApp" = "В следующий раз не придётся входить в профиль — можно будет оплатить быстрее";
-
-"Contract.logout" = "Выйти";
-
-"ApplePayContract.paymentMethodTitle" = "Дальше откроем Apple Pay — подтвердите оплату";
-
 "ApplePayContract.title" = "Apple Pay";
 
 "YooMoney.title" = "ЮMoney";
-
-"LinkedCard.title" = "Привязанная карта";
-
-"BankCardRepeat.title" = "Сохраненная карта";
 
 "LogoutConfirmation.format.title" = "Уверены, что хотите выйти из аккаунта '%@'?";
 
 "BankCardDataInput.navigationBarTitle" = "Банковская карта";
 
-"BankCardDataInput.panInput" = "Номер карты";
-
 "BankCardDataInput.hintCardCode" = "Код";
-
-"BankCardDataInput.expiryDate" = "ММ / ГГ";
 
 "BankCardDataInput.cvc" = "CVC";
 
 "BankCardDataInput.errorCvc" = "Проверьте CVC";
 
-"BankCardDataInput.confirmButtonTitle" = "Заплатить";
-
 "image.logo" = "logo.kassa.ru";
-
-"Common.PlaceholderView.buttonTitle" = "Повторить попытку";
-
-"Common.PlaceholderView.text" = "Попробуйте повторить чуть позже.";
-
-"Common.button.ok" = "ОК";
-
-"Common.button.cancel" = "Отменить";
-
-/*Что то пошло не так, неизвестная ошибка*/
-"Common.Error.unknown" = "Что то пошло не так";
-
-"TermsOfService.Text" = "Нажимая кнопку, вы принимаете";
-
-"TermsOfService.Hyperlink" = "условия сервиса";
-
-"SavePaymentMethod.Wallet.UserPriority.Text" = "Разрешить магазину";
-
-"SavePaymentMethod.Wallet.UserPriority.hyperText" = "списывать деньги без моего участия";
-
-"SavePaymentMethod.Wallet.Force.Text" = "После оплаты привяжем кошелёк: магазин сможет";
-
-"SavePaymentMethod.Wallet.Force.hyperText" = "списывать деньги без вашего участия";
-
-"SavePaymentMethod.BankCard.UserPriority.Text" = "Привязать карту и";
-
-"SavePaymentMethod.BankCard.UserPriority.hyperText" = "списывать деньги по запросу магазина";
-
-"SavePaymentMethod.BankCard.Force.Text" = "После оплаты привяжем карту, чтобы";
-
-"SavePaymentMethod.BankCard.Force.hyperText" = "списывать деньги по запросу магазина";
-
-"SavePaymentMethodInfo.Wallet.Header" = "Разрешение списывать деньги без вашего участия";
-
-"SavePaymentMethodInfo.Wallet.Body" = "Это значит, что вы даёте ЮMoney предварительное согласие списывать деньги с кошелька по запросу магазина — без дополнительного подтверждения с вашей стороны.\n\nОтменить такие списания можно в любой момент: в настройках кошелька (на сайте ЮMoney).";
-
-"SavePaymentMethodInfo.BankCard.Header" = "Разрешение списывать деньги по запросу магазина";
-
-"SavePaymentMethodInfo.BankCard.Body" = "Это значит, что предварительно вы разрешаете ЮMoney списывать деньги по запросу магазина, без отдельного подтверждения — с этой карты или с новой, при перевыпуске (если ваш банк умеет автоматически обновлять данные).\n\nОтменить привязку можно в любой момент, через службу поддержки магазина.";
 
 "SavePaymentMethodInfo.Button.GotIt" = "Понятно";
 
@@ -191,13 +184,3 @@
 
 /* Текст на кнопке баннера миграции https://yadi.sk/i/IuBf_A1_uq2zSg */
 "Wallet.Authorization.migrationBannerButtonText" = "Подробнее";
-
-"BankCardView.inputPanHint" = "Номер карты";
-"BankCardView.inputPanPlaceholder" = "Введите или отсканируйте";
-"BankCardView.inputExpiryDateHint" = "Срок действия";
-"BankCardView.inputExpiryDatePlaceholder" = "ММ/ГГ";
-"BankCardView.inputCvcHint" = "Код";
-"BankCardView.inputCvcPlaceholder" = "CVC";
-
-"BankCardDataInputView.BottomHint.invalidPan" = "Проверьте номер карты";
-"BankCardDataInputView.BottomHint.invalidExpiry" = "Проверьте месяц и год";
