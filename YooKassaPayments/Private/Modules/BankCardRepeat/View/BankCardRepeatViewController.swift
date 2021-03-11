@@ -686,7 +686,7 @@ private extension BankCardRepeatViewController {
         case `continue` = "Contract.next"
         case fee = "Contract.fee"
         
-        case hintCardNumber = "BankCardDataInput.panInput"
+        case hintCardNumber = "BankCardView.inputPanHint"
         case hintCardCode = "BankCardDataInput.hintCardCode"
         case cvc = "BankCardDataInput.cvc"
         case errorCvc = "BankCardDataInput.errorCvc"

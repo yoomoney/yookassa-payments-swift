@@ -580,10 +580,10 @@ private extension LinkedCardViewController {
         case title = "LinkedCard.title"
         case `continue` = "Contract.next"
         case fee = "Contract.fee"
-        case saveAuthInApp = "LinkedCard.saveAuthInApp"
-        case saveAuthInAppTitle = "LinkedCard.saveAuthInApp.title"
+        case saveAuthInApp = "Contract.format.saveAuthInApp"
+        case saveAuthInAppTitle = "Contract.format.saveAuthInApp.title"
         
-        case hintCardNumber = "BankCardDataInput.panInput"
+        case hintCardNumber = "BankCardView.inputPanHint"
         case hintCardCode = "BankCardDataInput.hintCardCode"
         case cvc = "BankCardDataInput.cvc"
         case errorCvc = "BankCardDataInput.errorCvc"
