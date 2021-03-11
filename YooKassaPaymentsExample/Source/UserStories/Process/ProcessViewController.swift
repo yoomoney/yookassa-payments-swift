@@ -1,31 +1,30 @@
 import UIKit
 
-protocol AttachedCardCountViewControllerDelegate: class {
-    func attachedCardCountViewController(
-        _ attachedCardCountViewController: AttachedCardCountViewController,
-        didSaveCardCount cardCount: Int?
+protocol ProcessViewControllerDelegate: class {
+    func processViewController(
+        _ processViewController: ProcessViewController,
+        processConfirmation: ProcessConfirmation?
     )
 }
 
-final class AttachedCardCountViewController: UIViewController {
-
+final class ProcessViewController: UIViewController {
     public static func makeModule(
-        cardCount: Int?,
-        delegate: AttachedCardCountViewControllerDelegate? = nil
+        processConfirmation: ProcessConfirmation?,
+        delegate: ProcessViewControllerDelegate? = nil
     ) -> UIViewController {
-        let controller = AttachedCardCountViewController()
+        let controller = ProcessViewController()
         controller.delegate = delegate
-        controller.initialCardCount = cardCount
+        controller.initialProcessConfirmation = processConfirmation
         return controller
     }
 
-    weak var delegate: AttachedCardCountViewControllerDelegate?
+    weak var delegate: ProcessViewControllerDelegate?
 
-    private let cards = Array(0...5)
+    private let processesConfirmation = ProcessConfirmation.allCasesWithNil
 
     // MARK: - Initial values
 
-    private var initialCardCount: Int?
+    private var initialProcessConfirmation: ProcessConfirmation?
 
     // MARK: - UI properties
 
@@ -34,7 +33,17 @@ final class AttachedCardCountViewController: UIViewController {
         $0.delegate = self
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setStyles(UIPickerView.Styles.defaultBackground)
-        $0.selectRow(initialCardCount ?? 0, inComponent: 0, animated: false)
+        $0.selectRow(
+            processesConfirmation.firstIndex(where: {
+                switch ($0, initialProcessConfirmation) {
+                case (.threeDSecure, .threeDSecure): return true
+                case (.app2app, .app2app): return true
+                default: return false
+                }
+            }) ?? 0,
+            inComponent: 0,
+            animated: false
+        )
         return $0
     }(UIPickerView())
 
@@ -76,22 +85,23 @@ final class AttachedCardCountViewController: UIViewController {
 
     @objc
     private func saveButtonDidPress() {
-        let cardCount = countPickerView.selectedRow(inComponent: 0)
-        delegate?.attachedCardCountViewController(
+        let selectedRow = countPickerView.selectedRow(inComponent: 0)
+        delegate?.processViewController(
             self,
-            didSaveCardCount: cardCount == 0 ? nil : cardCount
+            processConfirmation: processesConfirmation[selectedRow]
         )
         navigationController?.popViewController(animated: true)
     }
 }
 
-extension AttachedCardCountViewController: UIPickerViewDelegate {
+extension ProcessViewController: UIPickerViewDelegate {
     func pickerView(
         _ pickerView: UIPickerView,
         titleForRow row: Int,
         forComponent component: Int
     ) -> String? {
-        return cards[row] == 0 ? translate(CommonLocalized.none) : String(cards[row])
+        return processesConfirmation[row]?.description
+            ?? translate(CommonLocalized.none)
     }
 
     func pickerView(
@@ -108,7 +118,7 @@ extension AttachedCardCountViewController: UIPickerViewDelegate {
     ) {}
 }
 
-extension AttachedCardCountViewController: UIPickerViewDataSource {
+extension ProcessViewController: UIPickerViewDataSource {
 
     public func numberOfComponents(
         in pickerView: UIPickerView
@@ -120,12 +130,12 @@ extension AttachedCardCountViewController: UIPickerViewDataSource {
         _ pickerView: UIPickerView,
         numberOfRowsInComponent component: Int
     ) -> Int {
-        return cards.count
+        return processesConfirmation.count
     }
 }
 
-private extension AttachedCardCountViewController {
+private extension ProcessViewController {
     enum Localized: String {
-        case title = "cards.title"
+        case title = "process.title"
     }
 }

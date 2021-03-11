@@ -404,6 +404,7 @@
 		781CDD7B25D4064100C34912 /* ApplePayContractViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781CDD7A25D4064100C34912 /* ApplePayContractViewIO.swift */; };
 		781CDD7D25D408F600C34912 /* ApplePayContractInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781CDD7C25D408F600C34912 /* ApplePayContractInteractor.swift */; };
 		781CDD7F25D42A1E00C34912 /* ApplePayContractRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781CDD7E25D42A1E00C34912 /* ApplePayContractRouter.swift */; };
+		783CCEFB25FA347C005A298A /* ProcessConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783CCEFA25FA347C005A298A /* ProcessConfirmation.swift */; };
 		784A1A8B25B5A44600637CB5 /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8A25B5A44600637CB5 /* ApplePayService.swift */; };
 		784A1A8D25B5A45000637CB5 /* ApplePayServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8C25B5A45000637CB5 /* ApplePayServiceImpl.swift */; };
 		784A1A8F25B5A5A300637CB5 /* ApplePayConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8E25B5A5A300637CB5 /* ApplePayConstants.swift */; };
@@ -461,6 +462,8 @@
 		7860294D25D1723B00B9E961 /* LinkedCardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860294C25D1723B00B9E961 /* LinkedCardRouter.swift */; };
 		7860294F25D1726800B9E961 /* LinkedCardRouterIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860294E25D1726800B9E961 /* LinkedCardRouterIO.swift */; };
 		7860295225D194D300B9E961 /* LinkedCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7860295125D194D300B9E961 /* LinkedCardViewModel.swift */; };
+		7890B24D25FA14BD0054D6B6 /* ProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7890B24B25FA118A0054D6B6 /* ProcessViewController.swift */; };
+		7890B24F25FA196D0054D6B6 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7890B24E25FA196D0054D6B6 /* TextFieldView.swift */; };
 		78997A2425D562160093CAE2 /* LargeIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78997A2325D562160093CAE2 /* LargeIconView.swift */; };
 		789C373D25AF260400BA94D1 /* PaymentMethodHandlerServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C373C25AF260400BA94D1 /* PaymentMethodHandlerServiceImpl.swift */; };
 		789C373F25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789C373E25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift */; };
@@ -847,6 +850,7 @@
 		781CDD7A25D4064100C34912 /* ApplePayContractViewIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayContractViewIO.swift; sourceTree = "<group>"; };
 		781CDD7C25D408F600C34912 /* ApplePayContractInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayContractInteractor.swift; sourceTree = "<group>"; };
 		781CDD7E25D42A1E00C34912 /* ApplePayContractRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayContractRouter.swift; sourceTree = "<group>"; };
+		783CCEFA25FA347C005A298A /* ProcessConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessConfirmation.swift; sourceTree = "<group>"; };
 		784A1A8A25B5A44600637CB5 /* ApplePayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
 		784A1A8C25B5A45000637CB5 /* ApplePayServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayServiceImpl.swift; sourceTree = "<group>"; };
 		784A1A8E25B5A5A300637CB5 /* ApplePayConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayConstants.swift; sourceTree = "<group>"; };
@@ -904,6 +908,8 @@
 		7860294C25D1723B00B9E961 /* LinkedCardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedCardRouter.swift; sourceTree = "<group>"; };
 		7860294E25D1726800B9E961 /* LinkedCardRouterIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedCardRouterIO.swift; sourceTree = "<group>"; };
 		7860295125D194D300B9E961 /* LinkedCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedCardViewModel.swift; sourceTree = "<group>"; };
+		7890B24B25FA118A0054D6B6 /* ProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessViewController.swift; sourceTree = "<group>"; };
+		7890B24E25FA196D0054D6B6 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		78997A2325D562160093CAE2 /* LargeIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeIconView.swift; sourceTree = "<group>"; };
 		789C373C25AF260400BA94D1 /* PaymentMethodHandlerServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodHandlerServiceImpl.swift; sourceTree = "<group>"; };
 		789C373E25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodHandlerServiceAssembly.swift; sourceTree = "<group>"; };
@@ -1596,6 +1602,7 @@
 			children = (
 				402EBB549599D3B7DB0DABEC /* Settings.swift */,
 				402EB7D5657B7828E3545FDC /* TestSettings.swift */,
+				783CCEFA25FA347C005A298A /* ProcessConfirmation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1695,11 +1702,12 @@
 		402EB6F5F5ECFC24A3415F23 /* UserStories */ = {
 			isa = PBXGroup;
 			children = (
+				402EB3EF1A220B8E654BC3ED /* Cards */,
+				7890B24A25FA11720054D6B6 /* Process */,
 				402EBE7B78B736A4D48B9797 /* Root */,
 				402EBC01AAF87DAB5FB939E1 /* Settings */,
-				402EB3EF1A220B8E654BC3ED /* Cards */,
-				402EB22CA276A9F82F3268E5 /* Test Settings */,
 				402EB56FC0F4030503F712A9 /* Success */,
+				402EB22CA276A9F82F3268E5 /* Test Settings */,
 			);
 			path = UserStories;
 			sourceTree = "<group>";
@@ -2082,9 +2090,10 @@
 			isa = PBXGroup;
 			children = (
 				402EBDCA8CE554E9A5B4FFEB /* ContainerTableViewCell.swift */,
-				402EB6A48AE583D297E41E9A /* TitledSwitchView.swift */,
-				402EB7AF716BE8C008EA6059 /* TextValueView.swift */,
+				7890B24E25FA196D0054D6B6 /* TextFieldView.swift */,
 				402EB7A951380D72FF1C56D6 /* TextHeaderFooterView.swift */,
+				402EB7AF716BE8C008EA6059 /* TextValueView.swift */,
+				402EB6A48AE583D297E41E9A /* TitledSwitchView.swift */,
 				402EB0F399573DCE0B6FF15B /* TextControl */,
 			);
 			path = Views;
@@ -2731,6 +2740,14 @@
 				7860295125D194D300B9E961 /* LinkedCardViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7890B24A25FA11720054D6B6 /* Process */ = {
+			isa = PBXGroup;
+			children = (
+				7890B24B25FA118A0054D6B6 /* ProcessViewController.swift */,
+			);
+			path = Process;
 			sourceTree = "<group>";
 		};
 		78997A2225D562080093CAE2 /* LargeIconView */ = {
@@ -3570,6 +3587,7 @@
 				30AB53082383315D0098C7C1 /* UITextView+Styles.swift in Sources */,
 				402EB8CBDC1DC409DB149528 /* TransitionHandler.swift in Sources */,
 				402EB76B159E9C503FA2B433 /* ActivityIndicatorPresenting.swift in Sources */,
+				7890B24D25FA14BD0054D6B6 /* ProcessViewController.swift in Sources */,
 				402EB45A688AF741FD5813E3 /* Anchor.swift in Sources */,
 				402EBB8F4B7C1AF1E2394308 /* UIScreen+SafeAreaInsets.swift in Sources */,
 				402EBA03EBFAB4CE09BE7DF5 /* UIView+SpecificLayoutGuide.swift in Sources */,
@@ -3578,6 +3596,7 @@
 				402EB081707DFFC2F5DF3999 /* UITableView+Identifier.swift in Sources */,
 				402EB38E8A91E6F075E54A78 /* UIViewController+TransitionHandler.swift in Sources */,
 				402EB059A64C4ADEB677C006 /* UIImage+Tools.swift in Sources */,
+				7890B24F25FA196D0054D6B6 /* TextFieldView.swift in Sources */,
 				402EBAE66EB113D0D9C6F92F /* TextControl.swift in Sources */,
 				402EB7195FF2185F9F28BF17 /* TextControl+State.swift in Sources */,
 				402EB1B9B220F60B15DD61C1 /* TextControl+Layout.swift in Sources */,
@@ -3593,6 +3612,7 @@
 				402EB600C417B9FFA92A9014 /* TextControl+LayoutController.swift in Sources */,
 				402EBEBBF870303E32A2F04B /* TextControl+Style.swift in Sources */,
 				402EB49D79C96F3D7EC4D00E /* PlaceholderView.swift in Sources */,
+				783CCEFB25FA347C005A298A /* ProcessConfirmation.swift in Sources */,
 				402EB201DCE41E5997E60960 /* UIView+Tools.swift in Sources */,
 				402EBD74B5D25C398B38EC0B /* Identifier.swift in Sources */,
 				402EBC75F208A0541A979ECC /* UITableViewCell+Identifier.swift in Sources */,
