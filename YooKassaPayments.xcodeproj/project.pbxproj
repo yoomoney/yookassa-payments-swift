@@ -405,6 +405,7 @@
 		781CDD7D25D408F600C34912 /* ApplePayContractInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781CDD7C25D408F600C34912 /* ApplePayContractInteractor.swift */; };
 		781CDD7F25D42A1E00C34912 /* ApplePayContractRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781CDD7E25D42A1E00C34912 /* ApplePayContractRouter.swift */; };
 		783CCEFB25FA347C005A298A /* ProcessConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783CCEFA25FA347C005A298A /* ProcessConfirmation.swift */; };
+		783CCEFD25FB651C005A298A /* UIScreen+Short.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783CCEFC25FB651C005A298A /* UIScreen+Short.swift */; };
 		784A1A8B25B5A44600637CB5 /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8A25B5A44600637CB5 /* ApplePayService.swift */; };
 		784A1A8D25B5A45000637CB5 /* ApplePayServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8C25B5A45000637CB5 /* ApplePayServiceImpl.swift */; };
 		784A1A8F25B5A5A300637CB5 /* ApplePayConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8E25B5A5A300637CB5 /* ApplePayConstants.swift */; };
@@ -851,6 +852,7 @@
 		781CDD7C25D408F600C34912 /* ApplePayContractInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayContractInteractor.swift; sourceTree = "<group>"; };
 		781CDD7E25D42A1E00C34912 /* ApplePayContractRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayContractRouter.swift; sourceTree = "<group>"; };
 		783CCEFA25FA347C005A298A /* ProcessConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessConfirmation.swift; sourceTree = "<group>"; };
+		783CCEFC25FB651C005A298A /* UIScreen+Short.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Short.swift"; sourceTree = "<group>"; };
 		784A1A8A25B5A44600637CB5 /* ApplePayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
 		784A1A8C25B5A45000637CB5 /* ApplePayServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayServiceImpl.swift; sourceTree = "<group>"; };
 		784A1A8E25B5A5A300637CB5 /* ApplePayConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayConstants.swift; sourceTree = "<group>"; };
@@ -1715,9 +1717,10 @@
 		402EB72FA2F9530A4A971FF5 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				402EB35771FFB12A221F3905 /* String+Tools.swift */,
-				781CDD6D25D2B95300C34912 /* UITextField+InputView.swift */,
 				402EB93F77A21ACAE76D751D /* Bundle+Tools.swift */,
+				402EB35771FFB12A221F3905 /* String+Tools.swift */,
+				783CCEFC25FB651C005A298A /* UIScreen+Short.swift */,
+				781CDD6D25D2B95300C34912 /* UITextField+InputView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3352,6 +3355,7 @@
 				7860290025C982CA00B9E961 /* PaymentAuthorizationAssembly.swift in Sources */,
 				402EB636FC3E40E0EDE5A096 /* LogoutConfirmationModuleIO.swift in Sources */,
 				402EB002BD1EC142641CB2D4 /* LogoutConfirmationAssembly.swift in Sources */,
+				783CCEFD25FB651C005A298A /* UIScreen+Short.swift in Sources */,
 				402EB90A3E9FD8733C4EBEA9 /* LoginConfirmationViewController.swift in Sources */,
 				78C1BD1D25EFA1100058080F /* SberpayRouterIO.swift in Sources */,
 				402EBBE91DE40AA08E3AB8B5 /* ApplePayAssembly.swift in Sources */,

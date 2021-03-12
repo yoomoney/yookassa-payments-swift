@@ -6,6 +6,10 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
     
     // MARK: - UI properties
     
+    private lazy var shouldShowTitleOnNavBar: Bool = {
+        return UIScreen.main.isShort
+    }()
+    
     private lazy var titleLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.styledText = §Localized.smsCodePlaceholder
@@ -97,8 +101,13 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
     override func loadView() {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
+        
         setupView()
         setupConstraints()
+        
+        if shouldShowTitleOnNavBar {
+            navigationItem.title = §Localized.smsCodePlaceholder
+        }
     }
 
     override func viewDidLoad() {
@@ -124,8 +133,11 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
     // MARK: - Setup
     
     private func setupView() {
+        if !shouldShowTitleOnNavBar {
+            view.addSubview(titleLabel)
+        }
+        
         [
-            titleLabel,
             codeControl,
             codeErrorLabel,
             descriptionLabel,
@@ -135,12 +147,20 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
     }
     
     private func setupConstraints() {
-        let titleLabelTopConstraint: NSLayoutConstraint
+        let topConstraint: NSLayoutConstraint
         if #available(iOS 11.0, *) {
-            titleLabelTopConstraint = titleLabel.topAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.topAnchor,
-                constant: Space.single / 4
-            )
+            if shouldShowTitleOnNavBar {
+                topConstraint = codeControl.topAnchor.constraint(
+                    equalTo: view.safeAreaLayoutGuide.topAnchor,
+                    constant: 2 * Space.triple
+                )
+            } else {
+                topConstraint = titleLabel.topAnchor.constraint(
+                    equalTo: view.safeAreaLayoutGuide.topAnchor,
+                    constant: Space.single / 4
+                )
+            }
+
             resendButtonBottomConstraint = resendCodeButton.bottomAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.bottomAnchor,
                 constant: -Space.double
@@ -149,10 +169,18 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
                 equalTo: view.safeAreaLayoutGuide.bottomAnchor
             )
         } else {
-            titleLabelTopConstraint = titleLabel.topAnchor.constraint(
-                equalTo: topLayoutGuide.bottomAnchor,
-                constant: Space.single / 4
-            )
+            if shouldShowTitleOnNavBar {
+                topConstraint = codeControl.topAnchor.constraint(
+                    equalTo: topLayoutGuide.bottomAnchor,
+                    constant: 2 * Space.triple
+                )
+            } else {
+                topConstraint = titleLabel.topAnchor.constraint(
+                    equalTo: topLayoutGuide.bottomAnchor,
+                    constant: Space.single / 4
+                )
+            }
+
             resendButtonBottomConstraint = resendCodeButton.bottomAnchor.constraint(
                 equalTo: bottomLayoutGuide.topAnchor,
                 constant: -Space.double
@@ -162,21 +190,8 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
             )
         }
         
-        let constraints = [
-            titleLabelTopConstraint,
-            titleLabel.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: Space.double
-            ),
-            titleLabel.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: -Space.double
-            ),
-            
-            codeControl.topAnchor.constraint(
-                equalTo: titleLabel.bottomAnchor,
-                constant: 2 * Space.triple
-            ),
+        var constraints = [
+            topConstraint,
             codeControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             codeErrorLabel.topAnchor.constraint(
@@ -217,6 +232,25 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
             placeholderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             placeholderViewBottomConstraint,
         ]
+        
+        if !shouldShowTitleOnNavBar {
+            constraints += [
+                titleLabel.leadingAnchor.constraint(
+                    equalTo: view.leadingAnchor,
+                    constant: Space.double
+                ),
+                titleLabel.trailingAnchor.constraint(
+                    equalTo: view.trailingAnchor,
+                    constant: -Space.double
+                ),
+                
+                codeControl.topAnchor.constraint(
+                    equalTo: titleLabel.bottomAnchor,
+                    constant: 2 * Space.triple
+                ),
+            ]
+        }
+        
         NSLayoutConstraint.activate(constraints)
     }
     
