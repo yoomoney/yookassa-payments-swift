@@ -8,13 +8,12 @@ final class CellDescriptor {
     let configuration: (UITableViewCell) -> Void
     let selection: ((IndexPath) -> Void)?
 
-    init<Cell: CellType>(configuration: @escaping (Cell) -> Void,
-                         selection: ((IndexPath) -> Void)? = nil) {
-
+    init<Cell: CellType>(
+        configuration: @escaping (Cell) -> Void,
+        selection: ((IndexPath) -> Void)? = nil
+    ) {
         self.cellClass = Cell.self
-
         self.selection = selection
-
         self.configuration = { cell in
             guard let cell = cell as? Cell else {
                 assertionFailure("Cell and selection types mismatch")
@@ -24,5 +23,4 @@ final class CellDescriptor {
             configuration(cell)
         }
     }
-
 }
