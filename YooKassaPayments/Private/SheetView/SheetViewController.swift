@@ -242,17 +242,11 @@ final class SheetViewController: UIViewController {
     ) -> CGFloat? {
         let convertedKeyboardFrame = view.convert(keyboardFrame, from: nil)
         let intersectionViewFrame = convertedKeyboardFrame.intersection(view.bounds)
-        var safeOffset: CGFloat = 0
-        if #available(iOS 11.0, *) {
-            let intersectionSafeFrame = convertedKeyboardFrame.intersection(view.safeAreaLayoutGuide.layoutFrame)
-            safeOffset = intersectionViewFrame.height - intersectionSafeFrame.height
-        }
         let intersectionOffset = intersectionViewFrame.size.height
         guard convertedKeyboardFrame.minY.isInfinite == false else {
             return nil
         }
-        let keyboardOffset = intersectionOffset - safeOffset
-        return keyboardOffset
+        return intersectionOffset
     }
 }
 
@@ -316,7 +310,6 @@ private extension SheetViewController {
         for size: SheetSize
     ) -> CGFloat {
         var statusBarHeight: CGFloat = 0
-        
         if #available(iOS 13.0, *) {
             let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
             statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
@@ -325,7 +318,6 @@ private extension SheetViewController {
         }
         
         let fullscreenHeight = view.bounds.height - statusBarHeight
-
 
         let contentHeight: CGFloat
         switch size {

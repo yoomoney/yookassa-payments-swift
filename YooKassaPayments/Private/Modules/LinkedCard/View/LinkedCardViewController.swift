@@ -271,8 +271,6 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
             )
         }
         
-        scrollViewHeightConstraint.priority = .defaultLow
-        
         let constraints = [
             scrollViewHeightConstraint,
             
