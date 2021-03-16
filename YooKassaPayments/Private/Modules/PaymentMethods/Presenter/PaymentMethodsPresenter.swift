@@ -783,6 +783,7 @@ extension PaymentMethodsPresenter: YooMoneyModuleOutput {
     ) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
+            self.shouldReloadOnViewDidAppear = false
             self.router.closeYooMoneyModule()
             self.view?.showActivity()
             DispatchQueue.global().async { [weak self] in
