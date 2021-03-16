@@ -159,13 +159,6 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
     func clearDidPress() {
         trackCardNumberClearAction()
     }
-
-    private func setModifiedPan() {
-        guard let panValue = cardData.pan,
-              let view = view else { return }
-        let modifiedPanValue = "••••" + panValue.suffix(4)
-        view.setPanValue(modifiedPanValue)
-    }
 }
 
 // MARK: - BankCardDataInputInteractorOutput
