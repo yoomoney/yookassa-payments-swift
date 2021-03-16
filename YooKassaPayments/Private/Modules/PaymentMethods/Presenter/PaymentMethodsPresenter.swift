@@ -970,7 +970,8 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
         let inputData = CardSecModuleInputData(
             requestUrl: requestUrl,
             redirectUrl: GlobalConstants.returnUrl,
-            isLoggingEnabled: isLoggingEnabled
+            isLoggingEnabled: isLoggingEnabled,
+            isConfirmation: false
         )
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -1009,11 +1010,21 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
                     completionHandler: nil
                 )
             }
-            break
             
         default:
-            assertionFailure("Need implement open process confirmation for \(paymentMethodType)")
-            break
+            let inputData = CardSecModuleInputData(
+                requestUrl: confirmationUrl,
+                redirectUrl: GlobalConstants.returnUrl,
+                isLoggingEnabled: isLoggingEnabled,
+                isConfirmation: true
+            )
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.router.openCardSecModule(
+                    inputData: inputData,
+                    moduleOutput: self
+                )
+            }
         }
     }
 }
@@ -1022,12 +1033,19 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
 
 extension PaymentMethodsPresenter: CardSecModuleOutput {
     func didSuccessfullyPassedCardSec(
-        on module: CardSecModuleInput
+        on module: CardSecModuleInput,
+        isConfirmation: Bool
     ) {
         interactor.stopAnalyticsService()
-        tokenizationModuleOutput?.didSuccessfullyPassedCardSec(
-            on: self
-        )
+        if isConfirmation {
+            tokenizationModuleOutput?.didSuccessfullyConfirmation(
+                paymentMethodType: .bankCard
+            )
+        } else {
+            tokenizationModuleOutput?.didSuccessfullyPassedCardSec(
+                on: self
+            )
+        }
     }
 
     func didPressCloseButton(

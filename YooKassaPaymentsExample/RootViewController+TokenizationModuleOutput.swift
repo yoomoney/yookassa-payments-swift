@@ -15,7 +15,10 @@ extension RootViewController: TokenizationModuleOutput {
            let processConfirmation = settings.testModeSettings.processConfirmation {
             switch processConfirmation {
             case let .threeDSecure(requestUrl):
-                tokenizationModuleInput?.start3dsProcess(requestUrl: requestUrl)
+                tokenizationModuleInput?.startConfirmationProcess(
+                    confirmationUrl: requestUrl,
+                    paymentMethodType: paymentMethodType
+                )
                 
             case let .app2app(confirmationUrl):
                 tokenizationModuleInput?.startConfirmationProcess(
