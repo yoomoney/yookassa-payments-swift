@@ -404,6 +404,10 @@
 		781CDD7B25D4064100C34912 /* ApplePayContractViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781CDD7A25D4064100C34912 /* ApplePayContractViewIO.swift */; };
 		781CDD7D25D408F600C34912 /* ApplePayContractInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781CDD7C25D408F600C34912 /* ApplePayContractInteractor.swift */; };
 		781CDD7F25D42A1E00C34912 /* ApplePayContractRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781CDD7E25D42A1E00C34912 /* ApplePayContractRouter.swift */; };
+		781FB66B260229CD00567AFA /* BankCardRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781FB66A260229CD00567AFA /* BankCardRegex.swift */; };
+		781FB66E260235AD00567AFA /* BankCardImageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781FB66D260235AD00567AFA /* BankCardImageFactory.swift */; };
+		781FB671260235EF00567AFA /* BankCardImageFactoryAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781FB670260235EF00567AFA /* BankCardImageFactoryAssembly.swift */; };
+		781FB673260235F700567AFA /* BankCardImageFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781FB672260235F700567AFA /* BankCardImageFactoryImpl.swift */; };
 		783CCEFB25FA347C005A298A /* ProcessConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783CCEFA25FA347C005A298A /* ProcessConfirmation.swift */; };
 		783CCEFD25FB651C005A298A /* UIScreen+Short.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783CCEFC25FB651C005A298A /* UIScreen+Short.swift */; };
 		784A1A8B25B5A44600637CB5 /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8A25B5A44600637CB5 /* ApplePayService.swift */; };
@@ -851,6 +855,10 @@
 		781CDD7A25D4064100C34912 /* ApplePayContractViewIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayContractViewIO.swift; sourceTree = "<group>"; };
 		781CDD7C25D408F600C34912 /* ApplePayContractInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayContractInteractor.swift; sourceTree = "<group>"; };
 		781CDD7E25D42A1E00C34912 /* ApplePayContractRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayContractRouter.swift; sourceTree = "<group>"; };
+		781FB66A260229CD00567AFA /* BankCardRegex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardRegex.swift; sourceTree = "<group>"; };
+		781FB66D260235AD00567AFA /* BankCardImageFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardImageFactory.swift; sourceTree = "<group>"; };
+		781FB670260235EF00567AFA /* BankCardImageFactoryAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardImageFactoryAssembly.swift; sourceTree = "<group>"; };
+		781FB672260235F700567AFA /* BankCardImageFactoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardImageFactoryImpl.swift; sourceTree = "<group>"; };
 		783CCEFA25FA347C005A298A /* ProcessConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessConfirmation.swift; sourceTree = "<group>"; };
 		783CCEFC25FB651C005A298A /* UIScreen+Short.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Short.swift"; sourceTree = "<group>"; };
 		784A1A8A25B5A44600637CB5 /* ApplePayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
@@ -1874,6 +1882,7 @@
 				402EB033A1DFDB46B5EBA6D1 /* PhoneNumberFormatterAssembly.swift */,
 				402EB96DFA8C9D871DE124D0 /* SavePaymentMethodViewModelFactory.swift */,
 				402EBF7AC88FCC8EA3154C56 /* UserAgentFactory.swift */,
+				781FB66F260235D400567AFA /* BankCardImage */,
 				78C1BDF325F230460058080F /* Deeplink */,
 				78B6B20C25C1646D00645D8A /* PaymentMethodViewModel */,
 			);
@@ -1974,6 +1983,7 @@
 		402EBA8BE37B25AAD457F8D1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				781FB66A260229CD00567AFA /* BankCardRegex.swift */,
 				402EBA3F8618D17FB47AC873 /* BankSettings.swift */,
 				402EBA04C707C5EA568200DE /* CardData.swift */,
 				402EBC6E1AC8DE3F0701FE15 /* HostsConfig.swift */,
@@ -2497,6 +2507,16 @@
 				78CF11DE25D438A100F7154E /* ViewModel */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		781FB66F260235D400567AFA /* BankCardImage */ = {
+			isa = PBXGroup;
+			children = (
+				781FB66D260235AD00567AFA /* BankCardImageFactory.swift */,
+				781FB670260235EF00567AFA /* BankCardImageFactoryAssembly.swift */,
+				781FB672260235F700567AFA /* BankCardImageFactoryImpl.swift */,
+			);
+			path = BankCardImage;
 			sourceTree = "<group>";
 		};
 		784A1A8925B5A42900637CB5 /* ApplePay */ = {
@@ -3150,6 +3170,7 @@
 				402EB87BAE962D317D13D7F4 /* CscInputPresenterStyle.swift in Sources */,
 				7860293D25D1671000B9E961 /* LinkedCardViewIO.swift in Sources */,
 				402EBB1D932FB9AA14055422 /* PanInputPresenterStyle.swift in Sources */,
+				781FB673260235F700567AFA /* BankCardImageFactoryImpl.swift in Sources */,
 				402EBCE6F2A52CBB1C0D225A /* ExpiryDateInputPresenterStyle.swift in Sources */,
 				402EBE1BE753B698DAB812C0 /* PhoneNumberStyleWithAutoCorrection.swift in Sources */,
 				402EB5B4BFA3AAFB7B8EFAC1 /* PhoneNumberFormatter.swift in Sources */,
@@ -3277,6 +3298,7 @@
 				402EBFC348B3BCF7D33FCAB5 /* CustomizationColors.swift in Sources */,
 				7860292A25CD406500B9E961 /* ImageDownloadServiceImpl.swift in Sources */,
 				7811066E25C2CD91004DB71D /* YooMoneyInteractor.swift in Sources */,
+				781FB66E260235AD00567AFA /* BankCardImageFactory.swift in Sources */,
 				7860294525D1673800B9E961 /* LinkedCardInteractor.swift in Sources */,
 				402EB9C4BBC1F6EF4241A9C9 /* CardData.swift in Sources */,
 				7811066C25C2CD7B004DB71D /* YooMoneyAssembly.swift in Sources */,
@@ -3358,6 +3380,7 @@
 				783CCEFD25FB651C005A298A /* UIScreen+Short.swift in Sources */,
 				402EB90A3E9FD8733C4EBEA9 /* LoginConfirmationViewController.swift in Sources */,
 				78C1BD1D25EFA1100058080F /* SberpayRouterIO.swift in Sources */,
+				781FB66B260229CD00567AFA /* BankCardRegex.swift in Sources */,
 				402EBBE91DE40AA08E3AB8B5 /* ApplePayAssembly.swift in Sources */,
 				402EB7C74860DFA65827A00C /* ApplePayModuleIO.swift in Sources */,
 				30B20E2B2535FC1C00941574 /* KeyValueStoringKeys.swift in Sources */,
@@ -3365,6 +3388,7 @@
 				402EB8D43DDD23DC7A645AA1 /* BankCardRepeatInteractor.swift in Sources */,
 				402EB1F0EAA3B2E1422FD95D /* BankCardRepeatInteractorIO.swift in Sources */,
 				3089EF4D23846F7400CB7319 /* SavePaymentMethodViewModel.swift in Sources */,
+				781FB671260235EF00567AFA /* BankCardImageFactoryAssembly.swift in Sources */,
 				402EB38B0B0D9EA3988F9922 /* PaymentService.swift in Sources */,
 				402EBC0B94C8D1B32962BBA8 /* PaymentProcessingError.swift in Sources */,
 				402EBD95FD7CAFB6AD2F29FC /* PaymentServiceMock.swift in Sources */,
