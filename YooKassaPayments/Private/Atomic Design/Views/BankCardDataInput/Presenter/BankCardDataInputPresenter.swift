@@ -349,7 +349,12 @@ private extension BankCardDataInputPresenter {
         case .expiryDate?, .cvc?:
             view.setInputState(.uncollapsed)
             view.setCardViewMode(.empty)
-            let modifiedPanValue = "••••" + panValue.suffix(4)
+            let modifiedPanValue: String
+            if UIScreen.main.isNarrow {
+                modifiedPanValue = String(panValue.suffix(4))
+            } else {
+                modifiedPanValue = "••••" + panValue.suffix(4)
+            }
             view.setPanValue(modifiedPanValue)
         default:
             break
