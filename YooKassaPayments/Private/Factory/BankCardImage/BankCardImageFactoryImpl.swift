@@ -17,7 +17,7 @@ final class BankCardImageFactoryImpl {
         ),
         BankCardRegex(
             type: .mir,
-            regex: "^(220[0-4])\\d+$"
+            regex: "^220[0-4]\\d+$"
         ),
         BankCardRegex(
             type: .maestro,
