@@ -13,26 +13,60 @@ final class SheetContentViewController: UIViewController {
         return $0
     }(UIView())
 
-    private var contentWrapperView = UIView()
-    private var pullBarView = UIView()
-    private var gripView = UIView()
-    private let overflowView = UIView()
+    private lazy var contentWrapperView: UIView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.layer.masksToBounds = true
+        if #available(iOS 11.0, *) {
+            $0.layer.maskedCorners = [
+                .layerMaxXMinYCorner,
+                .layerMinXMinYCorner,
+            ]
+        }
+        return $0
+    }(UIView())
+    
+    private lazy var pullBarView: UIView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIView())
+    
+    private lazy var gripView: UIView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIView())
+    
+    private lazy var overflowView: UIView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIView())
 
     private lazy var childContainerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+        $0.translatesAutoresizingMaskIntoConstraints = false
         if #available(iOS 13.0, *) {
-            view.backgroundColor = UIColor.systemBackground
+            $0.backgroundColor = UIColor.systemBackground
         } else {
-            view.backgroundColor = UIColor.white
+            $0.backgroundColor = UIColor.white
         }
-        return view
-    }()
+        $0.layer.masksToBounds = true
+        if #available(iOS 11.0, *) {
+            $0.layer.maskedCorners = [
+                .layerMaxXMinYCorner,
+                .layerMinXMinYCorner,
+            ]
+        }
+        return $0
+    }(UIView())
 
     // MARK: - NSLayoutConstraint
 
-    private var contentTopConstraint: NSLayoutConstraint?
-    private var contentBottomConstraint: NSLayoutConstraint?
+    private lazy var contentTopConstraint: NSLayoutConstraint = {
+        return contentView.topAnchor.constraint(equalTo: view.topAnchor)
+    }()
+    
+    private lazy var contentBottomConstraint: NSLayoutConstraint = {
+        return childViewController.view.bottomAnchor.constraint(equalTo: childContainerView.bottomAnchor)
+    }()
+    
     private var navigationHeightConstraint: NSLayoutConstraint?
     private var gripSizeConstraints: [NSLayoutConstraint] = []
 
@@ -123,45 +157,42 @@ final class SheetContentViewController: UIViewController {
 
     private func setupContentView() {
         view.addSubview(contentView)
+        contentView.addSubview(contentWrapperView)
+        contentView.addSubview(overflowView)
         
         NSLayoutConstraint.activate([
-            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentTopConstraint,
+            contentView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            contentView.rightAnchor.constraint(equalTo: view.rightAnchor),
             contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            contentWrapperView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            contentWrapperView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            contentWrapperView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            contentWrapperView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            
+            overflowView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            overflowView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            overflowView.heightAnchor.constraint(equalToConstant: 200),
+            overflowView.topAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -1
+            ),
         ])
-        
-        contentTopConstraint = contentView.topAnchor.constraint(equalTo: view.topAnchor)
-        if let contentTopConstraint = contentTopConstraint {
-            NSLayoutConstraint.activate([
-                contentTopConstraint,
-            ])
-        }
-        
-        contentView.addSubview(contentWrapperView) {
-            $0.edges.pinToSuperview()
-        }
-
-        contentWrapperView.layer.masksToBounds = true
-        if #available(iOS 11.0, *) {
-            contentWrapperView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        }
-
-        contentView.addSubview(overflowView) {
-            $0.edges(.left, .right).pinToSuperview()
-            $0.height.set(200)
-            $0.top.align(with: contentView.al.bottom - 1)
-        }
     }
 
     private func setupChildContainerView() {
         contentWrapperView.addSubview(childContainerView)
-
-        Constraints(for: childContainerView) { view in
-            view.top.pinToSuperview(inset: options.pullBarHeight)
-            view.left.pinToSuperview()
-            view.right.pinToSuperview()
-            view.bottom.pinToSuperview()
-        }
+        
+        NSLayoutConstraint.activate([
+            childContainerView.topAnchor.constraint(
+                equalTo: contentWrapperView.topAnchor,
+                constant: options.pullBarHeight
+            ),
+            childContainerView.leftAnchor.constraint(equalTo: contentWrapperView.leftAnchor),
+            childContainerView.rightAnchor.constraint(equalTo: contentWrapperView.rightAnchor),
+            childContainerView.bottomAnchor.constraint(equalTo: contentWrapperView.bottomAnchor),
+        ])
     }
 
     private func setupChildViewController() {
@@ -175,21 +206,10 @@ final class SheetContentViewController: UIViewController {
             childViewController.view.leadingAnchor.constraint(equalTo: childContainerView.leadingAnchor),
             childViewController.view.trailingAnchor.constraint(equalTo: childContainerView.trailingAnchor),
             childViewController.view.topAnchor.constraint(equalTo: childContainerView.topAnchor),
+            contentBottomConstraint,
         ])
         
-        contentBottomConstraint = childViewController.view.bottomAnchor.constraint(equalTo: childContainerView.bottomAnchor)
-        if let contentBottomConstraint = contentBottomConstraint {
-            NSLayoutConstraint.activate([
-                contentBottomConstraint,
-            ])
-        }
-        
         childViewController.didMove(toParent: self)
-
-        childContainerView.layer.masksToBounds = true
-        if #available(iOS 11.0, *) {
-            childContainerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        }
     }
 
     private func setupOverflowView() {
@@ -197,10 +217,12 @@ final class SheetContentViewController: UIViewController {
     }
 
     private func setupGripSize() {
-        gripSizeConstraints.forEach({ $0.isActive = false })
-        Constraints(for: gripView) {
-            gripSizeConstraints = $0.size.set(gripSize)
-        }
+        NSLayoutConstraint.deactivate(gripSizeConstraints)
+        gripSizeConstraints = [
+            gripView.heightAnchor.constraint(equalToConstant: gripSize.height),
+            gripView.widthAnchor.constraint(equalToConstant: gripSize.width),
+        ]
+        NSLayoutConstraint.activate(gripSizeConstraints)
         gripView.layer.cornerRadius = gripSize.height / 2
     }
 
@@ -214,12 +236,12 @@ final class SheetContentViewController: UIViewController {
         pullBarView.isUserInteractionEnabled = true
         pullBarView.backgroundColor = pullBarBackgroundColor
         contentWrapperView.addSubview(pullBarView)
-        Constraints(for: pullBarView) {
-            $0.top.pinToSuperview()
-            $0.left.pinToSuperview()
-            $0.right.pinToSuperview()
-            $0.height.set(options.pullBarHeight)
-        }
+        NSLayoutConstraint.activate([
+            pullBarView.topAnchor.constraint(equalTo: contentWrapperView.topAnchor),
+            pullBarView.leftAnchor.constraint(equalTo: contentWrapperView.leftAnchor),
+            pullBarView.rightAnchor.constraint(equalTo: contentWrapperView.rightAnchor),
+            pullBarView.heightAnchor.constraint(equalToConstant: options.pullBarHeight),
+        ])
         self.pullBarView = pullBarView
 
         let gripView = self.gripView
@@ -227,12 +249,16 @@ final class SheetContentViewController: UIViewController {
         gripView.layer.cornerRadius = gripSize.height / 2
         gripView.layer.masksToBounds = true
         pullBarView.addSubview(gripView)
-        gripSizeConstraints.forEach({ $0.isActive = false })
-        Constraints(for: gripView) {
-            $0.centerY.alignWithSuperview()
-            $0.centerX.alignWithSuperview()
-            gripSizeConstraints = $0.size.set(gripSize)
-        }
+        NSLayoutConstraint.deactivate(gripSizeConstraints)
+        gripSizeConstraints = [
+            gripView.heightAnchor.constraint(equalToConstant: gripSize.height),
+            gripView.widthAnchor.constraint(equalToConstant: gripSize.width),
+        ]
+        NSLayoutConstraint.activate([
+            gripView.centerYAnchor.constraint(equalTo: pullBarView.centerYAnchor),
+            gripView.centerXAnchor.constraint(equalTo: pullBarView.centerXAnchor),
+        ])
+        NSLayoutConstraint.activate(gripSizeConstraints)
     }
 
     private func setupCornerRadius() {
@@ -277,7 +303,7 @@ extension SheetContentViewController {
         let oldPreferredHeight = preferredHeight
         var fittingSize = UIView.layoutFittingCompressedSize
         fittingSize.width = width
-        contentTopConstraint?.isActive = false
+        contentTopConstraint.isActive = false
 
         UIView.performWithoutAnimation {
             contentView.layoutSubviews()
@@ -287,7 +313,7 @@ extension SheetContentViewController {
             withHorizontalFittingPriority: .required,
             verticalFittingPriority: .defaultLow
         ).height
-        contentTopConstraint?.isActive = true
+        contentTopConstraint.isActive = true
 
         UIView.performWithoutAnimation {
             contentView.layoutSubviews()
@@ -306,7 +332,7 @@ private extension SheetContentViewController {
     func updateNavigationControllerHeight() {
         guard let navigationController = childViewController as? UINavigationController else { return }
         navigationHeightConstraint?.isActive = false
-        contentTopConstraint?.isActive = false
+        contentTopConstraint.isActive = false
 
         if let viewController = navigationController.visibleViewController {
             let sizeFitting = CGSize(width: view.bounds.width, height: 0)
@@ -321,13 +347,13 @@ private extension SheetContentViewController {
             }
         }
         navigationHeightConstraint?.isActive = true
-        contentTopConstraint?.isActive = true
+        contentTopConstraint.isActive = true
     }
 
     func updateChildViewControllerBottomConstraint(
         adjustment: CGFloat
     ) {
-        contentBottomConstraint?.constant = adjustment
+        contentBottomConstraint.constant = adjustment
     }
 }
 

@@ -123,7 +123,6 @@
 		402EB49D79C96F3D7EC4D00E /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB05B21E70E9A2E81515C /* PlaceholderView.swift */; };
 		402EB4A38D9458D726EF2973 /* AnalyticsProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBA44464C238E00928819 /* AnalyticsProviderAssembly.swift */; };
 		402EB4AA589D5590C3FCD2AE /* InternalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB1EEE3DFE557080259B2 /* InternalStyle.swift */; };
-		402EB4D914B8C94E739CAA6C /* Yalta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB9AC3E2FC9F00509D779 /* Yalta.swift */; };
 		402EB4DB7D89DA8CBED9BBBB /* AuthTypeStatesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBFF57151C710CF91D0E6 /* AuthTypeStatesService.swift */; };
 		402EB4DC5AAC097E3992B6DE /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB5FD23E637F2CB6C2574 /* SuccessViewController.swift */; };
 		402EB4DECF9836134B8DFF2C /* SberbankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBD38199403D8E554BCA3 /* SberbankViewController.swift */; };
@@ -697,7 +696,6 @@
 		402EB98341C0EAD3DE8902C2 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		402EB9A46DDCE237E4AB1B00 /* SberbankInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SberbankInteractorIO.swift; sourceTree = "<group>"; };
 		402EB9A63FFF964EED27D4DE /* InputCvcView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputCvcView.swift; sourceTree = "<group>"; };
-		402EB9AC3E2FC9F00509D779 /* Yalta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Yalta.swift; sourceTree = "<group>"; };
 		402EB9AEA4AE184596686453 /* UITableViewCell+Identifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Identifier.swift"; sourceTree = "<group>"; };
 		402EB9CB53DAB7D15EB12891 /* AuthorizationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationService.swift; sourceTree = "<group>"; };
 		402EB9D4435E4C37E367DF6A /* RootViewController+CardScanning+Pods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RootViewController+CardScanning+Pods.swift"; sourceTree = "<group>"; };
@@ -1754,7 +1752,6 @@
 		402EB76B4E70AD0A3902C605 /* SheetView */ = {
 			isa = PBXGroup;
 			children = (
-				402EB9AC3E2FC9F00509D779 /* Yalta.swift */,
 				402EB046F2F92BF86F22CE06 /* SheetSize.swift */,
 				402EB761066455B29DCA05B5 /* SheetOptions.swift */,
 				402EB8291A43AFF991536FFA /* SheetTransition.swift */,
@@ -3463,7 +3460,6 @@
 				781CDD7925D4063A00C34912 /* ApplePayContractRouterIO.swift in Sources */,
 				402EB34C8185FBEF0E13025B /* UIViewController+Keyboard.swift in Sources */,
 				402EB952EA7B9CD954D7654E /* KeyboardObservingAccessoryView.swift in Sources */,
-				402EB4D914B8C94E739CAA6C /* Yalta.swift in Sources */,
 				402EBB6E80134E0C43050D07 /* SheetSize.swift in Sources */,
 				402EB4040D6DB2DC51F53B51 /* SheetOptions.swift in Sources */,
 				402EBE4E6840A072C11BF813 /* SheetTransition.swift in Sources */,
