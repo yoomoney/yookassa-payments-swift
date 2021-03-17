@@ -16,6 +16,7 @@ final class BankCardDataInputPresenter {
     private let inputCvcHint: String
     private let inputCvcPlaceholder: String
     private let cardScanner: CardScanning?
+    private let bankCardImageFactory: BankCardImageFactory
 
     init(
         inputPanHint: String,
@@ -24,7 +25,8 @@ final class BankCardDataInputPresenter {
         inputExpiryDatePlaceholder: String,
         inputCvcHint: String,
         inputCvcPlaceholder: String,
-        cardScanner: CardScanning?
+        cardScanner: CardScanning?,
+        bankCardImageFactory: BankCardImageFactory
     ) {
         self.inputPanHint = inputPanHint
         self.inputPanPlaceholder = inputPanPlaceholder
@@ -33,6 +35,7 @@ final class BankCardDataInputPresenter {
         self.inputCvcHint = inputCvcHint
         self.inputCvcPlaceholder = inputCvcPlaceholder
         self.cardScanner = cardScanner
+        self.bankCardImageFactory = bankCardImageFactory
     }
 
     // MARK: - Stored data
@@ -221,10 +224,14 @@ extension BankCardDataInputPresenter: BankCardDataInputInteractorOutput {
         }
     }
 
-    func didFailFetchBankSettings() {
+    func didFailFetchBankSettings(
+        _ cardMask: String
+    ) {
         DispatchQueue.main.async { [weak self] in
-            guard let view = self?.view else { return }
-            view.setBankLogoImage(nil)
+            guard let self = self,
+                  let view = self.view else { return }
+            let image = self.bankCardImageFactory.makeImage(cardMask)
+            view.setBankLogoImage(image)
         }
     }
 }
