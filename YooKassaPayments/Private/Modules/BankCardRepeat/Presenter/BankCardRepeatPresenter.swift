@@ -223,11 +223,9 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
     }
 
     func didFailFetchPaymentMethod(_ error: Error) {
-        let authType = AnalyticsEvent.AuthType.withoutAuth
-        let scheme = AnalyticsEvent.TokenizeScheme.recurringCard
         let event = AnalyticsEvent.screenError(
-            authType: authType,
-            scheme: scheme,
+            authType: .withoutAuth,
+            scheme: .recurringCard,
             sdkVersion: Bundle.frameworkVersion
         )
         interactor.trackEvent(event)
@@ -252,7 +250,7 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
             guard let self = self, let interactor = self.interactor else { return }
             let type = interactor.makeTypeAnalyticsParameters()
             let event: AnalyticsEvent = .actionTokenize(
-                scheme: .bankCard,
+                scheme: .recurringCard,
                 authType: type.authType,
                 tokenType: type.tokenType,
                 sdkVersion: Bundle.frameworkVersion
