@@ -57,7 +57,9 @@ final class BankCardDataInputView: UIView {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .horizontal
-        view.spacing = Space.double
+        view.spacing = UIScreen.main.isNarrow
+            ? Space.single
+            : Space.double
         return view
     }()
 
