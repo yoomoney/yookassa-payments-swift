@@ -203,3 +203,4 @@
 
 "BankCardDataInputView.BottomHint.invalidPan" = "Проверьте номер карты";
 "BankCardDataInputView.BottomHint.invalidExpiry" = "Проверьте месяц и год";
+"BankCardDataInputView.BottomHint.invalidCvc" = "Проверьте CVC";

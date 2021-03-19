@@ -112,9 +112,9 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
     func didChangeCvc(
         _ value: String
     ) {
+        self.cardData.csc = value
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
-            self.cardData.csc = value
             self.interactor.validate(
                 cardData: self.cardData,
                 shouldMoveFocus: true
@@ -153,6 +153,26 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
             )
         }
     }
+    
+    func expiryDateDidEndEditing() {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            self.interactor.validate(
+                cardData: self.cardData,
+                shouldMoveFocus: false
+            )
+        }
+    }
+    
+    func cvcDidEndEditing() {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            self.interactor.validate(
+                cardData: self.cardData,
+                shouldMoveFocus: false
+            )
+        }
+    }
 
     func nextDidPress() {
         setViewFocus(.expiryDate)
@@ -177,6 +197,7 @@ extension BankCardDataInputPresenter: BankCardDataInputInteractorOutput {
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
 
+            view.setErrorState(.noError)
             if view.focus == .pan {
                 view.setCardViewMode(.next)
             }
@@ -301,13 +322,18 @@ private extension BankCardDataInputPresenter {
            view.focus == .pan {
             view.setErrorState(.panError)
             trackCardNumberInputError()
-        } else if expiryDateText.count == Constants.MoveFocusLength.expiryDate,
+        } else if (view.focus == nil ||
+                    view.focus == .expiryDate
+                    && expiryDateText.count == Constants.MoveFocusLength.expiryDate),
                   errors.contains(.expirationDateIsExpired)
                       || errors.contains(.expiryDateEmpty)
-                      || errors.contains(.invalidMonth),
-                  view.focus == .expiryDate {
+                      || errors.contains(.invalidMonth) {
             view.setErrorState(.expiryDateError)
             trackCardExpiryInputError()
+        } else if errors.contains(.cscInvalidLength),
+                  view.focus == nil {
+            view.setErrorState(.invalidCvc)
+            trackCardCvcInputError()
         } else {
             view.setErrorState(.noError)
         }
@@ -386,6 +412,14 @@ private extension BankCardDataInputPresenter {
     func trackCardExpiryInputError() {
         let event: AnalyticsEvent = .actionBankCardForm(
             action: .cardExpiryInputError,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        trackEvent(event)
+    }
+    
+    func trackCardCvcInputError() {
+        let event: AnalyticsEvent = .actionBankCardForm(
+            action: .cardCvcInputError,
             sdkVersion: Bundle.frameworkVersion
         )
         trackEvent(event)
