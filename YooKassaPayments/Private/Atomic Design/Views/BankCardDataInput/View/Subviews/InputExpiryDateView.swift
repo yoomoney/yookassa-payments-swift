@@ -5,6 +5,7 @@ protocol InputExpiryDateViewDelegate: class {
         _ value: String
     )
     func expiryDateDidBeginEditing()
+    func expiryDateDidEndEditing()
 }
 
 final class InputExpiryDateView: UIView {
@@ -161,7 +162,12 @@ extension InputExpiryDateView: UITextFieldDelegate {
     ) {
         delegate?.expiryDateDidBeginEditing()
     }
-
+    
+    func textFieldDidEndEditing(
+        _ textField: UITextField
+    ) {
+        delegate?.expiryDateDidEndEditing()
+    }
 }
 
 // MARK: Styles

@@ -4,6 +4,7 @@ enum BankCardDataInputViewErrorState {
     case noError
     case panError
     case expiryDateError
+    case invalidCvc
 }
 
 protocol BankCardDataInputViewInput: class {
@@ -38,6 +39,8 @@ protocol BankCardDataInputViewOutput: class {
     func didPressScan()
     func panDidBeginEditing()
     func expiryDateDidBeginEditing()
+    func expiryDateDidEndEditing()
+    func cvcDidEndEditing()
     func nextDidPress()
     func clearDidPress()
 

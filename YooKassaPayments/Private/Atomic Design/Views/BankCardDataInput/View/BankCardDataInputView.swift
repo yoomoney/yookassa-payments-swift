@@ -320,6 +320,7 @@ extension BankCardDataInputView: BankCardDataInputViewInput {
                 self.inputsContainerView.setStyles(UIView.Styles.grayBorder)
                 self.inputPanCardView.setStyles(InputPanCardView.Styles.default)
                 self.inputExpiryDateView.setStyles(InputExpiryDateView.Styles.default)
+                self.inputCvcView.setStyles(InputCvcView.Styles.default)
                 self.bottomHintLabel.text = ""
                 self.bottomHintLabel.alpha = 0
             case .panError:
@@ -331,7 +332,15 @@ extension BankCardDataInputView: BankCardDataInputViewInput {
                 self.inputsContainerView.setStyles(UIView.Styles.alertBorder)
                 self.inputExpiryDateView.setStyles(InputExpiryDateView.Styles.error)
                 self.inputPanCardView.setStyles(InputPanCardView.Styles.default)
+                self.inputCvcView.setStyles(InputCvcView.Styles.default)
                 self.bottomHintLabel.text = §Localized.BottomHint.invalidExpiry
+                self.bottomHintLabel.alpha = 1
+            case .invalidCvc:
+                self.inputsContainerView.setStyles(UIView.Styles.alertBorder)
+                self.inputCvcView.setStyles(InputCvcView.Styles.error)
+                self.inputExpiryDateView.setStyles(InputExpiryDateView.Styles.default)
+                self.inputPanCardView.setStyles(InputPanCardView.Styles.default)
+                self.bottomHintLabel.text = §Localized.BottomHint.invalidCvc
                 self.bottomHintLabel.alpha = 1
             }
         }
@@ -376,6 +385,10 @@ extension BankCardDataInputView: InputExpiryDateViewDelegate {
     func expiryDateDidBeginEditing() {
         output.expiryDateDidBeginEditing()
     }
+    
+    func expiryDateDidEndEditing() {
+        output.expiryDateDidEndEditing()
+    }
 }
 
 // MARK: - InputCvcViewDelegate
@@ -385,6 +398,10 @@ extension BankCardDataInputView: InputCvcViewDelegate {
         _ value: String
     ) {
         output.didChangeCvc(value)
+    }
+    
+    func cvcDidEndEditing() {
+        output.cvcDidEndEditing()
     }
 }
 
@@ -410,6 +427,7 @@ private extension BankCardDataInputView {
         enum BottomHint: String {
             case invalidPan = "BankCardDataInputView.BottomHint.invalidPan"
             case invalidExpiry = "BankCardDataInputView.BottomHint.invalidExpiry"
+            case invalidCvc = "BankCardDataInputView.BottomHint.invalidCvc"
         }
     }
 }

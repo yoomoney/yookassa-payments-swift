@@ -4,6 +4,7 @@ protocol InputCvcViewDelegate: class {
     func cvcDidChange(
         _ value: String
     )
+    func cvcDidEndEditing()
 }
 
 final class InputCvcView: UIView {
@@ -155,5 +156,32 @@ extension InputCvcView: UITextFieldDelegate {
 
         delegate?.cvcDidChange(cachedCvc)
         return false
+    }
+    
+    func textFieldDidEndEditing(
+        _ textField: UITextField
+    ) {
+        delegate?.cvcDidEndEditing()
+    }
+}
+
+// MARK: Styles
+
+extension InputCvcView {
+    enum Styles {
+        static let `default` = InternalStyle(name: "InputCvcView.Default") { (view: InputCvcView) in
+            view.cvcHintLabel.setStyles(
+                UILabel.DynamicStyle.caption1,
+                UILabel.ColorStyle.ghost,
+                UILabel.Styles.singleLine
+            )
+        }
+        static let error = InternalStyle(name: "InputCvcView.Error") { (view: InputCvcView) in
+            view.cvcHintLabel.setStyles(
+                UILabel.DynamicStyle.caption1,
+                UILabel.ColorStyle.alert,
+                UILabel.Styles.singleLine
+            )
+        }
     }
 }
