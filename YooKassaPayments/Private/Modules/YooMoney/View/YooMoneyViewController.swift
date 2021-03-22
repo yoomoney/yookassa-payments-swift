@@ -594,7 +594,7 @@ private extension YooMoneyViewController {
         case fee = "Contract.fee"
         case saveAuthInApp = "Contract.format.saveAuthInApp"
         case saveAuthInAppTitle = "Contract.format.saveAuthInApp.title"
-        case savePaymentMethodTitle = "Contract.format.savePaymentMethod.title"
+        case savePaymentMethodTitle = "Wallet.savePaymentMethod.title"
         case logout = "Contract.logout"
         
         enum PlaceholderView: String {
