@@ -12,7 +12,7 @@ PODS:
   - YandexMobileMetrica/Dynamic/Core (3.12.0)
   - YandexMobileMetrica/Dynamic/Crashes (3.12.0):
     - YandexMobileMetrica/Dynamic/Core
-  - YooKassaPayments (5.1.0):
+  - YooKassaPayments (5.2.0):
     - MoneyAuth (~> 2.0.0)
     - YandexMobileMetrica/Dynamic (~> 3.12.0)
     - YooKassaPaymentsApi (~> 2.5.0)

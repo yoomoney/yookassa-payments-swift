@@ -112,7 +112,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
         navigationBar.tintColor = CustomizationStorage.shared.mainScheme
 
         let leftItem = UILabel()
-        leftItem.setStyles(UILabel.DynamicStyle.headline2)
+        leftItem.setStyles(UILabel.DynamicStyle.headline1)
         leftItem.text = §Localized.paymentMethods
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftItem)
     }
