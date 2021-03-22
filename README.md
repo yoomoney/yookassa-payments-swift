@@ -43,7 +43,7 @@
     - [CustomizationSettings](#customizationsettings)
     - [SavePaymentMethod](#savepaymentmethod)
   - [Сканирование банковских карт](#сканирование-банковских-карт)
-  - [Настройка 3D Secure](#настройка-3d-secure)
+  - [Настройка подтверждения платежа](#настройка-подтверждения-платежа)
   - [Логирование](#логирование)
   - [Тестовый режим](#тестовый-режим)
   - [Запуск Example](#запуск-example)
@@ -174,9 +174,11 @@ present(viewController, animated: true, completion: nil)
 
 ```swift
 extension ViewController: TokenizationModuleOutput {
-    func tokenizationModule(_ module: TokenizationModuleInput,
-                            didTokenize token: Tokens,
-                            paymentMethodType: PaymentMethodType) {
+    func tokenizationModule(
+        _ module: TokenizationModuleInput,
+        didTokenize token: Tokens,
+        paymentMethodType: PaymentMethodType
+    ) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.dismiss(animated: true)
@@ -184,18 +186,22 @@ extension ViewController: TokenizationModuleOutput {
         // Отправьте токен в вашу систему
     }
 
-    func didFinish(on module: TokenizationModuleInput,
-                   with error: YooKassaPaymentsError?) {
+    func didFinish(
+        on module: TokenizationModuleInput,
+        with error: YooKassaPaymentsError?
+    ) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.dismiss(animated: true)
         }
     }
 
-    func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
+    func didSuccessfullyConfirmation(
+        paymentMethodType: PaymentMethodType
+    ) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            // Создать экран успеха после прохождения 3DS
+            // Создать экран успеха после прохождения подтверждения (3DS или Sberpay)
             self.dismiss(animated: true)
             // Показать экран успеха
         }
@@ -211,7 +217,7 @@ extension ViewController: TokenizationModuleOutput {
 
 `.yooMoney` — ЮMoney (платежи из кошелька или привязанной картой)\
 `.bankCard` — банковская карта (карты можно сканировать)\
-`.sberbank` — Сбербанк Онлайн (с подтверждением по смс)\
+`.sberbank` — SberPay (с подтверждением через приложение Сбербанк Онлайн, если оно установленно, иначе с подтверждением по смс)\
 `.applePay` — Apple Pay
 
 ## Настройка способов оплаты
@@ -295,13 +301,86 @@ let moduleData = TokenizationModuleInputData(
 2. Получите токен.
 3. [Создайте платеж](https://yookassa.ru/developers/api#create_payment) с токеном по API ЮKassa.
 
-### Сбербанк Онлайн
+### SberPay
 
-С помощью SDK можно провести платеж через «Мобильный банк» Сбербанка — с подтверждением оплаты по смс:
+С помощью SDK можно провести платеж через «Мобильный банк» Сбербанка — с подтверждением оплаты через приложение Сбербанк Онлайн, если оно установленно, иначе с подтверждением по смс.
+
+В `TokenizationModuleInputData` необходимо передавать `applicationScheme` – схема для возврата в приложение, после успешной оплаты с помощью `Sberpay` в приложении СберБанк Онлайн открытого через deeplink.  
+
+Пример `applicationScheme`:
+
+```swift
+let moduleData = TokenizationModuleInputData(
+    ...
+    applicationScheme: "sberpayexample://"
+```
+
+Чтобы провести платёж:
 
 1. При создании `TokenizationModuleInputData` передайте значение `.sberbank` в `paymentMethodTypes`.
 2. Получите токен.
 3. [Создайте платеж](https://yookassa.ru/developers/api#create_payment) с токеном по API ЮKassa.
+
+Для подтверждения платежа через приложение СберБанк Онлайн:
+
+1. Добавить обработку ссылок через `ConfirmationService` в `AppDelegate`:
+
+```swift
+func application(
+    _ application: UIApplication,
+    open url: URL,
+    sourceApplication: String?, 
+    annotation: Any
+) -> Bool {
+    return ConfirmationService.shared.hanleOpen(
+        url: url,
+        sourceApplication: sourceApplication
+    )
+}
+
+@available(iOS 9.0, *)
+func application(
+    _ app: UIApplication,
+    open url: URL,
+    options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+) -> Bool {
+    return ConfirmationService.shared.hanleOpen(
+        url: url,
+        sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
+    )
+}
+```
+
+2. В `Info.plist` добавить:
+
+по ключу `LSApplicationQueriesSchemes` параметр:
+
+```plistbase
+<array>
+<string>sberpay</string>
+</array>
+```
+
+по ключу `CFBundleURLTypes` параметры:
+
+```plistbase
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLName</key>
+		<string>${BUNDLE_ID}</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>sberpayexample</string>
+		</array>
+	</dict>
+</array>
+```
+
+где `sberpayexample` - схема для открытия вашего приложения после успешной оплаты с помощью `Sberpay`.
+
+3. Реализовать метод  `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`, который будет вызван после успешного подтверждения платежа (см. [Настройка подтверждения платежа](#настройка-подтверждения-платежа)).
 
 ### Apple Pay
 
@@ -370,19 +449,19 @@ let moduleData = TokenizationModuleInputData(
 
 >Необязательные:
 
-| Параметр                   | Тип                   | Описание |
-| -------------------------- | --------------------- | -------- |
+| Параметр                   | Тип                   | Описание                                                     |
+| -------------------------- | --------------------- | ------------------------------------------------------------ |
 | gatewayId                  | String                | По умолчанию `nil`. Используется, если у вас несколько платежных шлюзов с разными идентификаторами. |
 | tokenizationSettings       | TokenizationSettings  | По умолчанию используется стандартный инициализатор со всеми способами оплаты. Параметр отвечает за настройку токенизации (способы оплаты и логотип ЮKassa). |
-| testModeSettings           | TestModeSettings      | По умолчанию `nil`. Настройки тестового режима. |
+| testModeSettings           | TestModeSettings      | По умолчанию `nil`. Настройки тестового режима.              |
 | cardScanning               | CardScanning          | По умолчанию `nil`. Возможность сканировать банковские карты. |
 | applePayMerchantIdentifier | String                | По умолчанию `nil`. Apple Pay merchant ID (обязательно для платежей через Apple Pay). |
-| returnUrl                  | String                | По умолчанию `nil`. URL страницы (поддерживается только `https`), на которую надо вернуться после прохождения 3-D Secure. Необходим только при кастомной реализации 3-D Secure. Если вы используете `start3dsProcess(requestUrl:)`, не задавайте этот параметр. |
+| returnUrl                  | String                | По умолчанию `nil`. URL страницы (поддерживается только `https`), на которую надо вернуться после прохождения 3-D Secure. Необходим только при кастомной реализации 3-D Secure. Если вы используете `startConfirmationProcess(confirmationUrl:paymentMethodType:)`, не задавайте этот параметр. |
 | isLoggingEnabled           | Bool                  | По умолчанию `false`. Включает логирование сетевых запросов. |
-| userPhoneNumber            | String                | По умолчанию `nil`. Телефонный номер пользователя. |
+| userPhoneNumber            | String                | По умолчанию `nil`. Телефонный номер пользователя.           |
 | customizationSettings      | CustomizationSettings | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
-| moneyAuthClientId          | String                | По умолчанию `nil`. Идентификатор для центра авторизации в системе YooMoney.
-
+| moneyAuthClientId          | String                | По умолчанию `nil`. Идентификатор для центра авторизации в системе YooMoney. |
+| applicationScheme          | String                | По умолчанию `nil`. Cхема для возврата в приложение, после успешной оплаты с помощью `Sberpay` в приложении СберБанк Онлайн открытого через deeplink. |
 ### BankCardRepeatModuleInputData
 
 >Обязательные:
@@ -397,12 +476,12 @@ let moduleData = TokenizationModuleInputData(
 
 >Необязательные:
 
-| Параметр                   | Тип                   | Описание |
-| -------------------------- | --------------------- | -------- |
-| testModeSettings           | TestModeSettings      | По умолчанию `nil`. Настройки тестового режима. |
-| returnUrl                  | String                | По умолчанию `nil`. URL страницы (поддерживается только `https`), на которую надо вернуться после прохождения 3-D Secure. Необходим только при кастомной реализации 3-D Secure. Если вы используете `start3dsProcess(requestUrl:)`, не задавайте этот параметр. |
-| isLoggingEnabled           | Bool                  | По умолчанию `false`. Включает логирование сетевых запросов. |
-| customizationSettings      | CustomizationSettings | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
+| Параметр              | Тип                   | Описание                                                     |
+| --------------------- | --------------------- | ------------------------------------------------------------ |
+| testModeSettings      | TestModeSettings      | По умолчанию `nil`. Настройки тестового режима.              |
+| returnUrl             | String                | По умолчанию `nil`. URL страницы (поддерживается только `https`), на которую надо вернуться после прохождения 3-D Secure. Необходим только при кастомной реализации 3-D Secure. Если вы используете `startConfirmationProcess(confirmationUrl:paymentMethodType:)`, не задавайте этот параметр. |
+| isLoggingEnabled      | Bool                  | По умолчанию `false`. Включает логирование сетевых запросов. |
+| customizationSettings | CustomizationSettings | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
 
 ### TokenizationSettings
 
@@ -499,13 +578,13 @@ let inputData = TokenizationModuleInputData(
     cardScanning: CardScannerProvider())
 ```
 
-## Настройка 3D Secure
+## Настройка подтверждения платежа
 
-Если вы хотите использовать нашу реализацию 3-D Secure, не закрывайте модуль SDK после получения токена.\
+Если вы хотите использовать нашу реализацию подтверждения платежа, не закрывайте модуль SDK после получения токена.\
 Отправьте токен на ваш сервер и после успешной оплаты закройте модуль.\
-Если ваш сервер сообщил о необходимости подтверждения платежа (т.е. платёж пришёл со статусом `pending`), вызовите метод `start3dsProcess(requestUrl:)`
+Если ваш сервер сообщил о необходимости подтверждения платежа (т.е. платёж пришёл со статусом `pending`), вызовите метод `startConfirmationProcess(confirmationUrl:paymentMethodType:)`.
 
-После успешного прохождения 3-D Secure будет вызван метод `didSuccessfullyPassedCardSec(on module:)` протокола `TokenizationModuleOutput`.
+После успешного прохождения подтверждения будет вызван метод `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`.
 
 Примеры кода:
 
@@ -527,18 +606,19 @@ func tokenizationModule(_ module: TokenizationModuleInput,
 }
 ```
 
-3. Покажите 3-D Secure, если необходимо подтвердить платеж.
+3. Вызовите подтверждение платежа, если это необходимо.
 
 ```swift
-func needsConfirmPayment(requestUrl: String) {
-    self.tokenizationViewController.start3dsProcess(requestUrl: requestUrl)
-}
+self.tokenizationViewController.startConfirmationProcess(
+    confirmationUrl: confirmationUrl,
+    paymentMethodType: paymentMethodType
+)
 ```
 
-4. После успешного прохождения 3-D Secure будет вызван метод.
+4. После успешного подтверждения платежа будет вызван метод.
 
 ```swift
-func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
+func didSuccessfullyConfirmation(paymentMethodType: PaymentMethodType) {
     DispatchQueue.main.async { [weak self] in
         guard let self = self else { return }
 
