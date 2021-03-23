@@ -55,7 +55,8 @@ extension AppDelegate {
     func application(
         _ application: UIApplication,
         open url: URL,
-        sourceApplication: String?, annotation: Any
+        sourceApplication: String?,
+        annotation: Any
     ) -> Bool {
         return ConfirmationService.shared.hanleOpen(
             url: url,
