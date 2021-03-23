@@ -58,7 +58,7 @@ extension AppDelegate {
         sourceApplication: String?,
         annotation: Any
     ) -> Bool {
-        return ConfirmationService.shared.hanleOpen(
+        return YKSdk.shared.hanleOpen(
             url: url,
             sourceApplication: sourceApplication
         )
@@ -70,7 +70,7 @@ extension AppDelegate {
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey: Any] = [:]
     ) -> Bool {
-        return ConfirmationService.shared.hanleOpen(
+        return YKSdk.shared.hanleOpen(
             url: url,
             sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
         )
