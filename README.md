@@ -323,7 +323,13 @@ let moduleData = TokenizationModuleInputData(
 
 Для подтверждения платежа через приложение СберБанк Онлайн:
 
-1. Добавить обработку ссылок через `ConfirmationService` в `AppDelegate`:
+1. В `AppDelegate` импортируйте зависимость `YooKassaPayments`:
+
+   ```swift
+   import YooKassaPayments
+   ```
+
+2. Добавьте обработку ссылок через `ConfirmationService` в `AppDelegate`:
 
 ```swift
 func application(
@@ -351,7 +357,7 @@ func application(
 }
 ```
 
-2. В `Info.plist` добавить:
+3. В `Info.plist` добавьте:
 
 по ключу `LSApplicationQueriesSchemes` параметр:
 
@@ -380,7 +386,7 @@ func application(
 
 где `sberpayexample` - схема для открытия вашего приложения после успешной оплаты с помощью `Sberpay`.
 
-3. Реализовать метод  `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`, который будет вызван после успешного подтверждения платежа (см. [Настройка подтверждения платежа](#настройка-подтверждения-платежа)).
+4. Реализуйте метод  `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`, который будет вызван после успешного подтверждения платежа (см. [Настройка подтверждения платежа](#настройка-подтверждения-платежа)).
 
 ### Apple Pay
 

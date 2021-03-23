@@ -4,6 +4,7 @@
   - [5.\*.\* -> 6.\*.\*](#5---6)
     - [Изменить код интеграции](#изменить-код-интеграции)
     - [Конфигурация проекта](#конфигурация-проекта)
+    - [Изменить код подтверждения платежа](#изменить-код-подтверждения-платежа)
   - [4.\*.\* -> 5.\*.\*](#4---5)
     - [Изменить Podfile](#изменить-podfile)
     - [Изменить код интеграции](#изменить-код-интеграции)
@@ -32,7 +33,13 @@ let moduleData = TokenizationModuleInputData(
     applicationScheme: "sberpayexample://"
 ```
 
-2. Добавить обработку ссылок через `ConfirmationService` в `AppDelegate`:
+2. В `AppDelegate` импортировать зависимость `YooKassaPayments`:
+
+   ```swift
+   import YooKassaPayments
+   ```
+
+3. Добавить обработку ссылок через `ConfirmationService` в `AppDelegate`:
 
 ```swift
 func application(
@@ -60,7 +67,7 @@ func application(
 }
 ```
 
-3. Реализовать метод  `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`, который будет вызван после успешного подтверждения платежа. 
+4. Реализовать метод  `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`, который будет вызван после успешного подтверждения платежа. 
 
 ### Конфигурация проекта
 
@@ -92,6 +99,14 @@ func application(
 ```
 
 где `sberpayexample` - схема для открытия вашего приложения после успешной оплаты с помощью `Sberpay`.
+
+### Изменить код подтверждения платежа
+
+Для подтверждения платежа необходимо вызвать метод `startConfirmationProcess(confirmationUrl:paymentMethodType:)`.
+
+После успешного прохождения подтверждения будет вызван метод `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`. 
+
+> Обратите внимание, что методы `start3dsProcess(requestUrl:)` и `didSuccessfullyPassedCardSec(on module:)` помечены как `deprecated` - используйте `startConfirmationProcess(confirmationUrl:paymentMethodType:)` и `didSuccessfullyConfirmation(paymentMethodType:)` вместо них.
 
 ## 4.\*.\* -> 5.\*.\*
 
