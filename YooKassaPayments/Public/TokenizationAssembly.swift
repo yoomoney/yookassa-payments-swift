@@ -49,8 +49,8 @@ public enum TokenizationAssembly {
         _ inputData: TokenizationModuleInputData,
         moduleOutput: TokenizationModuleOutput
     ) -> UIViewController & TokenizationModuleInput {
-        ConfirmationService.shared.moduleOutput = moduleOutput
-        ConfirmationService.shared.applicationScheme = inputData.applicationScheme
+        YKSdk.shared.moduleOutput = moduleOutput
+        YKSdk.shared.applicationScheme = inputData.applicationScheme
         
         let paymentMethodsModuleInputData = PaymentMethodsModuleInputData(
             applicationScheme: inputData.applicationScheme,

@@ -1,5 +1,5 @@
 /// Class for handle open url.
-public final class ConfirmationService {
+public final class YKSdk {
     
     /// Output for tokenization module.
     weak var moduleOutput: TokenizationModuleOutput?
@@ -9,8 +9,8 @@ public final class ConfirmationService {
     
     private init() {}
     
-    /// Shared confirmation service.
-    public static let shared = ConfirmationService()
+    /// Shared YooKassa sdk service.
+    public static let shared = YKSdk()
     
     public func hanleOpen(
         url: URL,

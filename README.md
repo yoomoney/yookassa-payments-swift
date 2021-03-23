@@ -329,7 +329,7 @@ let moduleData = TokenizationModuleInputData(
    import YooKassaPayments
    ```
 
-2. Добавьте обработку ссылок через `ConfirmationService` в `AppDelegate`:
+2. Добавьте обработку ссылок через `YKSdk` в `AppDelegate`:
 
 ```swift
 func application(
@@ -338,7 +338,7 @@ func application(
     sourceApplication: String?, 
     annotation: Any
 ) -> Bool {
-    return ConfirmationService.shared.hanleOpen(
+    return YKSdk.shared.hanleOpen(
         url: url,
         sourceApplication: sourceApplication
     )
@@ -350,7 +350,7 @@ func application(
     open url: URL,
     options: [UIApplication.OpenURLOptionsKey: Any] = [:]
 ) -> Bool {
-    return ConfirmationService.shared.hanleOpen(
+    return YKSdk.shared.hanleOpen(
         url: url,
         sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
     )
