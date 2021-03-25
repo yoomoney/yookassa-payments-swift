@@ -22,6 +22,7 @@ enum PaymentMethodsAssembly {
         let presenter = PaymentMethodsPresenter(
             isLogoVisible: inputData.tokenizationSettings.showYooKassaLogo,
             paymentMethodViewModelFactory: paymentMethodViewModelFactory,
+            applicationScheme: inputData.applicationScheme,
             clientApplicationKey: inputData.clientApplicationKey,
             applePayMerchantIdentifier: inputData.applePayMerchantIdentifier,
             testModeSettings: inputData.testModeSettings,
