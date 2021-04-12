@@ -44,10 +44,12 @@ enum BankCardRepeatAssembly {
         let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
             testModeSettings: inputData.testModeSettings
         )
+        let threatMetrixService = ThreatMetrixServiceFactory.makeService()
         let interactor = BankCardRepeatInteractor(
             analyticsService: analyticsService,
             analyticsProvider: analyticsProvider,
             paymentService: paymentService,
+            threatMetrixService: threatMetrixService,
             clientApplicationKey: inputData.clientApplicationKey
         )
         

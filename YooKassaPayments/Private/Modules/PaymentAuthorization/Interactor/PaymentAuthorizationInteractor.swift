@@ -1,3 +1,5 @@
+import ThreatMetrixAdapter
+
 final class PaymentAuthorizationInteractor {
     
     // MARK: - VIPER
@@ -88,7 +90,7 @@ extension PaymentAuthorizationInteractor: PaymentAuthorizationInteractorInput {
 
 private func mapError(_ error: Error) -> Error {
     switch error {
-    case ThreatMetrixService.ProfileError.connectionFail:
+    case ProfileError.connectionFail:
         return PaymentProcessingError.internetConnection
     case let error as NSError where error.domain == NSURLErrorDomain:
         return PaymentProcessingError.internetConnection

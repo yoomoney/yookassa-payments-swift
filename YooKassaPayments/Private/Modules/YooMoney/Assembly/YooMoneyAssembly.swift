@@ -41,12 +41,14 @@ enum YooMoneyAssembly {
             isLoggingEnabled: inputData.isLoggingEnabled
         )
         let imageDownloadService = ImageDownloadServiceFactory.makeService()
+        let threatMetrixService = ThreatMetrixServiceFactory.makeService()
         let interactor = YooMoneyInteractor(
             authorizationService: authorizationService,
             analyticsService: analyticsService,
             analyticsProvider: analyticsProvider,
             paymentService: paymentService,
             imageDownloadService: imageDownloadService,
+            threatMetrixService: threatMetrixService,
             clientApplicationKey: inputData.clientApplicationKey
         )
         

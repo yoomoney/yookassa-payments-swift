@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name      = 'YooKassaPayments'
-  s.version   = '5.2.0'
+  s.version   = '5.3.0'
   s.homepage  = 'https://github.com/yoomoney/yookassa-payments-swift'
   s.license   = {
     :type => "MIT",
@@ -29,20 +29,12 @@ Pod::Spec.new do |s|
   s.ios.framework  = 'PassKit'
   s.ios.library = 'z'
 
-  s.ios.vendored_frameworks = [
-    'Frameworks/TMXProfiling.framework',
-    'Frameworks/TMXProfilingConnections.framework',
-  ]
-
-  s.pod_target_xcconfig = {
-    'OTHER_LDFLAGS' => '-framework "TMXProfiling"',
-    'FRAMEWORK_SEARCH_PATHS' => '"${PODS_ROOT}/../Frameworks"'
-  }
-
   s.ios.dependency 'YooMoneyCoreApi', '~> 1.9.0'
   s.ios.dependency 'YooKassaPaymentsApi', '~> 2.3.0'
   s.ios.dependency 'YooKassaWalletApi', '~> 2.3.0'
   s.ios.dependency 'YandexMobileMetrica/Dynamic', '~> 3.12.0'
 
-  s.ios.dependency 'MoneyAuth', '~> 2.0.0'
+  s.ios.dependency 'MoneyAuth', '~> 2.21.0'
+  s.ios.dependency 'ThreatMetrixAdapter', '~> 2.0.0'
+
 end
