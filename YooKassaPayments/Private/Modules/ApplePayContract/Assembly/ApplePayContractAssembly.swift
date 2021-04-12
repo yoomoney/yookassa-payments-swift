@@ -31,10 +31,12 @@ enum ApplePayContractAssembly {
         let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
             testModeSettings: inputData.testModeSettings
         )
+        let threatMetrixService = ThreatMetrixServiceFactory.makeService()
         let interactor = ApplePayContractInteractor(
             paymentService: paymentService,
             analyticsService: analyticsService,
             analyticsProvider: analyticsProvider,
+            threatMetrixService: threatMetrixService,
             clientApplicationKey: inputData.clientApplicationKey
         )
 
