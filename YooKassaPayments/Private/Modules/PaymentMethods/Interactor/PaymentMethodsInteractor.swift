@@ -1,4 +1,5 @@
 import MoneyAuth
+import ThreatMetrixAdapter
 
 class PaymentMethodsInteractor {
 
@@ -12,6 +13,7 @@ class PaymentMethodsInteractor {
     private let authorizationService: AuthorizationService
     private let analyticsService: AnalyticsService
     private let analyticsProvider: AnalyticsProvider
+    private let threatMetrixService: ThreatMetrixService
 
     private let clientApplicationKey: String
     private let gatewayId: String?
@@ -25,6 +27,7 @@ class PaymentMethodsInteractor {
         authorizationService: AuthorizationService,
         analyticsService: AnalyticsService,
         analyticsProvider: AnalyticsProvider,
+        threatMetrixService: ThreatMetrixService,
         clientApplicationKey: String,
         gatewayId: String?,
         amount: Amount,
@@ -34,15 +37,12 @@ class PaymentMethodsInteractor {
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
+        self.threatMetrixService = threatMetrixService
 
         self.clientApplicationKey = clientApplicationKey
         self.gatewayId = gatewayId
         self.amount = amount
         self.getSavePaymentMethod = getSavePaymentMethod
-
-        if !ThreatMetrixService.isConfigured {
-            ThreatMetrixService.configure()
-        }
     }
 }
 
@@ -127,7 +127,7 @@ extension PaymentMethodsInteractor {
         savePaymentMethod: Bool,
         amount: MonetaryAmount
     ) {
-        ThreatMetrixService.profileApp { [weak self] result in
+        threatMetrixService.profileApp { [weak self] result in
             guard let self = self,
                   let output = self.output else { return }
 
@@ -178,7 +178,7 @@ extension PaymentMethodsInteractor {
 
 private func mapError(_ error: Error) -> Error {
     switch error {
-    case ThreatMetrixService.ProfileError.connectionFail:
+    case ProfileError.connectionFail:
         return PaymentProcessingError.internetConnection
     case let error as NSError where error.domain == NSURLErrorDomain:
         return PaymentProcessingError.internetConnection

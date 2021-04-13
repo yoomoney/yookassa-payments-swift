@@ -70,10 +70,12 @@ enum BankCardAssembly {
         let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
             testModeSettings: inputData.testModeSettings
         )
+        let threatMetrixService = ThreatMetrixServiceFactory.makeService()
         let interactor = BankCardInteractor(
             paymentService: paymentService,
             analyticsService: analyticsService,
             analyticsProvider: analyticsProvider,
+            threatMetrixService: threatMetrixService,
             clientApplicationKey: inputData.clientApplicationKey,
             amount: inputData.paymentOption.charge.plain,
             returnUrl: inputData.returnUrl

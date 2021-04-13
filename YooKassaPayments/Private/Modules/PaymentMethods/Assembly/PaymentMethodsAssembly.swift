@@ -55,12 +55,13 @@ enum PaymentMethodsAssembly {
         let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
             testModeSettings: inputData.testModeSettings
         )
-
+        let threatMetrixService = ThreatMetrixServiceFactory.makeService()
         let interactor = PaymentMethodsInteractor(
             paymentService: paymentService,
             authorizationService: authorizationService,
             analyticsService: analyticsService,
             analyticsProvider: analyticsProvider,
+            threatMetrixService: threatMetrixService,
             clientApplicationKey: inputData.clientApplicationKey,
             gatewayId: inputData.gatewayId,
             amount: inputData.amount,

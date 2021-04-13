@@ -1,3 +1,5 @@
+import ThreatMetrixAdapter
+
 final class LinkedCardInteractor {
 
     // MARK: - VIPER
@@ -10,6 +12,7 @@ final class LinkedCardInteractor {
     private let analyticsService: AnalyticsService
     private let analyticsProvider: AnalyticsProvider
     private let paymentService: PaymentService
+    private let threatMetrixService: ThreatMetrixService
     
     private let clientApplicationKey: String
 
@@ -20,18 +23,16 @@ final class LinkedCardInteractor {
         analyticsService: AnalyticsService,
         analyticsProvider: AnalyticsProvider,
         paymentService: PaymentService,
+        threatMetrixService: ThreatMetrixService,
         clientApplicationKey: String
     ) {
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
         self.paymentService = paymentService
+        self.threatMetrixService = threatMetrixService
         
         self.clientApplicationKey = clientApplicationKey
-
-        if !ThreatMetrixService.isConfigured {
-            ThreatMetrixService.configure()
-        }
     }
 }
 
@@ -80,7 +81,7 @@ extension LinkedCardInteractor: LinkedCardInteractorInput {
                 tmxSessionId: tmxSessionId
             )
         } else {
-            ThreatMetrixService.profileApp { [weak self] result in
+            threatMetrixService.profileApp { [weak self] result in
                 guard let self = self,
                       let output = self.output else { return }
 
@@ -163,7 +164,7 @@ extension LinkedCardInteractor: LinkedCardInteractorInput {
 
 private func mapError(_ error: Error) -> Error {
     switch error {
-    case ThreatMetrixService.ProfileError.connectionFail:
+    case ProfileError.connectionFail:
         return PaymentProcessingError.internetConnection
     case let error as NSError where error.domain == NSURLErrorDomain:
         return PaymentProcessingError.internetConnection
