@@ -33,13 +33,16 @@ enum AuthorizationServiceAssembly {
                 config: moneyAuthConfig
             )
         }
+        
+        let threatMetrixService = ThreatMetrixServiceFactory.makeService()
 
         return AuthorizationServiceImpl(
             tokenStorage: tokenStorage,
             walletLoginService: walletLoginService,
             deviceInfoService: deviceInfoService,
             settingsStorage: settingsStorage,
-            moneyAuthRevokeTokenService: moneyAuthRevokeTokenService
+            moneyAuthRevokeTokenService: moneyAuthRevokeTokenService,
+            threatMetrixService: threatMetrixService
         )
     }
 }

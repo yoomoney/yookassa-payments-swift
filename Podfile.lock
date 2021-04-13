@@ -1,19 +1,22 @@
 PODS:
   - CardIO (5.4.1)
   - FunctionalSwift (1.2.0)
-  - MoneyAuth (2.0.0):
+  - MoneyAuth (2.21.0):
     - FunctionalSwift
+    - ThreatMetrixAdapter
     - YooMoneyCoreApi
-  - Reveal-SDK (27)
-  - SwiftLint (0.41.0)
+  - Reveal-SDK (28)
+  - SwiftLint (0.43.1)
+  - ThreatMetrixAdapter (2.0.0)
   - YandexMobileMetrica/Dynamic (3.12.0):
     - YandexMobileMetrica/Dynamic/Core (= 3.12.0)
     - YandexMobileMetrica/Dynamic/Crashes (= 3.12.0)
   - YandexMobileMetrica/Dynamic/Core (3.12.0)
   - YandexMobileMetrica/Dynamic/Crashes (3.12.0):
     - YandexMobileMetrica/Dynamic/Core
-  - YooKassaPayments (5.2.0):
-    - MoneyAuth (~> 2.0.0)
+  - YooKassaPayments (5.3.0):
+    - MoneyAuth (~> 2.21.0)
+    - ThreatMetrixAdapter (~> 2.0.0)
     - YandexMobileMetrica/Dynamic (~> 3.12.0)
     - YooKassaPaymentsApi (~> 2.3.0)
     - YooKassaWalletApi (~> 2.3.0)
@@ -24,7 +27,7 @@ PODS:
   - YooKassaWalletApi (2.3.0):
     - FunctionalSwift (~> 1.2.0)
     - YooMoneyCoreApi (~> 1.9.0)
-  - YooMoneyCoreApi (1.9.0):
+  - YooMoneyCoreApi (1.9.1):
     - FunctionalSwift (~> 1.2.0)
 
 DEPENDENCIES:
@@ -36,6 +39,7 @@ DEPENDENCIES:
 SPEC REPOS:
   "git@github.com:yoomoney-tech/cocoa-pod-specs.git":
     - MoneyAuth
+    - ThreatMetrixAdapter
   https://github.com/CocoaPods/Specs.git:
     - CardIO
     - FunctionalSwift
@@ -53,14 +57,15 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   FunctionalSwift: 1b839fcf50b8db067885938df54f818518356dbb
-  MoneyAuth: 906847277f9b3e0c59e920133dad70a0933374ab
-  Reveal-SDK: 306e2880395ee396f5a8b4c485c3a86dd19866c7
-  SwiftLint: c585ebd615d9520d7fbdbe151f527977b0534f1e
+  MoneyAuth: 60e6885924b05d05dbe13c91d034db37cd2d918f
+  Reveal-SDK: 1a2a678648fc4d277bad71c86d15530424324288
+  SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
+  ThreatMetrixAdapter: c5ea4cc20dd82931fabeb596c3e86d300c2d14fb
   YandexMobileMetrica: 7ba67267e1ef841f77d5db17a5091b8e9eba911f
-  YooKassaPayments: 2b9357ddea2ee69addb999f2b2bd4199d954c149
+  YooKassaPayments: 4a57597c028299be9bbecd7e26c4f65d1366eecd
   YooKassaPaymentsApi: 66302803d0389fbc27238d8ff9447c10ac1e31bf
   YooKassaWalletApi: 9ca2fa3c2827721d646ee8f770509e7eeea98743
-  YooMoneyCoreApi: 4f40673a79d11e95af850bb97f264995ac47a873
+  YooMoneyCoreApi: 0d4da37a1619a4c92df0962ecc48d1665dbae4f4
 
 PODFILE CHECKSUM: ecceb3f227ebee8f464a40c7b9ed3b7a0bc72774
 

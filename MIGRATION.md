@@ -11,6 +11,15 @@
   - [2.\*.\* -> 3.\*.\*](#2---3)
   - [2.1.0 -> 2.2.0](#210---220)
 
+## 5.\*.\* -> 5.3.0
+
+В версии 5.3.0 зависимости `TMXProfiling` и `TMXProfilingConnections` используются в виде `.xcframework`.
+
+Для корректной работы необходимо:
+1. Запросить у менеджера по подключению зависимости `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework`
+2. В разделе `General` у основного таргета проекта добавить `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework` в `Frameworks, Libraries, and Embedded Content`.
+3. Удалить в `Build Phases` скрипт из файла `strip_framework.sh`.
+
 ## 4.\*.\* -> 5.\*.\*
 
 В версии 5.\*.\* был переименован модуль SDK и некоторые зависимости.
