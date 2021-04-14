@@ -26,10 +26,12 @@ enum SberbankAssembly {
         let analyticsService = AnalyticsServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled
         )
+        let threatMetrixService = ThreatMetrixServiceFactory.makeService()
         let interactor = SberbankInteractor(
             paymentService: paymentService,
             analyticsProvider: analyticsProvider,
             analyticsService: analyticsService,
+            threatMetrixService: threatMetrixService,
             clientApplicationKey: inputData.clientApplicationKey,
             amount: inputData.paymentOption.charge.plain
         )

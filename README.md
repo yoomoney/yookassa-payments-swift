@@ -104,27 +104,14 @@ end
 
 ## Подключение TMXProfiling и TMXProfilingConnections
 
-Чтобы получить файл `.framework`,  [зарегистрируйтесь в ЮKassa](https://yookassa.ru/joinups)
+Чтобы получить файл `.xcframework`,  [зарегистрируйтесь в ЮKassa](https://yookassa.ru/joinups)
 и сообщите вашему менеджеру, что хотите подключить мобильный SDK.
 
-1. Используя Finder или другой файловый менеджер добавьте библиотеки `TMXProfiling.framework` и `TMXProfilingConnections.framework` в папку `Frameworks`.
+1. Используя Finder или другой файловый менеджер добавьте библиотеки `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework` в папку c вашим проектом.
 
-> Если в папке с проектом отсутствует папка `Frameworks` создайте её вручную.\
-> Папка `Frameworks` должна быть на уровне файловой системы, не используйте папку `Frameworks` в Xcode.
+2. В разделе `General` у основного таргета проекта добавьте `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework` в `Frameworks, Libraries, and Embedded Content`.
 
-```txt
-App
-├─ Pods
-└─ Frameworks
-    └─ TMXProfiling.framework
-    └─ TMXProfilingConnections.framework
-```
-
-2. В разделе `General` у основного таргета проекта добавьте `TMXProfiling.framework` и `TMXProfilingConnections.framework` в `Embedded Binaries`(в Xcode 10.3 или меньше), или в `Frameworks, Libraries, and Embedded Content`(в Xcode 11)
-
-3. `TMXProfiling.framework` и `TMXProfilingConnections.framework` должны быть добавлены как `Embed & Sign`
-
-4. Добавьте в `Build Phases` -> `New Run Script Phase`, и добавьте скрипт из файла `strip_framework.sh`
+3. `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework` должны быть добавлены как `Embed & Sign`
 
 ## Быстрая интеграция
 
@@ -679,8 +666,9 @@ let moduleData = TokenizationModuleInputData(
 git clone https://github.com/yoomoney/yookassa-payments-swift.git
 ```
 
-2. Добавить `TMXProfiling.framework` и `TMXProfilingConnections.framework` в папку `Frameworks`, которая находится на одном уровне с папкой `Pods` (см. [Подключение TMXProfiling и TMXProfilingConnections](#%d0%9f%d0%be%d0%b4%d0%ba%d0%bb%d1%8e%d1%87%d0%b5%d0%bd%d0%b8%d0%b5-tmxprofiling-%d0%b8-tmxprofilingconnections))
-3. В консоли перейти в папку с проектом и выполнить следующие команды:
+2. Создайте папку `Frameworks` в корне проекта.
+3. Добавьте `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework` в папку `Frameworks`
+4. В консоли перейти в папку с проектом и выполнить следующие команды:
 
 ```shell
 gem install bundler

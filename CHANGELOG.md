@@ -4,7 +4,14 @@
 
 1. Добавили поддержку `Sberpay`.
 2. Обновили иконки платежных систем и банков.
-3. Добавили возможность протестировать сценарий `Sberpay` и `3DS` в демо-режиме. 
+3. Добавили возможность протестировать сценарий `Sberpay` и `3DS` в демо-режиме.
+
+> Необходимо выполнить [инструкцию](https://github.com/yoomoney/yookassa-payments-swift/blob/master/MIGRATION.md) по миграции с версий ниже.
+
+### 5.3.0
+
+1. Добавлена поддержка Xcode > 12.2
+2. Зависимости `TMXProfiling` и `TMXProfilingConnections` теперь поставляются в виде `.xcframework`
 
 > Необходимо выполнить [инструкцию](https://github.com/yoomoney/yookassa-payments-swift/blob/master/MIGRATION.md) по миграции с версий ниже.
 
