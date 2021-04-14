@@ -428,13 +428,14 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
     
     private func openYooMoneyApp2App() {
         guard let clientId = moneyAuthClientId,
-              let redirectUri = makeYooMoneyApp2AppRedirectUri() else {
+              let redirectUri = makeYooMoneyExchangeRedirectUri() else {
             return
         }
         
         let scope = makeYooMoneyApp2AppScope()
         let fullPathUrl = Constants.YooMoneyApp2App.scheme
-            + "\(Constants.YooMoneyApp2App.host)?"
+            + "\(Constants.YooMoneyApp2App.host)/"
+            + "\(Constants.YooMoneyApp2App.firstPath)?"
             + "\(Constants.YooMoneyApp2App.clientId)=\(clientId)&"
             + "\(Constants.YooMoneyApp2App.scope)=\(scope)&"
             + "\(Constants.YooMoneyApp2App.redirectUri)=\(redirectUri)"
@@ -452,7 +453,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         }
     }
     
-    private func makeYooMoneyApp2AppRedirectUri() -> String? {
+    private func makeYooMoneyExchangeRedirectUri() -> String? {
         guard let applicationScheme = applicationScheme else {
             assertionFailure("Application scheme should be")
             return nil
@@ -461,7 +462,10 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         return applicationScheme
             + DeepLinkFactory.YooMoney.host
             + "/"
-            + DeepLinkFactory.YooMoney.app2App
+            + DeepLinkFactory.YooMoney.exchange.firstPath
+            + "?"
+            + DeepLinkFactory.YooMoney.exchange.cryptogram
+            + "="
     }
     
     private func makeYooMoneyApp2AppScope() -> String {
@@ -492,6 +496,25 @@ extension PaymentMethodsPresenter: ActionTitleTextDialogDelegate {
 // MARK: - PaymentMethodsModuleInput
 
 extension PaymentMethodsPresenter: PaymentMethodsModuleInput {
+    func authorizeInYooMoney(
+        with cryptogram: String
+    ) {
+        guard !cryptogram.isEmpty else {
+            return
+        }
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self,
+                  let view = self.view else { return }
+            view.showActivity()
+
+            DispatchQueue.global().async { [weak self] in
+                guard let self = self else { return }
+                self.interactor.decryptCryptogram(cryptogram)
+            }
+        }
+    }
+    
     func didFinish(
         on module: TokenizationModuleInput,
         with error: YooKassaPaymentsError?
@@ -570,6 +593,23 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
     }
 
     func didFetchYooMoneyPaymentMethods(_ error: Error) {
+        presentError(error)
+    }
+    
+    func didDecryptCryptogram(
+        _ token: String
+    ) {
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+            self.interactor.fetchYooMoneyPaymentMethods(
+                moneyCenterAuthToken: token
+            )
+        }
+    }
+    
+    func didFailDecryptCryptogram(
+        _ error: Error
+    ) {
         presentError(error)
     }
     
@@ -792,7 +832,7 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
         _ coordinator: AuthorizationCoordinator,
         didFailPrepareProcessWithError error: Error
     ) {}
-
+    
     func authorizationCoordinatorDidRecoverPassword(
         _ coordinator: AuthorizationCoordinator
     ) {}
@@ -1053,10 +1093,11 @@ private extension PaymentMethodsPresenter {
         static let dismissApplePayTimeout: TimeInterval = 0.5
         
         enum YooMoneyApp2App {
-            // yoomoneyauth://app2app?clientId={clientId}&scope={scope}&redirect_uri={redirect_uri}
+            // yoomoneyauth://app2app/exchange?clientId={clientId}&scope={scope}&redirect_uri={redirect_uri}
             // swiftlint:disable:next force_unwrapping
             static let scheme = "yoomoneyauth://"
             static let host = "app2app"
+            static let firstPath = "exchange"
             static let clientId = "clientId"
             static let scope = "scope"
             static let redirectUri = "redirect_uri"

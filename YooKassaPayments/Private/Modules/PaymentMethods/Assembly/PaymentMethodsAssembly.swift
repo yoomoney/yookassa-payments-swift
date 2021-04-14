@@ -1,4 +1,5 @@
 import UIKit.UIViewController
+import MoneyAuth
 import YooMoneyCoreApi
 
 enum PaymentMethodsAssembly {
@@ -56,12 +57,17 @@ enum PaymentMethodsAssembly {
             testModeSettings: inputData.testModeSettings
         )
         let threatMetrixService = ThreatMetrixServiceFactory.makeService()
+        let appDataTransferMediator = AppDataTransferMediatorFactory.makeMediator(
+            config: moneyAuthConfig
+        )
+
         let interactor = PaymentMethodsInteractor(
             paymentService: paymentService,
             authorizationService: authorizationService,
             analyticsService: analyticsService,
             analyticsProvider: analyticsProvider,
             threatMetrixService: threatMetrixService,
+            appDataTransferMediator: appDataTransferMediator,
             clientApplicationKey: inputData.clientApplicationKey,
             gatewayId: inputData.gatewayId,
             amount: inputData.amount,

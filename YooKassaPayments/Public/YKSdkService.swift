@@ -1,6 +1,9 @@
 /// Class for handle open url.
 public final class YKSdk {
     
+    /// Input for payment methods module.
+    weak var paymentMethodsModuleInput: PaymentMethodsModuleInput?
+    
     /// Output for tokenization module.
     weak var moduleOutput: TokenizationModuleOutput?
     
@@ -24,12 +27,9 @@ public final class YKSdk {
         }
         
         switch deeplink {
-        case .yooMoneyApp2App:
-            // TODO: - Handle deeplink https://jira.yamoney.ru/browse/MOC-1812
+        case .yooMoneyExchange(let cryptogram):
+            paymentMethodsModuleInput?.authorizeInYooMoney(with: cryptogram)
             break
-            
-        default:
-            assertionFailure("Unsupported deeplink \(deeplink)")
         }
         
         return false

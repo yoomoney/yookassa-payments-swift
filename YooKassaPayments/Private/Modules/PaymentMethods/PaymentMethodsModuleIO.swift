@@ -19,4 +19,8 @@ struct PaymentMethodsModuleInputData {
     let cardScanning: CardScanning?
 }
 
-protocol PaymentMethodsModuleInput: SheetViewModuleOutput {}
+protocol PaymentMethodsModuleInput: SheetViewModuleOutput {
+    func authorizeInYooMoney(
+        with cryptogram: String
+    )
+}

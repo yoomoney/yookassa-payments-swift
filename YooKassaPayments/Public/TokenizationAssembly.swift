@@ -94,6 +94,10 @@ public enum TokenizationAssembly {
             viewControllerToReturn = sheetViewController
 
         }
+        
+        YKSdk.shared.moduleOutput = moduleOutput
+        YKSdk.shared.applicationScheme = inputData.applicationScheme
+        YKSdk.shared.paymentMethodsModuleInput = moduleInput
 
         return viewControllerToReturn
     }

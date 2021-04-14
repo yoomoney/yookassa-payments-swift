@@ -14,6 +14,7 @@ class PaymentMethodsInteractor {
     private let analyticsService: AnalyticsService
     private let analyticsProvider: AnalyticsProvider
     private let threatMetrixService: ThreatMetrixService
+    private let appDataTransferMediator: AppDataTransferMediator
 
     private let clientApplicationKey: String
     private let gatewayId: String?
@@ -28,6 +29,7 @@ class PaymentMethodsInteractor {
         analyticsService: AnalyticsService,
         analyticsProvider: AnalyticsProvider,
         threatMetrixService: ThreatMetrixService,
+        appDataTransferMediator: AppDataTransferMediator,
         clientApplicationKey: String,
         gatewayId: String?,
         amount: Amount,
@@ -38,6 +40,7 @@ class PaymentMethodsInteractor {
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
         self.threatMetrixService = threatMetrixService
+        self.appDataTransferMediator = appDataTransferMediator
 
         self.clientApplicationKey = clientApplicationKey
         self.gatewayId = gatewayId
@@ -87,6 +90,19 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
                 output.didFetchYooMoneyPaymentMethods(data.filter { $0.paymentMethodType == .yooMoney })
             case let .failure(error):
                 output.didFetchYooMoneyPaymentMethods(error)
+            }
+        }
+    }
+    
+    func decryptCryptogram(
+        _ cryptogram: String
+    ) {
+        appDataTransferMediator.decryptData(cryptogram) { [weak self] in
+            guard let output = self?.output else { return }
+            $0.map {
+                output.didDecryptCryptogram($0)
+            }.mapLeft {
+                output.didFailDecryptCryptogram($0)
             }
         }
     }
