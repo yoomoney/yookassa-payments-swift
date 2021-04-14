@@ -5,13 +5,14 @@
     - [Изменить код интеграции](#изменить-код-интеграции)
     - [Конфигурация проекта](#конфигурация-проекта)
     - [Изменить код подтверждения платежа](#изменить-код-подтверждения-платежа)
+  - [5.\*.\* -> 5.3.0](#5---530)
   - [4.\*.\* -> 5.\*.\*](#4---5)
     - [Изменить Podfile](#изменить-podfile)
-    - [Изменить код интеграции](#изменить-код-интеграции)
+    - [Изменить код интеграции](#изменить-код-интеграции-1)
   - [\*.\*.\* -> 4.\*.\*](#---4)
     - [Удалить `YandexLoginSDK`](#удалить-yandexloginsdk)
     - [Добавить новые зависимости](#добавить-новые-зависимости)
-    - [Если вы используете метод оплаты "Яндекс.Деньги"](#если-вы-используете-метод-оплаты-яндексденьги)
+    - [Если вы используете метод оплаты "ЮMoney"](#если-вы-используете-метод-оплаты-юmoney)
   - [2.\*.\* -> 3.\*.\*](#2---3)
   - [2.1.0 -> 2.2.0](#210---220)
 
@@ -107,6 +108,15 @@ func application(
 После успешного прохождения подтверждения будет вызван метод `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`. 
 
 > Обратите внимание, что методы `start3dsProcess(requestUrl:)` и `didSuccessfullyPassedCardSec(on module:)` помечены как `deprecated` - используйте `startConfirmationProcess(confirmationUrl:paymentMethodType:)` и `didSuccessfullyConfirmation(paymentMethodType:)` вместо них.
+
+## 5.\*.\* -> 5.3.0
+
+В версии 5.3.0 зависимости `TMXProfiling` и `TMXProfilingConnections` используются в виде `.xcframework`.
+
+Для корректной работы необходимо:
+1. Запросить у менеджера по подключению зависимости `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework`
+2. В разделе `General` у основного таргета проекта добавить `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework` в `Frameworks, Libraries, and Embedded Content`.
+3. Удалить в `Build Phases` скрипт из файла `strip_framework.sh`.
 
 ## 4.\*.\* -> 5.\*.\*
 

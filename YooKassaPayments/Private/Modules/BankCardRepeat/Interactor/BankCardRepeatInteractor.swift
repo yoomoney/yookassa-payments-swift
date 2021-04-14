@@ -1,3 +1,5 @@
+import ThreatMetrixAdapter
+
 final class BankCardRepeatInteractor {
 
     // MARK: - VIPER
@@ -9,6 +11,7 @@ final class BankCardRepeatInteractor {
     private let analyticsService: AnalyticsService
     private let analyticsProvider: AnalyticsProvider
     private let paymentService: PaymentService
+    private let threatMetrixService: ThreatMetrixService
     
     private let clientApplicationKey: String
 
@@ -18,17 +21,15 @@ final class BankCardRepeatInteractor {
         analyticsService: AnalyticsService,
         analyticsProvider: AnalyticsProvider,
         paymentService: PaymentService,
+        threatMetrixService: ThreatMetrixService,
         clientApplicationKey: String
     ) {
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
         self.paymentService = paymentService
+        self.threatMetrixService = threatMetrixService
         
         self.clientApplicationKey = clientApplicationKey
-
-        if !ThreatMetrixService.isConfigured {
-            ThreatMetrixService.configure()
-        }
     }
 }
 
@@ -59,7 +60,7 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
         paymentMethodId: String,
         csc: String
     ) {
-        ThreatMetrixService.profileApp { [weak self] result in
+        threatMetrixService.profileApp { [weak self] result in
             guard let self = self,
                   let output = self.output else { return }
 
@@ -106,7 +107,7 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
 
 private func mapError(_ error: Error) -> Error {
     switch error {
-    case ThreatMetrixService.ProfileError.connectionFail:
+    case ProfileError.connectionFail:
         return PaymentProcessingError.internetConnection
     default:
         return error
