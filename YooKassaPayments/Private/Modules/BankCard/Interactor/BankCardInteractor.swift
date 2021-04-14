@@ -1,3 +1,5 @@
+import ThreatMetrixAdapter
+
 final class BankCardInteractor {
 
     // MARK: - VIPER
@@ -9,6 +11,7 @@ final class BankCardInteractor {
     private let paymentService: PaymentService
     private let analyticsService: AnalyticsService
     private let analyticsProvider: AnalyticsProvider
+    private let threatMetrixService: ThreatMetrixService
     private let clientApplicationKey: String
     private let amount: MonetaryAmount
     private let returnUrl: String
@@ -17,6 +20,7 @@ final class BankCardInteractor {
         paymentService: PaymentService,
         analyticsService: AnalyticsService,
         analyticsProvider: AnalyticsProvider,
+        threatMetrixService: ThreatMetrixService,
         clientApplicationKey: String,
         amount: MonetaryAmount,
         returnUrl: String
@@ -24,13 +28,10 @@ final class BankCardInteractor {
         self.paymentService = paymentService
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
+        self.threatMetrixService = threatMetrixService
         self.clientApplicationKey = clientApplicationKey
         self.amount = amount
         self.returnUrl = returnUrl
-
-        if !ThreatMetrixService.isConfigured {
-            ThreatMetrixService.configure()
-        }
     }
 }
 
@@ -41,7 +42,7 @@ extension BankCardInteractor: BankCardInteractorInput {
         cardData: CardData,
         savePaymentMethod: Bool
     ) {
-        ThreatMetrixService.profileApp { [weak self] result in
+        threatMetrixService.profileApp { [weak self] result in
             guard let self = self,
                   let output = self.output else { return }
 
@@ -129,7 +130,7 @@ private func mapError(
     _ error: Error
 ) -> Error {
     switch error {
-    case ThreatMetrixService.ProfileError.connectionFail:
+    case ProfileError.connectionFail:
         return PaymentProcessingError.internetConnection
     case let error as NSError where error.domain == NSURLErrorDomain:
         return PaymentProcessingError.internetConnection

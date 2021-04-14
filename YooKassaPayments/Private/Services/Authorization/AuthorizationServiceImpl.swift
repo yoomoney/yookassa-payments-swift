@@ -1,15 +1,17 @@
 import MoneyAuth
 import YooKassaWalletApi
+import ThreatMetrixAdapter
 
 final class AuthorizationServiceImpl {
 
     // MARK: - Init data
 
-    let tokenStorage: KeyValueStoring
-    let walletLoginService: WalletLoginService
-    let deviceInfoService: DeviceInfoService
-    let settingsStorage: KeyValueStoring
-    let moneyAuthRevokeTokenService: RevokeTokenService?
+    private let tokenStorage: KeyValueStoring
+    private let walletLoginService: WalletLoginService
+    private let deviceInfoService: DeviceInfoService
+    private let settingsStorage: KeyValueStoring
+    private let moneyAuthRevokeTokenService: RevokeTokenService?
+    private let threatMetrixService: ThreatMetrixService
 
     // MARK: - Init
 
@@ -18,17 +20,15 @@ final class AuthorizationServiceImpl {
         walletLoginService: WalletLoginService,
         deviceInfoService: DeviceInfoService,
         settingsStorage: KeyValueStoring,
-        moneyAuthRevokeTokenService: RevokeTokenService?
+        moneyAuthRevokeTokenService: RevokeTokenService?,
+        threatMetrixService: ThreatMetrixService
     ) {
         self.tokenStorage = tokenStorage
         self.walletLoginService = walletLoginService
         self.deviceInfoService = deviceInfoService
         self.settingsStorage = settingsStorage
         self.moneyAuthRevokeTokenService = moneyAuthRevokeTokenService
-
-        if !ThreatMetrixService.isConfigured {
-            ThreatMetrixService.configure()
-        }
+        self.threatMetrixService = threatMetrixService
     }
 }
 
@@ -172,7 +172,7 @@ extension AuthorizationServiceImpl {
                 completion: completion
             )
         } else {
-            ThreatMetrixService.profileApp { [weak self] result in
+            threatMetrixService.profileApp { [weak self] result in
                 guard let self = self else { return }
 
                 switch result {
