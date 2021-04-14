@@ -629,7 +629,8 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
         tmxSessionId: String?,
         phoneOffersAccepted: Bool,
         emailOffersAccepted: Bool,
-        userAgreementAccepted: Bool
+        userAgreementAccepted: Bool,
+        bindSocialAccountResult: BindSocialAccountResult?
     ) {
         self.moneyAuthCoordinator = nil
         self.yooMoneyTMXSessionId = tmxSessionId
@@ -725,6 +726,10 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
     func authorizationCoordinator(
         _ coordinator: AuthorizationCoordinator,
         didFailPrepareProcessWithError error: Error
+    ) {}
+
+    func authorizationCoordinatorDidRecoverPassword(
+        _ coordinator: AuthorizationCoordinator
     ) {}
 }
 

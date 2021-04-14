@@ -1,4 +1,5 @@
 import YooKassaPaymentsApi
+import ThreatMetrixAdapter
 
 final class YooMoneyInteractor {
 
@@ -8,13 +9,14 @@ final class YooMoneyInteractor {
 
     // MARK: - Init data
     
-    fileprivate let authorizationService: AuthorizationService
-    fileprivate let analyticsService: AnalyticsService
-    fileprivate let paymentService: PaymentService
-    fileprivate let analyticsProvider: AnalyticsProvider
-    fileprivate let imageDownloadService: ImageDownloadService
+    private let authorizationService: AuthorizationService
+    private let analyticsService: AnalyticsService
+    private let paymentService: PaymentService
+    private let analyticsProvider: AnalyticsProvider
+    private let imageDownloadService: ImageDownloadService
+    private let threatMetrixService: ThreatMetrixService
 
-    fileprivate let clientApplicationKey: String
+    private let clientApplicationKey: String
 
     // MARK: - Init
 
@@ -24,6 +26,7 @@ final class YooMoneyInteractor {
         analyticsProvider: AnalyticsProvider,
         paymentService: PaymentService,
         imageDownloadService: ImageDownloadService,
+        threatMetrixService: ThreatMetrixService,
         clientApplicationKey: String
     ) {
         self.authorizationService = authorizationService
@@ -31,11 +34,8 @@ final class YooMoneyInteractor {
         self.analyticsProvider = analyticsProvider
         self.paymentService = paymentService
         self.imageDownloadService = imageDownloadService
+        self.threatMetrixService = threatMetrixService
         self.clientApplicationKey = clientApplicationKey
-
-        if !ThreatMetrixService.isConfigured {
-            ThreatMetrixService.configure()
-        }
     }
 }
 
@@ -80,7 +80,7 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
                 tmxSessionId: tmxSessionId
             )
         } else {
-            ThreatMetrixService.profileApp { [weak self] result in
+            threatMetrixService.profileApp { [weak self] result in
                 guard let self = self,
                       let output = self.output else { return }
 
@@ -183,7 +183,7 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
 
 private func mapError(_ error: Error) -> Error {
     switch error {
-    case ThreatMetrixService.ProfileError.connectionFail:
+    case ProfileError.connectionFail:
         return PaymentProcessingError.internetConnection
     case let error as NSError where error.domain == NSURLErrorDomain:
         return PaymentProcessingError.internetConnection
