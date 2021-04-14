@@ -4,7 +4,10 @@ enum DeepLinkFactory {
     
     enum YooMoney {
         static let host = "yoomoney"
-        static let app2App = "app2app"
+        enum exchange {
+            static let firstPath = "exchange"
+            static let cryptogram = "cryptogram"
+        }
     }
 
     // swiftlint:disable:next cyclomatic_complexity
@@ -31,8 +34,13 @@ enum DeepLinkFactory {
         let deepLink: DeepLink?
 
         switch (host, firstPathComponent, query, action) {
-        case (YooMoney.host, YooMoney.app2App, _, _):
-            deepLink = .yooMoneyApp2App
+        case (YooMoney.host, YooMoney.exchange.firstPath, query, _):
+            guard let cryptogram = query["cryptogram"],
+                  !cryptogram.isEmpty else {
+                deepLink = nil
+                break
+            }
+            deepLink = .yooMoneyExchange(cryptogram: cryptogram)
         
         default:
             deepLink = nil
