@@ -412,11 +412,9 @@
 		781FB66E260235AD00567AFA /* BankCardImageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781FB66D260235AD00567AFA /* BankCardImageFactory.swift */; };
 		781FB671260235EF00567AFA /* BankCardImageFactoryAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781FB670260235EF00567AFA /* BankCardImageFactoryAssembly.swift */; };
 		781FB673260235F700567AFA /* BankCardImageFactoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781FB672260235F700567AFA /* BankCardImageFactoryImpl.swift */; };
+		782E75E1260CCF7500CF2BFD /* YKSdkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E75E0260CCF7500CF2BFD /* YKSdkService.swift */; };
 		783CCEFB25FA347C005A298A /* ProcessConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783CCEFA25FA347C005A298A /* ProcessConfirmation.swift */; };
 		783CCEFD25FB651C005A298A /* UIScreen+Short.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783CCEFC25FB651C005A298A /* UIScreen+Short.swift */; };
-		782E75DD260CC99600CF2BFD /* Deeplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E75DC260CC99600CF2BFD /* Deeplink.swift */; };
-		782E75DF260CC9A000CF2BFD /* DeeplinkFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E75DE260CC9A000CF2BFD /* DeeplinkFactory.swift */; };
-		782E75E1260CCF7500CF2BFD /* YKSdkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782E75E0260CCF7500CF2BFD /* YKSdkService.swift */; };
 		784A1A8B25B5A44600637CB5 /* ApplePayService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8A25B5A44600637CB5 /* ApplePayService.swift */; };
 		784A1A8D25B5A45000637CB5 /* ApplePayServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8C25B5A45000637CB5 /* ApplePayServiceImpl.swift */; };
 		784A1A8F25B5A5A300637CB5 /* ApplePayConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 784A1A8E25B5A5A300637CB5 /* ApplePayConstants.swift */; };
@@ -493,7 +491,6 @@
 		78C1BD2725EFA1430058080F /* SberpayInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD2625EFA1430058080F /* SberpayInteractor.swift */; };
 		78C1BD2925EFA14C0058080F /* SberpayAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD2825EFA14C0058080F /* SberpayAssembly.swift */; };
 		78C1BD2C25EFA2470058080F /* SberpayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BD2B25EFA2470058080F /* SberpayViewModel.swift */; };
-		78C1BDF225F13EDE0058080F /* ConfirmationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BDF125F13EDE0058080F /* ConfirmationService.swift */; };
 		78C1BDF525F230550058080F /* DeeplinkFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BDF425F230550058080F /* DeeplinkFactory.swift */; };
 		78C1BDF725F2305F0058080F /* Deeplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C1BDF625F2305F0058080F /* Deeplink.swift */; };
 		78CF11DD25D4361300F7154E /* ApplePayContractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CF11DC25D4361300F7154E /* ApplePayContractViewController.swift */; };
@@ -876,11 +873,9 @@
 		781FB66D260235AD00567AFA /* BankCardImageFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardImageFactory.swift; sourceTree = "<group>"; };
 		781FB670260235EF00567AFA /* BankCardImageFactoryAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardImageFactoryAssembly.swift; sourceTree = "<group>"; };
 		781FB672260235F700567AFA /* BankCardImageFactoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardImageFactoryImpl.swift; sourceTree = "<group>"; };
+		782E75E0260CCF7500CF2BFD /* YKSdkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKSdkService.swift; sourceTree = "<group>"; };
 		783CCEFA25FA347C005A298A /* ProcessConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessConfirmation.swift; sourceTree = "<group>"; };
 		783CCEFC25FB651C005A298A /* UIScreen+Short.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Short.swift"; sourceTree = "<group>"; };
-		782E75DC260CC99600CF2BFD /* Deeplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deeplink.swift; sourceTree = "<group>"; };
-		782E75DE260CC9A000CF2BFD /* DeeplinkFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkFactory.swift; sourceTree = "<group>"; };
-		782E75E0260CCF7500CF2BFD /* YKSdkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKSdkService.swift; sourceTree = "<group>"; };
 		784A1A8A25B5A44600637CB5 /* ApplePayService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayService.swift; sourceTree = "<group>"; };
 		784A1A8C25B5A45000637CB5 /* ApplePayServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayServiceImpl.swift; sourceTree = "<group>"; };
 		784A1A8E25B5A5A300637CB5 /* ApplePayConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayConstants.swift; sourceTree = "<group>"; };
@@ -957,7 +952,6 @@
 		78C1BD2625EFA1430058080F /* SberpayInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayInteractor.swift; sourceTree = "<group>"; };
 		78C1BD2825EFA14C0058080F /* SberpayAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayAssembly.swift; sourceTree = "<group>"; };
 		78C1BD2B25EFA2470058080F /* SberpayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SberpayViewModel.swift; sourceTree = "<group>"; };
-		78C1BDF125F13EDE0058080F /* ConfirmationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationService.swift; sourceTree = "<group>"; };
 		78C1BDF425F230550058080F /* DeeplinkFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkFactory.swift; sourceTree = "<group>"; };
 		78C1BDF625F2305F0058080F /* Deeplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deeplink.swift; sourceTree = "<group>"; };
 		78CF11DC25D4361300F7154E /* ApplePayContractViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayContractViewController.swift; sourceTree = "<group>"; };
@@ -1261,7 +1255,6 @@
 		402EB13ECBDC29975E13A501 /* Public */ = {
 			isa = PBXGroup;
 			children = (
-				78C1BDF125F13EDE0058080F /* ConfirmationService.swift */,
 				402EB36269018072CE3287E2 /* TokenizationAssembly.swift */,
 				402EB47F1567A31864612F7C /* TokenizationModuleIO.swift */,
 				782E75E0260CCF7500CF2BFD /* YKSdkService.swift */,
@@ -2543,16 +2536,6 @@
 			path = BankCardImage;
 			sourceTree = "<group>";
 		};
-		782E75DB260CC98600CF2BFD /* Deeplink */ = {
-			isa = PBXGroup;
-			children = (
-				782E75DC260CC99600CF2BFD /* Deeplink.swift */,
-				782E75DE260CC9A000CF2BFD /* DeeplinkFactory.swift */,
-			);
-			path = Deeplink;
-
-			sourceTree = "<group>";
-		};
 		784A1A8925B5A42900637CB5 /* ApplePay */ = {
 			isa = PBXGroup;
 			children = (
@@ -3276,7 +3259,6 @@
 				7860292B25CD406500B9E961 /* ImageDownloadServiceFactory.swift in Sources */,
 				7860290225C982D100B9E961 /* PaymentAuthorizationInteractor.swift in Sources */,
 				7860294325D1672F00B9E961 /* LinkedCardAssembly.swift in Sources */,
-				782E75DD260CC99600CF2BFD /* Deeplink.swift in Sources */,
 				402EB71B05B8182B467B583C /* NotificationView.swift in Sources */,
 				402EBE0F6B5FE7B907C88A53 /* Button.swift in Sources */,
 				7860292725CD406500B9E961 /* ImageProvider.swift in Sources */,
@@ -3379,7 +3361,6 @@
 				402EBC78A21756A0751049CB /* PaymentMethodsPresenter.swift in Sources */,
 				402EB5D6E79FE22EFE162375 /* PaymentMethodsViewController.swift in Sources */,
 				78B6B20E25C1647F00645D8A /* PaymentMethodViewModelFactoryImpl.swift in Sources */,
-				782E75DF260CC9A000CF2BFD /* DeeplinkFactory.swift in Sources */,
 				7860292925CD406500B9E961 /* ImageDownloadService.swift in Sources */,
 				402EBF5880ECE76D7FF1BB62 /* PaymentMethodsViewIO.swift in Sources */,
 				402EB9EA1CCAA11BF60B5F05 /* PaymentMethodsInteractor.swift in Sources */,
@@ -3549,7 +3530,6 @@
 				402EBC42507159E3CD4859EC /* BankCardDataInputRouterIO.swift in Sources */,
 				402EB3AB073F3C17EAE8919C /* BankCardDataInputViewModel.swift in Sources */,
 				402EBBDF51F6662CEE54298A /* Bundle+Tools.swift in Sources */,
-				78C1BDF225F13EDE0058080F /* ConfirmationService.swift in Sources */,
 				402EBB94AB27CC90E71D3A6D /* TextControl.swift in Sources */,
 				78C1BD2325EFA1330058080F /* SberpayRouter.swift in Sources */,
 				402EBAA71096200333711566 /* TextControl+State.swift in Sources */,

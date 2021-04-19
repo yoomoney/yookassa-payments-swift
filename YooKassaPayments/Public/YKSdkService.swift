@@ -26,12 +26,22 @@ public final class YKSdk {
             return false
         }
         
+        let paymentMethodType: PaymentMethodType?
+        
         switch deeplink {
+        case .invoicingSberpay:
+            paymentMethodType = .sberbank
+    
         case .yooMoneyExchange(let cryptogram):
+            paymentMethodType = nil
             paymentMethodsModuleInput?.authorizeInYooMoney(with: cryptogram)
-            break
         }
         
-        return false
+        if let paymentMethodType = paymentMethodType {
+            moduleOutput?.didSuccessfullyConfirmation(paymentMethodType: paymentMethodType)
+            return true
+        } else {
+            return false
+        }
     }
 }
