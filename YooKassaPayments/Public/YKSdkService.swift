@@ -25,23 +25,15 @@ public final class YKSdk {
               let deeplink = DeepLinkFactory.makeDeepLink(url: url) else {
             return false
         }
-        
-        let paymentMethodType: PaymentMethodType?
-        
+
         switch deeplink {
         case .invoicingSberpay:
-            paymentMethodType = .sberbank
-    
+            moduleOutput?.didSuccessfullyConfirmation(paymentMethodType: .sberbank)
+
         case .yooMoneyExchange(let cryptogram):
-            paymentMethodType = nil
             paymentMethodsModuleInput?.authorizeInYooMoney(with: cryptogram)
         }
-        
-        if let paymentMethodType = paymentMethodType {
-            moduleOutput?.didSuccessfullyConfirmation(paymentMethodType: paymentMethodType)
-            return true
-        } else {
-            return false
-        }
+
+        return true
     }
 }
