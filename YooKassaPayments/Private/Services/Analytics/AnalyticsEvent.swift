@@ -72,6 +72,7 @@ enum AnalyticsEvent {
         case smsSbol = "sms-sbol"
         case applePay = "apple-pay"
         case recurringCard = "recurring-card"
+        case sberpay = "sber-pay"
 
         var key: String {
             return Key.tokenizeScheme.rawValue

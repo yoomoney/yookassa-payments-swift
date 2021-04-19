@@ -5,7 +5,7 @@ enum PaymentMethodResources {
         case wallet = "PaymentMethod.wallet"
         case applePay = "PaymentMethod.applePay"
         case bankCard = "PaymentMethod.bankCard"
-        case sberbank = "PaymentMethod.sberbank"
+        case sberpay = "PaymentMethod.sberpay"
     }
 
     enum Image {
@@ -27,6 +27,6 @@ enum PaymentMethodResources {
         static let unknown = UIImage.named("PaymentMethod.Unknown")
         static let visa = UIImage.named("PaymentMethod.Visa")
         static let yooMoney = UIImage.named("PaymentMethod.YooMoney")
-        static let sberbank = UIImage.named("PaymentMethod.Sberbank")
+        static let sberpay = UIImage.named("PaymentMethod.Sberpay")
     }
 }

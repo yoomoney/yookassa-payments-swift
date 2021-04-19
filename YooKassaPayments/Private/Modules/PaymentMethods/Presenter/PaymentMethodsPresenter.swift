@@ -173,7 +173,11 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             openYooMoneyAuthorization()
 
         case let paymentOption where paymentOption.paymentMethodType == .sberbank:
-            openSberbankModule(paymentOption: paymentOption, needReplace: needReplace)
+            if shouldOpenSberpay(paymentOption) {
+                openSberpayModule(paymentOption: paymentOption, needReplace: needReplace)
+            } else {
+                openSberbankModule(paymentOption: paymentOption, needReplace: needReplace)
+            }
 
         case let paymentOption where paymentOption.paymentMethodType == .applePay:
             openApplePay(paymentOption: paymentOption, needReplace: needReplace)
@@ -381,6 +385,35 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             moduleOutput: self
         )
     }
+    
+    private func openSberpayModule(
+        paymentOption: PaymentOption,
+        needReplace: Bool
+    ) {
+        let paymentMethod = paymentMethodViewModelFactory.makePaymentMethodViewModel(
+            paymentOption: paymentOption
+        )
+        let priceViewModel = makePriceViewModel(paymentOption)
+        let feeViewModel = makeFeePriceViewModel(paymentOption)
+        let inputData = SberpayModuleInputData(
+            paymentOption: paymentOption,
+            clientApplicationKey: clientApplicationKey,
+            tokenizationSettings: tokenizationSettings,
+            testModeSettings: testModeSettings,
+            isLoggingEnabled: isLoggingEnabled,
+            shopName: shopName,
+            purchaseDescription: purchaseDescription,
+            priceViewModel: priceViewModel,
+            feeViewModel: feeViewModel,
+            termsOfService: termsOfService,
+            returnUrl: returnUrl,
+            isBackBarButtonHidden: needReplace
+        )
+        router.openSberpayModule(
+            inputData: inputData,
+            moduleOutput: self
+        )
+    }
 
     private func openBankCardModule(
         paymentOption: PaymentOption,
@@ -417,6 +450,16 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         )
     }
     
+    private func shouldOpenSberpay(
+        _ paymentOption: PaymentOption
+    ) -> Bool {
+        guard let confirmationTypes = paymentOption.confirmationTypes,
+              confirmationTypes.contains(.mobileApplication) else {
+            return false
+        }
+        
+        return UIApplication.shared.canOpenURL(Constants.sberpayUrlScheme)
+    }
     
     private func shouldOpenYooMoneyApp2App() -> Bool {
         guard let url = URL(string: Constants.YooMoneyApp2App.scheme) else {
@@ -846,6 +889,7 @@ extension PaymentMethodsPresenter: YooMoneyModuleOutput {
     ) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
+            self.shouldReloadOnViewDidAppear = false
             self.router.closeYooMoneyModule()
             self.view?.showActivity()
             DispatchQueue.global().async { [weak self] in
@@ -991,6 +1035,22 @@ extension PaymentMethodsPresenter: SberbankModuleOutput {
     }
 }
 
+// MARK: - SberpayModuleOutput
+
+extension PaymentMethodsPresenter: SberpayModuleOutput {
+    func sberpayModule(
+        _ module: SberpayModuleInput,
+        didTokenize token: Tokens,
+        paymentMethodType: PaymentMethodType
+    ) {
+        didTokenize(
+            tokens: token,
+            paymentMethodType: paymentMethodType,
+            scheme: .sberpay
+        )
+    }
+}
+
 // MARK: - BankCardModuleOutput
 
 extension PaymentMethodsPresenter: BankCardModuleOutput {
@@ -1017,7 +1077,8 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
         let inputData = CardSecModuleInputData(
             requestUrl: requestUrl,
             redirectUrl: GlobalConstants.returnUrl,
-            isLoggingEnabled: isLoggingEnabled
+            isLoggingEnabled: isLoggingEnabled,
+            isConfirmation: false
         )
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -1027,18 +1088,71 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
             )
         }
     }
+    
+    func startConfirmationProcess(
+        confirmationUrl: String,
+        paymentMethodType: PaymentMethodType
+    ) {
+        switch paymentMethodType {
+        case .sberbank:
+            guard let applicationScheme = applicationScheme else {
+                assertionFailure("Application scheme should be")
+                return
+            }
+            
+            let fullPathUrl = confirmationUrl
+                + applicationScheme
+                + DeepLinkFactory.invoicingHost
+                + "/"
+                + DeepLinkFactory.sberpayPath
+            
+            guard let url = URL(string: fullPathUrl) else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.open(
+                    url,
+                    options: [:],
+                    completionHandler: nil
+                )
+            }
+            
+        default:
+            let inputData = CardSecModuleInputData(
+                requestUrl: confirmationUrl,
+                redirectUrl: GlobalConstants.returnUrl,
+                isLoggingEnabled: isLoggingEnabled,
+                isConfirmation: true
+            )
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.router.openCardSecModule(
+                    inputData: inputData,
+                    moduleOutput: self
+                )
+            }
+        }
+    }
 }
 
 // MARK: - CardSecModuleOutput
 
 extension PaymentMethodsPresenter: CardSecModuleOutput {
     func didSuccessfullyPassedCardSec(
-        on module: CardSecModuleInput
+        on module: CardSecModuleInput,
+        isConfirmation: Bool
     ) {
         interactor.stopAnalyticsService()
-        tokenizationModuleOutput?.didSuccessfullyPassedCardSec(
-            on: self
-        )
+        if isConfirmation {
+            tokenizationModuleOutput?.didSuccessfullyConfirmation(
+                paymentMethodType: .bankCard
+            )
+        } else {
+            tokenizationModuleOutput?.didSuccessfullyPassedCardSec(
+                on: self
+            )
+        }
     }
 
     func didPressCloseButton(
@@ -1092,6 +1206,9 @@ private extension PaymentMethodsPresenter {
     enum Constants {
         static let dismissApplePayTimeout: TimeInterval = 0.5
         
+        // swiftlint:disable:next force_unwrapping
+        static let sberpayUrlScheme = URL(string: "sberpay://")!
+
         enum YooMoneyApp2App {
             // yoomoneyauth://app2app/exchange?clientId={clientId}&scope={scope}&redirect_uri={redirect_uri}
             // swiftlint:disable:next force_unwrapping
