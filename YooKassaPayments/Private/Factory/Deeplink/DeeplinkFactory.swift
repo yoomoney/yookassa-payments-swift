@@ -2,6 +2,9 @@ import Foundation
 
 enum DeepLinkFactory {
     
+    static let invoicingHost = "invoicing"
+    static let sberpayPath = "sberpay"
+
     enum YooMoney {
         static let host = "yoomoney"
         enum exchange {
@@ -34,6 +37,9 @@ enum DeepLinkFactory {
         let deepLink: DeepLink?
 
         switch (host, firstPathComponent, query, action) {
+        case (invoicingHost, sberpayPath, _, _):
+            deepLink = .invoicingSberpay
+
         case (YooMoney.host, YooMoney.exchange.firstPath, query, _):
             guard let cryptogram = query["cryptogram"],
                   !cryptogram.isEmpty else {

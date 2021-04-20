@@ -245,6 +245,7 @@ extension InputPanCardView: UITextFieldDelegate {
         _ textField: UITextField
     ) {
         delegate?.panDidBeginEditing()
+        setCursorToEnd()
     }
 }
 
@@ -266,6 +267,17 @@ private extension InputPanCardView {
             delegate?.scanDidPress()
         case .next:
             delegate?.nextDidPress()
+        }
+    }
+    
+    func setCursorToEnd() {
+        DispatchQueue.main.async() { [weak self] in
+            guard let self = self else { return }
+            let newPosition = self.cardPanTextField.endOfDocument
+            self.cardPanTextField.selectedTextRange = self.cardPanTextField.textRange(
+                from: newPosition,
+                to: newPosition
+            )
         }
     }
 }

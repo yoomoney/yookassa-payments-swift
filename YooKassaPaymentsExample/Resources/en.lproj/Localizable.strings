@@ -16,6 +16,11 @@
 "test_mode.payment_auth" = "The customer has logged into the Wallet";
 "test_mode.attached_cards" = "Number of linked cards";
 "test_mode.payment_error" = "Complete the payment with an error";
+"test_mode.process_type" = "Payment confirmation";
+"test_mode.process.3ds" = "3ds";
+"test_mode.process.app2app" = "app2app";
+
+"process.title" = "Confirmation";
 
 "settings.title" = "Settings";
 "settings.payment_methods.title" = "Payment methods";

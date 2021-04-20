@@ -14,7 +14,6 @@ class ContainerTableViewCell<ContainedView: UIView & TableViewCellDataProviderSu
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
         setupUI()
     }
 
@@ -32,15 +31,12 @@ class ContainerTableViewCell<ContainedView: UIView & TableViewCellDataProviderSu
             contentView.top.constraint(equalTo: containedView.top),
             contentView.trailing.constraint(equalTo: containedView.trailing),
             contentView.bottom.constraint(equalTo: containedView.bottom),
-            ])
+        ])
     }
-
 }
 
 extension ContainerTableViewCell: TableViewCellDataProviderSupport {
-
     static var estimatedCellHeight: CGFloat {
         return ContainedView.estimatedCellHeight
     }
-
 }

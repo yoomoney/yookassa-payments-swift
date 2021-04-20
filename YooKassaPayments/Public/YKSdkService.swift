@@ -25,13 +25,15 @@ public final class YKSdk {
               let deeplink = DeepLinkFactory.makeDeepLink(url: url) else {
             return false
         }
-        
+
         switch deeplink {
+        case .invoicingSberpay:
+            moduleOutput?.didSuccessfullyConfirmation(paymentMethodType: .sberbank)
+
         case .yooMoneyExchange(let cryptogram):
             paymentMethodsModuleInput?.authorizeInYooMoney(with: cryptogram)
-            break
         }
-        
-        return false
+
+        return true
     }
 }

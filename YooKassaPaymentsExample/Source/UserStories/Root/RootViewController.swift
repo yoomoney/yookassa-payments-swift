@@ -86,10 +86,12 @@ final class RootViewController: UIViewController {
 
     fileprivate lazy var imageView = UIImageView(image: #imageLiteral(resourceName: "Root.Comet"))
 
-    fileprivate lazy var settingsBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Root.Settings"),
-                                                           style: .plain,
-                                                           target: self,
-                                                           action: #selector(settingsButtonDidPress))
+    fileprivate lazy var settingsBarItem = UIBarButtonItem(
+        image: #imageLiteral(resourceName: "Root.Settings"),
+        style: .plain,
+        target: self,
+        action: #selector(settingsButtonDidPress)
+    )
 
     fileprivate lazy var ratingImageView = UIImageView(image: #imageLiteral(resourceName: "Root.Rating"))
 
@@ -103,7 +105,15 @@ final class RootViewController: UIViewController {
 
     // MARK: - Private properties
 
-    private lazy var settings: Settings = {
+    private let settingsService: SettingsService
+
+    private var currentKeyboardOffset: CGFloat = 0
+
+    // MARK: - Data properties
+
+    var token: Tokens?
+    var paymentMethodType: PaymentMethodType?
+    lazy var settings: Settings = {
         if let settings = settingsService.loadSettingsFromStorage() {
             return settings
         } else {
@@ -113,15 +123,6 @@ final class RootViewController: UIViewController {
             return settings
         }
     }()
-
-    private let settingsService: SettingsService
-
-    private var currentKeyboardOffset: CGFloat = 0
-
-    // MARK: - Data properties
-
-    var token: Tokens?
-    var paymentMethodType: PaymentMethodType?
 
     // MARK: - Initialization/Deinitialization
 
@@ -201,8 +202,10 @@ final class RootViewController: UIViewController {
             contentView.addSubview(subview)
         }
 
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
-                                                                 action: #selector(rootViewPressed))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(rootViewPressed)
+        )
         view.addGestureRecognizer(tap)
     }
 
@@ -323,12 +326,13 @@ final class RootViewController: UIViewController {
         let amount = Amount(value: settings.price, currency: .rub)
 
         if settings.testModeSettings.isTestModeEnadled {
-
             let paymentAuthorizationPassed = settings.testModeSettings.isPaymentAuthorizationPassed
-            testSettings = TestModeSettings(paymentAuthorizationPassed: paymentAuthorizationPassed,
-                                            cardsCount: settings.testModeSettings.cardsCount ?? 0,
-                                            charge: amount,
-                                            enablePaymentError: settings.testModeSettings.isPaymentWithError)
+            testSettings = TestModeSettings(
+                paymentAuthorizationPassed: paymentAuthorizationPassed,
+                cardsCount: settings.testModeSettings.cardsCount ?? 0,
+                charge: amount,
+                enablePaymentError: settings.testModeSettings.isPaymentWithError
+            )
         } else {
             testSettings = nil
         }
@@ -404,10 +408,12 @@ final class RootViewController: UIViewController {
     // MARK: - Notifications
 
     private func subscribeOnNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(accessibilityReapply),
-                                               name: UIContentSizeCategory.didChangeNotification,
-                                               object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(accessibilityReapply),
+            name: UIContentSizeCategory.didChangeNotification,
+            object: nil
+        )
     }
 
     private func unsubscribeFromNotifications() {
@@ -422,17 +428,21 @@ final class RootViewController: UIViewController {
         if traitCollection.horizontalSizeClass == .regular {
             payButtonBottomConstraint.constant = Space.fivefold
             nameLabelTopConstraint.constant = Constants.nameTopOffset * 2
-            contentView.layoutMargins = UIEdgeInsets(top: Space.quadruple,
-                                                     left: view.frame.width * Constants.widthRatio,
-                                                     bottom: 0,
-                                                     right: view.frame.width * Constants.widthRatio)
+            contentView.layoutMargins = UIEdgeInsets(
+                top: Space.quadruple,
+                left: view.frame.width * Constants.widthRatio,
+                bottom: 0,
+                right: view.frame.width * Constants.widthRatio
+            )
         } else {
             payButtonBottomConstraint.constant = Space.double
             nameLabelTopConstraint.constant = Constants.nameTopOffset
-            contentView.layoutMargins = UIEdgeInsets(top: Space.single,
-                                                     left: Space.double,
-                                                     bottom: 0,
-                                                     right: Space.double)
+            contentView.layoutMargins = UIEdgeInsets(
+                top: Space.single,
+                left: Space.double,
+                bottom: 0,
+                right: Space.double
+            )
         }
 
         updatePayButtonBottomConstraint()
@@ -456,17 +466,20 @@ final class RootViewController: UIViewController {
             paymentTypes.insert(.sberbank)
         }
 
-        return TokenizationSettings(paymentMethodTypes: paymentTypes,
-                                    showYooKassaLogo: settings.isShowingYooMoneyLogoEnabled)
+        return TokenizationSettings(
+            paymentMethodTypes: paymentTypes,
+            showYooKassaLogo: settings.isShowingYooMoneyLogoEnabled
+        )
     }
 }
 
 // MARK: - SettingsViewControllerDelegate
 
 extension RootViewController: SettingsViewControllerDelegate {
-    func settingsViewController(_ settingsViewController: SettingsViewController,
-                                didChangeSettings settings: Settings) {
-
+    func settingsViewController(
+        _ settingsViewController: SettingsViewController,
+        didChangeSettings settings: Settings
+    ) {
         self.settings = settings
         settingsService.saveSettingsToStorage(settings: settings)
     }
@@ -477,16 +490,19 @@ extension RootViewController: SettingsViewControllerDelegate {
 extension RootViewController {
 
     func startKeyboardObserving() {
-
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillShow(_:)),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillHide(_:)),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow(_:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide(_:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
 
     func stopKeyboardObserving() {
@@ -532,26 +548,31 @@ extension RootViewController {
 }
 
 extension RootViewController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController,
-                               didFinishWith result: MFMailComposeResult,
-                               error: Error?) {
+    func mailComposeController(
+        _ controller: MFMailComposeViewController,
+        didFinishWith result: MFMailComposeResult,
+        error: Error?
+    ) {
         controller.dismiss(animated: true)
     }
 }
 
 extension RootViewController: PriceInputViewControllerDelegate {
-    func priceInputViewController(_ priceInputViewController: PriceInputViewController,
-                                  didChangePrice price: Decimal?,
-                                  valid: Bool) {
-
+    func priceInputViewController(
+        _ priceInputViewController: PriceInputViewController,
+        didChangePrice price: Decimal?,
+        valid: Bool
+    ) {
         if price != nil, valid == true {
             payButton.isEnabled = true
         } else {
             payButton.isEnabled = false
         }
 
-        scrollView.scrollRectToVisible(priceInputViewController.view.frame,
-                                       animated: true)
+        scrollView.scrollRectToVisible(
+            priceInputViewController.view.frame,
+            animated: true
+        )
     }
 }
 
@@ -599,9 +620,11 @@ extension RootViewController: SuccessViewControllerDelegate {
             let viewController: UIViewController
 
             if MFMailComposeViewController.canSendMail() == false {
-                let alertController = UIAlertController(title: "Token",
-                                                        message: message,
-                                                        preferredStyle: .alert)
+                let alertController = UIAlertController(
+                    title: "Token",
+                    message: message,
+                    preferredStyle: .alert
+                )
                 let action = UIAlertAction(title: "OK", style: .default)
                 alertController.addAction(action)
                 viewController = alertController

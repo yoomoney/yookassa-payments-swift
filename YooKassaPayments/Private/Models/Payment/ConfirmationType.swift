@@ -11,6 +11,10 @@ enum ConfirmationType: String {
     /// The scenario in which the user confirms the payment without your participation.
     /// for example, responds to the SMS sent by the Bank.
     case external
+    
+    /// Data required to initiate a payment confirmation script,
+    /// in which it is necessary to send the user to the appropriate mobile application to complete the payment.
+    case mobileApplication
 }
 
 // MARK: - ConfirmationType converter
@@ -22,6 +26,8 @@ extension ConfirmationType {
             self = .redirect
         case .external:
             self = .external
+        case .mobileApplication:
+            self = .mobileApplication
         }
     }
 
@@ -37,6 +43,8 @@ extension YooKassaPaymentsApi.ConfirmationType {
             self = .redirect
         case .external:
             self = .external
+        case .mobileApplication:
+            self = .mobileApplication
         }
     }
 
