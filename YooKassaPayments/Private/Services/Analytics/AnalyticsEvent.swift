@@ -45,6 +45,9 @@ enum AnalyticsEvent {
     case userSuccessAuthorization(moneyAuthProcessType: MoneyAuthProcessType, sdkVersion: String)
     case userFailedAuthorization(error: String, sdkVersion: String)
 
+    /// SberPay confirmation
+    case actionSberPayConfirmation(sberPayConfirmationStatus: SberPayConfirmationStatus, sdkVersion: String)
+
     // MARK: - Analytic parameters.
 
     /// Current status of user authorization.
@@ -110,6 +113,7 @@ enum AnalyticsEvent {
         case authPaymentStatus
         case moneyAuthProcessType
         case action
+        case sberPayConfirmationStatus
     }
 
     // MARK: - Authorization
@@ -147,6 +151,16 @@ enum AnalyticsEvent {
 
         var key: String {
             Key.action.rawValue
+        }
+    }
+
+    // MARK: - SberPayConfirmationStatus
+
+    enum SberPayConfirmationStatus: String {
+        case success = "Success"
+
+        var key: String {
+            return Key.sberPayConfirmationStatus.rawValue
         }
     }
 }

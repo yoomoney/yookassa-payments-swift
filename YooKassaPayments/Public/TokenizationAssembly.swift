@@ -51,6 +51,9 @@ public enum TokenizationAssembly {
     ) -> UIViewController & TokenizationModuleInput {
         YKSdk.shared.moduleOutput = moduleOutput
         YKSdk.shared.applicationScheme = inputData.applicationScheme
+        YKSdk.shared.analyticsService = AnalyticsServiceAssembly.makeService(
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
         
         let paymentMethodsModuleInputData = PaymentMethodsModuleInputData(
             applicationScheme: inputData.applicationScheme,
