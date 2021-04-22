@@ -109,6 +109,9 @@ extension AnalyticsServiceImpl: AnalyticsService {
 
         case .actionBankCardForm:
             eventName = EventKey.actionBankCardForm.rawValue
+
+        case .actionSberPayConfirmation:
+            eventName = EventKey.actionSberPayConfirmation.rawValue
         }
         return eventName
     }
@@ -217,6 +220,12 @@ extension AnalyticsServiceImpl: AnalyticsService {
                 action.key: action.rawValue,
                 AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
             ]
+
+        case let .actionSberPayConfirmation(sberPayConfirmationStatus, sdkVersion):
+            parameters = [
+                sberPayConfirmationStatus.key: sberPayConfirmationStatus.rawValue,
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
+            ]
         }
 
         return parameters
@@ -236,6 +245,7 @@ extension AnalyticsServiceImpl: AnalyticsService {
         case actionLogout
         case actionAuthWithoutWallet
         case actionBankCardForm
+        case actionSberPayConfirmation
 
         // MARK: - Authorization
 

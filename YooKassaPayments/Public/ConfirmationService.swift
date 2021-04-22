@@ -6,6 +6,8 @@ public final class YKSdk {
     
     /// Application scheme for returning after opening a deeplink.
     var applicationScheme: String?
+
+    var analyticsService: AnalyticsService?
     
     private init() {}
     
@@ -35,6 +37,11 @@ public final class YKSdk {
         }
         
         if let paymentMethodType = paymentMethodType {
+            let event: AnalyticsEvent = .actionSberPayConfirmation(
+                sberPayConfirmationStatus: .success,
+                sdkVersion: Bundle.frameworkVersion
+            )
+            analyticsService?.trackEvent(event)
             moduleOutput?.didSuccessfullyConfirmation(paymentMethodType: paymentMethodType)
             return true
         } else {
