@@ -149,8 +149,7 @@ extension BankCardPresenter: BankCardInteractorOutput {
         _ data: Tokens
     ) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self,
-                  let view = self.view else { return }
+            guard let self = self else { return }
             self.moduleOutput?.bankCardModule(
                 self,
                 didTokenize: data,

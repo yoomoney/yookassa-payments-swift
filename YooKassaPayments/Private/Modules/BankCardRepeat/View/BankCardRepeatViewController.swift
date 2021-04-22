@@ -533,7 +533,7 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
 
         let linkAttributedText = NSMutableAttributedString(string: hyperText, attributes: attributes)
         let linkRange = NSRange(location: 0, length: hyperText.count)
-        let fakeLink = URL(string: "https://yookassa.ru")
+        let fakeLink = URL(string: "https://yookassa.ru")!
         linkAttributedText.addAttribute(.link, value: fakeLink, range: linkRange)
         attributedText.append(linkAttributedText)
 

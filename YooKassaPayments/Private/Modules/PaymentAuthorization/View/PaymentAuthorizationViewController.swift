@@ -113,7 +113,7 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        codeControl.becomeFirstResponder()
+        _ = codeControl.becomeFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

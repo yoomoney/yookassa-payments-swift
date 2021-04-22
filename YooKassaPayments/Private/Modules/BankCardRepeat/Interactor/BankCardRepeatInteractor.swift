@@ -69,7 +69,7 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
             self.paymentService.tokenizeRepeatBankCard(
                 clientApplicationKey: self.clientApplicationKey,
                 amount: amount,
-                tmxSessionId: tmxSessionId,
+                tmxSessionId: tmxSessionId.value,
                 confirmation: confirmation,
                 savePaymentMethod: savePaymentMethod,
                 paymentMethodId: paymentMethodId,
