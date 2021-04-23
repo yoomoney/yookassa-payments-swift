@@ -54,7 +54,7 @@ extension SberpayInteractor: SberpayInteractorInput {
                     confirmation: confirmation,
                     savePaymentMethod: false,
                     amount: self.amount,
-                    tmxSessionId: tmxSessionId
+                    tmxSessionId: tmxSessionId.value
                 ) { [weak self] result in
                     switch result {
                     case .success(let data):
