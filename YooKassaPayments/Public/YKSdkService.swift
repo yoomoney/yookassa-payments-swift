@@ -3,13 +3,15 @@ public final class YKSdk {
     
     /// Input for payment methods module.
     weak var paymentMethodsModuleInput: PaymentMethodsModuleInput?
-    
+
     /// Output for tokenization module.
     weak var moduleOutput: TokenizationModuleOutput?
     
     /// Application scheme for returning after opening a deeplink.
     var applicationScheme: String?
-    
+
+    var analyticsService: AnalyticsService?
+
     private init() {}
     
     /// Shared YooKassa sdk service.
@@ -28,6 +30,11 @@ public final class YKSdk {
 
         switch deeplink {
         case .invoicingSberpay:
+            let event: AnalyticsEvent = .actionSberPayConfirmation(
+                sberPayConfirmationStatus: .success,
+                sdkVersion: Bundle.frameworkVersion
+            )
+            analyticsService?.trackEvent(event)
             moduleOutput?.didSuccessfullyConfirmation(paymentMethodType: .sberbank)
 
         case .yooMoneyExchange(let cryptogram):
