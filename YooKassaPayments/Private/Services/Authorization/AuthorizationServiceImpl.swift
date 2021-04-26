@@ -183,7 +183,7 @@ extension AuthorizationServiceImpl {
                         instanceName: instanceName,
                         singleAmountMax: amount,
                         paymentUsageLimit: paymentUsageLimit,
-                        tmxSessionId: tmxSessionId,
+                        tmxSessionId: tmxSessionId.value,
                         completion: completion
                     )
 

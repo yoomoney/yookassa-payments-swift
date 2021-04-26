@@ -68,8 +68,7 @@ extension PaymentServiceImpl: PaymentService {
             paymentMethodId: paymentMethodId
         )
 
-        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
-            guard let self = self else { return }
+        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { result in
             switch result {
             case let .left(error):
                 let mappedError = mapError(error)
@@ -102,8 +101,7 @@ extension PaymentServiceImpl: PaymentService {
             tokensRequest: tokensRequest
         )
 
-        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
-            guard let self = self else { return }
+        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { result in
             switch result {
             case let .left(error):
                 let mappedError = mapError(error)
@@ -141,8 +139,7 @@ extension PaymentServiceImpl: PaymentService {
             tokensRequest: tokensRequest
         )
 
-        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
-            guard let self = self else { return }
+        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { result in
             switch result {
             case let .left(error):
                 let mappedError = mapError(error)
@@ -184,8 +181,7 @@ extension PaymentServiceImpl: PaymentService {
             tokensRequest: tokensRequest
         )
 
-        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
-            guard let self = self else { return }
+        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { result in
             switch result {
             case let .left(error):
                 let mappedError = mapError(error)
@@ -219,8 +215,7 @@ extension PaymentServiceImpl: PaymentService {
             tokensRequest: tokensRequest
         )
 
-        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
-            guard let self = self else { return }
+        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { result in
             switch result {
             case let .left(error):
                 let mappedError = mapError(error)
@@ -255,8 +250,7 @@ extension PaymentServiceImpl: PaymentService {
             tokensRequest: tokensRequest
         )
 
-        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
-            guard let self = self else { return }
+        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { result in
             switch result {
             case let .left(error):
                 let mappedError = mapError(error)
@@ -325,8 +319,7 @@ extension PaymentServiceImpl: PaymentService {
             tokensRequest: tokensRequest
         )
 
-        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
-            guard let self = self else { return }
+        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { result in
             switch result {
             case let .left(error):
                 let mappedError = mapError(error)

@@ -125,7 +125,7 @@ extension BankCardRepeatPresenter: BankCardRepeatViewOutput {
             do {
                 try self.cardService.validate(csc: csc)
             } catch {
-                if let error = error as? CardService.ValidationError {
+                if error is CardService.ValidationError {
                     DispatchQueue.main.async { [weak self] in
                         guard let view = self?.view else { return }
                         view.setConfirmButtonEnabled(false)
@@ -151,7 +151,7 @@ extension BankCardRepeatPresenter: BankCardRepeatViewOutput {
             do {
                 try self.cardService.validate(csc: csc)
             } catch {
-                if let error = error as? CardService.ValidationError {
+                if error is CardService.ValidationError {
                     DispatchQueue.main.async { [weak self] in
                         guard let view = self?.view else { return }
                         view.setCardState(.error)

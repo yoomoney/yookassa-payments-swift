@@ -361,9 +361,6 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         paymentOption: PaymentOption,
         needReplace: Bool
     ) {
-        let paymentMethod = paymentMethodViewModelFactory.makePaymentMethodViewModel(
-            paymentOption: paymentOption
-        )
         let priceViewModel = makePriceViewModel(paymentOption)
         let feeViewModel = makeFeePriceViewModel(paymentOption)
         let inputData = SberbankModuleInputData(
@@ -612,8 +609,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
            paymentMethods.count == 1 {
             let needReplace = self.paymentMethods?.count == 1
             DispatchQueue.main.async { [weak self] in
-                guard let self = self,
-                      let view = self.view else { return }
+                guard let self = self else { return }
                 self.openYooMoneyWallet(
                     paymentOption: paymentOption,
                     needReplace: needReplace
@@ -653,7 +649,11 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
     func didFailDecryptCryptogram(
         _ error: Error
     ) {
-        presentError(error)
+        DispatchQueue.main.async { [weak self] in
+            guard let view = self?.view else { return }
+            view.hideActivity()
+            view.presentError(with: §CommonLocalized.Error.unknown)
+        }
     }
     
     func didTokenizeApplePay(
@@ -946,10 +946,10 @@ extension PaymentMethodsPresenter: ApplePayModuleOutput {
             
             let message = §Localized.applePayUnavailableTitle
             if self.paymentMethods?.count == 1 {
-                self.view?.hideActivity()
-                self.view?.showPlaceholder(message: message)
+                view.hideActivity()
+                view.showPlaceholder(message: message)
             } else {
-                self.view?.presentError(with: message)
+                view.presentError(with: message)
             }
         }
     }

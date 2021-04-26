@@ -60,7 +60,7 @@ extension ApplePayContractInteractor: ApplePayContractInteractorInput {
                     paymentData: paymentData,
                     savePaymentMethod: savePaymentMethod,
                     amount: amount,
-                    tmxSessionId: tmxSessionId
+                    tmxSessionId: tmxSessionId.value
                 )
 
             case let .failure(error):

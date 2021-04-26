@@ -275,7 +275,6 @@ extension BankCardDataInputPresenter: BankCardDataInputRouterOutput {
     }
 
     private func setPanAndMoveFocusNext(_ value: String) {
-        guard let view = view else { return }
         cardData.pan = value
         setViewFocus(.expiryDate)
     }
