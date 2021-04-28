@@ -30,6 +30,7 @@
 		30D75280261C6D3C00EF3231 /* TMXProfilingConnections.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30D7527D261C6D3C00EF3231 /* TMXProfilingConnections.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30D75281261C6D3C00EF3231 /* TMXProfiling.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30D7527E261C6D3C00EF3231 /* TMXProfiling.xcframework */; };
 		30D75282261C6D3C00EF3231 /* TMXProfiling.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30D7527E261C6D3C00EF3231 /* TMXProfiling.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		30EDA3CA26398E6D00FAD14D /* AmountNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EDA3C926398E6D00FAD14D /* AmountNumberFormatter.swift */; };
 		3C2A165D504F872DE0079866 /* Pods_YooKassaPaymentsExamplePods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BCB318DC03111CB9C1FFD14 /* Pods_YooKassaPaymentsExamplePods.framework */; };
 		402EB002BD1EC142641CB2D4 /* LogoutConfirmationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBDB3EFE7969B76F4C0A4 /* LogoutConfirmationAssembly.swift */; };
 		402EB00B9EC9B560D706EC06 /* UIScrollView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8295ED9FF21E41876C2 /* UIScrollView+Style.swift */; };
@@ -530,6 +531,7 @@
 		30C669DE262042390027C027 /* ThreatMetrixServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreatMetrixServiceFactory.swift; sourceTree = "<group>"; };
 		30D7527D261C6D3C00EF3231 /* TMXProfilingConnections.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TMXProfilingConnections.xcframework; path = Frameworks/TMXProfilingConnections.xcframework; sourceTree = "<group>"; };
 		30D7527E261C6D3C00EF3231 /* TMXProfiling.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TMXProfiling.xcframework; path = Frameworks/TMXProfiling.xcframework; sourceTree = "<group>"; };
+		30EDA3C926398E6D00FAD14D /* AmountNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountNumberFormatter.swift; sourceTree = "<group>"; };
 		402EB009CEDEC5DB870537E1 /* KeyValueStoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStoring.swift; sourceTree = "<group>"; };
 		402EB014F96F71429404DC96 /* WebBrowserPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebBrowserPresenter.swift; sourceTree = "<group>"; };
 		402EB01C01B0045F18C02BE0 /* PrefferedContentSizeCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefferedContentSizeCategory.swift; sourceTree = "<group>"; };
@@ -1978,6 +1980,7 @@
 		402EBA8DACAA2FAC35017032 /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
+				30EDA3C926398E6D00FAD14D /* AmountNumberFormatter.swift */,
 				402EBF6A37743D45F45F9F0A /* IdentifyCountryService.swift */,
 				402EBB4CE8123B54AD76D8CC /* PhoneNumberFormatter.swift */,
 				402EB9B7B29AE2E4CFC48A0C /* InputPresenter */,
@@ -3182,6 +3185,7 @@
 				402EBB95FB1B114F31BD9725 /* HostsConfig.swift in Sources */,
 				402EB92B510A1A0BFB6EB464 /* TermsOfService.swift in Sources */,
 				402EB2E1934B6B55DE54F193 /* BankSettings.swift in Sources */,
+				30EDA3CA26398E6D00FAD14D /* AmountNumberFormatter.swift in Sources */,
 				402EBB85276075DF17470C04 /* HostProviderAssembly.swift in Sources */,
 				402EB51D8B988D695E8DB719 /* ApiSessionAssembly.swift in Sources */,
 				402EBB71A493C705D105349E /* PaymentMethodViewModelFactory.swift in Sources */,

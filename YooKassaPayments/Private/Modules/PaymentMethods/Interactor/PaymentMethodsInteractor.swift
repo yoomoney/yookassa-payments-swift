@@ -14,6 +14,7 @@ class PaymentMethodsInteractor {
     private let analyticsService: AnalyticsService
     private let analyticsProvider: AnalyticsProvider
     private let threatMetrixService: ThreatMetrixService
+    private let amountNumberFormatter: AmountNumberFormatter
 
     private let clientApplicationKey: String
     private let gatewayId: String?
@@ -28,6 +29,7 @@ class PaymentMethodsInteractor {
         analyticsService: AnalyticsService,
         analyticsProvider: AnalyticsProvider,
         threatMetrixService: ThreatMetrixService,
+        amountNumberFormatter: AmountNumberFormatter,
         clientApplicationKey: String,
         gatewayId: String?,
         amount: Amount,
@@ -38,6 +40,7 @@ class PaymentMethodsInteractor {
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
         self.threatMetrixService = threatMetrixService
+        self.amountNumberFormatter = amountNumberFormatter
 
         self.clientApplicationKey = clientApplicationKey
         self.gatewayId = gatewayId
@@ -54,7 +57,7 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
             clientApplicationKey: clientApplicationKey,
             authorizationToken: authorizationToken,
             gatewayId: gatewayId,
-            amount: amount.value.description,
+            amount: amountNumberFormatter.string(from: amount.value),
             currency: amount.currency.rawValue,
             getSavePaymentMethod: getSavePaymentMethod
         ) { [weak self] result in
@@ -77,7 +80,7 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
             clientApplicationKey: clientApplicationKey,
             authorizationToken: moneyCenterAuthToken,
             gatewayId: gatewayId,
-            amount: amount.value.description,
+            amount: amountNumberFormatter.string(from: amount.value),
             currency: amount.currency.rawValue,
             getSavePaymentMethod: getSavePaymentMethod
         ) { [weak self] result in
