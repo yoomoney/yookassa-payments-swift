@@ -14,6 +14,7 @@ final class AmountNumberFormatterImpl {
     private lazy var numberFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
         numberFormatter.maximumFractionDigits = 2
+        numberFormatter.decimalSeparator = "."
         return numberFormatter
     }()
 }
