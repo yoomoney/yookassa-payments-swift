@@ -74,6 +74,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
         view.backgroundColor = .clear
         setupView()
         setupConstraints()
+        setupObserver()
     }
 
     override func viewDidLoad() {
@@ -116,6 +117,15 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
         leftItem.text = §Localized.paymentMethods
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftItem)
     }
+    
+    private func setupObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didBecomeActiveNotification(_:)),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
+    }
 
     // MARK: - Configuring the View’s Layout Behavior
 
@@ -144,6 +154,13 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
                 object: nil
             )
         }
+    }
+    
+    // MARK: - Actions
+
+    @objc
+    private func didBecomeActiveNotification(_ notification: Notification) {
+        output.applicationDidBecomeActive()
     }
 }
 

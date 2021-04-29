@@ -9,6 +9,11 @@ final class PaymentMethodsPresenter: NSObject {
         case success
         case cancel
     }
+    
+    private enum App2AppState {
+        case idle
+        case yoomoney
+    }
 
     // MARK: - VIPER
 
@@ -100,6 +105,7 @@ final class PaymentMethodsPresenter: NSObject {
 
     private var shouldReloadOnViewDidAppear = false
     private var moneyCenterAuthToken: String?
+    private var app2AppState: App2AppState = .idle
 
     // MARK: - Apple Pay properties
 
@@ -128,6 +134,14 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         DispatchQueue.global().async { [weak self] in
             guard let interactor = self?.interactor else { return }
             interactor.fetchPaymentMethods()
+        }
+    }
+    
+    func applicationDidBecomeActive() {
+        if app2AppState == .idle,
+           paymentMethods?.count == 1,
+           paymentMethods?.first?.paymentMethodType == .yooMoney {
+            didFinish(module: self, error: nil)
         }
     }
     
@@ -500,6 +514,7 @@ extension PaymentMethodsPresenter: PaymentMethodsModuleInput {
         guard !cryptogram.isEmpty else {
             return
         }
+        app2AppState = .yoomoney
 
         DispatchQueue.main.async { [weak self] in
             guard let self = self,
@@ -870,6 +885,7 @@ extension PaymentMethodsPresenter: YooMoneyModuleOutput {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.moneyCenterAuthToken = nil
+            self.app2AppState = .idle
             let condition: (PaymentOption) -> Bool = {
                 $0 is PaymentInstrumentYooMoneyLinkedBankCard
                 || $0 is PaymentInstrumentYooMoneyWallet
