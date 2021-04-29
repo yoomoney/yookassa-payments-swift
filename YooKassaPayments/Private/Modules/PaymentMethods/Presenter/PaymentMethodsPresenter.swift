@@ -870,10 +870,20 @@ extension PaymentMethodsPresenter: YooMoneyModuleOutput {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.moneyCenterAuthToken = nil
-            self.router.closeYooMoneyModule()
-            self.view?.showActivity()
-            DispatchQueue.global().async { [weak self] in
-                self?.interactor.fetchPaymentMethods()
+            let condition: (PaymentOption) -> Bool = {
+                $0 is PaymentInstrumentYooMoneyLinkedBankCard
+                || $0 is PaymentInstrumentYooMoneyWallet
+                || $0.paymentMethodType == .yooMoney
+            }
+            if let paymentMethods = self.paymentMethods,
+               paymentMethods.allSatisfy(condition) {
+                self.didFinish(module: self, error: nil)
+            } else {
+                self.router.closeYooMoneyModule()
+                self.view?.showActivity()
+                DispatchQueue.global().async { [weak self] in
+                    self?.interactor.fetchPaymentMethods()
+                }
             }
         }
     }
