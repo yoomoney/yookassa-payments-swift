@@ -12,6 +12,7 @@ class PaymentMethodsInteractor {
     private let paymentService: PaymentService
     private let authorizationService: AuthorizationService
     private let analyticsService: AnalyticsService
+    private let accountService: AccountService
     private let analyticsProvider: AnalyticsProvider
     private let threatMetrixService: ThreatMetrixService
     private let appDataTransferMediator: AppDataTransferMediator
@@ -27,6 +28,7 @@ class PaymentMethodsInteractor {
         paymentService: PaymentService,
         authorizationService: AuthorizationService,
         analyticsService: AnalyticsService,
+        accountService: AccountService,
         analyticsProvider: AnalyticsProvider,
         threatMetrixService: ThreatMetrixService,
         appDataTransferMediator: AppDataTransferMediator,
@@ -38,6 +40,7 @@ class PaymentMethodsInteractor {
         self.paymentService = paymentService
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
+        self.accountService = accountService
         self.analyticsProvider = analyticsProvider
         self.threatMetrixService = threatMetrixService
         self.appDataTransferMediator = appDataTransferMediator
@@ -90,6 +93,21 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
                 output.didFetchYooMoneyPaymentMethods(data.filter { $0.paymentMethodType == .yooMoney })
             case let .failure(error):
                 output.didFetchYooMoneyPaymentMethods(error)
+            }
+        }
+    }
+    
+    func fetchAccount(
+        oauthToken: String
+    ) {
+        accountService.fetchAccount(
+            oauthToken: oauthToken
+        ) { [weak self] in
+            guard let output = self?.output else { return }
+            $0.map {
+                output.didFetchAccount($0)
+            }.mapLeft {
+                output.didFailFetchAccount($0)
             }
         }
     }
