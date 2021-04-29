@@ -99,6 +99,7 @@ final class PaymentMethodsPresenter: NSObject {
     }()
 
     private var shouldReloadOnViewDidAppear = false
+    private var moneyCenterAuthToken: String?
 
     // MARK: - Apple Pay properties
 
@@ -592,14 +593,36 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         presentError(error)
     }
     
+    func didFetchAccount(
+        _ account: UserAccount
+    ) {
+        guard let moneyCenterAuthToken = moneyCenterAuthToken else {
+            return
+        }
+        interactor.setAccount(account)
+        interactor.fetchYooMoneyPaymentMethods(
+            moneyCenterAuthToken: moneyCenterAuthToken
+        )
+    }
+    
+    func didFailFetchAccount(
+        _ error: Error
+    ) {
+        guard let moneyCenterAuthToken = moneyCenterAuthToken else {
+            return
+        }
+        interactor.fetchYooMoneyPaymentMethods(
+            moneyCenterAuthToken: moneyCenterAuthToken
+        )
+    }
+    
     func didDecryptCryptogram(
         _ token: String
     ) {
+        moneyCenterAuthToken = token
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
-            self.interactor.fetchYooMoneyPaymentMethods(
-                moneyCenterAuthToken: token
-            )
+            self.interactor.fetchAccount(oauthToken: token)
         }
     }
     
@@ -846,6 +869,7 @@ extension PaymentMethodsPresenter: YooMoneyModuleOutput {
     ) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
+            self.moneyCenterAuthToken = nil
             self.router.closeYooMoneyModule()
             self.view?.showActivity()
             DispatchQueue.global().async { [weak self] in

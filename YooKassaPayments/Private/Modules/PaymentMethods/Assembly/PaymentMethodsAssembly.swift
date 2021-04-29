@@ -53,6 +53,9 @@ enum PaymentMethodsAssembly {
         let analyticsService = AnalyticsServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled
         )
+        let accountService = AccountServiceFactory.makeService(
+            config: moneyAuthConfig
+        )
         let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
             testModeSettings: inputData.testModeSettings
         )
@@ -65,6 +68,7 @@ enum PaymentMethodsAssembly {
             paymentService: paymentService,
             authorizationService: authorizationService,
             analyticsService: analyticsService,
+            accountService: accountService,
             analyticsProvider: analyticsProvider,
             threatMetrixService: threatMetrixService,
             appDataTransferMediator: appDataTransferMediator,
