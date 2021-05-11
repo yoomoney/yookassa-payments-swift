@@ -121,7 +121,6 @@ end
 
 ```swift
 import YooKassaPayments
-import YooKassaPaymentsApi
 ```
 
 Пример создания `TokenizationModuleInputData`:
