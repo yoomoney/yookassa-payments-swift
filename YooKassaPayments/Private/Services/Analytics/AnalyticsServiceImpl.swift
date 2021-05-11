@@ -101,14 +101,11 @@ extension AnalyticsServiceImpl: AnalyticsService {
         case .userCancelAuthorization:
             eventName = EventKey.userCancelAuthorization.rawValue
 
-        case .userSuccessAuthorization:
-            eventName = EventKey.userSuccessAuthorization.rawValue
-
-        case .userFailedAuthorization:
-            eventName = EventKey.userFailedAuthorization.rawValue
-
         case .actionBankCardForm:
             eventName = EventKey.actionBankCardForm.rawValue
+
+        case .actionMoneyAuthLogin:
+            eventName = EventKey.actionMoneyAuthLogin.rawValue
         }
         return eventName
     }
@@ -200,23 +197,22 @@ extension AnalyticsServiceImpl: AnalyticsService {
                 AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
             ]
 
-        case let .userSuccessAuthorization(moneyAuthProcessType, sdkVersion):
-            parameters = [
-                moneyAuthProcessType.key: moneyAuthProcessType.rawValue,
-                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
-            ]
-
-        case let .userFailedAuthorization(errorLocalizedDescription, sdkVersion):
-            parameters = [
-                AnalyticsEvent.Keys.error.rawValue: errorLocalizedDescription,
-                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
-            ]
-
         case let .actionBankCardForm(action, sdkVersion):
             parameters = [
                 action.key: action.rawValue,
                 AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
             ]
+
+        case let .actionMoneyAuthLogin(scheme, status, sdkVersion):
+            parameters = [
+                scheme.key: scheme.rawValue,
+                status.key: status.rawValue,
+                AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
+            ]
+
+            if case .fail(let errorLocalizedDescription) = status {
+                parameters?[AnalyticsEvent.Keys.error.rawValue] = errorLocalizedDescription
+            }
         }
 
         return parameters
@@ -236,13 +232,12 @@ extension AnalyticsServiceImpl: AnalyticsService {
         case actionLogout
         case actionAuthWithoutWallet
         case actionBankCardForm
+        case actionMoneyAuthLogin
 
         // MARK: - Authorization
 
         case userStartAuthorization
         case userCancelAuthorization
-        case userSuccessAuthorization
-        case userFailedAuthorization
     }
 }
 

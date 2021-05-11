@@ -9,7 +9,7 @@ final class PaymentMethodsPresenter: NSObject {
         case success
         case cancel
     }
-    
+
     private enum App2AppState {
         case idle
         case yoomoney
@@ -144,7 +144,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             didFinish(module: self, error: nil)
         }
     }
-    
+
     func numberOfRows() -> Int {
         viewModels.count
     }
@@ -619,7 +619,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
             moneyCenterAuthToken: moneyCenterAuthToken
         )
     }
-    
+
     func didFailFetchAccount(
         _ error: Error
     ) {
@@ -630,13 +630,19 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
             moneyCenterAuthToken: moneyCenterAuthToken
         )
     }
-    
+
     func didDecryptCryptogram(
         _ token: String
     ) {
         moneyCenterAuthToken = token
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
+            let event: AnalyticsEvent = .actionMoneyAuthLogin(
+                scheme: .yoomoneyApp,
+                status: .success,
+                sdkVersion: Bundle.frameworkVersion
+            )
+            self.interactor.trackEvent(event)
             self.interactor.fetchAccount(oauthToken: token)
         }
     }
@@ -644,6 +650,12 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
     func didFailDecryptCryptogram(
         _ error: Error
     ) {
+        let event: AnalyticsEvent = .actionMoneyAuthLogin(
+            scheme: .yoomoneyApp,
+            status: .fail(error.localizedDescription),
+            sdkVersion: Bundle.frameworkVersion
+        )
+        interactor.trackEvent(event)
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
             view.hideActivity()
@@ -791,29 +803,11 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
                     moneyCenterAuthToken: token
                 )
 
-                let event: AnalyticsEvent
-                switch authorizationProcess {
-                case .login:
-                    event = .userSuccessAuthorization(
-                        moneyAuthProcessType: .login,
-                        sdkVersion: Bundle.frameworkVersion
-                    )
-                case .enrollment:
-                    event = .userSuccessAuthorization(
-                        moneyAuthProcessType: .enrollment,
-                        sdkVersion: Bundle.frameworkVersion
-                    )
-                case .migration:
-                    event = .userSuccessAuthorization(
-                        moneyAuthProcessType: .migration,
-                        sdkVersion: Bundle.frameworkVersion
-                    )
-                case .none:
-                    event = .userSuccessAuthorization(
-                        moneyAuthProcessType: .unknown,
-                        sdkVersion: Bundle.frameworkVersion
-                    )
-                }
+                let event: AnalyticsEvent = .actionMoneyAuthLogin(
+                    scheme: .moneyAuthSdk,
+                    status: .success,
+                    sdkVersion: Bundle.frameworkVersion
+                )
                 self.interactor.trackEvent(event)
             }
         }
@@ -846,8 +840,9 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
     ) {
         self.moneyAuthCoordinator = nil
 
-        let event = AnalyticsEvent.userFailedAuthorization(
-            error: error.localizedDescription,
+        let event: AnalyticsEvent = .actionMoneyAuthLogin(
+            scheme: .moneyAuthSdk,
+            status: .fail(error.localizedDescription),
             sdkVersion: Bundle.frameworkVersion
         )
         interactor.trackEvent(event)
