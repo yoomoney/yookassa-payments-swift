@@ -9,6 +9,15 @@ final class BankCardRepeatPresenter {
 
     weak var moduleOutput: TokenizationModuleOutput?
     weak var view: BankCardRepeatViewInput?
+    
+    // MARK: - Number formatter
+    
+    private lazy var numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.maximumFractionDigits = 2
+        numberFormatter.decimalSeparator = Constants.decimalSeparator
+        return numberFormatter
+    }()
 
     // MARK: - Init data
     
@@ -194,7 +203,10 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
         let viewModel = BankCardRepeatViewModel(
             shopName: shopName,
             description: purchaseDescription,
-            price: makePriceViewModel(amount),
+            price: makePriceViewModel(
+                amount,
+                numberFormatter: numberFormatter
+            ),
             cardMask: formattingCardMask(cardMask),
             cardLogo: cardLogo,
             terms: termsOfService
@@ -396,13 +408,15 @@ extension BankCardRepeatPresenter: BankCardRepeatModuleInput {
 // MARK: - Private global helpers
 
 private func makePriceViewModel(
-    _ amount: Amount
+    _ amount: Amount,
+    numberFormatter: NumberFormatter
 ) -> PriceViewModel {
-    let amountString = amount.value.description
+    let decimalNumber = NSDecimalNumber(decimal: amount.value)
+    let amountString = numberFormatter.string(from: decimalNumber) ?? amount.value.description
     var integerPart = ""
     var fractionalPart = ""
 
-    if let separatorIndex = amountString.firstIndex(of: ".") {
+    if let separatorIndex = amountString.firstIndex(of: Character(Constants.decimalSeparator)) {
         integerPart = String(amountString[amountString.startIndex..<separatorIndex])
         fractionalPart = String(amountString[amountString.index(after: separatorIndex)..<amountString.endIndex])
     } else {
@@ -432,4 +446,8 @@ private func makeMessage(_ error: Error) -> String {
 
 private func formattingCardMask(_ string: String) -> String {
     return string.splitEvery(4, separator: " ")
+}
+
+private enum Constants {
+    static let decimalSeparator = Locale.current.decimalSeparator ?? ","
 }
