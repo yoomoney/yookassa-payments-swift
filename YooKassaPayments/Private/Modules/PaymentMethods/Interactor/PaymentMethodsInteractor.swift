@@ -15,6 +15,7 @@ class PaymentMethodsInteractor {
     private let accountService: AccountService
     private let analyticsProvider: AnalyticsProvider
     private let threatMetrixService: ThreatMetrixService
+    private let amountNumberFormatter: AmountNumberFormatter
     private let appDataTransferMediator: AppDataTransferMediator
 
     private let clientApplicationKey: String
@@ -31,6 +32,7 @@ class PaymentMethodsInteractor {
         accountService: AccountService,
         analyticsProvider: AnalyticsProvider,
         threatMetrixService: ThreatMetrixService,
+        amountNumberFormatter: AmountNumberFormatter,
         appDataTransferMediator: AppDataTransferMediator,
         clientApplicationKey: String,
         gatewayId: String?,
@@ -43,6 +45,7 @@ class PaymentMethodsInteractor {
         self.accountService = accountService
         self.analyticsProvider = analyticsProvider
         self.threatMetrixService = threatMetrixService
+        self.amountNumberFormatter = amountNumberFormatter
         self.appDataTransferMediator = appDataTransferMediator
 
         self.clientApplicationKey = clientApplicationKey
@@ -60,7 +63,7 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
             clientApplicationKey: clientApplicationKey,
             authorizationToken: authorizationToken,
             gatewayId: gatewayId,
-            amount: amount.value.description,
+            amount: amountNumberFormatter.string(from: amount.value),
             currency: amount.currency.rawValue,
             getSavePaymentMethod: getSavePaymentMethod
         ) { [weak self] result in
@@ -83,7 +86,7 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
             clientApplicationKey: clientApplicationKey,
             authorizationToken: moneyCenterAuthToken,
             gatewayId: gatewayId,
-            amount: amount.value.description,
+            amount: amountNumberFormatter.string(from: amount.value),
             currency: amount.currency.rawValue,
             getSavePaymentMethod: getSavePaymentMethod
         ) { [weak self] result in
@@ -111,7 +114,7 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
             }
         }
     }
-    
+
     func decryptCryptogram(
         _ cryptogram: String
     ) {
@@ -124,7 +127,7 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
             }
         }
     }
-    
+
     func getWalletDisplayName() -> String? {
         return authorizationService.getWalletDisplayName()
     }

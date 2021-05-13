@@ -60,6 +60,7 @@ enum PaymentMethodsAssembly {
             testModeSettings: inputData.testModeSettings
         )
         let threatMetrixService = ThreatMetrixServiceFactory.makeService()
+        let amountNumberFormatter = AmountNumberFormatterAssembly.makeAmountNumberFormatter()
         let appDataTransferMediator = AppDataTransferMediatorFactory.makeMediator(
             config: moneyAuthConfig
         )
@@ -71,6 +72,7 @@ enum PaymentMethodsAssembly {
             accountService: accountService,
             analyticsProvider: analyticsProvider,
             threatMetrixService: threatMetrixService,
+            amountNumberFormatter: amountNumberFormatter,
             appDataTransferMediator: appDataTransferMediator,
             clientApplicationKey: inputData.clientApplicationKey,
             gatewayId: inputData.gatewayId,
