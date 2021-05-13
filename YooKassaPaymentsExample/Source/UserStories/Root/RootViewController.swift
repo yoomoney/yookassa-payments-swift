@@ -368,7 +368,8 @@ final class RootViewController: UIViewController {
 //            testModeSettings: testSettings,
 //            isLoggingEnabled: true,
 //            customizationSettings: CustomizationSettings(mainScheme: .blueRibbon),
-//            savePaymentMethod: .userSelects
+//            savePaymentMethod: .userSelects,
+//            gatewayId: nil
 //        ))
 
         let viewController = TokenizationAssembly.makeModule(

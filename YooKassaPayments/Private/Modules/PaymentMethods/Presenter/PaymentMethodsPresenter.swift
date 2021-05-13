@@ -24,6 +24,7 @@ final class PaymentMethodsPresenter: NSObject {
 
     private let isLogoVisible: Bool
     private let paymentMethodViewModelFactory: PaymentMethodViewModelFactory
+    private let priceViewModelFactory: PriceViewModelFactory
     
     private let clientApplicationKey: String
     private let applePayMerchantIdentifier: String?
@@ -47,6 +48,7 @@ final class PaymentMethodsPresenter: NSObject {
     init(
         isLogoVisible: Bool,
         paymentMethodViewModelFactory: PaymentMethodViewModelFactory,
+        priceViewModelFactory: PriceViewModelFactory,
         clientApplicationKey: String,
         applePayMerchantIdentifier: String?,
         testModeSettings: TestModeSettings?,
@@ -64,6 +66,7 @@ final class PaymentMethodsPresenter: NSObject {
     ) {
         self.isLogoVisible = isLogoVisible
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
+        self.priceViewModelFactory = priceViewModelFactory
         
         self.clientApplicationKey = clientApplicationKey
         self.applePayMerchantIdentifier = applePayMerchantIdentifier
@@ -234,6 +237,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             savePaymentMethod,
             initialState: initialSavePaymentMethod
         )
+        let priceViewModel = priceViewModelFactory.makeAmountPriceViewModel(paymentOption)
+        let feeViewModel = priceViewModelFactory.makeFeePriceViewModel(paymentOption)
         let inputData = YooMoneyModuleInputData(
             clientApplicationKey: clientApplicationKey,
             testModeSettings: testModeSettings,
@@ -242,8 +247,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             tokenizationSettings: tokenizationSettings,
             shopName: shopName,
             purchaseDescription: purchaseDescription,
-            price: makePriceViewModel(paymentOption),
-            fee: makeFeePriceViewModel(paymentOption),
+            price: priceViewModel,
+            fee: feeViewModel,
             paymentMethod: paymentMethod,
             paymentOption: paymentOption,
             termsOfService: termsOfService,
@@ -264,6 +269,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         needReplace: Bool
     ) {
         let initialSavePaymentMethod = makeInitialSavePaymentMethod(savePaymentMethod)
+        let priceViewModel = priceViewModelFactory.makeAmountPriceViewModel(paymentOption)
+        let feeViewModel = priceViewModelFactory.makeFeePriceViewModel(paymentOption)
         let inputData = LinkedCardModuleInputData(
             clientApplicationKey: clientApplicationKey,
             testModeSettings: testModeSettings,
@@ -272,8 +279,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             tokenizationSettings: tokenizationSettings,
             shopName: shopName,
             purchaseDescription: purchaseDescription,
-            price: makePriceViewModel(paymentOption),
-            fee: makeFeePriceViewModel(paymentOption),
+            price: priceViewModel,
+            fee: feeViewModel,
             paymentOption: paymentOption,
             termsOfService: termsOfService,
             returnUrl: returnUrl,
@@ -304,6 +311,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
                 savePaymentMethod,
                 initialState: initialSavePaymentMethod
             )
+            let priceViewModel = priceViewModelFactory.makeAmountPriceViewModel(paymentOption)
+            let feeViewModel = priceViewModelFactory.makeFeePriceViewModel(paymentOption)
             let inputData = ApplePayContractModuleInputData(
                 clientApplicationKey: clientApplicationKey,
                 testModeSettings: testModeSettings,
@@ -311,8 +320,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
                 tokenizationSettings: tokenizationSettings,
                 shopName: shopName,
                 purchaseDescription: purchaseDescription,
-                price: makePriceViewModel(paymentOption),
-                fee: makeFeePriceViewModel(paymentOption),
+                price: priceViewModel,
+                fee: feeViewModel,
                 paymentOption: paymentOption,
                 termsOfService: termsOfService,
                 merchantIdentifier: applePayMerchantIdentifier,
@@ -349,8 +358,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         let paymentMethod = paymentMethodViewModelFactory.makePaymentMethodViewModel(
             paymentOption: paymentOption
         )
-        let priceViewModel = makePriceViewModel(paymentOption)
-        let feeViewModel = makeFeePriceViewModel(paymentOption)
+        let priceViewModel = priceViewModelFactory.makeAmountPriceViewModel(paymentOption)
+        let feeViewModel = priceViewModelFactory.makeFeePriceViewModel(paymentOption)
         let inputData = SberbankModuleInputData(
             paymentOption: paymentOption,
             clientApplicationKey: clientApplicationKey,
@@ -375,8 +384,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         paymentOption: PaymentOption,
         needReplace: Bool
     ) {
-        let priceViewModel = makePriceViewModel(paymentOption)
-        let feeViewModel = makeFeePriceViewModel(paymentOption)
+        let priceViewModel = priceViewModelFactory.makeAmountPriceViewModel(paymentOption)
+        let feeViewModel = priceViewModelFactory.makeFeePriceViewModel(paymentOption)
         let initialSavePaymentMethod = makeInitialSavePaymentMethod(savePaymentMethod)
         let savePaymentMethodViewModel =  SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
             paymentOption,
@@ -1003,57 +1012,6 @@ private extension PaymentMethodsPresenter {
 }
 
 // MARK: - Private global helpers
-
-private func makePriceViewModel(
-    _ paymentOption: PaymentOption
-) -> PriceViewModel {
-    let amountString = paymentOption.charge.value.description
-    var integerPart = ""
-    var fractionalPart = ""
-
-    if let separatorIndex = amountString.firstIndex(of: ".") {
-        integerPart = String(amountString[amountString.startIndex..<separatorIndex])
-        fractionalPart = String(amountString[amountString.index(after: separatorIndex)..<amountString.endIndex])
-    } else {
-        integerPart = amountString
-        fractionalPart = "00"
-    }
-    let currency = Currency(rawValue: paymentOption.charge.currency)
-        ?? Currency.custom(paymentOption.charge.currency)
-    return TempAmount(
-        currency: currency.symbol,
-        integerPart: integerPart,
-        fractionalPart: fractionalPart,
-        style: .amount
-    )
-}
-
-private func makeFeePriceViewModel(
-    _ paymentOption: PaymentOption
-) -> PriceViewModel? {
-    guard let fee = paymentOption.fee,
-          let service = fee.service else { return nil }
-
-    let amountString = service.charge.value.description
-    var integerPart = ""
-    var fractionalPart = ""
-
-    if let separatorIndex = amountString.firstIndex(of: ".") {
-        integerPart = String(amountString[amountString.startIndex..<separatorIndex])
-        fractionalPart = String(amountString[amountString.index(after: separatorIndex)..<amountString.endIndex])
-    } else {
-        integerPart = amountString
-        fractionalPart = "00"
-    }
-    let currency = Currency(rawValue: service.charge.currency)
-        ?? Currency.custom(service.charge.currency)
-    return TempAmount(
-        currency: currency.symbol,
-        integerPart: integerPart,
-        fractionalPart: fractionalPart,
-        style: .fee
-    )
-}
 
 private func makeInitialSavePaymentMethod(
     _ savePaymentMethod: SavePaymentMethod

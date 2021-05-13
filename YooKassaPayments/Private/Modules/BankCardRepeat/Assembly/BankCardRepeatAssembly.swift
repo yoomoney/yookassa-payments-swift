@@ -11,8 +11,8 @@ enum BankCardRepeatAssembly {
         let view = BankCardRepeatViewController()
         
         let cardService = CardService()
-        let paymentMethodViewModelFactory =
-            PaymentMethodViewModelFactoryAssembly.makeFactory()
+        let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()
+        let priceViewModelFactory = PriceViewModelFactoryAssembly.makeFactory()
         let termsOfService = TermsOfServiceFactory.makeTermsOfService()
         let initialSavePaymentMethod = makeInitialSavePaymentMethod(inputData.savePaymentMethod)
         let savePaymentMethodViewModel =  SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
@@ -22,12 +22,12 @@ enum BankCardRepeatAssembly {
         let presenter = BankCardRepeatPresenter(
             cardService: cardService,
             paymentMethodViewModelFactory: paymentMethodViewModelFactory,
+            priceViewModelFactory: priceViewModelFactory,
             isLoggingEnabled: inputData.isLoggingEnabled,
             returnUrl: inputData.returnUrl,
             paymentMethodId: inputData.paymentMethodId,
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
-            amount: inputData.amount,
             termsOfService: termsOfService,
             savePaymentMethodViewModel: savePaymentMethodViewModel,
             initialSavePaymentMethod: initialSavePaymentMethod
@@ -45,12 +45,16 @@ enum BankCardRepeatAssembly {
             testModeSettings: inputData.testModeSettings
         )
         let threatMetrixService = ThreatMetrixServiceFactory.makeService()
+        let amountNumberFormatter = AmountNumberFormatterAssembly.makeAmountNumberFormatter()
         let interactor = BankCardRepeatInteractor(
             analyticsService: analyticsService,
             analyticsProvider: analyticsProvider,
             paymentService: paymentService,
             threatMetrixService: threatMetrixService,
-            clientApplicationKey: inputData.clientApplicationKey
+            amountNumberFormatter: amountNumberFormatter,
+            clientApplicationKey: inputData.clientApplicationKey,
+            gatewayId: inputData.gatewayId,
+            amount: inputData.amount
         )
         
         let router = BankCardRepeatRouter()

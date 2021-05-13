@@ -301,6 +301,7 @@
 		402EBC2B75C6DA509D902F48 /* TextControl+ClearMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB17BB3A1CB6CEF3A6554 /* TextControl+ClearMode.swift */; };
 		402EBC36449C85722080B20C /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6F94C13E4F66AD84654 /* ActivityIndicator.swift */; };
 		402EBC3A36D0ABDDD0D0C4B4 /* PaymentMethodsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB4CB069329DCBDCE0E6D /* PaymentMethodsAssembly.swift */; };
+		402EBC3C07CACF8D2020DBC5 /* PriceViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB489BC427881505E2583 /* PriceViewModelFactory.swift */; };
 		402EBC41089B09F83AC6D4CA /* ApplePayContractModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB62C69A473FAE82CF019 /* ApplePayContractModuleIO.swift */; };
 		402EBC42507159E3CD4859EC /* BankCardDataInputRouterIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB87319D65F5FFA7259D9 /* BankCardDataInputRouterIO.swift */; };
 		402EBC44F5138C37BC2B7990 /* WebBrowserInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBAB6F92FA336D7B10073 /* WebBrowserInteractorIO.swift */; };
@@ -611,6 +612,7 @@
 		402EB47F1567A31864612F7C /* TokenizationModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenizationModuleIO.swift; sourceTree = "<group>"; };
 		402EB47F288FC29560EE036E /* KeyboardObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObservable.swift; sourceTree = "<group>"; };
 		402EB487A00F4E5CBA7498D9 /* PaymentMethodTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodTypes.swift; sourceTree = "<group>"; };
+		402EB489BC427881505E2583 /* PriceViewModelFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceViewModelFactory.swift; sourceTree = "<group>"; };
 		402EB4CB069329DCBDCE0E6D /* PaymentMethodsAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsAssembly.swift; sourceTree = "<group>"; };
 		402EB4D0C2AEFC68A22F5BA3 /* UILabel+Stylable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Stylable.swift"; sourceTree = "<group>"; };
 		402EB4F728CFBA828884E459 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
@@ -1866,6 +1868,7 @@
 				402EB96DFA8C9D871DE124D0 /* SavePaymentMethodViewModelFactory.swift */,
 				402EBF7AC88FCC8EA3154C56 /* UserAgentFactory.swift */,
 				78B6B20C25C1646D00645D8A /* PaymentMethodViewModel */,
+				402EB489BC427881505E2583 /* PriceViewModelFactory.swift */,
 			);
 			path = Factory;
 			sourceTree = "<group>";
@@ -3398,6 +3401,7 @@
 				402EB4E93D7A00A973BB93FA /* UITableViewHeaderFooterView+Identifier.swift in Sources */,
 				402EBF5E02044CFB30A2A40A /* UITableViewCell+Identifier.swift in Sources */,
 				402EBB42DE308BDC3E21CA74 /* NavigationController.swift in Sources */,
+				402EBC3C07CACF8D2020DBC5 /* PriceViewModelFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

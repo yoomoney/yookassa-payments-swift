@@ -19,9 +19,11 @@ enum PaymentMethodsAssembly {
         let moneyAuthCustomization = MoneyAuthAssembly.makeMoneyAuthCustomization()
 
         let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()
+        let priceViewModelFactory = PriceViewModelFactoryAssembly.makeFactory()
         let presenter = PaymentMethodsPresenter(
             isLogoVisible: inputData.tokenizationSettings.showYooKassaLogo,
             paymentMethodViewModelFactory: paymentMethodViewModelFactory,
+            priceViewModelFactory: priceViewModelFactory,
             clientApplicationKey: inputData.clientApplicationKey,
             applePayMerchantIdentifier: inputData.applePayMerchantIdentifier,
             testModeSettings: inputData.testModeSettings,
