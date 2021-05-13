@@ -8,7 +8,6 @@
 
 > Необходимо выполнить [инструкцию](https://github.com/yoomoney/yookassa-payments-swift/blob/master/MIGRATION.md) по миграции с версий ниже.
 
-
 ### 5.4.0
 
 1. Исправили возможные проблемы с дробной частью параметра `amount` сущности `TokenizationModuleInputData`.
