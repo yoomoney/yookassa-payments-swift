@@ -9,20 +9,12 @@ final class BankCardRepeatPresenter {
 
     weak var moduleOutput: TokenizationModuleOutput?
     weak var view: BankCardRepeatViewInput?
-    
-    // MARK: - Number formatter
-    
-    private lazy var numberFormatter: NumberFormatter = {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.maximumFractionDigits = 2
-        numberFormatter.decimalSeparator = Constants.decimalSeparator
-        return numberFormatter
-    }()
 
     // MARK: - Init data
     
     private let cardService: CardService
     private let paymentMethodViewModelFactory: PaymentMethodViewModelFactory
+    private let priceViewModelFactory: PriceViewModelFactory
     
     private let isLoggingEnabled: Bool
     private let returnUrl: String?
@@ -30,7 +22,6 @@ final class BankCardRepeatPresenter {
     private let paymentMethodId: String
     private let shopName: String
     private let purchaseDescription: String
-    private let amount: Amount
     private let termsOfService: TermsOfService
     private let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     private var initialSavePaymentMethod: Bool
@@ -40,18 +31,19 @@ final class BankCardRepeatPresenter {
     init(
         cardService: CardService,
         paymentMethodViewModelFactory: PaymentMethodViewModelFactory,
+        priceViewModelFactory: PriceViewModelFactory,
         isLoggingEnabled: Bool,
         returnUrl: String?,
         paymentMethodId: String,
         shopName: String,
         purchaseDescription: String,
-        amount: Amount,
         termsOfService: TermsOfService,
         savePaymentMethodViewModel: SavePaymentMethodViewModel?,
         initialSavePaymentMethod: Bool
     ) {
         self.cardService = cardService
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
+        self.priceViewModelFactory = priceViewModelFactory
         
         self.isLoggingEnabled = isLoggingEnabled
         self.returnUrl = returnUrl
@@ -59,7 +51,6 @@ final class BankCardRepeatPresenter {
         self.paymentMethodId = paymentMethodId
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
-        self.amount = amount
         self.termsOfService = termsOfService
         self.savePaymentMethodViewModel = savePaymentMethodViewModel
         self.initialSavePaymentMethod = initialSavePaymentMethod
@@ -68,6 +59,7 @@ final class BankCardRepeatPresenter {
     // MARK: - Stored Data
 
     private var paymentMethod: PaymentMethod?
+    private var paymentOption: PaymentOption?
     private var csc: String?
 }
 
@@ -76,13 +68,12 @@ final class BankCardRepeatPresenter {
 extension BankCardRepeatPresenter: BankCardRepeatViewOutput {
     func setupView() {
         guard let view = view else { return }
-        
+
         view.showActivity()
-        
+
         DispatchQueue.global().async { [weak self] in
             guard let self = self,
                   let interactor = self.interactor else { return }
-            
             let (authType, _) = interactor.makeTypeAnalyticsParameters()
             let event: AnalyticsEvent = .screenPaymentContract(
                 authType: authType,
@@ -90,9 +81,7 @@ extension BankCardRepeatPresenter: BankCardRepeatViewOutput {
                 sdkVersion: Bundle.frameworkVersion
             )
             interactor.trackEvent(event)
-            interactor.fetchPaymentMethod(
-                paymentMethodId: self.paymentMethodId
-            )
+            interactor.fetchPaymentMethods()
         }
     }
     
@@ -183,7 +172,7 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
         _ paymentMethod: PaymentMethod
     ) {
         self.paymentMethod = paymentMethod
-        
+
         guard let card = paymentMethod.card,
               card.first6.isEmpty == false,
               card.last4.isEmpty == false else {
@@ -196,17 +185,22 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
             }
             return
         }
-        
+
+        guard let paymentOption = self.paymentOption else {
+            assertionFailure("PaymentOption should be")
+            return
+        }
+
         let cardMask = card.first6 + "••••••" + card.last4
         let cardLogo = paymentMethodViewModelFactory.makeBankCardImage(card)
-        
+        let priceViewModel = priceViewModelFactory.makeAmountPriceViewModel(paymentOption)
+        let feeViewModel = priceViewModelFactory.makeFeePriceViewModel(paymentOption)
+
         let viewModel = BankCardRepeatViewModel(
             shopName: shopName,
             description: purchaseDescription,
-            price: makePriceViewModel(
-                amount,
-                numberFormatter: numberFormatter
-            ),
+            price: priceViewModel,
+            fee: feeViewModel,
             cardMask: formattingCardMask(cardMask),
             cardLogo: cardLogo,
             terms: termsOfService
@@ -215,16 +209,16 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
         DispatchQueue.main.async { [weak self] in
             guard let self = self,
                   let view = self.view else { return }
-            
+
             view.hideActivity()
-            
+
             view.setupViewModel(viewModel)
             view.setConfirmButtonEnabled(false)
-            
+
             if let savePaymentMethodViewModel = self.savePaymentMethodViewModel {
                 view.setSavePaymentMethodViewModel(savePaymentMethodViewModel)
             }
-            
+
             DispatchQueue.global().async { [weak self] in
                 let event: AnalyticsEvent = .screenRecurringCardForm(
                     sdkVersion: Bundle.frameworkVersion
@@ -281,6 +275,34 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
         }
     }
 
+    func didFetchPaymentMethods(_ paymentMethods: [PaymentOption]) {
+        guard let bankCard = paymentMethods.first(where: {
+            $0.paymentMethodType == .bankCard
+        }) else {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self,
+                      let view = self.view else { return }
+                view.hideActivity()
+                view.showPlaceholder()
+            }
+            return
+        }
+        self.paymentOption = bankCard
+        interactor.fetchPaymentMethod(
+            paymentMethodId: paymentMethodId
+        )
+    }
+
+    func didFetchPaymentMethods(_ error: Error) {
+        let message = makeMessage(error)
+
+        DispatchQueue.main.async { [weak self] in
+            guard let view = self?.view else { return }
+            view.hideActivity()
+            view.showPlaceholder(with: message)
+        }
+    }
+
     private func tokenize() {
         guard let csc = csc else { return }
         
@@ -288,9 +310,14 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
             type: .redirect,
             returnUrl: returnUrl ?? GlobalConstants.returnUrl
         )
-        
+
+        guard let paymentOption = paymentOption else {
+            assertionFailure("PaymentOption should be")
+            return
+        }
+
         interactor.tokenize(
-            amount: MonetaryAmountFactory.makeMonetaryAmount(amount),
+            amount: paymentOption.charge.plain,
             confirmation: confirmation,
             savePaymentMethod: initialSavePaymentMethod,
             paymentMethodId: paymentMethodId,
@@ -308,10 +335,12 @@ extension BankCardRepeatPresenter: ActionTitleTextDialogDelegate {
         guard let view = view else { return }
         view.hidePlaceholder()
         view.showActivity()
-        
+
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
-            if self.paymentMethod == nil {
+            if self.paymentOption == nil {
+                self.interactor.fetchPaymentMethods()
+            } else if self.paymentMethod == nil {
                 self.interactor.fetchPaymentMethod(
                     paymentMethodId: self.paymentMethodId
                 )
@@ -406,30 +435,6 @@ extension BankCardRepeatPresenter: BankCardRepeatModuleInput {
 }
 
 // MARK: - Private global helpers
-
-private func makePriceViewModel(
-    _ amount: Amount,
-    numberFormatter: NumberFormatter
-) -> PriceViewModel {
-    let decimalNumber = NSDecimalNumber(decimal: amount.value)
-    let amountString = numberFormatter.string(from: decimalNumber) ?? amount.value.description
-    var integerPart = ""
-    var fractionalPart = ""
-
-    if let separatorIndex = amountString.firstIndex(of: Character(Constants.decimalSeparator)) {
-        integerPart = String(amountString[amountString.startIndex..<separatorIndex])
-        fractionalPart = String(amountString[amountString.index(after: separatorIndex)..<amountString.endIndex])
-    } else {
-        integerPart = amountString
-        fractionalPart = "00"
-    }
-    return TempAmount(
-        currency: amount.currency.symbol,
-        integerPart: integerPart,
-        fractionalPart: fractionalPart,
-        style: .amount
-    )
-}
 
 private func makeMessage(_ error: Error) -> String {
     let message: String

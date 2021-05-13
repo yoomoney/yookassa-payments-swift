@@ -12,8 +12,11 @@ final class BankCardRepeatInteractor {
     private let analyticsProvider: AnalyticsProvider
     private let paymentService: PaymentService
     private let threatMetrixService: ThreatMetrixService
+    private let amountNumberFormatter: AmountNumberFormatter
     
     private let clientApplicationKey: String
+    private let gatewayId: String?
+    private let amount: Amount
 
     // MARK: - Init
 
@@ -22,14 +25,20 @@ final class BankCardRepeatInteractor {
         analyticsProvider: AnalyticsProvider,
         paymentService: PaymentService,
         threatMetrixService: ThreatMetrixService,
-        clientApplicationKey: String
+        amountNumberFormatter: AmountNumberFormatter,
+        clientApplicationKey: String,
+        gatewayId: String?,
+        amount: Amount
     ) {
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
         self.paymentService = paymentService
         self.threatMetrixService = threatMetrixService
+        self.amountNumberFormatter = amountNumberFormatter
         
         self.clientApplicationKey = clientApplicationKey
+        self.gatewayId = gatewayId
+        self.amount = amount
     }
 }
 
@@ -87,6 +96,25 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
             case let .failure(error):
                 output.didFailTokenize(mapError(error))
                 break
+            }
+        }
+    }
+
+    func fetchPaymentMethods() {
+        paymentService.fetchPaymentOptions(
+            clientApplicationKey: clientApplicationKey,
+            authorizationToken: nil,
+            gatewayId: gatewayId,
+            amount: amountNumberFormatter.string(from: amount.value),
+            currency: amount.currency.rawValue,
+            getSavePaymentMethod: false
+        ) { [weak self] result in
+            guard let output = self?.output else { return }
+            switch result {
+            case let .success(data):
+                output.didFetchPaymentMethods(data)
+            case let .failure(error):
+                output.didFetchPaymentMethods(error)
             }
         }
     }
