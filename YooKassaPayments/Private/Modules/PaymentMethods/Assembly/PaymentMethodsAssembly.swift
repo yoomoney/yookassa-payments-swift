@@ -19,10 +19,12 @@ enum PaymentMethodsAssembly {
         let moneyAuthCustomization = MoneyAuthAssembly.makeMoneyAuthCustomization()
 
         let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()
+        let priceViewModelFactory = PriceViewModelFactoryAssembly.makeFactory()
         let presenter = PaymentMethodsPresenter(
             isLogoVisible: inputData.tokenizationSettings.showYooKassaLogo,
             paymentMethodViewModelFactory: paymentMethodViewModelFactory,
             applicationScheme: inputData.applicationScheme,
+            priceViewModelFactory: priceViewModelFactory,
             clientApplicationKey: inputData.clientApplicationKey,
             applePayMerchantIdentifier: inputData.applePayMerchantIdentifier,
             testModeSettings: inputData.testModeSettings,
@@ -56,12 +58,14 @@ enum PaymentMethodsAssembly {
             testModeSettings: inputData.testModeSettings
         )
         let threatMetrixService = ThreatMetrixServiceFactory.makeService()
+        let amountNumberFormatter = AmountNumberFormatterAssembly.makeAmountNumberFormatter()
         let interactor = PaymentMethodsInteractor(
             paymentService: paymentService,
             authorizationService: authorizationService,
             analyticsService: analyticsService,
             analyticsProvider: analyticsProvider,
             threatMetrixService: threatMetrixService,
+            amountNumberFormatter: amountNumberFormatter,
             clientApplicationKey: inputData.clientApplicationKey,
             gatewayId: inputData.gatewayId,
             amount: inputData.amount,
