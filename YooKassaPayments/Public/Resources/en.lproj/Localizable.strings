@@ -1,7 +1,7 @@
 // Payment methods
 
 "PaymentMethods.paymentMethods" = "Payment method";
-"PaymentMethod.sberbank" = "SberPay";
+"PaymentMethod.sberpay" = "SberPay";
 "PaymentMethod.wallet" = "YooMoney";
 "PaymentMethod.applePay" = "Apple Pay";
 "PaymentMethod.bankCard" = "Bank card";
