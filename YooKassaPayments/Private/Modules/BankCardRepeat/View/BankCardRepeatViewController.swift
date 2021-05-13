@@ -418,8 +418,12 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
         orderView.title = viewModel.shopName
         orderView.subtitle = viewModel.description
         orderView.value = makePrice(viewModel.price)
-        orderView.subvalue = nil
-        
+        if let fee = viewModel.fee {
+            orderView.subvalue = "\(§Localized.fee) " + makePrice(fee)
+        } else {
+            orderView.subvalue = nil
+        }
+
         maskedCardView.cardNumber = viewModel.cardMask
         maskedCardView.cardLogo = viewModel.cardLogo
         
