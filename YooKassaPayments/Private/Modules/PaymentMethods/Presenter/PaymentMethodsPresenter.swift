@@ -10,6 +10,11 @@ final class PaymentMethodsPresenter: NSObject {
         case cancel
     }
 
+    private enum App2AppState {
+        case idle
+        case yoomoney
+    }
+
     // MARK: - VIPER
 
     var interactor: PaymentMethodsInteractorInput!
@@ -25,7 +30,8 @@ final class PaymentMethodsPresenter: NSObject {
     private let isLogoVisible: Bool
     private let paymentMethodViewModelFactory: PaymentMethodViewModelFactory
     private let priceViewModelFactory: PriceViewModelFactory
-    
+
+    private let applicationScheme: String?
     private let clientApplicationKey: String
     private let applePayMerchantIdentifier: String?
     private let testModeSettings: TestModeSettings?
@@ -48,6 +54,7 @@ final class PaymentMethodsPresenter: NSObject {
     init(
         isLogoVisible: Bool,
         paymentMethodViewModelFactory: PaymentMethodViewModelFactory,
+        applicationScheme: String?,
         priceViewModelFactory: PriceViewModelFactory,
         clientApplicationKey: String,
         applePayMerchantIdentifier: String?,
@@ -67,7 +74,8 @@ final class PaymentMethodsPresenter: NSObject {
         self.isLogoVisible = isLogoVisible
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
         self.priceViewModelFactory = priceViewModelFactory
-        
+
+        self.applicationScheme = applicationScheme
         self.clientApplicationKey = clientApplicationKey
         self.applePayMerchantIdentifier = applePayMerchantIdentifier
         self.testModeSettings = testModeSettings
@@ -99,6 +107,8 @@ final class PaymentMethodsPresenter: NSObject {
     }()
 
     private var shouldReloadOnViewDidAppear = false
+    private var moneyCenterAuthToken: String?
+    private var app2AppState: App2AppState = .idle
 
     // MARK: - Apple Pay properties
 
@@ -130,6 +140,14 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         }
     }
     
+    func applicationDidBecomeActive() {
+        if app2AppState == .idle,
+           paymentMethods?.count == 1,
+           paymentMethods?.first?.paymentMethodType == .yooMoney {
+            didFinish(module: self, error: nil)
+        }
+    }
+
     func numberOfRows() -> Int {
         viewModels.count
     }
@@ -173,7 +191,11 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             openYooMoneyAuthorization()
 
         case let paymentOption where paymentOption.paymentMethodType == .sberbank:
-            openSberbankModule(paymentOption: paymentOption, needReplace: needReplace)
+            if shouldOpenSberpay(paymentOption) {
+                openSberpayModule(paymentOption: paymentOption, needReplace: needReplace)
+            } else {
+                openSberbankModule(paymentOption: paymentOption, needReplace: needReplace)
+            }
 
         case let paymentOption where paymentOption.paymentMethodType == .applePay:
             openApplePay(paymentOption: paymentOption, needReplace: needReplace)
@@ -187,7 +209,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
     }
     
     private func openYooMoneyAuthorization() {
-        if self.testModeSettings != nil {
+        if testModeSettings != nil {
             view?.showActivity()
             DispatchQueue.global().async {
                 self.interactor.fetchYooMoneyPaymentMethods(
@@ -195,30 +217,38 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
                 )
             }
         } else {
-            do {
-                moneyAuthCoordinator = try router.presentYooMoneyAuthorizationModule(
-                    config: moneyAuthConfig,
-                    customization: moneyAuthCustomization,
-                    output: self
-                )
-                let event = AnalyticsEvent.userStartAuthorization(
-                    sdkVersion: Bundle.frameworkVersion
-                )
-                interactor.trackEvent(event)
-            } catch {
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    self.view?.showActivity()
-                    DispatchQueue.global().async { [weak self] in
-                        self?.interactor.fetchPaymentMethods()
-                    }
-                }
-                
-                let event = AnalyticsEvent.userCancelAuthorization(
-                    sdkVersion: Bundle.frameworkVersion
-                )
-                interactor.trackEvent(event)
+            if shouldOpenYooMoneyApp2App() {
+                openYooMoneyApp2App()
+            } else {
+                openMoneyAuth()
             }
+        }
+    }
+
+    private func openMoneyAuth() {
+        do {
+            moneyAuthCoordinator = try router.presentYooMoneyAuthorizationModule(
+                config: moneyAuthConfig,
+                customization: moneyAuthCustomization,
+                output: self
+            )
+            let event = AnalyticsEvent.userStartAuthorization(
+                sdkVersion: Bundle.frameworkVersion
+            )
+            interactor.trackEvent(event)
+        } catch {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.view?.showActivity()
+                DispatchQueue.global().async { [weak self] in
+                    self?.interactor.fetchPaymentMethods()
+                }
+            }
+
+            let event = AnalyticsEvent.userCancelAuthorization(
+                sdkVersion: Bundle.frameworkVersion
+            )
+            interactor.trackEvent(event)
         }
     }
     
@@ -380,6 +410,35 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         )
     }
 
+    private func openSberpayModule(
+        paymentOption: PaymentOption,
+        needReplace: Bool
+    ) {
+        let paymentMethod = paymentMethodViewModelFactory.makePaymentMethodViewModel(
+            paymentOption: paymentOption
+        )
+        let priceViewModel = priceViewModelFactory.makeAmountPriceViewModel(paymentOption)
+        let feeViewModel = priceViewModelFactory.makeFeePriceViewModel(paymentOption)
+        let inputData = SberpayModuleInputData(
+            paymentOption: paymentOption,
+            clientApplicationKey: clientApplicationKey,
+            tokenizationSettings: tokenizationSettings,
+            testModeSettings: testModeSettings,
+            isLoggingEnabled: isLoggingEnabled,
+            shopName: shopName,
+            purchaseDescription: purchaseDescription,
+            priceViewModel: priceViewModel,
+            feeViewModel: feeViewModel,
+            termsOfService: termsOfService,
+            returnUrl: returnUrl,
+            isBackBarButtonHidden: needReplace
+        )
+        router.openSberpayModule(
+            inputData: inputData,
+            moduleOutput: self
+        )
+    }
+
     private func openBankCardModule(
         paymentOption: PaymentOption,
         needReplace: Bool
@@ -414,6 +473,74 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             moduleOutput: self
         )
     }
+
+    private func shouldOpenSberpay(
+        _ paymentOption: PaymentOption
+    ) -> Bool {
+        guard let confirmationTypes = paymentOption.confirmationTypes,
+              confirmationTypes.contains(.mobileApplication) else {
+            return false
+        }
+
+        return UIApplication.shared.canOpenURL(Constants.sberpayUrlScheme)
+    }
+
+    private func shouldOpenYooMoneyApp2App() -> Bool {
+        guard let url = URL(string: Constants.YooMoneyApp2App.scheme) else {
+            return false
+        }
+
+        return UIApplication.shared.canOpenURL(url)
+    }
+
+    private func openYooMoneyApp2App() {
+        guard let clientId = moneyAuthClientId,
+              let redirectUri = makeYooMoneyExchangeRedirectUri() else {
+            return
+        }
+
+        let scope = makeYooMoneyApp2AppScope()
+        let fullPathUrl = Constants.YooMoneyApp2App.scheme
+            + "\(Constants.YooMoneyApp2App.host)/"
+            + "\(Constants.YooMoneyApp2App.firstPath)?"
+            + "\(Constants.YooMoneyApp2App.clientId)=\(clientId)&"
+            + "\(Constants.YooMoneyApp2App.scope)=\(scope)&"
+            + "\(Constants.YooMoneyApp2App.redirectUri)=\(redirectUri)"
+
+        guard let url = URL(string: fullPathUrl) else {
+            return
+        }
+
+        DispatchQueue.main.async {
+            UIApplication.shared.open(
+                url,
+                options: [:],
+                completionHandler: nil
+            )
+        }
+    }
+
+    private func makeYooMoneyExchangeRedirectUri() -> String? {
+        guard let applicationScheme = applicationScheme else {
+            assertionFailure("Application scheme should be")
+            return nil
+        }
+
+        return applicationScheme
+            + DeepLinkFactory.YooMoney.host
+            + "/"
+            + DeepLinkFactory.YooMoney.exchange.firstPath
+            + "?"
+            + DeepLinkFactory.YooMoney.exchange.cryptogram
+            + "="
+    }
+
+    private func makeYooMoneyApp2AppScope() -> String {
+        return [
+            Constants.YooMoneyApp2App.Scope.accountInfo,
+            Constants.YooMoneyApp2App.Scope.balance,
+        ].joined(separator: ",")
+    }
 }
 
 // MARK: - ActionTitleTextDialogDelegate
@@ -436,6 +563,26 @@ extension PaymentMethodsPresenter: ActionTitleTextDialogDelegate {
 // MARK: - PaymentMethodsModuleInput
 
 extension PaymentMethodsPresenter: PaymentMethodsModuleInput {
+    func authorizeInYooMoney(
+        with cryptogram: String
+    ) {
+        guard !cryptogram.isEmpty else {
+            return
+        }
+        app2AppState = .yoomoney
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self,
+                  let view = self.view else { return }
+            view.showActivity()
+
+            DispatchQueue.global().async { [weak self] in
+                guard let self = self else { return }
+                self.interactor.decryptCryptogram(cryptogram)
+            }
+        }
+    }
+
     func didFinish(
         on module: TokenizationModuleInput,
         with error: YooKassaPaymentsError?
@@ -490,8 +637,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
            paymentMethods.count == 1 {
             let needReplace = self.paymentMethods?.count == 1
             DispatchQueue.main.async { [weak self] in
-                guard let self = self,
-                      let view = self.view else { return }
+                guard let self = self else { return }
                 self.openYooMoneyWallet(
                     paymentOption: paymentOption,
                     needReplace: needReplace
@@ -517,6 +663,61 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         presentError(error)
     }
     
+    func didFetchAccount(
+        _ account: UserAccount
+    ) {
+        guard let moneyCenterAuthToken = moneyCenterAuthToken else {
+            return
+        }
+        interactor.setAccount(account)
+        interactor.fetchYooMoneyPaymentMethods(
+            moneyCenterAuthToken: moneyCenterAuthToken
+        )
+    }
+
+    func didFailFetchAccount(
+        _ error: Error
+    ) {
+        guard let moneyCenterAuthToken = moneyCenterAuthToken else {
+            return
+        }
+        interactor.fetchYooMoneyPaymentMethods(
+            moneyCenterAuthToken: moneyCenterAuthToken
+        )
+    }
+
+    func didDecryptCryptogram(
+        _ token: String
+    ) {
+        moneyCenterAuthToken = token
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+            let event: AnalyticsEvent = .actionMoneyAuthLogin(
+                scheme: .yoomoneyApp,
+                status: .success,
+                sdkVersion: Bundle.frameworkVersion
+            )
+            self.interactor.trackEvent(event)
+            self.interactor.fetchAccount(oauthToken: token)
+        }
+    }
+
+    func didFailDecryptCryptogram(
+        _ error: Error
+    ) {
+        let event: AnalyticsEvent = .actionMoneyAuthLogin(
+            scheme: .yoomoneyApp,
+            status: .fail(error.localizedDescription),
+            sdkVersion: Bundle.frameworkVersion
+        )
+        interactor.trackEvent(event)
+        DispatchQueue.main.async { [weak self] in
+            guard let view = self?.view else { return }
+            view.hideActivity()
+            view.presentError(with: §CommonLocalized.Error.unknown)
+        }
+    }
+
     func didTokenizeApplePay(
         _ token: Tokens
     ) {
@@ -657,29 +858,11 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
                     moneyCenterAuthToken: token
                 )
 
-                let event: AnalyticsEvent
-                switch authorizationProcess {
-                case .login:
-                    event = .userSuccessAuthorization(
-                        moneyAuthProcessType: .login,
-                        sdkVersion: Bundle.frameworkVersion
-                    )
-                case .enrollment:
-                    event = .userSuccessAuthorization(
-                        moneyAuthProcessType: .enrollment,
-                        sdkVersion: Bundle.frameworkVersion
-                    )
-                case .migration:
-                    event = .userSuccessAuthorization(
-                        moneyAuthProcessType: .migration,
-                        sdkVersion: Bundle.frameworkVersion
-                    )
-                case .none:
-                    event = .userSuccessAuthorization(
-                        moneyAuthProcessType: .unknown,
-                        sdkVersion: Bundle.frameworkVersion
-                    )
-                }
+                let event: AnalyticsEvent = .actionMoneyAuthLogin(
+                    scheme: .moneyAuthSdk,
+                    status: .success,
+                    sdkVersion: Bundle.frameworkVersion
+                )
                 self.interactor.trackEvent(event)
             }
         }
@@ -712,8 +895,9 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
     ) {
         self.moneyAuthCoordinator = nil
 
-        let event = AnalyticsEvent.userFailedAuthorization(
-            error: error.localizedDescription,
+        let event: AnalyticsEvent = .actionMoneyAuthLogin(
+            scheme: .moneyAuthSdk,
+            status: .fail(error.localizedDescription),
             sdkVersion: Bundle.frameworkVersion
         )
         interactor.trackEvent(event)
@@ -750,10 +934,23 @@ extension PaymentMethodsPresenter: YooMoneyModuleOutput {
     ) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.router.closeYooMoneyModule()
-            self.view?.showActivity()
-            DispatchQueue.global().async { [weak self] in
-                self?.interactor.fetchPaymentMethods()
+            self.moneyCenterAuthToken = nil
+            self.app2AppState = .idle
+            let condition: (PaymentOption) -> Bool = {
+                $0 is PaymentInstrumentYooMoneyLinkedBankCard
+                || $0 is PaymentInstrumentYooMoneyWallet
+                || $0.paymentMethodType == .yooMoney
+            }
+            if let paymentMethods = self.paymentMethods,
+               paymentMethods.allSatisfy(condition) {
+                self.didFinish(module: self, error: nil)
+            } else {
+                self.shouldReloadOnViewDidAppear = false
+                self.router.closeYooMoneyModule()
+                self.view?.showActivity()
+                DispatchQueue.global().async { [weak self] in
+                    self?.interactor.fetchPaymentMethods()
+                }
             }
         }
     }
@@ -806,10 +1003,10 @@ extension PaymentMethodsPresenter: ApplePayModuleOutput {
             
             let message = §Localized.applePayUnavailableTitle
             if self.paymentMethods?.count == 1 {
-                self.view?.hideActivity()
-                self.view?.showPlaceholder(message: message)
+                view.hideActivity()
+                view.showPlaceholder(message: message)
             } else {
-                self.view?.presentError(with: message)
+                view.presentError(with: message)
             }
         }
     }
@@ -895,6 +1092,22 @@ extension PaymentMethodsPresenter: SberbankModuleOutput {
     }
 }
 
+// MARK: - SberpayModuleOutput
+
+extension PaymentMethodsPresenter: SberpayModuleOutput {
+    func sberpayModule(
+        _ module: SberpayModuleInput,
+        didTokenize token: Tokens,
+        paymentMethodType: PaymentMethodType
+    ) {
+        didTokenize(
+            tokens: token,
+            paymentMethodType: paymentMethodType,
+            scheme: .sberpay
+        )
+    }
+}
+
 // MARK: - BankCardModuleOutput
 
 extension PaymentMethodsPresenter: BankCardModuleOutput {
@@ -921,7 +1134,8 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
         let inputData = CardSecModuleInputData(
             requestUrl: requestUrl,
             redirectUrl: GlobalConstants.returnUrl,
-            isLoggingEnabled: isLoggingEnabled
+            isLoggingEnabled: isLoggingEnabled,
+            isConfirmation: false
         )
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -931,18 +1145,71 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
             )
         }
     }
+
+    func startConfirmationProcess(
+        confirmationUrl: String,
+        paymentMethodType: PaymentMethodType
+    ) {
+        switch paymentMethodType {
+        case .sberbank:
+            guard let applicationScheme = applicationScheme else {
+                assertionFailure("Application scheme should be")
+                return
+            }
+
+            let fullPathUrl = confirmationUrl
+                + applicationScheme
+                + DeepLinkFactory.invoicingHost
+                + "/"
+                + DeepLinkFactory.sberpayPath
+
+            guard let url = URL(string: fullPathUrl) else {
+                return
+            }
+
+            DispatchQueue.main.async {
+                UIApplication.shared.open(
+                    url,
+                    options: [:],
+                    completionHandler: nil
+                )
+            }
+
+        default:
+            let inputData = CardSecModuleInputData(
+                requestUrl: confirmationUrl,
+                redirectUrl: GlobalConstants.returnUrl,
+                isLoggingEnabled: isLoggingEnabled,
+                isConfirmation: true
+            )
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.router.openCardSecModule(
+                    inputData: inputData,
+                    moduleOutput: self
+                )
+            }
+        }
+    }
 }
 
 // MARK: - CardSecModuleOutput
 
 extension PaymentMethodsPresenter: CardSecModuleOutput {
     func didSuccessfullyPassedCardSec(
-        on module: CardSecModuleInput
+        on module: CardSecModuleInput,
+        isConfirmation: Bool
     ) {
         interactor.stopAnalyticsService()
-        tokenizationModuleOutput?.didSuccessfullyPassedCardSec(
-            on: self
-        )
+        if isConfirmation {
+            tokenizationModuleOutput?.didSuccessfullyConfirmation(
+                paymentMethodType: .bankCard
+            )
+        } else {
+            tokenizationModuleOutput?.didSuccessfullyPassedCardSec(
+                on: self
+            )
+        }
     }
 
     func didPressCloseButton(
@@ -995,6 +1262,26 @@ private extension PaymentMethodsPresenter {
 private extension PaymentMethodsPresenter {
     enum Constants {
         static let dismissApplePayTimeout: TimeInterval = 0.5
+
+        // swiftlint:disable:next force_unwrapping
+        static let sberpayUrlScheme = URL(string: "sberpay://")!
+
+        enum YooMoneyApp2App {
+            // yoomoneyauth://app2app/exchange?clientId={clientId}&scope={scope}&redirect_uri={redirect_uri}
+            // swiftlint:disable:next force_unwrapping
+            static let scheme = "yoomoneyauth://"
+            static let host = "app2app"
+            static let firstPath = "exchange"
+            static let clientId = "clientId"
+            static let scope = "scope"
+            static let redirectUri = "redirect_uri"
+
+            enum Scope {
+                static let accountInfo = "user_auth_center:account_info"
+                static let balance = "wallet:balance"
+            }
+
+        }
     }
 }
 

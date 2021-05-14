@@ -1,15 +1,113 @@
 # Migration guide
 
 - [Migration guide](#migration-guide)
+  - [5.\*.\* -> 6.\*.\*](#5---6)
+    - [Изменить код интеграции](#изменить-код-интеграции)
+    - [Конфигурация проекта](#конфигурация-проекта)
+    - [Изменить код подтверждения платежа](#изменить-код-подтверждения-платежа)
+  - [5.\*.\* -> 5.3.0](#5---530)
   - [4.\*.\* -> 5.\*.\*](#4---5)
     - [Изменить Podfile](#изменить-podfile)
-    - [Изменить код интеграции](#изменить-код-интеграции)
+    - [Изменить код интеграции](#изменить-код-интеграции-1)
   - [\*.\*.\* -> 4.\*.\*](#---4)
     - [Удалить `YandexLoginSDK`](#удалить-yandexloginsdk)
     - [Добавить новые зависимости](#добавить-новые-зависимости)
-    - [Если вы используете метод оплаты "Яндекс.Деньги"](#если-вы-используете-метод-оплаты-яндексденьги)
+    - [Если вы используете метод оплаты "ЮMoney"](#если-вы-используете-метод-оплаты-юmoney)
   - [2.\*.\* -> 3.\*.\*](#2---3)
   - [2.1.0 -> 2.2.0](#210---220)
+
+## 5.\*.\* -> 6.\*.\*
+
+В версии 6.0.0 была добавлена поддержка `Sberpay`.
+
+Для корректной работы сценария `Sberpay`, нужно изменить некоторые параметры.
+
+### Изменить код интеграции
+
+1. В `TokenizationModuleInputData` необходимо передавать `applicationScheme` – схема для возврата в приложение, после успешной оплаты с помощью `Sberpay` в приложении СберБанк Онлайн открытого через deeplink.  
+
+Пример `applicationScheme`:
+
+```swift
+let moduleData = TokenizationModuleInputData(
+    ...
+    applicationScheme: "sberpayexample://"
+```
+
+2. В `AppDelegate` импортировать зависимость `YooKassaPayments`:
+
+   ```swift
+   import YooKassaPayments
+   ```
+
+3. Добавить обработку ссылок через `ConfirmationService` в `AppDelegate`:
+
+```swift
+func application(
+    _ application: UIApplication,
+    open url: URL,
+    sourceApplication: String?, 
+    annotation: Any
+) -> Bool {
+    return YKSdk.shared.hanleOpen(
+        url: url,
+        sourceApplication: sourceApplication
+    )
+}
+
+@available(iOS 9.0, *)
+func application(
+    _ app: UIApplication,
+    open url: URL,
+    options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+) -> Bool {
+    return YKSdk.shared.hanleOpen(
+        url: url,
+        sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
+    )
+}
+```
+
+4. Реализовать метод  `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`, который будет вызван после успешного подтверждения платежа. 
+
+### Конфигурация проекта
+
+В `Info.plist` добавить:
+
+по ключу `LSApplicationQueriesSchemes` параметр:
+
+```plistbase
+<array>
+<string>sberpay</string>
+</array>
+```
+
+по ключу `CFBundleURLTypes` параметры:
+
+```plistbase
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLName</key>
+		<string>${BUNDLE_ID}</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>sberpayexample</string>
+		</array>
+	</dict>
+</array>
+```
+
+где `sberpayexample` - схема для открытия вашего приложения после успешной оплаты с помощью `Sberpay`.
+
+### Изменить код подтверждения платежа
+
+Для подтверждения платежа необходимо вызвать метод `startConfirmationProcess(confirmationUrl:paymentMethodType:)`.
+
+После успешного прохождения подтверждения будет вызван метод `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`. 
+
+> Обратите внимание, что методы `start3dsProcess(requestUrl:)` и `didSuccessfullyPassedCardSec(on module:)` помечены как `deprecated` - используйте `startConfirmationProcess(confirmationUrl:paymentMethodType:)` и `didSuccessfullyConfirmation(paymentMethodType:)` вместо них.
 
 ## 5.\*.\* -> 5.3.0
 

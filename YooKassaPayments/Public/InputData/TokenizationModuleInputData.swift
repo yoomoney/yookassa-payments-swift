@@ -47,6 +47,10 @@ public struct TokenizationModuleInputData {
 
     /// Money center authorization identifier.
     let moneyAuthClientId: String?
+    
+    /// Application scheme for returning after opening a deeplink.
+    /// Example: myapplication://
+    let applicationScheme: String?
 
     /// Creates instance of `TokenizationModuleInputData`.
     ///
@@ -68,6 +72,7 @@ public struct TokenizationModuleInputData {
     ///   - customizationSettings: Settings to customize SDK interface.
     ///   - savePaymentMethod: Setting for saving payment method.
     ///   - moneyAuthClientId: Money center authorization identifier
+    ///   - applicationScheme: Application scheme for returning after opening a deeplink.
     ///
     /// - Returns: Instance of `TokenizationModuleInputData`.
     public init(
@@ -85,7 +90,8 @@ public struct TokenizationModuleInputData {
         userPhoneNumber: String? = nil,
         customizationSettings: CustomizationSettings = CustomizationSettings(),
         savePaymentMethod: SavePaymentMethod,
-        moneyAuthClientId: String? = nil
+        moneyAuthClientId: String? = nil,
+        applicationScheme: String? = nil
     ) {
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
@@ -102,5 +108,6 @@ public struct TokenizationModuleInputData {
         self.customizationSettings = customizationSettings
         self.savePaymentMethod = savePaymentMethod
         self.moneyAuthClientId = moneyAuthClientId
+        self.applicationScheme = applicationScheme
     }
 }

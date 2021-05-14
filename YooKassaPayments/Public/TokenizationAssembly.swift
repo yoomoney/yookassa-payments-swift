@@ -49,7 +49,14 @@ public enum TokenizationAssembly {
         _ inputData: TokenizationModuleInputData,
         moduleOutput: TokenizationModuleOutput
     ) -> UIViewController & TokenizationModuleInput {
+        YKSdk.shared.moduleOutput = moduleOutput
+        YKSdk.shared.applicationScheme = inputData.applicationScheme
+        YKSdk.shared.analyticsService = AnalyticsServiceAssembly.makeService(
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
+        
         let paymentMethodsModuleInputData = PaymentMethodsModuleInputData(
+            applicationScheme: inputData.applicationScheme,
             clientApplicationKey: inputData.clientApplicationKey,
             applePayMerchantIdentifier: inputData.applePayMerchantIdentifier,
             gatewayId: inputData.gatewayId,
@@ -90,6 +97,10 @@ public enum TokenizationAssembly {
             viewControllerToReturn = sheetViewController
 
         }
+        
+        YKSdk.shared.moduleOutput = moduleOutput
+        YKSdk.shared.applicationScheme = inputData.applicationScheme
+        YKSdk.shared.paymentMethodsModuleInput = moduleInput
 
         return viewControllerToReturn
     }

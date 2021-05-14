@@ -42,8 +42,15 @@ enum AnalyticsEvent {
 
     case userStartAuthorization(sdkVersion: String)
     case userCancelAuthorization(sdkVersion: String)
-    case userSuccessAuthorization(moneyAuthProcessType: MoneyAuthProcessType, sdkVersion: String)
-    case userFailedAuthorization(error: String, sdkVersion: String)
+
+    case actionMoneyAuthLogin(
+        scheme: MoneyAuthLoginScheme,
+        status: MoneyAuthLoginStatus,
+        sdkVersion: String
+    )
+
+    /// SberPay confirmation
+    case actionSberPayConfirmation(sberPayConfirmationStatus: SberPayConfirmationStatus, sdkVersion: String)
 
     // MARK: - Analytic parameters.
 
@@ -72,6 +79,7 @@ enum AnalyticsEvent {
         case smsSbol = "sms-sbol"
         case applePay = "apple-pay"
         case recurringCard = "recurring-card"
+        case sberpay = "sber-pay"
 
         var key: String {
             return Key.tokenizeScheme.rawValue
@@ -107,21 +115,10 @@ enum AnalyticsEvent {
         case authType
         case authTokenType
         case authPaymentStatus
-        case moneyAuthProcessType
         case action
-    }
-
-    // MARK: - Authorization
-
-    enum MoneyAuthProcessType: String {
-        case enrollment
-        case login
-        case migration
-        case unknown
-
-        var key: String {
-            return Key.moneyAuthProcessType.rawValue
-        }
+        case moneyAuthLoginScheme
+        case moneyAuthLoginStatus
+        case sberPayConfirmationStatus
     }
 
     // MARK: - BankCardForm actions
@@ -146,6 +143,46 @@ enum AnalyticsEvent {
 
         var key: String {
             Key.action.rawValue
+        }
+    }
+
+    enum MoneyAuthLoginScheme: String {
+        case moneyAuthSdk
+        case yoomoneyApp
+
+        var key: String {
+            Key.moneyAuthLoginScheme.rawValue
+        }
+    }
+
+    enum MoneyAuthLoginStatus {
+        case success
+        case fail(String)
+        case canceled
+
+        var rawValue: String {
+            switch self {
+            case .success:
+                return "Success"
+            case .fail:
+                return "Fail"
+            case .canceled:
+                return "Canceled"
+            }
+        }
+
+        var key: String {
+            Key.moneyAuthLoginStatus.rawValue
+        }
+    }
+
+    // MARK: - SberPayConfirmationStatus
+
+    enum SberPayConfirmationStatus: String {
+        case success = "Success"
+
+        var key: String {
+            return Key.sberPayConfirmationStatus.rawValue
         }
     }
 }

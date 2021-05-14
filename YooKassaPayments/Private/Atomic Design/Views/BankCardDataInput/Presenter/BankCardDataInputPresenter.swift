@@ -16,6 +16,7 @@ final class BankCardDataInputPresenter {
     private let inputCvcHint: String
     private let inputCvcPlaceholder: String
     private let cardScanner: CardScanning?
+    private let bankCardImageFactory: BankCardImageFactory
 
     init(
         inputPanHint: String,
@@ -24,7 +25,8 @@ final class BankCardDataInputPresenter {
         inputExpiryDatePlaceholder: String,
         inputCvcHint: String,
         inputCvcPlaceholder: String,
-        cardScanner: CardScanning?
+        cardScanner: CardScanning?,
+        bankCardImageFactory: BankCardImageFactory
     ) {
         self.inputPanHint = inputPanHint
         self.inputPanPlaceholder = inputPanPlaceholder
@@ -33,6 +35,7 @@ final class BankCardDataInputPresenter {
         self.inputCvcHint = inputCvcHint
         self.inputCvcPlaceholder = inputCvcPlaceholder
         self.cardScanner = cardScanner
+        self.bankCardImageFactory = bankCardImageFactory
     }
 
     // MARK: - Stored data
@@ -109,9 +112,9 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
     func didChangeCvc(
         _ value: String
     ) {
+        self.cardData.csc = value
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
-            self.cardData.csc = value
             self.interactor.validate(
                 cardData: self.cardData,
                 shouldMoveFocus: true
@@ -150,6 +153,26 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
             )
         }
     }
+    
+    func expiryDateDidEndEditing() {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            self.interactor.validate(
+                cardData: self.cardData,
+                shouldMoveFocus: false
+            )
+        }
+    }
+    
+    func cvcDidEndEditing() {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            self.interactor.validate(
+                cardData: self.cardData,
+                shouldMoveFocus: false
+            )
+        }
+    }
 
     func nextDidPress() {
         setViewFocus(.expiryDate)
@@ -158,13 +181,6 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
 
     func clearDidPress() {
         trackCardNumberClearAction()
-    }
-
-    private func setModifiedPan() {
-        guard let panValue = cardData.pan,
-              let view = view else { return }
-        let modifiedPanValue = "••••" + panValue.suffix(4)
-        view.setPanValue(modifiedPanValue)
     }
 }
 
@@ -181,6 +197,7 @@ extension BankCardDataInputPresenter: BankCardDataInputInteractorOutput {
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
 
+            view.setErrorState(.noError)
             if view.focus == .pan {
                 view.setCardViewMode(.next)
             }
@@ -228,10 +245,14 @@ extension BankCardDataInputPresenter: BankCardDataInputInteractorOutput {
         }
     }
 
-    func didFailFetchBankSettings() {
+    func didFailFetchBankSettings(
+        _ cardMask: String
+    ) {
         DispatchQueue.main.async { [weak self] in
-            guard let view = self?.view else { return }
-            view.setBankLogoImage(nil)
+            guard let self = self,
+                  let view = self.view else { return }
+            let image = self.bankCardImageFactory.makeImage(cardMask)
+            view.setBankLogoImage(image)
         }
     }
 }
@@ -254,7 +275,6 @@ extension BankCardDataInputPresenter: BankCardDataInputRouterOutput {
     }
 
     private func setPanAndMoveFocusNext(_ value: String) {
-        guard let view = view else { return }
         cardData.pan = value
         setViewFocus(.expiryDate)
     }
@@ -301,13 +321,18 @@ private extension BankCardDataInputPresenter {
            view.focus == .pan {
             view.setErrorState(.panError)
             trackCardNumberInputError()
-        } else if expiryDateText.count == Constants.MoveFocusLength.expiryDate,
+        } else if (view.focus == nil ||
+                    view.focus == .expiryDate
+                    && expiryDateText.count == Constants.MoveFocusLength.expiryDate),
                   errors.contains(.expirationDateIsExpired)
                       || errors.contains(.expiryDateEmpty)
-                      || errors.contains(.invalidMonth),
-                  view.focus == .expiryDate {
+                      || errors.contains(.invalidMonth) {
             view.setErrorState(.expiryDateError)
             trackCardExpiryInputError()
+        } else if errors.contains(.cscInvalidLength),
+                  view.focus == nil {
+            view.setErrorState(.invalidCvc)
+            trackCardCvcInputError()
         } else {
             view.setErrorState(.noError)
         }
@@ -349,7 +374,12 @@ private extension BankCardDataInputPresenter {
         case .expiryDate?, .cvc?:
             view.setInputState(.uncollapsed)
             view.setCardViewMode(.empty)
-            let modifiedPanValue = "••••" + panValue.suffix(4)
+            let modifiedPanValue: String
+            if UIScreen.main.isNarrow {
+                modifiedPanValue = String(panValue.suffix(4))
+            } else {
+                modifiedPanValue = "••••" + panValue.suffix(4)
+            }
             view.setPanValue(modifiedPanValue)
         default:
             break
@@ -381,6 +411,14 @@ private extension BankCardDataInputPresenter {
     func trackCardExpiryInputError() {
         let event: AnalyticsEvent = .actionBankCardForm(
             action: .cardExpiryInputError,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        trackEvent(event)
+    }
+    
+    func trackCardCvcInputError() {
+        let event: AnalyticsEvent = .actionBankCardForm(
+            action: .cardCvcInputError,
             sdkVersion: Bundle.frameworkVersion
         )
         trackEvent(event)

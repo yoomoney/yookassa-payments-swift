@@ -8,6 +8,14 @@ protocol PaymentMethodsInteractorInput: AnalyticsTrack, AnalyticsProvider {
         moneyCenterAuthToken: String
     )
     
+    func fetchAccount(
+        oauthToken: String
+    )
+    
+    func decryptCryptogram(
+        _ cryptogram: String
+    )
+    
     func getWalletDisplayName() -> String?
     
     func setAccount(_ account: UserAccount)
@@ -37,6 +45,20 @@ protocol PaymentMethodsInteractorOutput: class {
         _ paymentMethods: [PaymentOption]
     )
     func didFetchYooMoneyPaymentMethods(
+        _ error: Error
+    )
+    
+    func didFetchAccount(
+        _ account: UserAccount
+    )
+    func didFailFetchAccount(
+        _ error: Error
+    )
+    
+    func didDecryptCryptogram(
+        _ token: String
+    )
+    func didFailDecryptCryptogram(
         _ error: Error
     )
     

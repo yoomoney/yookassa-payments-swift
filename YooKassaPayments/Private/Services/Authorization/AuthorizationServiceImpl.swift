@@ -72,14 +72,18 @@ extension AuthorizationServiceImpl: AuthorizationService {
                 completion: { _ in }
             )
         }
-        tokenStorage.set(
-            string: nil,
-            for: KeyValueStoringKeys.moneyCenterAuthToken
-        )
-        tokenStorage.set(
-            string: nil,
-            for: KeyValueStoringKeys.walletToken
-        )
+        [
+            KeyValueStoringKeys.moneyCenterAuthToken,
+            KeyValueStoringKeys.walletToken,
+            Constants.Keys.walletDisplayName,
+            Constants.Keys.walletPhoneTitle,
+            Constants.Keys.walletAvatarURL,
+        ].forEach {
+            tokenStorage.set(
+                string: nil,
+                for: $0
+            )
+        }
     }
 
     func setWalletDisplayName(
@@ -183,7 +187,7 @@ extension AuthorizationServiceImpl {
                         instanceName: instanceName,
                         singleAmountMax: amount,
                         paymentUsageLimit: paymentUsageLimit,
-                        tmxSessionId: tmxSessionId,
+                        tmxSessionId: tmxSessionId.value,
                         completion: completion
                     )
 

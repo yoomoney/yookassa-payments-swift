@@ -123,7 +123,7 @@ extension BankCardRepeatPresenter: BankCardRepeatViewOutput {
             do {
                 try self.cardService.validate(csc: csc)
             } catch {
-                if let error = error as? CardService.ValidationError {
+                if error is CardService.ValidationError {
                     DispatchQueue.main.async { [weak self] in
                         guard let view = self?.view else { return }
                         view.setConfirmButtonEnabled(false)
@@ -149,7 +149,7 @@ extension BankCardRepeatPresenter: BankCardRepeatViewOutput {
             do {
                 try self.cardService.validate(csc: csc)
             } catch {
-                if let error = error as? CardService.ValidationError {
+                if error is CardService.ValidationError {
                     DispatchQueue.main.async { [weak self] in
                         guard let view = self?.view else { return }
                         view.setCardState(.error)
@@ -229,11 +229,9 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
     }
 
     func didFailFetchPaymentMethod(_ error: Error) {
-        let authType = AnalyticsEvent.AuthType.withoutAuth
-        let scheme = AnalyticsEvent.TokenizeScheme.recurringCard
         let event = AnalyticsEvent.screenError(
-            authType: authType,
-            scheme: scheme,
+            authType: .withoutAuth,
+            scheme: .recurringCard,
             sdkVersion: Bundle.frameworkVersion
         )
         interactor.trackEvent(event)
@@ -258,7 +256,7 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
             guard let self = self, let interactor = self.interactor else { return }
             let type = interactor.makeTypeAnalyticsParameters()
             let event: AnalyticsEvent = .actionTokenize(
-                scheme: .bankCard,
+                scheme: .recurringCard,
                 authType: type.authType,
                 tokenType: type.tokenType,
                 sdkVersion: Bundle.frameworkVersion
@@ -362,7 +360,27 @@ extension BankCardRepeatPresenter: TokenizationModuleInput {
         let moduleInputData = CardSecModuleInputData(
             requestUrl: requestUrl,
             redirectUrl: returnUrl ?? GlobalConstants.returnUrl,
-            isLoggingEnabled: isLoggingEnabled
+            isLoggingEnabled: isLoggingEnabled,
+            isConfirmation: false
+        )
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.router.present3dsModule(
+                inputData: moduleInputData,
+                moduleOutput: self
+            )
+        }
+    }
+    
+    func startConfirmationProcess(
+        confirmationUrl: String,
+        paymentMethodType: PaymentMethodType
+    ) {
+        let moduleInputData = CardSecModuleInputData(
+            requestUrl: confirmationUrl,
+            redirectUrl: returnUrl ?? GlobalConstants.returnUrl,
+            isLoggingEnabled: isLoggingEnabled,
+            isConfirmation: true
         )
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -377,8 +395,19 @@ extension BankCardRepeatPresenter: TokenizationModuleInput {
 // MARK: - CardSecModuleOutput
 
 extension BankCardRepeatPresenter: CardSecModuleOutput {
-    func didSuccessfullyPassedCardSec(on module: CardSecModuleInput) {
-        moduleOutput?.didSuccessfullyPassedCardSec(on: self)
+    func didSuccessfullyPassedCardSec(
+        on module: CardSecModuleInput,
+        isConfirmation: Bool
+    ) {
+        if isConfirmation {
+            moduleOutput?.didSuccessfullyConfirmation(
+                paymentMethodType: .bankCard
+            )
+        } else {
+            moduleOutput?.didSuccessfullyPassedCardSec(
+                on: self
+            )
+        }
     }
 
     func didPressCloseButton(on module: CardSecModuleInput) {

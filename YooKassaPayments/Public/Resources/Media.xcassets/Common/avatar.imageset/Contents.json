@@ -3,6 +3,16 @@
     {
       "filename" : "avatar.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "avatar-1.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

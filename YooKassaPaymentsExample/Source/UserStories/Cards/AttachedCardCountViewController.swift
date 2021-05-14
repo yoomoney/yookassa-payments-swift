@@ -1,19 +1,21 @@
 import UIKit
 
 protocol AttachedCardCountViewControllerDelegate: class {
-    func attachedCardCountViewController(_ attachedCardCountViewController: AttachedCardCountViewController,
-                                         didSaveCardCount cardCount: Int?)
+    func attachedCardCountViewController(
+        _ attachedCardCountViewController: AttachedCardCountViewController,
+        didSaveCardCount cardCount: Int?
+    )
 }
 
 final class AttachedCardCountViewController: UIViewController {
 
-    public static func makeModule(cardCount: Int?,
-                                  delegate: AttachedCardCountViewControllerDelegate? = nil) -> UIViewController {
-
+    public static func makeModule(
+        cardCount: Int?,
+        delegate: AttachedCardCountViewControllerDelegate? = nil
+    ) -> UIViewController {
         let controller = AttachedCardCountViewController()
         controller.delegate = delegate
         controller.initialCardCount = cardCount
-
         return controller
     }
 
@@ -36,10 +38,12 @@ final class AttachedCardCountViewController: UIViewController {
         return $0
     }(UIPickerView())
 
-    fileprivate lazy var saveBarItem = UIBarButtonItem(title: translate(CommonLocalized.save),
-                                                       style: .plain,
-                                                       target: self,
-                                                       action: #selector(saveButtonDidPress))
+    fileprivate lazy var saveBarItem = UIBarButtonItem(
+        title: translate(CommonLocalized.save),
+        style: .plain,
+        target: self,
+        action: #selector(saveButtonDidPress)
+    )
 
     // MARK: - Managing the View
 
@@ -73,34 +77,49 @@ final class AttachedCardCountViewController: UIViewController {
     @objc
     private func saveButtonDidPress() {
         let cardCount = countPickerView.selectedRow(inComponent: 0)
-        delegate?.attachedCardCountViewController(self,
-                                                  didSaveCardCount: cardCount == 0 ? nil : cardCount)
+        delegate?.attachedCardCountViewController(
+            self,
+            didSaveCardCount: cardCount == 0 ? nil : cardCount
+        )
         navigationController?.popViewController(animated: true)
     }
 }
 
 extension AttachedCardCountViewController: UIPickerViewDelegate {
-
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(
+        _ pickerView: UIPickerView,
+        titleForRow row: Int,
+        forComponent component: Int
+    ) -> String? {
         return cards[row] == 0 ? translate(CommonLocalized.none) : String(cards[row])
     }
 
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+    func pickerView(
+        _ pickerView: UIPickerView,
+        rowHeightForComponent component: Int
+    ) -> CGFloat {
         return Space.quadruple
     }
 
-    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-
-    }
+    public func pickerView(
+        _ pickerView: UIPickerView,
+        didSelectRow row: Int,
+        inComponent component: Int
+    ) {}
 }
 
 extension AttachedCardCountViewController: UIPickerViewDataSource {
 
-    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    public func numberOfComponents(
+        in pickerView: UIPickerView
+    ) -> Int {
         return 1
     }
 
-    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    public func pickerView(
+        _ pickerView: UIPickerView,
+        numberOfRowsInComponent component: Int
+    ) -> Int {
         return cards.count
     }
 }

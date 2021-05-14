@@ -1,6 +1,7 @@
 import YooKassaPaymentsApi
 
 struct PaymentMethodsModuleInputData {
+    let applicationScheme: String?
     let clientApplicationKey: String
     let applePayMerchantIdentifier: String?
     let gatewayId: String?
@@ -18,4 +19,8 @@ struct PaymentMethodsModuleInputData {
     let cardScanning: CardScanning?
 }
 
-protocol PaymentMethodsModuleInput: SheetViewModuleOutput {}
+protocol PaymentMethodsModuleInput: SheetViewModuleOutput {
+    func authorizeInYooMoney(
+        with cryptogram: String
+    )
+}

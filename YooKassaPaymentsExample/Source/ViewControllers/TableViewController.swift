@@ -34,6 +34,7 @@ class TableViewController: UITableViewController {
         tableView.register(TextHeaderFooterView.self,
                            forHeaderFooterViewReuseIdentifier: TextHeaderFooterView.identifier)
 
+        tableView.keyboardDismissMode = .interactive
         tableView.rowHeight = UITableView.automaticDimension
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.sectionFooterHeight = UITableView.automaticDimension

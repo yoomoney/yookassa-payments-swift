@@ -19,5 +19,7 @@ protocol BankCardDataInputInteractorOutput: class {
     func didFetchBankSettings(
         _ bankSettings: BankSettings
     )
-    func didFailFetchBankSettings()
+    func didFailFetchBankSettings(
+        _ cardMask: String
+    )
 }
