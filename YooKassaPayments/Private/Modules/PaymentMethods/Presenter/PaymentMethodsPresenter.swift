@@ -191,8 +191,9 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             openYooMoneyAuthorization()
 
         case let paymentOption where paymentOption.paymentMethodType == .sberbank:
-            if shouldOpenSberpay(paymentOption) {
-                openSberpayModule(paymentOption: paymentOption, needReplace: needReplace)
+            if shouldOpenSberpay(paymentOption),
+               let returnUrl = makeSberpayReturnUrl() {
+                openSberpayModule(paymentOption: paymentOption, needReplace: needReplace, returnUrl: returnUrl)
             } else {
                 openSberbankModule(paymentOption: paymentOption, needReplace: needReplace)
             }
@@ -385,9 +386,6 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         paymentOption: PaymentOption,
         needReplace: Bool
     ) {
-        let paymentMethod = paymentMethodViewModelFactory.makePaymentMethodViewModel(
-            paymentOption: paymentOption
-        )
         let priceViewModel = priceViewModelFactory.makeAmountPriceViewModel(paymentOption)
         let feeViewModel = priceViewModelFactory.makeFeePriceViewModel(paymentOption)
         let inputData = SberbankModuleInputData(
@@ -412,11 +410,9 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
 
     private func openSberpayModule(
         paymentOption: PaymentOption,
-        needReplace: Bool
+        needReplace: Bool,
+        returnUrl: String
     ) {
-        let paymentMethod = paymentMethodViewModelFactory.makePaymentMethodViewModel(
-            paymentOption: paymentOption
-        )
         let priceViewModel = priceViewModelFactory.makeAmountPriceViewModel(paymentOption)
         let feeViewModel = priceViewModelFactory.makeFeePriceViewModel(paymentOption)
         let inputData = SberpayModuleInputData(
@@ -540,6 +536,18 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             Constants.YooMoneyApp2App.Scope.accountInfo,
             Constants.YooMoneyApp2App.Scope.balance,
         ].joined(separator: ",")
+    }
+    
+    private func makeSberpayReturnUrl() -> String? {
+        guard let applicationScheme = applicationScheme else {
+            assertionFailure("Application scheme should be")
+            return nil
+        }
+
+        return applicationScheme
+            + DeepLinkFactory.invoicingHost
+            + "/"
+            + DeepLinkFactory.sberpayPath
     }
 }
 
@@ -1152,18 +1160,7 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
     ) {
         switch paymentMethodType {
         case .sberbank:
-            guard let applicationScheme = applicationScheme else {
-                assertionFailure("Application scheme should be")
-                return
-            }
-
-            let fullPathUrl = confirmationUrl
-                + applicationScheme
-                + DeepLinkFactory.invoicingHost
-                + "/"
-                + DeepLinkFactory.sberpayPath
-
-            guard let url = URL(string: fullPathUrl) else {
+            guard let url = URL(string: confirmationUrl) else {
                 return
             }
 
