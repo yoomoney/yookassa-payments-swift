@@ -5,6 +5,8 @@
     - [Изменить код интеграции](#изменить-код-интеграции)
     - [Конфигурация проекта](#конфигурация-проекта)
     - [Изменить код подтверждения платежа](#изменить-код-подтверждения-платежа)
+    - [Добавить поддержку SberPay](#добавить-поддержку-SberPay)
+    - [Добавить поддержку авторизации в ЮMoney через мобильное приложение](#добавить-поддержку-авторизации-в-ЮMoney-через-мобильное-приложение)
   - [5.\*.\* -> 5.3.0](#5---530)
   - [4.\*.\* -> 5.\*.\*](#4---5)
     - [Изменить Podfile](#изменить-podfile)
@@ -18,20 +20,18 @@
 
 ## 5.\*.\* -> 6.\*.\*
 
-В версии 6.0.0 была добавлена поддержка `Sberpay`.
-
-Для корректной работы сценария `Sberpay`, нужно изменить некоторые параметры.
+Для корректной работы сценария `Sberpay` и авторизации в `ЮMoney` через мобильное приложение, необходимо изменить некоторые парамтеры.
 
 ### Изменить код интеграции
 
-1. В `TokenizationModuleInputData` необходимо передавать `applicationScheme` – схема для возврата в приложение, после успешной оплаты с помощью `Sberpay` в приложении СберБанк Онлайн открытого через deeplink.  
+1. В `TokenizationModuleInputData` необходимо передавать `applicationScheme` - схема для возврата в приложение после успешной оплаты с помощью `Sberpay` в приложении СберБанк Онлайн или после успешной авторизации в `ЮMoney` через мобильное приложение.
 
 Пример `applicationScheme`:
 
 ```swift
 let moduleData = TokenizationModuleInputData(
     ...
-    applicationScheme: "sberpayexample://"
+    applicationScheme: "examplescheme://"
 ```
 
 2. В `AppDelegate` импортировать зависимость `YooKassaPayments`:
@@ -40,7 +40,7 @@ let moduleData = TokenizationModuleInputData(
    import YooKassaPayments
    ```
 
-3. Добавить обработку ссылок через `ConfirmationService` в `AppDelegate`:
+3. Добавить обработку ссылок через `YKSdk` в `AppDelegate`:
 
 ```swift
 func application(
@@ -49,7 +49,7 @@ func application(
     sourceApplication: String?, 
     annotation: Any
 ) -> Bool {
-    return YKSdk.shared.hanleOpen(
+    return YKSdk.shared.handleOpen(
         url: url,
         sourceApplication: sourceApplication
     )
@@ -61,7 +61,7 @@ func application(
     open url: URL,
     options: [UIApplication.OpenURLOptionsKey: Any] = [:]
 ) -> Bool {
-    return YKSdk.shared.hanleOpen(
+    return YKSdk.shared.handleOpen(
         url: url,
         sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
     )
@@ -72,19 +72,10 @@ func application(
 
 ### Конфигурация проекта
 
-В `Info.plist` добавить:
-
-по ключу `LSApplicationQueriesSchemes` параметр:
+В `Info.plist` добавить следующие строки:
 
 ```plistbase
-<array>
-<string>sberpay</string>
-</array>
-```
-
-по ключу `CFBundleURLTypes` параметры:
-
-```plistbase
+<key>CFBundleURLTypes</key>
 <array>
 	<dict>
 		<key>CFBundleTypeRole</key>
@@ -93,13 +84,13 @@ func application(
 		<string>${BUNDLE_ID}</string>
 		<key>CFBundleURLSchemes</key>
 		<array>
-			<string>sberpayexample</string>
+			<string>examplescheme</string>
 		</array>
 	</dict>
 </array>
 ```
 
-где `sberpayexample` - схема для открытия вашего приложения после успешной оплаты с помощью `Sberpay`.
+где `examplescheme` - схема для открытия вашего приложения, которую вы указали в `applicationScheme` при создании `TokenizationModuleInputData`.
 
 ### Изменить код подтверждения платежа
 
@@ -108,6 +99,28 @@ func application(
 После успешного прохождения подтверждения будет вызван метод `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`. 
 
 > Обратите внимание, что методы `start3dsProcess(requestUrl:)` и `didSuccessfullyPassedCardSec(on module:)` помечены как `deprecated` - используйте `startConfirmationProcess(confirmationUrl:paymentMethodType:)` и `didSuccessfullyConfirmation(paymentMethodType:)` вместо них.
+
+### Добавить поддержку `SberPay`
+
+В `Info.plist` добавить следующие строки:
+
+```plistbase
+<key>LSApplicationQueriesSchemes</key>
+<array>
+	<string>sberpay</string>
+</array>
+```
+
+### Добавить поддержку авторизации в `ЮMoney` через мобильное приложение
+
+В `Info.plist` добавить следующие строки:
+
+```plistbase
+<key>LSApplicationQueriesSchemes</key>
+<array>
+	<string>yoomoneyauth</string>
+</array>
+```
 
 ## 5.\*.\* -> 5.3.0
 
