@@ -3007,8 +3007,8 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-YooKassaPaymentsExamplePods/Pods-YooKassaPaymentsExamplePods-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FunctionalSwift/FunctionalSwift.framework",
-				"${PODS_ROOT}/YandexMobileMetrica/dynamic/YandexMobileMetrica.framework",
-				"${PODS_ROOT}/YandexMobileMetrica/dynamic/YandexMobileMetricaCrashes.framework",
+				"${PODS_ROOT}/YandexMobileMetrica/ios/dynamic/YandexMobileMetrica.framework",
+				"${PODS_ROOT}/YandexMobileMetrica/ios/dynamic/YandexMobileMetricaCrashes.framework",
 				"${BUILT_PRODUCTS_DIR}/YooKassaPayments/YooKassaPayments.framework",
 				"${BUILT_PRODUCTS_DIR}/YooKassaPaymentsApi/YooKassaPaymentsApi.framework",
 				"${BUILT_PRODUCTS_DIR}/YooKassaWalletApi/YooKassaWalletApi.framework",

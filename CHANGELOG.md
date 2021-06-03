@@ -1,5 +1,9 @@
 ## Changelog
 
+## 5.4.1
+
+1. Обновление версии `YandexMobileMetrica`.
+
 ### 5.4.0
 
 1. Исправили возможные проблемы с дробной частью параметра `amount` сущности `TokenizationModuleInputData`.
