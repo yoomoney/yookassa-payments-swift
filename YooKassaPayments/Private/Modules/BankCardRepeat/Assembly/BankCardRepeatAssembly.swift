@@ -9,13 +9,13 @@ enum BankCardRepeatAssembly {
         moduleInput: BankCardRepeatModuleInput
     ) {
         let view = BankCardRepeatViewController()
-        
+
         let cardService = CardService()
         let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()
         let priceViewModelFactory = PriceViewModelFactoryAssembly.makeFactory()
         let termsOfService = TermsOfServiceFactory.makeTermsOfService()
         let initialSavePaymentMethod = makeInitialSavePaymentMethod(inputData.savePaymentMethod)
-        let savePaymentMethodViewModel =  SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
+        let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
             inputData.savePaymentMethod,
             initialState: initialSavePaymentMethod
         )
@@ -32,7 +32,7 @@ enum BankCardRepeatAssembly {
             savePaymentMethodViewModel: savePaymentMethodViewModel,
             initialSavePaymentMethod: initialSavePaymentMethod
         )
-        
+
         let analyticsService = AnalyticsServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled
         )
@@ -56,22 +56,22 @@ enum BankCardRepeatAssembly {
             gatewayId: inputData.gatewayId,
             amount: inputData.amount
         )
-        
+
         let router = BankCardRepeatRouter()
-        
+
         presenter.view = view
         presenter.interactor = interactor
         presenter.router = router
         presenter.moduleOutput = moduleOutput
-        
+
         interactor.output = presenter
-        
+
         view.output = presenter
-        
+
         router.transitionHandler = view
-        
+
         return (view: view, moduleInput: presenter)
-        
+
     }
 }
 

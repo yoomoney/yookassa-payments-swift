@@ -16,7 +16,7 @@ extension LinkedCardRouter: LinkedCardRouterInput {
             completion: nil
         )
     }
-    
+
     func presentPaymentAuthorizationModule(
         inputData: PaymentAuthorizationModuleInputData,
         moduleOutput: PaymentAuthorizationModuleOutput?
@@ -30,7 +30,7 @@ extension LinkedCardRouter: LinkedCardRouterInput {
             animated: true
         )
     }
-    
+
     func closePaymentAuthorization() {
         transitionHandler?.popTopViewController(animated: true)
     }

@@ -9,7 +9,7 @@ protocol BankCardInteractorInput: AnalyticsTrack {
     )
 }
 
-protocol BankCardInteractorOutput: class {
+protocol BankCardInteractorOutput: AnyObject {
     func didTokenize(
         _ data: Tokens
     )

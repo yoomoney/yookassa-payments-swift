@@ -33,7 +33,7 @@ enum AuthorizationServiceAssembly {
                 config: moneyAuthConfig
             )
         }
-        
+
         let threatMetrixService = ThreatMetrixServiceFactory.makeService()
 
         return AuthorizationServiceImpl(

@@ -1,7 +1,7 @@
 final class LargeIconView: UIView {
-    
+
     // MARK: - Public accessors
-    
+
     var image: UIImage {
         set {
             imageView.image = newValue
@@ -19,9 +19,9 @@ final class LargeIconView: UIView {
             return titleLabel.styledText ?? ""
         }
     }
-    
+
     // MARK: - UI properties
-    
+
     private(set) lazy var imageView: UIImageView = {
         $0.contentMode = .scaleAspectFit
         return $0
@@ -33,9 +33,9 @@ final class LargeIconView: UIView {
                      UILabel.Styles.multiline)
         return $0
     }(UILabel())
-    
+
     // MARK: - Creating a View Object.
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupView()
@@ -45,9 +45,9 @@ final class LargeIconView: UIView {
         super.init(frame: frame)
         setupView()
     }
-    
+
     // MARK: - Setup view
-    
+
     private func setupView() {
         backgroundColor = .clear
         layoutMargins = UIEdgeInsets(
@@ -76,7 +76,7 @@ final class LargeIconView: UIView {
             imageView.centerY.constraint(equalTo: titleLabel.centerY),
             imageView.height.constraint(equalToConstant: Space.fivefold),
             imageView.width.constraint(equalTo: imageView.height),
-            
+
             titleLabel.top.constraint(equalTo: topMargin),
             titleLabel.leading.constraint(
                 equalTo: imageView.trailing,
@@ -85,7 +85,7 @@ final class LargeIconView: UIView {
             titleLabel.trailing.constraint(equalTo: trailingMargin),
             titleLabel.bottom.constraint(equalTo: bottomMargin),
         ]
-        
+
         NSLayoutConstraint.activate(constraints)
     }
 }

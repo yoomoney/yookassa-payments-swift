@@ -1,7 +1,7 @@
 final class BankCardImageFactoryImpl {
-    
+
     // MARK: - Stored properties
-    
+
     private let bankCardRegex: [BankCardRegex] = [
         BankCardRegex(
             type: .americanExpress,
@@ -27,16 +27,16 @@ final class BankCardImageFactoryImpl {
 }
 
 extension BankCardImageFactoryImpl: BankCardImageFactory {
-    
+
     // MARK: - Make bank card image from card mask
-    
+
     func makeImage(
         _ cardMask: String
     ) -> UIImage? {
         guard let cardType = cardTypeFromCardMask(cardMask) else {
             return nil
         }
-        
+
         let image: UIImage
         switch cardType {
         case .americanExpress:
@@ -52,7 +52,7 @@ extension BankCardImageFactoryImpl: BankCardImageFactory {
         }
         return image
     }
-    
+
     private func cardTypeFromCardMask(
         _ cardMask: String
     ) -> BankCardRegexType? {

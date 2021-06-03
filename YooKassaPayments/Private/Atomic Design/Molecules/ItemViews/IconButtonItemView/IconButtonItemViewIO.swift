@@ -1,7 +1,7 @@
 import class UIKit.UIImage
 
 /// IconButtonItemView input protocol
-protocol IconButtonItemViewInput: class {
+protocol IconButtonItemViewInput: AnyObject {
 
     /// Main textual content
     var title: String { get set }
@@ -14,7 +14,7 @@ protocol IconButtonItemViewInput: class {
 }
 
 /// IconButtonItemView output protocol
-protocol IconButtonItemViewOutput: class {
+protocol IconButtonItemViewOutput: AnyObject {
 
     /// Tells output that the button is pressed
     ///

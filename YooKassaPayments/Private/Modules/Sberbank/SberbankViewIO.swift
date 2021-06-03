@@ -1,7 +1,5 @@
-protocol SberbankViewOutput:
-    ActionTitleTextDialogDelegate,
-    PhoneNumberInputModuleOutput
-{
+protocol SberbankViewOutput: ActionTitleTextDialogDelegate,
+    PhoneNumberInputModuleOutput {
     func setupView()
     func didPressSubmitButton()
     func didPressTermsOfService(
@@ -9,11 +7,9 @@ protocol SberbankViewOutput:
     )
 }
 
-protocol SberbankViewInput:
-    ActivityIndicatorFullViewPresenting,
+protocol SberbankViewInput: ActivityIndicatorFullViewPresenting,
     PlaceholderPresenting,
-    NotificationPresenting
-{
+    NotificationPresenting {
     func setViewModel(
         _ viewModel: SberbankViewModel
     )

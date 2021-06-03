@@ -82,7 +82,7 @@ final class PhoneNumberInputView: UIView {
 
     private func setupSubviews() {
         [
-            contentStackView
+            contentStackView,
         ].forEach(addSubview)
         [
             titleLabel,

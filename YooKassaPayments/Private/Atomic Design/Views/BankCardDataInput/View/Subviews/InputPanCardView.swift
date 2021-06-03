@@ -1,6 +1,6 @@
 import UIKit
 
-protocol InputPanCardViewDelegate: class {
+protocol InputPanCardViewDelegate: AnyObject {
     func panDidChange(
         _ value: String
     )
@@ -166,7 +166,7 @@ final class InputPanCardView: UIView {
 
     private func setupSubviews() {
         [
-            verticalStackView
+            verticalStackView,
         ].forEach(addSubview)
         [
             cardPanHintLabel,
@@ -269,9 +269,9 @@ private extension InputPanCardView {
             delegate?.nextDidPress()
         }
     }
-    
+
     func setCursorToEnd() {
-        DispatchQueue.main.async() { [weak self] in
+        DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             let newPosition = self.cardPanTextField.endOfDocument
             self.cardPanTextField.selectedTextRange = self.cardPanTextField.textRange(

@@ -4,7 +4,7 @@ enum LinkedCardAssembly {
         moduleOutput: LinkedCardModuleOutput?
     ) -> UIViewController {
         let view = LinkedCardViewController()
-        
+
         let cardService = CardService()
         let paymentMethodViewModelFactory =
             PaymentMethodViewModelFactoryAssembly.makeFactory()
@@ -26,7 +26,7 @@ enum LinkedCardAssembly {
             initialSavePaymentMethod: inputData.initialSavePaymentMethod,
             isBackBarButtonHidden: inputData.isBackBarButtonHidden
         )
-        
+
         let authorizationService = AuthorizationServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled,
             testModeSettings: inputData.testModeSettings,
@@ -52,20 +52,20 @@ enum LinkedCardAssembly {
             threatMetrixService: threatMetrixService,
             clientApplicationKey: inputData.clientApplicationKey
         )
-        
+
         let router = LinkedCardRouter()
-        
+
         presenter.view = view
         presenter.interactor = interactor
         presenter.router = router
         presenter.moduleOutput = moduleOutput
-        
+
         interactor.output = presenter
-        
+
         view.output = presenter
-        
+
         router.transitionHandler = view
-        
+
         return view
     }
 }

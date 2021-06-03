@@ -1,4 +1,4 @@
-protocol KeyValueStoring: class {
+protocol KeyValueStoring: AnyObject {
     func getString(for key: String) -> String?
     func set(string: String?, for key: String)
 

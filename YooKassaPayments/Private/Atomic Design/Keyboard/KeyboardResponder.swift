@@ -1,7 +1,7 @@
 import UIKit.UIView
 
 /// An abstract interface for responding to and handling keyboard events.
-protocol KeyboardResponder: class {
+protocol KeyboardResponder: AnyObject {
     /// The custom input accessory view to display when the receiver becomes the first responder.
     var inputAccessoryView: UIView? { get set }
 

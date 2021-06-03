@@ -64,7 +64,7 @@ extension BankCardPresenter: BankCardViewOutput {
         guard let view = view else { return }
         let priceValue = makePrice(priceViewModel)
 
-        var feeValue: String? = nil
+        var feeValue: String?
         if let feeViewModel = feeViewModel {
             feeValue = "\(§Localized.fee) " + makePrice(feeViewModel)
         }
@@ -83,7 +83,6 @@ extension BankCardPresenter: BankCardViewOutput {
         )
         view.setViewModel(viewModel)
         view.setSubmitButtonEnabled(false)
-
 
         if let savePaymentMethodViewModel = savePaymentMethodViewModel {
             view.setSavePaymentMethodViewModel(

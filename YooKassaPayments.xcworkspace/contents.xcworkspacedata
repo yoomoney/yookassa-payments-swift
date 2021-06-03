@@ -5,6 +5,9 @@
       location = "group:YooKassaPayments.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:YooKassaPaymentsDemoApp.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

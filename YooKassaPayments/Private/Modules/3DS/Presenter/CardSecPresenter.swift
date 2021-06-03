@@ -8,13 +8,13 @@ final class CardSecPresenter: WebBrowserPresenter {
     // MARK: - Business logic properties
 
     private var shouldCallDidSuccessfullyPassedCardSec = true
-    
+
     // MARK: - Init data
-    
+
     private let isConfirmation: Bool
-    
+
     // MARK: - Init
-    
+
     init(isConfirmation: Bool) {
         self.isConfirmation = isConfirmation
     }

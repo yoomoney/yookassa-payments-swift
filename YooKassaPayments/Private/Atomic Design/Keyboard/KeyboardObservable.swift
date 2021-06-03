@@ -1,6 +1,6 @@
 import UIKit
 
-@objc protocol KeyboardObserver: class { // Need objc to use in NSHashTable
+@objc protocol KeyboardObserver: AnyObject { // Need objc to use in NSHashTable
 
     /// Keyboard will be shown.
     ///

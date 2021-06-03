@@ -16,7 +16,7 @@ struct SberbankModuleInputData {
     let isBackBarButtonHidden: Bool
 }
 
-protocol SberbankModuleOutput: class {
+protocol SberbankModuleOutput: AnyObject {
     func sberbankModule(
         _ module: SberbankModuleInput,
         didTokenize token: Tokens,
@@ -24,4 +24,4 @@ protocol SberbankModuleOutput: class {
     )
 }
 
-protocol SberbankModuleInput: class {}
+protocol SberbankModuleInput: AnyObject {}

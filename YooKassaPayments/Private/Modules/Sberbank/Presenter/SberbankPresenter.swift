@@ -53,7 +53,7 @@ extension SberbankPresenter: SberbankViewOutput {
         guard let view = view else { return }
         let priceValue = makePrice(priceViewModel)
 
-        var feeValue: String? = nil
+        var feeValue: String?
         if let feeViewModel = feeViewModel {
             feeValue = "\(§Localized.fee) " + makePrice(feeViewModel)
         }

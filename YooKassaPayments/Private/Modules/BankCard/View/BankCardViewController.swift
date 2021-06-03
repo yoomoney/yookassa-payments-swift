@@ -337,7 +337,9 @@ extension BankCardViewController: BankCardViewInput {
 
         let linkAttributedText = NSMutableAttributedString(string: hyperText, attributes: attributes)
         let linkRange = NSRange(location: 0, length: hyperText.count)
+        // swiftlint:disable force_unwrapping
         let fakeLink = URL(string: "https://yookassa.ru")!
+        // swiftlint:enable force_unwrapping
         linkAttributedText.addAttribute(.link, value: fakeLink, range: linkRange)
         attributedText.append(linkAttributedText)
 

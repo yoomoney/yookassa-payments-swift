@@ -1,9 +1,9 @@
 import YooKassaPaymentsApi
 
 final class YooMoneyPresenter {
-    
+
     // MARK: - VIPER
-    
+
     var interactor: YooMoneyInteractorInput!
     var router: YooMoneyRouterInput!
 
@@ -11,12 +11,12 @@ final class YooMoneyPresenter {
     weak var moduleOutput: YooMoneyModuleOutput?
 
     // MARK: - Init data
-    
+
     private let clientApplicationKey: String
     private let testModeSettings: TestModeSettings?
     private let isLoggingEnabled: Bool
     private let moneyAuthClientId: String?
-    
+
     private let shopName: String
     private let purchaseDescription: String
     private let price: PriceViewModel
@@ -29,9 +29,9 @@ final class YooMoneyPresenter {
     private let tmxSessionId: String?
     private var initialSavePaymentMethod: Bool
     private let isBackBarButtonHidden: Bool
-    
+
     // MARK: - Init
-    
+
     init(
         clientApplicationKey: String,
         testModeSettings: TestModeSettings?,
@@ -54,7 +54,7 @@ final class YooMoneyPresenter {
         self.testModeSettings = testModeSettings
         self.isLoggingEnabled = isLoggingEnabled
         self.moneyAuthClientId = moneyAuthClientId
-        
+
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
         self.price = price
@@ -68,7 +68,7 @@ final class YooMoneyPresenter {
         self.initialSavePaymentMethod = initialSavePaymentMethod
         self.isBackBarButtonHidden = isBackBarButtonHidden
     }
-    
+
     // MARK: - Properties
 
     private var isReusableToken = true
@@ -89,11 +89,11 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
             terms: termsOfService
         )
         view.setupViewModel(viewModel)
-        
+
         if !interactor.hasReusableWalletToken() {
             view.setSaveAuthInAppSwitchItemView()
         }
-        
+
         if let savePaymentMethodViewModel = savePaymentMethodViewModel {
             view.setSavePaymentMethodViewModel(
                 savePaymentMethodViewModel
@@ -101,12 +101,12 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
         }
 
         view.setBackBarButtonHidden(isBackBarButtonHidden)
-        
+
         DispatchQueue.global().async { [weak self] in
             guard let self = self,
                   let interactor = self.interactor else { return }
             interactor.loadAvatar()
-            
+
             let (authType, _) = interactor.makeTypeAnalyticsParameters()
             let event: AnalyticsEvent = .screenPaymentContract(
                 authType: authType,
@@ -116,7 +116,7 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
             interactor.trackEvent(event)
         }
     }
-    
+
     func didTapActionButton() {
         view?.showActivity()
         DispatchQueue.global().async { [weak self] in
@@ -132,7 +132,7 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
             }
         }
     }
-    
+
     func didTapLogout() {
         let walletDisplayName = interactor.getWalletDisplayName()
         let inputData = LogoutConfirmationModuleInputData(
@@ -143,11 +143,11 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
             moduleOutput: self
         )
     }
-    
+
     func didTapTermsOfService(_ url: URL) {
         router.presentTermsOfServiceModule(url)
     }
-    
+
     func didTapOnSavePaymentMethod() {
         let savePaymentMethodModuleInputData = SavePaymentMethodInfoModuleInputData(
             headerValue: §SavePaymentMethodInfoLocalization.Wallet.header,
@@ -157,13 +157,13 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
             inputData: savePaymentMethodModuleInputData
         )
     }
-    
+
     func didChangeSavePaymentMethodState(
         _ state: Bool
     ) {
         initialSavePaymentMethod = state
     }
-    
+
     func didChangeSaveAuthInAppState(
         _ state: Bool
     ) {
@@ -180,7 +180,7 @@ extension YooMoneyPresenter: ActionTitleTextDialogDelegate {
         guard let view = view else { return }
         view.hidePlaceholder()
         view.showActivity()
-        
+
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
             self.tokenize()
@@ -205,7 +205,7 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.view?.hideActivity()
-                
+
                 let inputData = PaymentAuthorizationModuleInputData(
                     clientApplicationKey: self.clientApplicationKey,
                     testModeSettings: self.testModeSettings,
@@ -223,14 +223,14 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
             }
         }
     }
-    
+
     func failLoginInWallet(
         _ error: Error
     ) {
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
             view.hideActivity()
-            
+
             let message = makeMessage(error)
             view.presentError(with: message)
 
@@ -246,7 +246,7 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
             }
         }
     }
-    
+
     func didTokenizeData(_ token: Tokens) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self,
@@ -274,14 +274,14 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
 
     func failTokenizeData(_ error: Error) {
         let message = makeMessage(error)
-        
+
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
             view.hideActivity()
             view.showPlaceholder(with: message)
         }
     }
-    
+
     func didLoadAvatar(
         _ avatar: UIImage
     ) {
@@ -289,11 +289,11 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
             self?.view?.setupAvatar(avatar)
         }
     }
-    
+
     func didFailLoadAvatar(
         _ error: Error
     ) {}
-    
+
     private func tokenize() {
         interactor.tokenize(
             confirmation: Confirmation(type: .redirect, returnUrl: returnUrl),

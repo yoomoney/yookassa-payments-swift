@@ -23,17 +23,17 @@ protocol PaymentMethodViewModelFactory {
     func makePaymentMethodViewModel(
         _ paymentMethodType: YooKassaPaymentsApi.PaymentMethodType
     ) -> PaymentMethodViewModel
-    
+
     // MARK: - Make Image
-    
+
     func makeBankCardImage(
         _ paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
     ) -> UIImage
-    
+
     func makeBankCardImage(
         _ paymentMethodBankCard: PaymentMethodBankCard
     ) -> UIImage
-    
+
     func makePaymentMethodTypeImage(
         _ paymentMethodType: YooKassaPaymentsApi.PaymentMethodType
     ) -> UIImage

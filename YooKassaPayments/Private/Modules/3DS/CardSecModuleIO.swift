@@ -22,9 +22,9 @@ struct CardSecModuleInputData {
     }
 }
 
-protocol CardSecModuleInput: class {}
+protocol CardSecModuleInput: AnyObject {}
 
-protocol CardSecModuleOutput: class {
+protocol CardSecModuleOutput: AnyObject {
     func didSuccessfullyPassedCardSec(
         on module: CardSecModuleInput,
         isConfirmation: Bool

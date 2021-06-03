@@ -6,7 +6,7 @@ enum ApplePayContractAssembly {
         moduleOutput: ApplePayContractModuleOutput?
     ) -> UIViewController {
         let view = ApplePayContractViewController()
-        
+
         let presenter = ApplePayContractPresenter(
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
@@ -19,7 +19,7 @@ enum ApplePayContractAssembly {
             initialSavePaymentMethod: inputData.initialSavePaymentMethod,
             isBackBarButtonHidden: inputData.isBackBarButtonHidden
         )
-        
+
         let analyticsService = AnalyticsServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled
         )
@@ -41,16 +41,16 @@ enum ApplePayContractAssembly {
         )
 
         let router = ApplePayContractRouter()
-        
+
         presenter.view = view
         presenter.interactor = interactor
         presenter.router = router
         presenter.moduleOutput = moduleOutput
-        
+
         interactor.output = presenter
-        
+
         view.output = presenter
-        
+
         router.transitionHandler = view
 
         return view

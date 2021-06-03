@@ -8,7 +8,7 @@ protocol BankCardDataInputInteractorInput: AnalyticsTrack {
     )
 }
 
-protocol BankCardDataInputInteractorOutput: class {
+protocol BankCardDataInputInteractorOutput: AnyObject {
     func didSuccessValidateCardData(
         _ cardData: CardData
     )
