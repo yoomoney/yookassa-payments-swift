@@ -1,6 +1,6 @@
 import MoneyAuth
-import YooKassaWalletApi
 import ThreatMetrixAdapter
+import YooKassaWalletApi
 
 final class AuthorizationServiceImpl {
 
@@ -100,7 +100,7 @@ extension AuthorizationServiceImpl: AuthorizationService {
             for: Constants.Keys.walletDisplayName
         )
     }
-    
+
     func setWalletPhoneTitle(
         _ walletPhoneTitle: String?
     ) {
@@ -115,7 +115,7 @@ extension AuthorizationServiceImpl: AuthorizationService {
             for: Constants.Keys.walletPhoneTitle
         )
     }
-    
+
     func setWalletAvatarURL(
         _ walletAvatarURL: String?
     ) {

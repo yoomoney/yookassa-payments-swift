@@ -10,7 +10,7 @@ extension NavigationController: TokenizationModuleInput {
     func start3dsProcess(requestUrl: String) {
         moduleOutput?.start3dsProcess(requestUrl: requestUrl)
     }
-    
+
     func startConfirmationProcess(
         confirmationUrl: String,
         paymentMethodType: PaymentMethodType

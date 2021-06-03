@@ -1,6 +1,6 @@
 import UIKit
 
-protocol InputCvcViewDelegate: class {
+protocol InputCvcViewDelegate: AnyObject {
     func cvcDidChange(
         _ value: String
     )
@@ -107,7 +107,7 @@ final class InputCvcView: UIView {
 
     private func setupSubviews() {
         [
-            verticalStackView
+            verticalStackView,
         ].forEach(addSubview)
         [
             cvcHintLabel,
@@ -157,7 +157,7 @@ extension InputCvcView: UITextFieldDelegate {
         delegate?.cvcDidChange(cachedCvc)
         return false
     }
-    
+
     func textFieldDidEndEditing(
         _ textField: UITextField
     ) {

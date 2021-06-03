@@ -1,7 +1,7 @@
 import class UIKit.UIImage
 
 /// LargeIconButtonItemView input protocol
-protocol LargeIconButtonItemViewInput: class {
+protocol LargeIconButtonItemViewInput: AnyObject {
 
     /// Icon image
     var image: UIImage { get set }
@@ -18,7 +18,7 @@ protocol LargeIconButtonItemViewInput: class {
 
 /// LargeIconButtonItemView output protocol
 
-protocol LargeIconButtonItemViewOutput: class {
+protocol LargeIconButtonItemViewOutput: AnyObject {
 
     /// Tells output that right button is pressd
     ///

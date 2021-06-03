@@ -385,7 +385,7 @@ extension BankCardDataInputView: InputExpiryDateViewDelegate {
     func expiryDateDidBeginEditing() {
         output.expiryDateDidBeginEditing()
     }
-    
+
     func expiryDateDidEndEditing() {
         output.expiryDateDidEndEditing()
     }
@@ -399,7 +399,7 @@ extension BankCardDataInputView: InputCvcViewDelegate {
     ) {
         output.didChangeCvc(value)
     }
-    
+
     func cvcDidEndEditing() {
         output.cvcDidEndEditing()
     }

@@ -126,7 +126,7 @@ extension PaymentMethodsRouter: PaymentMethodsRouterInput {
             animated: true
         )
     }
-    
+
     func openSberpayModule(
         inputData: SberpayModuleInputData,
         moduleOutput: SberpayModuleOutput

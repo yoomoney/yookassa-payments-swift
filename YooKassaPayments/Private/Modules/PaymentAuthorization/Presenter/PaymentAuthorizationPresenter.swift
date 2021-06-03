@@ -1,21 +1,21 @@
 final class PaymentAuthorizationPresenter {
-    
+
     // MARK: - VIPER
-    
+
     weak var view: PaymentAuthorizationViewInput?
     weak var moduleOutput: PaymentAuthorizationModuleOutput?
-    
+
     var interactor: PaymentAuthorizationInteractorInput!
-    
+
     // MARK: - Init data
-    
+
     private let authContextId: String
     private let processId: String
     private let tokenizeScheme: AnalyticsEvent.TokenizeScheme
     private var authTypeState: AuthTypeState
-    
+
     // MARK: - Init
-    
+
     init(
         authContextId: String,
         processId: String,
@@ -27,19 +27,19 @@ final class PaymentAuthorizationPresenter {
         self.tokenizeScheme = tokenizeScheme
         self.authTypeState = authTypeState
     }
-    
+
     // MARK: - Stored properties
-    
+
     private var possibleResendTime = Date()
     private var timer: Timer?
-    
+
     private lazy var remainingTimeFormatter: DateComponentsFormatter = {
         $0.unitsStyle = .positional
         $0.zeroFormattingBehavior = .pad
         $0.allowedUnits = [.minute, .second]
         return $0
     }(DateComponentsFormatter())
-    
+
     private lazy var nextSessionTimeFormatter: DateFormatter = {
         $0.locale = Locale.current
         $0.dateFormat = §Localized.nextSessionTimeFormatter
@@ -69,7 +69,7 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationViewOutput {
             )
         }
     }
-    
+
     func didPressResendCode() {
         view?.showActivity()
         DispatchQueue.global().async { [weak self] in
@@ -80,7 +80,7 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationViewOutput {
             )
         }
     }
-    
+
     private func setRemainingTimeText(
         _ remainingTime: String
     ) {
@@ -100,7 +100,7 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationViewOutput {
             self?.view?.setResendCodeButtonIsEnabled(isEnabled)
         }
     }
-    
+
     private func setResendCodeButtonTitle(
         _ title: String
     ) {
@@ -108,18 +108,18 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationViewOutput {
             self?.view?.setResendCodeButtonTitle(title)
         }
     }
-    
+
     private func restartTimer(authTypeState: AuthTypeState) {
         guard case .sms(let smsDescription?) = authTypeState.specific else {
             return
         }
-        
+
         view?.setCodeLength(smsDescription.codeLength)
 
         if let nextSessionTimeLeft = smsDescription.nextSessionTimeLeft {
             possibleResendTime = Date().addingTimeInterval(TimeInterval(nextSessionTimeLeft))
         }
-        
+
         timer?.invalidate()
         timer = nil
 
@@ -144,7 +144,7 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationViewOutput {
             handleTimerStop()
         }
     }
-    
+
     private func handleTimerStart() {
         setResendCodeButtonIsEnabled(false)
         handleTimerTick(timer)
@@ -198,14 +198,14 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
             self.restartTimer(authTypeState: authTypeState)
         }
     }
-    
+
     func didFailResendCode(
         _ error: Error
     ) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.view?.hideActivity()
-            
+
             switch error {
             case is WalletLoginProcessingError:
                 self.handleError(error)
@@ -213,7 +213,7 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
                 let message = makeMessage(error)
                 self.view?.showPlaceholder(title: message)
             }
-            
+
             DispatchQueue.global().async { [weak self] in
                 guard let self = self, let interactor = self.interactor else { return }
                 let (authType, _) = interactor.makeTypeAnalyticsParameters()
@@ -226,7 +226,7 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
             }
         }
     }
-    
+
     func didCheckUserAnswer(
         _ response: WalletLoginResponse
     ) {
@@ -234,7 +234,7 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
             self,
             response: response
         )
-        
+
         if case .authorized = response {
             DispatchQueue.global().async { [weak self] in
                 guard let interactor = self?.interactor else { return }
@@ -246,7 +246,7 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
             }
         }
     }
-    
+
     func didFailCheckUserAnswer(
         _ error: Error
     ) {
@@ -255,7 +255,7 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
             self.view?.clearCode()
             self.view?.hideActivity()
             self.handleError(error)
-            
+
             DispatchQueue.global().async { [weak self] in
                 guard let interactor = self?.interactor else { return }
                 let event: AnalyticsEvent = .actionPaymentAuthorization(
@@ -305,12 +305,12 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
             presentError(message: message)
         }
     }
-    
+
     private func showPlaceholder(error: Error) {
         let message = makeMessage(error)
         view?.showPlaceholder(title: message)
     }
-    
+
     private func presentError(message: String) {
         view?.setDescriptionError(message)
         view?.setCodeError(nil)
@@ -334,18 +334,18 @@ private extension PaymentAuthorizationPresenter {
 private extension PaymentAuthorizationPresenter {
     enum Localized: String {
         case nextSessionTimeFormatter = "PaymentAuthorization.nextSessionTimeFormatter"
-        
+
         case descriptionWithPhone = "PaymentAuthorization.description.witPhone"
         case descriptionWithoutPhone = "PaymentAuthorization.description.withoutPhone"
-        
+
         case remainingTime = "PaymentAuthorization.remainingTime"
-        
+
         case resendSms = "Contract.resendSms"
-        
+
         enum Error: String {
             case invalidAnswer = "PaymentAuthorization.invalidAnswer"
             case invalidAnswerSessionsLeft = "PaymentAuthorization.invalidAnswer.sessionsLeft"
-            
+
             case verifyAttemptsExceeded = "PaymentAuthorization.verifyAttemptsExceeded"
             case verifyAttemptsExceededNextSession = "PaymentAuthorization.verifyAttemptsExceeded.nextSession"
         }

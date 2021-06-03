@@ -1,5 +1,5 @@
 protocol CardSecInteractorInput: AnalyticsTrack {}
 
-protocol CardSecInteractorOutput: class {
+protocol CardSecInteractorOutput: AnyObject {
     func didSuccessfullyPassedCardSec()
 }

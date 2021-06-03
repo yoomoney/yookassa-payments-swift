@@ -1,7 +1,7 @@
 import YooKassaPaymentsApi
 
 final class LinkedCardPresenter {
-    
+
     // MARK: - VIPER
 
     var interactor: LinkedCardInteractorInput!
@@ -11,15 +11,15 @@ final class LinkedCardPresenter {
     weak var moduleOutput: LinkedCardModuleOutput?
 
     // MARK: - Init data
-    
+
     private let cardService: CardService
     private let paymentMethodViewModelFactory: PaymentMethodViewModelFactory
-    
+
     private let clientApplicationKey: String
     private let testModeSettings: TestModeSettings?
     private let isLoggingEnabled: Bool
     private let moneyAuthClientId: String?
-    
+
     private let shopName: String
     private let purchaseDescription: String
     private let price: PriceViewModel
@@ -53,12 +53,12 @@ final class LinkedCardPresenter {
     ) {
         self.cardService = cardService
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
-        
+
         self.clientApplicationKey = clientApplicationKey
         self.testModeSettings = testModeSettings
         self.isLoggingEnabled = isLoggingEnabled
         self.moneyAuthClientId = moneyAuthClientId
-        
+
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
         self.price = price
@@ -70,9 +70,9 @@ final class LinkedCardPresenter {
         self.initialSavePaymentMethod = initialSavePaymentMethod
         self.isBackBarButtonHidden = isBackBarButtonHidden
     }
-    
+
     // MARK: - Stored Data
-    
+
     private var csc: String?
     private var isReusableToken = true
 }
@@ -82,14 +82,14 @@ final class LinkedCardPresenter {
 extension LinkedCardPresenter: LinkedCardViewOutput {
     func setupView() {
         guard let view = view else { return }
-        
+
         view.setupTitle(paymentOption.cardName)
-        
+
         let cardMask =
             paymentMethodViewModelFactory.replaceBullets(paymentOption.cardMask)
         let cardLogo =
             paymentMethodViewModelFactory.makeBankCardImage(paymentOption)
-        
+
         let viewModel = LinkedCardViewModel(
             shopName: shopName,
             description: purchaseDescription,
@@ -100,15 +100,15 @@ extension LinkedCardPresenter: LinkedCardViewOutput {
             terms: termsOfService
         )
         view.setupViewModel(viewModel)
-        
+
         view.setConfirmButtonEnabled(false)
-        
+
         if !interactor.hasReusableWalletToken() {
             view.setSaveAuthInAppSwitchItemView()
         }
 
         view.setBackBarButtonHidden(isBackBarButtonHidden)
-        
+
         DispatchQueue.global().async { [weak self] in
             let event: AnalyticsEvent = .screenLinkedCardForm(
                 sdkVersion: Bundle.frameworkVersion
@@ -116,7 +116,7 @@ extension LinkedCardPresenter: LinkedCardViewOutput {
             self?.interactor.trackEvent(event)
         }
     }
-    
+
     func didSetCsc(
         _ csc: String
     ) {
@@ -140,7 +140,7 @@ extension LinkedCardPresenter: LinkedCardViewOutput {
             }
         }
     }
-    
+
     func didTapActionButton() {
         view?.endEditing(true)
         view?.showActivity()
@@ -157,23 +157,23 @@ extension LinkedCardPresenter: LinkedCardViewOutput {
             }
         }
     }
-    
+
     func didTapTermsOfService(_ url: URL) {
         router.presentTermsOfServiceModule(url)
     }
-    
+
     func didChangeSaveAuthInAppState(
         _ state: Bool
     ) {
         isReusableToken = state
     }
-    
+
     func endEditing() {
         guard let csc = csc else {
             view?.setCardState(.error)
             return
         }
-        
+
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
             do {
@@ -204,7 +204,7 @@ extension LinkedCardPresenter: ActionTitleTextDialogDelegate {
         guard let view = view else { return }
         view.hidePlaceholder()
         view.showActivity()
-        
+
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
             self.tokenize()
@@ -229,7 +229,7 @@ extension LinkedCardPresenter: LinkedCardInteractorOutput {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.view?.hideActivity()
-                
+
                 let inputData = PaymentAuthorizationModuleInputData(
                     clientApplicationKey: self.clientApplicationKey,
                     testModeSettings: self.testModeSettings,
@@ -270,7 +270,7 @@ extension LinkedCardPresenter: LinkedCardInteractorOutput {
             }
         }
     }
-    
+
     func didTokenizeData(_ token: Tokens) {
         moduleOutput?.tokenizationModule(
             self,
@@ -293,17 +293,17 @@ extension LinkedCardPresenter: LinkedCardInteractorOutput {
 
     func failTokenizeData(_ error: Error) {
         let message = makeMessage(error)
-        
+
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
             view.hideActivity()
             view.showPlaceholder(with: message)
         }
     }
-    
+
     private func tokenize() {
         guard let csc = csc else { return }
-        
+
         interactor.tokenize(
             id: paymentOption.cardId,
             csc: csc,

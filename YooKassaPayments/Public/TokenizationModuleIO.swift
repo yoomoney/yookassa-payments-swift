@@ -1,7 +1,7 @@
 /// Input for tokenization module.
 ///
 /// In the process of running mSDK, allows you to run processes using the `TokenizationModuleInput` protocol methods.
-public protocol TokenizationModuleInput: class {
+public protocol TokenizationModuleInput: AnyObject {
 
     /// Start 3-D Secure process.
     ///
@@ -9,7 +9,7 @@ public protocol TokenizationModuleInput: class {
     ///   - requestUrl: URL string for request website.
     @available(*, deprecated, message: "Use startConfirmationProcess(confirmationUrl:paymentMethodType:) instead")
     func start3dsProcess(requestUrl: String)
-    
+
     /// Start confirmation process
     ///
     /// - Parameters:
@@ -22,7 +22,7 @@ public protocol TokenizationModuleInput: class {
 }
 
 /// Output for tokenization module.
-public protocol TokenizationModuleOutput: class {
+public protocol TokenizationModuleOutput: AnyObject {
 
     /// Will be called when the user has not completed the payment and completed the work.
     ///
@@ -46,7 +46,7 @@ public protocol TokenizationModuleOutput: class {
     func didSuccessfullyPassedCardSec(
         on module: TokenizationModuleInput
     )
-    
+
     /// Will be called when the confirmation process successfully passes.
     ///
     /// - Parameters:

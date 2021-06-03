@@ -5,7 +5,7 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
     // MARK: - VIPER
 
     var output: SberbankViewOutput!
-    
+
     // MARK: - Touches, Presses, and Gestures
 
     private lazy var viewTapGestureRecognizer: UITapGestureRecognizer = {
@@ -230,7 +230,7 @@ private extension SberbankViewController {
     ) {
         output?.didPressSubmitButton()
     }
-    
+
     @objc
     private func viewTapGestureRecognizerHandle(
         _ gestureRecognizer: UITapGestureRecognizer

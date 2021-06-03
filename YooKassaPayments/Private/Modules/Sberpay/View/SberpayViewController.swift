@@ -1,11 +1,11 @@
 final class SberpayViewController: UIViewController, PlaceholderProvider {
-    
+
     // MARK: - VIPER
-    
+
     var output: SberpayViewOutput!
-    
+
     // MARK: - UI properties
-    
+
     private lazy var scrollView: UIScrollView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -18,19 +18,19 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
-    
+
     private lazy var contentStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .vertical
         return $0
     }(UIStackView())
-    
+
     private lazy var orderView: OrderView = {
         $0.setStyles(UIView.Styles.grayBackground)
         return $0
     }(OrderView())
-    
+
     private lazy var sberpayMethodView: LargeIconView = {
         $0.setStyles(
             UIView.Styles.grayBackground
@@ -39,7 +39,7 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
         $0.title = §Localized.paymentMethodTitle
         return $0
     }(LargeIconView())
-    
+
     private lazy var actionButtonStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -47,7 +47,7 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
         $0.spacing = Space.double
         return $0
     }(UIStackView())
-    
+
     private lazy var submitButton: Button = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(
@@ -62,7 +62,7 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
         )
         return $0
     }(Button(type: .custom))
-    
+
     private lazy var termsOfServiceLinkedTextView: LinkedTextView = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(
@@ -72,9 +72,9 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
         $0.delegate = self
         return $0
     }(LinkedTextView())
-    
+
     private var activityIndicatorView: UIView?
-    
+
     // MARK: - PlaceholderProvider
 
     lazy var placeholderView: PlaceholderView = {
@@ -92,19 +92,19 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
         $0.delegate = output
         return $0
     }(ActionTitleTextDialog())
-    
+
     // MARK: - Constraints
-    
+
     private lazy var scrollViewHeightConstraint =
         scrollView.heightAnchor.constraint(equalToConstant: 0)
-    
+
     // MARK: - Managing the View
-    
+
     override func loadView() {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
         navigationItem.title = §Localized.title
-        
+
         setupView()
         setupConstraints()
     }
@@ -113,9 +113,9 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
         super.viewDidLoad()
         output.setupView()
     }
-    
+
     // MARK: - Setup
-    
+
     private func setupView() {
         [
             scrollView,
@@ -127,12 +127,12 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
         [
             contentStackView,
         ].forEach(contentView.addSubview)
-        
+
         [
             orderView,
             sberpayMethodView,
         ].forEach(contentStackView.addArrangedSubview)
-        
+
         [
             submitButton,
             termsOfServiceLinkedTextView,
@@ -159,10 +159,10 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
                 equalTo: topLayoutGuide.bottomAnchor
             )
         }
-        
+
         let constraints = [
             scrollViewHeightConstraint,
-            
+
             topConstraint,
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -194,7 +194,7 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-    
+
     // MARK: - Configuring the View’s Layout Behavior
 
     override func viewDidLayoutSubviews() {
@@ -203,13 +203,13 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
             self.fixTableViewHeight()
         }
     }
-    
+
     private func fixTableViewHeight() {
         scrollViewHeightConstraint.constant = contentStackView.bounds.height
     }
-    
+
     // MARK: - Action
-    
+
     @objc
     private func didPressActionButton(
         _ sender: UIButton
@@ -237,7 +237,7 @@ extension SberpayViewController: SberpayViewInput {
     ) {
         navigationItem.hidesBackButton = isHidden
     }
-    
+
     func showActivity() {
         guard activityIndicatorView == nil else { return }
 
@@ -306,7 +306,7 @@ private extension SberpayViewController {
         case `continue` = "Contract.next"
         case fee = "Contract.fee"
         case paymentMethodTitle = "Sberpay.paymentMethodTitle"
-        
+
         enum PlaceholderView: String {
             case buttonTitle = "Common.PlaceholderView.buttonTitle"
             case text = "Common.PlaceholderView.text"

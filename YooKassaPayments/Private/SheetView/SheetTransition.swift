@@ -52,13 +52,9 @@ extension SheetTransition {
 
         let topSafeArea: CGFloat
         if #available(iOS 11.0, *) {
-            topSafeArea = UIApplication.shared.windows.filter {
-                $0.isKeyWindow
-            }.first?.safeAreaInsets.top ?? 0
+            topSafeArea = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.safeAreaInsets.top ?? 0
         } else {
-            topSafeArea = UIApplication.shared.windows.filter {
-                $0.isKeyWindow
-            }.first?.layoutMargins.top ?? 0
+            topSafeArea = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.layoutMargins.top ?? 0
         }
 
         presenter.view.layer.transform = CATransform3DConcat(
@@ -104,13 +100,11 @@ extension SheetTransition: UIViewControllerAnimatedTransitioning {
                 animations: {
                     let topSafeArea: CGFloat
                     if #available(iOS 11.0, *) {
-                        topSafeArea = UIApplication.shared.windows.filter {
-                            $0.isKeyWindow
-                        }.first?.safeAreaInsets.top ?? 0
+                        topSafeArea = UIApplication.shared.windows
+                            .first(where: { $0.isKeyWindow })?.safeAreaInsets.top ?? 0
                     } else {
-                        topSafeArea = UIApplication.shared.windows.filter {
-                            $0.isKeyWindow
-                        }.first?.layoutMargins.top ?? 0
+                        topSafeArea = UIApplication.shared.windows
+                            .first(where: { $0.isKeyWindow })?.layoutMargins.top ?? 0
                     }
 
                     presenter.view.layer.transform = CATransform3DConcat(

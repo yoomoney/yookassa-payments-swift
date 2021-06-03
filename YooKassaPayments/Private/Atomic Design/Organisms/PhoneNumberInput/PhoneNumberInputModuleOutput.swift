@@ -1,4 +1,4 @@
-protocol PhoneNumberInputModuleInput: class {
+protocol PhoneNumberInputModuleInput: AnyObject {
     func setValue(
         _ value: String
     )
@@ -13,7 +13,7 @@ protocol PhoneNumberInputModuleInput: class {
     )
 }
 
-protocol PhoneNumberInputModuleOutput: class {
+protocol PhoneNumberInputModuleOutput: AnyObject {
     func didChangePhoneNumber(
         _ phoneNumber: String
     )

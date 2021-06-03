@@ -4,7 +4,7 @@ protocol LinkedCardInteractorInput: AnalyticsTrack, AnalyticsProvider {
         reusableToken: Bool,
         tmxSessionId: String?
     )
-    
+
     func tokenize(
         id: String,
         csc: String,
@@ -14,18 +14,18 @@ protocol LinkedCardInteractorInput: AnalyticsTrack, AnalyticsProvider {
         amount: MonetaryAmount,
         tmxSessionId: String?
     )
-    
+
     func hasReusableWalletToken() -> Bool
 }
 
-protocol LinkedCardInteractorOutput: class {
+protocol LinkedCardInteractorOutput: AnyObject {
     func didLoginInWallet(
         _ response: WalletLoginResponse
     )
     func failLoginInWallet(
         _ error: Error
     )
-    
+
     func didTokenizeData(
         _ token: Tokens
     )

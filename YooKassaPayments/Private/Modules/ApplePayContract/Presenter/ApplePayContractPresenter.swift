@@ -2,7 +2,7 @@ import PassKit
 import YooKassaPaymentsApi
 
 final class ApplePayContractPresenter: NSObject {
-    
+
     private enum ApplePayState {
         case idle
         case success
@@ -55,9 +55,9 @@ final class ApplePayContractPresenter: NSObject {
         self.initialSavePaymentMethod = initialSavePaymentMethod
         self.isBackBarButtonHidden = isBackBarButtonHidden
     }
-    
+
     // MARK: - Stored properties
-    
+
     private var applePayCompletion: ((PKPaymentAuthorizationStatus) -> Void)?
     private var applePayState: ApplePayState = .idle
 }
@@ -67,7 +67,7 @@ final class ApplePayContractPresenter: NSObject {
 extension ApplePayContractPresenter: ApplePayContractViewOutput {
     func setupView() {
         guard let view = view else { return }
-        
+
         let viewModel = ApplePayContractViewModel(
             shopName: shopName,
             description: purchaseDescription,
@@ -75,9 +75,9 @@ extension ApplePayContractPresenter: ApplePayContractViewOutput {
             fee: fee,
             terms: termsOfService
         )
-        
+
         view.setupViewModel(viewModel)
-        
+
         if let savePaymentMethodViewModel = savePaymentMethodViewModel {
             view.setSavePaymentMethodViewModel(
                 savePaymentMethodViewModel
@@ -86,7 +86,7 @@ extension ApplePayContractPresenter: ApplePayContractViewOutput {
 
         view.setBackBarButtonHidden(isBackBarButtonHidden)
     }
-    
+
     func didTapActionButton() {
         let moduleInputData = ApplePayModuleInputData(
             merchantIdentifier: merchantIdentifier,
@@ -101,11 +101,11 @@ extension ApplePayContractPresenter: ApplePayContractViewOutput {
             moduleOutput: self
         )
     }
-    
+
     func didTapTermsOfService(_ url: URL) {
         router.presentTermsOfServiceModule(url)
     }
-    
+
     func didTapOnSavePaymentMethod() {
         let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
             headerValue: §SavePaymentMethodInfoLocalization.Wallet.header,
@@ -115,13 +115,13 @@ extension ApplePayContractPresenter: ApplePayContractViewOutput {
             inputData: savePaymentMethodModuleinputData
         )
     }
-    
+
     func didChangeSavePaymentMethodState(
         _ state: Bool
     ) {
         initialSavePaymentMethod = state
     }
-    
+
     private func trackScreenErrorAnalytics(
         scheme: AnalyticsEvent.TokenizeScheme?
     ) {
@@ -136,7 +136,7 @@ extension ApplePayContractPresenter: ApplePayContractViewOutput {
             interactor.trackEvent(event)
         }
     }
-    
+
     private func trackScreenPaymentAnalytics(
         scheme: AnalyticsEvent.TokenizeScheme
     ) {
@@ -162,14 +162,14 @@ extension ApplePayContractPresenter: ApplePayContractInteractorOutput {
         guard applePayState == .success else {
             return
         }
-        
+
         applePayCompletion?(.success)
-        
+
         DispatchQueue.main.asyncAfter(
             deadline: .now() + Constants.dismissTimeout
         ) { [weak self] in
             guard let self = self else { return }
-            self.router.closeApplePay() {
+            self.router.closeApplePay {
                 self.moduleOutput?.tokenizationModule(
                     self,
                     didTokenize: token,
@@ -178,22 +178,22 @@ extension ApplePayContractPresenter: ApplePayContractInteractorOutput {
             }
         }
     }
-    
+
     func failTokenize(
         _ error: Error
     ) {
         guard applePayState == .success else {
             return
         }
-        
+
         trackScreenErrorAnalytics(scheme: .applePay)
         applePayCompletion?(.failure)
-        
+
         DispatchQueue.main.asyncAfter(
             deadline: .now() + Constants.dismissTimeout
         ) { [weak self] in
             guard let self = self else { return }
-            self.router.closeApplePay() {
+            self.router.closeApplePay {
                 self.view?.presentError(with: §Localized.Error.failTokenizeData)
             }
         }
@@ -211,7 +211,7 @@ extension ApplePayContractPresenter: ApplePayModuleOutput {
     func didFailPresentApplePayModule() {
         applePayState = .idle
         trackScreenErrorAnalytics(scheme: .applePay)
-        
+
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
             view.presentError(with: §Localized.applePayUnavailableTitle)
@@ -238,13 +238,13 @@ extension ApplePayContractPresenter: ApplePayModuleOutput {
         completion: @escaping (PKPaymentAuthorizationStatus) -> Void
     ) {
         guard applePayState != .cancel else { return }
-        
+
         applePayState = .success
         applePayCompletion = completion
-        
+
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
-            
+
             self.interactor.tokenize(
                 paymentData: payment.token.paymentData.base64EncodedString(),
                 savePaymentMethod: self.initialSavePaymentMethod,
@@ -278,7 +278,7 @@ private extension ApplePayContractPresenter {
 private extension ApplePayContractPresenter {
     enum Localized: String {
         case applePayUnavailableTitle = "ApplePayUnavailable.title"
-        
+
         enum Error: String {
             case failTokenizeData = "Error.ApplePayStrategy.failTokenizeData"
         }

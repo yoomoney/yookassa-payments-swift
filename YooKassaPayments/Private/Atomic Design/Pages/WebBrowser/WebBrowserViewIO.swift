@@ -33,7 +33,7 @@ protocol WebBrowserViewInput: NotificationPresenting, ActivityIndicatorPresentin
     func setScreenName(_ screenName: String?)
 }
 
-protocol WebBrowserViewOutput: class, WKNavigationDelegate, WKUIDelegate {
+protocol WebBrowserViewOutput: WKNavigationDelegate, WKUIDelegate {
     func setupView()
     func didPressCloseButton()
     func viewWillDisappear()

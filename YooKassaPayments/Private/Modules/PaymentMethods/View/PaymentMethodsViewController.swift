@@ -117,7 +117,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
         leftItem.text = §Localized.paymentMethods
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftItem)
     }
-    
+
     private func setupObserver() {
         NotificationCenter.default.addObserver(
             self,
@@ -155,7 +155,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
             )
         }
     }
-    
+
     // MARK: - Actions
 
     @objc
@@ -235,7 +235,7 @@ extension PaymentMethodsViewController: PaymentMethodsViewInput {
     func reloadData() {
         tableView.reloadData()
     }
-    
+
     func setLogoVisible(_ isVisible: Bool) {
         guard isVisible else {
             navigationItem.rightBarButtonItem = nil

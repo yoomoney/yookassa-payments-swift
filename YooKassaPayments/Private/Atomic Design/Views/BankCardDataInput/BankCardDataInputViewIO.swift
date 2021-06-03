@@ -7,7 +7,7 @@ enum BankCardDataInputViewErrorState {
     case invalidCvc
 }
 
-protocol BankCardDataInputViewInput: class {
+protocol BankCardDataInputViewInput: AnyObject {
     var focus: BankCardDataInputView.BankCardFocus? { get set }
 
     func setViewModel(
@@ -33,7 +33,7 @@ protocol BankCardDataInputViewInput: class {
     )
 }
 
-protocol BankCardDataInputViewOutput: class {
+protocol BankCardDataInputViewOutput: AnyObject {
     func setupView()
 
     func didPressScan()

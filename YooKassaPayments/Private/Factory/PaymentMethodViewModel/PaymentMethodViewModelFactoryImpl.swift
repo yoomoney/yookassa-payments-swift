@@ -169,9 +169,9 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
         }
         return name
     }
-    
+
     // MARK: - Make Image
-    
+
     func makeBankCardImage(
         _ paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
     ) -> UIImage {
@@ -183,8 +183,7 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
             )
         }
     }
-    
-    
+
     func makeBankCardImage(
         _ paymentMethodBankCard: PaymentMethodBankCard
     ) -> UIImage {
@@ -196,7 +195,7 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
             )
         }
     }
-    
+
     func makePaymentMethodTypeImage(
         _ paymentMethodType: YooKassaPaymentsApi.PaymentMethodType
     ) -> UIImage {
@@ -217,6 +216,7 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
         return image
     }
 
+    // swiftlint:disable cyclomatic_complexity
     private func makeBankCardImage(
         cardType: BankCardType
     ) -> UIImage {
@@ -240,4 +240,5 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
         }
         return image
     }
+    // swiftlint:enable cyclomatic_complexity
 }

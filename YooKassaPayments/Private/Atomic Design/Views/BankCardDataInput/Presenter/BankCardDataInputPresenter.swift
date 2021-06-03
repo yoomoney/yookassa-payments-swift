@@ -153,7 +153,7 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
             )
         }
     }
-    
+
     func expiryDateDidEndEditing() {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
@@ -163,7 +163,7 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
             )
         }
     }
-    
+
     func cvcDidEndEditing() {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
@@ -415,7 +415,7 @@ private extension BankCardDataInputPresenter {
         )
         trackEvent(event)
     }
-    
+
     func trackCardCvcInputError() {
         let event: AnalyticsEvent = .actionBankCardForm(
             action: .cardCvcInputError,

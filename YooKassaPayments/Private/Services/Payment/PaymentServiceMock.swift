@@ -137,7 +137,7 @@ extension PaymentServiceMock: PaymentService {
     ) {
         makeTokensPromise(completion: completion)
     }
-    
+
     func tokenizeSberpay(
         clientApplicationKey: String,
         confirmation: Confirmation,

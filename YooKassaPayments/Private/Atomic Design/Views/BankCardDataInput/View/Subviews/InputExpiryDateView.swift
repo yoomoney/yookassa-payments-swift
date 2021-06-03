@@ -1,6 +1,6 @@
 import UIKit
 
-protocol InputExpiryDateViewDelegate: class {
+protocol InputExpiryDateViewDelegate: AnyObject {
     func expiryDateDidChange(
         _ value: String
     )
@@ -108,7 +108,7 @@ final class InputExpiryDateView: UIView {
 
     private func setupSubviews() {
         [
-            verticalStackView
+            verticalStackView,
         ].forEach(addSubview)
         [
             expiryDateHintLabel,
@@ -162,7 +162,7 @@ extension InputExpiryDateView: UITextFieldDelegate {
     ) {
         delegate?.expiryDateDidBeginEditing()
     }
-    
+
     func textFieldDidEndEditing(
         _ textField: UITextField
     ) {

@@ -1,6 +1,6 @@
 import class UIKit.UIImage
 
 /// IconView input protocol
-protocol IconViewInput: class {
+protocol IconViewInput: AnyObject {
     var image: UIImage { get set }
 }
