@@ -8,16 +8,16 @@ PODS:
   - Reveal-SDK (28)
   - SwiftLint (0.43.1)
   - ThreatMetrixAdapter (2.0.0)
-  - YandexMobileMetrica/Dynamic (3.12.0):
-    - YandexMobileMetrica/Dynamic/Core (= 3.12.0)
-    - YandexMobileMetrica/Dynamic/Crashes (= 3.12.0)
-  - YandexMobileMetrica/Dynamic/Core (3.12.0)
-  - YandexMobileMetrica/Dynamic/Crashes (3.12.0):
+  - YandexMobileMetrica/Dynamic (3.16.0):
+    - YandexMobileMetrica/Dynamic/Core (= 3.16.0)
+    - YandexMobileMetrica/Dynamic/Crashes (= 3.16.0)
+  - YandexMobileMetrica/Dynamic/Core (3.16.0)
+  - YandexMobileMetrica/Dynamic/Crashes (3.16.0):
     - YandexMobileMetrica/Dynamic/Core
-  - YooKassaPayments (5.4.0):
+  - YooKassaPayments (5.4.1):
     - MoneyAuth (~> 2.21.0)
     - ThreatMetrixAdapter (~> 2.0.0)
-    - YandexMobileMetrica/Dynamic (~> 3.12.0)
+    - YandexMobileMetrica/Dynamic (~> 3.0)
     - YooKassaPaymentsApi (~> 2.3.0)
     - YooKassaWalletApi (~> 2.3.0)
     - YooMoneyCoreApi (~> 1.9.0)
@@ -61,8 +61,8 @@ SPEC CHECKSUMS:
   Reveal-SDK: 1a2a678648fc4d277bad71c86d15530424324288
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   ThreatMetrixAdapter: c5ea4cc20dd82931fabeb596c3e86d300c2d14fb
-  YandexMobileMetrica: 7ba67267e1ef841f77d5db17a5091b8e9eba911f
-  YooKassaPayments: 8f4050a055f1c62b22d4cfab3e4f50676b9fbf57
+  YandexMobileMetrica: 2ab55883ea552a4c4ea4516a3353ca0577a747cc
+  YooKassaPayments: 5ef043a777957ba1b173af02f0777875de802df3
   YooKassaPaymentsApi: 66302803d0389fbc27238d8ff9447c10ac1e31bf
   YooKassaWalletApi: 9ca2fa3c2827721d646ee8f770509e7eeea98743
   YooMoneyCoreApi: 0d4da37a1619a4c92df0962ecc48d1665dbae4f4
