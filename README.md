@@ -28,8 +28,9 @@
     - [ЮMoney](#юmoney)
       - [Как получить `client id` центра авторизации системы `ЮMoney`](#как-получить-client-id-центра-авторизации-системы-юmoney)
       - [Передать `client id` в параметре `moneyAuthClientId`](#передать-client-id-в-параметре-moneyauthclientid)
+      - [Поддержка авторизации через мобильное приложение](#поддержка-авторизации-через-мобильное-приложение)
     - [Банковская карта](#банковская-карта)
-    - [Сбербанк Онлайн](#сбербанк-онлайн)
+    - [SberPay](#sberpay)
     - [Apple Pay](#apple-pay)
   - [Описание публичных параметров](#описание-публичных-параметров)
     - [TokenizationFlow](#tokenizationflow)
@@ -281,6 +282,76 @@ let moduleData = TokenizationModuleInputData(
 2. Получите токен.
 3. [Создайте платеж](https://yookassa.ru/developers/api#create_payment) с токеном по API ЮKassa.
 
+#### Поддержка авторизации через мобильное приложение
+
+1. В `TokenizationModuleInputData` необходимо передавать `applicationScheme` – схема для возврата в приложение после успешной авторизации в `ЮMoney` через мобильное приложение.
+
+Пример `applicationScheme`:
+
+```swift
+let moduleData = TokenizationModuleInputData(
+    ...
+    applicationScheme: "examplescheme://"
+```
+
+2. В `AppDelegate` импортировать зависимость `YooKassaPayments`:
+
+   ```swift
+   import YooKassaPayments
+   ```
+
+3. Добавить обработку ссылок через `YKSdk` в `AppDelegate`:
+
+```swift
+func application(
+    _ application: UIApplication,
+    open url: URL,
+    sourceApplication: String?, 
+    annotation: Any
+) -> Bool {
+    return YKSdk.shared.handleOpen(
+        url: url,
+        sourceApplication: sourceApplication
+    )
+}
+
+@available(iOS 9.0, *)
+func application(
+    _ app: UIApplication,
+    open url: URL,
+    options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+) -> Bool {
+    return YKSdk.shared.handleOpen(
+        url: url,
+        sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
+    )
+}
+```
+
+4. В `Info.plist` добавьте следующие строки:
+
+```plistbase
+<key>LSApplicationQueriesSchemes</key>
+<array>
+	<string>yoomoneyauth</string>
+</array>
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLName</key>
+		<string>${BUNDLE_ID}</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>examplescheme</string>
+		</array>
+	</dict>
+</array>
+```
+
+где `examplescheme` - схема для открытия вашего приложения, которую вы указали в `applicationScheme` при создании `TokenizationModuleInputData`. Через эту схему будет открываться ваше приложение после успешной авторизации в `ЮMoney` через мобильное приложение.
+
 ### Банковская карта
 
 1. При создании `TokenizationModuleInputData` передайте значение `.bankcard` в `paymentMethodTypes`.
@@ -291,14 +362,14 @@ let moduleData = TokenizationModuleInputData(
 
 С помощью SDK можно провести платеж через «Мобильный банк» Сбербанка — с подтверждением оплаты через приложение Сбербанк Онлайн, если оно установленно, иначе с подтверждением по смс.
 
-В `TokenizationModuleInputData` необходимо передавать `applicationScheme` – схема для возврата в приложение, после успешной оплаты с помощью `Sberpay` в приложении СберБанк Онлайн открытого через deeplink.  
+В `TokenizationModuleInputData` необходимо передавать `applicationScheme` – схема для возврата в приложение после успешной оплаты с помощью `SberPay` в приложении СберБанк Онлайн.
 
 Пример `applicationScheme`:
 
 ```swift
 let moduleData = TokenizationModuleInputData(
     ...
-    applicationScheme: "sberpayexample://"
+    applicationScheme: "examplescheme://"
 ```
 
 Чтобы провести платёж:
@@ -324,7 +395,7 @@ func application(
     sourceApplication: String?, 
     annotation: Any
 ) -> Bool {
-    return YKSdk.shared.hanleOpen(
+    return YKSdk.shared.handleOpen(
         url: url,
         sourceApplication: sourceApplication
     )
@@ -336,26 +407,21 @@ func application(
     open url: URL,
     options: [UIApplication.OpenURLOptionsKey: Any] = [:]
 ) -> Bool {
-    return YKSdk.shared.hanleOpen(
+    return YKSdk.shared.handleOpen(
         url: url,
         sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
     )
 }
 ```
 
-3. В `Info.plist` добавьте:
-
-по ключу `LSApplicationQueriesSchemes` параметр:
+3. В `Info.plist` добавьте следующие строки:
 
 ```plistbase
+<key>LSApplicationQueriesSchemes</key>
 <array>
-<string>sberpay</string>
+	<string>sberpay</string>
 </array>
-```
-
-по ключу `CFBundleURLTypes` параметры:
-
-```plistbase
+<key>CFBundleURLTypes</key>
 <array>
 	<dict>
 		<key>CFBundleTypeRole</key>
@@ -364,13 +430,13 @@ func application(
 		<string>${BUNDLE_ID}</string>
 		<key>CFBundleURLSchemes</key>
 		<array>
-			<string>sberpayexample</string>
+			<string>examplescheme</string>
 		</array>
 	</dict>
 </array>
 ```
 
-где `sberpayexample` - схема для открытия вашего приложения после успешной оплаты с помощью `Sberpay`.
+где `examplescheme` - схема для открытия вашего приложения, которую вы указали в `applicationScheme` при создании `TokenizationModuleInputData`. Через эту схему будет открываться ваше приложение после успешной оплаты с помощью `SberPay`.
 
 4. Реализуйте метод  `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`, который будет вызван после успешного подтверждения платежа (см. [Настройка подтверждения платежа](#настройка-подтверждения-платежа)).
 
@@ -395,16 +461,8 @@ func application(
 ```swift
 let moduleData = TokenizationModuleInputData(
     ...
-    applePayMerchantIdentifier: "<com.example...>")
+    applePayMerchantIdentifier: "com.example.identifier"
 ```
-Например, если ваш apple pay identifier — `com.example.identifier`, то код будет следующим:
-  >  
-```swift
-let moduleData = TokenizationModuleInputData(
-    ...
-    applePayMerchantIdentifier: "com.example.identifier")
-```
-
 2. Получите токен.
 3. [Создайте платеж](https://yookassa.ru/developers/api#create_payment) с токеном по API ЮKassa.
 
@@ -453,7 +511,7 @@ let moduleData = TokenizationModuleInputData(
 | userPhoneNumber            | String                | По умолчанию `nil`. Телефонный номер пользователя.           |
 | customizationSettings      | CustomizationSettings | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
 | moneyAuthClientId          | String                | По умолчанию `nil`. Идентификатор для центра авторизации в системе YooMoney. |
-| applicationScheme          | String                | По умолчанию `nil`. Cхема для возврата в приложение, после успешной оплаты с помощью `Sberpay` в приложении СберБанк Онлайн открытого через deeplink. |
+| applicationScheme          | String                | По умолчанию `nil`. Схема для возврата в приложение после успешной оплаты с помощью `Sberpay` в приложении СберБанк Онлайн или после успешной авторизации в `YooMoney` через мобильное приложение. |
 ### BankCardRepeatModuleInputData
 
 >Обязательные:
@@ -465,6 +523,7 @@ let moduleData = TokenizationModuleInputData(
 | purchaseDescription  | String | Описание заказа в форме оплаты |
 | paymentMethodId      | String | Идентификатор сохраненного способа оплаты |
 | amount               | Amount | Объект, содержащий сумму заказа и валюту |
+| savePaymentMethod | SavePaymentMethod | Объект, описывающий логику того, будет ли платеж рекуррентным |
 
 >Необязательные:
 
@@ -474,6 +533,7 @@ let moduleData = TokenizationModuleInputData(
 | returnUrl             | String                | По умолчанию `nil`. URL страницы (поддерживается только `https`), на которую надо вернуться после прохождения 3-D Secure. Необходим только при кастомной реализации 3-D Secure. Если вы используете `startConfirmationProcess(confirmationUrl:paymentMethodType:)`, не задавайте этот параметр. |
 | isLoggingEnabled      | Bool                  | По умолчанию `false`. Включает логирование сетевых запросов. |
 | customizationSettings | CustomizationSettings | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
+| gatewayId             | String                | По умолчанию `nil`. Используется, если у вас несколько платежных шлюзов с разными идентификаторами. |
 
 ### TokenizationSettings
 

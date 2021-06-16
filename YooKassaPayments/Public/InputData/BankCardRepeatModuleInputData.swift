@@ -48,6 +48,8 @@ public struct BankCardRepeatModuleInputData {
     ///   - isLoggingEnabled: Enable logging
     ///   - customizationSettings: Settings to customize SDK interface.
     ///   - savePaymentMethod: Setting for saving payment method.
+    ///   - gatewayId: Gateway ID. Setup, is provided at check in YooKassa.
+    ///                The cashier at the division of payment flows within a single account.
     ///
     /// - Returns: Instance of `BankCardRepeatModuleInputData`.
     public init(
