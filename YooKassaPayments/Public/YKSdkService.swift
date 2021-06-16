@@ -17,7 +17,7 @@ public final class YKSdk {
     /// Shared YooKassa sdk service.
     public static let shared = YKSdk()
     
-    public func hanleOpen(
+    public func handleOpen(
         url: URL,
         sourceApplication: String?
     ) -> Bool {
