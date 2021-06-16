@@ -46,7 +46,7 @@ extension BankCardDataInputInteractor: BankCardDataInputInteractorInput {
         guard let bankSettings = bankSettingsService.bankSettings(
             cardMask
         ) else {
-            output?.didFailFetchBankSettings()
+            output?.didFailFetchBankSettings(cardMask)
             return
         }
         output?.didFetchBankSettings(bankSettings)

@@ -23,6 +23,7 @@ protocol PaymentMethodsViewInput: ActivityIndicatorFullViewPresenting, Notificat
 protocol PaymentMethodsViewOutput: ActionTitleTextDialogDelegate {
     func setupView()
     func viewDidAppear()
+    func applicationDidBecomeActive()
     func numberOfRows() -> Int
     func viewModelForRow(at indexPath: IndexPath) -> PaymentMethodViewModel?
     func didSelect(at indexPath: IndexPath)

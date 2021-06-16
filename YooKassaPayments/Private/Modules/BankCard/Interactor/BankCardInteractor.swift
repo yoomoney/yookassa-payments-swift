@@ -60,8 +60,8 @@ extension BankCardInteractor: BankCardInteractorInput {
                     confirmation: confirmation,
                     savePaymentMethod: savePaymentMethod,
                     amount: self.amount,
-                    tmxSessionId: tmxSessionId
-                ) { [weak self] result in
+                    tmxSessionId: tmxSessionId.value
+                ) { result in
                     switch result {
                     case .success(let data):
                         output.didTokenize(data)

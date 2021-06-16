@@ -1,18 +1,20 @@
 import UIKit
 
 protocol SettingsViewControllerDelegate: class {
-    func settingsViewController(_ settingsViewController: SettingsViewController,
-                                didChangeSettings settings: Settings)
+    func settingsViewController(
+        _ settingsViewController: SettingsViewController,
+        didChangeSettings settings: Settings
+    )
 }
 
 final class SettingsViewController: UIViewController {
 
-    public static func makeModule(settings: Settings,
-                                  delegate: SettingsViewControllerDelegate? = nil) -> UIViewController {
-
+    public static func makeModule(
+        settings: Settings,
+        delegate: SettingsViewControllerDelegate? = nil
+    ) -> UIViewController {
         let controller = SettingsViewController(settings: settings)
         controller.delegate = delegate
-
         return controller
     }
 
@@ -21,11 +23,13 @@ final class SettingsViewController: UIViewController {
     // MARK: - UI properties
 
     private lazy var tableViewController = TableViewController(style: .grouped)
-
-    private lazy var closeBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Settings.Close"),
-                                                    style: .plain,
-                                                    target: self,
-                                                    action: #selector(closeBarButtonItemDidPress))
+    
+    private lazy var closeBarItem = UIBarButtonItem(
+        image: #imageLiteral(resourceName: "Settings.Close"),
+        style: .plain,
+        target: self,
+        action: #selector(closeBarButtonItemDidPress)
+    )
 
     // MARK: - Private properties
 
@@ -74,7 +78,12 @@ final class SettingsViewController: UIViewController {
 
         navigationItem.leftBarButtonItem = closeBarItem
         navigationItem.title = Localized.title
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "",
+            style: .plain,
+            target: nil,
+            action: nil
+        )
 
         tableViewController.sections = sectionDescriptors
         tableViewController.reload()
@@ -104,7 +113,10 @@ final class SettingsViewController: UIViewController {
 
     @objc
     private func closeBarButtonItemDidPress() {
-        navigationController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        navigationController?.presentingViewController?.dismiss(
+            animated: true,
+            completion: nil
+        )
     }
 
 }
@@ -122,47 +134,71 @@ extension SettingsViewController {
     }
 
     private var paymentMethodsSection: SectionDescriptor {
-        let yooMoneyCell = switchCellWith(title: Localized.yooMoney,
-                                          initialValue: { $0.isYooMoneyEnabled },
-                                          settingHandler: { $0.isYooMoneyEnabled = $1 })
-
-        let sberbankCell = switchCellWith(title: Localized.sberbank,
-                                          initialValue: { $0.isSberbankEnabled },
-                                          settingHandler: { $0.isSberbankEnabled = $1 })
-
-        let bankCardCell = switchCellWith(title: Localized.bankCard,
-                                          initialValue: { $0.isBankCardEnabled },
-                                          settingHandler: { $0.isBankCardEnabled = $1 })
-
-        let applePayCell = switchCellWith(title: Localized.applePay,
-                                          initialValue: { $0.isApplePayEnabled },
-                                          settingHandler: { $0.isApplePayEnabled = $1 })
-
-        return SectionDescriptor(headerText: Localized.paymentMethods,
-                                 rows: [yooMoneyCell, sberbankCell, bankCardCell, applePayCell])
+        let yooMoneyCell = switchCellWith(
+            title: Localized.yooMoney,
+            initialValue: { $0.isYooMoneyEnabled },
+            settingHandler: { $0.isYooMoneyEnabled = $1 }
+        )
+        
+        let sberbankCell = switchCellWith(
+            title: Localized.sberbank,
+            initialValue: { $0.isSberbankEnabled },
+            settingHandler: { $0.isSberbankEnabled = $1 }
+        )
+        
+        let bankCardCell = switchCellWith(
+            title: Localized.bankCard,
+            initialValue: { $0.isBankCardEnabled },
+            settingHandler: { $0.isBankCardEnabled = $1 }
+        )
+        
+        let applePayCell = switchCellWith(
+            title: Localized.applePay,
+            initialValue: { $0.isApplePayEnabled },
+            settingHandler: { $0.isApplePayEnabled = $1 }
+        )
+        
+        return SectionDescriptor(
+            headerText: Localized.paymentMethods,
+            rows: [
+                yooMoneyCell,
+                sberbankCell,
+                bankCardCell,
+                applePayCell,
+            ]
+        )
     }
 
     private var uiCustomizationSection: SectionDescriptor {
-        let yooMoneyLogoCell = switchCellWith(title: Localized.yooMoneyLogo,
-                                              initialValue: { $0.isShowingYooMoneyLogoEnabled },
-                                              settingHandler: { $0.isShowingYooMoneyLogoEnabled = $1 })
-
-        return SectionDescriptor(rows: [yooMoneyLogoCell])
+        let yooMoneyLogoCell = switchCellWith(
+            title: Localized.yooMoneyLogo,
+            initialValue: { $0.isShowingYooMoneyLogoEnabled },
+            settingHandler: { $0.isShowingYooMoneyLogoEnabled = $1 }
+        )
+        
+        return SectionDescriptor(
+            rows: [
+                yooMoneyLogoCell,
+            ]
+        )
     }
 
     private var testModeSection: SectionDescriptor {
         let testMode = CellDescriptor(configuration: { [unowned self] (cell: ContainerTableViewCell<TextValueView>) in
 
             cell.containedView.title = Localized.test_mode
-            cell.containedView.value = self.settings.testModeSettings.isTestModeEnadled ?
-                translate(CommonLocalized.on) : translate(CommonLocalized.off)
+            cell.containedView.value = self.settings.testModeSettings.isTestModeEnadled
+                ? translate(CommonLocalized.on)
+                : translate(CommonLocalized.off)
             cell.accessoryType = .disclosureIndicator
         }, selection: { [unowned self] (indexPath) in
 
             self.tableViewController.tableView.deselectRow(at: indexPath, animated: true)
 
-            let controller = TestSettingsViewController.makeModule(settings: self.settings.testModeSettings,
-                                                                   delegate: self)
+            let controller = TestSettingsViewController.makeModule(
+                settings: self.settings.testModeSettings,
+                delegate: self
+            )
             let navigation = UINavigationController(rootViewController: controller)
 
             if #available(iOS 11.0, *) {
@@ -177,27 +213,29 @@ extension SettingsViewController {
         return SectionDescriptor(rows: [testMode])
     }
 
-    private func switchCellWith(title: String,
-                                initialValue: @escaping (Settings) -> Bool,
-                                settingHandler: @escaping (inout Settings, Bool) -> Void)
-        -> CellDescriptor {
-            return CellDescriptor(configuration: { [unowned self] (cell: ContainerTableViewCell<TitledSwitchView>) in
-
-                cell.containedView.title = title
-                cell.containedView.isOn = initialValue(self.settings)
-                cell.containedView.valueChangeHandler = {
-                    settingHandler(&self.settings, $0)
-                }
-            })
+    private func switchCellWith(
+        title: String,
+        initialValue: @escaping (Settings) -> Bool,
+        settingHandler: @escaping (inout Settings, Bool) -> Void
+    ) -> CellDescriptor {
+        return CellDescriptor(configuration: { [unowned self] (cell: ContainerTableViewCell<TitledSwitchView>) in
+            
+            cell.containedView.title = title
+            cell.containedView.isOn = initialValue(self.settings)
+            cell.containedView.valueChangeHandler = {
+                settingHandler(&self.settings, $0)
+            }
+        })
     }
 }
 
 // MARK: - TestSettingsViewControllerDelegate
 
 extension SettingsViewController: TestSettingsViewControllerDelegate {
-    func testSettingsViewController(_ testSettingsViewController: TestSettingsViewController,
-                                    didChangeSettings settings: TestSettings) {
-
+    func testSettingsViewController(
+        _ testSettingsViewController: TestSettingsViewController,
+        didChangeSettings settings: TestSettings
+    ) {
         self.settings.testModeSettings = settings
         tableViewController.reloadTable()
     }

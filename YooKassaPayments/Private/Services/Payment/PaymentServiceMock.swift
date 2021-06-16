@@ -137,6 +137,17 @@ extension PaymentServiceMock: PaymentService {
     ) {
         makeTokensPromise(completion: completion)
     }
+    
+    func tokenizeSberpay(
+        clientApplicationKey: String,
+        confirmation: Confirmation,
+        savePaymentMethod: Bool,
+        amount: MonetaryAmount?,
+        tmxSessionId: String,
+        completion: @escaping (Result<Tokens, Error>) -> Void
+    ) {
+        makeTokensPromise(completion: completion)
+    }
 
     func tokenizeApplePay(
         clientApplicationKey: String,

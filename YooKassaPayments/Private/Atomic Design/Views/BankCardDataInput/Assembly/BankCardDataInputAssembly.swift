@@ -43,6 +43,7 @@ enum BankCardDataInputAssembly {
     private static func makePresenter(
         inputData: BankCardDataInputModuleInputData
     ) -> BankCardDataInputPresenter {
+        let bankCardImageFactory = BankCardImageFactoryAssembly.makeFactory()
         let presenter = BankCardDataInputPresenter(
             inputPanHint: inputData.inputPanHint,
             inputPanPlaceholder: inputData.inputPanPlaceholder,
@@ -50,7 +51,8 @@ enum BankCardDataInputAssembly {
             inputExpiryDatePlaceholder: inputData.inputExpiryDatePlaceholder,
             inputCvcHint: inputData.inputCvcHint,
             inputCvcPlaceholder: inputData.inputCvcPlaceholder,
-            cardScanner: inputData.cardScanner
+            cardScanner: inputData.cardScanner,
+            bankCardImageFactory: bankCardImageFactory
         )
         return presenter
     }

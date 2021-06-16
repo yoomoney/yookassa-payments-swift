@@ -6,9 +6,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         let viewController = UINavigationController(rootViewController: RootViewController())
         window?.rootViewController = viewController
@@ -45,6 +46,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         userDefaults.register(defaults: defaultsToRegister)
         userDefaults.synchronize()
+    }
+}
+
+// MARK: - Handle open url
+
+extension AppDelegate {
+    func application(
+        _ application: UIApplication,
+        open url: URL,
+        sourceApplication: String?,
+        annotation: Any
+    ) -> Bool {
+        return YKSdk.shared.handleOpen(
+            url: url,
+            sourceApplication: sourceApplication
+        )
+    }
+
+    @available(iOS 9.0, *)
+    func application(
+        _ app: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+    ) -> Bool {
+        return YKSdk.shared.handleOpen(
+            url: url,
+            sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
+        )
     }
 }
 

@@ -1,5 +1,13 @@
 ## Changelog
 
+### 6.0.0
+
+1. Добавили поддержку `SberPay`.
+2. Добавили авторизацию в `ЮMoney` через мобильное приложение.
+3. Обновили иконки платежных систем и банков.
+
+> Необходимо выполнить [инструкцию](https://github.com/yoomoney/yookassa-payments-swift/blob/master/MIGRATION.md) по миграции с версий ниже.
+
 ## 5.4.1
 
 1. Обновление версии `YandexMobileMetrica`.

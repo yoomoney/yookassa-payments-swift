@@ -418,8 +418,12 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
         orderView.title = viewModel.shopName
         orderView.subtitle = viewModel.description
         orderView.value = makePrice(viewModel.price)
-        orderView.subvalue = nil
-        
+        if let fee = viewModel.fee {
+            orderView.subvalue = "\(§Localized.fee) " + makePrice(fee)
+        } else {
+            orderView.subvalue = nil
+        }
+
         maskedCardView.cardNumber = viewModel.cardMask
         maskedCardView.cardLogo = viewModel.cardLogo
         
@@ -533,7 +537,7 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
 
         let linkAttributedText = NSMutableAttributedString(string: hyperText, attributes: attributes)
         let linkRange = NSRange(location: 0, length: hyperText.count)
-        let fakeLink = URL(string: "https://yookassa.ru")
+        let fakeLink = URL(string: "https://yookassa.ru")!
         linkAttributedText.addAttribute(.link, value: fakeLink, range: linkRange)
         attributedText.append(linkAttributedText)
 

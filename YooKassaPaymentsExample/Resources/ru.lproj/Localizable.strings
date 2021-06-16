@@ -16,6 +16,11 @@
 "test_mode.payment_auth" = "Покупатель вошёл в кошелёк";
 "test_mode.attached_cards" = "Количество привязанных карт";
 "test_mode.payment_error" = "Завершить платёж ошибкой";
+"test_mode.process_type" = "Подтверждение платежа";
+"test_mode.process.3ds" = "3ds";
+"test_mode.process.app2app" = "app2app";
+
+"process.title" = "Тип подтверждение";
 
 "settings.title" = "Настройки";
 "settings.payment_methods.title" = "Способы оплаты";

@@ -1,7 +1,7 @@
 // Payment methods
 
 "PaymentMethods.paymentMethods" = "Способ оплаты";
-"PaymentMethod.sberbank" = "Сбербанк Онлайн";
+"PaymentMethod.sberpay" = "SberPay";
 "PaymentMethod.wallet" = "ЮMoney";
 "PaymentMethod.applePay" = "Apple Pay";
 "PaymentMethod.bankCard" = "Банковская карта";
@@ -16,6 +16,7 @@
 "BankCardView.inputCvcPlaceholder" = "CVC";
 "BankCardDataInputView.BottomHint.invalidPan" = "Проверьте номер карты";
 "BankCardDataInputView.BottomHint.invalidExpiry" = "Проверьте месяц и год";
+"BankCardDataInputView.BottomHint.invalidCvc" = "Проверьте CVC";
 "BankCard.savePaymentMethod.title" = "Привязать карту";
 
 // Contract
@@ -103,8 +104,6 @@
 
 "Contract.Sberbank.PhoneInput.Placeholder" = "+ 7 987 654 32 10";
 
-"Sberbank.Contract.Title" = "СберБанк Онлайн";
-
 /*В процессе токенизации ApplePay произошла ошибка*/
 "Error.ApplePayStrategy.failTokenizeData" = "В процессе токенизации ApplePay произошла ошибка";
 
@@ -130,11 +129,15 @@
 
 "ApplePayContract.fee" = "Комиссия";
 
+"Sberpay.Contract.Title" = "SberPay";
+
 "Contract.resendSms" = "Отправить снова";
 
 "ApplePayContract.title" = "Apple Pay";
 
 "YooMoney.title" = "ЮMoney";
+
+"Sberpay.paymentMethodTitle" = "Дальше откроем приложение Сбербанк Онлайн — подтвердите оплату";
 
 "LogoutConfirmation.format.title" = "Уверены, что хотите выйти из аккаунта '%@'?";
 

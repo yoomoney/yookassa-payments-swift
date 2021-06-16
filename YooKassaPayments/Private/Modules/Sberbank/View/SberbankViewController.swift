@@ -349,7 +349,7 @@ extension SberbankViewController: UIGestureRecognizerDelegate {
 
 private extension SberbankViewController {
     enum Localized: String {
-        case title = "Sberbank.Contract.Title"
+        case title = "Sberpay.Contract.Title"
         case `continue` = "Contract.next"
 
         enum PlaceholderView: String {

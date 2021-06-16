@@ -20,7 +20,6 @@ post_install do |installer|
     target.build_configurations.each do |config|
       config.build_settings['PROVISIONING_PROFILE_SPECIFIER'] = ''
       config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
-      config.build_settings['SWIFT_SUPPRESS_WARNINGS'] = 'YES'
       config.build_settings['CLANG_WARN_DOCUMENTATION_COMMENTS'] = 'NO'
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '10.0'
     end

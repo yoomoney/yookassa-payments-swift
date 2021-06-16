@@ -12,9 +12,11 @@ class PaymentMethodsInteractor {
     private let paymentService: PaymentService
     private let authorizationService: AuthorizationService
     private let analyticsService: AnalyticsService
+    private let accountService: AccountService
     private let analyticsProvider: AnalyticsProvider
     private let threatMetrixService: ThreatMetrixService
     private let amountNumberFormatter: AmountNumberFormatter
+    private let appDataTransferMediator: AppDataTransferMediator
 
     private let clientApplicationKey: String
     private let gatewayId: String?
@@ -27,9 +29,11 @@ class PaymentMethodsInteractor {
         paymentService: PaymentService,
         authorizationService: AuthorizationService,
         analyticsService: AnalyticsService,
+        accountService: AccountService,
         analyticsProvider: AnalyticsProvider,
         threatMetrixService: ThreatMetrixService,
         amountNumberFormatter: AmountNumberFormatter,
+        appDataTransferMediator: AppDataTransferMediator,
         clientApplicationKey: String,
         gatewayId: String?,
         amount: Amount,
@@ -38,9 +42,11 @@ class PaymentMethodsInteractor {
         self.paymentService = paymentService
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
+        self.accountService = accountService
         self.analyticsProvider = analyticsProvider
         self.threatMetrixService = threatMetrixService
         self.amountNumberFormatter = amountNumberFormatter
+        self.appDataTransferMediator = appDataTransferMediator
 
         self.clientApplicationKey = clientApplicationKey
         self.gatewayId = gatewayId
@@ -94,6 +100,34 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
         }
     }
     
+    func fetchAccount(
+        oauthToken: String
+    ) {
+        accountService.fetchAccount(
+            oauthToken: oauthToken
+        ) { [weak self] in
+            guard let output = self?.output else { return }
+            $0.map {
+                output.didFetchAccount($0)
+            }.mapLeft {
+                output.didFailFetchAccount($0)
+            }
+        }
+    }
+
+    func decryptCryptogram(
+        _ cryptogram: String
+    ) {
+        appDataTransferMediator.decryptData(cryptogram) { [weak self] in
+            guard let output = self?.output else { return }
+            $0.map {
+                output.didDecryptCryptogram($0)
+            }.mapLeft {
+                output.didFailDecryptCryptogram($0)
+            }
+        }
+    }
+
     func getWalletDisplayName() -> String? {
         return authorizationService.getWalletDisplayName()
     }
@@ -140,7 +174,7 @@ extension PaymentMethodsInteractor {
                     paymentData: paymentData,
                     savePaymentMethod: savePaymentMethod,
                     amount: amount,
-                    tmxSessionId: tmxSessionId
+                    tmxSessionId: tmxSessionId.value
                 )
 
             case let .failure(error):

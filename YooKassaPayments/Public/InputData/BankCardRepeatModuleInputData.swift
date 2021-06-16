@@ -31,6 +31,10 @@ public struct BankCardRepeatModuleInputData {
     /// Setting for saving payment method.
     let savePaymentMethod: SavePaymentMethod
 
+    /// Gateway ID. Setup, is provided at check in YooKassa.
+    /// The cashier at the division of payment flows within a single account.
+    let gatewayId: String?
+
     /// Creates instance of `BankCardRepeatModuleInputData`.
     ///
     /// - Parameters:
@@ -44,6 +48,8 @@ public struct BankCardRepeatModuleInputData {
     ///   - isLoggingEnabled: Enable logging
     ///   - customizationSettings: Settings to customize SDK interface.
     ///   - savePaymentMethod: Setting for saving payment method.
+    ///   - gatewayId: Gateway ID. Setup, is provided at check in YooKassa.
+    ///                The cashier at the division of payment flows within a single account.
     ///
     /// - Returns: Instance of `BankCardRepeatModuleInputData`.
     public init(
@@ -56,7 +62,8 @@ public struct BankCardRepeatModuleInputData {
         returnUrl: String? = nil,
         isLoggingEnabled: Bool = false,
         customizationSettings: CustomizationSettings = CustomizationSettings(),
-        savePaymentMethod: SavePaymentMethod
+        savePaymentMethod: SavePaymentMethod,
+        gatewayId: String? = nil
     ) {
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
@@ -68,5 +75,6 @@ public struct BankCardRepeatModuleInputData {
         self.isLoggingEnabled = isLoggingEnabled
         self.customizationSettings = customizationSettings
         self.savePaymentMethod = savePaymentMethod
+        self.gatewayId = gatewayId
     }
 }

@@ -1,4 +1,5 @@
 import UIKit.UIViewController
+import MoneyAuth
 import YooMoneyCoreApi
 
 enum PaymentMethodsAssembly {
@@ -19,9 +20,12 @@ enum PaymentMethodsAssembly {
         let moneyAuthCustomization = MoneyAuthAssembly.makeMoneyAuthCustomization()
 
         let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()
+        let priceViewModelFactory = PriceViewModelFactoryAssembly.makeFactory()
         let presenter = PaymentMethodsPresenter(
             isLogoVisible: inputData.tokenizationSettings.showYooKassaLogo,
             paymentMethodViewModelFactory: paymentMethodViewModelFactory,
+            applicationScheme: inputData.applicationScheme,
+            priceViewModelFactory: priceViewModelFactory,
             clientApplicationKey: inputData.clientApplicationKey,
             applePayMerchantIdentifier: inputData.applePayMerchantIdentifier,
             testModeSettings: inputData.testModeSettings,
@@ -51,18 +55,27 @@ enum PaymentMethodsAssembly {
         let analyticsService = AnalyticsServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled
         )
+        let accountService = AccountServiceFactory.makeService(
+            config: moneyAuthConfig
+        )
         let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
             testModeSettings: inputData.testModeSettings
         )
         let threatMetrixService = ThreatMetrixServiceFactory.makeService()
         let amountNumberFormatter = AmountNumberFormatterAssembly.makeAmountNumberFormatter()
+        let appDataTransferMediator = AppDataTransferMediatorFactory.makeMediator(
+            config: moneyAuthConfig
+        )
+
         let interactor = PaymentMethodsInteractor(
             paymentService: paymentService,
             authorizationService: authorizationService,
             analyticsService: analyticsService,
+            accountService: accountService,
             analyticsProvider: analyticsProvider,
             threatMetrixService: threatMetrixService,
             amountNumberFormatter: amountNumberFormatter,
+            appDataTransferMediator: appDataTransferMediator,
             clientApplicationKey: inputData.clientApplicationKey,
             gatewayId: inputData.gatewayId,
             amount: inputData.amount,

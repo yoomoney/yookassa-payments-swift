@@ -162,7 +162,7 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
         case .applePay:
             name = §PaymentMethodResources.Localized.applePay
         case .sberbank:
-            name = §PaymentMethodResources.Localized.sberbank
+            name = §PaymentMethodResources.Localized.sberpay
         default:
             assertionFailure("Unsupported PaymentMethodType")
             name = "Unsupported"
@@ -209,7 +209,7 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
         case .applePay:
             image = PaymentMethodResources.Image.applePay
         case .sberbank:
-            image = PaymentMethodResources.Image.sberbank
+            image = PaymentMethodResources.Image.sberpay
         default:
             assertionFailure("Unsupported PaymentMethodType")
             image = UIImage()

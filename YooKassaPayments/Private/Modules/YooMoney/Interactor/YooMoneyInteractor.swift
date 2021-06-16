@@ -91,7 +91,7 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
                         savePaymentMethod: savePaymentMethod,
                         paymentMethodType: paymentMethodType,
                         amount: amount,
-                        tmxSessionId: tmxSessionId
+                        tmxSessionId: tmxSessionId.value
                     )
 
                 case let .failure(error):

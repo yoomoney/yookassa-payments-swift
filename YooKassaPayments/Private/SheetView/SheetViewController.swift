@@ -4,6 +4,11 @@ protocol SheetViewModuleOutput: class {
     func start3dsProcess(
         requestUrl: String
     )
+    
+    func startConfirmationProcess(
+        confirmationUrl: String,
+        paymentMethodType: PaymentMethodType
+    )
 
     func didFinish(
         on module: TokenizationModuleInput,
@@ -237,17 +242,11 @@ final class SheetViewController: UIViewController {
     ) -> CGFloat? {
         let convertedKeyboardFrame = view.convert(keyboardFrame, from: nil)
         let intersectionViewFrame = convertedKeyboardFrame.intersection(view.bounds)
-        var safeOffset: CGFloat = 0
-        if #available(iOS 11.0, *) {
-            let intersectionSafeFrame = convertedKeyboardFrame.intersection(view.safeAreaLayoutGuide.layoutFrame)
-            safeOffset = intersectionViewFrame.height - intersectionSafeFrame.height
-        }
         let intersectionOffset = intersectionViewFrame.size.height
         guard convertedKeyboardFrame.minY.isInfinite == false else {
             return nil
         }
-        let keyboardOffset = intersectionOffset - safeOffset
-        return keyboardOffset
+        return intersectionOffset
     }
 }
 
@@ -310,7 +309,15 @@ private extension SheetViewController {
     func height(
         for size: SheetSize
     ) -> CGFloat {
-        let fullscreenHeight = view.bounds.height
+        var statusBarHeight: CGFloat = 0
+        if #available(iOS 13.0, *) {
+            let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+            statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        } else {
+            statusBarHeight = UIApplication.shared.statusBarFrame.height
+        }
+        
+        let fullscreenHeight = view.bounds.height - statusBarHeight
 
         let contentHeight: CGFloat
         switch size {
@@ -595,5 +602,15 @@ extension SheetViewController: UIViewControllerTransitioningDelegate {
 extension SheetViewController: TokenizationModuleInput {
     func start3dsProcess(requestUrl: String) {
         moduleOutput?.start3dsProcess(requestUrl: requestUrl)
+    }
+    
+    func startConfirmationProcess(
+        confirmationUrl: String,
+        paymentMethodType: PaymentMethodType
+    ) {
+        moduleOutput?.startConfirmationProcess(
+            confirmationUrl: confirmationUrl,
+            paymentMethodType: paymentMethodType
+        )
     }
 }

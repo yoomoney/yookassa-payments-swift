@@ -1,15 +1,126 @@
 # Migration guide
 
 - [Migration guide](#migration-guide)
+  - [5.\*.\* -> 6.\*.\*](#5---6)
+    - [Изменить код интеграции](#изменить-код-интеграции)
+    - [Конфигурация проекта](#конфигурация-проекта)
+    - [Изменить код подтверждения платежа](#изменить-код-подтверждения-платежа)
+    - [Добавить поддержку SberPay](#добавить-поддержку-SberPay)
+    - [Добавить поддержку авторизации в ЮMoney через мобильное приложение](#добавить-поддержку-авторизации-в-ЮMoney-через-мобильное-приложение)
+  - [5.\*.\* -> 5.3.0](#5---530)
   - [4.\*.\* -> 5.\*.\*](#4---5)
     - [Изменить Podfile](#изменить-podfile)
-    - [Изменить код интеграции](#изменить-код-интеграции)
+    - [Изменить код интеграции](#изменить-код-интеграции-1)
   - [\*.\*.\* -> 4.\*.\*](#---4)
     - [Удалить `YandexLoginSDK`](#удалить-yandexloginsdk)
     - [Добавить новые зависимости](#добавить-новые-зависимости)
-    - [Если вы используете метод оплаты "Яндекс.Деньги"](#если-вы-используете-метод-оплаты-яндексденьги)
+    - [Если вы используете метод оплаты "ЮMoney"](#если-вы-используете-метод-оплаты-юmoney)
   - [2.\*.\* -> 3.\*.\*](#2---3)
   - [2.1.0 -> 2.2.0](#210---220)
+
+## 5.\*.\* -> 6.\*.\*
+
+Для корректной работы сценария `Sberpay` и авторизации в `ЮMoney` через мобильное приложение, необходимо изменить некоторые парамтеры.
+
+### Изменить код интеграции
+
+1. В `TokenizationModuleInputData` необходимо передавать `applicationScheme` - схема для возврата в приложение после успешной оплаты с помощью `Sberpay` в приложении СберБанк Онлайн или после успешной авторизации в `ЮMoney` через мобильное приложение.
+
+Пример `applicationScheme`:
+
+```swift
+let moduleData = TokenizationModuleInputData(
+    ...
+    applicationScheme: "examplescheme://"
+```
+
+2. В `AppDelegate` импортировать зависимость `YooKassaPayments`:
+
+   ```swift
+   import YooKassaPayments
+   ```
+
+3. Добавить обработку ссылок через `YKSdk` в `AppDelegate`:
+
+```swift
+func application(
+    _ application: UIApplication,
+    open url: URL,
+    sourceApplication: String?, 
+    annotation: Any
+) -> Bool {
+    return YKSdk.shared.handleOpen(
+        url: url,
+        sourceApplication: sourceApplication
+    )
+}
+
+@available(iOS 9.0, *)
+func application(
+    _ app: UIApplication,
+    open url: URL,
+    options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+) -> Bool {
+    return YKSdk.shared.handleOpen(
+        url: url,
+        sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
+    )
+}
+```
+
+4. Реализовать метод  `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`, который будет вызван после успешного подтверждения платежа. 
+
+### Конфигурация проекта
+
+В `Info.plist` добавить следующие строки:
+
+```plistbase
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLName</key>
+		<string>${BUNDLE_ID}</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>examplescheme</string>
+		</array>
+	</dict>
+</array>
+```
+
+где `examplescheme` - схема для открытия вашего приложения, которую вы указали в `applicationScheme` при создании `TokenizationModuleInputData`.
+
+### Изменить код подтверждения платежа
+
+Для подтверждения платежа необходимо вызвать метод `startConfirmationProcess(confirmationUrl:paymentMethodType:)`.
+
+После успешного прохождения подтверждения будет вызван метод `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`. 
+
+> Обратите внимание, что методы `start3dsProcess(requestUrl:)` и `didSuccessfullyPassedCardSec(on module:)` помечены как `deprecated` - используйте `startConfirmationProcess(confirmationUrl:paymentMethodType:)` и `didSuccessfullyConfirmation(paymentMethodType:)` вместо них.
+
+### Добавить поддержку `SberPay`
+
+В `Info.plist` добавить следующие строки:
+
+```plistbase
+<key>LSApplicationQueriesSchemes</key>
+<array>
+	<string>sberpay</string>
+</array>
+```
+
+### Добавить поддержку авторизации в `ЮMoney` через мобильное приложение
+
+В `Info.plist` добавить следующие строки:
+
+```plistbase
+<key>LSApplicationQueriesSchemes</key>
+<array>
+	<string>yoomoneyauth</string>
+</array>
+```
 
 ## 5.\*.\* -> 5.3.0
 

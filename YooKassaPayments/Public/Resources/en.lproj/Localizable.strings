@@ -1,7 +1,7 @@
 // Payment methods
 
 "PaymentMethods.paymentMethods" = "Payment method";
-"PaymentMethod.sberbank" = "Sberbank Online";
+"PaymentMethod.sberpay" = "SberPay";
 "PaymentMethod.wallet" = "YooMoney";
 "PaymentMethod.applePay" = "Apple Pay";
 "PaymentMethod.bankCard" = "Bank card";
@@ -16,6 +16,7 @@
 "BankCardView.inputCvcPlaceholder" = "CVC";
 "BankCardDataInputView.BottomHint.invalidPan" = "Check the card number";
 "BankCardDataInputView.BottomHint.invalidExpiry" = "Check the month and date";
+"BankCardDataInputView.BottomHint.invalidCvc" = "Check CVC";
 "BankCard.savePaymentMethod.title" = "Link a card";
 
 // Contract
@@ -128,13 +129,15 @@
 
 "ApplePayContract.fee" = "Commission";
 
-"Sberbank.Contract.Title" = "Sberbank Online";
+"Sberpay.Contract.Title" = "SberPay";
 
 "Contract.resendSms" = "Send again";
 
 "ApplePayContract.title" = "Apple Pay";
 
 "YooMoney.title" = "YooMoney";
+
+"Sberpay.paymentMethodTitle" = "Next, open the Sberbank Online application - confirm the payment";
 
 "LogoutConfirmation.format.title" = "Are you sure you want to sign out of account '%@'?";
 
