@@ -46,6 +46,8 @@ EXPORT_METHOD_AppStore="app-store"
 CARTHAGE_PLATFORMS="iOS"
 
 SLACK_CHANNEL="#ios-builds"
+SLACK_BABELYODA_CHANNEL="#b2b-babelyoda"
+GITHUB_SLACK_RELEASE_CHANNEL="#github-ios"
 
 BITBUCKET_PROJECT_NAME="MI"
 BITBUCKET_REPO_NAME="yandex-checkout-payments-swift"

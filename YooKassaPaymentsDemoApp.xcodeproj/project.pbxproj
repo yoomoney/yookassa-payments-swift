@@ -632,7 +632,7 @@
 			};
 			buildConfigurationList = 309BD411265CE9FA00D4804D /* Build configuration list for PBXProject "YooKassaPaymentsDemoApp" */;
 			compatibilityVersion = "Xcode 9.3";
-			developmentRegion = en;
+			developmentRegion = ru;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
