@@ -1,6 +1,7 @@
 include:
   - 'YooKassaPayments/Public/Resources/ru.lproj/*.{strings}'
   - 'YooKassaPaymentsDemoApp/Resources/ru.lproj/*.{strings}'
+exclude:
 source_paths:
   - 'YooKassaPayments'
   - 'YooKassaPaymentsDemoApp'
