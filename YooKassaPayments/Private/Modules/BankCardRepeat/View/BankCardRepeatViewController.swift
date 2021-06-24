@@ -57,9 +57,9 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
             UIView.Styles.grayBackground,
             UIView.Styles.roundedShadow
         )
-        $0.hintCardCode = §Localized.hintCardCode
-        $0.hintCardNumber = §Localized.hintCardNumber
-        $0.cardCodePlaceholder = §Localized.cvc
+        $0.hintCardCode = CommonLocalized.BankCardView.inputCvcHint
+        $0.hintCardNumber = CommonLocalized.BankCardView.inputPanHint
+        $0.cardCodePlaceholder = CommonLocalized.BankCardView.inputCvcPlaceholder
         $0.delegate = self
         return $0
     }(MaskedCardView())
@@ -74,7 +74,7 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
     private lazy var errorCscLabel: UILabel = {
         $0.isHidden = true
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.text = §Localized.errorCvc
+        $0.text = CommonLocalized.BankCardView.BottomHint.invalidCvc
         $0.setStyles(
             UIView.Styles.grayBackground,
             UILabel.DynamicStyle.caption1,
@@ -97,7 +97,7 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
             UIButton.DynamicStyle.primary,
             UIView.Styles.heightAsContent
         )
-        $0.setStyledTitle(§Localized.continue, for: .normal)
+        $0.setStyledTitle(CommonLocalized.Contract.next, for: .normal)
         $0.addTarget(
             self,
             action: #selector(didPressActionButton),
@@ -130,8 +130,8 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
     lazy var actionTitleTextDialog: ActionTitleTextDialog = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(ActionTitleTextDialog.Styles.fail)
-        $0.buttonTitle = §Localized.PlaceholderView.buttonTitle
-        $0.text = §Localized.PlaceholderView.text
+        $0.buttonTitle = CommonLocalized.PlaceholderView.buttonTitle
+        $0.text = CommonLocalized.PlaceholderView.text
         $0.delegate = output
         return $0
     }(ActionTitleTextDialog())
@@ -147,7 +147,7 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
             right: Space.double
         )
         $0.setStyles(SwitchItemView.Styles.primary)
-        $0.title = §Localized.savePaymentMethodTitle
+        $0.title = Localized.savePaymentMethodTitle
         $0.delegate = self
         return $0
     }(SwitchItemView())
@@ -174,7 +174,7 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
             bottom: 0,
             right: Space.double
         )
-        $0.title = §Localized.savePaymentMethodTitle
+        $0.title = Localized.savePaymentMethodTitle
         $0.setStyles(SectionHeaderView.Styles.primary)
         return $0
     }(SectionHeaderView())
@@ -232,7 +232,7 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
         view.addGestureRecognizer(viewTapGestureRecognizer)
-        navigationItem.title = §Localized.title
+        navigationItem.title = Localized.title
 
         setupView()
         setupConstraints()
@@ -419,7 +419,7 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
         orderView.subtitle = viewModel.description
         orderView.value = makePrice(viewModel.price)
         if let fee = viewModel.fee {
-            orderView.subvalue = "\(§Localized.fee) " + makePrice(fee)
+            orderView.subvalue = "\(CommonLocalized.Contract.fee) " + makePrice(fee)
         } else {
             orderView.subvalue = nil
         }
@@ -687,21 +687,18 @@ private extension BankCardRepeatViewController {
 // MARK: - Localized
 
 private extension BankCardRepeatViewController {
-    enum Localized: String {
-        case title = "BankCardRepeat.title"
-        case `continue` = "Contract.next"
-        case fee = "Contract.fee"
-
-        case hintCardNumber = "BankCardView.inputPanHint"
-        case hintCardCode = "BankCardDataInput.hintCardCode"
-        case cvc = "BankCardDataInput.cvc"
-        case errorCvc = "BankCardDataInput.errorCvc"
-
-        case savePaymentMethodTitle = "BankCardRepeat.savePaymentMethod.title"
-
-        enum PlaceholderView: String {
-            case buttonTitle = "Common.PlaceholderView.buttonTitle"
-            case text = "Common.PlaceholderView.text"
-        }
+    enum Localized {
+        static let title = NSLocalizedString(
+            "BankCardRepeat.title",
+            bundle: Bundle.framework,
+            value: "Сохраненная карта",
+            comment: "Title `Сохраненная карта` на экране `Сохраненная карта` https://yadi.sk/d/Cyocbh86zUr3cA"
+        )
+        static let savePaymentMethodTitle = NSLocalizedString(
+            "BankCardRepeat.savePaymentMethod.title",
+            bundle: Bundle.framework,
+            value: "Привязать карту",
+            comment: "Текст `Привязать карту` на экране `Сохраненная карта` https://yadi.sk/d/Cyocbh86zUr3cA"
+        )
     }
 }

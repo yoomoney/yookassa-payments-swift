@@ -36,7 +36,7 @@ final class ApplePayContractViewController: UIViewController {
             UIView.Styles.grayBackground
         )
         $0.image = PaymentMethodResources.Image.applePay
-        $0.title = §Localized.paymentMethodTitle
+        $0.title = Localized.paymentMethodTitle
         return $0
     }(LargeIconView())
 
@@ -54,7 +54,7 @@ final class ApplePayContractViewController: UIViewController {
             UIButton.DynamicStyle.primary,
             UIView.Styles.heightAsContent
         )
-        $0.setStyledTitle(§Localized.continue, for: .normal)
+        $0.setStyledTitle(CommonLocalized.Contract.next, for: .normal)
         $0.addTarget(
             self,
             action: #selector(didPressActionButton),
@@ -84,7 +84,7 @@ final class ApplePayContractViewController: UIViewController {
             right: Space.double
         )
         $0.setStyles(SwitchItemView.Styles.primary)
-        $0.title = §Localized.savePaymentMethodTitle
+        $0.title = Localized.savePaymentMethodTitle
         $0.delegate = self
         return $0
     }(SwitchItemView())
@@ -111,7 +111,7 @@ final class ApplePayContractViewController: UIViewController {
             bottom: 0,
             right: Space.double
         )
-        $0.title = §Localized.savePaymentMethodTitle
+        $0.title = Localized.savePaymentMethodTitle
         $0.setStyles(SectionHeaderView.Styles.primary)
         return $0
     }(SectionHeaderView())
@@ -142,7 +142,7 @@ final class ApplePayContractViewController: UIViewController {
     override func loadView() {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
-        navigationItem.title = §Localized.title
+        navigationItem.title = Localized.title
 
         setupView()
         setupConstraints()
@@ -267,7 +267,7 @@ extension ApplePayContractViewController: ApplePayContractViewInput {
         orderView.subtitle = viewModel.description
         orderView.value = makePrice(viewModel.price)
         if let fee = viewModel.fee {
-            orderView.subvalue = "\(§Localized.fee) " + makePrice(fee)
+            orderView.subvalue = "\(CommonLocalized.Contract.fee) " + makePrice(fee)
         } else {
             orderView.subvalue = nil
         }
@@ -426,19 +426,29 @@ extension ApplePayContractViewController: SwitchItemViewOutput {
     }
 }
 
-// MARK: - Localized
+// MARK: - Localization
 
 private extension ApplePayContractViewController {
-    enum Localized: String {
-        case title = "ApplePayContract.title"
-        case `continue` = "Contract.next"
-        case fee = "Contract.fee"
-        case savePaymentMethodTitle = "Contract.format.savePaymentMethod.title"
-        case paymentMethodTitle = "ApplePayContract.paymentMethodTitle"
-
-        enum PlaceholderView: String {
-            case buttonTitle = "Common.PlaceholderView.buttonTitle"
-            case text = "Common.PlaceholderView.text"
-        }
+    // swiftlint:disable line_length
+    enum Localized {
+        static let title = NSLocalizedString(
+            "ApplePayContract.title",
+            bundle: Bundle.framework,
+            value: "Apple Pay",
+            comment: "Title на контракте Apple Pay https://yadi.sk/i/xT_cNZtTh6PoiQ"
+        )
+        static let savePaymentMethodTitle = NSLocalizedString(
+            "ApplePayContract.SavePaymentMethod.Title",
+            bundle: Bundle.framework,
+            value: "Разрешить списывать деньги",
+            comment: "Текст на контракте Apple Pay `Разрешить списывать деньги` https://yadi.sk/i/FWhOeo-T3eCQzg"
+        )
+        static let paymentMethodTitle = NSLocalizedString(
+            "ApplePayContract.paymentMethodTitle",
+            bundle: Bundle.framework,
+            value: "Дальше откроем Apple Pay — подтвердите оплату",
+            comment: "Текст на контракте Apple Pay `Дальше откроем Apple Pay — подтвердите оплату` https://yadi.sk/i/FWhOeo-T3eCQzg"
+        )
     }
+    // swiftlint:enable line_length
 }

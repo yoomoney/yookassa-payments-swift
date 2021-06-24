@@ -61,7 +61,7 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
             UIButton.DynamicStyle.primary,
             UIView.Styles.heightAsContent
         )
-        $0.setStyledTitle(§Localized.continue, for: .normal)
+        $0.setStyledTitle(CommonLocalized.Contract.next, for: .normal)
         $0.addTarget(
             self,
             action: #selector(didPressSubmitButton),
@@ -95,8 +95,8 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
     lazy var actionTitleTextDialog: ActionTitleTextDialog = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(ActionTitleTextDialog.Styles.fail)
-        $0.buttonTitle = §Localized.PlaceholderView.buttonTitle
-        $0.text = §Localized.PlaceholderView.text
+        $0.buttonTitle = CommonLocalized.PlaceholderView.buttonTitle
+        $0.text = CommonLocalized.PlaceholderView.text
         $0.delegate = output
         return $0
     }(ActionTitleTextDialog())
@@ -116,7 +116,7 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
         view.setStyles(UIView.Styles.grayBackground)
         view.addGestureRecognizer(viewTapGestureRecognizer)
 
-        navigationItem.title = §Localized.title
+        navigationItem.title = CommonLocalized.SberPay.title
         setupView()
         setupConstraints()
     }
@@ -342,19 +342,5 @@ extension SberbankViewController: UIGestureRecognizerDelegate {
             return true
         }
         return false
-    }
-}
-
-// MARK: - Localized
-
-private extension SberbankViewController {
-    enum Localized: String {
-        case title = "Sberpay.Contract.Title"
-        case `continue` = "Contract.next"
-
-        enum PlaceholderView: String {
-            case buttonTitle = "Common.PlaceholderView.buttonTitle"
-            case text = "Common.PlaceholderView.text"
-        }
     }
 }

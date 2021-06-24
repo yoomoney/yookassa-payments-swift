@@ -66,7 +66,7 @@ extension BankCardPresenter: BankCardViewOutput {
 
         var feeValue: String?
         if let feeViewModel = feeViewModel {
-            feeValue = "\(§Localized.fee) " + makePrice(feeViewModel)
+            feeValue = "\(CommonLocalized.Contract.fee) " + makePrice(feeViewModel)
         }
 
         let termsOfServiceValue = makeTermsOfService(
@@ -126,8 +126,8 @@ extension BankCardPresenter: BankCardViewOutput {
 
     func didTapOnSavePaymentMethod() {
         let savePaymentMethodModuleInputData = SavePaymentMethodInfoModuleInputData(
-            headerValue: §SavePaymentMethodInfoLocalization.BankCard.header,
-            bodyValue: §SavePaymentMethodInfoLocalization.BankCard.body
+            headerValue: SavePaymentMethodInfoLocalization.BankCard.header,
+            bodyValue: SavePaymentMethodInfoLocalization.BankCard.body
         )
         router.presentSavePaymentMethodInfo(
             inputData: savePaymentMethodModuleInputData
@@ -225,14 +225,6 @@ extension BankCardPresenter: BankCardDataInputModuleOutput {
     }
 }
 
-// MARK: - Localized
-
-private extension BankCardPresenter {
-    enum Localized: String {
-        case fee = "Contract.fee"
-    }
-}
-
 // MARK: - Private global helpers
 
 private func makeMessage(
@@ -244,7 +236,7 @@ private func makeMessage(
     case let error as PresentableError:
         message = error.message
     default:
-        message = §CommonLocalized.Error.unknown
+        message = CommonLocalized.Error.unknown
     }
 
     return message

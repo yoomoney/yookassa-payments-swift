@@ -57,9 +57,9 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
             UIView.Styles.grayBackground,
             UIView.Styles.roundedShadow
         )
-        $0.hintCardCode = §Localized.hintCardCode
-        $0.hintCardNumber = §Localized.hintCardNumber
-        $0.cardCodePlaceholder = §Localized.cvc
+        $0.hintCardCode = CommonLocalized.BankCardView.inputCvcHint
+        $0.hintCardNumber = CommonLocalized.BankCardView.inputPanHint
+        $0.cardCodePlaceholder = CommonLocalized.BankCardView.inputCvcPlaceholder
         $0.delegate = self
         return $0
     }(MaskedCardView())
@@ -74,7 +74,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
     private lazy var errorCscLabel: UILabel = {
         $0.isHidden = true
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.text = §Localized.errorCvc
+        $0.text = CommonLocalized.BankCardView.BottomHint.invalidCvc
         $0.setStyles(
             UIView.Styles.grayBackground,
             UILabel.DynamicStyle.caption1,
@@ -97,7 +97,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
             UIButton.DynamicStyle.primary,
             UIView.Styles.heightAsContent
         )
-        $0.setStyledTitle(§Localized.continue, for: .normal)
+        $0.setStyledTitle(CommonLocalized.Contract.next, for: .normal)
         $0.addTarget(
             self,
             action: #selector(didPressActionButton),
@@ -128,8 +128,8 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
     lazy var actionTitleTextDialog: ActionTitleTextDialog = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(ActionTitleTextDialog.Styles.fail)
-        $0.buttonTitle = §Localized.PlaceholderView.buttonTitle
-        $0.text = §Localized.PlaceholderView.text
+        $0.buttonTitle = CommonLocalized.PlaceholderView.buttonTitle
+        $0.text = CommonLocalized.PlaceholderView.text
         $0.delegate = output
         return $0
     }(ActionTitleTextDialog())
@@ -146,7 +146,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         )
         $0.state = true
         $0.setStyles(SwitchItemView.Styles.primary)
-        $0.title = §Localized.saveAuthInAppTitle
+        $0.title = CommonLocalized.SaveAuthInApp.title
         $0.delegate = self
         return $0
     }(SwitchItemView())
@@ -158,7 +158,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
             bottom: Space.double,
             right: Space.double
         )
-        $0.title = §Localized.saveAuthInApp
+        $0.title = CommonLocalized.SaveAuthInApp.text
         $0.setStyles(SectionHeaderView.Styles.footer)
         return $0
     }(SectionHeaderView())
@@ -379,7 +379,7 @@ extension LinkedCardViewController: LinkedCardViewInput {
     func setupTitle(
         _ title: String?
     ) {
-        navigationItem.title = title ?? §Localized.title
+        navigationItem.title = title ?? Localized.title
     }
 
     func setupViewModel(
@@ -389,7 +389,7 @@ extension LinkedCardViewController: LinkedCardViewInput {
         orderView.subtitle = viewModel.description
         orderView.value = makePrice(viewModel.price)
         if let fee = viewModel.fee {
-            orderView.subvalue = "\(§Localized.fee) " + makePrice(fee)
+            orderView.subvalue = "\(CommonLocalized.Contract.fee) " + makePrice(fee)
         } else {
             orderView.subvalue = nil
         }
@@ -574,21 +574,12 @@ extension LinkedCardViewController: SwitchItemViewOutput {
 // MARK: - Localized
 
 private extension LinkedCardViewController {
-    enum Localized: String {
-        case title = "LinkedCard.title"
-        case `continue` = "Contract.next"
-        case fee = "Contract.fee"
-        case saveAuthInApp = "Contract.format.saveAuthInApp"
-        case saveAuthInAppTitle = "Contract.format.saveAuthInApp.title"
-
-        case hintCardNumber = "BankCardView.inputPanHint"
-        case hintCardCode = "BankCardDataInput.hintCardCode"
-        case cvc = "BankCardDataInput.cvc"
-        case errorCvc = "BankCardDataInput.errorCvc"
-
-        enum PlaceholderView: String {
-            case buttonTitle = "Common.PlaceholderView.buttonTitle"
-            case text = "Common.PlaceholderView.text"
-        }
+    enum Localized {
+        static let title = NSLocalizedString(
+            "LinkedCard.title",
+            bundle: Bundle.framework,
+            value: "Привязанная карта",
+            comment: "Title `Привязанная карта` на экране `Привязанная карта` https://yadi.sk/d/yLgHHmqAsklYng"
+        )
     }
 }

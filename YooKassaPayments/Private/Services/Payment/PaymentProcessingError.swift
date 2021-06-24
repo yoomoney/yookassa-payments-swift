@@ -11,9 +11,9 @@ enum PaymentProcessingError: PresentableError {
     var message: String {
         switch self {
         case .emptyList:
-            return §Localized.Error.emptyPaymentMethods
+            return Localized.Error.emptyPaymentMethods
         case .internetConnection:
-            return §Localized.Error.internetConnection
+            return Localized.Error.internetConnection
         }
     }
 
@@ -29,9 +29,19 @@ enum PaymentProcessingError: PresentableError {
 
 private extension PaymentProcessingError {
     enum Localized {
-        enum Error: String {
-            case emptyPaymentMethods = "Error.emptyPaymentOptions"
-            case internetConnection = "Error.internet"
+        enum Error {
+            static let emptyPaymentMethods = NSLocalizedString(
+                "Error.emptyPaymentOptions",
+                bundle: Bundle.framework,
+                value: "Нет доступных способов оплаты",
+                comment: "Ошибка `Нет доступных способов оплаты` на экране выбора способа оплаты"
+            )
+            static let internetConnection = NSLocalizedString(
+                "Error.internet",
+                bundle: Bundle.framework,
+                value: "Проблема с интернетом. Попробуйте еще раз, когда будете онлайн",
+                comment: "Ошибка `Проблема с интернетом`"
+            )
         }
     }
 }

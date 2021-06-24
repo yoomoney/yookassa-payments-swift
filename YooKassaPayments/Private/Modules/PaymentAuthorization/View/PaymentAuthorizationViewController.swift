@@ -12,7 +12,7 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
 
     private lazy var titleLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.styledText = §Localized.smsCodePlaceholder
+        $0.styledText = Localized.smsCodePlaceholder
         $0.setStyles(
             UILabel.DynamicStyle.title1,
             UILabel.Styles.multiline
@@ -74,8 +74,8 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
     lazy var actionTitleTextDialog: ActionTitleTextDialog = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(ActionTitleTextDialog.Styles.fail)
-        $0.buttonTitle = §Localized.PlaceholderView.buttonTitle
-        $0.text = §Localized.PlaceholderView.text
+        $0.buttonTitle = CommonLocalized.PlaceholderView.buttonTitle
+        $0.text = CommonLocalized.PlaceholderView.text
         $0.delegate = output
         return $0
     }(ActionTitleTextDialog())
@@ -106,7 +106,7 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
         setupConstraints()
 
         if shouldShowTitleOnNavBar {
-            navigationItem.title = §Localized.smsCodePlaceholder
+            navigationItem.title = Localized.smsCodePlaceholder
         }
     }
 
@@ -411,12 +411,12 @@ extension PaymentAuthorizationViewController: ActivityIndicatorFullViewPresentin
 // MARK: - Localized
 
 private extension PaymentAuthorizationViewController {
-    enum Localized: String {
-        case smsCodePlaceholder = "Contract.placeholder.smsCode"
-
-        enum PlaceholderView: String {
-            case buttonTitle = "Common.PlaceholderView.buttonTitle"
-            case text = "Common.PlaceholderView.text"
-        }
+    enum Localized {
+        static let smsCodePlaceholder = NSLocalizedString(
+            "Contract.placeholder.smsCode",
+            bundle: Bundle.framework,
+            value: "Введите код из смс",
+            comment: ""
+        )
     }
 }

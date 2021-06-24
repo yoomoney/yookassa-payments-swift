@@ -100,8 +100,8 @@ extension BankCardRepeatPresenter: BankCardRepeatViewOutput {
 
     func didTapOnSavePaymentMethod() {
         let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
-            headerValue: §SavePaymentMethodInfoLocalization.BankCard.header,
-            bodyValue: §SavePaymentMethodInfoLocalization.BankCard.body
+            headerValue: SavePaymentMethodInfoLocalization.BankCard.header,
+            bodyValue: SavePaymentMethodInfoLocalization.BankCard.body
         )
         router.presentSavePaymentMethodInfo(
             inputData: savePaymentMethodModuleinputData
@@ -443,7 +443,7 @@ private func makeMessage(_ error: Error) -> String {
     case let error as PresentableError:
         message = error.message
     default:
-        message = §CommonLocalized.Error.unknown
+        message = CommonLocalized.Error.unknown
     }
 
     return message

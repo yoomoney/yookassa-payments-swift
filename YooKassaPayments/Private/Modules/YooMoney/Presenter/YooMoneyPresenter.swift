@@ -150,8 +150,8 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
 
     func didTapOnSavePaymentMethod() {
         let savePaymentMethodModuleInputData = SavePaymentMethodInfoModuleInputData(
-            headerValue: §SavePaymentMethodInfoLocalization.Wallet.header,
-            bodyValue: §SavePaymentMethodInfoLocalization.Wallet.body
+            headerValue: SavePaymentMethodInfoLocalization.Wallet.header,
+            bodyValue: SavePaymentMethodInfoLocalization.Wallet.body
         )
         router.presentSavePaymentMethodInfo(
             inputData: savePaymentMethodModuleInputData
@@ -353,7 +353,7 @@ private func makeMessage(_ error: Error) -> String {
     case let error as PresentableError:
         message = error.message
     default:
-        message = §CommonLocalized.Error.unknown
+        message = CommonLocalized.Error.unknown
     }
 
     return message

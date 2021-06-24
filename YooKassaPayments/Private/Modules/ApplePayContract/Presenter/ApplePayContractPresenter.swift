@@ -108,8 +108,8 @@ extension ApplePayContractPresenter: ApplePayContractViewOutput {
 
     func didTapOnSavePaymentMethod() {
         let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
-            headerValue: §SavePaymentMethodInfoLocalization.Wallet.header,
-            bodyValue: §SavePaymentMethodInfoLocalization.Wallet.body
+            headerValue: SavePaymentMethodInfoLocalization.Wallet.header,
+            bodyValue: SavePaymentMethodInfoLocalization.Wallet.body
         )
         router.presentSavePaymentMethodInfo(
             inputData: savePaymentMethodModuleinputData
@@ -194,7 +194,7 @@ extension ApplePayContractPresenter: ApplePayContractInteractorOutput {
         ) { [weak self] in
             guard let self = self else { return }
             self.router.closeApplePay {
-                self.view?.presentError(with: §Localized.Error.failTokenizeData)
+                self.view?.presentError(with: CommonLocalized.ApplePay.failTokenizeData)
             }
         }
     }
@@ -214,7 +214,7 @@ extension ApplePayContractPresenter: ApplePayModuleOutput {
 
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
-            view.presentError(with: §Localized.applePayUnavailableTitle)
+            view.presentError(with: CommonLocalized.ApplePay.applePayUnavailableTitle)
         }
     }
 
@@ -270,17 +270,5 @@ extension ApplePayContractPresenter: ApplePayContractModuleInput {}
 private extension ApplePayContractPresenter {
     enum Constants {
         static let dismissTimeout: TimeInterval = 0.5
-    }
-}
-
-// MARK: - Localized
-
-private extension ApplePayContractPresenter {
-    enum Localized: String {
-        case applePayUnavailableTitle = "ApplePayUnavailable.title"
-
-        enum Error: String {
-            case failTokenizeData = "Error.ApplePayStrategy.failTokenizeData"
-        }
     }
 }

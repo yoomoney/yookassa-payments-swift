@@ -36,7 +36,7 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
             UIView.Styles.grayBackground
         )
         $0.image = PaymentMethodResources.Image.sberpay
-        $0.title = §Localized.paymentMethodTitle
+        $0.title = Localized.paymentMethodTitle
         return $0
     }(LargeIconView())
 
@@ -54,7 +54,7 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
             UIButton.DynamicStyle.primary,
             UIView.Styles.heightAsContent
         )
-        $0.setStyledTitle(§Localized.continue, for: .normal)
+        $0.setStyledTitle(CommonLocalized.Contract.next, for: .normal)
         $0.addTarget(
             self,
             action: #selector(didPressActionButton),
@@ -87,8 +87,8 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
     lazy var actionTitleTextDialog: ActionTitleTextDialog = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(ActionTitleTextDialog.Styles.fail)
-        $0.buttonTitle = §Localized.PlaceholderView.buttonTitle
-        $0.text = §Localized.PlaceholderView.text
+        $0.buttonTitle = CommonLocalized.PlaceholderView.buttonTitle
+        $0.text = CommonLocalized.PlaceholderView.text
         $0.delegate = output
         return $0
     }(ActionTitleTextDialog())
@@ -103,7 +103,7 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
     override func loadView() {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
-        navigationItem.title = §Localized.title
+        navigationItem.title = CommonLocalized.SberPay.title
 
         setupView()
         setupConstraints()
@@ -301,15 +301,12 @@ extension SberpayViewController: UITextViewDelegate {
 // MARK: - Localized
 
 private extension SberpayViewController {
-    enum Localized: String {
-        case title = "Sberpay.Contract.Title"
-        case `continue` = "Contract.next"
-        case fee = "Contract.fee"
-        case paymentMethodTitle = "Sberpay.paymentMethodTitle"
-
-        enum PlaceholderView: String {
-            case buttonTitle = "Common.PlaceholderView.buttonTitle"
-            case text = "Common.PlaceholderView.text"
-        }
+    enum Localized {
+        static let paymentMethodTitle = NSLocalizedString(
+            "Sberpay.paymentMethodTitle",
+            bundle: Bundle.framework,
+            value: "Дальше откроем приложение Сбербанк Онлайн — подтвердите оплату",
+            comment: "Текст `Дальше откроем приложение Сбербанк Онлайн — подтвердите оплату` https://yadi.sk/d/iBO2jhj5kjrxsg"
+        )
     }
 }

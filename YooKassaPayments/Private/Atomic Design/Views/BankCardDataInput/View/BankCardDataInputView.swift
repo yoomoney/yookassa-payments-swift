@@ -326,21 +326,21 @@ extension BankCardDataInputView: BankCardDataInputViewInput {
             case .panError:
                 self.inputsContainerView.setStyles(UIView.Styles.alertBorder)
                 self.inputPanCardView.setStyles(InputPanCardView.Styles.error)
-                self.bottomHintLabel.text = §Localized.BottomHint.invalidPan
+                self.bottomHintLabel.text = CommonLocalized.BankCardView.BottomHint.invalidPan
                 self.bottomHintLabel.alpha = 1
             case .expiryDateError:
                 self.inputsContainerView.setStyles(UIView.Styles.alertBorder)
                 self.inputExpiryDateView.setStyles(InputExpiryDateView.Styles.error)
                 self.inputPanCardView.setStyles(InputPanCardView.Styles.default)
                 self.inputCvcView.setStyles(InputCvcView.Styles.default)
-                self.bottomHintLabel.text = §Localized.BottomHint.invalidExpiry
+                self.bottomHintLabel.text = CommonLocalized.BankCardView.BottomHint.invalidExpiry
                 self.bottomHintLabel.alpha = 1
             case .invalidCvc:
                 self.inputsContainerView.setStyles(UIView.Styles.alertBorder)
                 self.inputCvcView.setStyles(InputCvcView.Styles.error)
                 self.inputExpiryDateView.setStyles(InputExpiryDateView.Styles.default)
                 self.inputPanCardView.setStyles(InputPanCardView.Styles.default)
-                self.bottomHintLabel.text = §Localized.BottomHint.invalidCvc
+                self.bottomHintLabel.text = CommonLocalized.BankCardView.BottomHint.invalidCvc
                 self.bottomHintLabel.alpha = 1
             }
         }
@@ -416,18 +416,6 @@ private extension BankCardDataInputView.BankCardFocus {
             return view.inputExpiryDateView.expiryDateTextField
         case .cvc:
             return view.inputCvcView.cvcTextField
-        }
-    }
-}
-
-// MARK: - Localized
-
-private extension BankCardDataInputView {
-    enum Localized {
-        enum BottomHint: String {
-            case invalidPan = "BankCardDataInputView.BottomHint.invalidPan"
-            case invalidExpiry = "BankCardDataInputView.BottomHint.invalidExpiry"
-            case invalidCvc = "BankCardDataInputView.BottomHint.invalidCvc"
         }
     }
 }

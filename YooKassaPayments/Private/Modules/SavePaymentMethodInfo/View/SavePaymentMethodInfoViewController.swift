@@ -71,7 +71,7 @@ final class SavePaymentMethodInfoViewController: UIViewController {
             UIButton.DynamicStyle.primary,
             UIView.Styles.heightAsContent
         )
-        $0.setStyledTitle(§Localized.buttonGotIt, for: .normal)
+        $0.setStyledTitle(Localized.buttonGotIt, for: .normal)
         $0.addTarget(
             self,
             action: #selector(closeBarButtonItemDidPress),
@@ -199,7 +199,12 @@ extension SavePaymentMethodInfoViewController: SavePaymentMethodInfoViewInput {
 // MARK: - Localized
 
 private extension SavePaymentMethodInfoViewController {
-    enum Localized: String {
-        case buttonGotIt = "SavePaymentMethodInfo.Button.GotIt"
+    enum Localized {
+        static let buttonGotIt = NSLocalizedString(
+            "SavePaymentMethodInfo.Button.GotIt",
+            bundle: Bundle.framework,
+            value: "Понятно",
+            comment: "Текст кнопки `Понятно` https://yadi.sk/i/4MbCtrW4qrtDcQ"
+        )
     }
 }

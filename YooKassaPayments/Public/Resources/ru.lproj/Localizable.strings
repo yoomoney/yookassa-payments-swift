@@ -26,7 +26,7 @@
 "Contract.logout" = "Выйти";
 "Contract.format.saveAuthInApp.title" = "Запомнить меня";
 "Contract.format.saveAuthInApp" = "В следующий раз не придётся входить в профиль ЮMoney — можно будет оплатить быстрее";
-"Contract.format.savePaymentMethod.title" = "Разрешить списывать деньги";
+"ApplePayContract.SavePaymentMethod.Title" = "Разрешить списывать деньги";
 
 // Wallet
 

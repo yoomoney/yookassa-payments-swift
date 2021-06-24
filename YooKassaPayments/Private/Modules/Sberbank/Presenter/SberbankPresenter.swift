@@ -55,7 +55,7 @@ extension SberbankPresenter: SberbankViewOutput {
 
         var feeValue: String?
         if let feeViewModel = feeViewModel {
-            feeValue = "\(§Localized.fee) " + makePrice(feeViewModel)
+            feeValue = "\(CommonLocalized.Contract.fee) " + makePrice(feeViewModel)
         }
 
         let termsOfServiceValue = makeTermsOfService(
@@ -72,10 +72,10 @@ extension SberbankPresenter: SberbankViewOutput {
         )
         view.setViewModel(viewModel)
 
-        let title = §Localized.phoneInputTitle
+        let title = Localized.phoneInputTitle
         phoneNumberModuleInput?.setTitle(title.uppercased())
-        phoneNumberModuleInput?.setPlaceholder(§Localized.phoneInputPlaceholder)
-        phoneNumberModuleInput?.setSubtitle(§Localized.phoneInputBottomHint)
+        phoneNumberModuleInput?.setPlaceholder(Localized.phoneInputPlaceholder)
+        phoneNumberModuleInput?.setSubtitle(Localized.phoneInputBottomHint)
 
         if let userPhoneNumber = userPhoneNumber {
             phoneNumberModuleInput?.setValue(userPhoneNumber)
@@ -233,7 +233,7 @@ private extension SberbankPresenter {
         case let error as PresentableError:
             message = error.message
         default:
-            message = §CommonLocalized.Error.unknown
+            message = CommonLocalized.Error.unknown
         }
 
         return message
@@ -243,10 +243,24 @@ private extension SberbankPresenter {
 // MARK: - Localized
 
 private extension SberbankPresenter {
-    enum Localized: String {
-        case phoneInputTitle = "Contract.Sberbank.PhoneInput.Title"
-        case phoneInputPlaceholder = "Contract.Sberbank.PhoneInput.Placeholder"
-        case phoneInputBottomHint = "Contract.Sberbank.PhoneInput.BottomHint"
-        case fee = "Contract.fee"
+    enum Localized {
+        static let phoneInputTitle = NSLocalizedString(
+            "Contract.Sberbank.PhoneInput.Title",
+            bundle: Bundle.framework,
+            value: "Номер в Сбербанк Онлайн",
+            comment: "Текст `Номер в Сбербанк Онлайн` https://yadi.sk/i/T-XQGU9NaPMgKA"
+        )
+        static let phoneInputPlaceholder = NSLocalizedString(
+            "Contract.Sberbank.PhoneInput.Placeholder",
+            bundle: Bundle.framework,
+            value: "+ 7 987 654 32 10",
+            comment: "Текст `+ 7 987 654 32 10` https://yadi.sk/i/T-XQGU9NaPMgKA"
+        )
+        static let phoneInputBottomHint = NSLocalizedString(
+            "Contract.Sberbank.PhoneInput.BottomHint",
+            bundle: Bundle.framework,
+            value: "Для смс от Сбербанка с кодом для оплаты",
+            comment: "Текст `Для смс от Сбербанка с кодом для оплаты` https://yadi.sk/i/T-XQGU9NaPMgKA"
+        )
     }
 }

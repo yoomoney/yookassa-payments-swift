@@ -90,7 +90,7 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
     ) -> PaymentMethodViewModel {
         return PaymentMethodViewModel(
             image: PaymentMethodResources.Image.yooMoney,
-            title: §PaymentMethodResources.Localized.wallet,
+            title: PaymentMethodResources.Localized.wallet,
             subtitle: makeBalanceText(paymentOption.balance)
         )
     }
@@ -156,13 +156,13 @@ extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
         let name: String
         switch paymentMethodType {
         case .bankCard:
-            name = §PaymentMethodResources.Localized.bankCard
+            name = PaymentMethodResources.Localized.bankCard
         case .yooMoney:
-            name = §PaymentMethodResources.Localized.wallet
+            name = PaymentMethodResources.Localized.wallet
         case .applePay:
-            name = §PaymentMethodResources.Localized.applePay
+            name = PaymentMethodResources.Localized.applePay
         case .sberbank:
-            name = §PaymentMethodResources.Localized.sberpay
+            name = PaymentMethodResources.Localized.sberpay
         default:
             assertionFailure("Unsupported PaymentMethodType")
             name = "Unsupported"

@@ -18,6 +18,7 @@
 		308E41852385822300B44490 /* SavePaymentMethodInfoModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E41842385822300B44490 /* SavePaymentMethodInfoModuleIO.swift */; };
 		308E41882385829700B44490 /* SavePaymentMethodInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E41872385829700B44490 /* SavePaymentMethodInfoViewModel.swift */; };
 		308E418B23858B4800B44490 /* SavePaymentMethodInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308E418A23858B4800B44490 /* SavePaymentMethodInfo.swift */; };
+		3093D831268475980048C8D9 /* LocalizedResources.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3093D833268475980048C8D9 /* LocalizedResources.strings */; };
 		30B20E2B2535FC1C00941574 /* KeyValueStoringKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B20E2A2535FC1C00941574 /* KeyValueStoringKeys.swift */; };
 		30C22EFB251A076400460CC0 /* MoneyAuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C22EFA251A076400460CC0 /* MoneyAuthAssembly.swift */; };
 		30C22EFE251A0C1100460CC0 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C22EFD251A0C1100460CC0 /* GlobalConstants.swift */; };
@@ -402,6 +403,8 @@
 		308E41842385822300B44490 /* SavePaymentMethodInfoModuleIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePaymentMethodInfoModuleIO.swift; sourceTree = "<group>"; };
 		308E41872385829700B44490 /* SavePaymentMethodInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePaymentMethodInfoViewModel.swift; sourceTree = "<group>"; };
 		308E418A23858B4800B44490 /* SavePaymentMethodInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePaymentMethodInfo.swift; sourceTree = "<group>"; };
+		3093D832268475980048C8D9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LocalizedResources.strings; sourceTree = "<group>"; };
+		3093D8342684759C0048C8D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LocalizedResources.strings; sourceTree = "<group>"; };
 		30B20E2A2535FC1C00941574 /* KeyValueStoringKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueStoringKeys.swift; sourceTree = "<group>"; };
 		30C22EFA251A076400460CC0 /* MoneyAuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyAuthAssembly.swift; sourceTree = "<group>"; };
 		30C22EFD251A0C1100460CC0 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
@@ -1222,6 +1225,7 @@
 				402EB1C8E83F34A1D7D30CE0 /* Configurations */,
 				402EB8D687A8CDBF62ECC5E9 /* Entitlements */,
 				402EB434B2C5611C56511AC1 /* Localizable.strings */,
+				3093D833268475980048C8D9 /* LocalizedResources.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2582,6 +2586,7 @@
 			files = (
 				402EB62CDBDD5CBC28E68446 /* Hosts.plist in Resources */,
 				402EBE58A36A98F06C98DD57 /* banks.json in Resources */,
+				3093D831268475980048C8D9 /* LocalizedResources.strings in Resources */,
 				402EB20489B718B1F3042183 /* Media.xcassets in Resources */,
 				402EB6121E6DE1E810A074A9 /* Localizable.strings in Resources */,
 			);
@@ -2959,6 +2964,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		3093D833268475980048C8D9 /* LocalizedResources.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3093D832268475980048C8D9 /* ru */,
+				3093D8342684759C0048C8D9 /* en */,
+			);
+			name = LocalizedResources.strings;
+			sourceTree = "<group>";
+		};
 		402EB434B2C5611C56511AC1 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -59,7 +59,7 @@ final class BankCardViewController: UIViewController {
             UIButton.DynamicStyle.primary,
             UIView.Styles.heightAsContent
         )
-        $0.setStyledTitle(§Localized.continue, for: .normal)
+        $0.setStyledTitle(CommonLocalized.Contract.next, for: .normal)
         $0.addTarget(
             self,
             action: #selector(didPressSubmitButton),
@@ -89,7 +89,7 @@ final class BankCardViewController: UIViewController {
             right: Space.double
         )
         $0.setStyles(SwitchItemView.Styles.primary)
-        $0.title = §Localized.savePaymentMethodTitle
+        $0.title = Localized.savePaymentMethodTitle
         $0.delegate = self
         return $0
     }(SwitchItemView())
@@ -116,7 +116,7 @@ final class BankCardViewController: UIViewController {
             bottom: 0,
             right: Space.double
         )
-        $0.title = §Localized.savePaymentMethodTitle
+        $0.title = Localized.savePaymentMethodTitle
         $0.setStyles(SectionHeaderView.Styles.primary)
         return $0
     }(SectionHeaderView())
@@ -149,7 +149,7 @@ final class BankCardViewController: UIViewController {
         view.setStyles(UIView.Styles.grayBackground)
         view.addGestureRecognizer(viewTapGestureRecognizer)
 
-        navigationItem.title = §Localized.title
+        navigationItem.title = Localized.title
 
         setupView()
         setupConstraints()
@@ -445,10 +445,18 @@ private extension BankCardViewController {
 // MARK: - Localized
 
 private extension BankCardViewController {
-    enum Localized: String {
-        case title = "BankCardDataInput.navigationBarTitle"
-        case `continue` = "Contract.next"
-        case savePaymentMethodTitle = "BankCard.savePaymentMethod.title"
-
+    enum Localized {
+        static let title = NSLocalizedString(
+            "BankCardDataInput.navigationBarTitle",
+            bundle: Bundle.framework,
+            value: "Банковская карта",
+            comment: "Title `Банковская карта` на экране `Банковская карта` https://yadi.sk/i/Z2oi1Uun7nS-jA"
+        )
+        static let savePaymentMethodTitle = NSLocalizedString(
+            "BankCard.savePaymentMethod.title",
+            bundle: Bundle.framework,
+            value: "Привязать карту",
+            comment: "Текст `Привязать карту` на экране `Банковская карта` https://yadi.sk/i/Z2oi1Uun7nS-jA"
+        )
     }
 }

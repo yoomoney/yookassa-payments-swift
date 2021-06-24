@@ -26,7 +26,7 @@
 "Contract.logout" = "Sign out";
 "Contract.format.saveAuthInApp.title" = "Remember me";
 "Contract.format.saveAuthInApp" = "Next time, you won't have to sign in to your YooMoney account, which will make payments faster";
-"Contract.format.savePaymentMethod.title" = "Allow to write off money";
+"ApplePayContract.SavePaymentMethod.Title" = "Allow to write off money";
 
 // Wallet
 

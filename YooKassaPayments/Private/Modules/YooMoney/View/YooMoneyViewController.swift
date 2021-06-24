@@ -65,7 +65,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
             UIButton.DynamicStyle.primary,
             UIView.Styles.heightAsContent
         )
-        $0.setStyledTitle(§Localized.continue, for: .normal)
+        $0.setStyledTitle(CommonLocalized.Contract.next, for: .normal)
         $0.addTarget(
             self,
             action: #selector(didPressActionButton),
@@ -95,8 +95,8 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
     lazy var actionTitleTextDialog: ActionTitleTextDialog = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(ActionTitleTextDialog.Styles.fail)
-        $0.buttonTitle = §Localized.PlaceholderView.buttonTitle
-        $0.text = §Localized.PlaceholderView.text
+        $0.buttonTitle = CommonLocalized.PlaceholderView.buttonTitle
+        $0.text = CommonLocalized.PlaceholderView.text
         $0.delegate = output
         return $0
     }(ActionTitleTextDialog())
@@ -126,7 +126,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         )
         $0.state = true
         $0.setStyles(SwitchItemView.Styles.primary)
-        $0.title = §Localized.saveAuthInAppTitle
+        $0.title = CommonLocalized.SaveAuthInApp.title
         $0.delegate = self
         return $0
     }(SwitchItemView())
@@ -138,7 +138,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
             bottom: Space.double,
             right: Space.double
         )
-        $0.title = §Localized.saveAuthInApp
+        $0.title = CommonLocalized.SaveAuthInApp.text
         $0.setStyles(SectionHeaderView.Styles.footer)
         return $0
     }(SectionHeaderView())
@@ -154,7 +154,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
             right: Space.double
         )
         $0.setStyles(SwitchItemView.Styles.primary)
-        $0.title = §Localized.savePaymentMethodTitle
+        $0.title = Localized.savePaymentMethodTitle
         $0.delegate = self
         return $0
     }(SwitchItemView())
@@ -181,7 +181,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
             bottom: 0,
             right: Space.double
         )
-        $0.title = §Localized.savePaymentMethodTitle
+        $0.title = Localized.savePaymentMethodTitle
         $0.setStyles(SectionHeaderView.Styles.primary)
         return $0
     }(SectionHeaderView())
@@ -213,7 +213,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
         view.addGestureRecognizer(viewTapGestureRecognizer)
-        navigationItem.title = §Localized.title
+        navigationItem.title = Localized.title
 
         setupView()
         setupConstraints()
@@ -355,7 +355,7 @@ extension YooMoneyViewController: YooMoneyViewInput {
         orderView.subtitle = viewModel.description
         orderView.value = makePrice(viewModel.price)
         if let fee = viewModel.fee {
-            orderView.subvalue = "\(§Localized.fee) " + makePrice(fee)
+            orderView.subvalue = "\(CommonLocalized.Contract.fee) " + makePrice(fee)
         } else {
             orderView.subvalue = nil
         }
@@ -364,7 +364,7 @@ extension YooMoneyViewController: YooMoneyViewInput {
         paymentMethodView.subtitle = viewModel.paymentMethod.subtitle ?? ""
         paymentMethodView.image = UIImage.avatar
 
-        paymentMethodView.rightButtonTitle = §Localized.logout
+        paymentMethodView.rightButtonTitle = Localized.logout
         paymentMethodView.output = self
 
         termsOfServiceLinkedTextView.attributedText = makeTermsOfService(
@@ -590,18 +590,24 @@ extension YooMoneyViewController: LargeIconButtonItemViewOutput {
 // MARK: - Localized
 
 private extension YooMoneyViewController {
-    enum Localized: String {
-        case title = "YooMoney.title"
-        case `continue` = "Contract.next"
-        case fee = "Contract.fee"
-        case saveAuthInApp = "Contract.format.saveAuthInApp"
-        case saveAuthInAppTitle = "Contract.format.saveAuthInApp.title"
-        case savePaymentMethodTitle = "Wallet.savePaymentMethod.title"
-        case logout = "Contract.logout"
-
-        enum PlaceholderView: String {
-            case buttonTitle = "Common.PlaceholderView.buttonTitle"
-            case text = "Common.PlaceholderView.text"
-        }
+    enum Localized {
+        static let title = NSLocalizedString(
+            "YooMoney.title",
+            bundle: Bundle.framework,
+            value: "ЮMoney",
+            comment: "Текст `ЮMoney` https://yadi.sk/i/o89CnEUSmNsM7g"
+        )
+        static let savePaymentMethodTitle = NSLocalizedString(
+            "Wallet.savePaymentMethod.title",
+            bundle: Bundle.framework,
+            value: "Привязать кошелек",
+            comment: "Текст `Привязать кошелек` https://yadi.sk/i/o89CnEUSmNsM7g"
+        )
+        static let logout = NSLocalizedString(
+            "Contract.logout",
+            bundle: Bundle.framework,
+            value: "Выйти",
+            comment: "Текст `Выйти` https://yadi.sk/i/o89CnEUSmNsM7g"
+        )
     }
 }
