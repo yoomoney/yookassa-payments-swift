@@ -46,8 +46,8 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
     lazy var actionTitleTextDialog: ActionTitleTextDialog = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(ActionTitleTextDialog.Styles.fail)
-        $0.text = §Localized.PlaceholderView.text
-        $0.buttonTitle = §Localized.PlaceholderView.buttonTitle
+        $0.text = CommonLocalized.PlaceholderView.text
+        $0.buttonTitle = CommonLocalized.PlaceholderView.buttonTitle
         $0.delegate = output
         return $0
     }(ActionTitleTextDialog())
@@ -114,7 +114,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
 
         let leftItem = UILabel()
         leftItem.setStyles(UILabel.DynamicStyle.headline1)
-        leftItem.text = §Localized.paymentMethods
+        leftItem.text = Localized.paymentMethods
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftItem)
     }
 
@@ -326,18 +326,17 @@ extension PaymentMethodsViewController: PlaceholderPresenting {
 // MARK: - Localized
 
 private extension PaymentMethodsViewController {
-    enum Localized: String {
-        case paymentMethods = "PaymentMethods.paymentMethods"
-        case logoImage = "image.logo"
-
-        enum PlaceholderView: String {
-            case text = "Common.PlaceholderView.text"
-            case buttonTitle = "Common.PlaceholderView.buttonTitle"
-        }
+    enum Localized {
+        static let paymentMethods = NSLocalizedString(
+            "PaymentMethods.paymentMethods",
+            bundle: Bundle.framework,
+            value: "Способ оплаты",
+            comment: "Title `Способ оплаты` на экране выбора способа оплаты https://yadi.sk/i/0dSpSggROTC0Jw"
+        )
     }
 
     enum Resources {
-        static let kassaLogo = UIImage.named(§Localized.logoImage)
+        static let kassaLogo = UIImage.localizedImage("image.logo")
     }
 }
 

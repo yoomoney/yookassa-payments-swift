@@ -48,8 +48,8 @@ enum SavePaymentMethodViewModelFactory {
         switch savePaymentMethod {
         case .userSelects:
             let textValue = (
-                text: §Localized.BankCard.UserPriority.text,
-                hyperText: §Localized.BankCard.UserPriority.hyperText
+                text: Localized.BankCard.UserPriority.text,
+                hyperText: Localized.BankCard.UserPriority.hyperText
             )
             let switcherSavePaymentMethodViewModel = SwitcherSavePaymentMethodViewModel(
                 state: initialState,
@@ -59,8 +59,8 @@ enum SavePaymentMethodViewModelFactory {
             savePaymentMethodViewModel = .switcher(switcherSavePaymentMethodViewModel)
         case .on:
             let textValue = (
-                text: §Localized.BankCard.Force.text,
-                hyperText: §Localized.BankCard.Force.hyperText
+                text: Localized.BankCard.Force.text,
+                hyperText: Localized.BankCard.Force.hyperText
             )
             let strictSavePaymentMethodViewModel = StrictSavePaymentMethodViewModel(
                 text: textValue.text,
@@ -81,13 +81,13 @@ enum SavePaymentMethodViewModelFactory {
             switch savePaymentMethod {
             case .userSelects:
                 return (
-                    text: §Localized.Wallet.UserPriority.text,
-                    hyperText: §Localized.Wallet.UserPriority.hyperText
+                    text: Localized.Wallet.UserPriority.text,
+                    hyperText: Localized.Wallet.UserPriority.hyperText
                 )
             case .on:
                 return (
-                    text: §Localized.Wallet.Force.text,
-                    hyperText: §Localized.Wallet.Force.hyperText
+                    text: Localized.Wallet.Force.text,
+                    hyperText: Localized.Wallet.Force.hyperText
                 )
             default:
                 return nil
@@ -98,13 +98,13 @@ enum SavePaymentMethodViewModelFactory {
             switch savePaymentMethod {
             case .userSelects:
                 return (
-                    text: §Localized.BankCard.UserPriority.text,
-                    hyperText: §Localized.BankCard.UserPriority.hyperText
+                    text: Localized.BankCard.UserPriority.text,
+                    hyperText: Localized.BankCard.UserPriority.hyperText
                 )
             case .on:
                 return (
-                    text: §Localized.BankCard.Force.text,
-                    hyperText: §Localized.BankCard.Force.hyperText
+                    text: Localized.BankCard.Force.text,
+                    hyperText: Localized.BankCard.Force.hyperText
                 )
             default:
                 return nil
@@ -119,24 +119,64 @@ enum SavePaymentMethodViewModelFactory {
 
 private enum Localized {
     enum Wallet {
-        enum UserPriority: String {
-            case text = "SavePaymentMethod.Wallet.UserPriority.Text"
-            case hyperText = "SavePaymentMethod.Wallet.UserPriority.hyperText"
+        enum UserPriority {
+            static let text = NSLocalizedString(
+                "SavePaymentMethod.Wallet.UserPriority.Text",
+                bundle: Bundle.framework,
+                value: "Разрешить магазину",
+                comment: "Текст `Разрешить магазину` https://yadi.sk/i/o89CnEUSmNsM7g"
+            )
+            static let hyperText = NSLocalizedString(
+                "SavePaymentMethod.Wallet.UserPriority.hyperText",
+                bundle: Bundle.framework,
+                value: "списывать деньги без моего участия",
+                comment: "Текст `списывать деньги без моего участия` https://yadi.sk/i/o89CnEUSmNsM7g"
+            )
         }
-        enum Force: String {
-            case text = "SavePaymentMethod.Wallet.Force.Text"
-            case hyperText = "SavePaymentMethod.Wallet.Force.hyperText"
+        enum Force {
+            static let text = NSLocalizedString(
+                "SavePaymentMethod.Wallet.Force.Text",
+                bundle: Bundle.framework,
+                value: "После оплаты привяжем кошелёк: магазин сможет",
+                comment: "Текст `После оплаты привяжем кошелёк: магазин сможет` https://yadi.sk/i/rFEZPSdXTgV1bw"
+            )
+            static let hyperText = NSLocalizedString(
+                "SavePaymentMethod.Wallet.Force.hyperText",
+                bundle: Bundle.framework,
+                value: "списывать деньги без вашего участия",
+                comment: "Текст `списывать деньги без вашего участия` https://yadi.sk/i/rFEZPSdXTgV1bw"
+            )
         }
     }
 
     enum BankCard {
-        enum UserPriority: String {
-            case text = "SavePaymentMethod.BankCard.UserPriority.Text"
-            case hyperText = "SavePaymentMethod.BankCard.UserPriority.hyperText"
+        enum UserPriority {
+            static let text = NSLocalizedString(
+                "SavePaymentMethod.BankCard.UserPriority.Text",
+                bundle: Bundle.framework,
+                value: "Привязать карту и",
+                comment: "Текст `Привязать карту и` https://yadi.sk/i/Z2oi1Uun7nS-jA"
+            )
+            static let hyperText = NSLocalizedString(
+                "SavePaymentMethod.BankCard.UserPriority.hyperText",
+                bundle: Bundle.framework,
+                value: "списывать деньги по запросу магазина",
+                comment: "Текст `списывать деньги по запросу магазина` https://yadi.sk/i/Z2oi1Uun7nS-jA"
+            )
         }
-        enum Force: String {
-            case text = "SavePaymentMethod.BankCard.Force.Text"
-            case hyperText = "SavePaymentMethod.BankCard.Force.hyperText"
+        enum Force {
+            static let text = NSLocalizedString(
+                "SavePaymentMethod.BankCard.Force.Text",
+                bundle: Bundle.framework,
+                value: "После оплаты привяжем карту, чтобы",
+                comment: "Текст `После оплаты привяжем карту, чтобы` https://yadi.sk/i/_PWhW8MwuxCopQ"
+            )
+            static let hyperText = NSLocalizedString(
+                "SavePaymentMethod.BankCard.Force.hyperText",
+                bundle: Bundle.framework,
+                value: "списывать деньги по запросу магазина",
+                comment: "Текст `списывать деньги по запросу магазина` https://yadi.sk/i/_PWhW8MwuxCopQ"
+            )
         }
     }
 }

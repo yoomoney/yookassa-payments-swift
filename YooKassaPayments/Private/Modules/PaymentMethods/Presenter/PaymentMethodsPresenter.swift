@@ -660,7 +660,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
             interactor.fetchPaymentMethods()
             DispatchQueue.main.async { [weak self] in
                 guard let view = self?.view else { return }
-                view.presentError(with: §Localized.Error.noWalletTitle)
+                view.presentError(with: Localized.Error.noWalletTitle)
             }
         } else {
             interactor.fetchPaymentMethods()
@@ -722,7 +722,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
             view.hideActivity()
-            view.presentError(with: §CommonLocalized.Error.unknown)
+            view.presentError(with: CommonLocalized.Error.unknown)
         }
     }
 
@@ -775,7 +775,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
             self.router.closeApplePay { [weak self] in
                 guard let self = self else { return }
 
-                let message = §Localized.Error.failTokenizeData
+                let message = CommonLocalized.ApplePay.failTokenizeData
                 if self.paymentMethods?.count == 1 {
                     self.view?.hideActivity()
                     self.view?.showPlaceholder(message: message)
@@ -793,7 +793,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         case let error as PresentableError:
             message = error.message
         default:
-            message = §CommonLocalized.Error.unknown
+            message = CommonLocalized.Error.unknown
         }
 
         DispatchQueue.main.async { [weak self] in
@@ -1009,7 +1009,7 @@ extension PaymentMethodsPresenter: ApplePayModuleOutput {
             guard let self = self,
                   let view = self.view else { return }
 
-            let message = §Localized.applePayUnavailableTitle
+            let message = CommonLocalized.ApplePay.applePayUnavailableTitle
             if self.paymentMethods?.count == 1 {
                 view.hideActivity()
                 view.showPlaceholder(message: message)
@@ -1285,12 +1285,14 @@ private extension PaymentMethodsPresenter {
 // MARK: - Localized
 
 private extension PaymentMethodsPresenter {
-    enum Localized: String {
-        case applePayUnavailableTitle = "ApplePayUnavailable.title"
-
-        enum Error: String {
-            case failTokenizeData = "Error.ApplePayStrategy.failTokenizeData"
-            case noWalletTitle = "Error.noWalletTitle"
+    enum Localized {
+        enum Error {
+            static let noWalletTitle = NSLocalizedString(
+                "Error.noWalletTitle",
+                bundle: Bundle.framework,
+                value: "Оплата кошельком недоступна",
+                comment: "После авторизации в кошельке при запросе доступных методов кошелёк отсутствует"
+            )
         }
     }
 }

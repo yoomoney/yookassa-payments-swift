@@ -349,7 +349,7 @@ private func makeMessage(_ error: Error) -> String {
     case let error as PresentableError:
         message = error.message
     default:
-        message = §CommonLocalized.Error.unknown
+        message = CommonLocalized.Error.unknown
     }
 
     return message

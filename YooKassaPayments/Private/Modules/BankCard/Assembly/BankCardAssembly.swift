@@ -97,12 +97,12 @@ enum BankCardAssembly {
         moduleInput: BankCardDataInputModuleInput
     ) {
         let inputData = BankCardDataInputModuleInputData(
-            inputPanHint: §Localized.BankCardView.inputPanHint,
-            inputPanPlaceholder: §Localized.BankCardView.inputPanPlaceholder,
-            inputExpiryDateHint: §Localized.BankCardView.inputExpiryDateHint,
-            inputExpiryDatePlaceholder: §Localized.BankCardView.inputExpiryDatePlaceholder,
-            inputCvcHint: §Localized.BankCardView.inputCvcHint,
-            inputCvcPlaceholder: §Localized.BankCardView.inputCvcPlaceholder,
+            inputPanHint: CommonLocalized.BankCardView.inputPanHint,
+            inputPanPlaceholder: CommonLocalized.BankCardView.inputPanPlaceholder,
+            inputExpiryDateHint: CommonLocalized.BankCardView.inputExpiryDateHint,
+            inputExpiryDatePlaceholder: CommonLocalized.BankCardView.inputExpiryDatePlaceholder,
+            inputCvcHint: CommonLocalized.BankCardView.inputCvcHint,
+            inputCvcPlaceholder: CommonLocalized.BankCardView.inputCvcPlaceholder,
             cardScanner: inputData.cardScanning,
             isLoggingEnabled: inputData.isLoggingEnabled
         )
@@ -112,20 +112,5 @@ enum BankCardAssembly {
             transitionHandler: transitionHandler
         )
         return (view, moduleInput)
-    }
-}
-
-// MARK: - Localized
-
-private extension BankCardAssembly {
-    enum Localized {
-        enum BankCardView: String {
-            case inputPanHint = "BankCardView.inputPanHint"
-            case inputPanPlaceholder = "BankCardView.inputPanPlaceholder"
-            case inputExpiryDateHint = "BankCardView.inputExpiryDateHint"
-            case inputExpiryDatePlaceholder = "BankCardView.inputExpiryDatePlaceholder"
-            case inputCvcHint = "BankCardView.inputCvcHint"
-            case inputCvcPlaceholder = "BankCardView.inputCvcPlaceholder"
-        }
     }
 }

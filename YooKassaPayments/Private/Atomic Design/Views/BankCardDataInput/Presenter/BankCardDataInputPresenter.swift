@@ -322,8 +322,8 @@ private extension BankCardDataInputPresenter {
             view.setErrorState(.panError)
             trackCardNumberInputError()
         } else if (view.focus == nil ||
-                    view.focus == .expiryDate
-                    && expiryDateText.count == Constants.MoveFocusLength.expiryDate),
+            view.focus == .expiryDate
+            && expiryDateText.count == Constants.MoveFocusLength.expiryDate),
                   errors.contains(.expirationDateIsExpired)
                       || errors.contains(.expiryDateEmpty)
                       || errors.contains(.invalidMonth) {
