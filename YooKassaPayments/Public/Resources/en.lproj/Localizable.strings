@@ -1,157 +1,173 @@
-// Payment methods
-
-"PaymentMethods.paymentMethods" = "Payment method";
-"PaymentMethod.sberpay" = "SberPay";
-"PaymentMethod.wallet" = "YooMoney";
-"PaymentMethod.applePay" = "Apple Pay";
-"PaymentMethod.bankCard" = "Bank card";
-
-// Bank card
-
-"BankCardView.inputPanHint" = "Card number";
-"BankCardView.inputPanPlaceholder" = "Enter or scan";
-"BankCardView.inputExpiryDatePlaceholder" = "MM/YY";
-"BankCardView.inputExpiryDateHint" = "Expiration date";
-"BankCardView.inputCvcHint" = "Code";
-"BankCardView.inputCvcPlaceholder" = "CVC";
-"BankCardDataInputView.BottomHint.invalidPan" = "Check the card number";
-"BankCardDataInputView.BottomHint.invalidExpiry" = "Check the month and date";
-"BankCardDataInputView.BottomHint.invalidCvc" = "Check CVC";
-"BankCard.savePaymentMethod.title" = "Link a card";
-
-// Contract
-
-"Contract.fee" = "Including commission";
-"Contract.placeholder.smsCode" = "Enter text message code";
-"Contract.logout" = "Sign out";
-"Contract.format.saveAuthInApp.title" = "Remember me";
-"Contract.format.saveAuthInApp" = "Next time, you won't have to sign in to your YooMoney account, which will make payments faster";
-"ApplePayContract.SavePaymentMethod.Title" = "Allow to write off money";
-
-// Wallet
-
-"Wallet.savePaymentMethod.title" = "Link a wallet";
-
-// Linked card
-
-"LinkedCard.title" = "Linked card";
-
-
-// License agreement
-
-"TermsOfService.Text" = "By clicking this button, accept";
-"TermsOfService.Hyperlink" = "the terms and conditions of the service";
-
-// Save payment method
-
-"SavePaymentMethodInfo.Wallet.Header" = "Permission to debit money without your participation";
-"SavePaymentMethodInfo.Wallet.Body" = "It means that you're allowing YooMoney to debit money from the wallet upon store's request without an additional confirmation from you. You can cancel these autopayments at any moment in the wallet settings (on the YooMoney website).";
-
-"SavePaymentMethod.Wallet.UserPriority.Text" = "Allow the store";
-"SavePaymentMethod.Wallet.UserPriority.hyperText" = "to debit money without my participation";
-
-"SavePaymentMethod.Wallet.Force.Text" = "After the payment, the wallet will be linked: the store will be able";
-"SavePaymentMethod.Wallet.Force.hyperText" = "to debit money without your participation";
-
-"SavePaymentMethodInfo.BankCard.Header" = "Permission to debit money upon store's request";
-"SavePaymentMethodInfo.BankCard.Body" = "It means that you're allowing YooMoney to debit money upon store's request without an additional confirmation from you, from this card or a new one in case it's reissued (if your bank can update the details automatically).\n\nYou can cancel linking at any moment via store's support service.";
-
-"SavePaymentMethod.BankCard.UserPriority.Text" = "Link the card and";
-"SavePaymentMethod.BankCard.UserPriority.hyperText" = "debit money upon store's request";
-
-"SavePaymentMethod.BankCard.Force.Text" = "After the payment, the card will be linked, so that";
-"SavePaymentMethod.BankCard.Force.hyperText" = "money could be debited upon store's request";
-
-// Bank card repeat
-
-"BankCardRepeat.savePaymentMethod.title" = "Link a card";
-"BankCardRepeat.title" = "Saved card";
-
-// Payment authorization
-
-"PaymentAuthorization.remainingTime" = "Get a new code in %@";
-"PaymentAuthorization.invalidAnswer" = "Invalid code. Double-check and try again";
-"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Invalid code. Attempts left: %d";
-"PaymentAuthorization.verifyAttemptsExceeded" = "No attempts left";
-"PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM в HH:mm";
-
-"PaymentAuthorization.description.withoutPhone" = "We sent a verification code";
-"PaymentAuthorization.description.witPhone" = "We sent a verification code to %@";
-
-"PaymentAuthorization.verifyAttemptsExceeded.nextSession" = "No attempts left. You can try %@";
-
-// Apple Pay
-
-"ApplePayContract.paymentMethodTitle" = "You'll be redirected into the Apple Pay app: confirm the payment";
-
-// Sberbank
-
-"Contract.Sberbank.PhoneInput.BottomHint" = "For the text message from Sberbank with the payment code";
-"Contract.Sberbank.PhoneInput.Title" = "Phone number in Sberbank Online";
-
-// Common
-
-"Common.PlaceholderView.buttonTitle" = "Try again";
-"Common.PlaceholderView.text" = "Please try again later.";
-"Common.button.ok" = "ОК";
-"Common.button.cancel" = "Cancel";
-"Common.Error.unknown" = "Something went wrong";
-
-// -------------
-
-/*По неизвестным нам причинам экран ApplePay не отобразился*/
-"ApplePayUnavailable.title" = "Apple Pay is unavailable";
-
-"Contract.Sberbank.PhoneInput.Placeholder" = "+ 7 987 654 32 10";
-
-/*В процессе токенизации ApplePay произошла ошибка*/
-"Error.ApplePayStrategy.failTokenizeData" = "An error occurred during ApplePay tokenization";
-
-/*После авторизации в кошельке при запросе доступных методов кошелёк отсутствует*/
-"Error.noWalletTitle" = "Wallet payment is not available";
-
-/*Пользователь потратил все попытки ввода. Создаем новую сессию на авторизацию*/
-"Error.endedAttemptsToEnterStartOver" = "Too many attempts. Try again later";
-
-/*Пользователь ввел верный код, но возникла ошибка. Создаем новую сессию на авторизацию*/
-"Error.resendAuthCodeAndStartOver" = "Error, try again";
-
-/*С сервера пришел неподдерживаемый способ прохождения платежной авторизации.*/
-"Error.unsupportedAuthType" = "This method of receiving passwords is not supported. You can change it in the wallet settings on the YooMoney website";
-
-"Error.internet" = "Connection error. Try again once you're online.";
-
-"Error.emptyPaymentOptions" = "No available payment methods";
-
-"Contract.changePaymentMethod" = "Change";
-
-"Contract.next" = "Next";
+﻿"ApplePayContract.SavePaymentMethod.Title" = "Allow to write off money";
 
 "ApplePayContract.fee" = "Commission";
 
-"Sberpay.Contract.Title" = "SberPay";
-
-"Contract.resendSms" = "Send again";
+/* Apple Pay */
+"ApplePayContract.paymentMethodTitle" = "You'll be redirected into the Apple Pay app: confirm the payment";
 
 "ApplePayContract.title" = "Apple Pay";
 
-"YooMoney.title" = "YooMoney";
+/* По неизвестным нам причинам экран ApplePay не отобразился */
+"ApplePayUnavailable.title" = "Apple Pay is unavailable";
 
-"Sberpay.paymentMethodTitle" = "Next, open the Sberbank Online application - confirm the payment";
-
-"LogoutConfirmation.format.title" = "Are you sure you want to sign out of account '%@'?";
-
-"BankCardDataInput.navigationBarTitle" = "Bank card";
-
-"BankCardDataInput.hintCardCode" = "Code";
+"BankCard.savePaymentMethod.title" = "Link a card";
 
 "BankCardDataInput.cvc" = "CVC";
 
 "BankCardDataInput.errorCvc" = "Check CVC";
 
-"image.logo" = "logo.kassa.en";
+"BankCardDataInput.hintCardCode" = "Code";
+
+"BankCardDataInput.navigationBarTitle" = "Bank card";
+
+"BankCardDataInputView.BottomHint.invalidCvc" = "Check CVC";
+
+"BankCardDataInputView.BottomHint.invalidExpiry" = "Check the month and date";
+
+"BankCardDataInputView.BottomHint.invalidPan" = "Check the card number";
+
+/* Bank card repeat */
+"BankCardRepeat.savePaymentMethod.title" = "Link a card";
+
+"BankCardRepeat.title" = "Saved card";
+
+"BankCardView.inputCvcHint" = "Code";
+
+"BankCardView.inputCvcPlaceholder" = "CVC";
+
+"BankCardView.inputExpiryDateHint" = "Expiration date";
+
+"BankCardView.inputExpiryDatePlaceholder" = "MM/YY";
+
+/* Bank card */
+"BankCardView.inputPanHint" = "Card number";
+
+"BankCardView.inputPanPlaceholder" = "Enter or scan";
+
+"Common.Error.unknown" = "Something went wrong";
+
+/* Common */
+"Common.PlaceholderView.buttonTitle" = "Try again";
+
+"Common.PlaceholderView.text" = "Please try again later.";
+
+"Common.button.cancel" = "Cancel";
+
+"Common.button.ok" = "ОК";
+
+/* Sberbank */
+"Contract.Sberbank.PhoneInput.BottomHint" = "For the text message from Sberbank with the payment code";
+
+"Contract.Sberbank.PhoneInput.Placeholder" = "+ 7 987 654 32 10";
+
+"Contract.Sberbank.PhoneInput.Title" = "Phone number in Sberbank Online";
+
+"Contract.changePaymentMethod" = "Change";
+
+/* Contract */
+"Contract.fee" = "Including commission";
+
+"Contract.format.saveAuthInApp" = "Next time, you won't have to sign in to your YooMoney account, which will make payments faster";
+
+"Contract.format.saveAuthInApp.title" = "Remember me";
+
+"Contract.format.savePaymentMethod.title" = "Allow to write off money";
+
+"Contract.logout" = "Sign out";
+
+"Contract.next" = "Next";
+
+"Contract.placeholder.smsCode" = "Enter text message code";
+
+"Contract.resendSms" = "Send again";
+
+/* В процессе токенизации ApplePay произошла ошибка */
+"Error.ApplePayStrategy.failTokenizeData" = "An error occurred during ApplePay tokenization";
+
+"Error.emptyPaymentOptions" = "No available payment methods";
+
+/* Пользователь потратил все попытки ввода. Создаем новую сессию на авторизацию */
+"Error.endedAttemptsToEnterStartOver" = "Too many attempts. Try again later";
+
+"Error.internet" = "Connection error. Try again once you're online.";
+
+/* После авторизации в кошельке при запросе доступных методов кошелёк отсутствует */
+"Error.noWalletTitle" = "Wallet payment is not available";
+
+/* Пользователь ввел верный код, но возникла ошибка. Создаем новую сессию на авторизацию */
+"Error.resendAuthCodeAndStartOver" = "Error, try again";
+
+/* С сервера пришел неподдерживаемый способ прохождения платежной авторизации. */
+"Error.unsupportedAuthType" = "This method of receiving passwords is not supported. You can change it in the wallet settings on the YooMoney website";
+
+/* Linked card */
+"LinkedCard.title" = "Linked card";
+
+"LogoutConfirmation.format.title" = "Are you sure you want to sign out of account '%@'?";
+
+"PaymentAuthorization.description.witPhone" = "We sent a verification code to %@";
+
+"PaymentAuthorization.description.withoutPhone" = "We sent a verification code";
+
+"PaymentAuthorization.invalidAnswer" = "Invalid code. Double-check and try again";
+
+"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Invalid code. Attempts left: %d";
+
+"PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM в HH:mm";
+
+/* Payment authorization */
+"PaymentAuthorization.remainingTime" = "Get a new code in %@";
+
+"PaymentAuthorization.verifyAttemptsExceeded" = "No attempts left";
+
+"PaymentAuthorization.verifyAttemptsExceeded.nextSession" = "No attempts left. You can try %@";
+
+"PaymentMethod.applePay" = "Apple Pay";
+
+"PaymentMethod.bankCard" = "Bank card";
+
+"PaymentMethod.sberpay" = "SberPay";
+
+"PaymentMethod.wallet" = "YooMoney";
+
+/* Payment methods */
+"PaymentMethods.paymentMethods" = "Payment method";
+
+"SavePaymentMethod.BankCard.Force.Text" = "After the payment, the card will be linked, so that";
+
+"SavePaymentMethod.BankCard.Force.hyperText" = "money could be debited upon store's request";
+
+"SavePaymentMethod.BankCard.UserPriority.Text" = "Link the card and";
+
+"SavePaymentMethod.BankCard.UserPriority.hyperText" = "debit money upon store's request";
+
+"SavePaymentMethod.Wallet.Force.Text" = "After the payment, the wallet will be linked: the store will be able";
+
+"SavePaymentMethod.Wallet.Force.hyperText" = "to debit money without your participation";
+
+"SavePaymentMethod.Wallet.UserPriority.Text" = "Allow the store";
+
+"SavePaymentMethod.Wallet.UserPriority.hyperText" = "to debit money without my participation";
+
+"SavePaymentMethodInfo.BankCard.Body" = "It means that you're allowing YooMoney to debit money upon store's request without an additional confirmation from you, from this card or a new one in case it's reissued (if your bank can update the details automatically).\n\nYou can cancel linking at any moment via store's support service.";
+
+"SavePaymentMethodInfo.BankCard.Header" = "Permission to debit money upon store's request";
 
 "SavePaymentMethodInfo.Button.GotIt" = "Got it";
+
+"SavePaymentMethodInfo.Wallet.Body" = "It means that you're allowing YooMoney to debit money from the wallet upon store's request without an additional confirmation from you. You can cancel these autopayments at any moment in the wallet settings (on the YooMoney website).";
+
+/* Save payment method */
+"SavePaymentMethodInfo.Wallet.Header" = "Permission to debit money without your participation";
+
+"Sberpay.Contract.Title" = "SberPay";
+
+"Sberpay.paymentMethodTitle" = "Next, open the Sberbank Online application - confirm the payment";
+
+"TermsOfService.Hyperlink" = "the terms and conditions of the service";
+
+/* License agreement */
+"TermsOfService.Text" = "By clicking this button, accept";
 
 /* Текст условий сервиса с ссылкой на экране установки пароля для пользователя без установленной почты https://yadi.sk/i/DgL-5V4hQL15WQ */
 "Wallet.Authorization.addEmailTitle" = "For receipts and notifications";
@@ -168,6 +184,12 @@
 /* Заголовок экрана про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
 "Wallet.Authorization.hardMigrationScreenTitle" = "Time to switch to YooMoney";
 
+/* Текст на кнопке баннера миграции https://yadi.sk/i/IuBf_A1_uq2zSg */
+"Wallet.Authorization.migrationBannerButtonText" = "Learn more";
+
+/* Текст на баннере миграции https://yadi.sk/i/IuBf_A1_uq2zSg */
+"Wallet.Authorization.migrationBannerText" = "If you signed up before October 21, you need to switch to YooMoney";
+
 /* Текст на экране про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
 "Wallet.Authorization.migrationScreenButtonSubtitle" = "It doesn't change any limits, commission rates, or other terms of use of the wallet in any way: <a href=\"https://new.yoomoney.ru\">learn more</a>";
 
@@ -183,8 +205,10 @@
 /* Текст с ссылкой под кнопкой на экране про миграцию, который после нажатия на немигрированный аккаунт на экране выбора аккаунта https://yadi.sk/i/_IMGLswOravIOw */
 "Wallet.Authorization.userWithEmailAgreementTitle" = "By clicking this button, I confirm that I'm aware of <a href=\"https://yoomoney.ru/page?id=525698%5C\"> all the legal terms and conditions of the service</a>";
 
-/* Текст на баннере миграции https://yadi.sk/i/IuBf_A1_uq2zSg */
-"Wallet.Authorization.migrationBannerText" = "If you signed up before October 21, you need to switch to YooMoney";
+/* Wallet */
+"Wallet.savePaymentMethod.title" = "Link a wallet";
 
-/* Текст на кнопке баннера миграции https://yadi.sk/i/IuBf_A1_uq2zSg */
-"Wallet.Authorization.migrationBannerButtonText" = "Learn more";
+"YooMoney.title" = "YooMoney";
+
+"image.logo" = "logo.kassa.en";
+

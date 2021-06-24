@@ -1,36 +1,58 @@
-"Price.min.error" = "The amount is too small";
-
-"common.save" = "Save";
-"common.none" = "None";
-"common.on" = "On";
-"common.off" = "Off";
-
-"root.price" = "Price";
-"root.description" = "Very bright, with the orbital period of 112 years";
-"root.name" = "Comet";
-"root.buy" = "Buy";
+﻿"Price.min.error" = "The amount is too small";
 
 "cards.title" = "Linked cards";
 
-"test_mode.title" = "Test mode";
-"test_mode.payment_auth" = "The customer has logged into the Wallet";
-"test_mode.attached_cards" = "Number of linked cards";
-"test_mode.payment_error" = "Complete the payment with an error";
-"test_mode.process_type" = "Payment confirmation";
-"test_mode.process.3ds" = "3ds";
-"test_mode.process.app2app" = "app2app";
+"common.none" = "None";
+
+"common.off" = "Off";
+
+"common.on" = "On";
+
+"common.save" = "Save";
 
 "process.title" = "Confirmation";
 
-"settings.title" = "Settings";
-"settings.payment_methods.title" = "Payment methods";
-"settings.payment_methods.yoo_money" = "YooMoney";
-"settings.payment_methods.bank_card" = "Bank card";
+"root.buy" = "Buy";
+
+"root.description" = "Very bright, with the orbital period of 112 years";
+
+"root.name" = "Comet";
+
+"root.price" = "Price";
+
 "settings.payment_methods.apple_pay" = "Apple Pay";
-"settings.ui_customization.yoo_money_logo" = "The YooKassa logo";
-"settings.test_mode.title" = "Test mode";
+
+"settings.payment_methods.bank_card" = "Bank card";
+
 "settings.payment_methods.sberbank" = "Sberbank Online";
 
-"success.description" = "Create payment with YooKassa API. Use this token as payment_token parameter";
+"settings.payment_methods.title" = "Payment methods";
+
+"settings.payment_methods.yoo_money" = "YooMoney";
+
+"settings.test_mode.title" = "Test mode";
+
+"settings.title" = "Settings";
+
+"settings.ui_customization.yoo_money_logo" = "The YooKassa logo";
+
 "success.button.docs" = "Documentation";
+
 "success.button.send_token" = "Send token via e-mail";
+
+"success.description" = "Create payment with YooKassa API. Use this token as payment_token parameter";
+
+"test_mode.attached_cards" = "Number of linked cards";
+
+"test_mode.payment_auth" = "The customer has logged into the Wallet";
+
+"test_mode.payment_error" = "Complete the payment with an error";
+
+"test_mode.process.3ds" = "3ds";
+
+"test_mode.process.app2app" = "app2app";
+
+"test_mode.process_type" = "Payment confirmation";
+
+"test_mode.title" = "Test mode";
+

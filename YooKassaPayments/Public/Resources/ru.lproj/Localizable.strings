@@ -1,157 +1,218 @@
-// Payment methods
-
-"PaymentMethods.paymentMethods" = "Способ оплаты";
-"PaymentMethod.sberpay" = "SberPay";
-"PaymentMethod.wallet" = "ЮMoney";
-"PaymentMethod.applePay" = "Apple Pay";
-"PaymentMethod.bankCard" = "Банковская карта";
-
-// Bank card
-
-"BankCardView.inputPanHint" = "Номер карты";
-"BankCardView.inputPanPlaceholder" = "Введите или отсканируйте";
-"BankCardView.inputExpiryDatePlaceholder" = "ММ/ГГ";
-"BankCardView.inputExpiryDateHint" = "Срок действия";
-"BankCardView.inputCvcHint" = "Код";
-"BankCardView.inputCvcPlaceholder" = "CVC";
-"BankCardDataInputView.BottomHint.invalidPan" = "Проверьте номер карты";
-"BankCardDataInputView.BottomHint.invalidExpiry" = "Проверьте месяц и год";
-"BankCardDataInputView.BottomHint.invalidCvc" = "Проверьте CVC";
-"BankCard.savePaymentMethod.title" = "Привязать карту";
-
-// Contract
-
-"Contract.fee" = "Включая комиссию";
-"Contract.placeholder.smsCode" = "Введите код из смс";
-"Contract.logout" = "Выйти";
-"Contract.format.saveAuthInApp.title" = "Запомнить меня";
-"Contract.format.saveAuthInApp" = "В следующий раз не придётся входить в профиль ЮMoney — можно будет оплатить быстрее";
+﻿/* Текст на контракте Apple Pay `Разрешить списывать деньги` https://yadi.sk/i/FWhOeo-T3eCQzg */
 "ApplePayContract.SavePaymentMethod.Title" = "Разрешить списывать деньги";
 
-// Wallet
-
-"Wallet.savePaymentMethod.title" = "Привязать кошелек";
-
-// Linked card
-
-"LinkedCard.title" = "Привязанная карта";
-
-
-// License agreement
-
-"TermsOfService.Text" = "Нажимая кнопку, вы принимаете";
-"TermsOfService.Hyperlink" = "условия сервиса";
-
-// Save payment method
-
-"SavePaymentMethodInfo.Wallet.Header" = "Разрешение списывать деньги без вашего участия";
-"SavePaymentMethodInfo.Wallet.Body" = "Это значит, что вы разрешаете ЮMoney списывать деньги с кошелька по запросу магазина — без дополнительного подтверждения с вашей стороны. Отменить такие списания можно в любой момент — в настройках кошелька (на сайте ЮMoney).";
-
-"SavePaymentMethod.Wallet.UserPriority.Text" = "Разрешить магазину";
-"SavePaymentMethod.Wallet.UserPriority.hyperText" = "списывать деньги без моего участия";
-
-"SavePaymentMethod.Wallet.Force.Text" = "После оплаты привяжем кошелёк: магазин сможет";
-"SavePaymentMethod.Wallet.Force.hyperText" = "списывать деньги без вашего участия";
-
-"SavePaymentMethodInfo.BankCard.Header" = "Разрешение списывать деньги по запросу магазина";
-"SavePaymentMethodInfo.BankCard.Body" = "Это значит, что вы разрешаете ЮMoney списывать деньги по запросу магазина без отдельного подтверждения — с этой карты или с новой, при перевыпуске (если ваш банк умеет автоматически обновлять данные).\n\nОтменить привязку можно в любой момент — через службу поддержки магазина.";
-
-"SavePaymentMethod.BankCard.UserPriority.Text" = "Привязать карту и";
-"SavePaymentMethod.BankCard.UserPriority.hyperText" = "списывать деньги по запросу магазина";
-
-"SavePaymentMethod.BankCard.Force.Text" = "После оплаты привяжем карту, чтобы";
-"SavePaymentMethod.BankCard.Force.hyperText" = "списывать деньги по запросу магазина";
-
-// Bank card repeat
-
-"BankCardRepeat.savePaymentMethod.title" = "Привязать карту";
-"BankCardRepeat.title" = "Сохраненная карта";
-
-// Payment authorization
-
-"PaymentAuthorization.remainingTime" = "Получить новый код через %@";
-"PaymentAuthorization.invalidAnswer" = "Это не тот код. Проверьте и введите ещё раз";
-"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Это не тот код. Осталось попыток: %d";
-"PaymentAuthorization.verifyAttemptsExceeded" = "Попытки закончились";
-"PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM в HH:mm";
-
-"PaymentAuthorization.description.withoutPhone" = "Отправили проверочный код";
-"PaymentAuthorization.description.witPhone" = "Отправили проверочный код на %@";
-
-"PaymentAuthorization.verifyAttemptsExceeded.nextSession" = "Попытки закончились. Попробовать можно %@";
-
-// Apple Pay
-
-"ApplePayContract.paymentMethodTitle" = "Дальше откроем Apple Pay — подтвердите оплату";
-
-// Sberbank
-
-"Contract.Sberbank.PhoneInput.BottomHint" = "Для смс от Сбербанка с кодом для оплаты";
-"Contract.Sberbank.PhoneInput.Title" = "Номер в Сбербанк Онлайн";
-
-// Common
-
-"Common.PlaceholderView.buttonTitle" = "Повторить";
-"Common.PlaceholderView.text" = "Попробуйте повторить чуть позже.";
-"Common.button.ok" = "ОК";
-"Common.button.cancel" = "Отменить";
-"Common.Error.unknown" = "Что то пошло не так";
-
-// -------------
-
-/*По неизвестным нам причинам экран ApplePay не отобразился*/
-"ApplePayUnavailable.title" = "Apple Pay недоступен";
-
-"Contract.Sberbank.PhoneInput.Placeholder" = "+ 7 987 654 32 10";
-
-/*В процессе токенизации ApplePay произошла ошибка*/
-"Error.ApplePayStrategy.failTokenizeData" = "В процессе токенизации ApplePay произошла ошибка";
-
-/*После авторизации в кошельке при запросе доступных методов кошелёк отсутствует*/
-"Error.noWalletTitle" = "Оплата кошельком недоступна";
-
-/*Пользователь потратил все попытки ввода. Создаем новую сессию на авторизацию*/
-"Error.endedAttemptsToEnterStartOver" = "Слишком много попыток. Попробуйте позже";
-
-/*Пользователь ввел верный код, но возникла ошибка. Создаем новую сессию на авторизацию*/
-"Error.resendAuthCodeAndStartOver" = "Не получилось, попробуйте заново";
-
-/*С сервера пришел неподдерживаемый способ прохождения платежной авторизации.*/
-"Error.unsupportedAuthType" = "Этот способ получения паролей не поддерживается. Поменять можно в настройках кошелька на сайте ЮMoney";
-
-"Error.internet" = "Проблема с интернетом. Попробуйте еще раз, когда будете онлайн";
-
-"Error.emptyPaymentOptions" = "Нет доступных способов оплаты";
-
-"Contract.changePaymentMethod" = "Изменить";
-
-"Contract.next" = "Продолжить";
-
+/* `Комиссия` на экране Apple Pay https://yadi.sk/d/Vu310EJgWtvrAQ */
 "ApplePayContract.fee" = "Комиссия";
 
-"Sberpay.Contract.Title" = "SberPay";
+/* Текст на контракте Apple Pay `Дальше откроем Apple Pay — подтвердите оплату` https://yadi.sk/i/FWhOeo-T3eCQzg */
+"ApplePayContract.paymentMethodTitle" = "Дальше откроем Apple Pay — подтвердите оплату";
 
-"Contract.resendSms" = "Отправить снова";
-
+/* Title на контракте Apple Pay https://yadi.sk/i/xT_cNZtTh6PoiQ */
 "ApplePayContract.title" = "Apple Pay";
 
-"YooMoney.title" = "ЮMoney";
+/* По неизвестным нам причинам экран ApplePay не отобразился */
+"ApplePayUnavailable.title" = "Apple Pay недоступен";
 
-"Sberpay.paymentMethodTitle" = "Дальше откроем приложение Сбербанк Онлайн — подтвердите оплату";
+/* Текст `Привязать карту` на экране `Банковская карта` https://yadi.sk/i/Z2oi1Uun7nS-jA */
+"BankCard.savePaymentMethod.title" = "Привязать карту";
 
-"LogoutConfirmation.format.title" = "Уверены, что хотите выйти из аккаунта '%@'?";
-
+/* Title `Банковская карта` на экране `Банковская карта` https://yadi.sk/i/Z2oi1Uun7nS-jA */
 "BankCardDataInput.navigationBarTitle" = "Банковская карта";
 
-"BankCardDataInput.hintCardCode" = "Код";
+/* Текст `Проверьте CVC` при вводе данных банковской карты https://yadi.sk/i/A49itN4AH9BkHg */
+"BankCardDataInputView.BottomHint.invalidCvc" = "Проверьте CVC";
 
-"BankCardDataInput.cvc" = "CVC";
+/* Текст `Проверьте месяц и год` при вводе данных банковской карты https://yadi.sk/d/SbMd6T6aj3vyAw */
+"BankCardDataInputView.BottomHint.invalidExpiry" = "Проверьте месяц и год";
 
-"BankCardDataInput.errorCvc" = "Проверьте CVC";
+/* Текст `Проверьте номер карты` при вводе данных банковской карты https://yadi.sk/i/uDMEBEe3DqPboA */
+"BankCardDataInputView.BottomHint.invalidPan" = "Проверьте номер карты";
 
-"image.logo" = "logo.kassa.ru";
+/* Текст `Привязать карту` на экране `Сохраненная карта` https://yadi.sk/d/Cyocbh86zUr3cA */
+"BankCardRepeat.savePaymentMethod.title" = "Привязать карту";
 
+/* Title `Сохраненная карта` на экране `Сохраненная карта` https://yadi.sk/d/Cyocbh86zUr3cA */
+"BankCardRepeat.title" = "Сохраненная карта";
+
+/* Текст `Код` при вводе данных банковской карты https://yadi.sk/i/qhizzdr8cAATsw */
+"BankCardView.inputCvcHint" = "Код";
+
+/* Текст `CVC` при вводе данных банковской карты https://yadi.sk/i/qhizzdr8cAATsw */
+"BankCardView.inputCvcPlaceholder" = "CVC";
+
+/* Текст `Срок действия` при вводе данных банковской карты https://yadi.sk/i/qhizzdr8cAATsw */
+"BankCardView.inputExpiryDateHint" = "Срок действия";
+
+/* Текст `ММ/ГГ` при вводе данных банковской карты https://yadi.sk/i/qhizzdr8cAATsw */
+"BankCardView.inputExpiryDatePlaceholder" = "ММ/ГГ";
+
+/* Текст `Номер карты` при вводе данных банковской карты https://yadi.sk/i/Z2oi1Uun7nS-jA */
+"BankCardView.inputPanHint" = "Номер карты";
+
+/* Текст `Введите или отсканируйте` при вводе данных банковской карты https://yadi.sk/i/Z2oi1Uun7nS-jA */
+"BankCardView.inputPanPlaceholder" = "Введите или отсканируйте";
+
+/* Отменить */
+"Cancel" = "Cancel";
+
+/* Текст `Что то пошло не так` https://yadi.sk/i/JapUT2mTEVnTtw */
+"Common.Error.unknown" = "Что то пошло не так";
+
+/* Текст кнопки на Placeholder `Повторить` */
+"Common.PlaceholderView.buttonTitle" = "Повторить";
+
+/* Текст на Placeholder `Попробуйте повторить чуть позже.` */
+"Common.PlaceholderView.text" = "Попробуйте повторить чуть позже.";
+
+/* Текст `Отменить` на Alert https://yadi.sk/i/68ImXb9rz31RkQ */
+"Common.button.cancel" = "Отменить";
+
+/* Текст `ОК` на Alert https://yadi.sk/i/68ImXb9rz31RkQ */
+"Common.button.ok" = "ОК";
+
+/* Текст `Для смс от Сбербанка с кодом для оплаты` https://yadi.sk/i/T-XQGU9NaPMgKA */
+"Contract.Sberbank.PhoneInput.BottomHint" = "Для смс от Сбербанка с кодом для оплаты";
+
+/* Текст `+ 7 987 654 32 10` https://yadi.sk/i/T-XQGU9NaPMgKA */
+"Contract.Sberbank.PhoneInput.Placeholder" = "+ 7 987 654 32 10";
+
+/* Текст `Номер в Сбербанк Онлайн` https://yadi.sk/i/T-XQGU9NaPMgKA */
+"Contract.Sberbank.PhoneInput.Title" = "Номер в Сбербанк Онлайн";
+
+/* Текст на контракте `Включая комиссию` https://yadi.sk/i/Ri9RjHDtilycWw */
+"Contract.fee" = "Включая комиссию";
+
+/* Текст в пункте `Запомнить меня` на экране `ЮMoney` или `Привязанная карта` https://yadi.sk/i/o89CnEUSmNsM7g */
+"Contract.format.saveAuthInApp" = "В следующий раз не придётся входить в профиль ЮMoney — можно будет оплатить быстрее";
+
+/* Текст `Запомнить меня` на экране `ЮMoney` или `Привязанная карта` https://yadi.sk/i/o89CnEUSmNsM7g */
+"Contract.format.saveAuthInApp.title" = "Запомнить меня";
+
+/* Текст `Выйти` https://yadi.sk/i/o89CnEUSmNsM7g */
+"Contract.logout" = "Выйти";
+
+/* Кнопка продолжить на контрактах https://yadi.sk/i/Ri9RjHDtilycWw */
+"Contract.next" = "Продолжить";
+
+/* No comment provided by engineer. */
+"Contract.placeholder.smsCode" = "Введите код из смс";
+
+/* No comment provided by engineer. */
+"Contract.resendSms" = "Отправить снова";
+
+/* В процессе токенизации ApplePay произошла ошибка https://yadi.sk/i/G9zC-PLLpmuQVw */
+"Error.ApplePayStrategy.failTokenizeData" = "В процессе токенизации ApplePay произошла ошибка";
+
+/* Ошибка `Нет доступных способов оплаты` на экране выбора способа оплаты */
+"Error.emptyPaymentOptions" = "Нет доступных способов оплаты";
+
+/* Пользователь потратил все попытки ввода. Создаем новую сессию на авторизацию */
+"Error.endedAttemptsToEnterStartOver" = "Слишком много попыток. Попробуйте позже";
+
+/* Ошибка `Проблема с интернетом` */
+"Error.internet" = "Проблема с интернетом. Попробуйте еще раз, когда будете онлайн";
+
+/* После авторизации в кошельке при запросе доступных методов кошелёк отсутствует */
+"Error.noWalletTitle" = "Оплата кошельком недоступна";
+
+/* Пользователь ввел верный код, но возникла ошибка. Создаем новую сессию на авторизацию */
+"Error.resendAuthCodeAndStartOver" = "Не получилось, попробуйте заново";
+
+/* Title `Привязанная карта` на экране `Привязанная карта` https://yadi.sk/d/yLgHHmqAsklYng */
+"LinkedCard.title" = "Привязанная карта";
+
+/* Текст в Alert при выходе из аккаунта ЮMoney https://yadi.sk/i/68ImXb9rz31RkQ */
+"LogoutConfirmation.format.title" = "Уверены, что хотите выйти из аккаунта '%@'?";
+
+/* No comment provided by engineer. */
+"PaymentAuthorization.description.witPhone" = "Отправили проверочный код на %@";
+
+/* No comment provided by engineer. */
+"PaymentAuthorization.description.withoutPhone" = "Отправили проверочный код";
+
+/* No comment provided by engineer. */
+"PaymentAuthorization.invalidAnswer" = "Это не тот код. Проверьте и введите ещё раз";
+
+/* No comment provided by engineer. */
+"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Это не тот код. Осталось попыток: %d";
+
+/* No comment provided by engineer. */
+"PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM в HH:mm";
+
+/* No comment provided by engineer. */
+"PaymentAuthorization.remainingTime" = "Получить новый код через %@";
+
+/* No comment provided by engineer. */
+"PaymentAuthorization.verifyAttemptsExceeded" = "Попытки закончились";
+
+/* No comment provided by engineer. */
+"PaymentAuthorization.verifyAttemptsExceeded.nextSession" = "Попытки закончились. Попробовать можно %@";
+
+/* Способ оплаты - `Apple Pay` https://yadi.sk/i/smhhxBAxkP8Ebw */
+"PaymentMethod.applePay" = "Apple Pay";
+
+/* Способ оплаты - `Банковская карта` https://yadi.sk/i/smhhxBAxkP8Ebw */
+"PaymentMethod.bankCard" = "Банковская карта";
+
+/* Способ оплаты - `SberPay` https://yadi.sk/i/smhhxBAxkP8Ebw */
+"PaymentMethod.sberpay" = "SberPay";
+
+/* Способ оплаты - `ЮMoney` https://yadi.sk/i/smhhxBAxkP8Ebw */
+"PaymentMethod.wallet" = "ЮMoney";
+
+/* Title `Способ оплаты` на экране выбора способа оплаты https://yadi.sk/i/0dSpSggROTC0Jw */
+"PaymentMethods.paymentMethods" = "Способ оплаты";
+
+/* Текст `После оплаты привяжем карту, чтобы` https://yadi.sk/i/_PWhW8MwuxCopQ */
+"SavePaymentMethod.BankCard.Force.Text" = "После оплаты привяжем карту, чтобы";
+
+/* Текст `списывать деньги по запросу магазина` https://yadi.sk/i/_PWhW8MwuxCopQ */
+"SavePaymentMethod.BankCard.Force.hyperText" = "списывать деньги по запросу магазина";
+
+/* Текст `Привязать карту и` https://yadi.sk/i/Z2oi1Uun7nS-jA */
+"SavePaymentMethod.BankCard.UserPriority.Text" = "Привязать карту и";
+
+/* Текст `списывать деньги по запросу магазина` https://yadi.sk/i/Z2oi1Uun7nS-jA */
+"SavePaymentMethod.BankCard.UserPriority.hyperText" = "списывать деньги по запросу магазина";
+
+/* Текст `После оплаты привяжем кошелёк: магазин сможет` https://yadi.sk/i/rFEZPSdXTgV1bw */
+"SavePaymentMethod.Wallet.Force.Text" = "После оплаты привяжем кошелёк: магазин сможет";
+
+/* Текст `списывать деньги без вашего участия` https://yadi.sk/i/rFEZPSdXTgV1bw */
+"SavePaymentMethod.Wallet.Force.hyperText" = "списывать деньги без вашего участия";
+
+/* Текст `Разрешить магазину` https://yadi.sk/i/o89CnEUSmNsM7g */
+"SavePaymentMethod.Wallet.UserPriority.Text" = "Разрешить магазину";
+
+/* Текст `списывать деньги без моего участия` https://yadi.sk/i/o89CnEUSmNsM7g */
+"SavePaymentMethod.Wallet.UserPriority.hyperText" = "списывать деньги без моего участия";
+
+/* Текст на экране разрешения списывать деньги магазином с банковской карты https://yadi.sk/i/QOSvfo9hsOPs9Q */
+"SavePaymentMethodInfo.BankCard.Body" = "Это значит, что вы разрешаете ЮMoney списывать деньги по запросу магазина без отдельного подтверждения — с этой карты или с новой, при перевыпуске (если ваш банк умеет автоматически обновлять данные).\\n\\nОтменить привязку можно в любой момент — через службу поддержки магазина.";
+
+/* Заголовок на экране разрешения списывать деньги магазином с банковской карты https://yadi.sk/i/QOSvfo9hsOPs9Q */
+"SavePaymentMethodInfo.BankCard.Header" = "Разрешение списывать деньги по запросу магазина";
+
+/* Текст кнопки `Понятно` https://yadi.sk/i/4MbCtrW4qrtDcQ */
 "SavePaymentMethodInfo.Button.GotIt" = "Понятно";
+
+/* Текст на экране разрешения списывать деньги магазином с кошелька https://yadi.sk/i/4MbCtrW4qrtDcQ */
+"SavePaymentMethodInfo.Wallet.Body" = "Это значит, что вы разрешаете ЮMoney списывать деньги с кошелька по запросу магазина — без дополнительного подтверждения с вашей стороны. Отменить такие списания можно в любой момент — в настройках кошелька (на сайте ЮMoney).";
+
+/* Заголовок на экране разрешения списывать деньги магазином с кошелька https://yadi.sk/i/4MbCtrW4qrtDcQ */
+"SavePaymentMethodInfo.Wallet.Header" = "Разрешение списывать деньги без вашего участия";
+
+/* Текст `SberPay` https://yadi.sk/i/T-XQGU9NaPMgKA */
+"Sberpay.Contract.Title" = "SberPay";
+
+/* Текст `Дальше откроем приложение Сбербанк Онлайн — подтвердите оплату` https://yadi.sk/d/iBO2jhj5kjrxsg */
+"Sberpay.paymentMethodTitle" = "Дальше откроем приложение Сбербанк Онлайн — подтвердите оплату";
+
+/* Текст `условия сервиса` https://yadi.sk/i/Z2oi1Uun7nS-jA */
+"TermsOfService.Hyperlink" = "условия сервиса";
+
+/* Текст `Нажимая кнопку, вы принимаете` https://yadi.sk/i/Z2oi1Uun7nS-jA */
+"TermsOfService.Text" = "Нажимая кнопку, вы принимаете";
 
 /* Текст условий сервиса с ссылкой на экране установки пароля для пользователя без установленной почты https://yadi.sk/i/DgL-5V4hQL15WQ */
 "Wallet.Authorization.addEmailTitle" = "Для чеков и уведомлений";
@@ -160,31 +221,62 @@
 "Wallet.Authorization.emailCheckboxTitle" = "Хочу получать новости сервиса, скидки, опросы: максимум раз в неделю";
 
 /* Текст свитча согласия на рассылку на экране ввода почты https://yadi.sk/i/8BSuo7q_6CJzbg */
-"Wallet.Authorization.hardMigrationScreenButtonSubtitle" = "На лимиты, комиссии и остальные условия использования кошелька это никак не влияет: <a href=\"https://new.yoomoney.ru/\">вот подробности </a>";
+"Wallet.Authorization.hardMigrationScreenButtonSubtitle" = "На лимиты, комиссии и остальные условия использования кошелька это никак не влияет: <a href=\\\"https://new.yoomoney.ru/\\\">вот подробности </a>";
 
 /* Текст под полем ввода почты на экране ввода почты https://yadi.sk/i/8BSuo7q_6CJzbg */
-"Wallet.Authorization.hardMigrationScreenSubtitle" = "Раньше вы заходили в кошелёк с логином и паролем Яндекса, теперь нужен профиль ЮMoney.\nСейчас поможем его получить:\n\n— вы зайдёте с логином и паролем Яндекса,\n— разрешите ЮMoney доступ к имени и почте,\n— придумаете новый пароль.\n\nУ вас появится профиль ЮMoney с прежним кошельком внутри.\nДля входа — почта и пароль, для подтверждений — смс-коды.";
+"Wallet.Authorization.hardMigrationScreenSubtitle" = "Раньше вы заходили в кошелёк с логином и паролем Яндекса, теперь нужен профиль ЮMoney.\\nСейчас поможем его получить:\\n\\n— вы зайдёте с логином и паролем Яндекса,\\n— разрешите ЮMoney доступ к имени и почте,\\n— придумаете новый пароль.\\n\\nУ вас появится профиль ЮMoney с прежним кошельком внутри.\\nДля входа — почта и пароль, для подтверждений — смс-коды.";
 
 /* Заголовок экрана про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
 "Wallet.Authorization.hardMigrationScreenTitle" = "Пора перейти в ЮMoney";
 
+/* Текст на кнопке баннера миграции https://yadi.sk/i/IuBf_A1_uq2zSg */
+"Wallet.Authorization.migrationBannerButtonText" = "Подробнее";
+
+/* Текст на баннере миграции https://yadi.sk/i/IuBf_A1_uq2zSg */
+"Wallet.Authorization.migrationBannerText" = "Если вы регистрировались до 21 октября — нужно перейти в ЮMoney";
+
 /* Текст на экране про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.migrationScreenButtonSubtitle" = "На лимиты, комиссии и остальные условия использования кошелька это никак не влияет: <a href=\"https://new.yoomoney.ru\">вот подробности</a>";
+"Wallet.Authorization.migrationScreenButtonSubtitle" = "На лимиты, комиссии и остальные условия использования кошелька это никак не влияет: <a href=\\\"https://new.yoomoney.ru\\\">вот подробности</a>";
 
 /* Текст с ссылкой под кнопкой на экране про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.migrationScreenSubtitle" = "Потому что теперь кошелёк — в ЮMoney, отдельно от аккаунта в Яндексе.\n\n— Что останется как раньше: номер кошелька, ваши настройки, условия использования.\n\n— Что поменяется: вместо логина (как в Яндексе) у вас будет почта или телефон. Пароль тоже можно обновить.\n\n— Сейчас нужно: войти в аккаунт Яндекса, где есть кошелёк.";
+"Wallet.Authorization.migrationScreenSubtitle" = "Потому что теперь кошелёк — в ЮMoney, отдельно от аккаунта в Яндексе.\\n\\n— Что останется как раньше: номер кошелька, ваши настройки, условия использования.\\n\\n— Что поменяется: вместо логина (как в Яндексе) у вас будет почта или телефон. Пароль тоже можно обновить.\\n\\n— Сейчас нужно: войти в аккаунт Яндекса, где есть кошелёк.";
 
 /* Заголовок экрана про миграцию, который после нажатия на немигрированный аккаунт на экране выбора аккаунта https://yadi.sk/i/_IMGLswOravIOw */
 "Wallet.Authorization.migrationScreenTitle" = "Зачем куда-то переходить?";
 
 /* Текст на экране про миграцию, который после нажатия на немигрированный аккаунт на экране выбора аккаунта https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.userAgreementTitle" = "Нажимая кнопку, я подтверждаю осведомлённость и согласие <a href=\"https://yoomoney.ru/page?id=525698%5C\">со всеми юридическими условиями</a> и с тем, что если я не подключу информирование об операциях на почту или телефон, единственным каналом информирования будет история моих операций — на сайте и в приложении ЮMoney";
+"Wallet.Authorization.userAgreementTitle" = "Нажимая кнопку, я подтверждаю осведомлённость и согласие <a href=\\\"https://yoomoney.ru/page?id=525698%5C\\\">со всеми юридическими условиями</a> и с тем, что если я не подключу информирование об операциях на почту или телефон, единственным каналом информирования будет история моих операций — на сайте и в приложении ЮMoney";
 
 /* Текст с ссылкой под кнопкой на экране про миграцию, который после нажатия на немигрированный аккаунт на экране выбора аккаунта https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.userWithEmailAgreementTitle" = "Нажимая кнопку, я подтверждаю осведомлённость и согласие <a href=\"https://yoomoney.ru/page?id=525698%5C\">со всеми юридическими условиями</a>";
+"Wallet.Authorization.userWithEmailAgreementTitle" = "Нажимая кнопку, я подтверждаю осведомлённость и согласие <a href=\\\"https://yoomoney.ru/page?id=525698%5C\\\">со всеми юридическими условиями</a>";
 
-/* Текст на баннере миграции https://yadi.sk/i/IuBf_A1_uq2zSg */
-"Wallet.Authorization.migrationBannerText" = "Если вы регистрировались до 21 октября — нужно перейти в ЮMoney";
+/* Текст `Привязать кошелек` https://yadi.sk/i/o89CnEUSmNsM7g */
+"Wallet.savePaymentMethod.title" = "Привязать кошелек";
 
-/* Текст на кнопке баннера миграции https://yadi.sk/i/IuBf_A1_uq2zSg */
-"Wallet.Authorization.migrationBannerButtonText" = "Подробнее";
+/* Текст `ЮMoney` https://yadi.sk/i/o89CnEUSmNsM7g */
+"YooMoney.title" = "ЮMoney";
+
+/* No comment provided by engineer. */
+"settings.payment_methods.apple_pay" = "settings.payment_methods.apple_pay";
+
+/* No comment provided by engineer. */
+"settings.payment_methods.bank_card" = "settings.payment_methods.bank_card";
+
+/* No comment provided by engineer. */
+"settings.payment_methods.sberbank" = "settings.payment_methods.sberbank";
+
+/* No comment provided by engineer. */
+"settings.payment_methods.title" = "settings.payment_methods.title";
+
+/* No comment provided by engineer. */
+"settings.payment_methods.yoo_money" = "settings.payment_methods.yoo_money";
+
+/* No comment provided by engineer. */
+"settings.test_mode.title" = "settings.test_mode.title";
+
+/* No comment provided by engineer. */
+"settings.title" = "settings.title";
+
+/* No comment provided by engineer. */
+"settings.ui_customization.yoo_money_logo" = "settings.ui_customization.yoo_money_logo";
+
