@@ -3,6 +3,7 @@ include:
   - 'YooKassaPaymentsDemoApp/Resources/ru.lproj/*.{strings}'
 exclude:
   - 'YooKassaPayments/Public/Resources/ru.lproj/LocalizedResources.strings'
+  - 'YooKassaPaymentsDemoApp/Resources/ru.lproj/LaunchScreen.strings'
 source_paths:
   - 'YooKassaPayments'
   - 'YooKassaPaymentsDemoApp'
