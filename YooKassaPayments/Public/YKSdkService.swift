@@ -18,7 +18,7 @@ public final class YKSdk {
     public static let shared = YKSdk()
 
     /// Open a resource specified by a URL.
-    public func hanleOpen(
+    public func handleOpen(
         url: URL,
         sourceApplication: String?
     ) -> Bool {
