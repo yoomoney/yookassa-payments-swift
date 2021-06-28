@@ -9,6 +9,8 @@ struct Settings {
 
     var isShowingYooMoneyLogoEnabled = true
 
+    var isBankCardScanEnabled = true
+
     var price = Decimal(5.0)
 
     var testModeSettings = TestSettings()

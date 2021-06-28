@@ -96,9 +96,13 @@ enum BankCardAssembly {
         view: BankCardDataInputView,
         moduleInput: BankCardDataInputModuleInput
     ) {
+        let inputPanPlaceholder = inputData.cardScanning != nil
+            ? CommonLocalized.BankCardView.inputPanPlaceholder
+            : CommonLocalized.BankCardView.inputPanPlaceholderWithoutScan
+
         let inputData = BankCardDataInputModuleInputData(
             inputPanHint: CommonLocalized.BankCardView.inputPanHint,
-            inputPanPlaceholder: CommonLocalized.BankCardView.inputPanPlaceholder,
+            inputPanPlaceholder: inputPanPlaceholder,
             inputExpiryDateHint: CommonLocalized.BankCardView.inputExpiryDateHint,
             inputExpiryDatePlaceholder: CommonLocalized.BankCardView.inputExpiryDatePlaceholder,
             inputCvcHint: CommonLocalized.BankCardView.inputCvcHint,

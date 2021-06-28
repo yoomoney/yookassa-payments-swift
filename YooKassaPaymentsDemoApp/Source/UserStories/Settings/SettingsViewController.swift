@@ -175,10 +175,16 @@ extension SettingsViewController {
             initialValue: { $0.isShowingYooMoneyLogoEnabled },
             settingHandler: { $0.isShowingYooMoneyLogoEnabled = $1 }
         )
+        let bankCardScanCell = switchCellWith(
+            title: Localized.bankCardScan,
+            initialValue: { $0.isBankCardScanEnabled },
+            settingHandler: { $0.isBankCardScanEnabled = $1 }
+        )
 
         return SectionDescriptor(
             rows: [
                 yooMoneyLogoCell,
+                bankCardScanCell,
             ]
         )
     }
@@ -256,6 +262,7 @@ extension SettingsViewController {
         static let applePay = NSLocalizedString("settings.payment_methods.apple_pay", comment: "")
 
         static let yooMoneyLogo = NSLocalizedString("settings.ui_customization.yoo_money_logo", comment: "")
+        static let bankCardScan = NSLocalizedString("settings.ui_customization.bank_card_scan_enabled", comment: "")
 
         static let test_mode = NSLocalizedString("settings.test_mode.title", comment: "")
     }
