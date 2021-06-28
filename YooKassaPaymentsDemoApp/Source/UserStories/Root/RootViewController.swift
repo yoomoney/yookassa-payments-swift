@@ -346,8 +346,8 @@ final class RootViewController: UIViewController {
         } else {
             oauthToken = "live_MTkzODU2VY5GiyQq2GMPsCQ0PW7f_RSLtJYOT-mp_CA"
         }
-        
-        let cardScanning = settings.isBankCardScanEnabled 
+
+        let cardScanning = settings.isBankCardScanEnabled
             ? self
             : nil
 

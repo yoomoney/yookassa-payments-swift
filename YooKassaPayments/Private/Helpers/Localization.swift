@@ -46,6 +46,12 @@ enum CommonLocalized {
             value: "Введите или отсканируйте",
             comment: "Текст `Введите или отсканируйте` при вводе данных банковской карты https://yadi.sk/i/Z2oi1Uun7nS-jA"
         )
+        static let inputPanPlaceholderWithoutScan = NSLocalizedString(
+            "BankCardView.inputPanPlaceholderWithoutScan",
+            bundle: Bundle.framework,
+            value: "Введите",
+            comment: "Текст `Введите` при вводе данных банковской карты в случае если сканирование не доступно https://yadi.sk/i/fbrtpMi0d-k4xw"
+        )
         static let inputExpiryDateHint = NSLocalizedString(
             "BankCardView.inputExpiryDateHint",
             bundle: Bundle.framework,

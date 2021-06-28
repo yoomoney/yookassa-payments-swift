@@ -180,7 +180,7 @@ extension SettingsViewController {
             initialValue: { $0.isBankCardScanEnabled },
             settingHandler: { $0.isBankCardScanEnabled = $1 }
         )
-        
+
         return SectionDescriptor(
             rows: [
                 yooMoneyLogoCell,
