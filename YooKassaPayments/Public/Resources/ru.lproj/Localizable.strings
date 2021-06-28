@@ -52,8 +52,11 @@
 /* Текст `Введите или отсканируйте` при вводе данных банковской карты https://yadi.sk/i/Z2oi1Uun7nS-jA */
 "BankCardView.inputPanPlaceholder" = "Введите или отсканируйте";
 
+/* Текст `Введите` при вводе данных банковской карты в случае если сканирование не доступно https://yadi.sk/i/fbrtpMi0d-k4xw */
+"BankCardView.inputPanPlaceholderWithoutScan" = "Введите";
+
 /* Отменить */
-"Cancel" = "Cancel";
+"Cancel" = "Отменить";
 
 /* Текст `Что то пошло не так` https://yadi.sk/i/JapUT2mTEVnTtw */
 "Common.Error.unknown" = "Что то пошло не так";
@@ -94,10 +97,8 @@
 /* Кнопка продолжить на контрактах https://yadi.sk/i/Ri9RjHDtilycWw */
 "Contract.next" = "Продолжить";
 
-/* No comment provided by engineer. */
 "Contract.placeholder.smsCode" = "Введите код из смс";
 
-/* No comment provided by engineer. */
 "Contract.resendSms" = "Отправить снова";
 
 /* В процессе токенизации ApplePay произошла ошибка https://yadi.sk/i/G9zC-PLLpmuQVw */
@@ -124,28 +125,20 @@
 /* Текст в Alert при выходе из аккаунта ЮMoney https://yadi.sk/i/68ImXb9rz31RkQ */
 "LogoutConfirmation.format.title" = "Уверены, что хотите выйти из аккаунта '%@'?";
 
-/* No comment provided by engineer. */
 "PaymentAuthorization.description.witPhone" = "Отправили проверочный код на %@";
 
-/* No comment provided by engineer. */
 "PaymentAuthorization.description.withoutPhone" = "Отправили проверочный код";
 
-/* No comment provided by engineer. */
 "PaymentAuthorization.invalidAnswer" = "Это не тот код. Проверьте и введите ещё раз";
 
-/* No comment provided by engineer. */
 "PaymentAuthorization.invalidAnswer.sessionsLeft" = "Это не тот код. Осталось попыток: %d";
 
-/* No comment provided by engineer. */
 "PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM в HH:mm";
 
-/* No comment provided by engineer. */
 "PaymentAuthorization.remainingTime" = "Получить новый код через %@";
 
-/* No comment provided by engineer. */
 "PaymentAuthorization.verifyAttemptsExceeded" = "Попытки закончились";
 
-/* No comment provided by engineer. */
 "PaymentAuthorization.verifyAttemptsExceeded.nextSession" = "Попытки закончились. Попробовать можно %@";
 
 /* Способ оплаты - `Apple Pay` https://yadi.sk/i/smhhxBAxkP8Ebw */
@@ -188,7 +181,7 @@
 "SavePaymentMethod.Wallet.UserPriority.hyperText" = "списывать деньги без моего участия";
 
 /* Текст на экране разрешения списывать деньги магазином с банковской карты https://yadi.sk/i/QOSvfo9hsOPs9Q */
-"SavePaymentMethodInfo.BankCard.Body" = "Это значит, что вы разрешаете ЮMoney списывать деньги по запросу магазина без отдельного подтверждения — с этой карты или с новой, при перевыпуске (если ваш банк умеет автоматически обновлять данные).\\n\\nОтменить привязку можно в любой момент — через службу поддержки магазина.";
+"SavePaymentMethodInfo.BankCard.Body" = "Это значит, что вы разрешаете ЮMoney списывать деньги по запросу магазина без отдельного подтверждения — с этой карты или с новой, при перевыпуске (если ваш банк умеет автоматически обновлять данные).\n\nОтменить привязку можно в любой момент — через службу поддержки магазина.";
 
 /* Заголовок на экране разрешения списывать деньги магазином с банковской карты https://yadi.sk/i/QOSvfo9hsOPs9Q */
 "SavePaymentMethodInfo.BankCard.Header" = "Разрешение списывать деньги по запросу магазина";
@@ -221,10 +214,10 @@
 "Wallet.Authorization.emailCheckboxTitle" = "Хочу получать новости сервиса, скидки, опросы: максимум раз в неделю";
 
 /* Текст свитча согласия на рассылку на экране ввода почты https://yadi.sk/i/8BSuo7q_6CJzbg */
-"Wallet.Authorization.hardMigrationScreenButtonSubtitle" = "На лимиты, комиссии и остальные условия использования кошелька это никак не влияет: <a href=\\\"https://new.yoomoney.ru/\\\">вот подробности </a>";
+"Wallet.Authorization.hardMigrationScreenButtonSubtitle" = "На лимиты, комиссии и остальные условия использования кошелька это никак не влияет: <a href=\"https://new.yoomoney.ru/\">вот подробности </a>";
 
 /* Текст под полем ввода почты на экране ввода почты https://yadi.sk/i/8BSuo7q_6CJzbg */
-"Wallet.Authorization.hardMigrationScreenSubtitle" = "Раньше вы заходили в кошелёк с логином и паролем Яндекса, теперь нужен профиль ЮMoney.\\nСейчас поможем его получить:\\n\\n— вы зайдёте с логином и паролем Яндекса,\\n— разрешите ЮMoney доступ к имени и почте,\\n— придумаете новый пароль.\\n\\nУ вас появится профиль ЮMoney с прежним кошельком внутри.\\nДля входа — почта и пароль, для подтверждений — смс-коды.";
+"Wallet.Authorization.hardMigrationScreenSubtitle" = "Раньше вы заходили в кошелёк с логином и паролем Яндекса, теперь нужен профиль ЮMoney.\nСейчас поможем его получить:\n\n— вы зайдёте с логином и паролем Яндекса,\n— разрешите ЮMoney доступ к имени и почте,\n— придумаете новый пароль.\n\nУ вас появится профиль ЮMoney с прежним кошельком внутри.\nДля входа — почта и пароль, для подтверждений — смс-коды.";
 
 /* Заголовок экрана про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
 "Wallet.Authorization.hardMigrationScreenTitle" = "Пора перейти в ЮMoney";
@@ -236,19 +229,19 @@
 "Wallet.Authorization.migrationBannerText" = "Если вы регистрировались до 21 октября — нужно перейти в ЮMoney";
 
 /* Текст на экране про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.migrationScreenButtonSubtitle" = "На лимиты, комиссии и остальные условия использования кошелька это никак не влияет: <a href=\\\"https://new.yoomoney.ru\\\">вот подробности</a>";
+"Wallet.Authorization.migrationScreenButtonSubtitle" = "На лимиты, комиссии и остальные условия использования кошелька это никак не влияет: <a href=\"https://new.yoomoney.ru\">вот подробности</a>";
 
 /* Текст с ссылкой под кнопкой на экране про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.migrationScreenSubtitle" = "Потому что теперь кошелёк — в ЮMoney, отдельно от аккаунта в Яндексе.\\n\\n— Что останется как раньше: номер кошелька, ваши настройки, условия использования.\\n\\n— Что поменяется: вместо логина (как в Яндексе) у вас будет почта или телефон. Пароль тоже можно обновить.\\n\\n— Сейчас нужно: войти в аккаунт Яндекса, где есть кошелёк.";
+"Wallet.Authorization.migrationScreenSubtitle" = "Потому что теперь кошелёк — в ЮMoney, отдельно от аккаунта в Яндексе.\n\n— Что останется как раньше: номер кошелька, ваши настройки, условия использования.\n\n— Что поменяется: вместо логина (как в Яндексе) у вас будет почта или телефон. Пароль тоже можно обновить.\n\n— Сейчас нужно: войти в аккаунт Яндекса, где есть кошелёк.";
 
 /* Заголовок экрана про миграцию, который после нажатия на немигрированный аккаунт на экране выбора аккаунта https://yadi.sk/i/_IMGLswOravIOw */
 "Wallet.Authorization.migrationScreenTitle" = "Зачем куда-то переходить?";
 
 /* Текст на экране про миграцию, который после нажатия на немигрированный аккаунт на экране выбора аккаунта https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.userAgreementTitle" = "Нажимая кнопку, я подтверждаю осведомлённость и согласие <a href=\\\"https://yoomoney.ru/page?id=525698%5C\\\">со всеми юридическими условиями</a> и с тем, что если я не подключу информирование об операциях на почту или телефон, единственным каналом информирования будет история моих операций — на сайте и в приложении ЮMoney";
+"Wallet.Authorization.userAgreementTitle" = "Нажимая кнопку, я подтверждаю осведомлённость и согласие <a href=\"https://yoomoney.ru/page?id=525698%5C\">со всеми юридическими условиями</a> и с тем, что если я не подключу информирование об операциях на почту или телефон, единственным каналом информирования будет история моих операций — на сайте и в приложении ЮMoney";
 
 /* Текст с ссылкой под кнопкой на экране про миграцию, который после нажатия на немигрированный аккаунт на экране выбора аккаунта https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.userWithEmailAgreementTitle" = "Нажимая кнопку, я подтверждаю осведомлённость и согласие <a href=\\\"https://yoomoney.ru/page?id=525698%5C\\\">со всеми юридическими условиями</a>";
+"Wallet.Authorization.userWithEmailAgreementTitle" = "Нажимая кнопку, я подтверждаю осведомлённость и согласие <a href=\"https://yoomoney.ru/page?id=525698%5C\">со всеми юридическими условиями</a>";
 
 /* Текст `Привязать кошелек` https://yadi.sk/i/o89CnEUSmNsM7g */
 "Wallet.savePaymentMethod.title" = "Привязать кошелек";
@@ -259,24 +252,20 @@
 /* No comment provided by engineer. */
 "settings.payment_methods.apple_pay" = "settings.payment_methods.apple_pay";
 
-/* No comment provided by engineer. */
 "settings.payment_methods.bank_card" = "settings.payment_methods.bank_card";
 
-/* No comment provided by engineer. */
 "settings.payment_methods.sberbank" = "settings.payment_methods.sberbank";
 
-/* No comment provided by engineer. */
 "settings.payment_methods.title" = "settings.payment_methods.title";
 
-/* No comment provided by engineer. */
 "settings.payment_methods.yoo_money" = "settings.payment_methods.yoo_money";
 
-/* No comment provided by engineer. */
 "settings.test_mode.title" = "settings.test_mode.title";
 
-/* No comment provided by engineer. */
 "settings.title" = "settings.title";
 
 /* No comment provided by engineer. */
+"settings.ui_customization.bank_card_scan_enabled" = "settings.ui_customization.bank_card_scan_enabled";
+
 "settings.ui_customization.yoo_money_logo" = "settings.ui_customization.yoo_money_logo";
 

@@ -44,6 +44,9 @@
 
 "BankCardView.inputPanPlaceholder" = "Enter or scan";
 
+/* Отменить */
+"Cancel" = "Cancel";
+
 "Common.Error.unknown" = "Something went wrong";
 
 /* Common */
