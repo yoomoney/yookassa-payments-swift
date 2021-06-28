@@ -96,9 +96,13 @@ enum BankCardAssembly {
         view: BankCardDataInputView,
         moduleInput: BankCardDataInputModuleInput
     ) {
+        let inputPanPlaceholder = inputData.cardScanning != nil
+            ? §Localized.BankCardView.inputPanPlaceholder
+            : §Localized.BankCardView.inputPanPlaceholderWithoutScan
+        
         let inputData = BankCardDataInputModuleInputData(
             inputPanHint: §Localized.BankCardView.inputPanHint,
-            inputPanPlaceholder: §Localized.BankCardView.inputPanPlaceholder,
+            inputPanPlaceholder: inputPanPlaceholder,
             inputExpiryDateHint: §Localized.BankCardView.inputExpiryDateHint,
             inputExpiryDatePlaceholder: §Localized.BankCardView.inputExpiryDatePlaceholder,
             inputCvcHint: §Localized.BankCardView.inputCvcHint,
@@ -122,6 +126,7 @@ private extension BankCardAssembly {
         enum BankCardView: String {
             case inputPanHint = "BankCardView.inputPanHint"
             case inputPanPlaceholder = "BankCardView.inputPanPlaceholder"
+            case inputPanPlaceholderWithoutScan = "BankCardView.inputPanPlaceholderWithoutScan"
             case inputExpiryDateHint = "BankCardView.inputExpiryDateHint"
             case inputExpiryDatePlaceholder = "BankCardView.inputExpiryDatePlaceholder"
             case inputCvcHint = "BankCardView.inputCvcHint"

@@ -10,6 +10,7 @@
 
 "BankCardView.inputPanHint" = "Номер карты";
 "BankCardView.inputPanPlaceholder" = "Введите или отсканируйте";
+"BankCardView.inputPanPlaceholderWithoutScan" = "Введите";
 "BankCardView.inputExpiryDatePlaceholder" = "ММ/ГГ";
 "BankCardView.inputExpiryDateHint" = "Срок действия";
 "BankCardView.inputCvcHint" = "Код";
