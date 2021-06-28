@@ -44,6 +44,9 @@
 
 "BankCardView.inputPanPlaceholder" = "Enter or scan";
 
+/* Текст `Введите` при вводе данных банковской карты в случае если сканирование не доступно https://yadi.sk/i/fbrtpMi0d-k4xw */
+"BankCardView.inputPanPlaceholderWithoutScan" = "Enter";
+
 /* Отменить */
 "Cancel" = "Cancel";
 
