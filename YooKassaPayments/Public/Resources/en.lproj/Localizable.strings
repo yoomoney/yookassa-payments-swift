@@ -10,6 +10,7 @@
 
 "BankCardView.inputPanHint" = "Card number";
 "BankCardView.inputPanPlaceholder" = "Enter or scan";
+"BankCardView.inputPanPlaceholderWithoutScan" = "Enter";
 "BankCardView.inputExpiryDatePlaceholder" = "MM/YY";
 "BankCardView.inputExpiryDateHint" = "Expiration date";
 "BankCardView.inputCvcHint" = "Code";
