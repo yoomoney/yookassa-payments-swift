@@ -8,6 +8,8 @@ struct Settings {
     var isSberbankEnabled = true
 
     var isShowingYooMoneyLogoEnabled = true
+    
+    var isBankCardScanEnabled = true
 
     var price = Decimal(5.0)
 

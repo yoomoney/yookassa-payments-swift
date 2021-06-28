@@ -28,6 +28,7 @@
 "settings.payment_methods.bank_card" = "Bank card";
 "settings.payment_methods.apple_pay" = "Apple Pay";
 "settings.ui_customization.yoo_money_logo" = "The YooKassa logo";
+"settings.ui_customization.bank_card_scan_enabled" = "Bank card scanning";
 "settings.test_mode.title" = "Test mode";
 "settings.payment_methods.sberbank" = "Sberbank Online";
 
