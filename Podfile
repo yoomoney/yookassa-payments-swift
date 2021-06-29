@@ -4,7 +4,10 @@ source 'git@github.com:yoomoney-tech/cocoa-pod-specs.git'
 platform :ios, '10.0'
 use_frameworks!
 
-target 'YooKassaPaymentsExamplePods' do
+project 'YooKassaPaymentsDemoApp.xcodeproj'
+workspace 'YooKassaPayments.xcworkspace'
+
+target 'YooKassaPaymentsDemoApp' do
   pod 'CardIO'
   pod 'SwiftLint'
   pod 'Reveal-SDK', :configurations => ['Debug']

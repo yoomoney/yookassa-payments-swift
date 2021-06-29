@@ -1,4 +1,4 @@
-protocol BankCardRouterInput: class {
+protocol BankCardRouterInput: AnyObject {
     func presentTermsOfServiceModule(
         _ url: URL
     )

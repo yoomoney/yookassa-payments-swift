@@ -1,17 +1,5 @@
 import UIKit.UIImage
 
-private enum PaymentMethodViewModelHelper {
-    enum Localized: String {
-        case change = "Contract.changePaymentMethod"
-    }
-}
-
-extension PaymentMethodViewModel {
-    var change: String {
-        return §PaymentMethodViewModelHelper.Localized.change
-    }
-}
-
 protocol PaymentMethodsViewInput: ActivityIndicatorFullViewPresenting, NotificationPresenting {
     func reloadData()
     func setLogoVisible(_ isVisible: Bool)

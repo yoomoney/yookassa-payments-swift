@@ -1,3 +1,3 @@
-protocol DeviceInfoService: class {
+protocol DeviceInfoService: AnyObject {
     func getDeviceName() -> String
 }

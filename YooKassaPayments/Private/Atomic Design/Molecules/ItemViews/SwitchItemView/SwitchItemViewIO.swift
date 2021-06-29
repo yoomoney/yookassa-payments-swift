@@ -1,5 +1,5 @@
 /// SwitchItemView input protocol
-protocol SwitchItemViewInput: class {
+protocol SwitchItemViewInput: AnyObject {
 
     /// Textual content
     var title: String { get set }
@@ -9,7 +9,7 @@ protocol SwitchItemViewInput: class {
 }
 
 /// SwitchItemView output protocol
-protocol SwitchItemViewOutput: class {
+protocol SwitchItemViewOutput: AnyObject {
 
     /// Tells output that switch state is changed
     ///

@@ -1,8 +1,6 @@
-protocol SberpayViewInput:
-    ActivityIndicatorFullViewPresenting,
+protocol SberpayViewInput: ActivityIndicatorFullViewPresenting,
     PlaceholderPresenting,
-    NotificationPresenting
-{
+    NotificationPresenting {
     func setupViewModel(
         _ viewModel: SberpayViewModel
     )

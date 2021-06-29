@@ -1,11 +1,11 @@
 import UIKit
 
 final class LinkedCardViewController: UIViewController, PlaceholderProvider {
-    
+
     // MARK: - VIPER
-    
+
     var output: LinkedCardViewOutput!
-    
+
     // MARK: - Touches, Presses, and Gestures
 
     private lazy var viewTapGestureRecognizer: UITapGestureRecognizer = {
@@ -15,9 +15,9 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         target: self,
         action: #selector(viewTapGestureRecognizerHandle)
     ))
-    
+
     // MARK: - UI properties
-    
+
     private lazy var scrollView: UIScrollView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -30,26 +30,26 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
-    
+
     private lazy var contentStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .vertical
         return $0
     }(UIStackView())
-    
+
     private lazy var orderView: OrderView = {
         $0.setStyles(UIView.Styles.grayBackground)
         return $0
     }(OrderView())
-    
+
     private lazy var cardView: UIView = {
         $0.setStyles(
             UIView.Styles.grayBackground
         )
         return $0
     }(UIView())
-    
+
     private lazy var maskedCardView: MaskedCardView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.tintColor = CustomizationStorage.shared.mainScheme
@@ -57,24 +57,24 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
             UIView.Styles.grayBackground,
             UIView.Styles.roundedShadow
         )
-        $0.hintCardCode = §Localized.hintCardCode
-        $0.hintCardNumber = §Localized.hintCardNumber
-        $0.cardCodePlaceholder = §Localized.cvc
+        $0.hintCardCode = CommonLocalized.BankCardView.inputCvcHint
+        $0.hintCardNumber = CommonLocalized.BankCardView.inputPanHint
+        $0.cardCodePlaceholder = CommonLocalized.BankCardView.inputCvcPlaceholder
         $0.delegate = self
         return $0
     }(MaskedCardView())
-    
+
     private lazy var errorCscView: UIView = {
         $0.setStyles(
             UIView.Styles.grayBackground
         )
         return $0
     }(UIView())
-    
+
     private lazy var errorCscLabel: UILabel = {
         $0.isHidden = true
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.text = §Localized.errorCvc
+        $0.text = CommonLocalized.BankCardView.BottomHint.invalidCvc
         $0.setStyles(
             UIView.Styles.grayBackground,
             UILabel.DynamicStyle.caption1,
@@ -82,7 +82,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         )
         return $0
     }(UILabel())
-    
+
     private lazy var actionButtonStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -90,14 +90,14 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         $0.spacing = Space.double
         return $0
     }(UIStackView())
-    
+
     private lazy var submitButton: Button = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(
             UIButton.DynamicStyle.primary,
             UIView.Styles.heightAsContent
         )
-        $0.setStyledTitle(§Localized.continue, for: .normal)
+        $0.setStyledTitle(CommonLocalized.Contract.next, for: .normal)
         $0.addTarget(
             self,
             action: #selector(didPressActionButton),
@@ -105,7 +105,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         )
         return $0
     }(Button(type: .custom))
-    
+
     private lazy var termsOfServiceLinkedTextView: LinkedTextView = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(
@@ -115,7 +115,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         $0.delegate = self
         return $0
     }(LinkedTextView())
-    
+
     // MARK: - PlaceholderProvider
 
     lazy var placeholderView: PlaceholderView = {
@@ -128,14 +128,14 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
     lazy var actionTitleTextDialog: ActionTitleTextDialog = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(ActionTitleTextDialog.Styles.fail)
-        $0.buttonTitle = §Localized.PlaceholderView.buttonTitle
-        $0.text = §Localized.PlaceholderView.text
+        $0.buttonTitle = CommonLocalized.PlaceholderView.buttonTitle
+        $0.text = CommonLocalized.PlaceholderView.text
         $0.delegate = output
         return $0
     }(ActionTitleTextDialog())
-    
+
     // MARK: - Switcher save auth in app
-    
+
     private lazy var saveAuthInAppSwitchItemView: SwitchItemView = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.layoutMargins = UIEdgeInsets(
@@ -146,11 +146,11 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         )
         $0.state = true
         $0.setStyles(SwitchItemView.Styles.primary)
-        $0.title = §Localized.saveAuthInAppTitle
+        $0.title = CommonLocalized.SaveAuthInApp.title
         $0.delegate = self
         return $0
     }(SwitchItemView())
-    
+
     private lazy var saveAuthInAppSectionHeaderView: SectionHeaderView = {
         $0.layoutMargins = UIEdgeInsets(
             top: Space.single / 2,
@@ -158,13 +158,13 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
             bottom: Space.double,
             right: Space.double
         )
-        $0.title = §Localized.saveAuthInApp
+        $0.title = CommonLocalized.SaveAuthInApp.text
         $0.setStyles(SectionHeaderView.Styles.footer)
         return $0
     }(SectionHeaderView())
-    
+
     // MARK: - Input Presenter
-    
+
     private struct CscInputPresenterStyle: InputPresenterStyle {
         func removedFormatting(from string: String) -> String {
             return string.components(separatedBy: removeFormattingCharacterSet).joined()
@@ -184,16 +184,16 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
             return set.inverted
         }()
     }
-    
+
     private lazy var cvcTextInputPresenter: InputPresenter = {
         let cvcTextStyle = CscInputPresenterStyle()
         let cvcTextInputPresenter = InputPresenter(textInputStyle: cvcTextStyle)
         cvcTextInputPresenter.output = maskedCardView.cardCodeTextView
         return cvcTextInputPresenter
     }()
-    
+
     // MARK: - Constraints
-    
+
     private lazy var scrollViewHeightConstraint: NSLayoutConstraint = {
         let constraint = scrollView.heightAnchor.constraint(equalToConstant: 0)
         constraint.priority = .defaultLow
@@ -201,7 +201,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
     }()
 
     // MARK: - Managing the View
-    
+
     override func loadView() {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
@@ -215,9 +215,9 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         super.viewDidLoad()
         output.setupView()
     }
-    
+
     // MARK: - Setup
-    
+
     private func setupView() {
         [
             scrollView,
@@ -229,21 +229,21 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         [
             contentStackView,
         ].forEach(contentView.addSubview)
-        
+
         [
             orderView,
             cardView,
             errorCscView,
         ].forEach(contentStackView.addArrangedSubview)
-        
+
         [
             maskedCardView,
         ].forEach(cardView.addSubview)
-        
+
         [
             errorCscLabel,
         ].forEach(errorCscView.addSubview)
-        
+
         [
             submitButton,
             termsOfServiceLinkedTextView,
@@ -270,10 +270,10 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
                 equalTo: topLayoutGuide.bottomAnchor
             )
         }
-        
+
         let constraints = [
             scrollViewHeightConstraint,
-            
+
             topConstraint,
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -302,7 +302,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
             contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
+
             maskedCardView.topAnchor.constraint(
                 equalTo: cardView.topAnchor,
                 constant: Space.double
@@ -319,7 +319,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
                 equalTo: cardView.trailingAnchor,
                 constant: -Space.double
             ),
-            
+
             errorCscLabel.topAnchor.constraint(equalTo: errorCscView.topAnchor),
             errorCscLabel.leadingAnchor.constraint(
                 equalTo: errorCscView.leadingAnchor,
@@ -333,7 +333,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-    
+
     // MARK: - Configuring the View’s Layout Behavior
 
     override func viewDidLayoutSubviews() {
@@ -342,20 +342,20 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
             self.fixTableViewHeight()
         }
     }
-    
+
     private func fixTableViewHeight() {
         scrollViewHeightConstraint.constant = contentStackView.bounds.height
     }
-    
+
     // MARK: - Action
-    
+
     @objc
     private func didPressActionButton(
         _ sender: UIButton
     ) {
         output?.didTapActionButton()
     }
-    
+
     @objc
     private func viewTapGestureRecognizerHandle(
         _ gestureRecognizer: UITapGestureRecognizer
@@ -363,7 +363,7 @@ final class LinkedCardViewController: UIViewController, PlaceholderProvider {
         guard gestureRecognizer.state == .recognized else { return }
         view.endEditing(true)
     }
-    
+
     // MARK: - Private logic helpers
 
     private var cachedCvc = ""
@@ -375,13 +375,13 @@ extension LinkedCardViewController: LinkedCardViewInput {
     func endEditing(_ force: Bool) {
         view.endEditing(force)
     }
-    
+
     func setupTitle(
         _ title: String?
     ) {
-        navigationItem.title = title ?? §Localized.title
+        navigationItem.title = title ?? Localized.title
     }
-    
+
     func setupViewModel(
         _ viewModel: LinkedCardViewModel
     ) {
@@ -389,14 +389,14 @@ extension LinkedCardViewController: LinkedCardViewInput {
         orderView.subtitle = viewModel.description
         orderView.value = makePrice(viewModel.price)
         if let fee = viewModel.fee {
-            orderView.subvalue = "\(§Localized.fee) " + makePrice(fee)
+            orderView.subvalue = "\(CommonLocalized.Contract.fee) " + makePrice(fee)
         } else {
             orderView.subvalue = nil
         }
-        
+
         maskedCardView.cardNumber = viewModel.cardMask
         maskedCardView.cardLogo = viewModel.cardLogo
-        
+
         termsOfServiceLinkedTextView.attributedText = makeTermsOfService(
             viewModel.terms,
             font: UIFont.dynamicCaption2,
@@ -404,27 +404,27 @@ extension LinkedCardViewController: LinkedCardViewInput {
         )
         termsOfServiceLinkedTextView.textAlignment = .center
     }
-    
+
     func setSaveAuthInAppSwitchItemView() {
         [
             saveAuthInAppSwitchItemView,
             saveAuthInAppSectionHeaderView,
         ].forEach(contentStackView.addArrangedSubview)
     }
-    
+
     func setConfirmButtonEnabled(
         _ isEnabled: Bool
     ) {
         submitButton.isEnabled = isEnabled
     }
-    
+
     func showPlaceholder(
         with message: String
     ) {
         actionTitleTextDialog.title = message
         showPlaceholder()
     }
-    
+
     func setCardState(
         _ state: MaskedCardView.CscState
     ) {
@@ -437,7 +437,7 @@ extension LinkedCardViewController: LinkedCardViewInput {
     ) {
         navigationItem.hidesBackButton = isHidden
     }
-    
+
     private func makePrice(
         _ price: PriceViewModel
     ) -> String {
@@ -446,7 +446,7 @@ extension LinkedCardViewController: LinkedCardViewInput {
              + price.fractionalPart
              + price.currency
     }
-    
+
     private func makeTermsOfService(
         _ terms: TermsOfService,
         font: UIFont,
@@ -523,13 +523,13 @@ extension LinkedCardViewController: MaskedCardViewDelegate {
         output.didSetCsc(cachedCvc)
         return false
     }
-    
+
     func textFieldDidBeginEditing(
         _ textField: UITextField
     ) {
         setCardState(.selected)
     }
-    
+
     func textFieldDidEndEditing(
         _ textField: UITextField
     ) {
@@ -574,21 +574,12 @@ extension LinkedCardViewController: SwitchItemViewOutput {
 // MARK: - Localized
 
 private extension LinkedCardViewController {
-    enum Localized: String {
-        case title = "LinkedCard.title"
-        case `continue` = "Contract.next"
-        case fee = "Contract.fee"
-        case saveAuthInApp = "Contract.format.saveAuthInApp"
-        case saveAuthInAppTitle = "Contract.format.saveAuthInApp.title"
-        
-        case hintCardNumber = "BankCardView.inputPanHint"
-        case hintCardCode = "BankCardDataInput.hintCardCode"
-        case cvc = "BankCardDataInput.cvc"
-        case errorCvc = "BankCardDataInput.errorCvc"
-        
-        enum PlaceholderView: String {
-            case buttonTitle = "Common.PlaceholderView.buttonTitle"
-            case text = "Common.PlaceholderView.text"
-        }
+    enum Localized {
+        static let title = NSLocalizedString(
+            "LinkedCard.title",
+            bundle: Bundle.framework,
+            value: "Привязанная карта",
+            comment: "Title `Привязанная карта` на экране `Привязанная карта` https://yadi.sk/d/yLgHHmqAsklYng"
+        )
     }
 }

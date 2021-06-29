@@ -13,7 +13,7 @@ final class BankCardRepeatInteractor {
     private let paymentService: PaymentService
     private let threatMetrixService: ThreatMetrixService
     private let amountNumberFormatter: AmountNumberFormatter
-    
+
     private let clientApplicationKey: String
     private let gatewayId: String?
     private let amount: Amount
@@ -35,7 +35,7 @@ final class BankCardRepeatInteractor {
         self.paymentService = paymentService
         self.threatMetrixService = threatMetrixService
         self.amountNumberFormatter = amountNumberFormatter
-        
+
         self.clientApplicationKey = clientApplicationKey
         self.gatewayId = gatewayId
         self.amount = amount
@@ -122,7 +122,7 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
     func trackEvent(_ event: AnalyticsEvent) {
         analyticsService.trackEvent(event)
     }
-    
+
     func makeTypeAnalyticsParameters() -> (
         authType: AnalyticsEvent.AuthType,
         tokenType: AnalyticsEvent.AuthTokenType?

@@ -1,5 +1,5 @@
-import YooKassaPaymentsApi
 import ThreatMetrixAdapter
+import YooKassaPaymentsApi
 
 final class YooMoneyInteractor {
 
@@ -8,7 +8,7 @@ final class YooMoneyInteractor {
     weak var output: YooMoneyInteractorOutput?
 
     // MARK: - Init data
-    
+
     private let authorizationService: AuthorizationService
     private let analyticsService: AnalyticsService
     private let paymentService: PaymentService
@@ -63,7 +63,7 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
             }
         }
     }
-    
+
     func tokenize(
         confirmation: Confirmation,
         savePaymentMethod: Bool,
@@ -101,17 +101,17 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
             }
         }
     }
-    
+
     func loadAvatar() {
         guard let avatarURL = authorizationService.getWalletAvatarURL(),
               let url = URL(string: avatarURL) else {
             return
         }
-        
+
         imageDownloadService.fetchImage(url: url) { [weak self] result in
             guard let self = self,
                   let output = self.output else { return }
-            
+
             switch result {
             case let .success(avatar):
                 output.didLoadAvatar(avatar)
@@ -120,7 +120,7 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
             }
         }
     }
-    
+
     func hasReusableWalletToken() -> Bool {
         return authorizationService.hasReusableWalletToken()
     }
@@ -128,22 +128,22 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
     func trackEvent(_ event: AnalyticsEvent) {
         analyticsService.trackEvent(event)
     }
-    
+
     func makeTypeAnalyticsParameters() -> (
         authType: AnalyticsEvent.AuthType,
         tokenType: AnalyticsEvent.AuthTokenType?
     ) {
         return analyticsProvider.makeTypeAnalyticsParameters()
     }
-    
+
     func getWalletDisplayName() -> String? {
         return authorizationService.getWalletDisplayName()
     }
-    
+
     func logout() {
         authorizationService.logout()
     }
-    
+
     private func tokenizeWithTMXSessionId(
         confirmation: Confirmation,
         savePaymentMethod: Bool,

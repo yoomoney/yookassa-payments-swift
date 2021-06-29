@@ -1,0 +1,38 @@
+Babelyoda::Specification.new do |s|
+	s.name = 'yandex-checkout-payments-swift'
+	s.platform = 'ios'
+	s.development_language = :ru
+	s.localization_languages = [:en]
+
+	# Specifies whether human-readable plain text values (usu. in the
+	# development language) are used as localization keys.
+	#
+	# Set to false if you use something like 'views.panel.msg1' as keys in your
+	# project.
+	#
+	# Default is true.
+	#
+	s.engine = Babelyoda::Weblate.new do |t|
+		t.token = 'iQlbHHj4OgsH6VKFbgu9UWrJ4fHeeGPuMBZxk68J'
+		t.project_id = 'yandex-checkout-payments-swift'
+		t.endpoint = 'https://weblate.yooteam.ru'
+	end
+
+	file_list = YAML.load(File.read("Babelstrings"))
+    source_paths = file_list['source_paths'].join(",")
+
+	s.scm = Babelyoda::Git.new
+	s.source_files = FileList["{#{source_paths}}/**/*.{m,mm,h,swift}"]
+	s.resources_folder = 'YooKassaPayments/Public/Resources'
+	s.xib_files = []
+
+	result_list = FileList.new(file_list['include'])
+
+	file_list['exclude'].to_a.each do |file_name|
+	    result_list.exclude file_name
+	end
+
+	s.strings_files = result_list
+
+	s.plain_text_keys = false
+end

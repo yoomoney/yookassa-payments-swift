@@ -1,7 +1,7 @@
-protocol SavePaymentMethodInfoViewInput: class {
+protocol SavePaymentMethodInfoViewInput: AnyObject {
     func setSavePaymentMethodInfoViewModel(_ viewModel: SavePaymentMethodInfoViewModel)
 }
 
-protocol SavePaymentMethodInfoViewOutput: class {
+protocol SavePaymentMethodInfoViewOutput: AnyObject {
     func setupView()
 }

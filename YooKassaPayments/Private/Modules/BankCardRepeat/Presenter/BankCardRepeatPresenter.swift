@@ -11,11 +11,11 @@ final class BankCardRepeatPresenter {
     weak var view: BankCardRepeatViewInput?
 
     // MARK: - Init data
-    
+
     private let cardService: CardService
     private let paymentMethodViewModelFactory: PaymentMethodViewModelFactory
     private let priceViewModelFactory: PriceViewModelFactory
-    
+
     private let isLoggingEnabled: Bool
     private let returnUrl: String?
 
@@ -44,10 +44,10 @@ final class BankCardRepeatPresenter {
         self.cardService = cardService
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
         self.priceViewModelFactory = priceViewModelFactory
-        
+
         self.isLoggingEnabled = isLoggingEnabled
         self.returnUrl = returnUrl
-        
+
         self.paymentMethodId = paymentMethodId
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -55,7 +55,7 @@ final class BankCardRepeatPresenter {
         self.savePaymentMethodViewModel = savePaymentMethodViewModel
         self.initialSavePaymentMethod = initialSavePaymentMethod
     }
-    
+
     // MARK: - Stored Data
 
     private var paymentMethod: PaymentMethod?
@@ -84,7 +84,7 @@ extension BankCardRepeatPresenter: BankCardRepeatViewOutput {
             interactor.fetchPaymentMethods()
         }
     }
-    
+
     func didTapActionButton() {
         view?.endEditing(true)
         view?.showActivity()
@@ -93,27 +93,27 @@ extension BankCardRepeatPresenter: BankCardRepeatViewOutput {
             self.tokenize()
         }
     }
-    
+
     func didTapTermsOfService(_ url: URL) {
         router.presentTermsOfServiceModule(url)
     }
-    
+
     func didTapOnSavePaymentMethod() {
         let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
-            headerValue: §SavePaymentMethodInfoLocalization.BankCard.header,
-            bodyValue: §SavePaymentMethodInfoLocalization.BankCard.body
+            headerValue: SavePaymentMethodInfoLocalization.BankCard.header,
+            bodyValue: SavePaymentMethodInfoLocalization.BankCard.body
         )
         router.presentSavePaymentMethodInfo(
             inputData: savePaymentMethodModuleinputData
         )
     }
-    
+
     func didChangeSavePaymentMethodState(
         _ state: Bool
     ) {
         initialSavePaymentMethod = state
     }
-    
+
     func didSetCsc(
         _ csc: String
     ) {
@@ -137,13 +137,13 @@ extension BankCardRepeatPresenter: BankCardRepeatViewOutput {
             }
         }
     }
-    
+
     func endEditing() {
         guard let csc = csc else {
             view?.setCardState(.error)
             return
         }
-        
+
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
             do {
@@ -251,7 +251,7 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
             didTokenize: tokens,
             paymentMethodType: .bankCard
         )
-        
+
         DispatchQueue.global().async { [weak self] in
             guard let self = self, let interactor = self.interactor else { return }
             let type = interactor.makeTypeAnalyticsParameters()
@@ -267,7 +267,7 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
 
     func didFailTokenize(_ error: Error) {
         let message = makeMessage(error)
-        
+
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
             view.hideActivity()
@@ -305,7 +305,7 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
 
     private func tokenize() {
         guard let csc = csc else { return }
-        
+
         let confirmation = Confirmation(
             type: .redirect,
             returnUrl: returnUrl ?? GlobalConstants.returnUrl
@@ -371,7 +371,7 @@ extension BankCardRepeatPresenter: TokenizationModuleInput {
             )
         }
     }
-    
+
     func startConfirmationProcess(
         confirmationUrl: String,
         paymentMethodType: PaymentMethodType
@@ -443,7 +443,7 @@ private func makeMessage(_ error: Error) -> String {
     case let error as PresentableError:
         message = error.message
     default:
-        message = §CommonLocalized.Error.unknown
+        message = CommonLocalized.Error.unknown
     }
 
     return message

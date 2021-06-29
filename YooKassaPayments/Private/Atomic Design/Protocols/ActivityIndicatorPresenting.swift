@@ -23,7 +23,7 @@
  */
 
 /// Activity indicator presenting protocol
-protocol ActivityIndicatorPresenting: class {
+protocol ActivityIndicatorPresenting: AnyObject {
 
     /// Show activity indicator
     func showActivity()

@@ -1,6 +1,6 @@
 import UIKit
 
-protocol FixedLengthCodeControlDelegate: class {
+protocol FixedLengthCodeControlDelegate: AnyObject {
     func fixedLengthCodeControl(
         _ fixedLengthCodeControl: FixedLengthCodeControl,
         didGetCode code: String

@@ -24,17 +24,17 @@ final class SheetContentViewController: UIViewController {
         }
         return $0
     }(UIView())
-    
+
     private lazy var pullBarView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
-    
+
     private lazy var gripView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
-    
+
     private lazy var overflowView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
@@ -62,20 +62,20 @@ final class SheetContentViewController: UIViewController {
     private lazy var contentTopConstraint: NSLayoutConstraint = {
         return contentView.topAnchor.constraint(equalTo: view.topAnchor)
     }()
-    
+
     private lazy var contentBottomConstraint: NSLayoutConstraint = {
         return childViewController.view.bottomAnchor.constraint(equalTo: childContainerView.bottomAnchor)
     }()
-    
+
     private var navigationHeightConstraint: NSLayoutConstraint?
     private var gripSizeConstraints: [NSLayoutConstraint] = []
 
     // MARK: - Logic properties
 
     private(set) var preferredHeight: CGFloat = 0
-    
+
     // MARK: - Notification center
-    
+
     private let notificationCenter = NotificationCenter.default
 
     // MARK: - Initialization
@@ -145,7 +145,7 @@ final class SheetContentViewController: UIViewController {
     }
 
     // MARK: - SetupView
-    
+
     private func setupNotificationCenter() {
         notificationCenter.addObserver(
             self,
@@ -159,18 +159,18 @@ final class SheetContentViewController: UIViewController {
         view.addSubview(contentView)
         contentView.addSubview(contentWrapperView)
         contentView.addSubview(overflowView)
-        
+
         NSLayoutConstraint.activate([
             contentTopConstraint,
             contentView.leftAnchor.constraint(equalTo: view.leftAnchor),
             contentView.rightAnchor.constraint(equalTo: view.rightAnchor),
             contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
+
             contentWrapperView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             contentWrapperView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             contentWrapperView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             contentWrapperView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            
+
             overflowView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             overflowView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             overflowView.heightAnchor.constraint(equalToConstant: 200),
@@ -183,7 +183,7 @@ final class SheetContentViewController: UIViewController {
 
     private func setupChildContainerView() {
         contentWrapperView.addSubview(childContainerView)
-        
+
         NSLayoutConstraint.activate([
             childContainerView.topAnchor.constraint(
                 equalTo: contentWrapperView.topAnchor,
@@ -199,16 +199,16 @@ final class SheetContentViewController: UIViewController {
         childViewController.willMove(toParent: self)
         addChild(childViewController)
         childContainerView.addSubview(childViewController.view)
-        
+
         childViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             childViewController.view.leadingAnchor.constraint(equalTo: childContainerView.leadingAnchor),
             childViewController.view.trailingAnchor.constraint(equalTo: childContainerView.trailingAnchor),
             childViewController.view.topAnchor.constraint(equalTo: childContainerView.topAnchor),
             contentBottomConstraint,
         ])
-        
+
         childViewController.didMove(toParent: self)
     }
 
@@ -269,9 +269,9 @@ final class SheetContentViewController: UIViewController {
             ? cornerRadius
             : 0
     }
-    
+
     // MARK: - Actions
-    
+
     @objc
     private func needUpdatePreferredHeight(
         _ notification: Notification

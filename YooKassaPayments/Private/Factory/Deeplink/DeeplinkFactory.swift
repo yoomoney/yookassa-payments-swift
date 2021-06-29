@@ -1,13 +1,14 @@
 import Foundation
 
 enum DeepLinkFactory {
-    
+
     static let invoicingHost = "invoicing"
     static let sberpayPath = "sberpay"
 
     enum YooMoney {
         static let host = "yoomoney"
-        enum exchange {
+
+        enum Exchange {
             static let firstPath = "exchange"
             static let cryptogram = "cryptogram"
         }
@@ -40,14 +41,14 @@ enum DeepLinkFactory {
         case (invoicingHost, sberpayPath, _, _):
             deepLink = .invoicingSberpay
 
-        case (YooMoney.host, YooMoney.exchange.firstPath, query, _):
+        case (YooMoney.host, YooMoney.Exchange.firstPath, query, _):
             guard let cryptogram = query["cryptogram"],
                   !cryptogram.isEmpty else {
                 deepLink = nil
                 break
             }
             deepLink = .yooMoneyExchange(cryptogram: cryptogram)
-        
+
         default:
             deepLink = nil
         }

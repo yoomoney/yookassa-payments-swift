@@ -117,7 +117,7 @@ extension UIViewController: NotificationPresenting {
             preferredStyle: .alert
         )
         let notificationActions = notification.actions.isEmpty
-            ? [Action(title: Localized.cancel)]
+            ? [Action(title: CommonLocalized.Alert.cancel)]
             : notification.actions
         notificationActions.map { action in
             return UIAlertAction(title: action.title, style: .default) { _ in
@@ -144,13 +144,6 @@ extension UIViewController: NotificationPresenting {
         } else {
             view.addSubview(notificationView)
         }
-    }
-}
-
-@available(iOS 9.0, *)
-private extension UIViewController {
-    enum Localized {
-        static let cancel = NSLocalizedString("Cancel", comment: "Отменить")
     }
 }
 

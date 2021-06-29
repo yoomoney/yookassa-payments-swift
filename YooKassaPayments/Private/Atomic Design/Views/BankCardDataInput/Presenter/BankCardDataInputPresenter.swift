@@ -153,7 +153,7 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
             )
         }
     }
-    
+
     func expiryDateDidEndEditing() {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
@@ -163,7 +163,7 @@ extension BankCardDataInputPresenter: BankCardDataInputViewOutput {
             )
         }
     }
-    
+
     func cvcDidEndEditing() {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
@@ -322,8 +322,8 @@ private extension BankCardDataInputPresenter {
             view.setErrorState(.panError)
             trackCardNumberInputError()
         } else if (view.focus == nil ||
-                    view.focus == .expiryDate
-                    && expiryDateText.count == Constants.MoveFocusLength.expiryDate),
+            view.focus == .expiryDate
+            && expiryDateText.count == Constants.MoveFocusLength.expiryDate),
                   errors.contains(.expirationDateIsExpired)
                       || errors.contains(.expiryDateEmpty)
                       || errors.contains(.invalidMonth) {
@@ -415,7 +415,7 @@ private extension BankCardDataInputPresenter {
         )
         trackEvent(event)
     }
-    
+
     func trackCardCvcInputError() {
         let event: AnalyticsEvent = .actionBankCardForm(
             action: .cardCvcInputError,

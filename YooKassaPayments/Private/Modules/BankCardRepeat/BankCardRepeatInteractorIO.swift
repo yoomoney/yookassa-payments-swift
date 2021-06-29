@@ -15,7 +15,7 @@ protocol BankCardRepeatInteractorInput: AnalyticsTrack, AnalyticsProvider {
     func fetchPaymentMethods()
 }
 
-protocol BankCardRepeatInteractorOutput: class {
+protocol BankCardRepeatInteractorOutput: AnyObject {
     func didFetchPaymentMethod(
         _ paymentMethod: PaymentMethod
     )

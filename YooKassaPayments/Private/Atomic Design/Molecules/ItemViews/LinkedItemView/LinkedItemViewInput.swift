@@ -1,12 +1,12 @@
 /// LinkedItemView input protocol
-protocol LinkedItemViewInput: class {
+protocol LinkedItemViewInput: AnyObject {
 
     /// Textual content
     var attributedString: NSAttributedString { get set }
 }
 
 /// LinkedItemView output protocol
-protocol LinkedItemViewOutput: class {
+protocol LinkedItemViewOutput: AnyObject {
 
     /// Tells output that was tap on linked view
     ///

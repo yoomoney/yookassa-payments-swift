@@ -1,4 +1,4 @@
-whitelist_rules:
+only_rules:
   - class_delegate_protocol
   # Delegate protocols should be class-only so they can be weakly referenced.
   #
@@ -824,33 +824,22 @@ whitelist_rules:
   #
   # ↓var scrollDelegate: ScrollDelegate?
   
-  
-  
-file_length: 500
-function_body_length: 40
-identifier_name:
-  min_length: 2
-  max_length: 20
 large_tuple: 3
 line_length: 
   warning: 120
   ignores_urls: true
-# statement_position: 
-#   statement_mode: "uncuddled_else"
 trailing_comma:
   mandatory_comma: true
 vertical_whitespace:
   max_empty_lines: 1
 nesting:
   type_level: 4
-  statement_level: 4
+  function_level: 4
 type_name:
   max_length: 1000
 cyclomatic_complexity: 11
 
-  
 excluded:
   - Pods
   - Carthage
   - .idea
-  - vendor
