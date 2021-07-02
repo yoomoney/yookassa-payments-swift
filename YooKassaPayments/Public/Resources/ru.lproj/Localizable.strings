@@ -147,11 +147,17 @@
 /* Способ оплаты - `Банковская карта` https://yadi.sk/i/smhhxBAxkP8Ebw */
 "PaymentMethod.bankCard" = "Банковская карта";
 
+/* Способ оплаты - `Привязанная карта` https://disk.yandex.ru/d/sFpmR3gLEc287Q */
+"PaymentMethod.linkedCard" = "Привязанная карта";
+
 /* Способ оплаты - `SberPay` https://yadi.sk/i/smhhxBAxkP8Ebw */
 "PaymentMethod.sberpay" = "SberPay";
 
 /* Способ оплаты - `ЮMoney` https://yadi.sk/i/smhhxBAxkP8Ebw */
 "PaymentMethod.wallet" = "ЮMoney";
+
+/* Способ оплаты - `Карта Юмани` https://disk.yandex.ru/d/sFpmR3gLEc287Q */
+"PaymentMethod.yooMoneyCard" = "Карта Юмани";
 
 /* Title `Способ оплаты` на экране выбора способа оплаты https://yadi.sk/i/0dSpSggROTC0Jw */
 "PaymentMethods.paymentMethods" = "Способ оплаты";
