@@ -129,6 +129,14 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
     ) {
         return analyticsProvider.makeTypeAnalyticsParameters()
     }
+    
+    func startAnalyticsService() {
+        analyticsService.start()
+    }
+
+    func stopAnalyticsService() {
+        analyticsService.stop()
+    }
 }
 
 // MARK: - Private global helpers

@@ -70,6 +70,7 @@ extension BankCardRepeatPresenter: BankCardRepeatViewOutput {
         guard let view = view else { return }
 
         view.showActivity()
+        interactor.startAnalyticsService()
 
         DispatchQueue.global().async { [weak self] in
             guard let self = self,
@@ -246,6 +247,7 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
     }
 
     func didTokenize(_ tokens: Tokens) {
+        interactor.stopAnalyticsService()
         moduleOutput?.tokenizationModule(
             self,
             didTokenize: tokens,

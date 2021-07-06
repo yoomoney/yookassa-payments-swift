@@ -13,6 +13,9 @@ protocol BankCardRepeatInteractorInput: AnalyticsTrack, AnalyticsProvider {
     )
 
     func fetchPaymentMethods()
+    
+    func startAnalyticsService()
+    func stopAnalyticsService()
 }
 
 protocol BankCardRepeatInteractorOutput: class {
