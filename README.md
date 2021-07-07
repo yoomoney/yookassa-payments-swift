@@ -75,7 +75,7 @@ gem install cocoapods
 
 1. Создайте файл Podfile
 
-> CocoaPods предоставляет команду ```pod init``` для создания Podfile с настройками по умолчанию.
+> CocoaPods предоставляет команду `pod init` для создания Podfile с настройками по умолчанию.
 
 2. Добавьте зависимости в `Podfile`.\
   [Пример](https://github.com/yoomoney/yookassa-payments-swift/tree/master/YooKassaPaymentsExample/Podfile-example) `Podfile` из демо-приложения.
@@ -96,6 +96,25 @@ end
 
 > `Your Target Name` - название таргета в Xcode для вашего приложения.\
 > `tag` - версия SDK. Актуальную версию можно узнать на github в разделе [releases](https://github.com/yoomoney/yookassa-payments-swift/releases).
+
+> Если вы используете static linkage, то необходимо подключить plugin `cocoapods-user-defined-build-types`:
+
+```shell
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/yoomoney-tech/cocoa-pod-specs.git'
+
+plugin 'cocoapods-user-defined-build-types'
+enable_user_defined_build_types!
+
+platform :ios, '10.0'
+
+target 'Your Target Name' do
+  pod 'YooKassaPayments',
+    :build_type => :dynamic_framework,
+    :git => 'https://github.com/yoomoney/yookassa-payments-swift.git',
+    :tag => 'tag'
+end
+```
 
 3. Выполните команду `pod install`
 
