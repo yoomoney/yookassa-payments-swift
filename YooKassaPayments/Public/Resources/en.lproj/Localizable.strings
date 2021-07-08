@@ -218,3 +218,5 @@
 
 "image.logo" = "logo.kassa.en";
 
+"settings.ui_customization.bank_card_scan_enabled" = "Bank card scanning";
+

@@ -255,7 +255,43 @@
 /* Текст `ЮMoney` https://yadi.sk/i/o89CnEUSmNsM7g */
 "YooMoney.title" = "ЮMoney";
 
-/* No comment provided by engineer. */
+/* Текст, в информере, о сохранении автоплатежа https://disk.yandex.ru/i/QNJyBrfP52vQOw */
+"card.details.autopaymentPersists" = "После отвязки карты останутся автосписания. Отменить их можно через службу поддержки магазина.";
+
+/* Текст информации о работе автосписания https://disk.yandex.ru/i/r9l5HObi2jZy6A */
+"card.details.info.autopay.details" = "Если вы согласитесь на автосписания, мы привяжем банковскую карту к магазину. После этого магазин сможет присылать запросы на автоматические списания денег — тогда платёж выполняется без дополнительного подтверждения с вашей стороны.\nАвтосписания продолжатся даже при перевыпуске карты, если ваш банк умеет автоматически обновлять данные. Отменить их и отвязать карту можно в любой момент — через службу поддержки магазина.";
+
+/* Заголовок информации о работе автосписания https://disk.yandex.ru/i/r9l5HObi2jZy6A */
+"card.details.info.autopay.title" = "Как работают автоматические списания";
+
+/* Текст кнопки, в информере, ведущей в подробности https://disk.yandex.ru/i/QNJyBrfP52vQOw */
+"card.details.info.more" = "Подробнее";
+
+/* Текст информации об отвязке карты https://disk.yandex.ru/i/59heYTl9Q4L2fA */
+"card.details.info.unbind.details" = "
+            Для этого зайдите в настройки кошелька на сайте или в приложении ЮMoney.
+            В приложении: нажмите на свою аватарку, выберите «Банковские карты», смахните нужную карту влево и нажмите «Удалить».
+            На сайте: перейдите в настройки кошелька, откройте вкладку «Привязанные карты», найдите нужную карту и нажмите «Отвязать».
+            ";
+
+/* Заголовок информации об отвязке карты https://disk.yandex.ru/i/59heYTl9Q4L2fA */
+"card.details.info.unbind.title" = "Как отвязать карту от кошелька";
+
+/* Текст `Отвязать карту` https://disk.yandex.ru/i/QNJyBrfP52vQOw */
+"card.details.unbind" = "Отвязать карту";
+
+/* Текст нотификации об ошибке отвязки карты. Параметр - маска карты https://disk.yandex.ru/i/QNJyBrfP52vQOw */
+"card.details.unbind.fail" = "Не удалось отвязать карту %@";
+
+/* Текст нотификации об успешной отвязке карты. Параметр - маска карты https://disk.yandex.ru/i/JWC70LuzuJSeEw */
+"card.details.unbind.success" = "Карта %@ отвязана";
+
+/* Текст, ведущей назад, кнопки https://disk.yandex.ru/i/dcgivhF4QbURwA */
+"card.details.unwind" = "Вернуться";
+
+/* Текст, в информере, для карты привязанной к кошельку https://disk.yandex.ru/i/dcgivhF4QbURwA */
+"card.details.yoocardUnbindDetails" = "Отвязать эту карту можно только в настройках кошелька";
+
 "settings.payment_methods.apple_pay" = "settings.payment_methods.apple_pay";
 
 "settings.payment_methods.bank_card" = "settings.payment_methods.bank_card";
@@ -270,8 +306,7 @@
 
 "settings.title" = "settings.title";
 
-/* No comment provided by engineer. */
-"settings.ui_customization.bank_card_scan_enabled" = "settings.ui_customization.bank_card_scan_enabled";
+"settings.ui_customization.bank_card_scan_enabled" = "Сканирование банковской карты";
 
 "settings.ui_customization.yoo_money_logo" = "settings.ui_customization.yoo_money_logo";
 
