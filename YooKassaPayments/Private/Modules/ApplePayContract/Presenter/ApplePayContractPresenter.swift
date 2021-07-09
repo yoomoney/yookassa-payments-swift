@@ -165,6 +165,15 @@ extension ApplePayContractPresenter: ApplePayContractInteractorOutput {
         
         applePayCompletion?(.success)
         
+        let parameters = interactor.makeTypeAnalyticsParameters()
+        let event: AnalyticsEvent = .actionTokenize(
+            scheme: .applePay,
+            authType: parameters.authType,
+            tokenType: parameters.tokenType,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        interactor.trackEvent(event)
+        
         DispatchQueue.main.asyncAfter(
             deadline: .now() + Constants.dismissTimeout
         ) { [weak self] in

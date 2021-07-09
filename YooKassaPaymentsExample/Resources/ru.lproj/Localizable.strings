@@ -29,6 +29,7 @@
 "settings.payment_methods.sberbank" = "Сбербанк Онлайн";
 "settings.payment_methods.apple_pay" = "Apple Pay";
 "settings.ui_customization.yoo_money_logo" = "Логотип ЮKassa";
+"settings.ui_customization.bank_card_scan_enabled" = "Сканирование банковской карты";
 "settings.test_mode.title" = "Тестовый режим";
 
 "success.description" = "Создайте платёж по API ЮKassa, передайте этот токен в параметре payment_token.";
