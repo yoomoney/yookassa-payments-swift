@@ -5,6 +5,10 @@
 ### NEXT_VERSION_DESCRIPTION_BEGIN
 ### NEXT_VERSION_DESCRIPTION_END
 
+### 6.1.0
+
+1. Добавили возможность создавать платежный токен для рекуррентных платежей в Apple Pay.
+
 ### 6.0.0
 
 1. Добавили поддержку `SberPay`.
