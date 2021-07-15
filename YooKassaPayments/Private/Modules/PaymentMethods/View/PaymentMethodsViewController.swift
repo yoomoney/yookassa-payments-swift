@@ -1,7 +1,6 @@
 import UIKit
 
 final class PaymentMethodsViewController: UIViewController, PlaceholderProvider {
-
     // MARK: - VIPER
 
     var output: PaymentMethodsViewOutput!
@@ -116,6 +115,9 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
         leftItem.setStyles(UILabel.DynamicStyle.headline1)
         leftItem.text = Localized.paymentMethods
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftItem)
+        if #available(iOS 11.0, *) {
+            navigationBar.prefersLargeTitles = false
+        }
     }
 
     private func setupObserver() {

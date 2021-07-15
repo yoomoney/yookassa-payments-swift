@@ -17,13 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupAppearance()
         registerSettingsBundle()
 
+        if #available(iOS 11.0, *) {
+            UINavigationBar.appearance().prefersLargeTitles = true
+        }
+
         return true
     }
 
     private func registerSettingsBundle() {
         let userDefaults = UserDefaults.standard
         userDefaults.synchronize()
-
         guard let settingsBundlePath = Bundle.main.path(forResource: "Settings", ofType: "bundle"),
               let settingsBundle = Bundle(path: settingsBundlePath),
               let rootPath = settingsBundle.path(forResource: "Root", ofType: "plist"),
