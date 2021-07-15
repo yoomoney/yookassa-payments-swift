@@ -129,7 +129,7 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
     ) {
         return analyticsProvider.makeTypeAnalyticsParameters()
     }
-    
+
     func startAnalyticsService() {
         analyticsService.start()
     }

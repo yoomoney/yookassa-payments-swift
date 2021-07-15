@@ -164,7 +164,7 @@ extension ApplePayContractPresenter: ApplePayContractInteractorOutput {
         }
 
         applePayCompletion?(.success)
-        
+
         let parameters = interactor.makeTypeAnalyticsParameters()
         let event: AnalyticsEvent = .actionTokenize(
             scheme: .applePay,
@@ -173,7 +173,7 @@ extension ApplePayContractPresenter: ApplePayContractInteractorOutput {
             sdkVersion: Bundle.frameworkVersion
         )
         interactor.trackEvent(event)
-        
+
         DispatchQueue.main.asyncAfter(
             deadline: .now() + Constants.dismissTimeout
         ) { [weak self] in
