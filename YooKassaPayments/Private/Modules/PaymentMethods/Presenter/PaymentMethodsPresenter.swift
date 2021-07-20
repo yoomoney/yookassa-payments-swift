@@ -842,7 +842,7 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
     func authorizationCoordinator(
         _ coordinator: AuthorizationCoordinator,
         didAcquireAuthorizationToken token: String,
-        account: UserAccount,
+        account: UserAccount?,
         authorizationProcess: AuthorizationProcess?,
         tmxSessionId: String?,
         phoneOffersAccepted: Bool,
@@ -854,14 +854,16 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
         self.yooMoneyTMXSessionId = tmxSessionId
 
         DispatchQueue.main.async { [weak self] in
-            guard let self = self,
-                  let view = self.view else { return }
+            guard
+                let self = self,
+                let view = self.view
+            else { return }
             self.router.closeAuthorizationModule()
             view.showActivity()
 
             DispatchQueue.global().async { [weak self] in
                 guard let self = self else { return }
-                self.interactor.setAccount(account)
+                account.map(self.interactor.setAccount)
                 self.interactor.fetchYooMoneyPaymentMethods(
                     moneyCenterAuthToken: token
                 )
