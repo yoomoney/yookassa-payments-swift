@@ -38,7 +38,8 @@ extension PaymentServiceImpl: PaymentService {
             gatewayId: gatewayId,
             amount: amount,
             currency: currency,
-            savePaymentMethod: getSavePaymentMethod
+            savePaymentMethod: getSavePaymentMethod,
+            merchantCustomerId: nil
         )
 
         session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
@@ -94,7 +95,9 @@ extension PaymentServiceImpl: PaymentService {
             tmxSessionId: tmxSessionId,
             confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
-            paymentMethodData: paymentMethodData
+            paymentMethodData: paymentMethodData,
+            merchantCustomerId: nil,
+            savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
@@ -132,7 +135,9 @@ extension PaymentServiceImpl: PaymentService {
             tmxSessionId: tmxSessionId,
             confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
-            paymentMethodData: paymentMethodData
+            paymentMethodData: paymentMethodData,
+            merchantCustomerId: nil,
+            savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
@@ -174,7 +179,9 @@ extension PaymentServiceImpl: PaymentService {
             tmxSessionId: tmxSessionId,
             confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
-            paymentMethodData: paymentMethodData
+            paymentMethodData: paymentMethodData,
+            merchantCustomerId: nil,
+            savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
@@ -208,7 +215,9 @@ extension PaymentServiceImpl: PaymentService {
             tmxSessionId: tmxSessionId,
             confirmation: nil,
             savePaymentMethod: savePaymentMethod,
-            paymentMethodData: paymentMethodData
+            paymentMethodData: paymentMethodData,
+            merchantCustomerId: nil,
+            savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
@@ -243,7 +252,9 @@ extension PaymentServiceImpl: PaymentService {
             tmxSessionId: tmxSessionId,
             confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
-            paymentMethodData: paymentMethodData
+            paymentMethodData: paymentMethodData,
+            merchantCustomerId: nil,
+            savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
@@ -277,7 +288,9 @@ extension PaymentServiceImpl: PaymentService {
             tmxSessionId: tmxSessionId,
             confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
-            paymentMethodData: paymentMethodData
+            paymentMethodData: paymentMethodData,
+            merchantCustomerId: nil,
+            savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,

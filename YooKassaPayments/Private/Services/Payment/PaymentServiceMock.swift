@@ -256,7 +256,8 @@ private func makeLinkedCard(
         cardType: .masterCard,
         identificationRequirement: .simplified,
         fee: fee?.paymentsModel,
-        savePaymentMethod: .allowed
+        savePaymentMethod: .allowed,
+        savePaymentInstrument: nil
     )
 }
 
@@ -289,7 +290,8 @@ private func makeDefaultPaymentOptions(
                 ),
                 identificationRequirement: .simplified,
                 fee: fee?.paymentsModel,
-                savePaymentMethod: .allowed
+                savePaymentMethod: .allowed,
+                savePaymentInstrument: nil
             ),
         ]
 
@@ -302,7 +304,8 @@ private func makeDefaultPaymentOptions(
                 charge: charge,
                 identificationRequirement: nil,
                 fee: fee?.paymentsModel,
-                savePaymentMethod: .allowed
+                savePaymentMethod: .allowed,
+                savePaymentInstrument: nil
             ),
         ]
     }
@@ -314,7 +317,8 @@ private func makeDefaultPaymentOptions(
             charge: charge,
             identificationRequirement: nil,
             fee: fee?.paymentsModel,
-            savePaymentMethod: .forbidden
+            savePaymentMethod: .forbidden,
+            savePaymentInstrument: nil
         ),
         PaymentOption(
             paymentMethodType: .bankCard,
@@ -322,7 +326,8 @@ private func makeDefaultPaymentOptions(
             charge: charge,
             identificationRequirement: nil,
             fee: fee?.paymentsModel,
-            savePaymentMethod: .allowed
+            savePaymentMethod: .allowed,
+            savePaymentInstrument: nil
         ),
         PaymentOption(
             paymentMethodType: .applePay,
@@ -330,7 +335,8 @@ private func makeDefaultPaymentOptions(
             charge: charge,
             identificationRequirement: nil,
             fee: fee?.paymentsModel,
-            savePaymentMethod: .forbidden
+            savePaymentMethod: .forbidden,
+            savePaymentInstrument: nil
         ),
     ]
 
