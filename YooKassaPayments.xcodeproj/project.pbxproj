@@ -374,19 +374,6 @@
 		78CF11E025D438AC00F7154E /* ApplePayContractViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CF11DF25D438AC00F7154E /* ApplePayContractViewModel.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		30C22F02251A331100460CC0 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		244F7901F30CDE5EFC8637D7 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		244F7D88849ACD598FFD45ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
@@ -2533,7 +2520,6 @@
 				244F7F2F3BB2B1839FEAD67F /* Frameworks */,
 				244F7F0D1C70A3C37A8190B1 /* Headers */,
 				244F7B427956461A69AAA7BD /* Resources */,
-				30C22F02251A331100460CC0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
