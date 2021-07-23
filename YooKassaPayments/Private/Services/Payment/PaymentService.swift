@@ -60,7 +60,7 @@ protocol PaymentService {
         tmxSessionId: String,
         completion: @escaping (Result<Tokens, Error>) -> Void
     )
-    
+
     func tokenizeSberpay(
         clientApplicationKey: String,
         confirmation: Confirmation,

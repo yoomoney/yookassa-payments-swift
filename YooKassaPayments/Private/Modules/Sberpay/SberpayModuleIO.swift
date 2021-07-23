@@ -16,7 +16,7 @@ struct SberpayModuleInputData {
     let isBackBarButtonHidden: Bool
 }
 
-protocol SberpayModuleOutput: class {
+protocol SberpayModuleOutput: AnyObject {
     func sberpayModule(
         _ module: SberpayModuleInput,
         didTokenize token: Tokens,
@@ -24,4 +24,4 @@ protocol SberpayModuleOutput: class {
     )
 }
 
-protocol SberpayModuleInput: class {}
+protocol SberpayModuleInput: AnyObject {}

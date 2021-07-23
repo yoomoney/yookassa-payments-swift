@@ -6,7 +6,7 @@ struct LinkedCardModuleInputData {
     let isLoggingEnabled: Bool
     let moneyAuthClientId: String?
     let tokenizationSettings: TokenizationSettings
-    
+
     let shopName: String
     let purchaseDescription: String
     let price: PriceViewModel
@@ -19,11 +19,11 @@ struct LinkedCardModuleInputData {
     let isBackBarButtonHidden: Bool
 }
 
-protocol LinkedCardModuleInput: class {
+protocol LinkedCardModuleInput: AnyObject {
     func hideActivity()
 }
 
-protocol LinkedCardModuleOutput: class {
+protocol LinkedCardModuleOutput: AnyObject {
     func tokenizationModule(
         _ module: LinkedCardModuleInput,
         didTokenize token: Tokens,

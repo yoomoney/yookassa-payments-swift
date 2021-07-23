@@ -4,12 +4,12 @@ import class UIKit.UIImage
 final class ImageDownloadServiceImpl {
 
     // MARK: - Init data
-    
+
     private let session: URLSession
     private let cache: ImageCache
 
     // MARK: - Init
-    
+
     init(
         session: URLSession,
         cache: ImageCache

@@ -4,7 +4,7 @@ enum YooMoneyAssembly {
         moduleOutput: YooMoneyModuleOutput?
     ) -> UIViewController {
         let view = YooMoneyViewController()
-        
+
         let presenter = YooMoneyPresenter(
             clientApplicationKey: inputData.clientApplicationKey,
             testModeSettings: inputData.testModeSettings,
@@ -23,7 +23,7 @@ enum YooMoneyAssembly {
             initialSavePaymentMethod: inputData.initialSavePaymentMethod,
             isBackBarButtonHidden: inputData.isBackBarButtonHidden
         )
-        
+
         let authorizationService = AuthorizationServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled,
             testModeSettings: inputData.testModeSettings,
@@ -51,20 +51,20 @@ enum YooMoneyAssembly {
             threatMetrixService: threatMetrixService,
             clientApplicationKey: inputData.clientApplicationKey
         )
-        
+
         let router = YooMoneyRouter()
-        
+
         presenter.view = view
         presenter.interactor = interactor
         presenter.router = router
         presenter.moduleOutput = moduleOutput
-        
+
         interactor.output = presenter
-        
+
         view.output = presenter
-        
+
         router.transitionHandler = view
-        
+
         return view
     }
 }

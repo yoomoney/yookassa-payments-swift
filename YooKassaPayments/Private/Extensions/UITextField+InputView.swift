@@ -7,6 +7,5 @@ extension UITextField: InputView {
             text = newValue
         }
     }
-    
-    
+
 }

@@ -30,7 +30,7 @@ public struct ScannedCardInfo {
 /// Delegate for `CardScanning`.
 ///
 /// The Protocol method allows to transfer the final data of the Bank card for further work.
-public protocol CardScanningDelegate: class {
+public protocol CardScanningDelegate: AnyObject {
 
     /// Should be called when card scanning finished.
     ///
@@ -52,7 +52,7 @@ public protocol CardScanningDelegate: class {
 ///
 /// After receiving the Bank card data, the `ScannedCardInfo` data model should be initialized.
 /// Next, using the property `cardScanningDelegate`, calling `cardScannerDidFinish(_ cardInfo:)` pass the data.
-public protocol CardScanning: class {
+public protocol CardScanning: AnyObject {
 
     /// View controller to scan a bank card.
     var cardScanningViewController: UIViewController? { get }

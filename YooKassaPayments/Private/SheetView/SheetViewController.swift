@@ -1,10 +1,10 @@
 import UIKit
 
-protocol SheetViewModuleOutput: class {
+protocol SheetViewModuleOutput: AnyObject {
     func start3dsProcess(
         requestUrl: String
     )
-    
+
     func startConfirmationProcess(
         confirmationUrl: String,
         paymentMethodType: PaymentMethodType
@@ -17,9 +17,9 @@ protocol SheetViewModuleOutput: class {
 }
 
 final class SheetViewController: UIViewController {
-    
+
     // MARK: - VIPER
-    
+
     weak var moduleOutput: SheetViewModuleOutput?
 
     // MARK: - UI
@@ -236,7 +236,7 @@ final class SheetViewController: UIViewController {
             object: nil
         )
     }
-    
+
     func keyboardYOffset(
         from keyboardFrame: CGRect
     ) -> CGFloat? {
@@ -311,12 +311,12 @@ private extension SheetViewController {
     ) -> CGFloat {
         var statusBarHeight: CGFloat = 0
         if #available(iOS 13.0, *) {
-            let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+            let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
             statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
         } else {
             statusBarHeight = UIApplication.shared.statusBarFrame.height
         }
-        
+
         let fullscreenHeight = view.bounds.height - statusBarHeight
 
         let contentHeight: CGFloat
@@ -462,7 +462,7 @@ private extension SheetViewController {
     func keyboardShown(
         _ notification: Notification
     ) {
-        
+
         guard let info: [AnyHashable: Any] = notification.userInfo,
               let keyboardRect: CGRect = (
                   info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
@@ -480,7 +480,7 @@ private extension SheetViewController {
                   info[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
               )?.cgRectValue,
               let keyboardOffset = keyboardYOffset(from: keyboardRect) else { return }
-        
+
         adjustForKeyboard(height: keyboardOffset, from: notification)
     }
 
@@ -603,7 +603,7 @@ extension SheetViewController: TokenizationModuleInput {
     func start3dsProcess(requestUrl: String) {
         moduleOutput?.start3dsProcess(requestUrl: requestUrl)
     }
-    
+
     func startConfirmationProcess(
         confirmationUrl: String,
         paymentMethodType: PaymentMethodType

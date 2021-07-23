@@ -10,7 +10,7 @@ extension UIViewController: TransitionHandler {
             animated: flag
         )
     }
-    
+
     func popTopViewController(animated: Bool) {
         navigationController?.popViewController(animated: animated)
     }

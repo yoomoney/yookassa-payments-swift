@@ -97,16 +97,16 @@ enum BankCardAssembly {
         moduleInput: BankCardDataInputModuleInput
     ) {
         let inputPanPlaceholder = inputData.cardScanning != nil
-            ? §Localized.BankCardView.inputPanPlaceholder
-            : §Localized.BankCardView.inputPanPlaceholderWithoutScan
-        
+            ? CommonLocalized.BankCardView.inputPanPlaceholder
+            : CommonLocalized.BankCardView.inputPanPlaceholderWithoutScan
+
         let inputData = BankCardDataInputModuleInputData(
-            inputPanHint: §Localized.BankCardView.inputPanHint,
+            inputPanHint: CommonLocalized.BankCardView.inputPanHint,
             inputPanPlaceholder: inputPanPlaceholder,
-            inputExpiryDateHint: §Localized.BankCardView.inputExpiryDateHint,
-            inputExpiryDatePlaceholder: §Localized.BankCardView.inputExpiryDatePlaceholder,
-            inputCvcHint: §Localized.BankCardView.inputCvcHint,
-            inputCvcPlaceholder: §Localized.BankCardView.inputCvcPlaceholder,
+            inputExpiryDateHint: CommonLocalized.BankCardView.inputExpiryDateHint,
+            inputExpiryDatePlaceholder: CommonLocalized.BankCardView.inputExpiryDatePlaceholder,
+            inputCvcHint: CommonLocalized.BankCardView.inputCvcHint,
+            inputCvcPlaceholder: CommonLocalized.BankCardView.inputCvcPlaceholder,
             cardScanner: inputData.cardScanning,
             isLoggingEnabled: inputData.isLoggingEnabled
         )
@@ -116,21 +116,5 @@ enum BankCardAssembly {
             transitionHandler: transitionHandler
         )
         return (view, moduleInput)
-    }
-}
-
-// MARK: - Localized
-
-private extension BankCardAssembly {
-    enum Localized {
-        enum BankCardView: String {
-            case inputPanHint = "BankCardView.inputPanHint"
-            case inputPanPlaceholder = "BankCardView.inputPanPlaceholder"
-            case inputPanPlaceholderWithoutScan = "BankCardView.inputPanPlaceholderWithoutScan"
-            case inputExpiryDateHint = "BankCardView.inputExpiryDateHint"
-            case inputExpiryDatePlaceholder = "BankCardView.inputExpiryDatePlaceholder"
-            case inputCvcHint = "BankCardView.inputCvcHint"
-            case inputCvcPlaceholder = "BankCardView.inputCvcPlaceholder"
-        }
     }
 }

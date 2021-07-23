@@ -1,0 +1,58 @@
+﻿"Price.min.error" = "The amount is too small";
+
+"cards.title" = "Linked cards";
+
+"common.none" = "None";
+
+"common.off" = "Off";
+
+"common.on" = "On";
+
+"common.save" = "Save";
+
+"process.title" = "Confirmation";
+
+"root.buy" = "Buy";
+
+"root.description" = "Very bright, with the orbital period of 112 years";
+
+"root.name" = "Comet";
+
+"root.price" = "Price";
+
+"settings.payment_methods.apple_pay" = "Apple Pay";
+
+"settings.payment_methods.bank_card" = "Bank card";
+
+"settings.payment_methods.sberbank" = "Sberbank Online";
+
+"settings.payment_methods.title" = "Payment methods";
+
+"settings.payment_methods.yoo_money" = "YooMoney";
+
+"settings.test_mode.title" = "Test mode";
+
+"settings.title" = "Settings";
+
+"settings.ui_customization.yoo_money_logo" = "The YooKassa logo";
+
+"success.button.docs" = "Documentation";
+
+"success.button.send_token" = "Send token via e-mail";
+
+"success.description" = "Create payment with YooKassa API. Use this token as payment_token parameter";
+
+"test_mode.attached_cards" = "Number of linked cards";
+
+"test_mode.payment_auth" = "The customer has logged into the Wallet";
+
+"test_mode.payment_error" = "Complete the payment with an error";
+
+"test_mode.process.3ds" = "3ds";
+
+"test_mode.process.app2app" = "app2app";
+
+"test_mode.process_type" = "Payment confirmation";
+
+"test_mode.title" = "Test mode";
+

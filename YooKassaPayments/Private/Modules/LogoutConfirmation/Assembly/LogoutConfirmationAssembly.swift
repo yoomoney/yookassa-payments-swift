@@ -7,7 +7,7 @@ enum LogoutConfirmationAssembly {
     ) -> UIViewController {
         let viewController = UIAlertController(
             title: String.localizedStringWithFormat(
-                §Localized.titleFormat,
+                Localized.titleFormat,
                 inputData.accountName
             ),
             message: nil,
@@ -16,14 +16,14 @@ enum LogoutConfirmationAssembly {
 
         [
             UIAlertAction(
-                title: §CommonLocalized.cancel,
+                title: CommonLocalized.Alert.cancel,
                 style: .default,
                 handler: { [weak moduleOutput] _ in
                     moduleOutput?.logoutDidCancel(on: viewController)
                 }
             ),
             UIAlertAction(
-                title: §CommonLocalized.ok,
+                title: CommonLocalized.Alert.ok,
                 style: .destructive,
                 handler: { [weak moduleOutput] _ in
                     moduleOutput?.logoutDidConfirm(on: viewController)
@@ -37,6 +37,11 @@ enum LogoutConfirmationAssembly {
 
 // MARK: - Localized
 
-private enum Localized: String {
-    case titleFormat = "LogoutConfirmation.format.title"
+private enum Localized {
+    static let titleFormat = NSLocalizedString(
+        "LogoutConfirmation.format.title",
+        bundle: Bundle.framework,
+        value: "Уверены, что хотите выйти из аккаунта '%@'?",
+        comment: "Текст в Alert при выходе из аккаунта ЮMoney https://yadi.sk/i/68ImXb9rz31RkQ"
+    )
 }

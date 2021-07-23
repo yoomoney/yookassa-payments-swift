@@ -16,7 +16,7 @@ extension BankCardRepeatRouter: BankCardRepeatRouterInput {
             completion: nil
         )
     }
-    
+
     func presentSavePaymentMethodInfo(
         inputData: SavePaymentMethodInfoModuleInputData
     ) {
@@ -32,7 +32,7 @@ extension BankCardRepeatRouter: BankCardRepeatRouterInput {
             completion: nil
         )
     }
-    
+
     func present3dsModule(
         inputData: CardSecModuleInputData,
         moduleOutput: CardSecModuleOutput

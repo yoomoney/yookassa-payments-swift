@@ -33,7 +33,7 @@ enum ApplePayAssembly {
         if let fee = inputData.fee,
            let service = fee.service {
             let chargeValue = service.charge.value as NSDecimalNumber
-            feePaymentSummaryItem = PKPaymentSummaryItem(label: §Localized.fee, amount: chargeValue)
+            feePaymentSummaryItem = PKPaymentSummaryItem(label: Localized.fee, amount: chargeValue)
             purchaseDescriptionAmount.amount = (inputData.amount.value - service.charge.value) as NSDecimalNumber
         }
 
@@ -48,10 +48,17 @@ enum ApplePayAssembly {
     }
 }
 
-// MARK: - Localized
+// MARK: - Localization
 
 private extension ApplePayAssembly {
-    enum Localized: String {
-        case fee = "ApplePayContract.fee"
+    enum Localized {
+        // swiftlint:disable line_length
+        static let fee = NSLocalizedString(
+            "ApplePayContract.fee",
+            bundle: Bundle.framework,
+            value: "Комиссия",
+            comment: "`Комиссия` на экране Apple Pay https://yadi.sk/d/Vu310EJgWtvrAQ"
+        )
+        // swiftlint:enable line_length
     }
 }

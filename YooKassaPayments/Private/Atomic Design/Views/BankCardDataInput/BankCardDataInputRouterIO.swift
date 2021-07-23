@@ -1,8 +1,8 @@
-protocol BankCardDataInputRouterInput: class {
+protocol BankCardDataInputRouterInput: AnyObject {
     func openCardScanner()
 }
 
-protocol BankCardDataInputRouterOutput: class {
+protocol BankCardDataInputRouterOutput: AnyObject {
     func cardScanningDidFinish(
         _ scannedCardInfo: ScannedCardInfo
     )

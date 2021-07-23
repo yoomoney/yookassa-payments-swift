@@ -1,20 +1,20 @@
 import ThreatMetrixAdapter
 
 final class PaymentAuthorizationInteractor {
-    
+
     // MARK: - VIPER
-    
+
     weak var output: PaymentAuthorizationInteractorOutput?
-    
+
     // MARK: - Init data
-    
+
     private let authorizationService: AuthorizationService
     private let analyticsService: AnalyticsService
     private let analyticsProvider: AnalyticsProvider
     private let clientApplicationKey: String
-    
+
     // MARK: - Init
-    
+
     init(
         authorizationService: AuthorizationService,
         analyticsService: AnalyticsService,
@@ -49,7 +49,7 @@ extension PaymentAuthorizationInteractor: PaymentAuthorizationInteractorInput {
             }
         }
     }
-    
+
     func checkUserAnswer(
         authContextId: String,
         authType: AuthType,
@@ -73,15 +73,15 @@ extension PaymentAuthorizationInteractor: PaymentAuthorizationInteractorInput {
             }
         }
     }
-    
+
     func getWalletPhoneTitle() -> String? {
         return authorizationService.getWalletPhoneTitle()
     }
-    
+
     func trackEvent(_ event: AnalyticsEvent) {
         analyticsService.trackEvent(event)
     }
-    
+
     func makeTypeAnalyticsParameters() -> (authType: AnalyticsEvent.AuthType,
                                            tokenType: AnalyticsEvent.AuthTokenType?) {
         return analyticsProvider.makeTypeAnalyticsParameters()

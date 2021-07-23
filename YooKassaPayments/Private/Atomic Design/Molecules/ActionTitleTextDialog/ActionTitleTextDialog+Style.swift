@@ -19,7 +19,7 @@ extension ActionTitleTextDialog {
                                          UILabel.Styles.alignCenter)
                 view.button.setStyles(UIButton.DynamicStyle.flat)
             }
-        
+
         /// Style for a ActionTitleTextDialog to represent fail state.
         ///
         /// default style

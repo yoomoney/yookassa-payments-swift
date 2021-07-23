@@ -54,7 +54,7 @@ extension ActivityIndicatorView {
             view.setStyles(UIView.Styles.grayBackground)
             view.activity.setStyles(ActivityIndicator.Styles.default)
         }
-        
+
         /// Cloudy style
         ///
         /// cararra 50% alpha background color, default activity indicator

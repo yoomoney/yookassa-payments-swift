@@ -1,4 +1,4 @@
-protocol ApplePayContractViewInput: class, NotificationPresenting {
+protocol ApplePayContractViewInput: AnyObject, NotificationPresenting {
     func setupViewModel(
         _ viewModel: ApplePayContractViewModel
     )

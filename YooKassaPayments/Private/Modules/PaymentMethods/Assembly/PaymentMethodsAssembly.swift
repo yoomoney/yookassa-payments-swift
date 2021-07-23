@@ -1,5 +1,5 @@
-import UIKit.UIViewController
 import MoneyAuth
+import UIKit.UIViewController
 import YooMoneyCoreApi
 
 enum PaymentMethodsAssembly {
@@ -11,7 +11,7 @@ enum PaymentMethodsAssembly {
         moduleInput: PaymentMethodsModuleInput
     ) {
         let view = PaymentMethodsViewController()
-        
+
         let moneyAuthConfig = MoneyAuthAssembly.makeMoneyAuthConfig(
             moneyAuthClientId: inputData.moneyAuthClientId ?? "",
             loggingEnabled: inputData.isLoggingEnabled
@@ -81,7 +81,7 @@ enum PaymentMethodsAssembly {
             amount: inputData.amount,
             getSavePaymentMethod: inputData.getSavePaymentMethod
         )
-        
+
         let router = PaymentMethodsRouter()
 
         presenter.tokenizationModuleOutput = tokenizationModuleOutput
@@ -92,7 +92,7 @@ enum PaymentMethodsAssembly {
         interactor.output = presenter
 
         view.output = presenter
-        
+
         router.transitionHandler = view
 
         return (view: view, moduleInput: presenter)

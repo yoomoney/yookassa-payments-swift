@@ -38,7 +38,8 @@ extension PaymentServiceImpl: PaymentService {
             gatewayId: gatewayId,
             amount: amount,
             currency: currency,
-            savePaymentMethod: getSavePaymentMethod
+            savePaymentMethod: getSavePaymentMethod,
+            merchantCustomerId: nil
         )
 
         session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
@@ -94,7 +95,9 @@ extension PaymentServiceImpl: PaymentService {
             tmxSessionId: tmxSessionId,
             confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
-            paymentMethodData: paymentMethodData
+            paymentMethodData: paymentMethodData,
+            merchantCustomerId: nil,
+            savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
@@ -132,7 +135,9 @@ extension PaymentServiceImpl: PaymentService {
             tmxSessionId: tmxSessionId,
             confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
-            paymentMethodData: paymentMethodData
+            paymentMethodData: paymentMethodData,
+            merchantCustomerId: nil,
+            savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
@@ -174,7 +179,9 @@ extension PaymentServiceImpl: PaymentService {
             tmxSessionId: tmxSessionId,
             confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
-            paymentMethodData: paymentMethodData
+            paymentMethodData: paymentMethodData,
+            merchantCustomerId: nil,
+            savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
@@ -208,7 +215,9 @@ extension PaymentServiceImpl: PaymentService {
             tmxSessionId: tmxSessionId,
             confirmation: nil,
             savePaymentMethod: savePaymentMethod,
-            paymentMethodData: paymentMethodData
+            paymentMethodData: paymentMethodData,
+            merchantCustomerId: nil,
+            savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
@@ -243,7 +252,9 @@ extension PaymentServiceImpl: PaymentService {
             tmxSessionId: tmxSessionId,
             confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
-            paymentMethodData: paymentMethodData
+            paymentMethodData: paymentMethodData,
+            merchantCustomerId: nil,
+            savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
@@ -260,7 +271,7 @@ extension PaymentServiceImpl: PaymentService {
             }
         }
     }
-    
+
     func tokenizeSberpay(
         clientApplicationKey: String,
         confirmation: Confirmation,
@@ -277,15 +288,16 @@ extension PaymentServiceImpl: PaymentService {
             tmxSessionId: tmxSessionId,
             confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
-            paymentMethodData: paymentMethodData
+            paymentMethodData: paymentMethodData,
+            merchantCustomerId: nil,
+            savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
             tokensRequest: tokensRequest
         )
 
-        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
-            guard let self = self else { return }
+        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { result in
             switch result {
             case let .left(error):
                 let mappedError = mapError(error)

@@ -1,22 +1,22 @@
 import ThreatMetrixAdapter
 
 final class ApplePayContractInteractor {
-    
+
     // MARK: - VIPER
-    
+
     weak var output: ApplePayContractInteractorOutput?
-    
+
     // MARK: - Init data
-    
+
     private let paymentService: PaymentService
     private let analyticsService: AnalyticsService
     private let analyticsProvider: AnalyticsProvider
     private let threatMetrixService: ThreatMetrixService
-    
+
     private let clientApplicationKey: String
-    
+
     // MARK: - Init
-    
+
     init(
         paymentService: PaymentService,
         analyticsService: AnalyticsService,
@@ -44,7 +44,7 @@ extension ApplePayContractInteractor: ApplePayContractInteractorInput {
                                            tokenType: AnalyticsEvent.AuthTokenType?) {
         return analyticsProvider.makeTypeAnalyticsParameters()
     }
-    
+
     func tokenize(
         paymentData: String,
         savePaymentMethod: Bool,
@@ -69,7 +69,7 @@ extension ApplePayContractInteractor: ApplePayContractInteractorInput {
             }
         }
     }
-    
+
     private func tokenizeApplePayWithTMXSessionId(
         paymentData: String,
         savePaymentMethod: Bool,

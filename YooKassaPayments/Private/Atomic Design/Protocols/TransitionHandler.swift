@@ -1,6 +1,6 @@
 import UIKit.UIViewController
 
-protocol TransitionHandler: class {
+protocol TransitionHandler: AnyObject {
 
     /// Presents a view controller modal.
     ///
@@ -16,7 +16,7 @@ protocol TransitionHandler: class {
     ///   - flag: manage animation flag
     ///   - completion: The block to execute after the dismiss finishes.
     func dismiss(animated flag: Bool, completion: (() -> Void)?)
-    
+
     /// Pops the top view controller from the navigation stack and updates the display.
     /// - Parameters:
     ///     - animated: Set this value to true to animate the transition.
