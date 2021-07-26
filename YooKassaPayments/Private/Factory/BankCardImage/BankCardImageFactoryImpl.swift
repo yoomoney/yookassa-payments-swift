@@ -1,3 +1,5 @@
+import UIKit.UIImage
+
 final class BankCardImageFactoryImpl {
 
     // MARK: - Stored properties

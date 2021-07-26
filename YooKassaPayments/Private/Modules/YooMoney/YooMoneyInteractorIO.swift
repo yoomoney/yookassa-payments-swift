@@ -1,4 +1,5 @@
 import class YooKassaPaymentsApi.PaymentOption
+import UIKit
 
 protocol YooMoneyInteractorInput: AnyObject, AnalyticsTrack {
     func loginInWallet(

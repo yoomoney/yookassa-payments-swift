@@ -1,3 +1,5 @@
+import UIKit
+
 enum YooMoneyAssembly {
     static func makeModule(
         inputData: YooMoneyModuleInputData,

@@ -1,3 +1,5 @@
+import UIKit
+
 enum PaymentAuthorizationAssembly {
     static func makeModule(
         inputData: PaymentAuthorizationModuleInputData,

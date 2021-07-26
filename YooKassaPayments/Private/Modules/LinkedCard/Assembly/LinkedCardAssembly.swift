@@ -1,3 +1,5 @@
+import UIKit
+
 enum LinkedCardAssembly {
     static func makeModule(
         inputData: LinkedCardModuleInputData,
