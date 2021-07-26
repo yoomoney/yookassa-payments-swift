@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:YooKassaPayments.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:YooKassaPaymentsDemoApp.xcodeproj">
    </FileRef>
    <FileRef

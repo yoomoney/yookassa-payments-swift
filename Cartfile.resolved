@@ -1,0 +1,5 @@
+github "yoomoney/core-api-swift" "1.11.4"
+github "yoomoney/functional-swift" "1.6.7"
+github "yoomoney/yooid-sdk-ios" "2.34.1"
+github "yoomoney/yookassa-payments-api-swift" "2.7.2"
+github "yoomoney/yookassa-wallet-api-swift" "2.3.1"
