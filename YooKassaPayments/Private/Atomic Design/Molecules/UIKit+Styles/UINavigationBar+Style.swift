@@ -33,6 +33,9 @@ extension UINavigationBar {
         static let `default` = InternalStyle(name: "default") { (view: UINavigationBar) in
 
             let barTintColor: UIColor
+            if #available(iOS 11, *) {
+                view.prefersLargeTitles = false
+            }
             if #available(iOS 13, *) {
                 barTintColor = .systemBackground
             } else {

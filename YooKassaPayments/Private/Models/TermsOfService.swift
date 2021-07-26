@@ -1,8 +1,8 @@
 enum TermsOfServiceFactory {
     static func makeTermsOfService() -> TermsOfService {
         return TermsOfService(
-            text: §Localized.TermsOfService.text,
-            hyperlink: §Localized.TermsOfService.hyperlink,
+            text: Localized.TermsOfService.text,
+            hyperlink: Localized.TermsOfService.hyperlink,
             url: Constants.termsOfServiceUrl
         )
     }
@@ -17,9 +17,19 @@ struct TermsOfService {
 // MARK: - Localized
 
 private enum Localized {
-    enum TermsOfService: String {
-        case text = "TermsOfService.Text"
-        case hyperlink = "TermsOfService.Hyperlink"
+    enum TermsOfService {
+        static let text = NSLocalizedString(
+            "TermsOfService.Text",
+            bundle: Bundle.framework,
+            value: "Нажимая кнопку, вы принимаете",
+            comment: "Текст `Нажимая кнопку, вы принимаете` https://yadi.sk/i/Z2oi1Uun7nS-jA"
+        )
+        static let hyperlink = NSLocalizedString(
+            "TermsOfService.Hyperlink",
+            bundle: Bundle.framework,
+            value: "условия сервиса",
+            comment: "Текст `условия сервиса` https://yadi.sk/i/Z2oi1Uun7nS-jA"
+        )
     }
 }
 

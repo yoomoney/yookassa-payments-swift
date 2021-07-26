@@ -12,7 +12,7 @@ extension YooMoneyRouter: YooMoneyRouterInput {
         viewController.modalPresentationStyle = .overFullScreen
         transitionHandler?.present(viewController, animated: true, completion: nil)
     }
-    
+
     func presentSavePaymentMethodInfo(
         inputData: SavePaymentMethodInfoModuleInputData
     ) {
@@ -28,7 +28,7 @@ extension YooMoneyRouter: YooMoneyRouterInput {
             completion: nil
         )
     }
-    
+
     func presentLogoutConfirmation(
         inputData: LogoutConfirmationModuleInputData,
         moduleOutput: LogoutConfirmationModuleOutput
@@ -43,7 +43,7 @@ extension YooMoneyRouter: YooMoneyRouterInput {
             completion: nil
         )
     }
-    
+
     func presentPaymentAuthorizationModule(
         inputData: PaymentAuthorizationModuleInputData,
         moduleOutput: PaymentAuthorizationModuleOutput?
@@ -57,7 +57,7 @@ extension YooMoneyRouter: YooMoneyRouterInput {
             animated: true
         )
     }
-    
+
     func closePaymentAuthorization() {
         transitionHandler?.popTopViewController(animated: true)
     }

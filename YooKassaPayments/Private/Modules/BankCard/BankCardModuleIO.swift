@@ -19,7 +19,7 @@ struct BankCardModuleInputData {
     let isBackBarButtonHidden: Bool
 }
 
-protocol BankCardModuleOutput: class {
+protocol BankCardModuleOutput: AnyObject {
     func bankCardModule(
         _ module: BankCardModuleInput,
         didTokenize token: Tokens,
@@ -27,6 +27,6 @@ protocol BankCardModuleOutput: class {
     )
 }
 
-protocol BankCardModuleInput: class {
+protocol BankCardModuleInput: AnyObject {
     func hideActivity()
 }

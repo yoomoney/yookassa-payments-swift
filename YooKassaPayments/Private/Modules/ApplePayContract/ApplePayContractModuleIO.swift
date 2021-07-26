@@ -5,7 +5,7 @@ struct ApplePayContractModuleInputData {
     let testModeSettings: TestModeSettings?
     let isLoggingEnabled: Bool
     let tokenizationSettings: TokenizationSettings
-    
+
     let shopName: String
     let purchaseDescription: String
     let price: PriceViewModel
@@ -18,9 +18,9 @@ struct ApplePayContractModuleInputData {
     let isBackBarButtonHidden: Bool
 }
 
-protocol ApplePayContractModuleInput: class {}
+protocol ApplePayContractModuleInput: AnyObject {}
 
-protocol ApplePayContractModuleOutput: class {
+protocol ApplePayContractModuleOutput: AnyObject {
     func tokenizationModule(
         _ module: ApplePayContractModuleInput,
         didTokenize token: Tokens,

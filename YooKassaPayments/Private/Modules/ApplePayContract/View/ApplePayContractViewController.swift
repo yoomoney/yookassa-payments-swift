@@ -1,11 +1,13 @@
+import UIKit
+
 final class ApplePayContractViewController: UIViewController {
-    
+
     // MARK: - VIPER
-    
+
     var output: ApplePayContractViewOutput!
-    
+
     // MARK: - UI properties
-    
+
     private lazy var scrollView: UIScrollView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -18,28 +20,28 @@ final class ApplePayContractViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
-    
+
     private lazy var contentStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .vertical
         return $0
     }(UIStackView())
-    
+
     private lazy var orderView: OrderView = {
         $0.setStyles(UIView.Styles.grayBackground)
         return $0
     }(OrderView())
-    
+
     private lazy var applePayMethodView: LargeIconView = {
         $0.setStyles(
             UIView.Styles.grayBackground
         )
         $0.image = PaymentMethodResources.Image.applePay
-        $0.title = §Localized.paymentMethodTitle
+        $0.title = Localized.paymentMethodTitle
         return $0
     }(LargeIconView())
-    
+
     private lazy var actionButtonStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -47,14 +49,14 @@ final class ApplePayContractViewController: UIViewController {
         $0.spacing = Space.double
         return $0
     }(UIStackView())
-    
+
     private lazy var submitButton: Button = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(
             UIButton.DynamicStyle.primary,
             UIView.Styles.heightAsContent
         )
-        $0.setStyledTitle(§Localized.continue, for: .normal)
+        $0.setStyledTitle(CommonLocalized.Contract.next, for: .normal)
         $0.addTarget(
             self,
             action: #selector(didPressActionButton),
@@ -62,7 +64,7 @@ final class ApplePayContractViewController: UIViewController {
         )
         return $0
     }(Button(type: .custom))
-    
+
     private lazy var termsOfServiceLinkedTextView: LinkedTextView = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(
@@ -72,9 +74,9 @@ final class ApplePayContractViewController: UIViewController {
         $0.delegate = self
         return $0
     }(LinkedTextView())
-    
+
     // MARK: - Switch save payment method UI Properties
-    
+
     private lazy var savePaymentMethodSwitchItemView: SwitchItemView = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.layoutMargins = UIEdgeInsets(
@@ -84,11 +86,11 @@ final class ApplePayContractViewController: UIViewController {
             right: Space.double
         )
         $0.setStyles(SwitchItemView.Styles.primary)
-        $0.title = §Localized.savePaymentMethodTitle
+        $0.title = Localized.savePaymentMethodTitle
         $0.delegate = self
         return $0
     }(SwitchItemView())
-    
+
     private lazy var savePaymentMethodSwitchLinkedItemView: LinkedItemView = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.layoutMargins = UIEdgeInsets(
@@ -101,9 +103,9 @@ final class ApplePayContractViewController: UIViewController {
         $0.delegate = self
         return $0
     }(LinkedItemView())
-    
+
     // MARK: - Strict save payment method UI Properties
-    
+
     private lazy var savePaymentMethodStrictSectionHeaderView: SectionHeaderView = {
         $0.layoutMargins = UIEdgeInsets(
             top: Space.double,
@@ -111,7 +113,7 @@ final class ApplePayContractViewController: UIViewController {
             bottom: 0,
             right: Space.double
         )
-        $0.title = §Localized.savePaymentMethodTitle
+        $0.title = Localized.savePaymentMethodTitle
         $0.setStyles(SectionHeaderView.Styles.primary)
         return $0
     }(SectionHeaderView())
@@ -128,22 +130,22 @@ final class ApplePayContractViewController: UIViewController {
         $0.delegate = self
         return $0
     }(LinkedItemView())
-    
+
     // MARK: - Constraints
-    
+
     private lazy var scrollViewHeightConstraint: NSLayoutConstraint = {
         let constraint = scrollView.heightAnchor.constraint(equalToConstant: 0)
         constraint.priority = .defaultLow
         return constraint
     }()
-    
+
     // MARK: - Managing the View
-    
+
     override func loadView() {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
-        navigationItem.title = §Localized.title
-        
+        navigationItem.title = Localized.title
+
         setupView()
         setupConstraints()
     }
@@ -152,9 +154,9 @@ final class ApplePayContractViewController: UIViewController {
         super.viewDidLoad()
         output.setupView()
     }
-    
+
     // MARK: - Setup
-    
+
     private func setupView() {
         [
             scrollView,
@@ -166,12 +168,12 @@ final class ApplePayContractViewController: UIViewController {
         [
             contentStackView,
         ].forEach(contentView.addSubview)
-        
+
         [
             orderView,
             applePayMethodView,
         ].forEach(contentStackView.addArrangedSubview)
-        
+
         [
             submitButton,
             termsOfServiceLinkedTextView,
@@ -198,10 +200,10 @@ final class ApplePayContractViewController: UIViewController {
                 equalTo: topLayoutGuide.bottomAnchor
             )
         }
-        
+
         let constraints = [
             scrollViewHeightConstraint,
-            
+
             topConstraint,
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -233,7 +235,7 @@ final class ApplePayContractViewController: UIViewController {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-    
+
     // MARK: - Configuring the View’s Layout Behavior
 
     override func viewDidLayoutSubviews() {
@@ -242,13 +244,13 @@ final class ApplePayContractViewController: UIViewController {
             self.fixTableViewHeight()
         }
     }
-    
+
     private func fixTableViewHeight() {
         scrollViewHeightConstraint.constant = contentStackView.bounds.height
     }
-    
+
     // MARK: - Action
-    
+
     @objc
     private func didPressActionButton(
         _ sender: UIButton
@@ -267,11 +269,11 @@ extension ApplePayContractViewController: ApplePayContractViewInput {
         orderView.subtitle = viewModel.description
         orderView.value = makePrice(viewModel.price)
         if let fee = viewModel.fee {
-            orderView.subvalue = "\(§Localized.fee) " + makePrice(fee)
+            orderView.subvalue = "\(CommonLocalized.Contract.fee) " + makePrice(fee)
         } else {
             orderView.subvalue = nil
         }
-        
+
         termsOfServiceLinkedTextView.attributedText = makeTermsOfService(
             viewModel.terms,
             font: UIFont.dynamicCaption2,
@@ -279,7 +281,7 @@ extension ApplePayContractViewController: ApplePayContractViewInput {
         )
         termsOfServiceLinkedTextView.textAlignment = .center
     }
-    
+
     func setSavePaymentMethodViewModel(
         _ savePaymentMethodViewModel: SavePaymentMethodViewModel
     ) {
@@ -296,7 +298,7 @@ extension ApplePayContractViewController: ApplePayContractViewInput {
                 savePaymentMethodSwitchItemView,
                 savePaymentMethodSwitchLinkedItemView,
             ].forEach(contentStackView.addArrangedSubview)
-            
+
         case .strict(let viewModel):
             savePaymentMethodStrictLinkedItemView.attributedString = makeSavePaymentMethodAttributedString(
                 text: viewModel.text,
@@ -325,7 +327,7 @@ extension ApplePayContractViewController: ApplePayContractViewInput {
              + price.fractionalPart
              + price.currency
     }
-    
+
     private func makeTermsOfService(
         _ terms: TermsOfService,
         font: UIFont,
@@ -352,7 +354,7 @@ extension ApplePayContractViewController: ApplePayContractViewInput {
 
         return attributedText
     }
-    
+
     private func makeSavePaymentMethodAttributedString(
         text: String,
         hyperText: String,
@@ -368,7 +370,9 @@ extension ApplePayContractViewController: ApplePayContractViewInput {
 
         let linkAttributedText = NSMutableAttributedString(string: hyperText, attributes: attributes)
         let linkRange = NSRange(location: 0, length: hyperText.count)
+        // swiftlint:disable force_unwrapping
         let fakeLink = URL(string: "https://yookassa.ru")!
+        // swiftlint:enable force_unwrapping
         linkAttributedText.addAttribute(.link, value: fakeLink, range: linkRange)
         attributedText.append(linkAttributedText)
 
@@ -424,19 +428,29 @@ extension ApplePayContractViewController: SwitchItemViewOutput {
     }
 }
 
-// MARK: - Localized
+// MARK: - Localization
 
 private extension ApplePayContractViewController {
-    enum Localized: String {
-        case title = "ApplePayContract.title"
-        case `continue` = "Contract.next"
-        case fee = "Contract.fee"
-        case savePaymentMethodTitle = "Contract.format.savePaymentMethod.title"
-        case paymentMethodTitle = "ApplePayContract.paymentMethodTitle"
-        
-        enum PlaceholderView: String {
-            case buttonTitle = "Common.PlaceholderView.buttonTitle"
-            case text = "Common.PlaceholderView.text"
-        }
+    // swiftlint:disable line_length
+    enum Localized {
+        static let title = NSLocalizedString(
+            "ApplePayContract.title",
+            bundle: Bundle.framework,
+            value: "Apple Pay",
+            comment: "Title на контракте Apple Pay https://yadi.sk/i/xT_cNZtTh6PoiQ"
+        )
+        static let savePaymentMethodTitle = NSLocalizedString(
+            "ApplePayContract.SavePaymentMethod.Title",
+            bundle: Bundle.framework,
+            value: "Разрешить списывать деньги",
+            comment: "Текст на контракте Apple Pay `Разрешить списывать деньги` https://yadi.sk/i/FWhOeo-T3eCQzg"
+        )
+        static let paymentMethodTitle = NSLocalizedString(
+            "ApplePayContract.paymentMethodTitle",
+            bundle: Bundle.framework,
+            value: "Дальше откроем Apple Pay — подтвердите оплату",
+            comment: "Текст на контракте Apple Pay `Дальше откроем Apple Pay — подтвердите оплату` https://yadi.sk/i/FWhOeo-T3eCQzg"
+        )
     }
+    // swiftlint:enable line_length
 }

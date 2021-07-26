@@ -9,9 +9,9 @@ struct BankCardDataInputModuleInputData {
     let isLoggingEnabled: Bool
 }
 
-protocol BankCardDataInputModuleInput: class {}
+protocol BankCardDataInputModuleInput: AnyObject {}
 
-protocol BankCardDataInputModuleOutput: class {
+protocol BankCardDataInputModuleOutput: AnyObject {
     func bankCardDataInputModule(
         _ module: BankCardDataInputModuleInput,
         didSuccessValidateCardData cardData: CardData

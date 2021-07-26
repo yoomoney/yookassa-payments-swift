@@ -1,5 +1,5 @@
-import UIKit
 import SafariServices
+import UIKit
 
 final class SberpayRouter {
     weak var transitionHandler: TransitionHandler?

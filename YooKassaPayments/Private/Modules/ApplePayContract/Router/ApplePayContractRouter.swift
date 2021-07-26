@@ -16,7 +16,7 @@ extension ApplePayContractRouter: ApplePayContractRouterInput {
             completion: nil
         )
     }
-    
+
     func presentSavePaymentMethodInfo(
         inputData: SavePaymentMethodInfoModuleInputData
     ) {
@@ -32,7 +32,7 @@ extension ApplePayContractRouter: ApplePayContractRouterInput {
             completion: nil
         )
     }
-    
+
     func presentApplePay(
         inputData: ApplePayModuleInputData,
         moduleOutput: ApplePayModuleOutput

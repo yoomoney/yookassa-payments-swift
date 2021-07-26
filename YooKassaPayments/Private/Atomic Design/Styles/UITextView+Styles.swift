@@ -45,9 +45,9 @@ extension UITextView {
             ]
         }
     }
-    
+
     // MARK: - Dynamic Fonts
-    
+
     enum ColorStyle {
         static let secondary = InternalStyle(name: "textview.color.doveGray") { (textView: UITextView) in
             if #available(iOS 13.0, *) {

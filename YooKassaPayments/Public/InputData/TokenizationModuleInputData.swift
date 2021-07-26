@@ -47,7 +47,7 @@ public struct TokenizationModuleInputData {
 
     /// Money center authorization identifier.
     let moneyAuthClientId: String?
-    
+
     /// Application scheme for returning after opening a deeplink.
     /// Example: myapplication://
     let applicationScheme: String?

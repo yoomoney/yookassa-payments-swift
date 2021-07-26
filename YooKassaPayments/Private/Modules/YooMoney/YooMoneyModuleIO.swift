@@ -6,7 +6,7 @@ struct YooMoneyModuleInputData {
     let isLoggingEnabled: Bool
     let moneyAuthClientId: String?
     let tokenizationSettings: TokenizationSettings
-    
+
     let shopName: String
     let purchaseDescription: String
     let price: PriceViewModel
@@ -21,17 +21,16 @@ struct YooMoneyModuleInputData {
     let isBackBarButtonHidden: Bool
 }
 
-protocol YooMoneyModuleInput: class {}
+protocol YooMoneyModuleInput: AnyObject {}
 
-protocol YooMoneyModuleOutput: class {
+protocol YooMoneyModuleOutput: AnyObject {
     func didLogout(
         _ module: YooMoneyModuleInput
     )
-    
+
     func tokenizationModule(
         _ module: YooMoneyModuleInput,
         didTokenize token: Tokens,
         paymentMethodType: PaymentMethodType
     )
 }
-

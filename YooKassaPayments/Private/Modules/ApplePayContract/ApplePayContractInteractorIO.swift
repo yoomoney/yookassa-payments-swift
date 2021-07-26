@@ -6,7 +6,7 @@ protocol ApplePayContractInteractorInput: AnalyticsTrack, AnalyticsProvider {
     )
 }
 
-protocol ApplePayContractInteractorOutput: class {
+protocol ApplePayContractInteractorOutput: AnyObject {
     func didTokenize(
         _ token: Tokens
     )

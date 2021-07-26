@@ -35,7 +35,7 @@ extension UIImage {
     static var error: UIImage {
         return named("errorImage")
     }
-    
+
     static var avatar: UIImage {
         return named("avatar")
     }

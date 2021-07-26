@@ -9,7 +9,7 @@ struct ApplePayModuleInputData {
     let fee: Fee?
 }
 
-protocol ApplePayModuleInput: class {}
+protocol ApplePayModuleInput: AnyObject {}
 
 protocol ApplePayModuleOutput: PKPaymentAuthorizationViewControllerDelegate {
     func didPresentApplePayModule()

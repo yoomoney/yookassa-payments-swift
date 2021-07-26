@@ -1,31 +1,33 @@
+import UIKit
+
 final class PaymentAuthorizationViewController: UIViewController, PlaceholderProvider {
-    
+
     // MARK: - VIPER
-    
+
     var output: PaymentAuthorizationViewOutput!
-    
+
     // MARK: - UI properties
-    
+
     private lazy var shouldShowTitleOnNavBar: Bool = {
         return UIScreen.main.isShort
     }()
-    
+
     private lazy var titleLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.styledText = §Localized.smsCodePlaceholder
+        $0.styledText = Localized.smsCodePlaceholder
         $0.setStyles(
             UILabel.DynamicStyle.title1,
             UILabel.Styles.multiline
         )
         return $0
     }(UILabel())
-    
+
     private lazy var codeControl: FixedLengthCodeControl = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.delegate = self
         return $0
     }(FixedLengthCodeControl())
-    
+
     private lazy var codeErrorLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setStyles(
@@ -36,7 +38,7 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
         )
         return $0
     }(UILabel())
-    
+
     private lazy var descriptionLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setStyles(
@@ -47,7 +49,7 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
         )
         return $0
     }(UILabel())
-    
+
     private lazy var resendCodeButton: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.tintColor = CustomizationStorage.shared.mainScheme
@@ -59,9 +61,9 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
         )
         return $0
     }(UIButton(type: .custom))
-    
+
     // MARK: - PlaceholderProvider
-    
+
     lazy var placeholderView: PlaceholderView = {
         $0.setStyles(UIView.Styles.defaultBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -70,43 +72,43 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(PlaceholderView())
-    
+
     lazy var actionTitleTextDialog: ActionTitleTextDialog = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(ActionTitleTextDialog.Styles.fail)
-        $0.buttonTitle = §Localized.PlaceholderView.buttonTitle
-        $0.text = §Localized.PlaceholderView.text
+        $0.buttonTitle = CommonLocalized.PlaceholderView.buttonTitle
+        $0.text = CommonLocalized.PlaceholderView.text
         $0.delegate = output
         return $0
     }(ActionTitleTextDialog())
-    
+
     // MARK: - Constraints
-    
+
     private lazy var descriptionLabelTopConstraint = descriptionLabel.topAnchor.constraint(
         equalTo: codeControl.bottomAnchor,
         constant: Space.quadruple
     )
-    
+
     private lazy var resendButtonBottomConstraint = resendCodeButton.bottomAnchor.constraint(
         equalTo: bottomLayoutGuide.topAnchor,
         constant: -Space.double
     )
-    
+
     private lazy var placeholderViewBottomConstraint = placeholderView.bottomAnchor.constraint(
         equalTo: bottomLayoutGuide.topAnchor
     )
-    
+
     // MARK: - Managing the View
-    
+
     override func loadView() {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
-        
+
         setupView()
         setupConstraints()
-        
+
         if shouldShowTitleOnNavBar {
-            navigationItem.title = §Localized.smsCodePlaceholder
+            navigationItem.title = Localized.smsCodePlaceholder
         }
     }
 
@@ -114,7 +116,7 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
         super.viewDidLoad()
         output.setupView()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         appendKeyboardObservers()
@@ -124,19 +126,19 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
         super.viewDidAppear(animated)
         _ = codeControl.becomeFirstResponder()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         removeKeyboardObservers()
         super.viewWillDisappear(animated)
     }
-    
+
     // MARK: - Setup
-    
+
     private func setupView() {
         if !shouldShowTitleOnNavBar {
             view.addSubview(titleLabel)
         }
-        
+
         [
             codeControl,
             codeErrorLabel,
@@ -145,7 +147,7 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
             placeholderView,
         ].forEach(view.addSubview)
     }
-    
+
     private func setupConstraints() {
         let topConstraint: NSLayoutConstraint
         if #available(iOS 11.0, *) {
@@ -189,11 +191,11 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
                 equalTo: bottomLayoutGuide.topAnchor
             )
         }
-        
+
         var constraints = [
             topConstraint,
             codeControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
+
             codeErrorLabel.topAnchor.constraint(
                 equalTo: codeControl.bottomAnchor,
                 constant: Space.double
@@ -216,7 +218,7 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
                 equalTo: view.trailingAnchor,
                 constant: -Space.double
             ),
-            
+
             resendCodeButton.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: Space.double
@@ -226,13 +228,13 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
                 constant: -Space.double
             ),
             resendButtonBottomConstraint,
-            
+
             placeholderView.topAnchor.constraint(equalTo: view.topAnchor),
             placeholderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             placeholderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             placeholderViewBottomConstraint,
         ]
-        
+
         if !shouldShowTitleOnNavBar {
             constraints += [
                 titleLabel.leadingAnchor.constraint(
@@ -243,17 +245,17 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
                     equalTo: view.trailingAnchor,
                     constant: -Space.double
                 ),
-                
+
                 codeControl.topAnchor.constraint(
                     equalTo: titleLabel.bottomAnchor,
                     constant: 2 * Space.triple
                 ),
             ]
         }
-        
+
         NSLayoutConstraint.activate(constraints)
     }
-    
+
     // MARK: - Actions
 
     @objc
@@ -268,22 +270,22 @@ extension PaymentAuthorizationViewController: KeyboardObserver {
     func keyboardWillShow(with keyboardInfo: KeyboardNotificationInfo) {
         updateBottomConstraint(keyboardInfo)
     }
-    
+
     func keyboardWillHide(with keyboardInfo: KeyboardNotificationInfo) {
         updateBottomConstraint(keyboardInfo)
     }
-    
+
     func keyboardDidShow(with keyboardInfo: KeyboardNotificationInfo) {}
     func keyboardDidHide(with keyboardInfo: KeyboardNotificationInfo) {}
     func keyboardDidUpdateFrame(_ keyboardFrame: CGRect) {}
-    
+
     private func updateBottomConstraint(
         _ keyboardInfo: KeyboardNotificationInfo
     ) {
         guard let keyboardOffset = keyboardYOffset(from: keyboardInfo.endKeyboardFrame) else {
             return
         }
-        
+
         let duration = keyboardInfo.animationDuration ?? 0.3
 
         var options: UIView.AnimationOptions = []
@@ -312,7 +314,7 @@ extension PaymentAuthorizationViewController: PlaceholderPresenting {
     func showPlaceholder() {
         placeholderView.isHidden = false
     }
-    
+
     func hidePlaceholder() {
         placeholderView.isHidden = true
     }
@@ -325,7 +327,7 @@ extension PaymentAuthorizationViewController: PaymentAuthorizationViewInput {
         view.endEditing(true)
         codeControl.setIsEditable(false)
     }
-    
+
     func setCodeLength(_ length: Int) {
         codeControl.setLength(length)
         _ = codeControl.becomeFirstResponder()
@@ -351,7 +353,7 @@ extension PaymentAuthorizationViewController: PaymentAuthorizationViewInput {
             UILabel.Styles.multiline
         )
     }
-    
+
     func setDescriptionError(_ description: String) {
         descriptionLabel.styledText = description
         descriptionLabel.setStyles(UILabel.ColorStyle.alert)
@@ -368,11 +370,11 @@ extension PaymentAuthorizationViewController: PaymentAuthorizationViewInput {
     func setResendCodeButtonIsEnabled(_ isEnabled: Bool) {
         resendCodeButton.isEnabled = isEnabled
     }
-    
+
     func setResendCodeButtonHidden(_ isHidden: Bool) {
         resendCodeButton.isHidden = true
     }
-    
+
     func showPlaceholder(title: String) {
         actionTitleTextDialog.title = title
         showPlaceholder()
@@ -411,12 +413,12 @@ extension PaymentAuthorizationViewController: ActivityIndicatorFullViewPresentin
 // MARK: - Localized
 
 private extension PaymentAuthorizationViewController {
-    enum Localized: String {
-        case smsCodePlaceholder = "Contract.placeholder.smsCode"
-        
-        enum PlaceholderView: String {
-            case buttonTitle = "Common.PlaceholderView.buttonTitle"
-            case text = "Common.PlaceholderView.text"
-        }
+    enum Localized {
+        static let smsCodePlaceholder = NSLocalizedString(
+            "Contract.placeholder.smsCode",
+            bundle: Bundle.framework,
+            value: "Введите код из смс",
+            comment: ""
+        )
     }
 }

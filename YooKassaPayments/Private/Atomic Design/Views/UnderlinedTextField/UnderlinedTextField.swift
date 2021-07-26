@@ -1,6 +1,6 @@
 import UIKit
 
-protocol UnderlinedTextFieldDelegate: class {
+protocol UnderlinedTextFieldDelegate: AnyObject {
     func textFieldDidEndEditing(
         _ textField: UITextField
     )

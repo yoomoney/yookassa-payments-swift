@@ -1,11 +1,11 @@
 import UIKit
 
 final class BankCardRepeatViewController: UIViewController, PlaceholderProvider {
-    
+
     // MARK: - VIPER
-    
+
     var output: BankCardRepeatViewOutput!
-    
+
     // MARK: - Touches, Presses, and Gestures
 
     private lazy var viewTapGestureRecognizer: UITapGestureRecognizer = {
@@ -15,9 +15,9 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         target: self,
         action: #selector(viewTapGestureRecognizerHandle)
     ))
-    
+
     // MARK: - UI properties
-    
+
     private lazy var scrollView: UIScrollView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -30,26 +30,26 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
-    
+
     private lazy var contentStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .vertical
         return $0
     }(UIStackView())
-    
+
     private lazy var orderView: OrderView = {
         $0.setStyles(UIView.Styles.grayBackground)
         return $0
     }(OrderView())
-    
+
     private lazy var cardView: UIView = {
         $0.setStyles(
             UIView.Styles.grayBackground
         )
         return $0
     }(UIView())
-    
+
     private lazy var maskedCardView: MaskedCardView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.tintColor = CustomizationStorage.shared.mainScheme
@@ -57,24 +57,24 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
             UIView.Styles.grayBackground,
             UIView.Styles.roundedShadow
         )
-        $0.hintCardCode = §Localized.hintCardCode
-        $0.hintCardNumber = §Localized.hintCardNumber
-        $0.cardCodePlaceholder = §Localized.cvc
+        $0.hintCardCode = CommonLocalized.BankCardView.inputCvcHint
+        $0.hintCardNumber = CommonLocalized.BankCardView.inputPanHint
+        $0.cardCodePlaceholder = CommonLocalized.BankCardView.inputCvcPlaceholder
         $0.delegate = self
         return $0
     }(MaskedCardView())
-    
+
     private lazy var errorCscView: UIView = {
         $0.setStyles(
             UIView.Styles.grayBackground
         )
         return $0
     }(UIView())
-    
+
     private lazy var errorCscLabel: UILabel = {
         $0.isHidden = true
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.text = §Localized.errorCvc
+        $0.text = CommonLocalized.BankCardView.BottomHint.invalidCvc
         $0.setStyles(
             UIView.Styles.grayBackground,
             UILabel.DynamicStyle.caption1,
@@ -82,7 +82,7 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         )
         return $0
     }(UILabel())
-    
+
     private lazy var actionButtonStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -90,14 +90,14 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         $0.spacing = Space.double
         return $0
     }(UIStackView())
-    
+
     private lazy var submitButton: Button = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(
             UIButton.DynamicStyle.primary,
             UIView.Styles.heightAsContent
         )
-        $0.setStyledTitle(§Localized.continue, for: .normal)
+        $0.setStyledTitle(CommonLocalized.Contract.next, for: .normal)
         $0.addTarget(
             self,
             action: #selector(didPressActionButton),
@@ -105,7 +105,7 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         )
         return $0
     }(Button(type: .custom))
-    
+
     private lazy var termsOfServiceLinkedTextView: LinkedTextView = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(
@@ -115,9 +115,9 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         $0.delegate = self
         return $0
     }(LinkedTextView())
-    
+
     private var activityIndicatorView: UIView?
-    
+
     // MARK: - PlaceholderProvider
 
     lazy var placeholderView: PlaceholderView = {
@@ -130,14 +130,14 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
     lazy var actionTitleTextDialog: ActionTitleTextDialog = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(ActionTitleTextDialog.Styles.fail)
-        $0.buttonTitle = §Localized.PlaceholderView.buttonTitle
-        $0.text = §Localized.PlaceholderView.text
+        $0.buttonTitle = CommonLocalized.PlaceholderView.buttonTitle
+        $0.text = CommonLocalized.PlaceholderView.text
         $0.delegate = output
         return $0
     }(ActionTitleTextDialog())
-    
+
     // MARK: - Switch save payment method UI Properties
-    
+
     fileprivate lazy var savePaymentMethodSwitchItemView: SwitchItemView = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.layoutMargins = UIEdgeInsets(
@@ -147,11 +147,11 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
             right: Space.double
         )
         $0.setStyles(SwitchItemView.Styles.primary)
-        $0.title = §Localized.savePaymentMethodTitle
+        $0.title = Localized.savePaymentMethodTitle
         $0.delegate = self
         return $0
     }(SwitchItemView())
-    
+
     fileprivate lazy var savePaymentMethodSwitchLinkedItemView: LinkedItemView = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.layoutMargins = UIEdgeInsets(
@@ -164,9 +164,9 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         $0.delegate = self
         return $0
     }(LinkedItemView())
-    
+
     // MARK: - Strict save payment method UI Properties
-    
+
     fileprivate lazy var savePaymentMethodStrictSectionHeaderView: SectionHeaderView = {
         $0.layoutMargins = UIEdgeInsets(
             top: Space.double,
@@ -174,7 +174,7 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
             bottom: 0,
             right: Space.double
         )
-        $0.title = §Localized.savePaymentMethodTitle
+        $0.title = Localized.savePaymentMethodTitle
         $0.setStyles(SectionHeaderView.Styles.primary)
         return $0
     }(SectionHeaderView())
@@ -191,9 +191,9 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         $0.delegate = self
         return $0
     }(LinkedItemView())
-    
+
     // MARK: - Input Presenter
-    
+
     private struct CscInputPresenterStyle: InputPresenterStyle {
         func removedFormatting(from string: String) -> String {
             return string.components(separatedBy: removeFormattingCharacterSet).joined()
@@ -213,27 +213,27 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
             return set.inverted
         }()
     }
-    
+
     private lazy var cvcTextInputPresenter: InputPresenter = {
         let cvcTextStyle = CscInputPresenterStyle()
         let cvcTextInputPresenter = InputPresenter(textInputStyle: cvcTextStyle)
         cvcTextInputPresenter.output = maskedCardView.cardCodeTextView
         return cvcTextInputPresenter
     }()
-    
+
     // MARK: - Constraints
-    
+
     private lazy var scrollViewHeightConstraint =
         scrollView.heightAnchor.constraint(equalToConstant: 0)
-    
+
     // MARK: - Managing the View
-    
+
     override func loadView() {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
         view.addGestureRecognizer(viewTapGestureRecognizer)
-        navigationItem.title = §Localized.title
-        
+        navigationItem.title = Localized.title
+
         setupView()
         setupConstraints()
     }
@@ -242,9 +242,9 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         super.viewDidLoad()
         output.setupView()
     }
-    
+
     // MARK: - Setup
-    
+
     private func setupView() {
         [
             scrollView,
@@ -256,21 +256,21 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         [
             contentStackView,
         ].forEach(contentView.addSubview)
-        
+
         [
             orderView,
             cardView,
             errorCscView,
         ].forEach(contentStackView.addArrangedSubview)
-        
+
         [
             maskedCardView,
         ].forEach(cardView.addSubview)
-        
+
         [
             errorCscLabel,
         ].forEach(errorCscView.addSubview)
-        
+
         [
             submitButton,
             termsOfServiceLinkedTextView,
@@ -297,12 +297,12 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
                 equalTo: topLayoutGuide.bottomAnchor
             )
         }
-        
+
         scrollViewHeightConstraint.priority = .defaultLow
-        
+
         let constraints = [
             scrollViewHeightConstraint,
-            
+
             topConstraint,
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -331,7 +331,7 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
             contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
+
             maskedCardView.topAnchor.constraint(
                 equalTo: cardView.topAnchor,
                 constant: Space.double
@@ -348,7 +348,7 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
                 equalTo: cardView.trailingAnchor,
                 constant: -Space.double
             ),
-            
+
             errorCscLabel.topAnchor.constraint(equalTo: errorCscView.topAnchor),
             errorCscLabel.leadingAnchor.constraint(
                 equalTo: errorCscView.leadingAnchor,
@@ -362,7 +362,7 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         ]
         NSLayoutConstraint.activate(constraints)
     }
-    
+
     // MARK: - Configuring the View’s Layout Behavior
 
     override func viewDidLayoutSubviews() {
@@ -371,7 +371,7 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
             self.fixTableViewHeight()
         }
     }
-    
+
     private func fixTableViewHeight() {
         let newValue = contentStackView.bounds.height
         if scrollViewHeightConstraint.constant != newValue {
@@ -382,16 +382,16 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
             )
         }
     }
-    
+
     // MARK: - Action
-    
+
     @objc
     private func didPressActionButton(
         _ sender: UIButton
     ) {
         output?.didTapActionButton()
     }
-    
+
     @objc
     private func viewTapGestureRecognizerHandle(
         _ gestureRecognizer: UITapGestureRecognizer
@@ -399,7 +399,7 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         guard gestureRecognizer.state == .recognized else { return }
         view.endEditing(true)
     }
-    
+
     // MARK: - Private logic helpers
 
     private var cachedCvc = ""
@@ -411,7 +411,7 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
     func endEditing(_ force: Bool) {
         view.endEditing(force)
     }
-    
+
     func setupViewModel(
         _ viewModel: BankCardRepeatViewModel
     ) {
@@ -419,14 +419,14 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
         orderView.subtitle = viewModel.description
         orderView.value = makePrice(viewModel.price)
         if let fee = viewModel.fee {
-            orderView.subvalue = "\(§Localized.fee) " + makePrice(fee)
+            orderView.subvalue = "\(CommonLocalized.Contract.fee) " + makePrice(fee)
         } else {
             orderView.subvalue = nil
         }
 
         maskedCardView.cardNumber = viewModel.cardMask
         maskedCardView.cardLogo = viewModel.cardLogo
-        
+
         termsOfServiceLinkedTextView.attributedText = makeTermsOfService(
             viewModel.terms,
             font: UIFont.dynamicCaption2,
@@ -434,13 +434,13 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
         )
         termsOfServiceLinkedTextView.textAlignment = .center
     }
-    
+
     func setConfirmButtonEnabled(
         _ isEnabled: Bool
     ) {
         submitButton.isEnabled = isEnabled
     }
-    
+
     func setSavePaymentMethodViewModel(
         _ savePaymentMethodViewModel: SavePaymentMethodViewModel
     ) {
@@ -457,7 +457,7 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
                 savePaymentMethodSwitchItemView,
                 savePaymentMethodSwitchLinkedItemView,
             ].forEach(contentStackView.addArrangedSubview)
-            
+
         case .strict(let viewModel):
             savePaymentMethodStrictLinkedItemView.attributedString = makeSavePaymentMethodAttributedString(
                 text: viewModel.text,
@@ -471,21 +471,21 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
             ].forEach(contentStackView.addArrangedSubview)
         }
     }
-    
+
     func showPlaceholder(
         with message: String
     ) {
         actionTitleTextDialog.title = message
         showPlaceholder()
     }
-    
+
     func setCardState(
         _ state: MaskedCardView.CscState
     ) {
         maskedCardView.cscState = state
         errorCscLabel.isHidden = state != .error
     }
-    
+
     private func makePrice(
         _ price: PriceViewModel
     ) -> String {
@@ -494,7 +494,7 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
              + price.fractionalPart
              + price.currency
     }
-    
+
     private func makeTermsOfService(
         _ terms: TermsOfService,
         font: UIFont,
@@ -521,7 +521,7 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
 
         return attributedText
     }
-    
+
     private func makeSavePaymentMethodAttributedString(
         text: String,
         hyperText: String,
@@ -537,7 +537,9 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
 
         let linkAttributedText = NSMutableAttributedString(string: hyperText, attributes: attributes)
         let linkRange = NSRange(location: 0, length: hyperText.count)
+        // swiftlint:disable force_unwrapping
         let fakeLink = URL(string: "https://yookassa.ru")!
+        // swiftlint:enable force_unwrapping
         linkAttributedText.addAttribute(.link, value: fakeLink, range: linkRange)
         attributedText.append(linkAttributedText)
 
@@ -612,13 +614,13 @@ extension BankCardRepeatViewController: MaskedCardViewDelegate {
         output.didSetCsc(cachedCvc)
         return false
     }
-    
+
     func textFieldDidBeginEditing(
         _ textField: UITextField
     ) {
         setCardState(.selected)
     }
-    
+
     func textFieldDidEndEditing(
         _ textField: UITextField
     ) {
@@ -685,21 +687,18 @@ private extension BankCardRepeatViewController {
 // MARK: - Localized
 
 private extension BankCardRepeatViewController {
-    enum Localized: String {
-        case title = "BankCardRepeat.title"
-        case `continue` = "Contract.next"
-        case fee = "Contract.fee"
-        
-        case hintCardNumber = "BankCardView.inputPanHint"
-        case hintCardCode = "BankCardDataInput.hintCardCode"
-        case cvc = "BankCardDataInput.cvc"
-        case errorCvc = "BankCardDataInput.errorCvc"
-        
-        case savePaymentMethodTitle = "BankCardRepeat.savePaymentMethod.title"
-        
-        enum PlaceholderView: String {
-            case buttonTitle = "Common.PlaceholderView.buttonTitle"
-            case text = "Common.PlaceholderView.text"
-        }
+    enum Localized {
+        static let title = NSLocalizedString(
+            "BankCardRepeat.title",
+            bundle: Bundle.framework,
+            value: "Сохраненная карта",
+            comment: "Title `Сохраненная карта` на экране `Сохраненная карта` https://yadi.sk/d/Cyocbh86zUr3cA"
+        )
+        static let savePaymentMethodTitle = NSLocalizedString(
+            "BankCardRepeat.savePaymentMethod.title",
+            bundle: Bundle.framework,
+            value: "Привязать карту",
+            comment: "Текст `Привязать карту` на экране `Сохраненная карта` https://yadi.sk/d/Cyocbh86zUr3cA"
+        )
     }
 }

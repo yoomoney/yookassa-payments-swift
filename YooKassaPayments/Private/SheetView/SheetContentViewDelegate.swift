@@ -1,6 +1,6 @@
 import UIKit
 
-protocol SheetContentViewDelegate: class {
+protocol SheetContentViewDelegate: AnyObject {
     func preferredHeightChanged(
         oldHeight: CGFloat,
         newSize: CGFloat
