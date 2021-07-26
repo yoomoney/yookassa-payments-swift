@@ -1,3 +1,5 @@
+import UIKit.UIImage
+
 struct BankCardRepeatViewModel {
     let shopName: String
     let description: String?

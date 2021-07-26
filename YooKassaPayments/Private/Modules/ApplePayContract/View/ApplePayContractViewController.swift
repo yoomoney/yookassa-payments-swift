@@ -1,3 +1,5 @@
+import UIKit
+
 final class ApplePayContractViewController: UIViewController {
 
     // MARK: - VIPER

@@ -1,3 +1,5 @@
+import UIKit
+
 final class SectionHeaderView: UIView {
 
     // MARK: - Public accessors

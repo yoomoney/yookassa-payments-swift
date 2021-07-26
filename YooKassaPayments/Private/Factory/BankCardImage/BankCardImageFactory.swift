@@ -1,3 +1,5 @@
+import UIKit
+
 protocol BankCardImageFactory {
 
     // MARK: - Make bank card image from card mask

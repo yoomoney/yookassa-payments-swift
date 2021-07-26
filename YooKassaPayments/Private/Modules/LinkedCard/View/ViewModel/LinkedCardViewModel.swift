@@ -1,3 +1,5 @@
+import UIKit.UIImage
+
 struct LinkedCardViewModel {
     let shopName: String
     let description: String?
