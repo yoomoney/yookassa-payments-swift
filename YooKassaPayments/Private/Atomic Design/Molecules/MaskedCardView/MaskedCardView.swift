@@ -1,35 +1,35 @@
 import UIKit
 
-protocol MaskedCardViewDelegate: class {
+protocol MaskedCardViewDelegate: AnyObject {
     func textField(
         _ textField: UITextField,
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool
-    
+
     func textFieldDidBeginEditing(
         _ textField: UITextField
     )
-    
+
     func textFieldDidEndEditing(
         _ textField: UITextField
     )
 }
 
 final class MaskedCardView: UIView {
-    
+
     enum CscState {
         case `default`
         case selected
         case error
     }
-    
+
     // MARK: - Delegates
-    
+
     weak var delegate: MaskedCardViewDelegate?
-    
+
     // MARK: - Public accessors
-    
+
     var cscState: CscState = .default {
         didSet {
             switch cscState {
@@ -38,13 +38,13 @@ final class MaskedCardView: UIView {
                 hintCardCodeLabel.setStyles(
                     UILabel.ColorStyle.ghost
                 )
-                
+
             case .selected:
                 setStyles(UIView.Styles.grayBorder)
                 hintCardCodeLabel.setStyles(
                     UILabel.ColorStyle.secondary
                 )
-                
+
             case .error:
                 setStyles(UIView.Styles.alertBorder)
                 hintCardCodeLabel.setStyles(
@@ -53,7 +53,7 @@ final class MaskedCardView: UIView {
             }
         }
     }
-    
+
     var cardNumber: String {
         set {
             cardNumberLabel.styledText = newValue
@@ -62,7 +62,7 @@ final class MaskedCardView: UIView {
             return cardNumberLabel.styledText ?? ""
         }
     }
-    
+
     var cardLogo: UIImage? {
         set {
             cardLogoImageView.image = newValue
@@ -71,7 +71,7 @@ final class MaskedCardView: UIView {
             return cardLogoImageView.image
         }
     }
-    
+
     var hintCardNumber: String {
         set {
             hintCardNumberLabel.styledText = newValue
@@ -80,7 +80,7 @@ final class MaskedCardView: UIView {
             return hintCardNumberLabel.styledText ?? ""
         }
     }
-    
+
     var hintCardCode: String {
         set {
             hintCardCodeLabel.styledText = newValue
@@ -89,7 +89,7 @@ final class MaskedCardView: UIView {
             return hintCardCodeLabel.styledText ?? ""
         }
     }
-    
+
     var cardCodePlaceholder: String {
         set {
             cardCodeTextView.placeholder = newValue
@@ -98,9 +98,9 @@ final class MaskedCardView: UIView {
             return cardCodeTextView.placeholder ?? ""
         }
     }
-    
+
     // MARK: - UI Propertie
-    
+
     private(set) lazy var hintCardNumberLabel: UILabel = {
         $0.setStyles(
             UILabel.DynamicStyle.caption1,
@@ -109,7 +109,7 @@ final class MaskedCardView: UIView {
         )
         return $0
     }(UILabel())
-    
+
     private(set) lazy var hintCardCodeLabel: UILabel = {
         $0.setStyles(
             UILabel.DynamicStyle.caption1,
@@ -118,12 +118,12 @@ final class MaskedCardView: UIView {
         )
         return $0
     }(UILabel())
-    
+
     private(set) lazy var cardLogoImageView: UIImageView = {
         $0.contentMode = .scaleAspectFit
         return $0
     }(UIImageView())
-    
+
     private(set) lazy var cardNumberLabel: UILabel = {
         $0.setStyles(
             UILabel.DynamicStyle.body,
@@ -132,7 +132,7 @@ final class MaskedCardView: UIView {
         )
         return $0
     }(UILabel())
-    
+
     private(set) lazy var cardCodeTextView: UITextField = {
         $0.setStyles(
             UITextField.Styles.numeric,
@@ -143,16 +143,16 @@ final class MaskedCardView: UIView {
         $0.delegate = self
         return $0
     }(UITextField())
-    
+
     // MARK: - TintColor actions
 
     override func tintColorDidChange() {
         cardCodeTextView.tintColor = tintColor
         applyStyles()
     }
-    
+
     // MARK: - Init
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupView()
@@ -162,9 +162,9 @@ final class MaskedCardView: UIView {
         super.init(frame: frame)
         setupView()
     }
-    
+
     // MARK: - Setup
-    
+
     private func setupView() {
         backgroundColor = .clear
         layoutMargins = UIEdgeInsets(
@@ -176,7 +176,7 @@ final class MaskedCardView: UIView {
         setupSubviews()
         setupConstraints()
     }
-    
+
     private func setupSubviews() {
         [
             hintCardNumberLabel,
@@ -189,22 +189,22 @@ final class MaskedCardView: UIView {
             addSubview($0)
         }
     }
-    
+
     private func setupConstraints() {
-        
+
         let constraints = [
             hintCardNumberLabel.top.constraint(equalTo: topMargin),
             hintCardNumberLabel.leading.constraint(equalTo: leadingMargin),
             hintCardNumberLabel.trailing.constraint(equalTo: hintCardCodeLabel.leading),
-            
+
             hintCardCodeLabel.top.constraint(equalTo: topMargin),
             hintCardCodeLabel.leading.constraint(equalTo: cardCodeTextView.leading),
-            
+
             cardLogoImageView.leading.constraint(equalTo: leadingMargin),
             cardLogoImageView.centerY.constraint(equalTo: cardNumberLabel.centerY),
             cardLogoImageView.height.constraint(equalToConstant: Constants.cardLogoImageHeight),
             cardLogoImageView.width.constraint(equalTo: cardLogoImageView.height),
-            
+
             cardNumberLabel.top.constraint(
                 equalTo: hintCardNumberLabel.bottom,
                 constant: 6
@@ -218,12 +218,12 @@ final class MaskedCardView: UIView {
                 constant: -Space.double
             ),
             cardNumberLabel.bottom.constraint(equalTo: bottomMargin),
-            
+
             cardCodeTextView.centerY.constraint(equalTo: cardNumberLabel.centerY),
             cardCodeTextView.trailing.constraint(equalTo: trailingMargin),
             cardCodeTextView.width.constraint(equalToConstant: Constants.cardCodeTextViewWidth),
         ]
-        
+
         NSLayoutConstraint.activate(constraints)
     }
 }
@@ -242,13 +242,13 @@ extension MaskedCardView: UITextFieldDelegate {
             replacementString: string
         ) ?? true
     }
-    
+
     func textFieldDidBeginEditing(
         _ textField: UITextField
     ) {
         delegate?.textFieldDidBeginEditing(textField)
     }
-    
+
     func textFieldDidEndEditing(
         _ textField: UITextField
     ) {

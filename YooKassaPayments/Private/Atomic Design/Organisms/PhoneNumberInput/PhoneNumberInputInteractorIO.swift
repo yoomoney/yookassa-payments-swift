@@ -1,6 +1,6 @@
-protocol PhoneNumberInputInteractorOutput: class {
+protocol PhoneNumberInputInteractorOutput: AnyObject {
 }
 
-protocol PhoneNumberInputInteractorInput: class {
+protocol PhoneNumberInputInteractorInput: AnyObject {
     func isValidPhoneNumber(_ phoneNumber: String) -> Bool
 }

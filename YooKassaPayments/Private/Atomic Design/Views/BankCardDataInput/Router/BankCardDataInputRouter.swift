@@ -1,3 +1,5 @@
+import UIKit
+
 final class BankCardDataInputRouter {
 
     // MARK: - VIPER
@@ -20,10 +22,15 @@ final class BankCardDataInputRouter {
 
 extension BankCardDataInputRouter: BankCardDataInputRouterInput {
     func openCardScanner() {
-        guard let cardScanner = cardScanner,
-              let viewController = cardScanner.cardScanningViewController,
-              let transitionHandler = transitionHandler else { return }
+        guard
+            let cardScanner = cardScanner,
+            let viewController = cardScanner.cardScanningViewController,
+            let transitionHandler = transitionHandler
+        else { return }
         cardScanner.cardScanningDelegate = self
+        if let navigationController = viewController as? UINavigationController {
+            navigationController.navigationBar.setStyles(UINavigationBar.Styles.default)
+        }
         transitionHandler.present(viewController, animated: true, completion: nil)
     }
 

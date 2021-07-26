@@ -5,15 +5,15 @@ final class LinkedCardInteractor {
     // MARK: - VIPER
 
     weak var output: LinkedCardInteractorOutput?
-    
+
     // MARK: - Init data
-    
+
     private let authorizationService: AuthorizationService
     private let analyticsService: AnalyticsService
     private let analyticsProvider: AnalyticsProvider
     private let paymentService: PaymentService
     private let threatMetrixService: ThreatMetrixService
-    
+
     private let clientApplicationKey: String
 
     // MARK: - Init
@@ -31,7 +31,7 @@ final class LinkedCardInteractor {
         self.analyticsProvider = analyticsProvider
         self.paymentService = paymentService
         self.threatMetrixService = threatMetrixService
-        
+
         self.clientApplicationKey = clientApplicationKey
     }
 }
@@ -60,7 +60,7 @@ extension LinkedCardInteractor: LinkedCardInteractorInput {
             }
         }
     }
-    
+
     func tokenize(
         id: String,
         csc: String,
@@ -104,22 +104,22 @@ extension LinkedCardInteractor: LinkedCardInteractorInput {
             }
         }
     }
-    
+
     func hasReusableWalletToken() -> Bool {
         return authorizationService.hasReusableWalletToken()
     }
-    
+
     func trackEvent(_ event: AnalyticsEvent) {
         analyticsService.trackEvent(event)
     }
-    
+
     func makeTypeAnalyticsParameters() -> (
         authType: AnalyticsEvent.AuthType,
         tokenType: AnalyticsEvent.AuthTokenType?
     ) {
         return analyticsProvider.makeTypeAnalyticsParameters()
     }
-    
+
     private func tokenizeWithTMXSessionId(
         id: String,
         csc: String,
@@ -160,7 +160,6 @@ extension LinkedCardInteractor: LinkedCardInteractorInput {
         )
     }
 }
-
 
 private func mapError(_ error: Error) -> Error {
     switch error {

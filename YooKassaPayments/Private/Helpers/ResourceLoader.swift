@@ -8,4 +8,14 @@ extension UIImage {
         }
         return image
     }
+
+    static func localizedImage(_ localizedKey: String) -> UIImage {
+        let name = NSLocalizedString(
+            localizedKey,
+            tableName: "LocalizedResources",
+            bundle: Bundle.framework,
+            comment: ""
+        )
+        return UIImage.named(name)
+    }
 }

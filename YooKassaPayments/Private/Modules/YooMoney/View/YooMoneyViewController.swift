@@ -1,11 +1,11 @@
 import UIKit
 
 final class YooMoneyViewController: UIViewController, PlaceholderProvider {
-    
+
     // MARK: - VIPER
-    
+
     var output: YooMoneyViewOutput!
-    
+
     // MARK: - Touches, Presses, and Gestures
 
     private lazy var viewTapGestureRecognizer: UITapGestureRecognizer = {
@@ -15,9 +15,9 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         target: self,
         action: #selector(viewTapGestureRecognizerHandle)
     ))
-    
+
     // MARK: - UI properties
-    
+
     fileprivate lazy var scrollView: UIScrollView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -30,19 +30,19 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
-    
+
     fileprivate lazy var contentStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .vertical
         return $0
     }(UIStackView())
-    
+
     fileprivate lazy var orderView: OrderView = {
         $0.setStyles(UIView.Styles.grayBackground)
         return $0
     }(OrderView())
-    
+
     fileprivate lazy var paymentMethodView: LargeIconButtonItemView = {
         $0.setStyles(
             UIView.Styles.grayBackground,
@@ -50,7 +50,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         )
         return $0
     }(LargeIconButtonItemView())
-    
+
     fileprivate lazy var actionButtonStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -58,14 +58,14 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         $0.spacing = Space.double
         return $0
     }(UIStackView())
-    
+
     fileprivate lazy var submitButton: Button = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(
             UIButton.DynamicStyle.primary,
             UIView.Styles.heightAsContent
         )
-        $0.setStyledTitle(§Localized.continue, for: .normal)
+        $0.setStyledTitle(CommonLocalized.Contract.next, for: .normal)
         $0.addTarget(
             self,
             action: #selector(didPressActionButton),
@@ -73,7 +73,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         )
         return $0
     }(Button(type: .custom))
-    
+
     fileprivate lazy var termsOfServiceLinkedTextView: LinkedTextView = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(
@@ -83,7 +83,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         $0.delegate = self
         return $0
     }(LinkedTextView())
-    
+
     // MARK: - PlaceholderProvider
 
     lazy var placeholderView: PlaceholderView = {
@@ -95,27 +95,27 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
     lazy var actionTitleTextDialog: ActionTitleTextDialog = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(ActionTitleTextDialog.Styles.fail)
-        $0.buttonTitle = §Localized.PlaceholderView.buttonTitle
-        $0.text = §Localized.PlaceholderView.text
+        $0.buttonTitle = CommonLocalized.PlaceholderView.buttonTitle
+        $0.text = CommonLocalized.PlaceholderView.text
         $0.delegate = output
         return $0
     }(ActionTitleTextDialog())
-    
+
     // MARK: - Separator
-    
+
     fileprivate lazy var separator: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setStyles(UIView.Styles.separator)
         return $0
     }(UIView())
-    
+
     fileprivate lazy var separatorView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
-    
+
     // MARK: - Switcher save auth in app
-    
+
     fileprivate lazy var saveAuthInAppSwitchItemView: SwitchItemView = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.layoutMargins = UIEdgeInsets(
@@ -126,11 +126,11 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         )
         $0.state = true
         $0.setStyles(SwitchItemView.Styles.primary)
-        $0.title = §Localized.saveAuthInAppTitle
+        $0.title = CommonLocalized.SaveAuthInApp.title
         $0.delegate = self
         return $0
     }(SwitchItemView())
-    
+
     fileprivate lazy var saveAuthInAppSectionHeaderView: SectionHeaderView = {
         $0.layoutMargins = UIEdgeInsets(
             top: Space.single / 2,
@@ -138,13 +138,13 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
             bottom: Space.double,
             right: Space.double
         )
-        $0.title = §Localized.saveAuthInApp
+        $0.title = CommonLocalized.SaveAuthInApp.text
         $0.setStyles(SectionHeaderView.Styles.footer)
         return $0
     }(SectionHeaderView())
-    
+
     // MARK: - Switch save payment method UI Properties
-    
+
     fileprivate lazy var savePaymentMethodSwitchItemView: SwitchItemView = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.layoutMargins = UIEdgeInsets(
@@ -154,11 +154,11 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
             right: Space.double
         )
         $0.setStyles(SwitchItemView.Styles.primary)
-        $0.title = §Localized.savePaymentMethodTitle
+        $0.title = Localized.savePaymentMethodTitle
         $0.delegate = self
         return $0
     }(SwitchItemView())
-    
+
     fileprivate lazy var savePaymentMethodSwitchLinkedItemView: LinkedItemView = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.layoutMargins = UIEdgeInsets(
@@ -171,9 +171,9 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         $0.delegate = self
         return $0
     }(LinkedItemView())
-    
+
     // MARK: - Strict save payment method UI Properties
-    
+
     fileprivate lazy var savePaymentMethodStrictSectionHeaderView: SectionHeaderView = {
         $0.layoutMargins = UIEdgeInsets(
             top: Space.double,
@@ -181,7 +181,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
             bottom: 0,
             right: Space.double
         )
-        $0.title = §Localized.savePaymentMethodTitle
+        $0.title = Localized.savePaymentMethodTitle
         $0.setStyles(SectionHeaderView.Styles.primary)
         return $0
     }(SectionHeaderView())
@@ -198,22 +198,22 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         $0.delegate = self
         return $0
     }(LinkedItemView())
-    
+
     // MARK: - Constraints
-    
+
     private lazy var scrollViewHeightConstraint: NSLayoutConstraint = {
         let constraint = scrollView.heightAnchor.constraint(equalToConstant: 0)
         constraint.priority = .defaultLow
         return constraint
     }()
-    
+
     // MARK: - Managing the View
-    
+
     override func loadView() {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
         view.addGestureRecognizer(viewTapGestureRecognizer)
-        navigationItem.title = §Localized.title
+        navigationItem.title = Localized.title
 
         setupView()
         setupConstraints()
@@ -223,9 +223,9 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         super.viewDidLoad()
         output.setupView()
     }
-    
+
     // MARK: - Setup
-    
+
     private func setupView() {
         [
             scrollView,
@@ -237,17 +237,17 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         [
             contentStackView,
         ].forEach(contentView.addSubview)
-        
+
         [
             orderView,
             paymentMethodView,
         ].forEach(contentStackView.addArrangedSubview)
-        
+
         [
             submitButton,
             termsOfServiceLinkedTextView,
         ].forEach(actionButtonStackView.addArrangedSubview)
-        
+
         [
             separator,
         ].forEach(separatorView.addSubview)
@@ -273,10 +273,10 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
                 equalTo: topLayoutGuide.bottomAnchor
             )
         }
-        
+
         let constraints = [
             scrollViewHeightConstraint,
-            
+
             topConstraint,
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -305,7 +305,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
             contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
+
             separator.topAnchor.constraint(equalTo: separatorView.topAnchor),
             separator.leadingAnchor.constraint(equalTo: separatorView.leadingAnchor, constant: Space.double),
             separator.bottomAnchor.constraint(equalTo: separatorView.bottomAnchor),
@@ -313,7 +313,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-    
+
     // MARK: - Configuring the View’s Layout Behavior
 
     override func viewDidLayoutSubviews() {
@@ -322,20 +322,20 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
             self.fixTableViewHeight()
         }
     }
-    
+
     private func fixTableViewHeight() {
         scrollViewHeightConstraint.constant = contentStackView.bounds.height
     }
-    
+
     // MARK: - Action
-    
+
     @objc
     private func didPressActionButton(
         _ sender: UIButton
     ) {
         output?.didTapActionButton()
     }
-    
+
     @objc
     private func viewTapGestureRecognizerHandle(
         _ gestureRecognizer: UITapGestureRecognizer
@@ -355,18 +355,18 @@ extension YooMoneyViewController: YooMoneyViewInput {
         orderView.subtitle = viewModel.description
         orderView.value = makePrice(viewModel.price)
         if let fee = viewModel.fee {
-            orderView.subvalue = "\(§Localized.fee) " + makePrice(fee)
+            orderView.subvalue = "\(CommonLocalized.Contract.fee) " + makePrice(fee)
         } else {
             orderView.subvalue = nil
         }
-        
+
         paymentMethodView.title = viewModel.paymentMethod.title
         paymentMethodView.subtitle = viewModel.paymentMethod.subtitle ?? ""
         paymentMethodView.image = UIImage.avatar
-        
-        paymentMethodView.rightButtonTitle = §Localized.logout
+
+        paymentMethodView.rightButtonTitle = Localized.logout
         paymentMethodView.output = self
-        
+
         termsOfServiceLinkedTextView.attributedText = makeTermsOfService(
             viewModel.terms,
             font: UIFont.dynamicCaption2,
@@ -374,20 +374,20 @@ extension YooMoneyViewController: YooMoneyViewInput {
         )
         termsOfServiceLinkedTextView.textAlignment = .center
     }
-    
+
     func setupAvatar(
         _ avatar: UIImage
     ) {
         paymentMethodView.image = avatar.rounded(cornerRadius: Space.fivefold)
     }
-    
+
     func setSavePaymentMethodViewModel(
         _ savePaymentMethodViewModel: SavePaymentMethodViewModel
     ) {
         if contentStackView.arrangedSubviews.contains(saveAuthInAppSwitchItemView) {
             contentStackView.addArrangedSubview(separatorView)
         }
-        
+
         switch savePaymentMethodViewModel {
         case .switcher(let viewModel):
             savePaymentMethodSwitchItemView.state = viewModel.state
@@ -401,7 +401,7 @@ extension YooMoneyViewController: YooMoneyViewInput {
                 savePaymentMethodSwitchItemView,
                 savePaymentMethodSwitchLinkedItemView,
             ].forEach(contentStackView.addArrangedSubview)
-            
+
         case .strict(let viewModel):
             savePaymentMethodStrictLinkedItemView.attributedString = makeSavePaymentMethodAttributedString(
                 text: viewModel.text,
@@ -415,14 +415,14 @@ extension YooMoneyViewController: YooMoneyViewInput {
             ].forEach(contentStackView.addArrangedSubview)
         }
     }
-    
+
     func setSaveAuthInAppSwitchItemView() {
         [
             saveAuthInAppSwitchItemView,
             saveAuthInAppSectionHeaderView,
         ].forEach(contentStackView.addArrangedSubview)
     }
-    
+
     func showPlaceholder(
         with message: String
     ) {
@@ -444,7 +444,7 @@ extension YooMoneyViewController: YooMoneyViewInput {
              + price.fractionalPart
              + price.currency
     }
-    
+
     private func makeTermsOfService(
         _ terms: TermsOfService,
         font: UIFont,
@@ -471,7 +471,7 @@ extension YooMoneyViewController: YooMoneyViewInput {
 
         return attributedText
     }
-    
+
     private func makeSavePaymentMethodAttributedString(
         text: String,
         hyperText: String,
@@ -487,7 +487,9 @@ extension YooMoneyViewController: YooMoneyViewInput {
 
         let linkAttributedText = NSMutableAttributedString(string: hyperText, attributes: attributes)
         let linkRange = NSRange(location: 0, length: hyperText.count)
+        // swiftlint:disable force_unwrapping
         let fakeLink = URL(string: "https://yookassa.ru")!
+        // swiftlint:enable force_unwrapping
         linkAttributedText.addAttribute(.link, value: fakeLink, range: linkRange)
         attributedText.append(linkAttributedText)
 
@@ -588,18 +590,24 @@ extension YooMoneyViewController: LargeIconButtonItemViewOutput {
 // MARK: - Localized
 
 private extension YooMoneyViewController {
-    enum Localized: String {
-        case title = "YooMoney.title"
-        case `continue` = "Contract.next"
-        case fee = "Contract.fee"
-        case saveAuthInApp = "Contract.format.saveAuthInApp"
-        case saveAuthInAppTitle = "Contract.format.saveAuthInApp.title"
-        case savePaymentMethodTitle = "Wallet.savePaymentMethod.title"
-        case logout = "Contract.logout"
-        
-        enum PlaceholderView: String {
-            case buttonTitle = "Common.PlaceholderView.buttonTitle"
-            case text = "Common.PlaceholderView.text"
-        }
+    enum Localized {
+        static let title = NSLocalizedString(
+            "YooMoney.title",
+            bundle: Bundle.framework,
+            value: "ЮMoney",
+            comment: "Текст `ЮMoney` https://yadi.sk/i/o89CnEUSmNsM7g"
+        )
+        static let savePaymentMethodTitle = NSLocalizedString(
+            "Wallet.savePaymentMethod.title",
+            bundle: Bundle.framework,
+            value: "Привязать кошелек",
+            comment: "Текст `Привязать кошелек` https://yadi.sk/i/o89CnEUSmNsM7g"
+        )
+        static let logout = NSLocalizedString(
+            "Contract.logout",
+            bundle: Bundle.framework,
+            value: "Выйти",
+            comment: "Текст `Выйти` https://yadi.sk/i/o89CnEUSmNsM7g"
+        )
     }
 }

@@ -18,7 +18,7 @@ protocol BankCardViewInput: ActivityIndicatorPresenting, NotificationPresenting 
     )
 }
 
-protocol BankCardViewOutput: class {
+protocol BankCardViewOutput: AnyObject {
     func setupView()
     func didPressSubmitButton()
     func didTapTermsOfService(

@@ -1,6 +1,6 @@
 import UIKit
 
-protocol ActionTextDialogDelegate: class {
+protocol ActionTextDialogDelegate: AnyObject {
     func didPressButton()
 }
 

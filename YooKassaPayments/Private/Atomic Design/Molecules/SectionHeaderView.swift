@@ -1,7 +1,9 @@
+import UIKit
+
 final class SectionHeaderView: UIView {
 
     // MARK: - Public accessors
-    
+
     var title: String {
         set {
             titleLabel.styledText = newValue
@@ -10,13 +12,13 @@ final class SectionHeaderView: UIView {
             return titleLabel.styledText ?? ""
         }
     }
-    
+
     // MARK: - UI properties
 
     private(set) lazy var titleLabel = UILabel()
 
     // MARK: - Initializers
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupView()
@@ -32,7 +34,7 @@ final class SectionHeaderView: UIView {
     }
 
     // MARK: - Setup view
-    
+
     private func setupView() {
         backgroundColor = .clear
         layoutMargins = UIEdgeInsets(
@@ -100,7 +102,7 @@ extension SectionHeaderView {
                     UILabel.Styles.multiline
                 )
             }
-        
+
         /// Style for `primary` section header view.
         ///
         /// headline1, primary color, multi line title.

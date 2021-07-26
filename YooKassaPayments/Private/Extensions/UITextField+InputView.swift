@@ -1,3 +1,5 @@
+import UIKit
+
 extension UITextField: InputView {
     var inputText: String? {
         get {
@@ -7,6 +9,5 @@ extension UITextField: InputView {
             text = newValue
         }
     }
-    
-    
+
 }

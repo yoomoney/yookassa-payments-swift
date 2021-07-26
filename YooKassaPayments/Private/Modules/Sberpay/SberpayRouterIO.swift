@@ -1,3 +1,3 @@
-protocol SberpayRouterInput: class {
+protocol SberpayRouterInput: AnyObject {
     func presentTermsOfServiceModule(_ url: URL)
 }

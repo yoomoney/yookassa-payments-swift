@@ -76,7 +76,7 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
             }
         }
     }
-    
+
     func fetchYooMoneyPaymentMethods(
         moneyCenterAuthToken: String
     ) {
@@ -99,7 +99,7 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
             }
         }
     }
-    
+
     func fetchAccount(
         oauthToken: String
     ) {
@@ -131,7 +131,7 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
     func getWalletDisplayName() -> String? {
         return authorizationService.getWalletDisplayName()
     }
-    
+
     func setAccount(_ account: UserAccount) {
         authorizationService.setWalletDisplayName(account.displayName.title)
         authorizationService.setWalletPhoneTitle(account.phone.title)
@@ -183,7 +183,7 @@ extension PaymentMethodsInteractor {
             }
         }
     }
-    
+
     private func tokenizeApplePayWithTMXSessionId(
         paymentData: String,
         savePaymentMethod: Bool,

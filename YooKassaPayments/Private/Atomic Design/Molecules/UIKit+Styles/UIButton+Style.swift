@@ -301,7 +301,7 @@ extension UIButton {
                 button.setAttributedTitle(attributedString, for: state)
             }
         }
-        
+
         /// Style for secondary link button.
         static let secondaryLink = InternalStyle(name: "button.dynamic.secondaryLink") { (button: UIButton) in
             button.titleLabel?.lineBreakMode = .byTruncatingTail

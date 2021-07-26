@@ -1,11 +1,31 @@
 import UIKit.UIImage
 
 enum PaymentMethodResources {
-    enum Localized: String {
-        case wallet = "PaymentMethod.wallet"
-        case applePay = "PaymentMethod.applePay"
-        case bankCard = "PaymentMethod.bankCard"
-        case sberpay = "PaymentMethod.sberpay"
+    enum Localized {
+        static let wallet = NSLocalizedString(
+            "PaymentMethod.wallet",
+            bundle: Bundle.framework,
+            value: "ЮMoney",
+            comment: "Способ оплаты - `ЮMoney` https://yadi.sk/i/smhhxBAxkP8Ebw"
+        )
+        static let applePay = NSLocalizedString(
+            "PaymentMethod.applePay",
+            bundle: Bundle.framework,
+            value: "Apple Pay",
+            comment: "Способ оплаты - `Apple Pay` https://yadi.sk/i/smhhxBAxkP8Ebw"
+        )
+        static let bankCard = NSLocalizedString(
+            "PaymentMethod.bankCard",
+            bundle: Bundle.framework,
+            value: "Банковская карта",
+            comment: "Способ оплаты - `Банковская карта` https://yadi.sk/i/smhhxBAxkP8Ebw"
+        )
+        static let sberpay = NSLocalizedString(
+            "PaymentMethod.sberpay",
+            bundle: Bundle.framework,
+            value: "SberPay",
+            comment: "Способ оплаты - `SberPay` https://yadi.sk/i/smhhxBAxkP8Ebw"
+        )
     }
 
     enum Image {

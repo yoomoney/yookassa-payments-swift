@@ -1,6 +1,6 @@
 import UIKit
 
-protocol SingleCharacterViewDelegate: class {
+protocol SingleCharacterViewDelegate: AnyObject {
     func singleCharacterView(
         _ singleCharacterView: SingleCharacterView,
         didGetCharacter character: Character

@@ -7,7 +7,7 @@ protocol SberpayInteractorInput: AnalyticsTrack {
     )
 }
 
-protocol SberpayInteractorOutput: class {
+protocol SberpayInteractorOutput: AnyObject {
     func didTokenize(
         _ data: Tokens
     )

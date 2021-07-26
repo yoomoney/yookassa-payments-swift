@@ -7,7 +7,7 @@ final class SavePaymentMethodInfoViewController: UIViewController {
     var output: SavePaymentMethodInfoViewOutput!
 
     // MARK: - UI properties
-    
+
     private lazy var scrollView: UIScrollView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -19,7 +19,7 @@ final class SavePaymentMethodInfoViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
-    
+
     private lazy var contentStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -57,21 +57,21 @@ final class SavePaymentMethodInfoViewController: UIViewController {
         target: self,
         action: #selector(closeBarButtonItemDidPress)
     ))
-    
+
     fileprivate lazy var actionButtonStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .vertical
         return $0
     }(UIStackView())
-    
+
     private lazy var gotItButton: Button = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
         $0.setStyles(
             UIButton.DynamicStyle.primary,
             UIView.Styles.heightAsContent
         )
-        $0.setStyledTitle(§Localized.buttonGotIt, for: .normal)
+        $0.setStyledTitle(Localized.buttonGotIt, for: .normal)
         $0.addTarget(
             self,
             action: #selector(closeBarButtonItemDidPress),
@@ -87,7 +87,7 @@ final class SavePaymentMethodInfoViewController: UIViewController {
         view.setStyles(UIView.Styles.grayBackground)
         navigationController?.navigationBar.setStyles(UINavigationBar.Styles.default)
         navigationItem.leftBarButtonItem = closeBarButtonItem
-        
+
         setupView()
         setupConstraints()
     }
@@ -108,17 +108,17 @@ final class SavePaymentMethodInfoViewController: UIViewController {
         [
             contentStackView,
         ].forEach(contentView.addSubview)
-        
+
         [
             headerLabel,
             bodyLabel,
         ].forEach(contentStackView.addArrangedSubview)
-        
+
         [
             gotItButton,
         ].forEach(actionButtonStackView.addArrangedSubview)
     }
-    
+
     private func setupConstraints() {
         let bottomConstraint: NSLayoutConstraint
         let topConstraint: NSLayoutConstraint
@@ -139,7 +139,7 @@ final class SavePaymentMethodInfoViewController: UIViewController {
                 equalTo: topLayoutGuide.bottomAnchor
             )
         }
-        
+
         let constraints = [
             topConstraint,
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Space.double),
@@ -199,7 +199,12 @@ extension SavePaymentMethodInfoViewController: SavePaymentMethodInfoViewInput {
 // MARK: - Localized
 
 private extension SavePaymentMethodInfoViewController {
-    enum Localized: String {
-        case buttonGotIt = "SavePaymentMethodInfo.Button.GotIt"
+    enum Localized {
+        static let buttonGotIt = NSLocalizedString(
+            "SavePaymentMethodInfo.Button.GotIt",
+            bundle: Bundle.framework,
+            value: "Понятно",
+            comment: "Текст кнопки `Понятно` https://yadi.sk/i/4MbCtrW4qrtDcQ"
+        )
     }
 }

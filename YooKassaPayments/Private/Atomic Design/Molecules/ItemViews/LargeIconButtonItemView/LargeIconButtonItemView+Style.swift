@@ -1,6 +1,8 @@
+import UIKit
+
 extension LargeIconButtonItemView {
     enum Styles {
-        
+
         static let secondary = InternalStyle(
             name: "LargeIconButtonItemView.secondary"
         ) { (item: LargeIconButtonItemView) in

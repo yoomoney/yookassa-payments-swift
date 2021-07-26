@@ -1,0 +1,58 @@
+﻿"Price.min.error" = "Слишком маленькая сумма";
+
+"cards.title" = "Привязанные карты";
+
+"common.none" = "Нет";
+
+"common.off" = "Выкл.";
+
+"common.on" = "Вкл.";
+
+"common.save" = "Сохранить";
+
+"process.title" = "Тип подтверждение";
+
+"root.buy" = "Купить";
+
+"root.description" = "Очень яркая, период обращения — 112 лет";
+
+"root.name" = "Комета";
+
+"root.price" = "Цена";
+
+"settings.payment_methods.apple_pay" = "Apple Pay";
+
+"settings.payment_methods.bank_card" = "Банковская карта";
+
+"settings.payment_methods.sberbank" = "Сбербанк Онлайн";
+
+"settings.payment_methods.title" = "Способы оплаты";
+
+"settings.payment_methods.yoo_money" = "ЮMoney";
+
+"settings.test_mode.title" = "Тестовый режим";
+
+"settings.title" = "Настройки";
+
+"settings.ui_customization.yoo_money_logo" = "Логотип ЮKassa";
+
+"success.button.docs" = "Посмотреть документацию";
+
+"success.button.send_token" = "Отправить токен";
+
+"success.description" = "Создайте платёж по API ЮKassa, передайте этот токен в параметре payment_token.";
+
+"test_mode.attached_cards" = "Количество привязанных карт";
+
+"test_mode.payment_auth" = "Покупатель вошёл в кошелёк";
+
+"test_mode.payment_error" = "Завершить платёж ошибкой";
+
+"test_mode.process.3ds" = "3ds";
+
+"test_mode.process.app2app" = "app2app";
+
+"test_mode.process_type" = "Подтверждение платежа";
+
+"test_mode.title" = "Тестовый режим";
+
