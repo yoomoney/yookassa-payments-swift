@@ -1,5 +1,6 @@
-// MARK: - Styles
+import UIKit
 
+// MARK: - Styles
 extension UINavigationItem {
 
     enum Styles {

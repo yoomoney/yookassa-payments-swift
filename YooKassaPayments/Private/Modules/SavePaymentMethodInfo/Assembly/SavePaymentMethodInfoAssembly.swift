@@ -1,3 +1,5 @@
+import UIKit
+
 enum SavePaymentMethodInfoAssembly {
     static func makeModule(
         inputData: SavePaymentMethodInfoModuleInputData

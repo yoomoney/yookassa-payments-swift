@@ -1,3 +1,5 @@
+import UIKit
+
 extension UITextField: InputView {
     var inputText: String? {
         get {

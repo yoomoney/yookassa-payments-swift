@@ -1,4 +1,4 @@
-import UIKit.UIViewController
+import UIKit
 
 protocol TransitionHandler: AnyObject {
 

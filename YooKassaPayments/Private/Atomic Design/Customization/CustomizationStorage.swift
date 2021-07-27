@@ -1,3 +1,5 @@
+import UIKit
+
 /// Class for storing customization settings.
 final class CustomizationStorage {
 

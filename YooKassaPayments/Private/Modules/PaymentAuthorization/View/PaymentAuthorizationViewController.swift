@@ -1,3 +1,5 @@
+import UIKit
+
 final class PaymentAuthorizationViewController: UIViewController, PlaceholderProvider {
 
     // MARK: - VIPER

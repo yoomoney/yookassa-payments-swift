@@ -1,3 +1,5 @@
+import UIKit
+
 final class LargeIconView: UIView {
 
     // MARK: - Public accessors

@@ -1,3 +1,5 @@
+import UIKit.UIImage
+
 struct YooMoneyViewModel {
     let shopName: String
     let description: String?
