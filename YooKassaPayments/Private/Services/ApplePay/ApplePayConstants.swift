@@ -7,6 +7,10 @@ enum ApplePayConstants {
         if #available(iOS 14.5, *) {
             optional.append(.mir)
         }
-        return optional + [.amex, .masterCard, .visa,]
+        return optional + [
+            .amex,
+            .masterCard,
+            .visa,
+        ]
     }
 }
