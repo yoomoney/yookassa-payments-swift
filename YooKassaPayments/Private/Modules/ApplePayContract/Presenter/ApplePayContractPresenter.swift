@@ -108,8 +108,8 @@ extension ApplePayContractPresenter: ApplePayContractViewOutput {
 
     func didTapOnSavePaymentMethod() {
         let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
-            headerValue: SavePaymentMethodInfoLocalization.Wallet.header,
-            bodyValue: SavePaymentMethodInfoLocalization.Wallet.body
+            headerValue: SavePaymentMethodInfoLocalization.BankCard.header,
+            bodyValue: SavePaymentMethodInfoLocalization.BankCard.body
         )
         router.presentSavePaymentMethodInfo(
             inputData: savePaymentMethodModuleinputData

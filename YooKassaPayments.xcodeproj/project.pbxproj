@@ -400,6 +400,7 @@
 		252982C326AEB3B500174692 /* YandexMobileMetricaCrashes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = YandexMobileMetricaCrashes.xcframework; path = Carthage/Build/YandexMobileMetricaCrashes.xcframework; sourceTree = "<group>"; };
 		252982C626AEB6A800174692 /* ThreatMetrixAdapter.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ThreatMetrixAdapter.xcframework; path = Carthage/Build/ThreatMetrixAdapter.xcframework; sourceTree = "<group>"; };
 		252982C826AEB70300174692 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/iOSSupport/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		25CD87AF26B90641002F4769 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		3089EF4823846F6300CB7319 /* SwitcherSavePaymentMethodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherSavePaymentMethodViewModel.swift; sourceTree = "<group>"; };
 		3089EF4A23846F6C00CB7319 /* StrictSavePaymentMethodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrictSavePaymentMethodViewModel.swift; sourceTree = "<group>"; };
 		3089EF4C23846F7400CB7319 /* SavePaymentMethodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePaymentMethodViewModel.swift; sourceTree = "<group>"; };
@@ -822,6 +823,7 @@
 		244F7DBFA2001569FCDC990C = {
 			isa = PBXGroup;
 			children = (
+				25CD87AF26B90641002F4769 /* CHANGELOG.md */,
 				252982AF26AE928C00174692 /* Cartfile */,
 				559073AD1FF3CE910094AE5D /* Gemfile */,
 				244F7901F30CDE5EFC8637D7 /* Podfile */,
