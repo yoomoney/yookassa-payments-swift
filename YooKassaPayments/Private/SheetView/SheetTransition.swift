@@ -7,6 +7,8 @@ final class SheetTransition: NSObject {
     weak var presenter: UIViewController?
     var presenting = true
 
+    private var extendedLayoutIncludesOpaqueBars: Bool?
+
     // MARK: - Initialization
 
     private let contentViewController: SheetContentViewController
@@ -31,10 +33,13 @@ extension SheetTransition {
         animations: (() -> Void)? = nil,
         completion: ((Bool) -> Void)? = nil
     ) {
+        extendedLayoutIncludesOpaqueBars.map {
+            presenter.extendedLayoutIncludesOpaqueBars = $0
+        }
         UIView.animate(
             withDuration: options.transitionDuration,
             animations: {
-                presenter.view.layer.transform = CATransform3DMakeScale(1, 1, 1)
+                presenter.view.layer.transform = CATransform3DIdentity
                 presenter.view.layer.cornerRadius = 0
                 animations?()
             },
@@ -79,6 +84,17 @@ extension SheetTransition: UIViewControllerAnimatedTransitioning {
                 return
             }
             self.presenter = presenter
+
+            if
+                !UINavigationBar.appearance().isTranslucent,
+                presenter.extendedLayoutIncludesOpaqueBars == false,
+                let container = presenter as? UINavigationController,
+                let top = container.topViewController,
+                container.navigationBar.backgroundImage(for: .default) == nil
+            {
+                top.extendedLayoutIncludesOpaqueBars = true
+                extendedLayoutIncludesOpaqueBars = false
+            }
 
             contentViewController.view.transform = .identity
             containerView.addSubview(sheet.view)
