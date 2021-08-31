@@ -1,38 +1,38 @@
-# YooKassa Payments SDK
+# YooMoney for Business Payments SDK (YooKassaPayments)
 
 [![Platform](https://img.shields.io/badge/Support-iOS%2010.0+-brightgreen.svg)](https://img.shields.io/badge/Support-iOS%2010.3+-brightgreen.svg)
 [![GitHub tag](https://img.shields.io/github/tag/yoomoney/yookassa-payments-swift.svg)](https://img.shields.io/github/tag/yoomoney/yookassa-payments-swift.svg)
 [![Documentation](docs/badge.svg)](docs/badge.svg)
-[![license](https://img.shields.io/github/license/yoomoney/yookassa-payments-swift.svg)](https://img.shields.io/github/license/yoomoney/yookassa-payments-swift.svg)
+[![License](https://img.shields.io/github/license/yoomoney/yookassa-payments-swift.svg)](https://img.shields.io/github/license/yoomoney/yookassa-payments-swift.svg)
 
-Библиотека позволяет встроить прием платежей в мобильные приложения на iOS и работает как дополнение к API ЮKassa.\
-В мобильный SDK входят готовые платежные интерфейсы (форма оплаты и всё, что с ней связано).\
-С помощью SDK можно получать токены для проведения оплаты с банковской карты, через Apple Pay, Сбербанк Онлайн или из кошелька в ЮMoney.
+This library allows implementing payment acceptance into mobile apps on iOS and works as an extension to the YooMoney API.\
+The mobile SDK contains ready-made payment interfaces (the payment form and everything related to it).\
+Using the SDK, you can receive tokens for processing payments via bank cards, Apple Pay, Sberbank Online, or YooMoney wallets.
 
-- [Код библиотеки](https://github.com/yoomoney/yookassa-payments-swift/tree/master/YooKassaPayments)
-- [Код демо-приложения, которое интегрирует SDK](https://github.com/yoomoney/yookassa-payments-swift/tree/master/YooKassaPaymentsExample)
-- [Документация](https://yoomoney.github.io/yookassa-payments-swift/)
+- [Library code](https://github.com/yoomoney/yookassa-payments-swift/tree/master/YooKassaPayments)
+- [Code of the demo app which integrates the SDK](https://github.com/yoomoney/yookassa-payments-swift/tree/master/YooKassaPaymentsExample)
+- [Documentation](https://yoomoney.github.io/yookassa-payments-swift/)
 
 ---
 
-- [YooKassa Payments SDK](#yookassa-payments-sdk)
+- [YooMoney for Business Payments SDK (YooKassaPayments)](#yookassa-payments-sdk-yookassapayments)
   - [Changelog](#changelog)
   - [Migration guide](#migration-guide)
-  - [Подключение зависимостей](#подключение-зависимостей)
+  - [Adding dependencies](#adding-dependencies)
     - [CocoaPods](#cocoapods)
     - [Carthage](#carthage)
-  - [Подключение TMXProfiling и TMXProfilingConnections](#подключение-tmxprofiling-и-tmxprofilingconnections)
-  - [Быстрая интеграция](#быстрая-интеграция)
-  - [Доступные способы оплаты](#доступные-способы-оплаты)
-  - [Настройка способов оплаты](#настройка-способов-оплаты)
-    - [ЮMoney](#юmoney)
-      - [Как получить `client id` центра авторизации системы `ЮMoney`](#как-получить-client-id-центра-авторизации-системы-юmoney)
-      - [Передать `client id` в параметре `moneyAuthClientId`](#передать-client-id-в-параметре-moneyauthclientid)
-      - [Поддержка авторизации через мобильное приложение](#поддержка-авторизации-через-мобильное-приложение)
-    - [Банковская карта](#банковская-карта)
+  - [Implementing TMXProfiling and TMXProfilingConnections](#implementing-tmxprofiling-and-tmxprofilingconnections)
+  - [Quick integration](#quick-integration)
+  - [Available payment methods](#available-payment-methods)
+  - [Setting up payment methods](#setting-up-payment-methods)
+    - [YooMoney](#yoomoney)
+      - [How to get `client id` of the YooMoney authorization center](#how-to-get-client-id-of-the-yoomoney-authorization-center)
+      - [Entering `client id` in the `moneyAuthClientId` parameter](#entering-client-id-in-the-moneyauthclientid-parameter)
+      - [Support of authorization via the mobile app](#support-of-the-authorization-via-the-mobile-app)
+    - [Bank cards](#bank-cards)
     - [SberPay](#sberpay)
     - [Apple Pay](#apple-pay)
-  - [Описание публичных параметров](#описание-публичных-параметров)
+  - [Description of public parameters](#description-of-public-parameters)
     - [TokenizationFlow](#tokenizationflow)
     - [YooKassaPaymentsError](#yookassapaymentserror)
     - [TokenizationModuleInputData](#tokenizationmoduleinputdata)
@@ -43,42 +43,42 @@
     - [Currency](#currency)
     - [CustomizationSettings](#customizationsettings)
     - [SavePaymentMethod](#savepaymentmethod)
-  - [Сканирование банковских карт](#сканирование-банковских-карт)
-  - [Настройка подтверждения платежа](#настройка-подтверждения-платежа)
-  - [Логирование](#логирование)
-  - [Тестовый режим](#тестовый-режим)
-  - [Запуск Example](#запуск-example)
-  - [Кастомизация интерфейса](#кастомизация-интерфейса)
-  - [Платёж привязанной к магазину картой с дозапросом CVC/CVV](#платёж-привязанной-к-магазину-картой-с-дозапросом-cvccvv)
-  - [Лицензия](#лицензия)
+  - [Scanning bank cards](#scanning-bank-cards)
+  - [Setting up payment confirmation](#setting-up-payment-confirmation)
+  - [Logging](#logging)
+  - [Test mode](#test-mode)
+  - [Launching Example](#launching-example)
+  - [Interface customization](#interface-customization)
+  - [Payments via bank cards linked to the store with an additional CVC/CVV request](#payments-via-bank-cards-linked-to-the-store-with-an-additional-cvccvv-request)
+  - [License](#license)
 
 ## Changelog
 
-[Ссылка на Changelog](https://github.com/yoomoney/yookassa-payments-swift/blob/master/CHANGELOG.md)
+[Link to the Changelog](https://github.com/yoomoney/yookassa-payments-swift/blob/master/CHANGELOG.md)
 
 ## Migration guide
 
-[Ссылка на Migration guide](https://github.com/yoomoney/yookassa-payments-swift/blob/master/MIGRATION.md)
+[Link to the Migration guide](https://github.com/yoomoney/yookassa-payments-swift/blob/master/MIGRATION.md)
 
-## Подключение зависимостей
+## Adding dependencies
 
 ### CocoaPods
 
-1. Установите CocoaPods версии 1.10.0 или выше.
+1. Install CocoaPods version 1.10.0 or higher.
 
 ```zsh
 gem install cocoapods
 ```
 
-[Официальная документация по установке CocoaPods](https://guides.cocoapods.org/using/getting-started.html#updating-cocoapods).\
-[Какие версии CocoaPods есть](https://github.com/CocoaPods/CocoaPods/releases).
+[Official documentation for installing CocoaPods](https://guides.cocoapods.org/using/getting-started.html#updating-cocoapods).\
+[Available CocoaPods versions](https://github.com/CocoaPods/CocoaPods/releases).
 
-1. Создайте файл Podfile
+1. Create Podfile
 
-> CocoaPods предоставляет команду `pod init` для создания Podfile с настройками по умолчанию.
+> CocoaPods provides the `pod init` command for creating Podfile with default settings.
 
-2. Добавьте зависимости в `Podfile`.\
-  [Пример](https://github.com/yoomoney/yookassa-payments-swift/tree/master/YooKassaPaymentsExample/Podfile-example) `Podfile` из демо-приложения.
+2. Add dependencies to `Podfile`.\
+  [Example](https://github.com/yoomoney/yookassa-payments-swift/tree/master/YooKassaPaymentsExample/Podfile-example) of `Podfile` from the demo app.
 
 ```shell
 source 'https://github.com/CocoaPods/Specs.git'
@@ -94,10 +94,10 @@ target 'Your Target Name' do
 end
 ```
 
-> `Your Target Name` - название таргета в Xcode для вашего приложения.\
-> `tag` - версия SDK. Актуальную версию можно узнать на github в разделе [releases](https://github.com/yoomoney/yookassa-payments-swift/releases).
+> `Your Target Name`: name of the target in Xcode for your app.\
+> `tag`: SDK version. You can find information about the latest version in the [releases](https://github.com/yoomoney/yookassa-payments-swift/releases) section on github.
 
-> Если вы используете static linkage, то необходимо подключить plugin `cocoapods-user-defined-build-types`:
+> If you use static linkage, you need to activate the `cocoapods-user-defined-build-types` plugin:
 
 ```shell
 source 'https://github.com/CocoaPods/Specs.git'
@@ -116,57 +116,57 @@ target 'Your Target Name' do
 end
 ```
 
-3. Выполните команду `pod install`
+3. Run the `pod install` command
 
 ### Carthage
 
-На текущий момент Carthage не поддерживается.
+At the moment, Carthage is not supported.
 
-## Подключение TMXProfiling и TMXProfilingConnections
+## Implementing TMXProfiling and TMXProfilingConnections
 
-Чтобы получить файл `.xcframework`,  [зарегистрируйтесь в ЮKassa](https://yookassa.ru/joinups)
-и сообщите вашему менеджеру, что хотите подключить мобильный SDK.
+To get the `.xcframework` file, [sign up for YooMoney](https://yookassa.ru/joinups)
+and tell your manager that you'd like to implement the mobile SDK.
 
-1. Используя Finder или другой файловый менеджер добавьте библиотеки `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework` в папку c вашим проектом.
+1. Using Finder or a different file manager, add the `TMXProfiling.xcframework` and `TMXProfilingConnections.xcframework` libraries to the project folder.
 
-2. В разделе `General` у основного таргета проекта добавьте `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework` в `Frameworks, Libraries, and Embedded Content`.
+2. Add `TMXProfiling.xcframework` and `TMXProfilingConnections.xcframework` in `Frameworks, Libraries, and Embedded Content` for the main target of the project under the `General` section.
 
-3. `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework` должны быть добавлены как `Embed & Sign`
+3. `TMXProfiling.xcframework` and `TMXProfilingConnections.xcframework` must be added with `Embed & Sign`
 
-## Быстрая интеграция
+## Quick integration
 
-1. Создайте `TokenizationModuleInputData` (понадобится [ключ для клиентских приложений](https://yookassa.ru/my/tunes) из личного кабинета ЮKassa). В этой модели передаются параметры платежа (валюта и сумма) и параметры платежной формы, которые увидит пользователь при оплате (способы оплаты, название магазина и описание заказа).
+1. Create `TokenizationModuleInputData` (you'll need a [key for client apps](https://yookassa.ru/my/tunes) from the YooMoney Merchant Profile). Payment parameters (currency and amount) and payment form parameters which users will see during the payment (payment methods, store name, and order description) are specified in this model.
 
-> Для работы с сущностями YooKassaPayments импортируйте зависимости в исходный файл
+> To work with YooKassaPayments entities, import dependencies to the original file
 
 ```swift
 import YooKassaPayments
 ```
 
-Пример создания `TokenizationModuleInputData`:
+Example for creating `TokenizationModuleInputData`:
 
 ```swift
-let clientApplicationKey = "<Ключ для клиентских приложений>"
+let clientApplicationKey = "<Key for client apps>"
 let amount = Amount(value: 999.99, currency: .rub)
 let tokenizationModuleInputData =
           TokenizationModuleInputData(clientApplicationKey: clientApplicationKey,
-                                      shopName: "Космические объекты",
+                                      shopName: "Space objects",
                                       purchaseDescription: """
-                                                            Комета повышенной яркости, период обращения — 112 лет
+                                                            An extra bright comet, rotation period: 112 years
                                                             """,
                                       amount: amount,
                                       savePaymentMethod: .on)
 ```
 
-2. Создайте `TokenizationFlow` с кейсом `.tokenization` и передайте `TokenizationModuleInputData`.
+2. Create `TokenizationFlow` with the `.tokenization` case and enter `TokenizationModuleInputData`.
 
-Пример создания `TokenizationFlow`:
+Example of creating `TokenizationFlow`:
 
 ```swift
 let inputData: TokenizationFlow = .tokenization(tokenizationModuleInputData)
 ```
 
-3. Создайте `ViewController` из `TokenizationAssembly` и выведите его на экран.
+3. Create `ViewController` from `TokenizationAssembly` and put it on the screen.
 
 ```swift
 let viewController = TokenizationAssembly.makeModule(inputData: inputData,
@@ -174,9 +174,9 @@ let viewController = TokenizationAssembly.makeModule(inputData: inputData,
 present(viewController, animated: true, completion: nil)
 ```
 
-В `moduleOutput` необходимо передать объект, который реализует протокол `TokenizationModuleOutput`.
+You need to specify the object which implements the `TokenizationModuleOutput` in `moduleOutput`.
 
-4. Реализуйте протокол `TokenizationModuleOutput`.
+4. Implement the `TokenizationModuleOutput` protocol.
 
 ```swift
 extension ViewController: TokenizationModuleOutput {
@@ -189,7 +189,7 @@ extension ViewController: TokenizationModuleOutput {
             guard let self = self else { return }
             self.dismiss(animated: true)
         }
-        // Отправьте токен в вашу систему
+        // Send the token to your system
     }
 
     func didFinish(
@@ -207,87 +207,87 @@ extension ViewController: TokenizationModuleOutput {
     ) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            // Создать экран успеха после прохождения подтверждения (3DS или Sberpay)
+            // Create a success screen after confirmation is completed (3DS or SberPay)
             self.dismiss(animated: true)
-            // Показать экран успеха
+            // Display the success screen
         }
     }
 }
 ```
 
-Закройте модуль SDK и отправьте токен в вашу систему. Затем [создайте платеж](https://yookassa.ru/developers/api#create_payment) по API ЮKassa, в параметре `payment_token` передайте токен, полученный в SDK. Способ подтверждения при создании платежа зависит от способа оплаты, который выбрал пользователь. Он приходит вместе с токеном в `paymentMethodType`.
+Close the SDK module and send the token to your system. After that, [create a payment](https://yookassa.ru/developers/api#create_payment) via the YooMoney API, enter the token you received in the SDK in the `payment_token` parameter. When a payment is created, the confirmation method depends on the payment method selected by the user. It's sent with the token in `paymentMethodType`.
 
-## Доступные способы оплаты
+## Available payment methods
 
-Сейчас в SDK для iOS доступны следующие способы оплаты:
+The following payment methods are currently supported in SDK for iOS:
 
-`.yooMoney` — ЮMoney (платежи из кошелька или привязанной картой)\
-`.bankCard` — банковская карта (карты можно сканировать)\
-`.sberbank` — SberPay (с подтверждением через приложение Сбербанк Онлайн, если оно установленно, иначе с подтверждением по смс)\
-`.applePay` — Apple Pay
+`.yooMoney`: YooMoney (payments via the wallet or linked cards)\
+`.bankCard`: bank cards (cards can be scanned)\
+`.sberbank`: SberPay (with confirmation via the Sberbank Online mobile app if it's installed; otherwise, payments will be confirmed via text messages)\
+`.applePay`: Apple Pay
 
-## Настройка способов оплаты
+## Setting up payment methods
 
-У вас есть возможность сконфигурировать способы оплаты.\
-Для этого необходимо при создании `TokenizationModuleInputData` в параметре `tokenizationSettings` передать модель типа `TokenizationSettings`.
+You can configure payment methods.\
+To do that, you need to enter a model of the `TokenizationSettings` type in the `tokenizationSettings` parameter when creating `TokenizationModuleInputData`.
 
-> Для некоторых способов оплаты нужна дополнительная настройка (см. ниже).\
-> По умолчанию используются все доступные способы оплаты.
+> Additional configuration is required for some payment methods (see below).\
+> By default, all available payment methods are used.
 
 ```swift
-// Создайте пустой OptionSet PaymentMethodTypes
+// Create empty OptionSet PaymentMethodTypes
 var paymentMethodTypes: PaymentMethodTypes = []
 
-if <Условие для банковской карты> {
-    // Добавляем в paymentMethodTypes элемент `.bankCard`
+if <Condition for bank cards> {
+    // Adding the `.bankCard` element to paymentMethodTypes
     paymentMethodTypes.insert(.bankCard)
 }
 
-if <Условие для Сбербанка Онлайн> {
-    // Добавляем в paymentMethodTypes элемент `.sberbank`
+if <Condition for Sberbank Online> {
+    // Adding the `.sberbank` element to paymentMethodTypes
     paymentMethodTypes.insert(.sberbank)
 }
 
-if <Условие для ЮMoney> {
-    // Добавляем в paymentMethodTypes элемент `.yooMoney`
+if <Condition for YooMoney> {
+    // Adding the `.yooMoney` element to paymentMethodTypes
     paymentMethodTypes.insert(.yooMoney)
 }
 
-if <Условие для Apple Pay> {
-    // Добавляем в paymentMethodTypes элемент `.applePay`
+if <Condition for Apple Pay> {
+    // Adding the `.applePay` element to paymentMethodTypes
     paymentMethodTypes.insert(.applePay)
 }
 
 let tokenizationSettings = TokenizationSettings(paymentMethodTypes: paymentMethodTypes)
 ```
 
-Теперь используйте `tokenizationSettings` при инициализации `TokenizationModuleInputData`.
+Now use `tokenizationSettings` when initializing `TokenizationModuleInputData`.
 
-### ЮMoney
+### YooMoney
 
-Для подключения способа оплаты `ЮMoney` необходимо:
+To add `YooMoney` as a payment method, you need to:
 
-1. Получить `client id` центра авторизации системы `ЮMoney`.
-2. При создании `TokenizationModuleInputData` передать `client id` в параметре `moneyAuthClientId`
+1. Receive `client id` of the `YooMoney` authorization center.
+2. Enter `client id` in the `moneyAuthClientId` parameter when creating `TokenizationModuleInputData`
 
-#### Как получить `client id` центра авторизации системы `ЮMoney`
+#### How to get `client id` of the `YooMoney` authorization center
 
-1. Авторизуйтесь на [yookassa.ru](https://yookassa.ru)
-2. Перейти на страницу регистрации клиентов СЦА - [yookassa.ru/oauth/v2/client](https://yookassa.ru/oauth/v2/client)
-3. Нажать [Зарегистрировать](https://yookassa.ru/oauth/v2/client/create)
-4. Заполнить поля:\
-4.1. "Название" - `required` поле, отображается при выдаче прав и в списке приложений.\
-4.2. "Описание" - `optional` поле, отображается у пользователя в списке приложений.\
-4.3. "Ссылка на сайт приложения" - `optional` поле, отображается у пользователя в списке приложений.\
-4.4. "Код подтверждения" - выбрать `Передавать в Callback URL`, можно указывать любое значение, например ссылку на сайт.
-5. Выбрать доступы:\
-5.1. `Кошелёк ЮMoney` -> `Просмотр`\
-5.2. `Профиль ЮMoney` -> `Просмотр`
-6. Нажать `Зарегистрировать`
+1. Sign in at [yookassa.ru](https://yookassa.ru)
+2. Go to the page for signing up in the authorization center: [yookassa.ru/oauth/v2/client](https://yookassa.ru/oauth/v2/client)
+3. Click [Sign up](https://yookassa.ru/oauth/v2/client/create)
+4. Fill in the following fields:\
+4.1. "Name": a `required` field, it's displayed in the list of apps and when rights are provided.\
+4.2. "Description": an `optional` field, it's displayed to the user in the list of apps.\
+4.3. "Link to app's website": an `optional` field, it's displayed to the user in the list of apps.\
+4.4. "Confirmation code": select `Specify in Callback URL`, you can enter any value, for example, a link to a website.
+5. Select accesses:\
+5.1. `YooMoney wallet` -> `View`\
+5.2. `YooMoney account` -> `View`
+6. Click `Sign up`
 
-#### Передать `client id` в параметре `moneyAuthClientId`
+#### Entering `client id` in the `moneyAuthClientId` parameter
 
-При создании `TokenizationModuleInputData` передать `client id` в параметре `moneyAuthClientId`
+Enter `client id` in the `moneyAuthClientId` parameter when creating `TokenizationModuleInputData`
 
 ```swift
 let moduleData = TokenizationModuleInputData(
@@ -295,17 +295,17 @@ let moduleData = TokenizationModuleInputData(
     moneyAuthClientId: "client_id")
 ```
 
-Чтобы провести платеж:
+To process a payment:
 
-1. При создании `TokenizationModuleInputData` передайте значение `.yooMoney` в `paymentMethodTypes.`
-2. Получите токен.
-3. [Создайте платеж](https://yookassa.ru/developers/api#create_payment) с токеном по API ЮKassa.
+1. Enter `.yooMoney` as the value in `paymentMethodTypes.` when creating `TokenizationModuleInputData`
+2. Receive a token.
+3. [Create a payment](https://yookassa.ru/developers/api#create_payment) with the token via the YooMoney API.
 
-#### Поддержка авторизации через мобильное приложение
+#### Support of authorization via the mobile app
 
-1. В `TokenizationModuleInputData` необходимо передавать `applicationScheme` – схема для возврата в приложение после успешной авторизации в `ЮMoney` через мобильное приложение.
+1. You need to specify `applicationScheme`, the scheme for returning to the app after a successful sign-in to `YooMoney` via the mobile app, in `TokenizationModuleInputData`.
 
-Пример `applicationScheme`:
+Example of `applicationScheme`:
 
 ```swift
 let moduleData = TokenizationModuleInputData(
@@ -313,19 +313,19 @@ let moduleData = TokenizationModuleInputData(
     applicationScheme: "examplescheme://"
 ```
 
-2. В `AppDelegate` импортировать зависимость `YooKassaPayments`:
+2. Import the `YooKassaPayments` dependency in `AppDelegate`:
 
    ```swift
    import YooKassaPayments
    ```
 
-3. Добавить обработку ссылок через `YKSdk` в `AppDelegate`:
+3. Add processing links via `YKSdk` in `AppDelegate`:
 
 ```swift
 func application(
     _ application: UIApplication,
     open url: URL,
-    sourceApplication: String?, 
+    sourceApplication: String?,
     annotation: Any
 ) -> Bool {
     return YKSdk.shared.handleOpen(
@@ -347,7 +347,7 @@ func application(
 }
 ```
 
-4. В `Info.plist` добавьте следующие строки:
+4. Add the following rows to `Info.plist`:
 
 ```plistbase
 <key>LSApplicationQueriesSchemes</key>
@@ -369,21 +369,21 @@ func application(
 </array>
 ```
 
-где `examplescheme` - схема для открытия вашего приложения, которую вы указали в `applicationScheme` при создании `TokenizationModuleInputData`. Через эту схему будет открываться ваше приложение после успешной авторизации в `ЮMoney` через мобильное приложение.
+where `examplescheme` is the scheme for opening your app that you specified in `applicationScheme` when creating `TokenizationModuleInputData`. This scheme will be used to open you app after a successful sign-in to `YooMoney` via the mobile app.
 
-### Банковская карта
+### Bank cards
 
-1. При создании `TokenizationModuleInputData` передайте значение `.bankcard` в `paymentMethodTypes`.
-2. Получите токен.
-3. [Создайте платеж](https://yookassa.ru/developers/api#create_payment) с токеном по API ЮKassa.
+1. Enter `.bankcard` as the value in `paymentMethodTypes` when creating `TokenizationModuleInputData`.
+2. Receive a token.
+3. [Create a payment](https://yookassa.ru/developers/api#create_payment) with the token via the YooMoney API.
 
 ### SberPay
 
-С помощью SDK можно провести платеж через «Мобильный банк» Сбербанка — с подтверждением оплаты через приложение Сбербанк Онлайн, если оно установленно, иначе с подтверждением по смс.
+Using the SDK, you can process payments via Sberbank's "Mobile banking". Payments are confirmed via the Sberbank Online app if it's installed or otherwise via text messages.
 
-В `TokenizationModuleInputData` необходимо передавать `applicationScheme` – схема для возврата в приложение после успешной оплаты с помощью `SberPay` в приложении СберБанк Онлайн.
+You need to specify `applicationScheme`, the scheme for returning to the app after a successful payment via `SberPay` in the Sberbank Online app, in `TokenizationModuleInputData`.
 
-Пример `applicationScheme`:
+Example of `applicationScheme`:
 
 ```swift
 let moduleData = TokenizationModuleInputData(
@@ -391,27 +391,27 @@ let moduleData = TokenizationModuleInputData(
     applicationScheme: "examplescheme://"
 ```
 
-Чтобы провести платёж:
+To process a payment:
 
-1. При создании `TokenizationModuleInputData` передайте значение `.sberbank` в `paymentMethodTypes`.
-2. Получите токен.
-3. [Создайте платеж](https://yookassa.ru/developers/api#create_payment) с токеном по API ЮKassa.
+1. Enter `.sberbank` as the value in `paymentMethodTypes` when creating `TokenizationModuleInputData`.
+2. Receive a token.
+3. [Create a payment](https://yookassa.ru/developers/api#create_payment) with the token via the YooMoney API.
 
-Для подтверждения платежа через приложение СберБанк Онлайн:
+Payment confirmation via the Sberbank Online app:
 
-1. В `AppDelegate` импортируйте зависимость `YooKassaPayments`:
+1. Import the `YooKassaPayments` dependency in `AppDelegate`:
 
    ```swift
    import YooKassaPayments
    ```
 
-2. Добавьте обработку ссылок через `YKSdk` в `AppDelegate`:
+2. Add processing link via `YKSdk` in `AppDelegate`:
 
 ```swift
 func application(
     _ application: UIApplication,
     open url: URL,
-    sourceApplication: String?, 
+    sourceApplication: String?,
     annotation: Any
 ) -> Bool {
     return YKSdk.shared.handleOpen(
@@ -433,7 +433,7 @@ func application(
 }
 ```
 
-3. В `Info.plist` добавьте следующие строки:
+3. Add the following rows to `Info.plist`:
 
 ```plistbase
 <key>LSApplicationQueriesSchemes</key>
@@ -455,158 +455,158 @@ func application(
 </array>
 ```
 
-где `examplescheme` - схема для открытия вашего приложения, которую вы указали в `applicationScheme` при создании `TokenizationModuleInputData`. Через эту схему будет открываться ваше приложение после успешной оплаты с помощью `SberPay`.
+where `examplescheme` is the scheme for opening your app that you specified in `applicationScheme` when creating `TokenizationModuleInputData`. This scheme will be used to open you app after a successful payment via `SberPay`.
 
-4. Реализуйте метод  `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`, который будет вызван после успешного подтверждения платежа (см. [Настройка подтверждения платежа](#настройка-подтверждения-платежа)).
+4. Implement the `didSuccessfullyConfirmation(paymentMethodType:)` method of the `TokenizationModuleOutput` protocol which will be called after a successful payment confirmation (see [Setting up payment confirmation](#setting-up-payment-confirmation)).
 
 ### Apple Pay
 
-1. Чтобы подключить Apple Pay, нужно передать в ЮKassa сертификат, с помощью которого Apple будет шифровать данные банковских карт.
+1. To implement Apple Pay, you need to provide a certificate, using which Apple will encrypt bank card details, to YooMoney.
 
-Для этого:
+In order to do it:
 
-- Напишите менеджеру и попросите создать для вас запрос на сертификат (`.csr`).
-- Создайте сертификат в панели разработчика Apple (используйте `.csr`).
-- Скачайте получившийся сертификат и пришлите менеджеру.
+- Contact your manager and ask them to create a request for a certificate (`.csr`) for you.
+- Create a certificate in Apple Developer Tools (use `.csr`).
+- Download the certificate you created and send it to your manager.
 
-[Подробная инструкция](https://yookassa.ru/files/manual_connection_Apple_Pay(website).pdf) (см. раздел 2 «Обмен сертификатами с Apple»)
+[Full manual](https://yookassa.ru/files/manual_connection_Apple_Pay(website).pdf) (see Section 2. Exchanging certificates with Apple)
 
-2. Включите Apple Pay в Xcode.
+2. Enable Apple Pay in Xcode.
 
-Чтобы провести платеж:
+To process a payment:
 
-1. При инициализации объекта `TokenizationModuleInputData` необходимо передать [apple pay identifier](https://help.apple.com/xcode/mac/current/#/deva43983eb7?sub=dev171483d6e) в параметр `applePayMerchantIdentifier`.
+1. You need to enter the [apple pay identifier](https://help.apple.com/xcode/mac/current/#/deva43983eb7?sub=dev171483d6e) in the `applePayMerchantIdentifier` parameter when initializing the `TokenizationModuleInputData` object.
 
 ```swift
 let moduleData = TokenizationModuleInputData(
     ...
     applePayMerchantIdentifier: "com.example.identifier"
 ```
-2. Получите токен.
-3. [Создайте платеж](https://yookassa.ru/developers/api#create_payment) с токеном по API ЮKassa.
+2. Receive a token.
+3. [Create a payment](https://yookassa.ru/developers/api#create_payment) with the token via the YooMoney API.
 
-## Описание публичных параметров
+## Description of public parameters
 
 ### TokenizationFlow
 
-`Enum`, который определяет логику работы SDK.
+`Enum` which determines the logic of how the SDK operates.
 
-| Case           | Тип              | Описание |
+| Case           | Type              | Description |
 | -------------- | ---------------- | -------- |
-| tokenization   | TokenizationFlow | Принимает на вход модель `TokenizationModuleInputData`. Логика для токенизации несколько способов оплаты на выбор: Банковская карта, ЮMoney, Сбербанк-Онлайн, Apple Pay |
-| bankCardRepeat | TokenizationFlow | Принимает на вход модель `BankCardRepeatModuleInputData`. Логика для токенизации сохраненных способов оплаты по идентификатору способа оплаты |
+| tokenization   | TokenizationFlow | Receives the `TokenizationModuleInputData` model as input. Logic for tokenizing multiple payment method options: Bank card, YooMoney, Sberbank Online, or Apple Pay |
+| bankCardRepeat | TokenizationFlow | Receives the `BankCardRepeatModuleInputData`model as input. Logic for tokenizing saved payment methods using the payment method ID |
 
 ### YooKassaPaymentsError
 
-`Enum` с возможными ошибками, которые можно обработать в методе `func didFinish(on module:, with error:)`
+`Enum` with possible errors which can be processed in the  `func didFinish(on module:, with error:)` method
 
-| Case                  | Тип   | Описание |
+| Case                  | Type   | Description |
 | --------------------- | ----- | -------- |
-| paymentMethodNotFound | Error | По paymentMethodId не было найдено ни одного сохраненного способа оплаты. |
+| paymentMethodNotFound | Error | No saved payment methods were found using paymentMethodId. |
 
 ### TokenizationModuleInputData
 
->Обязательные:
+>Required parameters:
 
-| Параметр             | Тип    | Описание |
+| Parameter             | Type    | Description |
 | -------------------- | ------ | -------- |
-| clientApplicationKey | String            | Ключ для клиентских приложений из личного кабинета ЮKassa |
-| shopName             | String            | Название магазина в форме оплаты |
-| purchaseDescription  | String            | Описание заказа в форме оплаты |
-| amount               | Amount            | Объект, содержащий сумму заказа и валюту |
-| savePaymentMethod    | SavePaymentMethod | Объект, описывающий логику того, будет ли платеж рекуррентным |
+| clientApplicationKey | String            | Key for client apps from the YooMoney Merchant Profile |
+| shopName             | String            | Store name in the payment form |
+| purchaseDescription  | String            | Order description in the payment form |
+| amount               | Amount            | Object containing the order amount and currency |
+| savePaymentMethod    | SavePaymentMethod | Object containing the logic for determining if it's going to be a recurring payment |
 
->Необязательные:
+>Optional parameters:
 
-| Параметр                   | Тип                   | Описание                                                     |
+| Parameter                   | Type                   | Description                                                     |
 | -------------------------- | --------------------- | ------------------------------------------------------------ |
-| gatewayId                  | String                | По умолчанию `nil`. Используется, если у вас несколько платежных шлюзов с разными идентификаторами. |
-| tokenizationSettings       | TokenizationSettings  | По умолчанию используется стандартный инициализатор со всеми способами оплаты. Параметр отвечает за настройку токенизации (способы оплаты и логотип ЮKassa). |
-| testModeSettings           | TestModeSettings      | По умолчанию `nil`. Настройки тестового режима.              |
-| cardScanning               | CardScanning          | По умолчанию `nil`. Возможность сканировать банковские карты. |
-| applePayMerchantIdentifier | String                | По умолчанию `nil`. Apple Pay merchant ID (обязательно для платежей через Apple Pay). |
-| returnUrl                  | String                | По умолчанию `nil`. URL страницы (поддерживается только `https`), на которую надо вернуться после прохождения 3-D Secure. Необходим только при кастомной реализации 3-D Secure. Если вы используете `startConfirmationProcess(confirmationUrl:paymentMethodType:)`, не задавайте этот параметр. |
-| isLoggingEnabled           | Bool                  | По умолчанию `false`. Включает логирование сетевых запросов. |
-| userPhoneNumber            | String                | По умолчанию `nil`. Телефонный номер пользователя.           |
-| customizationSettings      | CustomizationSettings | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
-| moneyAuthClientId          | String                | По умолчанию `nil`. Идентификатор для центра авторизации в системе YooMoney. |
-| applicationScheme          | String                | По умолчанию `nil`. Схема для возврата в приложение после успешной оплаты с помощью `Sberpay` в приложении СберБанк Онлайн или после успешной авторизации в `YooMoney` через мобильное приложение. |
+| gatewayId                  | String                | By default: `nil`. Used if you have multiple payment gateways with different IDs. |
+| tokenizationSettings       | TokenizationSettings  | The standard initializer with all the payment methods is used by default. This parameter is used for setting up tokenization (payment methods and the YooMoney logo). |
+| testModeSettings           | TestModeSettings      | By default: `nil`. Test mode settings.              |
+| cardScanning               | CardScanning          | By default: `nil`. Feature of scanning bank cards. |
+| applePayMerchantIdentifier | String                | By default: `nil`. Apple Pay merchant ID (required for payments via Apple Pay). |
+| returnUrl                  | String                | By default: `nil`. URL of the page (only `https` supported) where you need to return after completing 3-D Secure. Only required for custom implementation of 3-D Secure. If you use `startConfirmationProcess(confirmationUrl:paymentMethodType:)`, don't specify this parameter. |
+| isLoggingEnabled           | Bool                  | By default: `false`. Enables logging of network requests. |
+| userPhoneNumber            | String                | By default: `nil`. User's phone number.           |
+| customizationSettings      | CustomizationSettings | The blueRibbon color is used by default. Color of the main elements, button, switches, and input fields. |
+| moneyAuthClientId          | String                | By default: `nil`. ID for the center of authorizationin the YooMoney system |
+| applicationScheme          | String                | By default: `nil`. Scheme for returning to the app after a successful payment via `Sberpay` in the Sberbank Online app or after a successful sign-in to `YooMoney` via the mobile app. |
 ### BankCardRepeatModuleInputData
 
->Обязательные:
+>Required parameters:
 
-| Параметр             | Тип    | Описание |
+| Parameter             | Type    | Description |
 | -------------------- | ------ | -------- |
-| clientApplicationKey | String | Ключ для клиентских приложений из личного кабинета ЮKassa |
-| shopName             | String | Название магазина в форме оплаты |
-| purchaseDescription  | String | Описание заказа в форме оплаты |
-| paymentMethodId      | String | Идентификатор сохраненного способа оплаты |
-| amount               | Amount | Объект, содержащий сумму заказа и валюту |
-| savePaymentMethod | SavePaymentMethod | Объект, описывающий логику того, будет ли платеж рекуррентным |
+| clientApplicationKey | String | Key for client apps from the YooMoney Merchant Profile |
+| shopName             | String | Store name in the payment form |
+| purchaseDescription  | String | Order description in the payment form |
+| paymentMethodId      | String | ID of the saved payment method |
+| amount               | Amount | Object containing the order amount and currency |
+| savePaymentMethod | SavePaymentMethod | Object containing the logic for determining if it's going to be a recurring payment |
 
->Необязательные:
+>Optional parameters:
 
-| Параметр              | Тип                   | Описание                                                     |
+| Parameter              | Type                   | Description                                                     |
 | --------------------- | --------------------- | ------------------------------------------------------------ |
-| testModeSettings      | TestModeSettings      | По умолчанию `nil`. Настройки тестового режима.              |
-| returnUrl             | String                | По умолчанию `nil`. URL страницы (поддерживается только `https`), на которую надо вернуться после прохождения 3-D Secure. Необходим только при кастомной реализации 3-D Secure. Если вы используете `startConfirmationProcess(confirmationUrl:paymentMethodType:)`, не задавайте этот параметр. |
-| isLoggingEnabled      | Bool                  | По умолчанию `false`. Включает логирование сетевых запросов. |
-| customizationSettings | CustomizationSettings | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
-| gatewayId             | String                | По умолчанию `nil`. Используется, если у вас несколько платежных шлюзов с разными идентификаторами. |
+| testModeSettings      | TestModeSettings      | By default: `nil`. Test mode settings.              |
+| returnUrl             | String                | By default: `nil`. URL of the page (only `https` supported) where you need to return after completing 3-D Secure. Only required for custom implementation of 3-D Secure. If you use `startConfirmationProcess(confirmationUrl:paymentMethodType:)`, don't specify this parameter. |
+| isLoggingEnabled      | Bool                  | By default: `false`. Enables logging of network requests. |
+| customizationSettings | CustomizationSettings | The blueRibbon color is used by default. Color of the main elements, button, switches, and input fields. |
+| gatewayId             | String                | By default: `nil`. Used if you have multiple payment gateways with different IDs. |
 
 ### TokenizationSettings
 
-Можно настроить список способов оплаты и отображение логотипа ЮKassa в приложении.
+You can configure the list of payment methods and how the YooMoney logo is displayed in the app.
 
-| Параметр               | Тип                | Описание |
+| Parameter               | Type                | Description |
 | ---------------------- | ------------------ | -------- |
-| paymentMethodTypes     | PaymentMethodTypes | По умолчанию `.all`. [Способы оплаты](#настройка-способов-оплаты), доступные пользователю в приложении. |
-| showYooKassaLogo       | Bool               | По умолчанию `true`. Отвечает за отображение логотипа ЮKassa. По умолчанию логотип отображается. |
+| paymentMethodTypes     | PaymentMethodTypes | By default: `.all`. [Payment methods](#setting-up-payment-methods) available to the user in the app. |
+| showYooKassaLogo       | Bool               | By default: `true`. It determines if the YooMoney logo is displayed. By default, the logo is displayed. |
 
 ### TestModeSettings
 
-| Параметр                   | Тип    | Описание |
+| Parameter                   | Type    | Description |
 | -------------------------- | ------ | -------- |
-| paymentAuthorizationPassed | Bool   | Определяет, пройдена ли платежная авторизация при оплате ЮMoney. |
-| cardsCount                 | Int    | Количество привязанные карт к кошельку в ЮMoney. |
-| charge                     | Amount | Сумма и валюта платежа. |
-| enablePaymentError         | Bool   | Определяет, будет ли платеж завершен с ошибкой. |
+| paymentAuthorizationPassed | Bool   | It determines if the payment authorization has been completed for payments via YooMoney. |
+| cardsCount                 | Int    | Number of cards linked to the YooMoney wallet. |
+| charge                     | Amount | Payment amount and currency. |
+| enablePaymentError         | Bool   | It determines if the payment is completed with an error. |
 
 ### Amount
 
-| Параметр | Тип      | Описание |
+| Parameter | Type      | Description |
 | -------- | -------- | -------- |
-| value    | Decimal  | Сумма платежа |
-| currency | Currency | Валюта платежа |
+| value    | Decimal  | Payment amount |
+| currency | Currency | Payment currency |
 
 ### Currency
 
-| Параметр | Тип      | Описание |
+| Parameter | Type      | Description |
 | -------- | -------- | -------- |
-| rub      | String   | ₽ - Российский рубль |
-| usd      | String   | $ - Американский доллар |
-| eur      | String   | € - Евро |
-| custom   | String   | Будет отображаться значение, которое передали |
+| rub      | String   | ₽ - Russian ruble |
+| usd      | String   | $ - U.S. dollar |
+| eur      | String   | € - Euro |
+| custom   | String   | The value you entered will be displayed |
 
 ### CustomizationSettings
 
-| Параметр   | Тип     | Описание |
+| Parameter   | Type     | Description |
 | ---------- | ------- | -------- |
-| mainScheme | UIColor | По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода. |
+| mainScheme | UIColor | The blueRibbon color is used by default. Color of the main elements, button, switches, and input fields. |
 
 ### SavePaymentMethod
 
-| Параметр    | Тип               | Описание |
+| Parameter    | Type               | Description |
 | ----------- | ----------------- | -------- |
-| on          | SavePaymentMethod | Сохранить платёжный метод для проведения рекуррентных платежей. Пользователю будут доступны только способы оплаты, поддерживающие сохранение. На экране контракта будет отображено сообщение о том, что платёжный метод будет сохранён. |
-| off         | SavePaymentMethod | Не дает пользователю выбрать, сохранять способ оплаты или нет. |
-| userSelects | SavePaymentMethod | Пользователь выбирает, сохранять платёжный метод или нет. Если метод можно сохранить, на экране контракта появится переключатель. |
+| on          | SavePaymentMethod | Save the payment method for processing recurring payments. Only payment methods which support saving will be available to the user. A notification that the payment method will be saved will be displayed on the contract screen. |
+| off         | SavePaymentMethod | It doesn't allow the user to choose if the payment method should be saved or not. |
+| userSelects | SavePaymentMethod | User chooses if the payment method should be saved or not. If the payment method can be saved, a switch will appear on the contract screen. |
 
-## Сканирование банковских карт
+## Scanning bank cards
 
-Если хотите, чтобы пользователи смогли сканировать банковские карты при оплате, необходимо:
+If you want users to be able to scan bank cards when making payments, you need to:
 
-1. Создать сущность и реализовать протокол `CardScanning`.
+1. Create an entity and implement the `CardScanning` protocol.
 
 ```swift
 class CardScannerProvider: CardScanning {
@@ -622,8 +622,8 @@ class CardScannerProvider: CardScanning {
 }
 ```
 
-2. Настроить получение данных из вашего инструмента для сканирования банковской карты.\
-На примере CardIO:
+2. Set up receiving data from your tool for scanning bank cards.\
+Example for CardIO:
 
 ```swift
 extension CardScannerProvider: CardIOPaymentViewControllerDelegate {
@@ -641,7 +641,7 @@ extension CardScannerProvider: CardIOPaymentViewControllerDelegate {
 }
 ```
 
-3. Передать экземпляр объекта `CardScannerProvider` в `TokenizationModuleInputData` в параметр `cardScanning:`.
+3. Enter an instance of the `CardScannerProvider` object in `TokenizationModuleInputData` in the `cardScanning:` parameter.
 
 ```swift
 let inputData = TokenizationModuleInputData(
@@ -649,17 +649,17 @@ let inputData = TokenizationModuleInputData(
     cardScanning: CardScannerProvider())
 ```
 
-## Настройка подтверждения платежа
+## Setting up payment confirmation
 
-Если вы хотите использовать нашу реализацию подтверждения платежа, не закрывайте модуль SDK после получения токена.\
-Отправьте токен на ваш сервер и после успешной оплаты закройте модуль.\
-Если ваш сервер сообщил о необходимости подтверждения платежа (т.е. платёж пришёл со статусом `pending`), вызовите метод `startConfirmationProcess(confirmationUrl:paymentMethodType:)`.
+If you'd like to use our implementation of payment confirmation, don't close the SDK module after receiving the token.\
+Send the token to your server and close the module after a successful payment.\
+If your server stated that the payment needs to be confirmed (i.e. the payment with the `pending` was received), call the `startConfirmationProcess(confirmationUrl:paymentMethodType:)` method.
 
-После успешного прохождения подтверждения будет вызван метод `didSuccessfullyConfirmation(paymentMethodType:)` протокола `TokenizationModuleOutput`.
+After the payment confirmation is completed successfully, the `didSuccessfullyConfirmation(paymentMethodType:)` method of the `TokenizationModuleOutput` protocol will be called.
 
-Примеры кода:
+Code examples:
 
-1. Сохраните tokenization модуль.
+1. Save the tokenization module.
 
 ```swift
 self.tokenizationViewController = TokenizationAssembly.makeModule(inputData: inputData,
@@ -667,17 +667,17 @@ self.tokenizationViewController = TokenizationAssembly.makeModule(inputData: inp
 present(self.tokenizationViewController, animated: true, completion: nil)
 ```
 
-2. Не закрывайте tokenization модуль после получения токена.
+2. Don't close the tokenization module after receiving the token.
 
 ```swift
 func tokenizationModule(_ module: TokenizationModuleInput,
                         didTokenize token: Tokens,
                         paymentMethodType: PaymentMethodType) {
-    // Отправьте токен на ваш сервер.
+    // Send the token to your server.
 }
 ```
 
-3. Вызовите подтверждение платежа, если это необходимо.
+3. Call payment confirmation if necessary.
 
 ```swift
 self.tokenizationViewController.startConfirmationProcess(
@@ -686,7 +686,7 @@ self.tokenizationViewController.startConfirmationProcess(
 )
 ```
 
-4. После успешного подтверждения платежа будет вызван метод.
+4. After the payment is confirmed successfully, the method will be called.
 
 ```swift
 func didSuccessfullyConfirmation(paymentMethodType: PaymentMethodType) {
@@ -699,10 +699,10 @@ func didSuccessfullyConfirmation(paymentMethodType: PaymentMethodType) {
 }
 ```
 
-## Логирование
+## Logging
 
-У вас есть возможность включить логирование всех сетевых запросов.\
-Для этого необходимо при создании `TokenizationModuleInputData` передать `isLoggingEnabled: true`
+You can enable logging of all network requests.\
+To do that, you need to enter `isLoggingEnabled: true` when creating `TokenizationModuleInputData`
 
 ```swift
 let moduleData = TokenizationModuleInputData(
@@ -710,14 +710,14 @@ let moduleData = TokenizationModuleInputData(
     isLoggingEnabled: true)
 ```
 
-## Тестовый режим
+## Test mode
 
-У вас есть возможность запустить мобильный SDK в тестовом режиме.\
-Тестовый режим не выполняет никаких сетевых запросов и имитирует ответ от сервера.
+You can launch the mobile SDK in test mode.\
+In test mode, no network requests are made and response from the server is emulated.
 
-Если вы хотите запустить SDK в тестовом режиме, необходимо:
+If you'd like to run the SDK in test mode, you need to:
 
-1. Сконфигурировать объект с типом `TestModeSettings`.
+1. Configure an object with the `TestModeSettings` type.
 
 ```swift
 let testModeSettings = TestModeSettings(paymentAuthorizationPassed: false,
@@ -726,7 +726,7 @@ let testModeSettings = TestModeSettings(paymentAuthorizationPassed: false,
                                         enablePaymentError: false)
 ```
 
-2. Передать его в `TokenizationModuleInputData` в параметре `testModeSettings:`
+2. Enter it in `TokenizationModuleInputData` in the `testModeSettings:` parameter
 
 ```swift
 let moduleData = TokenizationModuleInputData(
@@ -734,19 +734,19 @@ let moduleData = TokenizationModuleInputData(
     testModeSettings: testModeSettings)
 ```
 
-## Запуск Example
+## Launching Example
 
-Чтобы запустить Example приложение, необходимо:
+To launch the Example app, you need to:
 
-1. Сделать `git clone` репозитория.
+1. Make a `git clone` of the repository.
 
 ```shell
 git clone https://github.com/yoomoney/yookassa-payments-swift.git
 ```
 
-2. Создайте папку `Frameworks` в корне проекта.
-3. Добавьте `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework` в папку `Frameworks`
-4. В консоли перейти в папку с проектом и выполнить следующие команды:
+2. Create a `Frameworks` folder in the project root directory.
+3. Add `TMXProfiling.xcframework` and `TMXProfilingConnections.xcframework` to the `Frameworks` folder
+4. Go to the project folder and run the following commands in console:
 
 ```shell
 gem install bundler
@@ -754,14 +754,14 @@ bundle
 pod install
 ```
 
-4. Открыть `YooKassaPayments.xcworkspace`.
-5. Выбрать и запустить схему `ExamplePods`.
+4. Open `YooKassaPayments.xcworkspace`.
+5. Select and launch the `ExamplePods` scheme.
 
-## Кастомизация интерфейса
+## Interface customization
 
-По умолчанию используется цвет blueRibbon. Цвет основных элементов, кнопки, переключатели, поля ввода.
+The blueRibbon color is used by default. Color of the main elements, button, switches, and input fields.
 
-1. Сконфигурировать объект `CustomizationSettings` и передать его в параметр `customizationSettings` объекта `TokenizationModuleInputData`.
+1. Configure an `CustomizationSettings` object and enter it in the `customizationSettings` parameter of the `TokenizationModuleInputData` object.
 
 ```swift
 let moduleData = TokenizationModuleInputData(
@@ -769,9 +769,9 @@ let moduleData = TokenizationModuleInputData(
     customizationSettings: CustomizationSettings(mainScheme: /* UIColor */ ))
 ```
 
-## Платёж привязанной к магазину картой с дозапросом CVC/CVV
+## Payments via bank cards linked to the store with an additional CVC/CVV request
 
-1. Создайте `BankCardRepeatModuleInputData`.
+1. Create `BankCardRepeatModuleInputData`.
 
 ```swift
 let bankCardRepeatModuleInputData = BankCardRepeatModuleInputData(
@@ -786,13 +786,13 @@ let bankCardRepeatModuleInputData = BankCardRepeatModuleInputData(
         )
 ```
 
-2. Создайте `TokenizationFlow` с кейсом `.bankCardRepeat` и передайте `BankCardRepeatModuleInputData`.
+2. Create `TokenizationFlow` with the `.bankCardRepeat` case and enter `BankCardRepeatModuleInputData`.
 
 ```swift
 let inputData: TokenizationFlow = .bankCardRepeat(bankCardRepeatModuleInputData)
 ```
 
-3. Создайте `ViewController` из `TokenizationAssembly` и выведите его на экран.
+3. Create `ViewController` from `TokenizationAssembly` and put it on the screen.
 
 ```swift
 let viewController = TokenizationAssembly.makeModule(
@@ -802,6 +802,6 @@ let viewController = TokenizationAssembly.makeModule(
 present(viewController, animated: true, completion: nil)
 ```
 
-## Лицензия
+## License
 
-YooKassa Payments SDK доступна под лицензией MIT. Смотрите [LICENSE](https://github.com/yoomoney/yookassa-payments-swift/blob/master/LICENSE) файл для получения дополнительной информации.
+YooMoney for Business Payments SDK (YooKassaPayments) is available under the MIT license. See the [LICENSE](https://github.com/yoomoney/yookassa-payments-swift/blob/master/LICENSE) file for additional information.
