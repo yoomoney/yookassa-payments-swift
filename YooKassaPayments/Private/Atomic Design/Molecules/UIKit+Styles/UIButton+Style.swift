@@ -139,7 +139,7 @@ extension UIButton {
         // MARK: - Fileprivate
 
         /// Generate rounded image for button background.
-        fileprivate static func roundedBackground(color: UIColor, cornerRadius: CGFloat = 0) -> UIImage {
+        static func roundedBackground(color: UIColor, cornerRadius: CGFloat = 0) -> UIImage {
             let side = cornerRadius * 2 + 2
             let size = CGSize(width: side, height: side)
             return UIImage.image(color: color)
@@ -183,6 +183,90 @@ extension UIButton {
                                    for state: UIControl.State) {
         let colorizedImage = image.colorizedImage(color: color)
         self.setImage(colorizedImage, for: state)
+    }
+
+    var style: Style {
+        Style(target: self)
+    }
+
+    struct Style {
+        let target: UIButton
+
+        @discardableResult
+        func submitHeight() -> Style {
+            NSLayoutConstraint.activate([target.heightAnchor.constraint(equalToConstant: 56)])
+            return self
+        }
+
+        @discardableResult
+        func submitText(color: UIColor) -> Style {
+            target.setTitleColor(color, for: .normal)
+            target.setTitleColor(.highlighted(from: color), for: .highlighted)
+            target.setTitleColor(disabledBackgroundColor, for: .disabled)
+            target.tintColor = color
+            target.titleLabel?.lineBreakMode = .byTruncatingTail
+            target.titleLabel?.font = UIFont.dynamicBodySemibold
+            target.contentEdgeInsets.left = Space.double
+            target.contentEdgeInsets.right = Space.double
+            return self
+        }
+
+        @discardableResult
+        func submit(colored: UIColor = CustomizationStorage.shared.mainScheme, ghostTint: Bool = false) -> Style {
+            return submitText(color: colored).submitHeight().colored(target.tintColor, ghostTint: ghostTint)
+        }
+
+        @discardableResult
+        func submitAlert(ghostTint: Bool) -> Style {
+            return submitText(color: .redOrange).colored(.redOrange, ghostTint: ghostTint).submitHeight()
+        }
+
+        @discardableResult
+        func cancel() -> Style { submitHeight().submitText(color: UIColor.AdaptiveColors.primary) }
+
+        private var disabledBackgroundColor: UIColor {
+            if #available(iOS 13.0, *) {
+                return .systemGray5
+            } else {
+                return .mousegrey
+            }
+        }
+
+        @discardableResult
+        func colored(_ color: UIColor, ghostTint: Bool = false) -> Style {
+            let hColor = UIColor.highlighted(from: color)
+            target.tintColor = color
+
+            if ghostTint {
+                [
+                    (color, UIControl.State.normal),
+                    (hColor, .highlighted),
+                    (disabledBackgroundColor, .disabled),
+                ].forEach {
+                    target.setTitleColor($0.0, for: $0.1)
+                    target.setBackgroundImage(
+                        Styles.roundedBackground(color: .ghostTint(from: $0.0), cornerRadius: Styles.cornerRadius),
+                        for: $0.1)
+
+                }
+            } else {
+                target.setTitleColor(.white, for: .normal)
+                target.setTitleColor(.white, for: .highlighted)
+                target.setTitleColor(disabledBackgroundColor, for: .disabled)
+                [
+                    (color, UIControl.State.normal),
+                    (hColor, .highlighted),
+                    (disabledBackgroundColor, .disabled),
+                ].forEach {
+                    target.setBackgroundImage(
+                        Styles.roundedBackground(color: $0.0, cornerRadius: Styles.cornerRadius),
+                        for: $0.1
+                    )
+                }
+            }
+
+            return self
+        }
     }
 
     enum DynamicStyle {

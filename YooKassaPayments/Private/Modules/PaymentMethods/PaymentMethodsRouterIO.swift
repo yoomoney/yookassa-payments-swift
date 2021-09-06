@@ -58,4 +58,8 @@ protocol PaymentMethodsRouterInput: AnyObject {
     )
 
     func closeCardSecModule()
+
+    func openCardSettingsModule(data: CardSettingsModuleInputData, output: CardSettingsModuleOutput)
+    func closeCardSettingsModule()
+    func showUnbindAlert(unbindHandler: @escaping (UIAlertAction) -> Void)
 }

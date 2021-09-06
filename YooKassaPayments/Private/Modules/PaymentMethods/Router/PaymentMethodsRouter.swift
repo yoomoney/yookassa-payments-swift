@@ -179,4 +179,53 @@ extension PaymentMethodsRouter: PaymentMethodsRouterInput {
             completion: nil
         )
     }
+
+    func openCardSettingsModule(data: CardSettingsModuleInputData, output: CardSettingsModuleOutput) {
+        transitionHandler?.push(CardSettingsAssembly.make(data: data, output: output), animated: true)
+    }
+
+    func closeCardSettingsModule() {
+        transitionHandler?.popTopViewController(animated: true)
+    }
+
+    func showUnbindAlert(unbindHandler: @escaping (UIAlertAction) -> Void) {
+        let ctrl = UIAlertController(
+            title: nil,
+            message: CommonLocalized.CardSettingsDetails.autopaymentPersists,
+            preferredStyle: .alert
+        )
+        let ok = UIAlertAction(
+            title: Localized.Alert.unbindCard,
+            style: .default,
+            handler: unbindHandler
+        )
+        let cancel = UIAlertAction(
+            title: Localized.Alert.cancel,
+            style: .destructive,
+            handler: nil
+        )
+
+        ctrl.view.tintColor = CustomizationStorage.shared.mainScheme
+        ctrl.addAction(ok)
+        ctrl.addAction(cancel)
+        transitionHandler?.present(ctrl, animated: true, completion: nil)
+    }
+
+    // MARK: - Localized
+    private enum Localized {
+        enum Alert {
+            static let unbindCard = NSLocalizedString(
+                "PaymentMethods.alert.unbindCard",
+                bundle: Bundle.framework,
+                value: "Отвязать",
+                comment: "Текст кнопки отвязать https://disk.yandex.ru/i/f9rYGyNbx2HJ0Q"
+            )
+            static let cancel = NSLocalizedString(
+                "PaymentMethods.alert.cancel",
+                bundle: Bundle.framework,
+                value: "Отмена",
+                comment: "Текст кнопки отвязать https://disk.yandex.ru/i/f9rYGyNbx2HJ0Q"
+            )
+        }
+    }
 }

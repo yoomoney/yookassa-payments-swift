@@ -30,6 +30,7 @@ final class LinkedCardPresenter {
     private let tmxSessionId: String?
     private var initialSavePaymentMethod: Bool
     private let isBackBarButtonHidden: Bool
+    private let isSafeDeal: Bool
 
     // MARK: - Init
 
@@ -49,7 +50,8 @@ final class LinkedCardPresenter {
         returnUrl: String?,
         tmxSessionId: String?,
         initialSavePaymentMethod: Bool,
-        isBackBarButtonHidden: Bool
+        isBackBarButtonHidden: Bool,
+        isSafeDeal: Bool
     ) {
         self.cardService = cardService
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
@@ -69,6 +71,7 @@ final class LinkedCardPresenter {
         self.tmxSessionId = tmxSessionId
         self.initialSavePaymentMethod = initialSavePaymentMethod
         self.isBackBarButtonHidden = isBackBarButtonHidden
+        self.isSafeDeal = isSafeDeal
     }
 
     // MARK: - Stored Data
@@ -97,7 +100,8 @@ extension LinkedCardPresenter: LinkedCardViewOutput {
             fee: fee,
             cardMask: formattingCardMask(cardMask),
             cardLogo: cardLogo,
-            terms: termsOfService
+            terms: termsOfService,
+            safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil
         )
         view.setupViewModel(viewModel)
 
@@ -110,10 +114,16 @@ extension LinkedCardPresenter: LinkedCardViewOutput {
         view.setBackBarButtonHidden(isBackBarButtonHidden)
 
         DispatchQueue.global().async { [weak self] in
-            let event: AnalyticsEvent = .screenLinkedCardForm(
+            guard let self = self else { return }
+            let form: AnalyticsEvent = .screenLinkedCardForm(sdkVersion: Bundle.frameworkVersion)
+            self.interactor.trackEvent(form)
+
+            let contract = AnalyticsEvent.screenPaymentContract(
+                authType: self.interactor.makeTypeAnalyticsParameters().authType,
+                scheme: .bankCard,
                 sdkVersion: Bundle.frameworkVersion
             )
-            self?.interactor.trackEvent(event)
+            self.interactor.trackEvent(contract)
         }
     }
 
@@ -160,6 +170,13 @@ extension LinkedCardPresenter: LinkedCardViewOutput {
 
     func didTapTermsOfService(_ url: URL) {
         router.presentTermsOfServiceModule(url)
+    }
+
+    func didTapSafeDealInfo(_ url: URL) {
+        router.presentSafeDealInfo(
+            title: PaymentMethodResources.Localized.safeDealInfoTitle,
+            body: PaymentMethodResources.Localized.safeDealInfoBody
+        )
     }
 
     func didChangeSaveAuthInAppState(

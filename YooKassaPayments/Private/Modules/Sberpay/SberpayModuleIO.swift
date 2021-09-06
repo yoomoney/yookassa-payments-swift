@@ -14,6 +14,8 @@ struct SberpayModuleInputData {
     let termsOfService: TermsOfService
     let returnUrl: String
     let isBackBarButtonHidden: Bool
+    let customerId: String?
+    let isSafeDeal: Bool
 }
 
 protocol SberpayModuleOutput: AnyObject {

@@ -46,7 +46,7 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .vertical
-        $0.spacing = Space.double
+        $0.spacing = Space.single
         return $0
     }(UIStackView())
 
@@ -65,15 +65,37 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
         return $0
     }(Button(type: .custom))
 
-    private lazy var termsOfServiceLinkedTextView: LinkedTextView = {
-        $0.tintColor = CustomizationStorage.shared.mainScheme
-        $0.setStyles(
-            UIView.Styles.grayBackground,
-            UITextView.Styles.linked
-        )
-        $0.delegate = self
-        return $0
-    }(LinkedTextView())
+    private lazy var submitButtonContainer: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        submitButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(submitButton)
+        let defaultHeight = submitButton.heightAnchor.constraint(equalToConstant: Space.triple * 2)
+        defaultHeight.priority = .defaultLow + 1
+        NSLayoutConstraint.activate([
+            submitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            submitButton.topAnchor.constraint(equalTo: view.topAnchor),
+            view.trailingAnchor.constraint(equalTo: submitButton.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: submitButton.bottomAnchor, constant: Space.single),
+            defaultHeight,
+        ])
+
+        return view
+    }()
+
+    private let termsOfServiceLinkedTextView: LinkedTextView = {
+        let view = LinkedTextView()
+        view.tintColor = CustomizationStorage.shared.mainScheme
+        view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
+        return view
+    }()
+
+    private let safeDealLinkedTextView: LinkedTextView = {
+        let view = LinkedTextView()
+        view.tintColor = CustomizationStorage.shared.mainScheme
+        view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
+        return view
+    }()
 
     private var activityIndicatorView: UIView?
 
@@ -107,6 +129,10 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
         view.setStyles(UIView.Styles.grayBackground)
         navigationItem.title = CommonLocalized.SberPay.title
 
+        termsOfServiceLinkedTextView.delegate = self
+        safeDealLinkedTextView.delegate = self
+        safeDealLinkedTextView.isHidden = true
+
         setupView()
         setupConstraints()
     }
@@ -136,8 +162,9 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
         ].forEach(contentStackView.addArrangedSubview)
 
         [
-            submitButton,
+            submitButtonContainer,
             termsOfServiceLinkedTextView,
+            safeDealLinkedTextView,
         ].forEach(actionButtonStackView.addArrangedSubview)
     }
 
@@ -223,20 +250,19 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
 // MARK: - SberpayViewInput
 
 extension SberpayViewController: SberpayViewInput {
-    func setupViewModel(
-        _ viewModel: SberpayViewModel
-    ) {
+    func setupViewModel(_ viewModel: SberpayViewModel) {
         orderView.title = viewModel.shopName
         orderView.subtitle = viewModel.description
         orderView.value = viewModel.priceValue
         orderView.subvalue = viewModel.feeValue
         termsOfServiceLinkedTextView.attributedText = viewModel.termsOfService
+        safeDealLinkedTextView.attributedText = viewModel.safeDealText
+        safeDealLinkedTextView.isHidden = viewModel.safeDealText?.string.isEmpty ?? true
         termsOfServiceLinkedTextView.textAlignment = .center
+        safeDealLinkedTextView.textAlignment = .center
     }
 
-    func setBackBarButtonHidden(
-        _ isHidden: Bool
-    ) {
+    func setBackBarButtonHidden(_ isHidden: Bool) {
         navigationItem.hidesBackButton = isHidden
     }
 
@@ -293,6 +319,8 @@ extension SberpayViewController: UITextViewDelegate {
         switch textView {
         case termsOfServiceLinkedTextView:
             output?.didTapTermsOfService(URL)
+        case safeDealLinkedTextView:
+            output?.didTapSafeDealInfo(URL)
         default:
             assertionFailure("Unsupported textView")
         }

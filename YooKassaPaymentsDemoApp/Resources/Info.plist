@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
+	<string>6.2.5</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -41,6 +41,8 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
+	<string>Automatic card recognition</string>
+	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Automatic card recognition</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>

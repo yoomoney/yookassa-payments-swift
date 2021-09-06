@@ -1,5 +1,6 @@
 import MoneyAuth
 import ThreatMetrixAdapter
+import YooKassaPaymentsApi
 
 class PaymentMethodsInteractor {
 
@@ -22,6 +23,7 @@ class PaymentMethodsInteractor {
     private let gatewayId: String?
     private let amount: Amount
     private let getSavePaymentMethod: Bool?
+    private let customerId: String?
 
     // MARK: - Init
 
@@ -37,7 +39,8 @@ class PaymentMethodsInteractor {
         clientApplicationKey: String,
         gatewayId: String?,
         amount: Amount,
-        getSavePaymentMethod: Bool?
+        getSavePaymentMethod: Bool?,
+        customerId: String?
     ) {
         self.paymentService = paymentService
         self.authorizationService = authorizationService
@@ -52,10 +55,24 @@ class PaymentMethodsInteractor {
         self.gatewayId = gatewayId
         self.amount = amount
         self.getSavePaymentMethod = getSavePaymentMethod
+        self.customerId = customerId
     }
 }
 
 extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
+    func unbindCard(id: String) {
+        paymentService.unbind(authToken: clientApplicationKey, id: id) { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success:
+                self.output?.didUnbindCard(id: id)
+            case .failure(let error):
+                self.output?.didFailUnbindCard(id: id, error: mapError(error))
+            }
+        }
+    }
+
     func fetchPaymentMethods() {
         let authorizationToken = authorizationService.getMoneyCenterAuthToken()
 
@@ -65,14 +82,15 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
             gatewayId: gatewayId,
             amount: amountNumberFormatter.string(from: amount.value),
             currency: amount.currency.rawValue,
-            getSavePaymentMethod: getSavePaymentMethod
+            getSavePaymentMethod: getSavePaymentMethod,
+            customerId: customerId
         ) { [weak self] result in
             guard let output = self?.output else { return }
             switch result {
             case let .success(data):
-                output.didFetchPaymentMethods(data)
+                output.didFetchShop(data)
             case let .failure(error):
-                output.didFetchPaymentMethods(error)
+                output.didFailFetchShop(error)
             }
         }
     }
@@ -88,12 +106,16 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
             gatewayId: gatewayId,
             amount: amountNumberFormatter.string(from: amount.value),
             currency: amount.currency.rawValue,
-            getSavePaymentMethod: getSavePaymentMethod
+            getSavePaymentMethod: getSavePaymentMethod,
+            customerId: customerId
         ) { [weak self] result in
             guard let output = self?.output else { return }
             switch result {
             case let .success(data):
-                output.didFetchYooMoneyPaymentMethods(data.filter { $0.paymentMethodType == .yooMoney })
+                output.didFetchYooMoneyPaymentMethods(
+                    data.options.filter { $0.paymentMethodType == .yooMoney },
+                    shopProperties: data.properties
+                )
             case let .failure(error):
                 output.didFetchYooMoneyPaymentMethods(error)
             }
@@ -208,8 +230,43 @@ extension PaymentMethodsInteractor {
             savePaymentMethod: savePaymentMethod,
             amount: amount,
             tmxSessionId: tmxSessionId,
+            customerId: customerId,
             completion: completion
         )
+    }
+
+    func tokenizeInstrument(
+        instrument: PaymentInstrumentBankCard,
+        savePaymentMethod: Bool,
+        returnUrl: String?,
+        amount: MonetaryAmount
+    ) {
+        threatMetrixService.profileApp { [weak self] result in
+            guard let self = self, let output = self.output else { return }
+            switch result {
+            case .success(let tmxId):
+                self.paymentService.tokenizeCardInstrument(
+                    clientApplicationKey: self.clientApplicationKey,
+                    amount: amount,
+                    tmxSessionId: tmxId.value,
+                    confirmation: Confirmation(type: .redirect, returnUrl: returnUrl),
+                    savePaymentMethod: savePaymentMethod,
+                    instrumentId: instrument.paymentInstrumentId,
+                    csc: nil
+                ) { tokenizeResult in
+                    switch tokenizeResult {
+                    case .success(let tokens):
+                        output.didTokenizeInstrument(instrument: instrument, tokens: tokens)
+                    case .failure(let error):
+                        let mappedError = mapError(error)
+                        output.didFailTokenizeInstrument(error: mappedError)
+                    }
+                }
+            case .failure(let error):
+                let mappedError = mapError(error)
+                output.didFailTokenizeInstrument(error: mappedError)
+            }
+        }
     }
 }
 

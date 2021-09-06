@@ -13,7 +13,8 @@ enum SberbankAssembly {
             feeViewModel: inputData.feeViewModel,
             termsOfService: inputData.termsOfService,
             userPhoneNumber: inputData.userPhoneNumber,
-            isBackBarButtonHidden: inputData.isBackBarButtonHidden
+            isBackBarButtonHidden: inputData.isBackBarButtonHidden,
+            isSafeDeal: inputData.isSafeDeal
         )
         let paymentService = PaymentServiceAssembly.makeService(
             tokenizationSettings: inputData.tokenizationSettings,
@@ -33,7 +34,8 @@ enum SberbankAssembly {
             analyticsService: analyticsService,
             threatMetrixService: threatMetrixService,
             clientApplicationKey: inputData.clientApplicationKey,
-            amount: inputData.paymentOption.charge.plain
+            amount: inputData.paymentOption.charge.plain,
+            customerId: inputData.customerId
         )
         let router = SberbankRouter()
 

@@ -29,9 +29,9 @@ extension PaymentServiceImpl: PaymentService {
         amount: String?,
         currency: String?,
         getSavePaymentMethod: Bool?,
-        completion: @escaping (Result<[PaymentOption], Error>) -> Void
+        customerId: String?,
+        completion: @escaping (Result<Shop, Error>) -> Void
     ) {
-
         let apiMethod = PaymentOptions.Method(
             oauthToken: clientApplicationKey,
             authorization: authorizationToken,
@@ -39,7 +39,7 @@ extension PaymentServiceImpl: PaymentService {
             amount: amount,
             currency: currency,
             savePaymentMethod: getSavePaymentMethod,
-            merchantCustomerId: nil
+            merchantCustomerId: customerId
         )
 
         session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { [weak self] result in
@@ -53,7 +53,7 @@ extension PaymentServiceImpl: PaymentService {
                 if items.isEmpty {
                     completion(.failure(PaymentProcessingError.emptyList))
                 } else {
-                    completion(.success(items))
+                    completion(.success(Shop(options: items, properties: data.shopProperties)))
                 }
             }
         }
@@ -87,6 +87,8 @@ extension PaymentServiceImpl: PaymentService {
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
+        savePaymentInstrument: Bool?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     ) {
         let paymentMethodData = PaymentMethodDataBankCard(bankCard: bankCard.paymentsModel)
@@ -96,8 +98,8 @@ extension PaymentServiceImpl: PaymentService {
             confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
             paymentMethodData: paymentMethodData,
-            merchantCustomerId: nil,
-            savePaymentInstrument: nil
+            merchantCustomerId: customerId,
+            savePaymentInstrument: savePaymentInstrument
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
             oauthToken: clientApplicationKey,
@@ -123,6 +125,7 @@ extension PaymentServiceImpl: PaymentService {
         paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     ) {
         let paymentMethodData = PaymentInstrumentDataYooMoneyWallet(
@@ -136,7 +139,7 @@ extension PaymentServiceImpl: PaymentService {
             confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
             paymentMethodData: paymentMethodData,
-            merchantCustomerId: nil,
+            merchantCustomerId: customerId,
             savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
@@ -165,6 +168,7 @@ extension PaymentServiceImpl: PaymentService {
         paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     ) {
         let paymentMethodData = PaymentInstrumentDataYooMoneyLinkedBankCard(
@@ -180,7 +184,7 @@ extension PaymentServiceImpl: PaymentService {
             confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
             paymentMethodData: paymentMethodData,
-            merchantCustomerId: nil,
+            merchantCustomerId: customerId,
             savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
@@ -205,6 +209,7 @@ extension PaymentServiceImpl: PaymentService {
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     ) {
         let paymentMethodData = PaymentMethodDataApplePay(
@@ -216,7 +221,7 @@ extension PaymentServiceImpl: PaymentService {
             confirmation: nil,
             savePaymentMethod: savePaymentMethod,
             paymentMethodData: paymentMethodData,
-            merchantCustomerId: nil,
+            merchantCustomerId: customerId,
             savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
@@ -242,6 +247,7 @@ extension PaymentServiceImpl: PaymentService {
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     ) {
         let paymentMethodData = PaymentMethodDataSberbank(
@@ -253,7 +259,7 @@ extension PaymentServiceImpl: PaymentService {
             confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
             paymentMethodData: paymentMethodData,
-            merchantCustomerId: nil,
+            merchantCustomerId: customerId,
             savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
@@ -278,6 +284,7 @@ extension PaymentServiceImpl: PaymentService {
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     ) {
         let paymentMethodData = PaymentMethodDataSberbank(
@@ -289,7 +296,7 @@ extension PaymentServiceImpl: PaymentService {
             confirmation: confirmation.paymentsModel,
             savePaymentMethod: savePaymentMethod,
             paymentMethodData: paymentMethodData,
-            merchantCustomerId: nil,
+            merchantCustomerId: customerId,
             savePaymentInstrument: nil
         )
         let apiMethod = YooKassaPaymentsApi.Tokens.Method(
@@ -340,6 +347,51 @@ extension PaymentServiceImpl: PaymentService {
                 completion(.success(data.plain))
             }
         }
+    }
+
+    func tokenizeCardInstrument(
+        clientApplicationKey: String,
+        amount: MonetaryAmount,
+        tmxSessionId: String,
+        confirmation: Confirmation,
+        savePaymentMethod: Bool,
+        instrumentId: String,
+        csc: String?,
+        completion: @escaping (Result<Tokens, Error>) -> Void
+    ) {
+        let request = TokensRequestPaymentInstrumentId(
+            amount: .init(amount),
+            tmxSessionId: tmxSessionId,
+            confirmation: .init(confirmation),
+            savePaymentMethod: savePaymentMethod,
+            paymentInstrumentId: instrumentId,
+            csc: csc
+        )
+        let apiMethod = YooKassaPaymentsApi.Tokens.Method(
+            oauthToken: clientApplicationKey,
+            tokensRequest: request
+        )
+        session.perform(apiMethod: apiMethod).responseApi(queue: .global()) { result in
+            switch result {
+            case let .left(error):
+                let mappedError = mapError(error)
+                completion(.failure(mappedError))
+            case let .right(data):
+                completion(.success(data.plain))
+            }
+        }
+    }
+
+    func unbind(authToken: String, id: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        session.perform(apiMethod: PaymentInstruments.Method(oauthToken: authToken, paymentInstrumentId: id))
+            .responseApi(queue: .global()) { result in
+                switch result {
+                case .left(let error):
+                    completion(.failure(mapError(error)))
+                case .right:
+                    completion(.success(()))
+                }
+            }
     }
 }
 

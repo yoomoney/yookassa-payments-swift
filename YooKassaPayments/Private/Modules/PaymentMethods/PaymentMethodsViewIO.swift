@@ -15,4 +15,5 @@ protocol PaymentMethodsViewOutput: ActionTitleTextDialogDelegate {
     func numberOfRows() -> Int
     func viewModelForRow(at indexPath: IndexPath) -> PaymentMethodViewModel?
     func didSelect(at indexPath: IndexPath)
+    func didPressSettings(at indexPath: IndexPath)
 }

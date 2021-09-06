@@ -17,6 +17,7 @@ final class YooMoneyInteractor {
     private let threatMetrixService: ThreatMetrixService
 
     private let clientApplicationKey: String
+    private let customerId: String?
 
     // MARK: - Init
 
@@ -27,7 +28,8 @@ final class YooMoneyInteractor {
         paymentService: PaymentService,
         imageDownloadService: ImageDownloadService,
         threatMetrixService: ThreatMetrixService,
-        clientApplicationKey: String
+        clientApplicationKey: String,
+        customerId: String?
     ) {
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
@@ -36,6 +38,7 @@ final class YooMoneyInteractor {
         self.imageDownloadService = imageDownloadService
         self.threatMetrixService = threatMetrixService
         self.clientApplicationKey = clientApplicationKey
+        self.customerId = customerId
     }
 }
 
@@ -176,6 +179,7 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
             paymentMethodType: paymentMethodType,
             amount: amount,
             tmxSessionId: tmxSessionId,
+            customerId: customerId,
             completion: completion
         )
     }

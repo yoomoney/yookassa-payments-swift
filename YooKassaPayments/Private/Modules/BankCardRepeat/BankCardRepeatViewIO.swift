@@ -15,12 +15,9 @@ protocol BankCardRepeatViewOutput: ActionTitleTextDialogDelegate {
     func setupView()
     func didTapActionButton()
     func didTapTermsOfService(_ url: URL)
+    func didTapSafeDealInfo(_ url: URL)
     func didTapOnSavePaymentMethod()
-    func didChangeSavePaymentMethodState(
-        _ state: Bool
-    )
-    func didSetCsc(
-        _ csc: String
-    )
+    func didChangeSavePaymentMethodState(_ state: Bool)
+    func didSetCsc(_ csc: String)
     func endEditing()
 }

@@ -13,6 +13,10 @@ extension YooMoneyRouter: YooMoneyRouterInput {
         transitionHandler?.present(viewController, animated: true, completion: nil)
     }
 
+    func presentSafeDealInfo(title: String, body: String) {
+        presentSavePaymentMethodInfo(inputData: .init(headerValue: title, bodyValue: body))
+    }
+
     func presentSavePaymentMethodInfo(
         inputData: SavePaymentMethodInfoModuleInputData
     ) {

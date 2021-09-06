@@ -4,4 +4,5 @@ struct SberpayViewModel {
     let priceValue: String
     let feeValue: String?
     let termsOfService: NSAttributedString
+    let safeDealText: NSAttributedString?
 }

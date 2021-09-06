@@ -48,6 +48,7 @@ final class PaymentMethodsPresenter: NSObject {
     private let savePaymentMethod: SavePaymentMethod
     private let userPhoneNumber: String?
     private let cardScanning: CardScanning?
+    private let customerId: String?
 
     // MARK: - Init
 
@@ -69,7 +70,8 @@ final class PaymentMethodsPresenter: NSObject {
         returnUrl: String?,
         savePaymentMethod: SavePaymentMethod,
         userPhoneNumber: String?,
-        cardScanning: CardScanning?
+        cardScanning: CardScanning?,
+        customerId: String?
     ) {
         self.isLogoVisible = isLogoVisible
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
@@ -92,6 +94,7 @@ final class PaymentMethodsPresenter: NSObject {
         self.savePaymentMethod = savePaymentMethod
         self.userPhoneNumber = userPhoneNumber
         self.cardScanning = cardScanning
+        self.customerId = customerId
     }
 
     // MARK: - Stored properties
@@ -99,8 +102,8 @@ final class PaymentMethodsPresenter: NSObject {
     private var moneyAuthCoordinator: MoneyAuth.AuthorizationCoordinator?
     private var yooMoneyTMXSessionId: String?
 
-    private var paymentMethods: [PaymentOption]?
-    private var viewModels: [PaymentMethodViewModel] = []
+    private var shop: Shop?
+    private var viewModel: (models: [PaymentMethodViewModel], indexMap: ([Int: Int])) = ([], [:])
 
     private lazy var termsOfService: TermsOfService = {
         TermsOfServiceFactory.makeTermsOfService()
@@ -115,6 +118,8 @@ final class PaymentMethodsPresenter: NSObject {
     private var applePayCompletion: ((PKPaymentAuthorizationStatus) -> Void)?
     private var applePayState: ApplePayState = .idle
     private var applePayPaymentOption: PaymentOption?
+
+    private var unbindCompletion: ((Bool) -> Void)?
 }
 
 // MARK: - PaymentMethodsViewOutput
@@ -142,50 +147,117 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
 
     func applicationDidBecomeActive() {
         if app2AppState == .idle,
-           paymentMethods?.count == 1,
-           paymentMethods?.first?.paymentMethodType == .yooMoney {
+           shop?.options.count == 1,
+           shop?.options.first?.paymentMethodType == .yooMoney {
             didFinish(module: self, error: nil)
         }
     }
 
     func numberOfRows() -> Int {
-        viewModels.count
+        viewModel.models.count
     }
 
     func viewModelForRow(
         at indexPath: IndexPath
     ) -> PaymentMethodViewModel? {
-        guard viewModels.indices.contains(indexPath.row) else {
+        guard viewModel.models.indices.contains(indexPath.row) else {
             assertionFailure("ViewModel at index \(indexPath.row) should be")
             return nil
         }
 
-        return viewModels[indexPath.row]
+        return viewModel.models[indexPath.row]
     }
 
     func didSelect(at indexPath: IndexPath) {
-        guard let paymentMethods = paymentMethods,
-              paymentMethods.indices.contains(indexPath.row) else {
+        guard
+            let shop = shop,
+            let optionIndex = viewModel.indexMap[indexPath.row]
+        else {
+            return assertionFailure("ViewModel at index \(indexPath.row) should be")
+        }
+
+        let method = shop.options[optionIndex]
+        if
+            viewModel.models[indexPath.row].isShopLinkedCard,
+            let cardOption = method as? PaymentOptionBankCard
+        {
+            guard
+                let id = viewModel.models[indexPath.row].id,
+                let card = cardOption.paymentInstruments?.first(where: { $0.paymentInstrumentId == id })
+            else { return assertionFailure("Couldn't match cardInstrument for indexPath: \(indexPath)") }
+
+            openBankCardModule(
+                paymentOption: method,
+                instrument: card,
+                isSafeDeal: shop.isSafeDeal,
+                needReplace: false
+            )
+        } else {
+            openPaymentMethod(method, isSafeDeal: shop.isSafeDeal, needReplace: false)
+        }
+    }
+
+    func didPressSettings(at indexPath: IndexPath) {
+        guard
+            let optionIndex = viewModel.indexMap[indexPath.row],
+            let method = shop?.options[optionIndex]
+        else {
             assertionFailure("ViewModel at index \(indexPath.row) should be")
             return
         }
 
-        openPaymentMethod(
-            paymentMethods[indexPath.row],
-            needReplace: false
-        )
+        let filtered = viewModel.indexMap.filter { $0.value == optionIndex }.values.sorted()
+
+        switch method {
+        case let cardOption as PaymentOptionBankCard:
+            guard
+                let instrumentIndex = filtered.firstIndex(of: optionIndex),
+                let card = cardOption.paymentInstruments?[instrumentIndex]
+            else { return assertionFailure("Couldn't match cardInstrument for indexPath: \(indexPath)") }
+
+            router?.openCardSettingsModule(
+                data: CardSettingsModuleInputData(
+                    cardLogo: viewModel.models[indexPath.row].image,
+                    cardMask: (card.first6 ?? "") + "••••••" + card.last4,
+                    infoText: CommonLocalized.CardSettingsDetails.autopaymentPersists,
+                    card: .card(name: viewModel.models[indexPath.row].title, id: card.paymentInstrumentId),
+                    testModeSettings: testModeSettings,
+                    tokenizationSettings: tokenizationSettings,
+                    isLoggingEnabled: isLoggingEnabled,
+                    clientId: clientApplicationKey
+                ),
+                output: self
+            )
+        case let option as PaymentInstrumentYooMoneyLinkedBankCard:
+            router?.openCardSettingsModule(
+                data: CardSettingsModuleInputData(
+                    cardLogo: viewModel.models[indexPath.row].image,
+                    cardMask: option.cardMask,
+                    infoText: CommonLocalized.CardSettingsDetails.yoocardUnbindDetails,
+                    card: .yoomoney(name: viewModel.models[indexPath.row].title),
+                    testModeSettings: testModeSettings,
+                    tokenizationSettings: tokenizationSettings,
+                    isLoggingEnabled: isLoggingEnabled,
+                    clientId: clientApplicationKey
+                ),
+                output: self
+            )
+        default:
+            assertionFailure("Only card and yoocard are supported \(indexPath.row)")
+        }
     }
 
     private func openPaymentMethod(
         _ paymentOption: PaymentOption,
+        isSafeDeal: Bool,
         needReplace: Bool
     ) {
         switch paymentOption {
         case let paymentOption as PaymentInstrumentYooMoneyLinkedBankCard:
-            openLinkedCard(paymentOption: paymentOption, needReplace: needReplace)
+            openLinkedCard(paymentOption: paymentOption, isSafeDeal: isSafeDeal, needReplace: needReplace)
 
         case let paymentOption as PaymentInstrumentYooMoneyWallet:
-            openYooMoneyWallet(paymentOption: paymentOption, needReplace: needReplace)
+            openYooMoneyWallet(paymentOption: paymentOption, isSafeDeal: isSafeDeal, needReplace: needReplace)
 
         case let paymentOption where paymentOption.paymentMethodType == .yooMoney:
             openYooMoneyAuthorization()
@@ -193,20 +265,32 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         case let paymentOption where paymentOption.paymentMethodType == .sberbank:
             if shouldOpenSberpay(paymentOption),
                let returnUrl = makeSberpayReturnUrl() {
-                openSberpayModule(paymentOption: paymentOption, needReplace: needReplace, returnUrl: returnUrl)
+                openSberpayModule(
+                    paymentOption: paymentOption,
+                    isSafeDeal: isSafeDeal,
+                    needReplace: needReplace,
+                    returnUrl: returnUrl
+                )
             } else {
-                openSberbankModule(paymentOption: paymentOption, needReplace: needReplace)
+                openSberbankModule(paymentOption: paymentOption, isSafeDeal: isSafeDeal, needReplace: needReplace)
             }
 
         case let paymentOption where paymentOption.paymentMethodType == .applePay:
-            openApplePay(paymentOption: paymentOption, needReplace: needReplace)
+            openApplePay(paymentOption: paymentOption, isSafeDeal: isSafeDeal, needReplace: needReplace)
 
         case let paymentOption where paymentOption.paymentMethodType == .bankCard:
-            openBankCardModule(paymentOption: paymentOption, needReplace: needReplace)
+            openBankCardModule(paymentOption: paymentOption, isSafeDeal: isSafeDeal, needReplace: needReplace)
 
         default:
             break
         }
+    }
+
+    private func handleOpenPaymentMethodInstrument(
+        _ instrument: PaymentInstrumentBankCard
+    ) {
+        // TODO: Handle instrument payment MOC-2060
+        print("\(#function) in \(self)")
     }
 
     private func openYooMoneyAuthorization() {
@@ -255,6 +339,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
 
     private func openYooMoneyWallet(
         paymentOption: PaymentInstrumentYooMoneyWallet,
+        isSafeDeal: Bool,
         needReplace: Bool
     ) {
         let walletDisplayName = interactor.getWalletDisplayName()
@@ -287,7 +372,9 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             savePaymentMethodViewModel: savePaymentMethodViewModel,
             tmxSessionId: yooMoneyTMXSessionId,
             initialSavePaymentMethod: initialSavePaymentMethod,
-            isBackBarButtonHidden: needReplace
+            isBackBarButtonHidden: needReplace,
+            customerId: customerId,
+            isSafeDeal: isSafeDeal
         )
         router?.presentYooMoney(
             inputData: inputData,
@@ -297,6 +384,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
 
     private func openLinkedCard(
         paymentOption: PaymentInstrumentYooMoneyLinkedBankCard,
+        isSafeDeal: Bool,
         needReplace: Bool
     ) {
         let initialSavePaymentMethod = makeInitialSavePaymentMethod(savePaymentMethod)
@@ -317,7 +405,9 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             returnUrl: returnUrl,
             tmxSessionId: yooMoneyTMXSessionId,
             initialSavePaymentMethod: initialSavePaymentMethod,
-            isBackBarButtonHidden: needReplace
+            isBackBarButtonHidden: needReplace,
+            customerId: customerId,
+            isSafeDeal: isSafeDeal
         )
         router?.presentLinkedCard(
             inputData: inputData,
@@ -327,6 +417,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
 
     private func openApplePay(
         paymentOption: PaymentOption,
+        isSafeDeal: Bool,
         needReplace: Bool
     ) {
         let feeCondition = paymentOption.fee != nil
@@ -335,7 +426,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         let savePaymentMethodCondition = paymentOption.savePaymentMethod == .allowed
             && inputSavePaymentMethodCondition
 
-        if feeCondition || savePaymentMethodCondition {
+        if feeCondition || savePaymentMethodCondition || isSafeDeal {
             let initialSavePaymentMethod = makeInitialSavePaymentMethod(savePaymentMethod)
             let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
                 paymentOption,
@@ -358,7 +449,9 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
                 merchantIdentifier: applePayMerchantIdentifier,
                 savePaymentMethodViewModel: savePaymentMethodViewModel,
                 initialSavePaymentMethod: initialSavePaymentMethod,
-                isBackBarButtonHidden: needReplace
+                isBackBarButtonHidden: needReplace,
+                customerId: customerId,
+                isSafeDeal: isSafeDeal
             )
             router.presentApplePayContractModule(
                 inputData: inputData,
@@ -384,6 +477,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
 
     private func openSberbankModule(
         paymentOption: PaymentOption,
+        isSafeDeal: Bool,
         needReplace: Bool
     ) {
         let priceViewModel = priceViewModelFactory.makeAmountPriceViewModel(paymentOption)
@@ -400,7 +494,9 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             feeViewModel: feeViewModel,
             termsOfService: termsOfService,
             userPhoneNumber: userPhoneNumber,
-            isBackBarButtonHidden: needReplace
+            isBackBarButtonHidden: needReplace,
+            customerId: customerId,
+            isSafeDeal: isSafeDeal
         )
         router.openSberbankModule(
             inputData: inputData,
@@ -410,6 +506,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
 
     private func openSberpayModule(
         paymentOption: PaymentOption,
+        isSafeDeal: Bool,
         needReplace: Bool,
         returnUrl: String
     ) {
@@ -427,7 +524,9 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             feeViewModel: feeViewModel,
             termsOfService: termsOfService,
             returnUrl: returnUrl,
-            isBackBarButtonHidden: needReplace
+            isBackBarButtonHidden: needReplace,
+            customerId: customerId,
+            isSafeDeal: isSafeDeal
         )
         router.openSberpayModule(
             inputData: inputData,
@@ -437,16 +536,35 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
 
     private func openBankCardModule(
         paymentOption: PaymentOption,
+        instrument: PaymentInstrumentBankCard? = nil,
+        isSafeDeal: Bool,
         needReplace: Bool
     ) {
         let priceViewModel = priceViewModelFactory.makeAmountPriceViewModel(paymentOption)
         let feeViewModel = priceViewModelFactory.makeFeePriceViewModel(paymentOption)
-        let initialSavePaymentMethod = makeInitialSavePaymentMethod(savePaymentMethod)
-        let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
-            paymentOption,
-            savePaymentMethod,
-            initialState: initialSavePaymentMethod
-        )
+
+        if let instrument = instrument, !isSafeDeal {
+            let hasService = paymentOption.fee?.service.map { $0.charge.value > 0.00 } ?? false
+            let hasCounterparty = paymentOption.fee?.counterparty.map { $0.charge.value > 0.00 } ?? false
+            let hasFee = hasService || hasCounterparty
+
+            if savePaymentMethod == .off, !hasFee, !instrument.cscRequired {
+                DispatchQueue.main.async {
+                    self.view?.showActivity()
+                }
+
+                DispatchQueue.global().async {
+                    self.interactor.tokenizeInstrument(
+                        instrument: instrument,
+                        savePaymentMethod: false,
+                        returnUrl: self.returnUrl,
+                        amount: paymentOption.charge.plain
+                    )
+                }
+                return
+            }
+        }
+
         let inputData = BankCardModuleInputData(
             clientApplicationKey: clientApplicationKey,
             testModeSettings: testModeSettings,
@@ -460,9 +578,13 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             termsOfService: termsOfService,
             cardScanning: cardScanning,
             returnUrl: returnUrl,
-            savePaymentMethodViewModel: savePaymentMethodViewModel,
-            initialSavePaymentMethod: initialSavePaymentMethod,
-            isBackBarButtonHidden: needReplace
+            savePaymentMethod: savePaymentMethod,
+            canSaveInstrument: paymentOption.savePaymentInstrument ?? false,
+            apiSavePaymentMethod: paymentOption.savePaymentMethod,
+            isBackBarButtonHidden: needReplace,
+            customerId: customerId,
+            instrument: instrument,
+            isSafeDeal: isSafeDeal
         )
         router.openBankCardModule(
             inputData: inputData,
@@ -602,7 +724,24 @@ extension PaymentMethodsPresenter: PaymentMethodsModuleInput {
 // MARK: - PaymentMethodsInteractorOutput
 
 extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
-    func didFetchPaymentMethods(_ paymentMethods: [PaymentOption]) {
+    func didUnbindCard(id: String) {
+        interactor.fetchPaymentMethods()
+        DispatchQueue.main.async {
+            self.unbindCompletion?(true)
+            self.unbindCompletion = nil
+        }
+    }
+
+    func didFailUnbindCard(id: String, error: Error) {
+        DispatchQueue.main.async {
+            self.view?.hideActivity()
+            self.view?.presentError(with: Localized.Error.unbindCardFailed)
+            self.unbindCompletion?(false)
+            self.unbindCompletion = nil
+        }
+    }
+
+    func didFetchShop(_ shop: Shop) {
         let (authType, _) = interactor.makeTypeAnalyticsParameters()
         let event: AnalyticsEvent = .screenPaymentOptions(
             authType: authType,
@@ -611,43 +750,55 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         interactor.trackEvent(event)
 
         DispatchQueue.main.async { [weak self] in
-            guard let self = self,
-                  let view = self.view else { return }
+            guard let self = self, let view = self.view else { return }
 
-            self.paymentMethods = paymentMethods
+            self.shop = shop
 
-            if paymentMethods.count == 1, let paymentMethod = paymentMethods.first {
-                self.openPaymentMethod(paymentMethod, needReplace: true)
-            } else {
+            func showOptions() {
                 let walletDisplayName = self.interactor.getWalletDisplayName()
-                self.viewModels = paymentMethods.map {
-                    self.paymentMethodViewModelFactory.makePaymentMethodViewModel(
-                        paymentOption: $0,
-                        walletDisplayName: walletDisplayName
-                    )
-                }
+                self.viewModel = self.paymentMethodViewModelFactory.makePaymentMethodViewModels(
+                    shop.options,
+                    walletDisplayName: walletDisplayName
+                )
                 view.hideActivity()
                 view.reloadData()
+            }
+
+            if shop.options.count == 1, let first = shop.options.first {
+                switch first {
+                case let paymentMethod as PaymentOptionBankCard:
+                    if (paymentMethod.paymentInstruments?.count ?? 0) > 0 {
+                        showOptions()
+                    } else {
+                        self.openPaymentMethod(
+                            paymentMethod,
+                            isSafeDeal: shop.isSafeDeal,
+                            needReplace: true
+                        )
+                    }
+                default:
+                    self.openPaymentMethod(first, isSafeDeal: shop.isSafeDeal, needReplace: true)
+                }
+            } else {
+                showOptions()
             }
         }
     }
 
-    func didFetchPaymentMethods(_ error: Error) {
+    func didFailFetchShop(_ error: Error) {
         presentError(error)
     }
 
-    func didFetchYooMoneyPaymentMethods(
-        _ paymentMethods: [PaymentOption]
-    ) {
+    func didFetchYooMoneyPaymentMethods(_ paymentMethods: [PaymentOption], shopProperties: ShopProperties) {
         let condition: (PaymentOption) -> Bool = { $0 is PaymentInstrumentYooMoneyWallet }
 
-        if let paymentOption = paymentMethods.first as? PaymentInstrumentYooMoneyWallet,
-           paymentMethods.count == 1 {
-            let needReplace = self.paymentMethods?.count == 1
+        if let paymentOption = paymentMethods.first as? PaymentInstrumentYooMoneyWallet, paymentMethods.count == 1 {
+            let needReplace = self.shop?.options.count == 1
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.openYooMoneyWallet(
                     paymentOption: paymentOption,
+                    isSafeDeal: shopProperties.isSafeDeal || shopProperties.isMarketplace,
                     needReplace: needReplace
                 )
                 self.shouldReloadOnViewDidAppear = true
@@ -671,21 +822,15 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         presentError(error)
     }
 
-    func didFetchAccount(
-        _ account: UserAccount
-    ) {
+    func didFetchAccount(_ account: UserAccount) {
         guard let moneyCenterAuthToken = moneyCenterAuthToken else {
             return
         }
         interactor.setAccount(account)
-        interactor.fetchYooMoneyPaymentMethods(
-            moneyCenterAuthToken: moneyCenterAuthToken
-        )
+        interactor.fetchYooMoneyPaymentMethods(moneyCenterAuthToken: moneyCenterAuthToken)
     }
 
-    func didFailFetchAccount(
-        _ error: Error
-    ) {
+    func didFailFetchAccount(_ error: Error) {
         guard let moneyCenterAuthToken = moneyCenterAuthToken else {
             return
         }
@@ -694,9 +839,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         )
     }
 
-    func didDecryptCryptogram(
-        _ token: String
-    ) {
+    func didDecryptCryptogram(_ token: String) {
         moneyCenterAuthToken = token
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
@@ -710,9 +853,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         }
     }
 
-    func didFailDecryptCryptogram(
-        _ error: Error
-    ) {
+    func didFailDecryptCryptogram(_ error: Error) {
         let event: AnalyticsEvent = .actionMoneyAuthLogin(
             scheme: .yoomoneyApp,
             status: .fail(error.localizedDescription),
@@ -726,9 +867,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         }
     }
 
-    func didTokenizeApplePay(
-        _ token: Tokens
-    ) {
+    func didTokenizeApplePay(_ token: Tokens) {
         guard applePayState == .success else {
             return
         }
@@ -758,9 +897,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         }
     }
 
-    func failTokenizeApplePay(
-        _ error: Error
-    ) {
+    func failTokenizeApplePay(_ error: Error) {
         guard applePayState == .success else {
             return
         }
@@ -776,7 +913,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
                 guard let self = self else { return }
 
                 let message = CommonLocalized.ApplePay.failTokenizeData
-                if self.paymentMethods?.count == 1 {
+                if self.shop?.options.count == 1 {
                     self.view?.hideActivity()
                     self.view?.showPlaceholder(message: message)
                 } else {
@@ -805,9 +942,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         }
     }
 
-    private func trackScreenErrorAnalytics(
-        scheme: AnalyticsEvent.TokenizeScheme?
-    ) {
+    private func trackScreenErrorAnalytics(scheme: AnalyticsEvent.TokenizeScheme?) {
         DispatchQueue.global().async { [weak self] in
             guard let interactor = self?.interactor else { return }
             let (authType, _) = interactor.makeTypeAnalyticsParameters()
@@ -820,9 +955,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         }
     }
 
-    private func trackScreenPaymentAnalytics(
-        scheme: AnalyticsEvent.TokenizeScheme
-    ) {
+    private func trackScreenPaymentAnalytics(scheme: AnalyticsEvent.TokenizeScheme) {
         DispatchQueue.global().async { [weak self] in
             guard let interactor = self?.interactor else { return }
             let (authType, _) = interactor.makeTypeAnalyticsParameters()
@@ -832,6 +965,55 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
                 sdkVersion: Bundle.frameworkVersion
             )
             interactor.trackEvent(event)
+        }
+    }
+
+    func didTokenizeInstrument(instrument: PaymentInstrumentBankCard, tokens: Tokens) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.view?.hideActivity()
+
+            let scheme: AnalyticsEvent.TokenizeScheme = instrument.cscRequired
+                ? .customerIdLinkedCardCvc
+                : .customerIdLinkedCard
+
+            self.didTokenize(tokens: tokens, paymentMethodType: .bankCard, scheme: scheme)
+
+            DispatchQueue.global().async { [weak self] in
+                guard let self = self, let interactor = self.interactor else { return }
+                let type = interactor.makeTypeAnalyticsParameters()
+                let event: AnalyticsEvent = .actionTokenize(
+                    scheme: scheme,
+                    authType: type.authType,
+                    tokenType: type.tokenType,
+                    sdkVersion: Bundle.frameworkVersion
+                )
+                interactor.trackEvent(event)
+            }
+        }
+    }
+
+    func didFailTokenizeInstrument(error: Error) {
+        let parameters = interactor.makeTypeAnalyticsParameters()
+        let event: AnalyticsEvent = .screenError(
+            authType: parameters.authType,
+            scheme: .bankCard,
+            sdkVersion: Bundle.frameworkVersion
+        )
+        interactor.trackEvent(event)
+
+        let message: String
+        switch error {
+        case let error as PresentableError:
+            message = error.message
+        default:
+            message = CommonLocalized.Error.unknown
+        }
+
+        DispatchQueue.main.async { [weak self] in
+            guard let view = self?.view else { return }
+            view.hideActivity()
+            view.presentError(with: message)
         }
     }
 }
@@ -878,9 +1060,7 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
         }
     }
 
-    func authorizationCoordinatorDidCancel(
-        _ coordinator: AuthorizationCoordinator
-    ) {
+    func authorizationCoordinatorDidCancel(_ coordinator: AuthorizationCoordinator) {
         self.moneyAuthCoordinator = nil
 
         let event = AnalyticsEvent.userCancelAuthorization(
@@ -893,16 +1073,13 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
             if self.router.shouldDismissAuthorizationModule() {
                 self.router.closeAuthorizationModule()
             }
-            if self.paymentMethods?.count == 1 {
+            if self.shop?.options.count == 1 {
                 self.didFinish(module: self, error: nil)
             }
         }
     }
 
-    func authorizationCoordinator(
-        _ coordinator: AuthorizationCoordinator,
-        didFailureWith error: Error
-    ) {
+    func authorizationCoordinator(_ coordinator: AuthorizationCoordinator, didFailureWith error: Error) {
         self.moneyAuthCoordinator = nil
 
         let event: AnalyticsEvent = .actionMoneyAuthLogin(
@@ -922,18 +1099,14 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
         }
     }
 
-    func authorizationCoordinatorDidPrepareProcess(
-        _ coordinator: AuthorizationCoordinator
-    ) {}
+    func authorizationCoordinatorDidPrepareProcess(_ coordinator: AuthorizationCoordinator) {}
 
     func authorizationCoordinator(
         _ coordinator: AuthorizationCoordinator,
         didFailPrepareProcessWithError error: Error
     ) {}
 
-    func authorizationCoordinatorDidRecoverPassword(
-        _ coordinator: AuthorizationCoordinator
-    ) {}
+    func authorizationCoordinatorDidRecoverPassword(_ coordinator: AuthorizationCoordinator) {}
 }
 
 // MARK: - YooMoneyModuleOutput
@@ -947,11 +1120,11 @@ extension PaymentMethodsPresenter: YooMoneyModuleOutput {
             self.moneyCenterAuthToken = nil
             self.app2AppState = .idle
             let condition: (PaymentOption) -> Bool = {
-                $0 is PaymentInstrumentYooMoneyLinkedBankCard
-                || $0 is PaymentInstrumentYooMoneyWallet
-                || $0.paymentMethodType == .yooMoney
+                return $0 is PaymentInstrumentYooMoneyLinkedBankCard
+                    || $0 is PaymentInstrumentYooMoneyWallet
+                    || $0.paymentMethodType == .yooMoney
             }
-            if let paymentMethods = self.paymentMethods,
+            if let paymentMethods = self.shop?.options,
                paymentMethods.allSatisfy(condition) {
                 self.didFinish(module: self, error: nil)
             } else {
@@ -1012,7 +1185,7 @@ extension PaymentMethodsPresenter: ApplePayModuleOutput {
                   let view = self.view else { return }
 
             let message = CommonLocalized.ApplePay.applePayUnavailableTitle
-            if self.paymentMethods?.count == 1 {
+            if self.shop?.options.count == 1 {
                 view.hideActivity()
                 view.showPlaceholder(message: message)
             } else {
@@ -1064,7 +1237,7 @@ extension PaymentMethodsPresenter: ApplePayModuleOutput {
         router.closeApplePay(completion: nil)
         applePayState = .cancel
 
-        if paymentMethods?.count == 1 {
+        if shop?.options.count == 1 {
             didFinish(module: self, error: nil)
         }
     }
@@ -1225,6 +1398,36 @@ extension PaymentMethodsPresenter: CardSecModuleOutput {
     }
 }
 
+// MARK: - CardSecModuleOutput
+
+extension PaymentMethodsPresenter: CardSettingsModuleOutput {
+    func cardSettingsModuleDidCancel() {
+        DispatchQueue.main.async {
+            self.router.closeCardSettingsModule()
+        }
+    }
+    func cardSettingsModuleDidUnbindCard(mask: String) {
+        let notification = UIViewController.ToastAlertNotification(
+            title: nil,
+            message: String(format: CommonLocalized.CardSettingsDetails.unbindSuccess, mask),
+            type: .success,
+            style: .toast,
+            actions: []
+        )
+
+        DispatchQueue.main.async {
+            self.view?.present(notification)
+            self.view?.showActivity()
+            self.view?.setLogoVisible(self.isLogoVisible)
+            self.router.closeCardSettingsModule()
+        }
+
+        DispatchQueue.global().async { [weak self] in
+            self?.interactor.fetchPaymentMethods()
+        }
+    }
+}
+
 // MARK: - Private helpers
 
 private extension PaymentMethodsPresenter {
@@ -1294,6 +1497,12 @@ private extension PaymentMethodsPresenter {
                 bundle: Bundle.framework,
                 value: "Оплата кошельком недоступна",
                 comment: "После авторизации в кошельке при запросе доступных методов кошелёк отсутствует"
+            )
+            static let unbindCardFailed = NSLocalizedString(
+                "Error.unbindCardFailed",
+                bundle: Bundle.framework,
+                value: "Не удалось отвязать карту. Попробуйте ещё раз",
+                comment: "Текст ошибки при отвязке карты"
             )
         }
     }

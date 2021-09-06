@@ -191,11 +191,23 @@ extension PaymentMethodsViewController: UITableViewDataSource {
                 withType: LargeIconButtonItemViewCell.self,
                 for: indexPath
             )
+            largeCell.rightButton.setImage(nil, for: .normal)
+            largeCell.rightButtonPressHandler = nil
             largeCell.icon = viewModel.image
             largeCell.title = viewModel.title
             largeCell.subtitle = subtitle
 
             cell = largeCell
+
+            if viewModel.hasActions {
+                largeCell.rightButton.setImage(PaymentMethodResources.Image.more, for: .normal)
+                largeCell.rightButton.contentEdgeInsets = UIEdgeInsets(
+                    top: Space.double, left: Space.double, bottom: Space.double, right: Space.double
+                )
+                largeCell.rightButtonPressHandler = { [weak self] in
+                    self?.output.didPressSettings(at: indexPath)
+                }
+            }
         } else {
             let smallCell = tableView.dequeueReusableCell(
                 withType: IconButtonItemTableViewCell.self,
@@ -334,6 +346,12 @@ private extension PaymentMethodsViewController {
             bundle: Bundle.framework,
             value: "Способ оплаты",
             comment: "Title `Способ оплаты` на экране выбора способа оплаты https://yadi.sk/i/0dSpSggROTC0Jw"
+        )
+        static let unbindCard = NSLocalizedString(
+            "PaymentMethods.unbindCard",
+            bundle: Bundle.framework,
+            value: "Отвязать",
+            comment: "Текст кнопки отвязать <screenshot>"
         )
     }
 

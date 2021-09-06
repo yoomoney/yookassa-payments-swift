@@ -365,7 +365,8 @@ final class RootViewController: UIViewController {
             customizationSettings: CustomizationSettings(mainScheme: .blueRibbon),
             savePaymentMethod: .userSelects,
             moneyAuthClientId: "hitm6hg51j1d3g1u3ln040bajiol903b",
-            applicationScheme: "yookassapaymentsexample://"
+            applicationScheme: "yookassapaymentsexample://",
+            customerId: "app.example.demo.payments.yookassa"
         ))
 
 //        let inputData: TokenizationFlow = .bankCardRepeat(BankCardRepeatModuleInputData(

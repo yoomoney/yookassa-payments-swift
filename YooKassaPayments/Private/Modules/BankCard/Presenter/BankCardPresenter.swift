@@ -1,5 +1,6 @@
 import UIKit
-
+import YooKassaPaymentsApi
+// swiftlint:disable cyclomatic_complexity
 final class BankCardPresenter {
 
     // MARK: - VIPER
@@ -16,45 +17,57 @@ final class BankCardPresenter {
 
     // MARK: - Initialization
 
+    private let cardService: CardService
     private let shopName: String
     private let purchaseDescription: String
     private let priceViewModel: PriceViewModel
     private let feeViewModel: PriceViewModel?
     private let termsOfService: TermsOfService
     private let cardScanning: CardScanning?
-    private let savePaymentMethodViewModel: SavePaymentMethodViewModel?
-    private var initialSavePaymentMethod: Bool
+    private let clientSavePaymentMethod: SavePaymentMethod
     private let isBackBarButtonHidden: Bool
+    private let instrument: PaymentInstrumentBankCard?
+    private let canSaveInstrument: Bool
+    private let apiSavePaymentMethod: YooKassaPaymentsApi.SavePaymentMethod
+    private let paymentMethodViewModelFactory: PaymentMethodViewModelFactory
+    private let isSafeDeal: Bool
 
     init(
+        cardService: CardService,
         shopName: String,
         purchaseDescription: String,
         priceViewModel: PriceViewModel,
         feeViewModel: PriceViewModel?,
         termsOfService: TermsOfService,
         cardScanning: CardScanning?,
-        savePaymentMethodViewModel: SavePaymentMethodViewModel?,
-        initialSavePaymentMethod: Bool,
-        isBackBarButtonHidden: Bool
+        isBackBarButtonHidden: Bool,
+        instrument: PaymentInstrumentBankCard?,
+        canSaveInstrument: Bool,
+        apiSavePaymentMethod: YooKassaPaymentsApi.SavePaymentMethod,
+        clientSavePaymentMethod: SavePaymentMethod,
+        paymentMethodViewModelFactory: PaymentMethodViewModelFactory,
+        isSafeDeal: Bool
     ) {
+        self.cardService = cardService
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
         self.priceViewModel = priceViewModel
         self.feeViewModel = feeViewModel
         self.termsOfService = termsOfService
         self.cardScanning = cardScanning
-        self.savePaymentMethodViewModel = savePaymentMethodViewModel
-        self.initialSavePaymentMethod = initialSavePaymentMethod
         self.isBackBarButtonHidden = isBackBarButtonHidden
+        self.instrument = instrument
+        self.canSaveInstrument = canSaveInstrument
+        self.apiSavePaymentMethod = apiSavePaymentMethod
+        self.clientSavePaymentMethod = clientSavePaymentMethod
+        self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
+        self.isSafeDeal = isSafeDeal
     }
 
     // MARK: - Stored properties
 
-    private var cardData = CardData(
-        pan: nil,
-        expiryDate: nil,
-        csc: nil
-    )
+    private var cardData = CardData(pan: nil, expiryDate: nil, csc: nil)
+    private var saveInstrument: Bool?
 }
 
 // MARK: - BankCardViewOutput
@@ -74,32 +87,94 @@ extension BankCardPresenter: BankCardViewOutput {
             font: UIFont.dynamicCaption2,
             foregroundColor: UIColor.AdaptiveColors.secondary
         )
+
+        let maskedNumber = instrument
+            .map { ($0.first6 ?? "") + "******" + $0.last4 }
+            .map(paymentMethodViewModelFactory.replaceBullets)
+            ?? paymentMethodViewModelFactory.replaceBullets("******")
+
+        let logo: UIImage
+        let cscState: MaskedCardView.CscState
+        if let instrument = instrument, let first6 = instrument.first6 {
+            logo = paymentMethodViewModelFactory
+                .makeBankCardImage(first6Digits: first6, bankCardType: instrument.cardType)
+
+            cscState = instrument.cscRequired ? .default : .noCVC
+        } else {
+            logo = PaymentMethodResources.Image.bankCard
+            cscState = .default
+        }
+
+        let section: PaymentRecurrencyAndDataSavingSection?
+        if instrument != nil {
+            switch clientSavePaymentMethod {
+            case .on:
+                section = PaymentRecurrencyAndDataSavingSectionFactory.make(
+                    mode: .requiredRecurring,
+                    output: self
+                )
+            case .userSelects:
+                section = PaymentRecurrencyAndDataSavingSectionFactory.make(
+                    mode: .allowRecurring,
+                    output: self
+                )
+            case .off:
+                section = nil
+            }
+        } else {
+            section = PaymentRecurrencyAndDataSavingSectionFactory.make(
+                clientSavePaymentMethod: clientSavePaymentMethod,
+                apiSavePaymentMethod: apiSavePaymentMethod,
+                canSavePaymentInstrument: canSaveInstrument,
+                output: self
+            )
+        }
+
         let viewModel = BankCardViewModel(
             shopName: shopName,
             description: purchaseDescription,
             priceValue: priceValue,
             feeValue: feeValue,
-            termsOfService: termsOfServiceValue
+            termsOfService: termsOfServiceValue,
+            instrumentMode: instrument != nil,
+            maskedNumber: maskedNumber.splitEvery(4, separator: " "),
+            cardLogo: logo,
+            safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil,
+            recurrencyAndDataSavingSection: section
         )
-        view.setViewModel(viewModel)
-        view.setSubmitButtonEnabled(false)
 
-        if let savePaymentMethodViewModel = savePaymentMethodViewModel {
-            view.setSavePaymentMethodViewModel(
-                savePaymentMethodViewModel
-            )
+        if let section = section {
+            saveInstrument = section.switchValue
+            switch section.mode {
+            case .requiredSaveData, .requiredRecurringAndSaveData:
+                saveInstrument = true
+            case .requiredRecurring:
+                saveInstrument = false
+            default:
+                break
+            }
         }
+
+        view.setViewModel(viewModel)
+        view.setSubmitButtonEnabled(cscState == .noCVC)
+        view.setCardState(cscState)
 
         view.setBackBarButtonHidden(isBackBarButtonHidden)
 
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
             let parameters = self.interactor.makeTypeAnalyticsParameters()
-            let event: AnalyticsEvent = .screenBankCardForm(
+            let form: AnalyticsEvent = .screenBankCardForm(
                 authType: parameters.authType,
                 sdkVersion: Bundle.frameworkVersion
             )
-            self.interactor.trackEvent(event)
+            self.interactor.trackEvent(form)
+            let contract = AnalyticsEvent.screenPaymentContract(
+                authType: parameters.authType,
+                scheme: .bankCard,
+                sdkVersion: Bundle.frameworkVersion
+            )
+            self.interactor.trackEvent(contract)
         }
     }
 
@@ -108,20 +183,48 @@ extension BankCardPresenter: BankCardViewOutput {
         view.showActivity()
         view.endEditing(true)
 
+        let saveMethod: Bool
+        switch (clientSavePaymentMethod, apiSavePaymentMethod) {
+        case (.off, .allowed), (.off, .forbidden), (.on, .forbidden), (.userSelects, .forbidden):
+            saveMethod = false
+        case (.on, .allowed):
+            saveMethod = true
+        case (.userSelects, .allowed):
+            saveMethod = saveInstrument ?? false
+        case (_, .unknown(_)):
+            saveMethod = false
+        default:
+            saveMethod = false
+        }
+        let savePaymentInstrument = canSaveInstrument ? saveInstrument : false
+
         DispatchQueue.global().async { [weak self] in
-            guard let self = self,
-                  let interactor = self.interactor else { return }
-            interactor.tokenizeBankCard(
-                cardData: self.cardData,
-                savePaymentMethod: self.initialSavePaymentMethod
-            )
+            guard let self = self, let interactor = self.interactor else { return }
+            if let instrument = self.instrument {
+                interactor.tokenizeInstrument(
+                    id: instrument.paymentInstrumentId,
+                    csc: self.cardData.csc,
+                    savePaymentMethod: saveMethod
+                )
+            } else {
+                interactor.tokenizeBankCard(
+                    cardData: self.cardData,
+                    savePaymentMethod: saveMethod,
+                    savePaymentInstrument: savePaymentInstrument
+                )
+            }
         }
     }
 
-    func didTapTermsOfService(
-        _ url: URL
-    ) {
+    func didTapTermsOfService(_ url: URL) {
         router.presentTermsOfServiceModule(url)
+    }
+
+    func didTapSafeDealInfo(_ url: URL) {
+        router.presentSafeDealInfo(
+            title: PaymentMethodResources.Localized.safeDealInfoTitle,
+            body: PaymentMethodResources.Localized.safeDealInfoBody
+        )
     }
 
     func didTapOnSavePaymentMethod() {
@@ -134,10 +237,52 @@ extension BankCardPresenter: BankCardViewOutput {
         )
     }
 
-    func didChangeSavePaymentMethodState(
-        _ state: Bool
-    ) {
-        initialSavePaymentMethod = state
+    func didSetCsc(_ csc: String) {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            self.cardData.csc = csc
+            do {
+                try self.cardService.validate(csc: csc)
+            } catch {
+                if error is CardService.ValidationError {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let view = self?.view else { return }
+                        view.setSubmitButtonEnabled(false)
+                    }
+                    return
+                }
+            }
+            DispatchQueue.main.async { [weak self] in
+                guard let view = self?.view else { return }
+                view.setSubmitButtonEnabled(true)
+            }
+        }
+    }
+
+    func endEditing() {
+        guard let csc = cardData.csc else {
+            view?.setCardState(.error)
+            return
+        }
+
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            do {
+                try self.cardService.validate(csc: csc)
+            } catch {
+                if error is CardService.ValidationError {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let view = self?.view else { return }
+                        view.setCardState(.error)
+                    }
+                    return
+                }
+            }
+            DispatchQueue.main.async { [weak self] in
+                guard let view = self?.view else { return }
+                view.setCardState(.default)
+            }
+        }
     }
 }
 
@@ -155,11 +300,18 @@ extension BankCardPresenter: BankCardInteractorOutput {
                 paymentMethodType: .bankCard
             )
 
+            let scheme: AnalyticsEvent.TokenizeScheme
+            if let instrument = self.instrument {
+                scheme = instrument.cscRequired ? .customerIdLinkedCardCvc : .customerIdLinkedCard
+            } else {
+                scheme = .bankCard
+            }
+
             DispatchQueue.global().async { [weak self] in
                 guard let self = self, let interactor = self.interactor else { return }
                 let type = interactor.makeTypeAnalyticsParameters()
                 let event: AnalyticsEvent = .actionTokenize(
-                    scheme: .bankCard,
+                    scheme: scheme,
                     authType: type.authType,
                     tokenType: type.tokenType,
                     sdkVersion: Bundle.frameworkVersion
@@ -221,6 +373,35 @@ extension BankCardPresenter: BankCardDataInputModuleOutput {
             guard let self = self,
                   let view = self.view else { return }
             view.setSubmitButtonEnabled(false)
+        }
+    }
+}
+
+// MARK: - PaymentRecurrencyAndDataSavingSectionOutput
+
+extension BankCardPresenter: PaymentRecurrencyAndDataSavingSectionOutput {
+    func didChangeSwitchValue(newValue: Bool, mode: PaymentRecurrencyAndDataSavingSection.Mode) {
+        saveInstrument = newValue
+    }
+    func didTapInfoLink(mode: PaymentRecurrencyAndDataSavingSection.Mode) {
+        switch mode {
+        case .allowRecurring, .requiredRecurring:
+            router.presentSafeDealInfo(
+                title: CommonLocalized.CardSettingsDetails.autopayInfoTitle,
+                body: CommonLocalized.CardSettingsDetails.autopayInfoDetails
+            )
+        case .savePaymentData, .requiredSaveData:
+            router.presentSafeDealInfo(
+                title: CommonLocalized.RecurrencyAndSavePaymentData.saveDataInfoTitle,
+                body: CommonLocalized.RecurrencyAndSavePaymentData.saveDataInfoMessage
+            )
+        case .allowRecurringAndSaveData, .requiredRecurringAndSaveData:
+            router.presentSafeDealInfo(
+                title: CommonLocalized.RecurrencyAndSavePaymentData.saveDataAndAutopaymentsInfoTitle,
+                body: CommonLocalized.RecurrencyAndSavePaymentData.saveDataAndAutopaymentsInfoMessage
+            )
+        default:
+        break
         }
     }
 }

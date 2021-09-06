@@ -39,7 +39,8 @@ enum PaymentMethodsAssembly {
             returnUrl: inputData.returnUrl,
             savePaymentMethod: inputData.savePaymentMethod,
             userPhoneNumber: inputData.userPhoneNumber,
-            cardScanning: inputData.cardScanning
+            cardScanning: inputData.cardScanning,
+            customerId: inputData.customerId
         )
 
         let paymentService = PaymentServiceAssembly.makeService(
@@ -79,7 +80,8 @@ enum PaymentMethodsAssembly {
             clientApplicationKey: inputData.clientApplicationKey,
             gatewayId: inputData.gatewayId,
             amount: inputData.amount,
-            getSavePaymentMethod: inputData.getSavePaymentMethod
+            getSavePaymentMethod: inputData.getSavePaymentMethod,
+            customerId: inputData.customerId
         )
 
         let router = PaymentMethodsRouter()

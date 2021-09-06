@@ -17,6 +17,7 @@ final class SberpayPresenter {
     private let feeViewModel: PriceViewModel?
     private let termsOfService: TermsOfService
     private let isBackBarButtonHidden: Bool
+    private let isSafeDeal: Bool
 
     init(
         shopName: String,
@@ -24,7 +25,8 @@ final class SberpayPresenter {
         priceViewModel: PriceViewModel,
         feeViewModel: PriceViewModel?,
         termsOfService: TermsOfService,
-        isBackBarButtonHidden: Bool
+        isBackBarButtonHidden: Bool,
+        isSafeDeal: Bool
     ) {
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -32,6 +34,7 @@ final class SberpayPresenter {
         self.feeViewModel = feeViewModel
         self.termsOfService = termsOfService
         self.isBackBarButtonHidden = isBackBarButtonHidden
+        self.isSafeDeal = isSafeDeal
     }
 }
 
@@ -57,7 +60,8 @@ extension SberpayPresenter: SberpayViewOutput {
             description: purchaseDescription,
             priceValue: priceValue,
             feeValue: feeValue,
-            termsOfService: termsOfServiceValue
+            termsOfService: termsOfServiceValue,
+            safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil
         )
         view.setupViewModel(viewModel)
 
@@ -86,10 +90,15 @@ extension SberpayPresenter: SberpayViewOutput {
         }
     }
 
-    func didTapTermsOfService(
-        _ url: URL
-    ) {
+    func didTapTermsOfService(_ url: URL) {
         router.presentTermsOfServiceModule(url)
+    }
+
+    func didTapSafeDealInfo(_ url: URL) {
+        router.presentSafeDealInfo(
+            title: PaymentMethodResources.Localized.safeDealInfoTitle,
+            body: PaymentMethodResources.Localized.safeDealInfoBody
+        )
     }
 }
 

@@ -1,5 +1,13 @@
 import YooKassaPaymentsApi
 
+struct Shop {
+    let options: [PaymentOption]
+    let properties: ShopProperties
+
+    var isSafeDeal: Bool { properties.isSafeDeal || properties.isMarketplace }
+
+}
+
 protocol PaymentService {
     func fetchPaymentOptions(
         clientApplicationKey: String,
@@ -8,7 +16,8 @@ protocol PaymentService {
         amount: String?,
         currency: String?,
         getSavePaymentMethod: Bool?,
-        completion: @escaping (Result<[PaymentOption], Error>) -> Void
+        customerId: String?,
+        completion: @escaping (Result<Shop, Error>) -> Void
     )
 
     func fetchPaymentMethod(
@@ -24,6 +33,8 @@ protocol PaymentService {
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
+        savePaymentInstrument: Bool?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     )
 
@@ -35,6 +46,7 @@ protocol PaymentService {
         paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     )
 
@@ -48,6 +60,7 @@ protocol PaymentService {
         paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     )
 
@@ -58,6 +71,7 @@ protocol PaymentService {
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     )
 
@@ -67,6 +81,7 @@ protocol PaymentService {
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     )
 
@@ -76,6 +91,7 @@ protocol PaymentService {
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     )
 
@@ -89,4 +105,17 @@ protocol PaymentService {
         csc: String,
         completion: @escaping (Result<Tokens, Error>) -> Void
     )
+
+    func tokenizeCardInstrument(
+        clientApplicationKey: String,
+        amount: MonetaryAmount,
+        tmxSessionId: String,
+        confirmation: Confirmation,
+        savePaymentMethod: Bool,
+        instrumentId: String,
+        csc: String?,
+        completion: @escaping (Result<Tokens, Error>) -> Void
+    )
+
+    func unbind(authToken: String, id: String, completion: @escaping (Result<Void, Error>) -> Void)
 }

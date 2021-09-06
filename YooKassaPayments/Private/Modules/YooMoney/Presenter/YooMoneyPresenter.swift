@@ -29,6 +29,7 @@ final class YooMoneyPresenter {
     private let tmxSessionId: String?
     private var initialSavePaymentMethod: Bool
     private let isBackBarButtonHidden: Bool
+    private let isSafeDeal: Bool
 
     // MARK: - Init
 
@@ -48,7 +49,8 @@ final class YooMoneyPresenter {
         savePaymentMethodViewModel: SavePaymentMethodViewModel?,
         tmxSessionId: String?,
         initialSavePaymentMethod: Bool,
-        isBackBarButtonHidden: Bool
+        isBackBarButtonHidden: Bool,
+        isSafeDeal: Bool
     ) {
         self.clientApplicationKey = clientApplicationKey
         self.testModeSettings = testModeSettings
@@ -67,6 +69,7 @@ final class YooMoneyPresenter {
         self.tmxSessionId = tmxSessionId
         self.initialSavePaymentMethod = initialSavePaymentMethod
         self.isBackBarButtonHidden = isBackBarButtonHidden
+        self.isSafeDeal = isSafeDeal
     }
 
     // MARK: - Properties
@@ -86,7 +89,8 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
             price: price,
             fee: fee,
             paymentMethod: paymentMethod,
-            terms: termsOfService
+            terms: termsOfService,
+            safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil
         )
         view.setupViewModel(viewModel)
 
@@ -146,6 +150,13 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
 
     func didTapTermsOfService(_ url: URL) {
         router.presentTermsOfServiceModule(url)
+    }
+
+    func didTapSafeDealInfo(_ url: URL) {
+        router.presentSafeDealInfo(
+            title: PaymentMethodResources.Localized.safeDealInfoTitle,
+            body: PaymentMethodResources.Localized.safeDealInfoBody
+        )
     }
 
     func didTapOnSavePaymentMethod() {

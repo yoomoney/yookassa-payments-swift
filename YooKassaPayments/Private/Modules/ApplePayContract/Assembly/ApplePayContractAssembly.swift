@@ -17,7 +17,8 @@ enum ApplePayContractAssembly {
             merchantIdentifier: inputData.merchantIdentifier,
             savePaymentMethodViewModel: inputData.savePaymentMethodViewModel,
             initialSavePaymentMethod: inputData.initialSavePaymentMethod,
-            isBackBarButtonHidden: inputData.isBackBarButtonHidden
+            isBackBarButtonHidden: inputData.isBackBarButtonHidden,
+            isSafeDeal: inputData.isSafeDeal
         )
 
         let analyticsService = AnalyticsServiceAssembly.makeService(
@@ -37,7 +38,8 @@ enum ApplePayContractAssembly {
             analyticsService: analyticsService,
             analyticsProvider: analyticsProvider,
             threatMetrixService: threatMetrixService,
-            clientApplicationKey: inputData.clientApplicationKey
+            clientApplicationKey: inputData.clientApplicationKey,
+            customerId: inputData.customerId
         )
 
         let router = ApplePayContractRouter()

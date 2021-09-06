@@ -75,6 +75,12 @@ extension UIColor {
 
     static let black30 = UIColor(white: 0, alpha: 0.3)
     static let nobel = UIColor(white: 179 / 255, alpha: 1)
+    static var ghost: UIColor {
+        if #available(iOS 13, *) {
+            return .quaternaryLabel
+        }
+        return UIColor(white: 235 / 255, alpha: 1)
+    }
 
     static let blueRibbon50 = UIColor(red: 0 / 255, green: 112 / 255, blue: 240 / 255, alpha: 0.5)
     static let jordyBlue = UIColor(red: 135 / 255, green: 184 / 255, blue: 245 / 255, alpha: 1)
@@ -103,6 +109,12 @@ extension UIColor {
         saturation *= 0.5
         brightness *= 0.9
         return UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: alpha)
+    }
+
+    static func ghostTint(from color: UIColor) -> UIColor {
+        var colors: (CGFloat, CGFloat, CGFloat, CGFloat) = (0.0, 0.0, 0.0, 0.0)
+        color.getRed(&colors.0, green: &colors.1, blue: &colors.2, alpha: &colors.3)
+        return UIColor(red: colors.0, green: colors.1, blue: colors.2, alpha: 0.15)
     }
 
     // MARK: - Adaptive colors

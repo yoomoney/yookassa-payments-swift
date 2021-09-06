@@ -87,7 +87,7 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .vertical
-        $0.spacing = Space.double
+        $0.spacing = Space.single
         return $0
     }(UIStackView())
 
@@ -106,15 +106,37 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         return $0
     }(Button(type: .custom))
 
-    private lazy var termsOfServiceLinkedTextView: LinkedTextView = {
-        $0.tintColor = CustomizationStorage.shared.mainScheme
-        $0.setStyles(
-            UIView.Styles.grayBackground,
-            UITextView.Styles.linked
-        )
-        $0.delegate = self
-        return $0
-    }(LinkedTextView())
+    private lazy var submitButtonContainer: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        submitButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(submitButton)
+        let defaultHeight = submitButton.heightAnchor.constraint(equalToConstant: Space.triple * 2)
+        defaultHeight.priority = .defaultLow + 1
+        NSLayoutConstraint.activate([
+            submitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            submitButton.topAnchor.constraint(equalTo: view.topAnchor),
+            view.trailingAnchor.constraint(equalTo: submitButton.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: submitButton.bottomAnchor, constant: Space.single),
+            defaultHeight,
+        ])
+
+        return view
+    }()
+
+    private let termsOfServiceLinkedTextView: LinkedTextView = {
+        let view = LinkedTextView()
+        view.tintColor = CustomizationStorage.shared.mainScheme
+        view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
+        return view
+    }()
+
+    private let safeDealLinkedTextView: LinkedTextView = {
+        let view = LinkedTextView()
+        view.tintColor = CustomizationStorage.shared.mainScheme
+        view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
+        return view
+    }()
 
     private var activityIndicatorView: UIView?
 
@@ -234,6 +256,9 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         view.addGestureRecognizer(viewTapGestureRecognizer)
         navigationItem.title = Localized.title
 
+        termsOfServiceLinkedTextView.delegate = self
+        safeDealLinkedTextView.delegate = self
+        safeDealLinkedTextView.isHidden = true
         setupView()
         setupConstraints()
     }
@@ -272,8 +297,9 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         ].forEach(errorCscView.addSubview)
 
         [
-            submitButton,
+            submitButtonContainer,
             termsOfServiceLinkedTextView,
+            safeDealLinkedTextView,
         ].forEach(actionButtonStackView.addArrangedSubview)
     }
 
@@ -412,9 +438,7 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
         view.endEditing(force)
     }
 
-    func setupViewModel(
-        _ viewModel: BankCardRepeatViewModel
-    ) {
+    func setupViewModel(_ viewModel: BankCardRepeatViewModel) {
         orderView.title = viewModel.shopName
         orderView.subtitle = viewModel.description
         orderView.value = makePrice(viewModel.price)
@@ -432,7 +456,10 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
             font: UIFont.dynamicCaption2,
             foregroundColor: UIColor.AdaptiveColors.secondary
         )
+        safeDealLinkedTextView.attributedText = viewModel.safeDealText
+        safeDealLinkedTextView.isHidden = viewModel.safeDealText?.string.isEmpty ?? true
         termsOfServiceLinkedTextView.textAlignment = .center
+        safeDealLinkedTextView.textAlignment = .center
     }
 
     func setConfirmButtonEnabled(
@@ -639,6 +666,8 @@ extension BankCardRepeatViewController: UITextViewDelegate {
         switch textView {
         case termsOfServiceLinkedTextView:
             output?.didTapTermsOfService(URL)
+        case safeDealLinkedTextView:
+            output?.didTapSafeDealInfo(URL)
         default:
             assertionFailure("Unsupported textView")
         }

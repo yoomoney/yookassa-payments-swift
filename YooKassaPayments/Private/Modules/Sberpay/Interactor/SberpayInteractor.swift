@@ -15,6 +15,7 @@ final class SberpayInteractor {
     private let clientApplicationKey: String
     private let amount: MonetaryAmount
     private let returnUrl: String
+    private let customerId: String?
 
     init(
         paymentService: PaymentService,
@@ -23,7 +24,8 @@ final class SberpayInteractor {
         threatMetrixService: ThreatMetrixService,
         clientApplicationKey: String,
         amount: MonetaryAmount,
-        returnUrl: String
+        returnUrl: String,
+        customerId: String?
     ) {
         self.paymentService = paymentService
         self.analyticsProvider = analyticsProvider
@@ -32,6 +34,7 @@ final class SberpayInteractor {
         self.clientApplicationKey = clientApplicationKey
         self.amount = amount
         self.returnUrl = returnUrl
+        self.customerId = customerId
     }
 }
 
@@ -54,7 +57,8 @@ extension SberpayInteractor: SberpayInteractorInput {
                     confirmation: confirmation,
                     savePaymentMethod: false,
                     amount: self.amount,
-                    tmxSessionId: tmxSessionId.value
+                    tmxSessionId: tmxSessionId.value,
+                    customerId: self.customerId
                 ) { result in
                     switch result {
                     case .success(let data):

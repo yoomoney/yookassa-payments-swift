@@ -15,6 +15,7 @@ final class LinkedCardInteractor {
     private let threatMetrixService: ThreatMetrixService
 
     private let clientApplicationKey: String
+    private let customerId: String?
 
     // MARK: - Init
 
@@ -24,7 +25,8 @@ final class LinkedCardInteractor {
         analyticsProvider: AnalyticsProvider,
         paymentService: PaymentService,
         threatMetrixService: ThreatMetrixService,
-        clientApplicationKey: String
+        clientApplicationKey: String,
+        customerId: String?
     ) {
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
@@ -33,6 +35,7 @@ final class LinkedCardInteractor {
         self.threatMetrixService = threatMetrixService
 
         self.clientApplicationKey = clientApplicationKey
+        self.customerId = customerId
     }
 }
 
@@ -156,6 +159,7 @@ extension LinkedCardInteractor: LinkedCardInteractorInput {
             paymentMethodType: paymentMethodType,
             amount: amount,
             tmxSessionId: tmxSessionId,
+            customerId: customerId,
             completion: completion
         )
     }

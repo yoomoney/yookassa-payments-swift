@@ -3,25 +3,16 @@ import YooKassaPaymentsApi
 
 protocol PaymentMethodViewModelFactory {
 
-    // MARK: - Replace bullets
-
-    func replaceBullets(_ pan: String) -> String
-
     // MARK: - Transform ViewModel from PaymentOption
 
-    func makePaymentMethodViewModel(
-        paymentOption: PaymentOption,
+    func makePaymentMethodViewModels(
+        _ paymentOptions: [PaymentOption],
         walletDisplayName: String?
-    ) -> PaymentMethodViewModel
+    ) -> (models: [PaymentMethodViewModel], indexMap: ([Int: Int]))
 
     func makePaymentMethodViewModel(
-        paymentOption: PaymentOption
-    ) -> PaymentMethodViewModel
-
-    // MARK: - Making ViewModel from PaymentMethodType
-
-    func makePaymentMethodViewModel(
-        _ paymentMethodType: YooKassaPaymentsApi.PaymentMethodType
+        paymentOption: PaymentInstrumentYooMoneyWallet,
+        walletDisplayName: String?
     ) -> PaymentMethodViewModel
 
     // MARK: - Make Image
@@ -31,10 +22,13 @@ protocol PaymentMethodViewModelFactory {
     ) -> UIImage
 
     func makeBankCardImage(
-        _ paymentMethodBankCard: PaymentMethodBankCard
+        first6Digits: String?,
+        bankCardType: BankCardType
     ) -> UIImage
 
-    func makePaymentMethodTypeImage(
-        _ paymentMethodType: YooKassaPaymentsApi.PaymentMethodType
-    ) -> UIImage
+    // MARK: - Replace bullets
+
+    func replaceBullets(_ pan: String) -> String
+
+    func makeMaskedPan(_ cardMask: String) -> String
 }

@@ -531,6 +531,7 @@ let moduleData = TokenizationModuleInputData(
 | customizationSettings      | CustomizationSettings | The blueRibbon color is used by default. Color of the main elements, button, switches, and input fields. |
 | moneyAuthClientId          | String                | By default: `nil`. ID for the center of authorizationin the YooMoney system |
 | applicationScheme          | String                | By default: `nil`. Scheme for returning to the app after a successful payment via `Sberpay` in the Sberbank Online app or after a successful sign-in to `YooMoney` via the mobile app. |
+| customerId                      | String                 | By default: `nil`. Unique customer id for your system, ex: email or phone number. 200 symbols max. Used by library to save user payment method and display saved methods. It is your responsibility to make sure that a particular customerId identifies the user, which is willing to make a purchase. For example use two-factor authentication. Using wrong id will let the user to use payment methods that don't belong to this user.|
 ### BankCardRepeatModuleInputData
 
 >Required parameters:

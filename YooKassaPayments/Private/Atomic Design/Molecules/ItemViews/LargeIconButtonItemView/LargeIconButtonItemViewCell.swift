@@ -40,6 +40,10 @@ final class LargeIconButtonItemViewCell: UITableViewCell {
         }
     }
 
+    var rightButton: UIButton {
+        return itemView.rightButton
+    }
+
     var rightButtonPressHandler: (() -> Void)?
 
     // MARK: - Creating a View Object

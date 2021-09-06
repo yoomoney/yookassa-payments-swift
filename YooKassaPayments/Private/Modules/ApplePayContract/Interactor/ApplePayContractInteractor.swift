@@ -14,6 +14,7 @@ final class ApplePayContractInteractor {
     private let threatMetrixService: ThreatMetrixService
 
     private let clientApplicationKey: String
+    private let customerId: String?
 
     // MARK: - Init
 
@@ -22,7 +23,8 @@ final class ApplePayContractInteractor {
         analyticsService: AnalyticsService,
         analyticsProvider: AnalyticsProvider,
         threatMetrixService: ThreatMetrixService,
-        clientApplicationKey: String
+        clientApplicationKey: String,
+        customerId: String?
     ) {
         self.paymentService = paymentService
         self.analyticsService = analyticsService
@@ -30,6 +32,7 @@ final class ApplePayContractInteractor {
         self.threatMetrixService = threatMetrixService
 
         self.clientApplicationKey = clientApplicationKey
+        self.customerId = customerId
     }
 }
 
@@ -94,6 +97,7 @@ extension ApplePayContractInteractor: ApplePayContractInteractorInput {
             savePaymentMethod: savePaymentMethod,
             amount: amount,
             tmxSessionId: tmxSessionId,
+            customerId: customerId,
             completion: completion
         )
     }

@@ -1,5 +1,5 @@
 ﻿/* Текст на контракте Apple Pay `Разрешить списывать деньги` https://yadi.sk/i/FWhOeo-T3eCQzg */
-"ApplePayContract.SavePaymentMethod.Title" = "Разрешить списывать деньги";
+"ApplePayContract.SavePaymentMethod.Title" = "Разрешить автосписания";
 
 /* `Комиссия` на экране Apple Pay https://yadi.sk/d/Vu310EJgWtvrAQ */
 "ApplePayContract.fee" = "Комиссия";
@@ -11,10 +11,10 @@
 "ApplePayContract.title" = "Apple Pay";
 
 /* По неизвестным нам причинам экран ApplePay не отобразился */
-"ApplePayUnavailable.title" = "Apple Pay недоступен";
+"ApplePayUnavailable.title" = "Apple Pay недоступен, попробуйте ещё раз";
 
 /* Текст `Привязать карту` на экране `Банковская карта` https://yadi.sk/i/Z2oi1Uun7nS-jA */
-"BankCard.savePaymentMethod.title" = "Привязать карту";
+"BankCard.savePaymentMethod.title" = "Разрешить автосписания";
 
 /* Title `Банковская карта` на экране `Банковская карта` https://yadi.sk/i/Z2oi1Uun7nS-jA */
 "BankCardDataInput.navigationBarTitle" = "Банковская карта";
@@ -29,10 +29,10 @@
 "BankCardDataInputView.BottomHint.invalidPan" = "Проверьте номер карты";
 
 /* Текст `Привязать карту` на экране `Сохраненная карта` https://yadi.sk/d/Cyocbh86zUr3cA */
-"BankCardRepeat.savePaymentMethod.title" = "Привязать карту";
+"BankCardRepeat.savePaymentMethod.title" = "Разрешить автосписания";
 
 /* Title `Сохраненная карта` на экране `Сохраненная карта` https://yadi.sk/d/Cyocbh86zUr3cA */
-"BankCardRepeat.title" = "Сохраненная карта";
+"BankCardRepeat.title" = "Банковская карта";
 
 /* Текст `Код` при вводе данных банковской карты https://yadi.sk/i/qhizzdr8cAATsw */
 "BankCardView.inputCvcHint" = "Код";
@@ -55,17 +55,14 @@
 /* Текст `Введите` при вводе данных банковской карты в случае если сканирование не доступно https://yadi.sk/i/fbrtpMi0d-k4xw */
 "BankCardView.inputPanPlaceholderWithoutScan" = "Введите";
 
-/* Отменить */
-"Cancel" = "Отменить";
-
 /* Текст `Что то пошло не так` https://yadi.sk/i/JapUT2mTEVnTtw */
-"Common.Error.unknown" = "Что то пошло не так";
+"Common.Error.unknown" = "Не получилось. Попробуйте ещё раз";
 
 /* Текст кнопки на Placeholder `Повторить` */
 "Common.PlaceholderView.buttonTitle" = "Повторить";
 
 /* Текст на Placeholder `Попробуйте повторить чуть позже.` */
-"Common.PlaceholderView.text" = "Попробуйте повторить чуть позже.";
+"Common.PlaceholderView.text" = "Попробуйте повторить чуть позже";
 
 /* Текст `Отменить` на Alert https://yadi.sk/i/68ImXb9rz31RkQ */
 "Common.button.cancel" = "Отменить";
@@ -74,13 +71,13 @@
 "Common.button.ok" = "ОК";
 
 /* Текст `Для смс от Сбербанка с кодом для оплаты` https://yadi.sk/i/T-XQGU9NaPMgKA */
-"Contract.Sberbank.PhoneInput.BottomHint" = "Для смс от Сбербанка с кодом для оплаты";
+"Contract.Sberbank.PhoneInput.BottomHint" = "Для подтверждения оплаты в СберБанк Онлайн";
 
 /* Текст `+ 7 987 654 32 10` https://yadi.sk/i/T-XQGU9NaPMgKA */
-"Contract.Sberbank.PhoneInput.Placeholder" = "+ 7 987 654 32 10";
+"Contract.Sberbank.PhoneInput.Placeholder" = "+ 7 900 000 00 00";
 
 /* Текст `Номер в Сбербанк Онлайн` https://yadi.sk/i/T-XQGU9NaPMgKA */
-"Contract.Sberbank.PhoneInput.Title" = "Номер в Сбербанк Онлайн";
+"Contract.Sberbank.PhoneInput.Title" = "Ваш телефон в СберБанк Онлайн";
 
 /* Текст на контракте `Включая комиссию` https://yadi.sk/i/Ri9RjHDtilycWw */
 "Contract.fee" = "Включая комиссию";
@@ -102,44 +99,47 @@
 "Contract.resendSms" = "Отправить снова";
 
 /* В процессе токенизации ApplePay произошла ошибка https://yadi.sk/i/G9zC-PLLpmuQVw */
-"Error.ApplePayStrategy.failTokenizeData" = "В процессе токенизации ApplePay произошла ошибка";
+"Error.ApplePayStrategy.failTokenizeData" = "Не получилось. Попробуйте ещё раз";
 
 /* Ошибка `Нет доступных способов оплаты` на экране выбора способа оплаты */
-"Error.emptyPaymentOptions" = "Нет доступных способов оплаты";
+"Error.emptyPaymentOptions" = "Способы оплаты не загрузились";
 
 /* Пользователь потратил все попытки ввода. Создаем новую сессию на авторизацию */
-"Error.endedAttemptsToEnterStartOver" = "Слишком много попыток. Попробуйте позже";
+"Error.endedAttemptsToEnterStartOver" = "Попытки закончились, нужно получить новый код";
 
 /* Ошибка `Проблема с интернетом` */
-"Error.internet" = "Проблема с интернетом. Попробуйте еще раз, когда будете онлайн";
+"Error.internet" = "Похоже, проблема с интернетом. Проверьте и попробуйте ещё раз";
 
 /* После авторизации в кошельке при запросе доступных методов кошелёк отсутствует */
-"Error.noWalletTitle" = "Оплата кошельком недоступна";
+"Error.noWalletTitle" = "Оплата кошельком ЮMoney недоступна";
 
 /* Пользователь ввел верный код, но возникла ошибка. Создаем новую сессию на авторизацию */
-"Error.resendAuthCodeAndStartOver" = "Не получилось, попробуйте заново";
+"Error.resendAuthCodeAndStartOver" = "Не получилось. Попробуйте начать сначала";
+
+/* Текст ошибки при отвязке карты */
+"Error.unbindCardFailed" = "Не получилось удалить карту. Попробуйте ещё раз";
 
 /* Title `Привязанная карта` на экране `Привязанная карта` https://yadi.sk/d/yLgHHmqAsklYng */
-"LinkedCard.title" = "Привязанная карта";
+"LinkedCard.title" = "Карта ЮMoney";
 
 /* Текст в Alert при выходе из аккаунта ЮMoney https://yadi.sk/i/68ImXb9rz31RkQ */
 "LogoutConfirmation.format.title" = "Уверены, что хотите выйти из аккаунта '%@'?";
 
-"PaymentAuthorization.description.witPhone" = "Отправили проверочный код на %@";
+"PaymentAuthorization.description.witPhone" = "Отправили код на %@";
 
 "PaymentAuthorization.description.withoutPhone" = "Отправили проверочный код";
 
-"PaymentAuthorization.invalidAnswer" = "Это не тот код. Проверьте и введите ещё раз";
+"PaymentAuthorization.invalidAnswer" = "Это не тот код. Проверьте и попробуйте ещё раз";
 
-"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Это не тот код. Осталось попыток: %d";
+"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Снова не тот код. Осталось попыток: %d";
 
 "PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM в HH:mm";
 
 "PaymentAuthorization.remainingTime" = "Получить новый код через %@";
 
-"PaymentAuthorization.verifyAttemptsExceeded" = "Попытки закончились";
+"PaymentAuthorization.verifyAttemptsExceeded" = "Попытки закончились, нужно получить новый код";
 
-"PaymentAuthorization.verifyAttemptsExceeded.nextSession" = "Попытки закончились. Попробовать можно %@";
+"PaymentAuthorization.verifyAttemptsExceeded.nextSession" = "Попытки закончились. Попробуйте снова через %@";
 
 /* Способ оплаты - `Apple Pay` https://yadi.sk/i/smhhxBAxkP8Ebw */
 "PaymentMethod.applePay" = "Apple Pay";
@@ -148,7 +148,19 @@
 "PaymentMethod.bankCard" = "Банковская карта";
 
 /* Способ оплаты - `Привязанная карта` https://disk.yandex.ru/d/sFpmR3gLEc287Q */
-"PaymentMethod.linkedCard" = "Привязанная карта";
+"PaymentMethod.linkedCard" = "Банковская карта";
+
+/* Подробности о безопасной сделке https://disk.yandex.ru/i/zOrGowAKK4uz3A */
+"PaymentMethod.safeDealInfo.body" = "Такое может быть, если вы платите на интернет-площадке, которая позволяет покупать одновременно у нескольких продавцов (например, на маркетплейсе).\n\nУточнить список получателей платежа можно на площадке, на которой вы совершаете платёж.";
+
+/* текст-ссылка https://disk.yandex.ru/i/UOEMl4Ig3Z_4UA */
+"PaymentMethod.safeDealInfo.link.begining" = "У платежа может быть ";
+
+/* текст-ссылка интерактивная часть https://disk.yandex.ru/i/UOEMl4Ig3Z_4UA */
+"PaymentMethod.safeDealInfo.link.highlighted" = "несколько получателей";
+
+/* Тайтл информации о безопасной сделке https://disk.yandex.ru/i/zOrGowAKK4uz3A */
+"PaymentMethod.safeDealInfo.title" = "Почему у платежа несколько получателей";
 
 /* Способ оплаты - `SberPay` https://yadi.sk/i/smhhxBAxkP8Ebw */
 "PaymentMethod.sberpay" = "SberPay";
@@ -157,46 +169,121 @@
 "PaymentMethod.wallet" = "ЮMoney";
 
 /* Способ оплаты - `Карта Юмани` https://disk.yandex.ru/d/sFpmR3gLEc287Q */
-"PaymentMethod.yooMoneyCard" = "Карта Юмани";
+"PaymentMethod.yooMoneyCard" = "Карта ЮMoney";
+
+/* Текст кнопки отвязать https://disk.yandex.ru/i/f9rYGyNbx2HJ0Q */
+"PaymentMethods.alert.cancel" = "Отмена";
+
+/* Текст кнопки отвязать https://disk.yandex.ru/i/f9rYGyNbx2HJ0Q */
+"PaymentMethods.alert.unbindCard" = "Удалить";
 
 /* Title `Способ оплаты` на экране выбора способа оплаты https://yadi.sk/i/0dSpSggROTC0Jw */
 "PaymentMethods.paymentMethods" = "Способ оплаты";
 
+/* Текст кнопки отвязать <screenshot> */
+"PaymentMethods.unbindCard" = "Удалить";
+
+/* Текст информера о опциональном подключении автосписания при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.header.autopayments.optional" = "Разрешить автосписания";
+
+/* Текст информера о неопциональном подключении автосписания при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.header.autopayments.required" = "Разрешим автосписания";
+
+/* Текст информера о опциональном сохранении платёжных данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.header.saveData.optional" = "Сохранить платёжные данные";
+
+/* Текст информера о неопциональном сохранении платёжных данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.header.saveData.required" = "Сохраним платёжные данные";
+
+/* Текст информера о опциональном подключении автосписания и сохранении данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.header.saveDataAndAutopayments.optional" = "Разрешить автосписания и сохранить платёжные данные";
+
+/* Текст информера о неопциональном подключении автосписания и сохранении данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.header.saveDataAndAutopayments.required" = "Разрешим автосписания и сохраним платёжные данные";
+
+/* Текст информации о сохранении данных карты https://disk.yandex.ru/i/yLD0tpyvO3zvLg */
+"RecurrencyAndSavePaymentData.info.saveData.message" = "Если вы это разрешили, мы сохраним для этого магазина и его партнёров данные вашей банковской карты — номер, имя владельца и срок действия (всё, кроме кода CVC). В следующий раз не нужно будет вводить их, чтобы заплатить в этом магазине.\n\nУдалить данные карты можно в процессе оплаты (нажмите на три точки напротив карты и выберите «Удалить карту») или через службу поддержки.";
+
+/* Заголовок информации о сохранении данных карты https://disk.yandex.ru/i/yLD0tpyvO3zvLg */
+"RecurrencyAndSavePaymentData.info.saveData.title" = "Сохранение платёжных данных";
+
+/* Текст информации о сохранении данных карты и автосписаниях https://disk.yandex.ru/i/yLD0tpyvO3zvLg */
+"RecurrencyAndSavePaymentData.info.saveDataAndAutopayments.message" = "Если вы это разрешили, мы сохраним для этого магазина и его партнёров данные вашей банковской карты — номер, имя владельца, срок действия (всё, кроме кода CVC). В следующий раз не нужно будет их вводить, чтобы заплатить в этом магазине.\n\nКроме того, мы привяжем карту (в том числе использованную через Apple Pay)  к магазину. После этого магазин сможет присылать запросы на автоматические списания денег — тогда платёж выполняется без дополнительного подтверждения с вашей стороны.\n\nАвтосписания продолжатся даже при перевыпуске карты, если ваш банк умеет автоматически обновлять данные. Отменить их и отвязать карту можно в любой момент — через службу поддержки магазина.";
+
+/* Заголовок информации о сохранении данных карты и автосписаниях https://disk.yandex.ru/i/yLD0tpyvO3zvLg */
+"RecurrencyAndSavePaymentData.info.saveDataAndAutopayments.title" = "Автосписания и сохранение платёжных данных";
+
+/* Текст со ссылкой информации об опциональном подключении автоплатежа при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.autopayments.optional" = "После оплаты запомним эту карту: магазин сможет списывать деньги без вашего участия";
+
+/* Текст со ссылкой информации об опциональном подключении автоплатежа при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.autopayments.required" = "Заплатив здесь, вы разрешаете запомнить карту и списывать деньги без вашего участия";
+
+/* Текст со ссылкой информации об опциональном подключении автоплатежа и сохранения данных карты при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.autopaymentsAndSaveData.optional" = "После оплаты магазин сохранит данные карты и сможет списывать деньги без вашего участия";
+
+/* Текст со ссылкой информации об опциональном подключении автоплатежа и сохранения данных карты при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.autopaymentsAndSaveData.required" = "Заплатив здесь, вы соглашаетесь сохранить данные карты и списывать деньги без вашего участия";
+
+/* Интерактивная часть текста со ссылкой информации об опциональном подключении автоплатежа при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.interactive.autopayments.optional" = "списывать деньги без вашего участия";
+
+/* Интерактивная часть текста со ссылкой информации об опциональном подключении автоплатежа при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.interactive.autopayments.required" = "списывать деньги без вашего участия";
+
+/* Интерактивная часть текста со ссылкой информации об опциональном подключении автоплатежа и сохранения данных карты при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.interactive.autopaymentsAndSaveData.optional" = "сохранит данные карты и сможет списывать деньги без вашего участия";
+
+/* Интерактивная часть текста со ссылкой информации об опциональном подключении автоплатежа и сохранения данных карты при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.interactive.autopaymentsAndSaveData.required" = "сохранить данные карты и списывать деньги без вашего участия";
+
+/* Интерактивная часть текста со ссылкой информации об опциональном сохранении платёжных данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.interactive.saveData.optional" = "сохранит данные вашей карты";
+
+/* Интерактивная часть текста со ссылкой информации об опциональном сохранении платёжных данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.interactive.saveData.required" = "сохранит данные вашей карты";
+
+/* Текст со ссылкой информации об опциональном сохранении платёжных данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.saveData.optional" = "Магазин сохранит данные вашей карты — в следующий раз можно будет их не вводить";
+
+/* Текст со ссылкой информации об опциональном сохранении платёжных данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.saveData.required" = "Магазин сохранит данные вашей карты — в следующий раз можно будет их не вводить";
+
 /* Текст `После оплаты привяжем карту, чтобы` https://yadi.sk/i/_PWhW8MwuxCopQ */
-"SavePaymentMethod.BankCard.Force.Text" = "После оплаты привяжем карту, чтобы";
+"SavePaymentMethod.BankCard.Force.Text" = "Заплатив здесь, вы разрешаете запомнить карту  и";
 
 /* Текст `списывать деньги по запросу магазина` https://yadi.sk/i/_PWhW8MwuxCopQ */
-"SavePaymentMethod.BankCard.Force.hyperText" = "списывать деньги по запросу магазина";
+"SavePaymentMethod.BankCard.Force.hyperText" = "списывать деньги без вашего участия";
 
 /* Текст `Привязать карту и` https://yadi.sk/i/Z2oi1Uun7nS-jA */
-"SavePaymentMethod.BankCard.UserPriority.Text" = "Привязать карту и";
+"SavePaymentMethod.BankCard.UserPriority.Text" = "После оплаты запомним эту карту: магазин сможет";
 
 /* Текст `списывать деньги по запросу магазина` https://yadi.sk/i/Z2oi1Uun7nS-jA */
-"SavePaymentMethod.BankCard.UserPriority.hyperText" = "списывать деньги по запросу магазина";
+"SavePaymentMethod.BankCard.UserPriority.hyperText" = "списывать деньги без вашего участия";
 
 /* Текст `После оплаты привяжем кошелёк: магазин сможет` https://yadi.sk/i/rFEZPSdXTgV1bw */
-"SavePaymentMethod.Wallet.Force.Text" = "После оплаты привяжем кошелёк: магазин сможет";
+"SavePaymentMethod.Wallet.Force.Text" = "Заплатив здесь, вы разрешаете запомнить этот кошелёк и";
 
 /* Текст `списывать деньги без вашего участия` https://yadi.sk/i/rFEZPSdXTgV1bw */
 "SavePaymentMethod.Wallet.Force.hyperText" = "списывать деньги без вашего участия";
 
 /* Текст `Разрешить магазину` https://yadi.sk/i/o89CnEUSmNsM7g */
-"SavePaymentMethod.Wallet.UserPriority.Text" = "Разрешить магазину";
+"SavePaymentMethod.Wallet.UserPriority.Text" = "Магазин сможет";
 
 /* Текст `списывать деньги без моего участия` https://yadi.sk/i/o89CnEUSmNsM7g */
-"SavePaymentMethod.Wallet.UserPriority.hyperText" = "списывать деньги без моего участия";
+"SavePaymentMethod.Wallet.UserPriority.hyperText" = "списывать деньги без вашего участия";
 
 /* Текст на экране разрешения списывать деньги магазином с банковской карты https://yadi.sk/i/QOSvfo9hsOPs9Q */
-"SavePaymentMethodInfo.BankCard.Body" = "Это значит, что вы разрешаете ЮMoney списывать деньги по запросу магазина без отдельного подтверждения — с этой карты или с новой, при перевыпуске (если ваш банк умеет автоматически обновлять данные).\n\nОтменить привязку можно в любой момент — через службу поддержки магазина.";
+"SavePaymentMethodInfo.BankCard.Body" = "Если вы согласитесь на автосписания,  мы привяжем банковскую карту (в том числе использованную через Apple Pay)  к магазину. После этого магазин сможет присылать запросы на автоматические списания денег — тогда платёж выполняется без дополнительного подтверждения с вашей стороны. \n\nАвтосписания продолжатся даже при перевыпуске карты, если ваш банк умеет автоматически обновлять данные. Отключить их и отвязать карту можно в любой момент — через службу поддержки магазина.";
 
 /* Заголовок на экране разрешения списывать деньги магазином с банковской карты https://yadi.sk/i/QOSvfo9hsOPs9Q */
-"SavePaymentMethodInfo.BankCard.Header" = "Разрешение списывать деньги по запросу магазина";
+"SavePaymentMethodInfo.BankCard.Header" = "Как работают автоматические списания";
 
 /* Текст кнопки `Понятно` https://yadi.sk/i/4MbCtrW4qrtDcQ */
 "SavePaymentMethodInfo.Button.GotIt" = "Понятно";
 
 /* Текст на экране разрешения списывать деньги магазином с кошелька https://yadi.sk/i/4MbCtrW4qrtDcQ */
-"SavePaymentMethodInfo.Wallet.Body" = "Это значит, что вы разрешаете ЮMoney списывать деньги с кошелька по запросу магазина — без дополнительного подтверждения с вашей стороны. Отменить такие списания можно в любой момент — в настройках кошелька (на сайте ЮMoney).";
+"SavePaymentMethodInfo.Wallet.Body" = "Это значит, что вы разрешаете ЮMoney списывать деньги с кошелька по запросу магазина, без дополнительного подтверждения с вашей стороны. Отключить такие списания можно в любой момент — в настройках кошелька  (на сайте ЮMoney).";
 
 /* Заголовок на экране разрешения списывать деньги магазином с кошелька https://yadi.sk/i/4MbCtrW4qrtDcQ */
 "SavePaymentMethodInfo.Wallet.Header" = "Разрешение списывать деньги без вашего участия";
@@ -214,16 +301,16 @@
 "TermsOfService.Text" = "Нажимая кнопку, вы принимаете";
 
 /* Текст условий сервиса с ссылкой на экране установки пароля для пользователя без установленной почты https://yadi.sk/i/DgL-5V4hQL15WQ */
-"Wallet.Authorization.addEmailTitle" = "Для чеков и уведомлений";
+"Wallet.Authorization.addEmailTitle" = "Укажите почту";
 
 /* Текст условий сервиса с ссылкой на экране установки пароля для пользователя c установленной почтой https://yadi.sk/i/DgL-5V4hQL15WQ */
-"Wallet.Authorization.emailCheckboxTitle" = "Хочу получать новости сервиса, скидки, опросы: максимум раз в неделю";
+"Wallet.Authorization.emailCheckboxTitle" = "Для чеков и уведомлений";
 
 /* Текст свитча согласия на рассылку на экране ввода почты https://yadi.sk/i/8BSuo7q_6CJzbg */
-"Wallet.Authorization.hardMigrationScreenButtonSubtitle" = "На лимиты, комиссии и остальные условия использования кошелька это никак не влияет: <a href=\"https://new.yoomoney.ru/\">вот подробности </a>";
+"Wallet.Authorization.hardMigrationScreenButtonSubtitle" = "Хочу получать рекламные предложения на почту";
 
 /* Текст под полем ввода почты на экране ввода почты https://yadi.sk/i/8BSuo7q_6CJzbg */
-"Wallet.Authorization.hardMigrationScreenSubtitle" = "Раньше вы заходили в кошелёк с логином и паролем Яндекса, теперь нужен профиль ЮMoney.\nСейчас поможем его получить:\n\n— вы зайдёте с логином и паролем Яндекса,\n— разрешите ЮMoney доступ к имени и почте,\n— придумаете новый пароль.\n\nУ вас появится профиль ЮMoney с прежним кошельком внутри.\nДля входа — почта и пароль, для подтверждений — смс-коды.";
+"Wallet.Authorization.hardMigrationScreenSubtitle" = "Для чеков и уведомлений";
 
 /* Заголовок экрана про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
 "Wallet.Authorization.hardMigrationScreenTitle" = "Пора перейти в ЮMoney";
@@ -235,10 +322,10 @@
 "Wallet.Authorization.migrationBannerText" = "Если вы регистрировались до 21 октября — нужно перейти в ЮMoney";
 
 /* Текст на экране про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.migrationScreenButtonSubtitle" = "На лимиты, комиссии и остальные условия использования кошелька это никак не влияет: <a href=\"https://new.yoomoney.ru\">вот подробности</a>";
+"Wallet.Authorization.migrationScreenButtonSubtitle" = "Раньше вы заходили в кошелёк с логином и паролем Яндекса, теперь нужен профиль ЮMoney.\n\nСейчас поможем его получить:\n\n— вы зайдёте с логином и паролем Яндекса,\n— разрешите ЮMoney доступ к имени и почте,\n— придумаете новый пароль.\n\nУ вас появится профиль ЮMoney с прежним кошельком внутри.\nДля входа — почта и пароль, для подтверждений — смс-коды.";
 
 /* Текст с ссылкой под кнопкой на экране про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.migrationScreenSubtitle" = "Потому что теперь кошелёк — в ЮMoney, отдельно от аккаунта в Яндексе.\n\n— Что останется как раньше: номер кошелька, ваши настройки, условия использования.\n\n— Что поменяется: вместо логина (как в Яндексе) у вас будет почта или телефон. Пароль тоже можно обновить.\n\n— Сейчас нужно: войти в аккаунт Яндекса, где есть кошелёк.";
+"Wallet.Authorization.migrationScreenSubtitle" = "На лимиты, комиссии и остальные условия использования кошелька это никак не влияет: <a href=\"https://new.yoomoney.ru\">вот подробности</a>";
 
 /* Заголовок экрана про миграцию, который после нажатия на немигрированный аккаунт на экране выбора аккаунта https://yadi.sk/i/_IMGLswOravIOw */
 "Wallet.Authorization.migrationScreenTitle" = "Зачем куда-то переходить?";
@@ -250,16 +337,16 @@
 "Wallet.Authorization.userWithEmailAgreementTitle" = "Нажимая кнопку, я подтверждаю осведомлённость и согласие <a href=\"https://yoomoney.ru/page?id=525698%5C\">со всеми юридическими условиями</a>";
 
 /* Текст `Привязать кошелек` https://yadi.sk/i/o89CnEUSmNsM7g */
-"Wallet.savePaymentMethod.title" = "Привязать кошелек";
+"Wallet.savePaymentMethod.title" = "Разрешить автосписания";
 
 /* Текст `ЮMoney` https://yadi.sk/i/o89CnEUSmNsM7g */
 "YooMoney.title" = "ЮMoney";
 
 /* Текст, в информере, о сохранении автоплатежа https://disk.yandex.ru/i/QNJyBrfP52vQOw */
-"card.details.autopaymentPersists" = "После отвязки карты останутся автосписания. Отменить их можно через службу поддержки магазина.";
+"card.details.autopaymentPersists" = "После удаления карты останутся автосписания. Отключить их можно через службу поддержки магазина";
 
 /* Текст информации о работе автосписания https://disk.yandex.ru/i/r9l5HObi2jZy6A */
-"card.details.info.autopay.details" = "Если вы согласитесь на автосписания, мы привяжем банковскую карту к магазину. После этого магазин сможет присылать запросы на автоматические списания денег — тогда платёж выполняется без дополнительного подтверждения с вашей стороны.\nАвтосписания продолжатся даже при перевыпуске карты, если ваш банк умеет автоматически обновлять данные. Отменить их и отвязать карту можно в любой момент — через службу поддержки магазина.";
+"card.details.info.autopay.details" = "Если вы согласитесь на автосписания, мы привяжем банковскую карту (в том числе использованную через Apple Pay) к магазину. После этого магазин сможет присылать запросы на автоматические списания денег — тогда платёж выполняется без дополнительного подтверждения с вашей стороны.\n\nАвтосписания продолжатся даже при перевыпуске карты, если ваш банк умеет автоматически обновлять данные. Отключить их и отвязать карту можно в любой момент — через службу поддержки магазина.";
 
 /* Заголовок информации о работе автосписания https://disk.yandex.ru/i/r9l5HObi2jZy6A */
 "card.details.info.autopay.title" = "Как работают автоматические списания";
@@ -268,45 +355,41 @@
 "card.details.info.more" = "Подробнее";
 
 /* Текст информации об отвязке карты https://disk.yandex.ru/i/59heYTl9Q4L2fA */
-"card.details.info.unbind.details" = "
-            Для этого зайдите в настройки кошелька на сайте или в приложении ЮMoney.
-            В приложении: нажмите на свою аватарку, выберите «Банковские карты», смахните нужную карту влево и нажмите «Удалить».
-            На сайте: перейдите в настройки кошелька, откройте вкладку «Привязанные карты», найдите нужную карту и нажмите «Отвязать».
-            ";
+"card.details.info.unbind.details" = "Для этого зайдите в настройки кошелька на сайте или в приложении ЮMoney.\n\nВ приложении: нажмите на свою аватарку, выберите «Банковские карты», смахните нужную карту влево и нажмите «Удалить».\n\nНа сайте: перейдите в настройки кошелька, откройте вкладку «Привязанные карты», найдите нужную карту и нажмите «Отвязать».";
 
 /* Заголовок информации об отвязке карты https://disk.yandex.ru/i/59heYTl9Q4L2fA */
 "card.details.info.unbind.title" = "Как отвязать карту от кошелька";
 
 /* Текст `Отвязать карту` https://disk.yandex.ru/i/QNJyBrfP52vQOw */
-"card.details.unbind" = "Отвязать карту";
+"card.details.unbind" = "Удалить карту";
 
 /* Текст нотификации об ошибке отвязки карты. Параметр - маска карты https://disk.yandex.ru/i/QNJyBrfP52vQOw */
-"card.details.unbind.fail" = "Не удалось отвязать карту %@";
+"card.details.unbind.fail" = "Не получилось удалить карту %@";
 
 /* Текст нотификации об успешной отвязке карты. Параметр - маска карты https://disk.yandex.ru/i/JWC70LuzuJSeEw */
-"card.details.unbind.success" = "Карта %@ отвязана";
+"card.details.unbind.success" = "Карта %@ удалена";
 
 /* Текст, ведущей назад, кнопки https://disk.yandex.ru/i/dcgivhF4QbURwA */
-"card.details.unwind" = "Вернуться";
+"card.details.unwind" = "Назад";
 
 /* Текст, в информере, для карты привязанной к кошельку https://disk.yandex.ru/i/dcgivhF4QbURwA */
 "card.details.yoocardUnbindDetails" = "Отвязать эту карту можно только в настройках кошелька";
 
-"settings.payment_methods.apple_pay" = "settings.payment_methods.apple_pay";
+"settings.payment_methods.apple_pay" = "Apple Pay";
 
-"settings.payment_methods.bank_card" = "settings.payment_methods.bank_card";
+"settings.payment_methods.bank_card" = "Банковская карта";
 
-"settings.payment_methods.sberbank" = "settings.payment_methods.sberbank";
+"settings.payment_methods.sberbank" = "СберБанк Онлайн";
 
-"settings.payment_methods.title" = "settings.payment_methods.title";
+"settings.payment_methods.title" = "Способы оплаты";
 
-"settings.payment_methods.yoo_money" = "settings.payment_methods.yoo_money";
+"settings.payment_methods.yoo_money" = "ЮMoney";
 
-"settings.test_mode.title" = "settings.test_mode.title";
+"settings.test_mode.title" = "Тестовый режим";
 
-"settings.title" = "settings.title";
+"settings.title" = "Настройки";
 
 "settings.ui_customization.bank_card_scan_enabled" = "Сканирование банковской карты";
 
-"settings.ui_customization.yoo_money_logo" = "settings.ui_customization.yoo_money_logo";
+"settings.ui_customization.yoo_money_logo" = "Логотип ЮMoney";
 

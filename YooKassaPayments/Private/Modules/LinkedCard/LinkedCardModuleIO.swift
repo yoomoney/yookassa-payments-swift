@@ -17,6 +17,8 @@ struct LinkedCardModuleInputData {
     let tmxSessionId: String?
     let initialSavePaymentMethod: Bool
     let isBackBarButtonHidden: Bool
+    let customerId: String?
+    let isSafeDeal: Bool
 }
 
 protocol LinkedCardModuleInput: AnyObject {

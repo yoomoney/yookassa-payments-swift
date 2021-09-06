@@ -23,6 +23,9 @@ enum AnalyticsEvent {
     /// Open Bank Card screen with screen recurring
     case screenRecurringCardForm(sdkVersion: String)
 
+    case screenDetailsUnbindWalletCard(sdkVersion: String)
+    case screenUnbindCard(cardType: LinkedCardType)
+
     // MARK: - Actions
 
     /// Create a payment token with the payment method selected.
@@ -52,6 +55,8 @@ enum AnalyticsEvent {
     /// SberPay confirmation
     case actionSberPayConfirmation(sberPayConfirmationStatus: SberPayConfirmationStatus, sdkVersion: String)
 
+    case actionUnbindBankCard(actionUnbindCardStatus: ActionUnbindCardStatus)
+
     // MARK: - Analytic parameters.
 
     /// Current status of user authorization.
@@ -80,6 +85,8 @@ enum AnalyticsEvent {
         case applePay = "apple-pay"
         case recurringCard = "recurring-card"
         case sberpay = "sber-pay"
+        case customerIdLinkedCard = "customer-id-linked-card"
+        case customerIdLinkedCardCvc = "customer-id-linked-card-cvc"
 
         var key: String {
             return Key.tokenizeScheme.rawValue
@@ -119,6 +126,8 @@ enum AnalyticsEvent {
         case moneyAuthLoginScheme
         case moneyAuthLoginStatus
         case sberPayConfirmationStatus
+        case linkedCardType
+        case actionUnbindCardStatus
     }
 
     // MARK: - BankCardForm actions
@@ -184,6 +193,18 @@ enum AnalyticsEvent {
         var key: String {
             return Key.sberPayConfirmationStatus.rawValue
         }
+    }
+
+    enum LinkedCardType: String {
+        case wallet = "Wallet"
+        case bankCard = "BankCard"
+        var key: String { Key.linkedCardType.rawValue }
+    }
+
+    enum ActionUnbindCardStatus: String {
+        case fail = "Fail"
+        case success = "Success"
+        var key: String { Key.actionUnbindCardStatus.rawValue }
     }
 }
 

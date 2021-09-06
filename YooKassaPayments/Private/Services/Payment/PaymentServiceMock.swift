@@ -24,6 +24,31 @@ final class PaymentServiceMock {
 // MARK: - PaymentService
 
 extension PaymentServiceMock: PaymentService {
+    func tokenizeCardInstrument(
+        clientApplicationKey: String,
+        amount: MonetaryAmount,
+        tmxSessionId: String,
+        confirmation: Confirmation,
+        savePaymentMethod: Bool,
+        instrumentId: String,
+        csc: String?,
+        completion: @escaping (Result<Tokens, Error>) -> Void
+    ) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + timeout) {
+            if Bool.random() {
+                completion(.failure(MockError.default))
+            } else {
+                self.makeTokensPromise(completion: completion)
+            }
+        }
+    }
+
+    func unbind(authToken: String, id: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + timeout) {
+            if Bool.random() { completion(.failure(MockError.default)) } else { completion(.success(())) }
+        }
+    }
+
     func fetchPaymentOptions(
         clientApplicationKey: String,
         authorizationToken: String?,
@@ -31,7 +56,8 @@ extension PaymentServiceMock: PaymentService {
         amount: String?,
         currency: String?,
         getSavePaymentMethod: Bool?,
-        completion: @escaping (Result<[PaymentOption], Error>) -> Void
+        customerId: String?,
+        completion: @escaping (Result<Shop, Error>) -> Void
     ) {
         let authorized = keyValueStoring.getString(
             for: KeyValueStoringKeys.moneyCenterAuthToken
@@ -41,12 +67,13 @@ extension PaymentServiceMock: PaymentService {
             handler: paymentMethodHandlerService,
             authorized: authorized
         )
+        let properties = ShopProperties(isSafeDeal: true, isMarketplace: true)
 
         DispatchQueue.global().asyncAfter(deadline: .now() + timeout) {
             if items.isEmpty {
                 completion(.failure(PaymentProcessingError.emptyList))
             } else {
-                completion(.success(items))
+                completion(.success(Shop(options: items, properties: properties)))
             }
         }
     }
@@ -93,6 +120,8 @@ extension PaymentServiceMock: PaymentService {
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
+        savePaymentInstrument: Bool?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     ) {
         makeTokensPromise(completion: completion)
@@ -106,6 +135,7 @@ extension PaymentServiceMock: PaymentService {
         paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     ) {
         makeTokensPromise(completion: completion)
@@ -121,6 +151,7 @@ extension PaymentServiceMock: PaymentService {
         paymentMethodType: PaymentMethodType,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     ) {
         makeTokensPromise(completion: completion)
@@ -133,6 +164,7 @@ extension PaymentServiceMock: PaymentService {
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     ) {
         makeTokensPromise(completion: completion)
@@ -144,6 +176,7 @@ extension PaymentServiceMock: PaymentService {
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     ) {
         makeTokensPromise(completion: completion)
@@ -155,6 +188,7 @@ extension PaymentServiceMock: PaymentService {
         savePaymentMethod: Bool,
         amount: MonetaryAmount?,
         tmxSessionId: String,
+        customerId: String?,
         completion: @escaping (Result<Tokens, Error>) -> Void
     ) {
         makeTokensPromise(completion: completion)
@@ -193,7 +227,7 @@ private let timeout: Double = 1
 
 // MARK: - Data for Error
 
-private struct MockError: Error { }
+private struct MockError: Error { static let `default` = MockError() }
 
 private let mockError = MockError()
 
@@ -218,8 +252,9 @@ private func makePaymentOptions(
     let paymentOptions = makeDefaultPaymentOptions(
         charge,
         fee: fee,
-        authorized: authorized
-    ) + linkedCards.map { $0 }
+        authorized: authorized,
+        yooMoneyLinkedCards: linkedCards
+    )
 
     let filteredPaymentOptions = handler.filterPaymentMethods(paymentOptions)
 
@@ -238,26 +273,32 @@ private func makeLinkedCards(
     charge: Amount,
     fee: Fee?
 ) -> [PaymentInstrumentYooMoneyLinkedBankCard] {
-    return (0..<count).map { _ in makeLinkedCard(charge: charge, fee: fee) }
+    return (0..<count).map { index in
+        makeLinkedCard(
+            charge: charge, fee: fee, named: index % 2 == 0
+        )
+    }
 }
 
 private func makeLinkedCard(
     charge: Amount,
-    fee: Fee?
+    fee: Fee?,
+    named: Bool
 ) -> PaymentInstrumentYooMoneyLinkedBankCard {
+    let cardName = named ? "Зарплатная карта" : nil
     return PaymentInstrumentYooMoneyLinkedBankCard(
         paymentMethodType: .yooMoney,
         confirmationTypes: nil,
         charge: MonetaryAmountFactory.makePaymentsMonetaryAmount(charge),
         instrumentType: .linkedBankCard,
         cardId: "123456789",
-        cardName: nil,
+        cardName: cardName,
         cardMask: makeRandomCardMask(),
         cardType: .masterCard,
         identificationRequirement: .simplified,
         fee: fee?.paymentsModel,
         savePaymentMethod: .allowed,
-        savePaymentInstrument: nil
+        savePaymentInstrument: true
     )
 }
 
@@ -270,47 +311,12 @@ private func makeRandomCardMask() -> String {
 private func makeDefaultPaymentOptions(
     _ charge: Amount,
     fee: Fee?,
-    authorized: Bool
+    authorized: Bool,
+    yooMoneyLinkedCards: [PaymentInstrumentYooMoneyLinkedBankCard]
 ) -> [PaymentOption] {
-    var response: [PaymentOption] = []
     let charge = MonetaryAmountFactory.makePaymentsMonetaryAmount(charge)
 
-    if authorized {
-
-        response += [
-            PaymentInstrumentYooMoneyWallet(
-                paymentMethodType: .yooMoney,
-                confirmationTypes: [],
-                charge: charge,
-                instrumentType: .wallet,
-                accountId: "2736482364872",
-                balance: YooKassaPaymentsApi.MonetaryAmount(
-                    value: 40_000,
-                    currency: charge.currency
-                ),
-                identificationRequirement: .simplified,
-                fee: fee?.paymentsModel,
-                savePaymentMethod: .allowed,
-                savePaymentInstrument: nil
-            ),
-        ]
-
-    } else {
-
-        response += [
-            PaymentOption(
-                paymentMethodType: .yooMoney,
-                confirmationTypes: [],
-                charge: charge,
-                identificationRequirement: nil,
-                fee: fee?.paymentsModel,
-                savePaymentMethod: .allowed,
-                savePaymentInstrument: nil
-            ),
-        ]
-    }
-
-    response += [
+    var response: [PaymentOption] = [
         PaymentOption(
             paymentMethodType: .sberbank,
             confirmationTypes: [],
@@ -318,16 +324,7 @@ private func makeDefaultPaymentOptions(
             identificationRequirement: nil,
             fee: fee?.paymentsModel,
             savePaymentMethod: .forbidden,
-            savePaymentInstrument: nil
-        ),
-        PaymentOption(
-            paymentMethodType: .bankCard,
-            confirmationTypes: [],
-            charge: charge,
-            identificationRequirement: nil,
-            fee: fee?.paymentsModel,
-            savePaymentMethod: .allowed,
-            savePaymentInstrument: nil
+            savePaymentInstrument: true
         ),
         PaymentOption(
             paymentMethodType: .applePay,
@@ -336,9 +333,79 @@ private func makeDefaultPaymentOptions(
             identificationRequirement: nil,
             fee: fee?.paymentsModel,
             savePaymentMethod: .forbidden,
-            savePaymentInstrument: nil
+            savePaymentInstrument: true
+        ),
+        makeYooMoney(
+            authorized: authorized,
+            charge: charge.plain,
+            fee: fee
+        ),
+    ]
+
+    response += yooMoneyLinkedCards
+
+    response += [
+        PaymentOptionBankCard(
+            paymentMethodType: .bankCard,
+            confirmationTypes: [],
+            charge: charge,
+            identificationRequirement: nil,
+            fee: fee?.paymentsModel,
+            savePaymentMethod: .allowed,
+            savePaymentInstrument: true,
+            paymentInstruments: [
+                .init(
+                    paymentInstrumentId: "522188_id",
+                    first6: "522188",
+                    last4: "3352",
+                    cscRequired: true,
+                    cardType: .masterCard
+                ),
+                .init(
+                    paymentInstrumentId: "547805_id",
+                    first6: "547805",
+                    last4: "1405",
+                    cscRequired: false,
+                    cardType: .masterCard
+                ),
+            ]
         ),
     ]
 
     return response
+}
+
+private func makeYooMoney(
+    authorized: Bool,
+    charge: MonetaryAmount,
+    fee: Fee?
+) -> PaymentOption {
+    if authorized {
+        return PaymentInstrumentYooMoneyWallet(
+            paymentMethodType: .yooMoney,
+            confirmationTypes: [],
+            charge: charge.paymentsModel,
+            instrumentType: .wallet,
+            accountId: "2736482364872",
+            balance: YooKassaPaymentsApi.MonetaryAmount(
+                value: 40_000,
+                currency: charge.currency
+            ),
+            identificationRequirement: .simplified,
+            fee: fee?.paymentsModel,
+            savePaymentMethod: .allowed,
+            savePaymentInstrument: true
+        )
+
+    } else {
+        return PaymentOption(
+            paymentMethodType: .yooMoney,
+            confirmationTypes: [],
+            charge: charge.paymentsModel,
+            identificationRequirement: nil,
+            fee: fee?.paymentsModel,
+            savePaymentMethod: .allowed,
+            savePaymentInstrument: true
+        )
+    }
 }

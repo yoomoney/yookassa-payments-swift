@@ -128,7 +128,7 @@ extension UIViewController: NotificationPresenting {
     }
 
     func presentError(with message: String) {
-        let notification = Notification(
+        let notification = ToastAlertNotification(
             title: nil,
             message: message,
             type: .error,
@@ -147,9 +147,8 @@ extension UIViewController: NotificationPresenting {
     }
 }
 
-@available(iOS 9.0, *)
-private extension UIViewController {
-    struct Notification: PresentableNotification {
+extension UIViewController {
+    struct ToastAlertNotification: PresentableNotification {
         private(set) var title: String?
         private(set) var message: String
         private(set) var type: PresentableNotificationType
@@ -162,7 +161,6 @@ private extension UIViewController {
     }
 }
 
-@available(iOS 9.0, *)
 private extension UIViewController {
     enum Constants {
         static let showAnimationDuration: TimeInterval = 0.25

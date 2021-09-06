@@ -52,6 +52,10 @@ public struct TokenizationModuleInputData {
     /// Example: myapplication://
     let applicationScheme: String?
 
+    /// Unique customer identifier by which you exclusively identify the custormer.
+    /// Can be represented by phone, email or any other id which uniquely identifies the customer.
+    let customerId: String?
+
     /// Creates instance of `TokenizationModuleInputData`.
     ///
     /// - Parameters:
@@ -91,7 +95,8 @@ public struct TokenizationModuleInputData {
         customizationSettings: CustomizationSettings = CustomizationSettings(),
         savePaymentMethod: SavePaymentMethod,
         moneyAuthClientId: String? = nil,
-        applicationScheme: String? = nil
+        applicationScheme: String? = nil,
+        customerId: String? = nil
     ) {
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
@@ -109,5 +114,16 @@ public struct TokenizationModuleInputData {
         self.savePaymentMethod = savePaymentMethod
         self.moneyAuthClientId = moneyAuthClientId
         self.applicationScheme = applicationScheme
+        self.customerId = customerId
+    }
+}
+
+extension TokenizationModuleInputData {
+    var boolFromSavePaymentMethod: Bool? {
+        switch savePaymentMethod {
+        case .on: return true
+        case .off: return false
+        case .userSelects: return nil
+        }
     }
 }

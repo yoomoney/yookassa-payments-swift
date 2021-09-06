@@ -8,4 +8,5 @@ struct BankCardRepeatViewModel {
     let cardMask: String
     let cardLogo: UIImage
     let terms: TermsOfService
+    let safeDealText: NSAttributedString?
 }

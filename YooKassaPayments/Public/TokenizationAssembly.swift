@@ -66,12 +66,13 @@ public enum TokenizationAssembly {
             tokenizationSettings: inputData.tokenizationSettings,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled,
-            getSavePaymentMethod: makeGetSavePaymentMethod(inputData.savePaymentMethod),
+            getSavePaymentMethod: inputData.boolFromSavePaymentMethod,
             moneyAuthClientId: inputData.moneyAuthClientId,
             returnUrl: inputData.returnUrl,
             savePaymentMethod: inputData.savePaymentMethod,
             userPhoneNumber: inputData.userPhoneNumber,
-            cardScanning: inputData.cardScanning
+            cardScanning: inputData.cardScanning,
+            customerId: inputData.customerId
         )
 
         let (viewController, moduleInput) = PaymentMethodsAssembly.makeModule(
@@ -104,23 +105,4 @@ public enum TokenizationAssembly {
 
         return viewControllerToReturn
     }
-}
-
-private func makeGetSavePaymentMethod(
-    _ savePaymentMethod: SavePaymentMethod
-) -> Bool? {
-    let getSavePaymentMethod: Bool?
-
-    switch savePaymentMethod {
-    case .on:
-        getSavePaymentMethod = true
-
-    case .off:
-        getSavePaymentMethod = false
-
-    case .userSelects:
-        getSavePaymentMethod = nil
-    }
-
-    return getSavePaymentMethod
 }

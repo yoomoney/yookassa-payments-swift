@@ -26,7 +26,8 @@ enum LinkedCardAssembly {
             returnUrl: inputData.returnUrl,
             tmxSessionId: inputData.tmxSessionId,
             initialSavePaymentMethod: inputData.initialSavePaymentMethod,
-            isBackBarButtonHidden: inputData.isBackBarButtonHidden
+            isBackBarButtonHidden: inputData.isBackBarButtonHidden,
+            isSafeDeal: inputData.isSafeDeal
         )
 
         let authorizationService = AuthorizationServiceAssembly.makeService(
@@ -52,7 +53,8 @@ enum LinkedCardAssembly {
             analyticsProvider: analyticsProvider,
             paymentService: paymentService,
             threatMetrixService: threatMetrixService,
-            clientApplicationKey: inputData.clientApplicationKey
+            clientApplicationKey: inputData.clientApplicationKey,
+            customerId: inputData.customerId
         )
 
         let router = LinkedCardRouter()

@@ -17,6 +17,7 @@ final class BankCardRepeatInteractor {
     private let clientApplicationKey: String
     private let gatewayId: String?
     private let amount: Amount
+    private let customerId: String?
 
     // MARK: - Init
 
@@ -28,7 +29,8 @@ final class BankCardRepeatInteractor {
         amountNumberFormatter: AmountNumberFormatter,
         clientApplicationKey: String,
         gatewayId: String?,
-        amount: Amount
+        amount: Amount,
+        customerId: String?
     ) {
         self.analyticsService = analyticsService
         self.analyticsProvider = analyticsProvider
@@ -39,6 +41,7 @@ final class BankCardRepeatInteractor {
         self.clientApplicationKey = clientApplicationKey
         self.gatewayId = gatewayId
         self.amount = amount
+        self.customerId = customerId
     }
 }
 
@@ -107,12 +110,13 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
             gatewayId: gatewayId,
             amount: amountNumberFormatter.string(from: amount.value),
             currency: amount.currency.rawValue,
-            getSavePaymentMethod: false
+            getSavePaymentMethod: false,
+            customerId: customerId
         ) { [weak self] result in
             guard let output = self?.output else { return }
             switch result {
             case let .success(data):
-                output.didFetchPaymentMethods(data)
+                output.didFetchPaymentMethods(data.options)
             case let .failure(error):
                 output.didFetchPaymentMethods(error)
             }

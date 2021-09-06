@@ -7,9 +7,7 @@ final class BankCardRouter {
 // MARK: - BankCardRouterInput
 
 extension BankCardRouter: BankCardRouterInput {
-    func presentTermsOfServiceModule(
-        _ url: URL
-    ) {
+    func presentTermsOfServiceModule(_ url: URL) {
         let viewController = SFSafariViewController(url: url)
         viewController.modalPresentationStyle = .overFullScreen
         transitionHandler?.present(
@@ -19,9 +17,11 @@ extension BankCardRouter: BankCardRouterInput {
         )
     }
 
-    func presentSavePaymentMethodInfo(
-        inputData: SavePaymentMethodInfoModuleInputData
-    ) {
+    func presentSafeDealInfo(title: String, body: String) {
+        presentSavePaymentMethodInfo(inputData: .init(headerValue: title, bodyValue: body))
+    }
+
+    func presentSavePaymentMethodInfo(inputData: SavePaymentMethodInfoModuleInputData) {
         let viewController = SavePaymentMethodInfoAssembly.makeModule(
             inputData: inputData
         )

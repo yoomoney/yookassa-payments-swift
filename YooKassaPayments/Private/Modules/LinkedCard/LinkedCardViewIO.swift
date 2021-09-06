@@ -19,11 +19,8 @@ protocol LinkedCardViewOutput: ActionTitleTextDialogDelegate {
     func setupView()
     func didTapActionButton()
     func didTapTermsOfService(_ url: URL)
-    func didChangeSaveAuthInAppState(
-        _ state: Bool
-    )
-    func didSetCsc(
-        _ csc: String
-    )
+    func didTapSafeDealInfo(_ url: URL)
+    func didChangeSaveAuthInAppState(_ state: Bool)
+    func didSetCsc(_ csc: String)
     func endEditing()
 }

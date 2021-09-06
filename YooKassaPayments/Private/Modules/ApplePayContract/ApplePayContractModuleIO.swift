@@ -16,6 +16,8 @@ struct ApplePayContractModuleInputData {
     let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     let initialSavePaymentMethod: Bool
     let isBackBarButtonHidden: Bool
+    let customerId: String?
+    let isSafeDeal: Bool
 }
 
 protocol ApplePayContractModuleInput: AnyObject {}

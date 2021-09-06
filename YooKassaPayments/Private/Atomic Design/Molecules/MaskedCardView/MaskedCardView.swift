@@ -6,14 +6,8 @@ protocol MaskedCardViewDelegate: AnyObject {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool
-
-    func textFieldDidBeginEditing(
-        _ textField: UITextField
-    )
-
-    func textFieldDidEndEditing(
-        _ textField: UITextField
-    )
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    func textFieldDidEndEditing(_ textField: UITextField)
 }
 
 final class MaskedCardView: UIView {
@@ -21,6 +15,7 @@ final class MaskedCardView: UIView {
     enum CscState {
         case `default`
         case selected
+        case noCVC
         case error
     }
 
@@ -32,6 +27,9 @@ final class MaskedCardView: UIView {
 
     var cscState: CscState = .default {
         didSet {
+            hintCardCodeLabel.isHidden = false
+            cardCodeTextView.isHidden = false
+
             switch cscState {
             case .default:
                 setStyles(UIView.Styles.grayBorder)
@@ -50,6 +48,10 @@ final class MaskedCardView: UIView {
                 hintCardCodeLabel.setStyles(
                     UILabel.ColorStyle.alert
                 )
+
+            case .noCVC:
+                hintCardCodeLabel.isHidden = true
+                cardCodeTextView.isHidden = true
             }
         }
     }

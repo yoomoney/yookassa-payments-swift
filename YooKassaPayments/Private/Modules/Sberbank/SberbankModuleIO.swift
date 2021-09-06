@@ -14,6 +14,8 @@ struct SberbankModuleInputData {
     let termsOfService: TermsOfService
     let userPhoneNumber: String?
     let isBackBarButtonHidden: Bool
+    let customerId: String?
+    let isSafeDeal: Bool
 }
 
 protocol SberbankModuleOutput: AnyObject {

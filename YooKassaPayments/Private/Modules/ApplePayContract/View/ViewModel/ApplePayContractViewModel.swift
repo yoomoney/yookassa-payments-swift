@@ -4,4 +4,5 @@ struct ApplePayContractViewModel {
     let price: PriceViewModel
     let fee: PriceViewModel?
     let terms: TermsOfService
+    let safeDealText: NSAttributedString?
 }

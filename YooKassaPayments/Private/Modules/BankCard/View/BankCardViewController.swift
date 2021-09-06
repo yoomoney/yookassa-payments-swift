@@ -6,6 +6,15 @@ final class BankCardViewController: UIViewController {
 
     var output: BankCardViewOutput!
 
+    private var cachedCvc = ""
+
+    private lazy var cvcTextInputPresenter: InputPresenter = {
+        let cvcTextStyle = CscInputPresenterStyle()
+        let cvcTextInputPresenter = InputPresenter(textInputStyle: cvcTextStyle)
+        cvcTextInputPresenter.output = maskedCardView.cardCodeTextView
+        return cvcTextInputPresenter
+    }()
+
     // MARK: - Touches, Presses, and Gestures
 
     private lazy var viewTapGestureRecognizer: UITapGestureRecognizer = {
@@ -19,6 +28,37 @@ final class BankCardViewController: UIViewController {
     // MARK: - UI properties
 
     var bankCardDataInputView: BankCardDataInputView!
+
+    private lazy var maskedCardView: MaskedCardView = {
+        let view = MaskedCardView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.tintColor = CustomizationStorage.shared.mainScheme
+        view.setStyles(UIView.Styles.grayBackground, UIView.Styles.roundedShadow)
+        view.hintCardCode = CommonLocalized.BankCardView.inputCvcHint
+        view.hintCardNumber = CommonLocalized.BankCardView.inputPanHint
+        view.cardCodePlaceholder = CommonLocalized.BankCardView.inputCvcPlaceholder
+        view.delegate = self
+        return view
+    }()
+
+    private lazy var errorCscView: UIView = {
+        let view = UIView(frame: .zero)
+        view.setStyles(UIView.Styles.grayBackground)
+        return view
+    }()
+
+    private lazy var errorCscLabel: UILabel = {
+        let view = UILabel(frame: .zero)
+        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.text = CommonLocalized.BankCardView.BottomHint.invalidCvc
+        view.setStyles(
+            UIView.Styles.grayBackground,
+            UILabel.DynamicStyle.caption1,
+            UILabel.ColorStyle.alert
+        )
+        return view
+    }()
 
     private lazy var scrollView: UIScrollView = {
         $0.setStyles(UIView.Styles.grayBackground)
@@ -49,7 +89,7 @@ final class BankCardViewController: UIViewController {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .vertical
-        $0.spacing = Space.double
+        $0.spacing = Space.single
         return $0
     }(UIStackView())
 
@@ -68,71 +108,37 @@ final class BankCardViewController: UIViewController {
         return $0
     }(Button(type: .custom))
 
-    private lazy var termsOfServiceLinkedTextView: LinkedTextView = {
-        $0.tintColor = CustomizationStorage.shared.mainScheme
-        $0.setStyles(
-            UIView.Styles.grayBackground,
-            UITextView.Styles.linked
-        )
-        $0.delegate = self
-        return $0
-    }(LinkedTextView())
+    private lazy var submitButtonContainer: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        submitButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(submitButton)
+        let defaultHeight = submitButton.heightAnchor.constraint(equalToConstant: Space.triple * 2)
+        defaultHeight.priority = .defaultLow + 1
+        NSLayoutConstraint.activate([
+            submitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            submitButton.topAnchor.constraint(equalTo: view.topAnchor),
+            view.trailingAnchor.constraint(equalTo: submitButton.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: submitButton.bottomAnchor, constant: Space.single),
+            defaultHeight,
+        ])
 
-    // MARK: - Switch save payment method UI Properties
+        return view
+    }()
 
-    private lazy var savePaymentMethodSwitchItemView: SwitchItemView = {
-        $0.tintColor = CustomizationStorage.shared.mainScheme
-        $0.layoutMargins = UIEdgeInsets(
-            top: Space.double,
-            left: Space.double,
-            bottom: Space.double,
-            right: Space.double
-        )
-        $0.setStyles(SwitchItemView.Styles.primary)
-        $0.title = Localized.savePaymentMethodTitle
-        $0.delegate = self
-        return $0
-    }(SwitchItemView())
+    private let termsOfServiceLinkedTextView: LinkedTextView = {
+        let view = LinkedTextView()
+        view.tintColor = CustomizationStorage.shared.mainScheme
+        view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
+        return view
+    }()
 
-    private lazy var savePaymentMethodSwitchLinkedItemView: LinkedItemView = {
-        $0.tintColor = CustomizationStorage.shared.mainScheme
-        $0.layoutMargins = UIEdgeInsets(
-            top: Space.single / 2,
-            left: Space.double,
-            bottom: Space.double,
-            right: Space.double
-        )
-        $0.setStyles(LinkedItemView.Styles.linked)
-        $0.delegate = self
-        return $0
-    }(LinkedItemView())
-
-    // MARK: - Strict save payment method UI Properties
-
-    private lazy var savePaymentMethodStrictSectionHeaderView: SectionHeaderView = {
-        $0.layoutMargins = UIEdgeInsets(
-            top: Space.double,
-            left: Space.double,
-            bottom: 0,
-            right: Space.double
-        )
-        $0.title = Localized.savePaymentMethodTitle
-        $0.setStyles(SectionHeaderView.Styles.primary)
-        return $0
-    }(SectionHeaderView())
-
-    private lazy var savePaymentMethodStrictLinkedItemView: LinkedItemView = {
-        $0.tintColor = CustomizationStorage.shared.mainScheme
-        $0.layoutMargins = UIEdgeInsets(
-            top: Space.single / 4,
-            left: Space.double,
-            bottom: Space.double,
-            right: Space.double
-        )
-        $0.setStyles(LinkedItemView.Styles.linked)
-        $0.delegate = self
-        return $0
-    }(LinkedItemView())
+    private let safeDealLinkedTextView: LinkedTextView = {
+        let view = LinkedTextView()
+        view.tintColor = CustomizationStorage.shared.mainScheme
+        view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
+        return view
+    }()
 
     // MARK: - Constraints
 
@@ -151,6 +157,10 @@ final class BankCardViewController: UIViewController {
 
         navigationItem.title = Localized.title
 
+        termsOfServiceLinkedTextView.delegate = self
+        safeDealLinkedTextView.delegate = self
+        safeDealLinkedTextView.isHidden = true
+
         setupView()
         setupConstraints()
     }
@@ -163,26 +173,29 @@ final class BankCardViewController: UIViewController {
     // MARK: - SetupView
 
     private func setupView() {
-        [
-            scrollView,
-            actionButtonStackView,
-        ].forEach(view.addSubview)
+        errorCscView.addSubview(errorCscLabel)
+
+        [scrollView, actionButtonStackView].forEach(view.addSubview)
 
         scrollView.addSubview(contentView)
+        [contentStackView].forEach(contentView.addSubview)
 
-        [
-            contentStackView,
-        ].forEach(contentView.addSubview)
         [
             orderView,
             bankCardDataInputView,
+            maskedCardView,
+            errorCscView,
         ].forEach(contentStackView.addArrangedSubview)
 
-        [
-            submitButton,
-            termsOfServiceLinkedTextView,
-        ].forEach(actionButtonStackView.addArrangedSubview)
+        if #available(iOS 11, *) {
+            contentStackView.setCustomSpacing(Space.double, after: maskedCardView)
+        }
 
+        [
+            submitButtonContainer,
+            termsOfServiceLinkedTextView,
+            safeDealLinkedTextView,
+        ].forEach(actionButtonStackView.addArrangedSubview)
     }
 
     private func setupConstraints() {
@@ -238,9 +251,15 @@ final class BankCardViewController: UIViewController {
             contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-            bankCardDataInputView.heightAnchor.constraint(
-                lessThanOrEqualToConstant: 126
-            ),
+            bankCardDataInputView.heightAnchor.constraint(lessThanOrEqualToConstant: 126),
+
+            maskedCardView.leadingAnchor.constraint(equalTo: contentStackView.leadingAnchor, constant: Space.double),
+            contentStackView.trailingAnchor.constraint(equalTo: maskedCardView.trailingAnchor, constant: Space.double),
+
+            errorCscLabel.topAnchor.constraint(equalTo: errorCscView.topAnchor),
+            errorCscLabel.bottomAnchor.constraint(equalTo: errorCscView.bottomAnchor),
+            errorCscLabel.leadingAnchor.constraint(equalTo: errorCscView.leadingAnchor, constant: Space.double),
+            errorCscView.trailingAnchor.constraint(equalTo: errorCscLabel.trailingAnchor, constant: Space.double),
         ]
         NSLayoutConstraint.activate(constraints)
     }
@@ -262,15 +281,36 @@ final class BankCardViewController: UIViewController {
 // MARK: - BankCardViewInput
 
 extension BankCardViewController: BankCardViewInput {
-    func setViewModel(
-        _ viewModel: BankCardViewModel
-    ) {
+    func setViewModel(_ viewModel: BankCardViewModel) {
         orderView.title = viewModel.shopName
         orderView.subtitle = viewModel.description
         orderView.value = viewModel.priceValue
         orderView.subvalue = viewModel.feeValue
         termsOfServiceLinkedTextView.attributedText = viewModel.termsOfService
+        safeDealLinkedTextView.isHidden = viewModel.safeDealText?.string.isEmpty ?? true
+        safeDealLinkedTextView.attributedText = viewModel.safeDealText
         termsOfServiceLinkedTextView.textAlignment = .center
+        safeDealLinkedTextView.textAlignment = .center
+
+        if viewModel.instrumentMode {
+            bankCardDataInputView.isHidden = true
+            maskedCardView.isHidden = false
+            errorCscView.isHidden = false
+        } else {
+            bankCardDataInputView.isHidden = false
+            maskedCardView.isHidden = true
+            errorCscView.isHidden = true
+        }
+
+        maskedCardView.cardNumber = viewModel.maskedNumber
+        maskedCardView.cardLogo = viewModel.cardLogo
+
+        if
+            let view = viewModel.recurrencyAndDataSavingSection,
+            let index = contentStackView.arrangedSubviews.firstIndex(of: maskedCardView)
+        {
+            contentStackView.insertArrangedSubview(view, at: contentStackView.arrangedSubviews.index(after: index))
+        }
     }
 
     func setSubmitButtonEnabled(
@@ -285,65 +325,8 @@ extension BankCardViewController: BankCardViewInput {
         view.endEditing(force)
     }
 
-    func setSavePaymentMethodViewModel(
-        _ savePaymentMethodViewModel: SavePaymentMethodViewModel
-    ) {
-        switch savePaymentMethodViewModel {
-        case .switcher(let viewModel):
-            savePaymentMethodSwitchItemView.state = viewModel.state
-            savePaymentMethodSwitchLinkedItemView.attributedString = makeSavePaymentMethodAttributedString(
-                text: viewModel.text,
-                hyperText: viewModel.hyperText,
-                font: UIFont.dynamicCaption1,
-                foregroundColor: UIColor.AdaptiveColors.secondary
-            )
-            [
-                savePaymentMethodSwitchItemView,
-                savePaymentMethodSwitchLinkedItemView,
-            ].forEach(contentStackView.addArrangedSubview)
-
-        case .strict(let viewModel):
-            savePaymentMethodStrictLinkedItemView.attributedString = makeSavePaymentMethodAttributedString(
-                text: viewModel.text,
-                hyperText: viewModel.hyperText,
-                font: UIFont.dynamicCaption1,
-                foregroundColor: UIColor.AdaptiveColors.secondary
-            )
-            [
-                savePaymentMethodStrictSectionHeaderView,
-                savePaymentMethodStrictLinkedItemView,
-            ].forEach(contentStackView.addArrangedSubview)
-        }
-    }
-
-    func setBackBarButtonHidden(
-        _ isHidden: Bool
-    ) {
+    func setBackBarButtonHidden(_ isHidden: Bool) {
         navigationItem.hidesBackButton = isHidden
-    }
-
-    private func makeSavePaymentMethodAttributedString(
-        text: String,
-        hyperText: String,
-        font: UIFont,
-        foregroundColor: UIColor
-    ) -> NSAttributedString {
-        let attributedText: NSMutableAttributedString
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: font,
-            .foregroundColor: foregroundColor,
-        ]
-        attributedText = NSMutableAttributedString(string: "\(text) ", attributes: attributes)
-
-        let linkAttributedText = NSMutableAttributedString(string: hyperText, attributes: attributes)
-        let linkRange = NSRange(location: 0, length: hyperText.count)
-        // swiftlint:disable force_unwrapping
-        let fakeLink = URL(string: "https://yookassa.ru")!
-        // swiftlint:enable force_unwrapping
-        linkAttributedText.addAttribute(.link, value: fakeLink, range: linkRange)
-        attributedText.append(linkAttributedText)
-
-        return attributedText
     }
 }
 
@@ -385,40 +368,12 @@ extension BankCardViewController: UITextViewDelegate {
         switch textView {
         case termsOfServiceLinkedTextView:
             output?.didTapTermsOfService(URL)
+        case safeDealLinkedTextView:
+            output?.didTapSafeDealInfo(URL)
         default:
             assertionFailure("Unsupported textView")
         }
         return false
-    }
-}
-
-// MARK: - LinkedItemViewOutput
-
-extension BankCardViewController: LinkedItemViewOutput {
-    func didTapOnLinkedView(on itemView: LinkedItemViewInput) {
-        switch itemView {
-        case _ where itemView === savePaymentMethodSwitchLinkedItemView,
-             _ where itemView === savePaymentMethodStrictLinkedItemView:
-            output?.didTapOnSavePaymentMethod()
-        default:
-            assertionFailure("Unsupported itemView")
-        }
-    }
-}
-
-// MARK: - SwitchItemViewOutput
-
-extension BankCardViewController: SwitchItemViewOutput {
-    func switchItemView(
-        _ itemView: SwitchItemViewInput,
-        didChangeState state: Bool
-    ) {
-        switch itemView {
-        case _ where itemView === savePaymentMethodSwitchItemView:
-            output?.didChangeSavePaymentMethodState(state)
-        default:
-            assertionFailure("Unsupported itemView")
-        }
     }
 }
 
@@ -439,6 +394,46 @@ private extension BankCardViewController {
     ) {
         guard gestureRecognizer.state == .recognized else { return }
         view.endEditing(true)
+    }
+}
+
+// MARK: - MaskedCardViewDelegate
+
+extension BankCardViewController: MaskedCardViewDelegate {
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        let replacementText = cachedCvc.count < cvcTextInputPresenter.style.maximalLength
+            ? string
+            : ""
+        let cvc = (cachedCvc as NSString).replacingCharacters(in: range, with: replacementText)
+        cachedCvc = cvcTextInputPresenter.style.removedFormatting(from: cvc)
+        cvcTextInputPresenter.input(
+            changeCharactersIn: range,
+            replacementString: string,
+            currentString: textField.text ?? ""
+        )
+        output.didSetCsc(cachedCvc)
+        return false
+    }
+
+    func textFieldDidBeginEditing(
+        _ textField: UITextField
+    ) {
+        setCardState(.selected)
+    }
+
+    func textFieldDidEndEditing(
+        _ textField: UITextField
+    ) {
+        output?.endEditing()
+    }
+
+    func setCardState(_ state: MaskedCardView.CscState) {
+        maskedCardView.cscState = state
+        errorCscLabel.isHidden = state != .error
     }
 }
 

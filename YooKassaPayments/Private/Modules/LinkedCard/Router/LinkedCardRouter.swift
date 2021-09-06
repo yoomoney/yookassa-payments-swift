@@ -17,6 +17,18 @@ extension LinkedCardRouter: LinkedCardRouterInput {
         )
     }
 
+    func presentSafeDealInfo(title: String, body: String) {
+        let viewController = SavePaymentMethodInfoAssembly.makeModule(
+            inputData: .init(headerValue: title, bodyValue: body)
+        )
+        let navigationController = UINavigationController(rootViewController: viewController)
+        transitionHandler?.present(
+            navigationController,
+            animated: true,
+            completion: nil
+        )
+    }
+
     func presentPaymentAuthorizationModule(
         inputData: PaymentAuthorizationModuleInputData,
         moduleOutput: PaymentAuthorizationModuleOutput?

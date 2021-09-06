@@ -17,9 +17,11 @@ extension BankCardRepeatRouter: BankCardRepeatRouterInput {
         )
     }
 
-    func presentSavePaymentMethodInfo(
-        inputData: SavePaymentMethodInfoModuleInputData
-    ) {
+    func presentSafeDealInfo(title: String, body: String) {
+        presentSavePaymentMethodInfo(inputData: .init(headerValue: title, bodyValue: body))
+    }
+
+    func presentSavePaymentMethodInfo(inputData: SavePaymentMethodInfoModuleInputData) {
         let viewController = SavePaymentMethodInfoAssembly.makeModule(
             inputData: inputData
         )
@@ -33,10 +35,7 @@ extension BankCardRepeatRouter: BankCardRepeatRouterInput {
         )
     }
 
-    func present3dsModule(
-        inputData: CardSecModuleInputData,
-        moduleOutput: CardSecModuleOutput
-    ) {
+    func present3dsModule(inputData: CardSecModuleInputData, moduleOutput: CardSecModuleOutput) {
         let viewController = CardSecAssembly.makeModule(
             inputData: inputData,
             moduleOutput: moduleOutput

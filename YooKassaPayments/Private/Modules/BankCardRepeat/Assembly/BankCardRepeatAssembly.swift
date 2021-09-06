@@ -30,7 +30,8 @@ enum BankCardRepeatAssembly {
             purchaseDescription: inputData.purchaseDescription,
             termsOfService: termsOfService,
             savePaymentMethodViewModel: savePaymentMethodViewModel,
-            initialSavePaymentMethod: initialSavePaymentMethod
+            initialSavePaymentMethod: initialSavePaymentMethod,
+            isSafeDeal: inputData.isSafeDeal
         )
 
         let analyticsService = AnalyticsServiceAssembly.makeService(
@@ -54,7 +55,8 @@ enum BankCardRepeatAssembly {
             amountNumberFormatter: amountNumberFormatter,
             clientApplicationKey: inputData.clientApplicationKey,
             gatewayId: inputData.gatewayId,
-            amount: inputData.amount
+            amount: inputData.amount,
+            customerId: inputData.customerId
         )
 
         let router = BankCardRepeatRouter()

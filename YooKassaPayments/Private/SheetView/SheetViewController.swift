@@ -416,6 +416,7 @@ private extension SheetViewController {
                     initialSpringVelocity: sheetOptions.transitionVelocity,
                     options: sheetOptions.animationOptions,
                     animations: {
+                        self.view.endEditing(true)
                         self.contentViewController.view.transform = CGAffineTransform(
                             translationX: 0,
                             y: self.contentViewController.view.bounds.height

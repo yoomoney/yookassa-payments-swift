@@ -48,15 +48,12 @@ final class SavePaymentMethodInfoViewController: UIViewController {
         return view
     }()
 
-    private lazy var closeBarButtonItem: UIBarButtonItem = {
-        $0.tintColor = CustomizationStorage.shared.mainScheme
-        return $0
-    }(UIBarButtonItem(
+    private lazy var closeBarButtonItem = UIBarButtonItem(
         image: UIImage.named("Common.close"),
         style: .plain,
         target: self,
         action: #selector(closeBarButtonItemDidPress)
-    ))
+    )
 
     fileprivate lazy var actionButtonStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
@@ -66,19 +63,17 @@ final class SavePaymentMethodInfoViewController: UIViewController {
     }(UIStackView())
 
     private lazy var gotItButton: Button = {
-        $0.tintColor = CustomizationStorage.shared.mainScheme
-        $0.setStyles(
-            UIButton.DynamicStyle.primary,
-            UIView.Styles.heightAsContent
-        )
-        $0.setStyledTitle(Localized.buttonGotIt, for: .normal)
-        $0.addTarget(
+        let button = Button(type: .custom)
+        button.setTitle(Localized.buttonGotIt, for: .normal)
+        button.style.submit()
+        button.addTarget(
             self,
             action: #selector(closeBarButtonItemDidPress),
             for: .touchUpInside
         )
-        return $0
-    }(Button(type: .custom))
+
+        return button
+    }()
 
     // MARK: - Managing the View
 

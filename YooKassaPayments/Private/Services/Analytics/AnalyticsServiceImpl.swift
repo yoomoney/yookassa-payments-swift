@@ -83,6 +83,12 @@ extension AnalyticsServiceImpl: AnalyticsService {
         case .screenRecurringCardForm:
             eventName = EventKey.screenRecurringCardForm.rawValue
 
+        case .screenDetailsUnbindWalletCard:
+            eventName = EventKey.screenDetailsUnbindWalletCard.rawValue
+
+        case .screenUnbindCard:
+            eventName = EventKey.screenUnbindCard.rawValue
+
         case .actionTokenize:
             eventName = EventKey.actionTokenize.rawValue
 
@@ -109,6 +115,9 @@ extension AnalyticsServiceImpl: AnalyticsService {
 
         case .actionSberPayConfirmation:
             eventName = EventKey.actionSberPayConfirmation.rawValue
+
+        case .actionUnbindBankCard:
+            eventName = EventKey.actionUnbindBankCard.rawValue
         }
         return eventName
     }
@@ -222,6 +231,14 @@ extension AnalyticsServiceImpl: AnalyticsService {
                 sberPayConfirmationStatus.key: sberPayConfirmationStatus.rawValue,
                 AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion,
             ]
+        case .screenDetailsUnbindWalletCard(let sdkVersion):
+            return [AnalyticsEvent.Keys.msdkVersion.rawValue: sdkVersion]
+
+        case .screenUnbindCard(let cardType):
+            return [cardType.key: cardType.rawValue]
+
+        case .actionUnbindBankCard(let actionUnbindCardStatus):
+            return [actionUnbindCardStatus.key: actionUnbindCardStatus.rawValue]
         }
 
         return parameters
@@ -236,6 +253,8 @@ extension AnalyticsServiceImpl: AnalyticsService {
         case screenError
         case screen3ds
         case screenRecurringCardForm
+        case screenUnbindCard
+        case screenDetailsUnbindWalletCard
         case actionTokenize
         case actionPaymentAuthorization
         case actionLogout
@@ -243,6 +262,7 @@ extension AnalyticsServiceImpl: AnalyticsService {
         case actionBankCardForm
         case actionMoneyAuthLogin
         case actionSberPayConfirmation
+        case actionUnbindBankCard
 
         // MARK: - Authorization
 

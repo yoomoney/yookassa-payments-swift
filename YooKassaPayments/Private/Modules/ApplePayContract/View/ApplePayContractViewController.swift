@@ -46,12 +46,13 @@ final class ApplePayContractViewController: UIViewController {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .vertical
-        $0.spacing = Space.double
+        $0.spacing = Space.single
         return $0
     }(UIStackView())
 
     private lazy var submitButton: Button = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
+
         $0.setStyles(
             UIButton.DynamicStyle.primary,
             UIView.Styles.heightAsContent
@@ -65,15 +66,37 @@ final class ApplePayContractViewController: UIViewController {
         return $0
     }(Button(type: .custom))
 
-    private lazy var termsOfServiceLinkedTextView: LinkedTextView = {
-        $0.tintColor = CustomizationStorage.shared.mainScheme
-        $0.setStyles(
-            UIView.Styles.grayBackground,
-            UITextView.Styles.linked
-        )
-        $0.delegate = self
-        return $0
-    }(LinkedTextView())
+    private lazy var submitButtonContainer: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        submitButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(submitButton)
+        let defaultHeight = submitButton.heightAnchor.constraint(equalToConstant: Space.triple * 2)
+        defaultHeight.priority = .defaultLow + 1
+        NSLayoutConstraint.activate([
+            submitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            submitButton.topAnchor.constraint(equalTo: view.topAnchor),
+            view.trailingAnchor.constraint(equalTo: submitButton.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: submitButton.bottomAnchor, constant: Space.single),
+            defaultHeight,
+        ])
+
+        return view
+    }()
+
+    private let termsOfServiceLinkedTextView: LinkedTextView = {
+        let view = LinkedTextView()
+        view.tintColor = CustomizationStorage.shared.mainScheme
+        view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
+        return view
+    }()
+
+    private let safeDealLinkedTextView: LinkedTextView = {
+        let view = LinkedTextView()
+        view.tintColor = CustomizationStorage.shared.mainScheme
+        view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
+        return view
+    }()
 
     // MARK: - Switch save payment method UI Properties
 
@@ -146,6 +169,10 @@ final class ApplePayContractViewController: UIViewController {
         view.setStyles(UIView.Styles.grayBackground)
         navigationItem.title = Localized.title
 
+        termsOfServiceLinkedTextView.delegate = self
+        safeDealLinkedTextView.delegate = self
+        safeDealLinkedTextView.isHidden = true
+
         setupView()
         setupConstraints()
     }
@@ -175,8 +202,9 @@ final class ApplePayContractViewController: UIViewController {
         ].forEach(contentStackView.addArrangedSubview)
 
         [
-            submitButton,
+            submitButtonContainer,
             termsOfServiceLinkedTextView,
+            safeDealLinkedTextView,
         ].forEach(actionButtonStackView.addArrangedSubview)
     }
 
@@ -262,9 +290,7 @@ final class ApplePayContractViewController: UIViewController {
 // MARK: - ApplePayContractViewInput
 
 extension ApplePayContractViewController: ApplePayContractViewInput {
-    func setupViewModel(
-        _ viewModel: ApplePayContractViewModel
-    ) {
+    func setupViewModel(_ viewModel: ApplePayContractViewModel) {
         orderView.title = viewModel.shopName
         orderView.subtitle = viewModel.description
         orderView.value = makePrice(viewModel.price)
@@ -280,6 +306,12 @@ extension ApplePayContractViewController: ApplePayContractViewInput {
             foregroundColor: UIColor.AdaptiveColors.secondary
         )
         termsOfServiceLinkedTextView.textAlignment = .center
+
+        safeDealLinkedTextView.attributedText = viewModel.safeDealText
+        safeDealLinkedTextView.isHidden = viewModel.safeDealText?.string.isEmpty ?? true
+
+        termsOfServiceLinkedTextView.textAlignment = .center
+        safeDealLinkedTextView.textAlignment = .center
     }
 
     func setSavePaymentMethodViewModel(
@@ -391,6 +423,8 @@ extension ApplePayContractViewController: UITextViewDelegate {
         switch textView {
         case termsOfServiceLinkedTextView:
             output?.didTapTermsOfService(URL)
+        case safeDealLinkedTextView:
+            output?.didTapSafeDealInfo(URL)
         default:
             assertionFailure("Unsupported textView")
         }

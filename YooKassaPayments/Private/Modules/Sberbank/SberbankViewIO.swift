@@ -2,9 +2,8 @@ protocol SberbankViewOutput: ActionTitleTextDialogDelegate,
     PhoneNumberInputModuleOutput {
     func setupView()
     func didPressSubmitButton()
-    func didPressTermsOfService(
-        _ url: URL
-    )
+    func didPressTermsOfService(_ url: URL)
+    func didTapSafeDealInfo(_ url: URL)
 }
 
 protocol SberbankViewInput: ActivityIndicatorFullViewPresenting,

@@ -14,6 +14,7 @@ final class SberbankInteractor {
     private let threatMetrixService: ThreatMetrixService
     private let clientApplicationKey: String
     private let amount: MonetaryAmount
+    private let customerId: String?
 
     init(
         paymentService: PaymentService,
@@ -21,7 +22,8 @@ final class SberbankInteractor {
         analyticsService: AnalyticsService,
         threatMetrixService: ThreatMetrixService,
         clientApplicationKey: String,
-        amount: MonetaryAmount
+        amount: MonetaryAmount,
+        customerId: String?
     ) {
         self.paymentService = paymentService
         self.analyticsProvider = analyticsProvider
@@ -29,6 +31,7 @@ final class SberbankInteractor {
         self.threatMetrixService = threatMetrixService
         self.clientApplicationKey = clientApplicationKey
         self.amount = amount
+        self.customerId = customerId
     }
 }
 
@@ -39,8 +42,7 @@ extension SberbankInteractor: SberbankInteractorInput {
         phoneNumber: String
     ) {
         threatMetrixService.profileApp { [weak self] result in
-            guard let self = self,
-                  let output = self.output else { return }
+            guard let self = self, let output = self.output else { return }
 
             switch result {
             case let .success(tmxSessionId):
@@ -54,7 +56,8 @@ extension SberbankInteractor: SberbankInteractorInput {
                     confirmation: confirmation,
                     savePaymentMethod: false,
                     amount: self.amount,
-                    tmxSessionId: tmxSessionId.value
+                    tmxSessionId: tmxSessionId.value,
+                    customerId: self.customerId
                 ) { result in
                     switch result {
                     case .success(let data):

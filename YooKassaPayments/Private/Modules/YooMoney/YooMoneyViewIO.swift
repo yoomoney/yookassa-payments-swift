@@ -7,6 +7,7 @@ struct YooMoneyViewModel {
     let fee: PriceViewModel?
     let paymentMethod: PaymentMethodViewModel
     let terms: TermsOfService
+    let safeDealText: NSAttributedString?
 }
 
 protocol YooMoneyViewInput: ActivityIndicatorFullViewPresenting, PlaceholderPresenting, NotificationPresenting {
@@ -32,6 +33,7 @@ protocol YooMoneyViewOutput: ActionTitleTextDialogDelegate {
     func didTapActionButton()
     func didTapLogout()
     func didTapTermsOfService(_ url: URL)
+    func didTapSafeDealInfo(_ url: URL)
     func didTapOnSavePaymentMethod()
     func didChangeSavePaymentMethodState(
         _ state: Bool

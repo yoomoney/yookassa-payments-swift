@@ -22,6 +22,7 @@ final class SberbankPresenter {
     private let termsOfService: TermsOfService
     private let userPhoneNumber: String?
     private let isBackBarButtonHidden: Bool
+    private let isSafeDeal: Bool
 
     init(
         shopName: String,
@@ -30,7 +31,8 @@ final class SberbankPresenter {
         feeViewModel: PriceViewModel?,
         termsOfService: TermsOfService,
         userPhoneNumber: String?,
-        isBackBarButtonHidden: Bool
+        isBackBarButtonHidden: Bool,
+        isSafeDeal: Bool
     ) {
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -39,6 +41,7 @@ final class SberbankPresenter {
         self.termsOfService = termsOfService
         self.userPhoneNumber = userPhoneNumber
         self.isBackBarButtonHidden = isBackBarButtonHidden
+        self.isSafeDeal = isSafeDeal
     }
 
     // MARK: - Stored properties
@@ -68,7 +71,8 @@ extension SberbankPresenter: SberbankViewOutput {
             description: purchaseDescription,
             priceValue: priceValue,
             feeValue: feeValue,
-            termsOfService: termsOfServiceValue
+            termsOfService: termsOfServiceValue,
+            safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil
         )
         view.setViewModel(viewModel)
 
@@ -107,10 +111,15 @@ extension SberbankPresenter: SberbankViewOutput {
         }
     }
 
-    func didPressTermsOfService(
-        _ url: URL
-    ) {
+    func didPressTermsOfService(_ url: URL) {
         router.presentTermsOfServiceModule(url)
+    }
+
+    func didTapSafeDealInfo(_ url: URL) {
+        router.presentSafeDealInfo(
+            title: PaymentMethodResources.Localized.safeDealInfoTitle,
+            body: PaymentMethodResources.Localized.safeDealInfoBody
+        )
     }
 }
 

@@ -17,9 +17,11 @@ extension ApplePayContractRouter: ApplePayContractRouterInput {
         )
     }
 
-    func presentSavePaymentMethodInfo(
-        inputData: SavePaymentMethodInfoModuleInputData
-    ) {
+    func presentSafeDealInfo(title: String, body: String) {
+        presentSavePaymentMethodInfo(inputData: .init(headerValue: title, bodyValue: body))
+    }
+
+    func presentSavePaymentMethodInfo(inputData: SavePaymentMethodInfoModuleInputData) {
         let viewController = SavePaymentMethodInfoAssembly.makeModule(
             inputData: inputData
         )
@@ -33,10 +35,7 @@ extension ApplePayContractRouter: ApplePayContractRouterInput {
         )
     }
 
-    func presentApplePay(
-        inputData: ApplePayModuleInputData,
-        moduleOutput: ApplePayModuleOutput
-    ) {
+    func presentApplePay(inputData: ApplePayModuleInputData, moduleOutput: ApplePayModuleOutput) {
         if let viewController = ApplePayAssembly.makeModule(
             inputData: inputData,
             moduleOutput: moduleOutput
@@ -52,9 +51,7 @@ extension ApplePayContractRouter: ApplePayContractRouterInput {
         }
     }
 
-    func closeApplePay(
-        completion: (() -> Void)?
-    ) {
+    func closeApplePay(completion: (() -> Void)?) {
         transitionHandler?.dismiss(
             animated: true,
             completion: completion

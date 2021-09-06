@@ -55,7 +55,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .vertical
-        $0.spacing = Space.double
+        $0.spacing = Space.single
         return $0
     }(UIStackView())
 
@@ -74,15 +74,37 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         return $0
     }(Button(type: .custom))
 
-    fileprivate lazy var termsOfServiceLinkedTextView: LinkedTextView = {
-        $0.tintColor = CustomizationStorage.shared.mainScheme
-        $0.setStyles(
-            UIView.Styles.grayBackground,
-            UITextView.Styles.linked
-        )
-        $0.delegate = self
-        return $0
-    }(LinkedTextView())
+    private lazy var submitButtonContainer: UIView = {
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        submitButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(submitButton)
+        let defaultHeight = submitButton.heightAnchor.constraint(equalToConstant: Space.triple * 2)
+        defaultHeight.priority = .defaultLow + 1
+        NSLayoutConstraint.activate([
+            submitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            submitButton.topAnchor.constraint(equalTo: view.topAnchor),
+            view.trailingAnchor.constraint(equalTo: submitButton.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: submitButton.bottomAnchor, constant: Space.single),
+            defaultHeight,
+        ])
+
+        return view
+    }()
+
+    private let termsOfServiceLinkedTextView: LinkedTextView = {
+        let view = LinkedTextView()
+        view.tintColor = CustomizationStorage.shared.mainScheme
+        view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
+        return view
+    }()
+
+    private let safeDealLinkedTextView: LinkedTextView = {
+        let view = LinkedTextView()
+        view.tintColor = CustomizationStorage.shared.mainScheme
+        view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
+        return view
+    }()
 
     // MARK: - PlaceholderProvider
 
@@ -215,6 +237,9 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         view.addGestureRecognizer(viewTapGestureRecognizer)
         navigationItem.title = Localized.title
 
+        termsOfServiceLinkedTextView.delegate = self
+        safeDealLinkedTextView.delegate = self
+        safeDealLinkedTextView.isHidden = true
         setupView()
         setupConstraints()
     }
@@ -244,8 +269,9 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         ].forEach(contentStackView.addArrangedSubview)
 
         [
-            submitButton,
+            submitButtonContainer,
             termsOfServiceLinkedTextView,
+            safeDealLinkedTextView,
         ].forEach(actionButtonStackView.addArrangedSubview)
 
         [
@@ -348,9 +374,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
 // MARK: - YooMoneyViewInput
 
 extension YooMoneyViewController: YooMoneyViewInput {
-    func setupViewModel(
-        _ viewModel: YooMoneyViewModel
-    ) {
+    func setupViewModel(_ viewModel: YooMoneyViewModel) {
         orderView.title = viewModel.shopName
         orderView.subtitle = viewModel.description
         orderView.value = makePrice(viewModel.price)
@@ -372,18 +396,17 @@ extension YooMoneyViewController: YooMoneyViewInput {
             font: UIFont.dynamicCaption2,
             foregroundColor: UIColor.AdaptiveColors.secondary
         )
+        safeDealLinkedTextView.attributedText = viewModel.safeDealText
+        safeDealLinkedTextView.isHidden = viewModel.safeDealText?.string.isEmpty ?? true
         termsOfServiceLinkedTextView.textAlignment = .center
+        safeDealLinkedTextView.textAlignment = .center
     }
 
-    func setupAvatar(
-        _ avatar: UIImage
-    ) {
+    func setupAvatar(_ avatar: UIImage) {
         paymentMethodView.image = avatar.rounded(cornerRadius: Space.fivefold)
     }
 
-    func setSavePaymentMethodViewModel(
-        _ savePaymentMethodViewModel: SavePaymentMethodViewModel
-    ) {
+    func setSavePaymentMethodViewModel(_ savePaymentMethodViewModel: SavePaymentMethodViewModel) {
         if contentStackView.arrangedSubviews.contains(saveAuthInAppSwitchItemView) {
             contentStackView.addArrangedSubview(separatorView)
         }
@@ -535,6 +558,8 @@ extension YooMoneyViewController: UITextViewDelegate {
         switch textView {
         case termsOfServiceLinkedTextView:
             output?.didTapTermsOfService(URL)
+        case safeDealLinkedTextView:
+            output?.didTapSafeDealInfo(URL)
         default:
             assertionFailure("Unsupported textView")
         }

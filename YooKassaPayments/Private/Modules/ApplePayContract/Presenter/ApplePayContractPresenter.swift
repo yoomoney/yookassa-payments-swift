@@ -29,6 +29,7 @@ final class ApplePayContractPresenter: NSObject {
     private let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     private var initialSavePaymentMethod: Bool
     private let isBackBarButtonHidden: Bool
+    private let isSafeDeal: Bool
 
     // MARK: - Init
 
@@ -42,7 +43,8 @@ final class ApplePayContractPresenter: NSObject {
         merchantIdentifier: String?,
         savePaymentMethodViewModel: SavePaymentMethodViewModel?,
         initialSavePaymentMethod: Bool,
-        isBackBarButtonHidden: Bool
+        isBackBarButtonHidden: Bool,
+        isSafeDeal: Bool
     ) {
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -54,6 +56,7 @@ final class ApplePayContractPresenter: NSObject {
         self.savePaymentMethodViewModel = savePaymentMethodViewModel
         self.initialSavePaymentMethod = initialSavePaymentMethod
         self.isBackBarButtonHidden = isBackBarButtonHidden
+        self.isSafeDeal = isSafeDeal
     }
 
     // MARK: - Stored properties
@@ -73,7 +76,8 @@ extension ApplePayContractPresenter: ApplePayContractViewOutput {
             description: purchaseDescription,
             price: price,
             fee: fee,
-            terms: termsOfService
+            terms: termsOfService,
+            safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil
         )
 
         view.setupViewModel(viewModel)
@@ -106,6 +110,13 @@ extension ApplePayContractPresenter: ApplePayContractViewOutput {
         router.presentTermsOfServiceModule(url)
     }
 
+    func didTapSafeDealInfo(_ url: URL) {
+        router.presentSafeDealInfo(
+            title: PaymentMethodResources.Localized.safeDealInfoTitle,
+            body: PaymentMethodResources.Localized.safeDealInfoBody
+        )
+    }
+
     func didTapOnSavePaymentMethod() {
         let savePaymentMethodModuleinputData = SavePaymentMethodInfoModuleInputData(
             headerValue: SavePaymentMethodInfoLocalization.BankCard.header,
@@ -116,15 +127,11 @@ extension ApplePayContractPresenter: ApplePayContractViewOutput {
         )
     }
 
-    func didChangeSavePaymentMethodState(
-        _ state: Bool
-    ) {
+    func didChangeSavePaymentMethodState(_ state: Bool) {
         initialSavePaymentMethod = state
     }
 
-    private func trackScreenErrorAnalytics(
-        scheme: AnalyticsEvent.TokenizeScheme?
-    ) {
+    private func trackScreenErrorAnalytics(scheme: AnalyticsEvent.TokenizeScheme?) {
         DispatchQueue.global().async { [weak self] in
             guard let interactor = self?.interactor else { return }
             let (authType, _) = interactor.makeTypeAnalyticsParameters()

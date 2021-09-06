@@ -1,4 +1,4 @@
-﻿"ApplePayContract.SavePaymentMethod.Title" = "Allow to write off money";
+﻿"ApplePayContract.SavePaymentMethod.Title" = "Allow autopayments";
 
 "ApplePayContract.fee" = "Commission";
 
@@ -8,9 +8,9 @@
 "ApplePayContract.title" = "Apple Pay";
 
 /* По неизвестным нам причинам экран ApplePay не отобразился */
-"ApplePayUnavailable.title" = "Apple Pay is unavailable";
+"ApplePayUnavailable.title" = "Apple Pay is unavailable, try again";
 
-"BankCard.savePaymentMethod.title" = "Link a card";
+"BankCard.savePaymentMethod.title" = "Allow autopayments";
 
 "BankCardDataInput.cvc" = "CVC";
 
@@ -27,9 +27,9 @@
 "BankCardDataInputView.BottomHint.invalidPan" = "Check the card number";
 
 /* Bank card repeat */
-"BankCardRepeat.savePaymentMethod.title" = "Link a card";
+"BankCardRepeat.savePaymentMethod.title" = "Allow autopayments";
 
-"BankCardRepeat.title" = "Saved card";
+"BankCardRepeat.title" = "Bank card";
 
 "BankCardView.inputCvcHint" = "Code";
 
@@ -50,23 +50,23 @@
 /* Отменить */
 "Cancel" = "Cancel";
 
-"Common.Error.unknown" = "Something went wrong";
+"Common.Error.unknown" = "It didn't work. Try again";
 
 /* Common */
 "Common.PlaceholderView.buttonTitle" = "Try again";
 
-"Common.PlaceholderView.text" = "Please try again later.";
+"Common.PlaceholderView.text" = "Please try again later";
 
 "Common.button.cancel" = "Cancel";
 
 "Common.button.ok" = "ОК";
 
 /* Sberbank */
-"Contract.Sberbank.PhoneInput.BottomHint" = "For the text message from Sberbank with the payment code";
+"Contract.Sberbank.PhoneInput.BottomHint" = "For confirming the payment via Sberbank Online";
 
-"Contract.Sberbank.PhoneInput.Placeholder" = "+ 7 987 654 32 10";
+"Contract.Sberbank.PhoneInput.Placeholder" = "+ 7 900 000 00 00";
 
-"Contract.Sberbank.PhoneInput.Title" = "Phone number in Sberbank Online";
+"Contract.Sberbank.PhoneInput.Title" = "Your phone number in Sberbank Online";
 
 "Contract.changePaymentMethod" = "Change";
 
@@ -88,87 +88,183 @@
 "Contract.resendSms" = "Send again";
 
 /* В процессе токенизации ApplePay произошла ошибка */
-"Error.ApplePayStrategy.failTokenizeData" = "An error occurred during ApplePay tokenization";
+"Error.ApplePayStrategy.failTokenizeData" = "It didn't work. Try again";
 
-"Error.emptyPaymentOptions" = "No available payment methods";
+"Error.emptyPaymentOptions" = "Couldn't load payment methods";
 
 /* Пользователь потратил все попытки ввода. Создаем новую сессию на авторизацию */
-"Error.endedAttemptsToEnterStartOver" = "Too many attempts. Try again later";
+"Error.endedAttemptsToEnterStartOver" = "No attempts left, you need to get a new code";
 
-"Error.internet" = "Connection error. Try again once you're online.";
+"Error.internet" = "Looks like a connection error. Check it and try again";
 
 /* После авторизации в кошельке при запросе доступных методов кошелёк отсутствует */
-"Error.noWalletTitle" = "Wallet payment is not available";
+"Error.noWalletTitle" = "Payments via the YooMoney wallet are unavailable";
 
 /* Пользователь ввел верный код, но возникла ошибка. Создаем новую сессию на авторизацию */
-"Error.resendAuthCodeAndStartOver" = "Error, try again";
+"Error.resendAuthCodeAndStartOver" = "It didn't work. Try starting over";
+
+/* Текст ошибки при отвязке карты */
+"Error.unbindCardFailed" = "Couldn't remove the card. Please try again";
 
 /* С сервера пришел неподдерживаемый способ прохождения платежной авторизации. */
 "Error.unsupportedAuthType" = "This method of receiving passwords is not supported. You can change it in the wallet settings on the YooMoney website";
 
 /* Linked card */
-"LinkedCard.title" = "Linked card";
+"LinkedCard.title" = "YooMoney сard";
 
 "LogoutConfirmation.format.title" = "Are you sure you want to sign out of account '%@'?";
 
-"PaymentAuthorization.description.witPhone" = "We sent a verification code to %@";
+"PaymentAuthorization.description.witPhone" = "We sent a code to %@";
 
 "PaymentAuthorization.description.withoutPhone" = "We sent a verification code";
 
 "PaymentAuthorization.invalidAnswer" = "Invalid code. Double-check and try again";
 
-"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Invalid code. Attempts left: %d";
+"PaymentAuthorization.invalidAnswer.sessionsLeft" = "Invalid code again. Attempts left: %d";
 
-"PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM в HH:mm";
+"PaymentAuthorization.nextSessionTimeFormatter" = "d MMMM at HH:mm";
 
 /* Payment authorization */
 "PaymentAuthorization.remainingTime" = "Get a new code in %@";
 
-"PaymentAuthorization.verifyAttemptsExceeded" = "No attempts left";
+"PaymentAuthorization.verifyAttemptsExceeded" = "No attempts left, you need to get a new code";
 
-"PaymentAuthorization.verifyAttemptsExceeded.nextSession" = "No attempts left. You can try %@";
+"PaymentAuthorization.verifyAttemptsExceeded.nextSession" = "No attempts left. Try again in %@";
 
 "PaymentMethod.applePay" = "Apple Pay";
 
 "PaymentMethod.bankCard" = "Bank card";
 
+/* Способ оплаты - `Привязанная карта` https://disk.yandex.ru/d/sFpmR3gLEc287Q */
+"PaymentMethod.linkedCard" = "Bank card";
+
+/* Подробности о безопасной сделке https://disk.yandex.ru/i/zOrGowAKK4uz3A */
+"PaymentMethod.safeDealInfo.body" = "It can happen when you pay on an online platform where it's possible to buy from multiple sellers at once (for example, on marketplaces).\n\nYou can find the list of recipients on the platform where you're making the payment.";
+
+/* текст-ссылка https://disk.yandex.ru/i/UOEMl4Ig3Z_4UA */
+"PaymentMethod.safeDealInfo.link.begining" = "The payment can have ";
+
+/* текст-ссылка интерактивная часть https://disk.yandex.ru/i/UOEMl4Ig3Z_4UA */
+"PaymentMethod.safeDealInfo.link.highlighted" = "multiple recipients";
+
+/* Тайтл информации о безопасной сделке https://disk.yandex.ru/i/zOrGowAKK4uz3A */
+"PaymentMethod.safeDealInfo.title" = "Why the payment has multiple recipients";
+
 "PaymentMethod.sberpay" = "SberPay";
 
 "PaymentMethod.wallet" = "YooMoney";
 
+/* Способ оплаты - `Карта Юмани` https://disk.yandex.ru/d/sFpmR3gLEc287Q */
+"PaymentMethod.yooMoneyCard" = "YooMoney сard";
+
+/* Текст кнопки отвязать https://disk.yandex.ru/i/f9rYGyNbx2HJ0Q */
+"PaymentMethods.alert.cancel" = "Cancel";
+
+/* Текст кнопки отвязать https://disk.yandex.ru/i/f9rYGyNbx2HJ0Q */
+"PaymentMethods.alert.unbindCard" = "Remove";
+
 /* Payment methods */
 "PaymentMethods.paymentMethods" = "Payment method";
 
-"SavePaymentMethod.BankCard.Force.Text" = "After the payment, the card will be linked, so that";
+/* Текст кнопки отвязать <screenshot> */
+"PaymentMethods.unbindCard" = "Remove";
 
-"SavePaymentMethod.BankCard.Force.hyperText" = "money could be debited upon store's request";
+/* Текст информера о опциональном подключении автосписания при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.header.autopayments.optional" = "Allow autopayments";
 
-"SavePaymentMethod.BankCard.UserPriority.Text" = "Link the card and";
+/* Текст информера о неопциональном подключении автосписания при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.header.autopayments.required" = "Allowing autopayments";
 
-"SavePaymentMethod.BankCard.UserPriority.hyperText" = "debit money upon store's request";
+/* Текст информера о опциональном сохранении платёжных данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.header.saveData.optional" = "Save payment details";
 
-"SavePaymentMethod.Wallet.Force.Text" = "After the payment, the wallet will be linked: the store will be able";
+/* Текст информера о неопциональном сохранении платёжных данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.header.saveData.required" = "Saving payment details";
 
-"SavePaymentMethod.Wallet.Force.hyperText" = "to debit money without your participation";
+/* Текст информера о опциональном подключении автосписания и сохранении данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.header.saveDataAndAutopayments.optional" = "Allow autopayments and save payment details";
 
-"SavePaymentMethod.Wallet.UserPriority.Text" = "Allow the store";
+/* Текст информера о неопциональном подключении автосписания и сохранении данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.header.saveDataAndAutopayments.required" = "Allowing autopayments and saving payment details";
 
-"SavePaymentMethod.Wallet.UserPriority.hyperText" = "to debit money without my participation";
+/* Текст информации о сохранении данных карты https://disk.yandex.ru/i/yLD0tpyvO3zvLg */
+"RecurrencyAndSavePaymentData.info.saveData.message" = "If you allowed it, your bank card details will be saved for this store and its partners: card number, cardholder's name, and expiration date (everything except the CVC). Next time, you won't need to enter them for payments in this store.\n\nYou can delete the bank card details during the payment process (tap on the three dots next to the card and select \"Remove the card\") or by contacting the support service.";
 
-"SavePaymentMethodInfo.BankCard.Body" = "It means that you're allowing YooMoney to debit money upon store's request without an additional confirmation from you, from this card or a new one in case it's reissued (if your bank can update the details automatically).\n\nYou can cancel linking at any moment via store's support service.";
+/* Заголовок информации о сохранении данных карты https://disk.yandex.ru/i/yLD0tpyvO3zvLg */
+"RecurrencyAndSavePaymentData.info.saveData.title" = "Saving payment details";
 
-"SavePaymentMethodInfo.BankCard.Header" = "Permission to debit money upon store's request";
+/* Текст информации о сохранении данных карты и автосписаниях https://disk.yandex.ru/i/yLD0tpyvO3zvLg */
+"RecurrencyAndSavePaymentData.info.saveDataAndAutopayments.message" = "If you allowed it, your bank card details will be saved for this store and its partners: card number, cardholder's name, and expiration date (everything except the CVC). Next time, you won't need to enter them for payments in this store.\n\nBesides that, we'll link the card (including if it's been used via ApplePay)  to the store. After that, the store will be able to send requests for debiting money automatically: then the payment is made without an additional confirmation from you.\n\nAutopayments will continue even after you reissue the card, even if your bank can update the data automatically. You can cancel them and unlink the card at any moment via store's support service.";
+
+/* Заголовок информации о сохранении данных карты и автосписаниях https://disk.yandex.ru/i/yLD0tpyvO3zvLg */
+"RecurrencyAndSavePaymentData.info.saveDataAndAutopayments.title" = "Autopayments and saving payment details";
+
+/* Текст со ссылкой информации об опциональном подключении автоплатежа при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.autopayments.optional" = "After the payment, this card will be saved: the store will be able debiting money without your participation";
+
+/* Текст со ссылкой информации об опциональном подключении автоплатежа при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.autopayments.required" = "By making this payment, you allow saving the card  and debiting money without your participation";
+
+/* Текст со ссылкой информации об опциональном подключении автоплатежа и сохранения данных карты при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.autopaymentsAndSaveData.optional" = "After the payment, the store will save your bank card details and will be able to debit money without your participation";
+
+/* Текст со ссылкой информации об опциональном подключении автоплатежа и сохранения данных карты при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.autopaymentsAndSaveData.required" = "By making this payment, you allow saving your bank card details and debiting money without your participation";
+
+/* Интерактивная часть текста со ссылкой информации об опциональном подключении автоплатежа при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.interactive.autopayments.optional" = "debiting money without your participation";
+
+/* Интерактивная часть текста со ссылкой информации об опциональном подключении автоплатежа при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.interactive.autopayments.required" = "debiting money without your participation";
+
+/* Интерактивная часть текста со ссылкой информации об опциональном подключении автоплатежа и сохранения данных карты при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.interactive.autopaymentsAndSaveData.optional" = "will save your bank card details and will be able to debit money without your participation";
+
+/* Интерактивная часть текста со ссылкой информации об опциональном подключении автоплатежа и сохранения данных карты при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.interactive.autopaymentsAndSaveData.required" = "saving your bank card details and debiting money without your participation";
+
+/* Интерактивная часть текста со ссылкой информации об опциональном сохранении платёжных данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.interactive.saveData.optional" = "will save your bank card details";
+
+/* Интерактивная часть текста со ссылкой информации об опциональном сохранении платёжных данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.interactive.saveData.required" = "will save your bank card details";
+
+/* Текст со ссылкой информации об опциональном сохранении платёжных данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.saveData.optional" = "The store will save your bank card details: next time, you won't need to enter them";
+
+/* Текст со ссылкой информации об опциональном сохранении платёжных данных при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
+"RecurrencyAndSavePaymentData.link.saveData.required" = "The store will save your bank card details: next time, you won't need to enter them";
+
+"SavePaymentMethod.BankCard.Force.Text" = "By making this payment, you allow saving the card  and";
+
+"SavePaymentMethod.BankCard.Force.hyperText" = "debiting money without your participation";
+
+"SavePaymentMethod.BankCard.UserPriority.Text" = "After the payment, this card will be saved: the store will be able";
+
+"SavePaymentMethod.BankCard.UserPriority.hyperText" = "to debit money without your participation";
+
+"SavePaymentMethod.Wallet.Force.Text" = "By making this payment, you allow saving this wallet and";
+
+"SavePaymentMethod.Wallet.Force.hyperText" = "debiting money without your participation";
+
+"SavePaymentMethod.Wallet.UserPriority.Text" = "The store will be able";
+
+"SavePaymentMethod.Wallet.UserPriority.hyperText" = "to debit money without your participation";
+
+"SavePaymentMethodInfo.BankCard.Body" = "If you allow autopayments,  we'll link the bank card (including if it's been used via Apple Pay)  to the store. After that, the store will be able to send requests for debiting money automatically, then the payment is made without an additional confirmation from you. \n\nAutopayments will continue even after you reissue the card, even if your bank can update the data automatically. You can cancel them and unlink the card at any moment via store's support service.";
+
+"SavePaymentMethodInfo.BankCard.Header" = "How autopayments work";
 
 "SavePaymentMethodInfo.Button.GotIt" = "Got it";
 
-"SavePaymentMethodInfo.Wallet.Body" = "It means that you're allowing YooMoney to debit money from the wallet upon store's request without an additional confirmation from you. You can cancel these autopayments at any moment in the wallet settings (on the YooMoney website).";
+"SavePaymentMethodInfo.Wallet.Body" = "It means that you're allowing YooMoney to debit money from the wallet upon store's request without an additional confirmation from you. You can disable these autopayments at any moment in the wallet settings  (on the YooMoney website).";
 
 /* Save payment method */
 "SavePaymentMethodInfo.Wallet.Header" = "Permission to debit money without your participation";
 
 "Sberpay.Contract.Title" = "SberPay";
 
-"Sberpay.paymentMethodTitle" = "Next, open the Sberbank Online application - confirm the payment";
+"Sberpay.paymentMethodTitle" = "Next, the SberBank Online application will be opened: confirm the payment";
 
 "TermsOfService.Hyperlink" = "the terms and conditions of the service";
 
@@ -176,16 +272,16 @@
 "TermsOfService.Text" = "By clicking this button, accept";
 
 /* Текст условий сервиса с ссылкой на экране установки пароля для пользователя без установленной почты https://yadi.sk/i/DgL-5V4hQL15WQ */
-"Wallet.Authorization.addEmailTitle" = "For receipts and notifications";
+"Wallet.Authorization.addEmailTitle" = "Enter your email address";
 
 /* Текст условий сервиса с ссылкой на экране установки пароля для пользователя c установленной почтой https://yadi.sk/i/DgL-5V4hQL15WQ */
-"Wallet.Authorization.emailCheckboxTitle" = "I'd like to receive news about the service, discounts, and surveys: not more than once a week";
+"Wallet.Authorization.emailCheckboxTitle" = "For receipts and notifications";
 
 /* Текст свитча согласия на рассылку на экране ввода почты https://yadi.sk/i/8BSuo7q_6CJzbg */
-"Wallet.Authorization.hardMigrationScreenButtonSubtitle" = "It doesn't change any limits, commission rates, or other terms of use of the wallet in any way: <a href=\"https://new.yoomoney.ru/\">learn more</a>";
+"Wallet.Authorization.hardMigrationScreenButtonSubtitle" = "I'd like to get email notifications about promotions";
 
 /* Текст под полем ввода почты на экране ввода почты https://yadi.sk/i/8BSuo7q_6CJzbg */
-"Wallet.Authorization.hardMigrationScreenSubtitle" = "You used to sign in to your wallet using your Yandex username and password, now you need a YooMoney account instead.\nLet us help you get it:\n\n— sign in using your Yandex username and password, \n— allow YooMoney to access your name and email address, \n— create a new password.\n\nYou'll get a YooMoney account with the same wallet that you've had in it.\nEmail address and password are used for signing in, and text message codes are used for confirming actions.";
+"Wallet.Authorization.hardMigrationScreenSubtitle" = "For receipts and notifications";
 
 /* Заголовок экрана про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
 "Wallet.Authorization.hardMigrationScreenTitle" = "Time to switch to YooMoney";
@@ -197,10 +293,10 @@
 "Wallet.Authorization.migrationBannerText" = "If you signed up before October 21, you need to switch to YooMoney";
 
 /* Текст на экране про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.migrationScreenButtonSubtitle" = "It doesn't change any limits, commission rates, or other terms of use of the wallet in any way: <a href=\"https://new.yoomoney.ru\">learn more</a>";
+"Wallet.Authorization.migrationScreenButtonSubtitle" = "You used to sign in to your wallet using your Yandex username and password, now you need a YooMoney account instead.\n\nLet us help you get it:\n\n— sign in using your Yandex username and password,\n— allow YooMoney to access your name and email address,\n— create a new password.\n\nYou'll get a YooMoney account with the same wallet that you've had in it.\nEmail address and password are used for signing in, and text message codes are used for confirming actions.";
 
 /* Текст с ссылкой под кнопкой на экране про миграцию, который после нажатия на большой баннер на экране ввода почты/телефона при авторизации https://yadi.sk/i/_IMGLswOravIOw */
-"Wallet.Authorization.migrationScreenSubtitle" = "Your wallet is now in YooMoney, separate from your Yandex account.\n\n— What remains as it was before: your wallet number, settings configuration, and terms of use.\n\n— What's changed: you'll use your email address or phone number instead of your username (like in Yandex). You can also update your password.\n\n— What you need to do now: sign in to your Yandex account, under which you have your wallet.";
+"Wallet.Authorization.migrationScreenSubtitle" = "It doesn't change any limits, commission rates, or other terms of use of the wallet in any way: <a href=\"https://new.yoomoney.ru\">learn more</a>";
 
 /* Заголовок экрана про миграцию, который после нажатия на немигрированный аккаунт на экране выбора аккаунта https://yadi.sk/i/_IMGLswOravIOw */
 "Wallet.Authorization.migrationScreenTitle" = "Why do I need to switch?";
@@ -212,11 +308,60 @@
 "Wallet.Authorization.userWithEmailAgreementTitle" = "By clicking this button, I confirm that I'm aware of <a href=\"https://yoomoney.ru/page?id=525698%5C\"> all the legal terms and conditions of the service</a>";
 
 /* Wallet */
-"Wallet.savePaymentMethod.title" = "Link a wallet";
+"Wallet.savePaymentMethod.title" = "Allow autopayments";
 
 "YooMoney.title" = "YooMoney";
 
+/* Текст, в информере, о сохранении автоплатежа https://disk.yandex.ru/i/QNJyBrfP52vQOw */
+"card.details.autopaymentPersists" = "Autopayments will continue after you remove the card. To cancel autopayments, contact store's support service";
+
+/* Текст информации о работе автосписания https://disk.yandex.ru/i/r9l5HObi2jZy6A */
+"card.details.info.autopay.details" = "If you allow autopayments, we'll link the bank card (including if it's been used via Apple Pay) to the store. After that, the store will be able to send requests for debiting money automatically, then the payment is made without an additional confirmation from you.\n\nAutopayments will continue even after you reissue the card, even if your bank can update the data automatically. You can cancel them and unlink the card at any moment via store's support service.";
+
+/* Заголовок информации о работе автосписания https://disk.yandex.ru/i/r9l5HObi2jZy6A */
+"card.details.info.autopay.title" = "How autopayments work";
+
+/* Текст кнопки, в информере, ведущей в подробности https://disk.yandex.ru/i/QNJyBrfP52vQOw */
+"card.details.info.more" = "Learn more";
+
+/* Текст информации об отвязке карты https://disk.yandex.ru/i/59heYTl9Q4L2fA */
+"card.details.info.unbind.details" = "To do that, go to the wallet settings on the YooMoney website or in the app.\n\nIn the app: tap on your profile picture, select \"Bank cards\", swipe the one you need to the left, and tap \"Remove\".\n\nOn the website: go to the wallet settings, open the \"Linked cards\" tab, find the one you need, and click \"Unlink\".";
+
+/* Заголовок информации об отвязке карты https://disk.yandex.ru/i/59heYTl9Q4L2fA */
+"card.details.info.unbind.title" = "How to unlink a card from the wallet";
+
+/* Текст `Отвязать карту` https://disk.yandex.ru/i/QNJyBrfP52vQOw */
+"card.details.unbind" = "Remove the card";
+
+/* Текст нотификации об ошибке отвязки карты. Параметр - маска карты https://disk.yandex.ru/i/QNJyBrfP52vQOw */
+"card.details.unbind.fail" = "Couldn't remove card %@";
+
+/* Текст нотификации об успешной отвязке карты. Параметр - маска карты https://disk.yandex.ru/i/JWC70LuzuJSeEw */
+"card.details.unbind.success" = "Card %@ removed";
+
+/* Текст, ведущей назад, кнопки https://disk.yandex.ru/i/dcgivhF4QbURwA */
+"card.details.unwind" = "Back";
+
+/* Текст, в информере, для карты привязанной к кошельку https://disk.yandex.ru/i/dcgivhF4QbURwA */
+"card.details.yoocardUnbindDetails" = "You can only unlink this card in the wallet settings";
+
 "image.logo" = "logo.kassa.en";
 
+"settings.payment_methods.apple_pay" = "Apple Pay";
+
+"settings.payment_methods.bank_card" = "Bank card";
+
+"settings.payment_methods.sberbank" = "SberBank Online";
+
+"settings.payment_methods.title" = "Payment methods";
+
+"settings.payment_methods.yoo_money" = "YooMoney";
+
+"settings.test_mode.title" = "Test mode";
+
+"settings.title" = "Settings";
+
 "settings.ui_customization.bank_card_scan_enabled" = "Bank card scanning";
+
+"settings.ui_customization.yoo_money_logo" = "YooMoney logo";
 

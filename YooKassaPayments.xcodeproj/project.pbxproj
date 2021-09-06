@@ -18,6 +18,19 @@
 		252982C426AEB3B500174692 /* YandexMobileMetrica.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 252982C226AEB3B500174692 /* YandexMobileMetrica.xcframework */; };
 		252982C526AEB3B500174692 /* YandexMobileMetricaCrashes.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 252982C326AEB3B500174692 /* YandexMobileMetricaCrashes.xcframework */; };
 		252982C726AEB6A800174692 /* ThreatMetrixAdapter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 252982C626AEB6A800174692 /* ThreatMetrixAdapter.xcframework */; };
+		25347BE126BADBE800FDD1DA /* CardSettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25347BD626BADBE800FDD1DA /* CardSettingsRouter.swift */; };
+		25347BE226BADBE800FDD1DA /* CardSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25347BD726BADBE800FDD1DA /* CardSettingsPresenter.swift */; };
+		25347BE326BADBE800FDD1DA /* CardSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25347BD826BADBE800FDD1DA /* CardSettingsViewController.swift */; };
+		25347BE426BADBE800FDD1DA /* CardSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25347BD926BADBE800FDD1DA /* CardSettingsInteractor.swift */; };
+		25347BE526BADBE800FDD1DA /* CardSettingsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25347BDB26BADBE800FDD1DA /* CardSettingsAssembly.swift */; };
+		25347BE626BADBE800FDD1DA /* CardSettingsViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25347BDD26BADBE800FDD1DA /* CardSettingsViewIO.swift */; };
+		25347BE726BADBE800FDD1DA /* CardSettingsModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25347BDE26BADBE800FDD1DA /* CardSettingsModuleIO.swift */; };
+		25347BE826BADBE800FDD1DA /* CardSettingsRouterIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25347BDF26BADBE800FDD1DA /* CardSettingsRouterIO.swift */; };
+		25347BE926BADBE800FDD1DA /* CardSettingsInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25347BE026BADBE800FDD1DA /* CardSettingsInteractorIO.swift */; };
+		25347BEB26BADC2E00FDD1DA /* LargeActionInformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25347BEA26BADC2E00FDD1DA /* LargeActionInformer.swift */; };
+		25347BED26BADC6800FDD1DA /* ActionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25347BEC26BADC6800FDD1DA /* ActionTemplate.swift */; };
+		25FD881326CD4AD70032B5FD /* PaymentRecurrencyAndDataSavingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FD881226CD4AD70032B5FD /* PaymentRecurrencyAndDataSavingSection.swift */; };
+		25FD881526CD4B820032B5FD /* PaymentRecurrencyAndDataSavingSectionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FD881426CD4B820032B5FD /* PaymentRecurrencyAndDataSavingSectionFactory.swift */; };
 		3089EF4923846F6300CB7319 /* SwitcherSavePaymentMethodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089EF4823846F6300CB7319 /* SwitcherSavePaymentMethodViewModel.swift */; };
 		3089EF4B23846F6C00CB7319 /* StrictSavePaymentMethodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089EF4A23846F6C00CB7319 /* StrictSavePaymentMethodViewModel.swift */; };
 		3089EF4D23846F7400CB7319 /* SavePaymentMethodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089EF4C23846F7400CB7319 /* SavePaymentMethodViewModel.swift */; };
@@ -400,7 +413,20 @@
 		252982C326AEB3B500174692 /* YandexMobileMetricaCrashes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = YandexMobileMetricaCrashes.xcframework; path = Carthage/Build/YandexMobileMetricaCrashes.xcframework; sourceTree = "<group>"; };
 		252982C626AEB6A800174692 /* ThreatMetrixAdapter.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ThreatMetrixAdapter.xcframework; path = Carthage/Build/ThreatMetrixAdapter.xcframework; sourceTree = "<group>"; };
 		252982C826AEB70300174692 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/iOSSupport/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		25347BD626BADBE800FDD1DA /* CardSettingsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSettingsRouter.swift; sourceTree = "<group>"; };
+		25347BD726BADBE800FDD1DA /* CardSettingsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSettingsPresenter.swift; sourceTree = "<group>"; };
+		25347BD826BADBE800FDD1DA /* CardSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSettingsViewController.swift; sourceTree = "<group>"; };
+		25347BD926BADBE800FDD1DA /* CardSettingsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSettingsInteractor.swift; sourceTree = "<group>"; };
+		25347BDB26BADBE800FDD1DA /* CardSettingsAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSettingsAssembly.swift; sourceTree = "<group>"; };
+		25347BDD26BADBE800FDD1DA /* CardSettingsViewIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSettingsViewIO.swift; sourceTree = "<group>"; };
+		25347BDE26BADBE800FDD1DA /* CardSettingsModuleIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSettingsModuleIO.swift; sourceTree = "<group>"; };
+		25347BDF26BADBE800FDD1DA /* CardSettingsRouterIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSettingsRouterIO.swift; sourceTree = "<group>"; };
+		25347BE026BADBE800FDD1DA /* CardSettingsInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSettingsInteractorIO.swift; sourceTree = "<group>"; };
+		25347BEA26BADC2E00FDD1DA /* LargeActionInformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeActionInformer.swift; sourceTree = "<group>"; };
+		25347BEC26BADC6800FDD1DA /* ActionTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionTemplate.swift; sourceTree = "<group>"; };
 		25CD87AF26B90641002F4769 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		25FD881226CD4AD70032B5FD /* PaymentRecurrencyAndDataSavingSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRecurrencyAndDataSavingSection.swift; sourceTree = "<group>"; };
+		25FD881426CD4B820032B5FD /* PaymentRecurrencyAndDataSavingSectionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRecurrencyAndDataSavingSectionFactory.swift; sourceTree = "<group>"; };
 		3089EF4823846F6300CB7319 /* SwitcherSavePaymentMethodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitcherSavePaymentMethodViewModel.swift; sourceTree = "<group>"; };
 		3089EF4A23846F6C00CB7319 /* StrictSavePaymentMethodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrictSavePaymentMethodViewModel.swift; sourceTree = "<group>"; };
 		3089EF4C23846F7400CB7319 /* SavePaymentMethodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePaymentMethodViewModel.swift; sourceTree = "<group>"; };
@@ -835,6 +861,46 @@
 			);
 			sourceTree = "<group>";
 		};
+		25347BD426BADBE800FDD1DA /* CardSettings */ = {
+			isa = PBXGroup;
+			children = (
+				25347BD526BADBE800FDD1DA /* Viper bundle */,
+				25347BDA26BADBE800FDD1DA /* Assembly */,
+				25347BDC26BADBE800FDD1DA /* IO */,
+			);
+			path = CardSettings;
+			sourceTree = "<group>";
+		};
+		25347BD526BADBE800FDD1DA /* Viper bundle */ = {
+			isa = PBXGroup;
+			children = (
+				25347BD626BADBE800FDD1DA /* CardSettingsRouter.swift */,
+				25347BD726BADBE800FDD1DA /* CardSettingsPresenter.swift */,
+				25347BD826BADBE800FDD1DA /* CardSettingsViewController.swift */,
+				25347BD926BADBE800FDD1DA /* CardSettingsInteractor.swift */,
+			);
+			path = "Viper bundle";
+			sourceTree = "<group>";
+		};
+		25347BDA26BADBE800FDD1DA /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				25347BDB26BADBE800FDD1DA /* CardSettingsAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		25347BDC26BADBE800FDD1DA /* IO */ = {
+			isa = PBXGroup;
+			children = (
+				25347BDD26BADBE800FDD1DA /* CardSettingsViewIO.swift */,
+				25347BDE26BADBE800FDD1DA /* CardSettingsModuleIO.swift */,
+				25347BDF26BADBE800FDD1DA /* CardSettingsRouterIO.swift */,
+				25347BE026BADBE800FDD1DA /* CardSettingsInteractorIO.swift */,
+			);
+			path = IO;
+			sourceTree = "<group>";
+		};
 		3089EF4723846F5700CB7319 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -1043,6 +1109,7 @@
 		402EB152B4911AB058FF53B1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				25347BEC26BADC6800FDD1DA /* ActionTemplate.swift */,
 				402EB302A726A82FE26D8B76 /* LinkedTextView.swift */,
 				402EB3A8ED8334D338C7DAEC /* UnderlinedTextField */,
 				402EB09BDE187E570A3EECBC /* BankCardDataInput */,
@@ -1209,6 +1276,7 @@
 				781CDD6F25D4053400C34912 /* ApplePayContract */,
 				402EB8DC7B8A023C9B3961A7 /* BankCard */,
 				402EB03AF715BD6339B32F52 /* BankCardRepeat */,
+				25347BD426BADBE800FDD1DA /* CardSettings */,
 				7860293525D166E200B9E961 /* LinkedCard */,
 				402EB84797D7E864A73001A0 /* LogoutConfirmation */,
 				786028F125C981CF00B9E961 /* PaymentAuthorization */,
@@ -1370,6 +1438,7 @@
 		402EB634BAF3BC404B10B86D /* Molecules */ = {
 			isa = PBXGroup;
 			children = (
+				25347BEA26BADC2E00FDD1DA /* LargeActionInformer.swift */,
 				7811067B25C3FCB8004DB71D /* OrderView.swift */,
 				402EBB761608F1C750B0D45F /* PriceView.swift */,
 				7860291325CC1F3B00B9E961 /* SectionHeaderView.swift */,
@@ -1641,6 +1710,8 @@
 			children = (
 				402EB68E3BE45D5A884DDA52 /* BankCardViewController.swift */,
 				402EB1CD1CD348852BD88F76 /* ViewModel */,
+				25FD881226CD4AD70032B5FD /* PaymentRecurrencyAndDataSavingSection.swift */,
+				25FD881426CD4B820032B5FD /* PaymentRecurrencyAndDataSavingSectionFactory.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2656,6 +2727,7 @@
 				402EB91BEC54829B7D570406 /* PhoneNumberInputModuleOutput.swift in Sources */,
 				402EB5EFF251B3E8A8C0C35B /* PriceView.swift in Sources */,
 				7860291D25CC56DC00B9E961 /* LargeIconButtonItemView+Style.swift in Sources */,
+				25347BEB26BADC2E00FDD1DA /* LargeActionInformer.swift in Sources */,
 				7860293425D1231F00B9E961 /* ActionTitleTextDialog+Style.swift in Sources */,
 				784A1AE225B9CC3B00637CB5 /* BankCard.swift in Sources */,
 				3089EF4F2384700800CB7319 /* SavePaymentMethod.swift in Sources */,
@@ -2692,6 +2764,7 @@
 				402EBB0834948CFD4278DF96 /* UILabel+Style.swift in Sources */,
 				402EB52D1B69D9D12BA05F02 /* UIFont+Style.swift in Sources */,
 				78C1BD1F25EFA11B0058080F /* SberpayViewIO.swift in Sources */,
+				25347BE926BADBE800FDD1DA /* CardSettingsInteractorIO.swift in Sources */,
 				784A1AE625B9CE8A00637CB5 /* PaymentMethod.swift in Sources */,
 				402EBC73F5045B2B33EED401 /* UIImage+Style.swift in Sources */,
 				402EB2F13EA4EBCE01956D61 /* UIImageView+Style.swift in Sources */,
@@ -2725,6 +2798,8 @@
 				7860290825C982E600B9E961 /* PaymentAuthorizationViewController.swift in Sources */,
 				78997A2425D562160093CAE2 /* LargeIconView.swift in Sources */,
 				7811067425C2D212004DB71D /* YooMoneyInteractorIO.swift in Sources */,
+				25347BE726BADBE800FDD1DA /* CardSettingsModuleIO.swift in Sources */,
+				25347BE126BADBE800FDD1DA /* CardSettingsRouter.swift in Sources */,
 				402EBBB3276C2F6BC3AC5827 /* UIButton+Stylable.swift in Sources */,
 				402EB6F495D788A1A3FE0194 /* PlaceholderProvider.swift in Sources */,
 				402EBC8C95C263C57EDD975F /* PlaceholderPresenting.swift in Sources */,
@@ -2831,6 +2906,7 @@
 				402EBC41089B09F83AC6D4CA /* ApplePayContractModuleIO.swift in Sources */,
 				784A1AE425B9CCEA00637CB5 /* Confirmation.swift in Sources */,
 				308E41882385829700B44490 /* SavePaymentMethodInfoViewModel.swift in Sources */,
+				25347BE626BADBE800FDD1DA /* CardSettingsViewIO.swift in Sources */,
 				784A1AD025B9C57B00637CB5 /* MonetaryAmount.swift in Sources */,
 				784A1A9625B974CD00637CB5 /* WebLoggerService.swift in Sources */,
 				789C373F25AF260F00BA94D1 /* PaymentMethodHandlerServiceAssembly.swift in Sources */,
@@ -2853,6 +2929,7 @@
 				402EBBE91DE40AA08E3AB8B5 /* ApplePayAssembly.swift in Sources */,
 				402EB7C74860DFA65827A00C /* ApplePayModuleIO.swift in Sources */,
 				30B20E2B2535FC1C00941574 /* KeyValueStoringKeys.swift in Sources */,
+				25FD881326CD4AD70032B5FD /* PaymentRecurrencyAndDataSavingSection.swift in Sources */,
 				402EBE309FF80B279847B66D /* BankCardRepeatPresenter.swift in Sources */,
 				402EB8D43DDD23DC7A645AA1 /* BankCardRepeatInteractor.swift in Sources */,
 				402EB1F0EAA3B2E1422FD95D /* BankCardRepeatInteractorIO.swift in Sources */,
@@ -2876,6 +2953,7 @@
 				402EBD63F90CE9E26E3ABF36 /* KeychainStorageMock.swift in Sources */,
 				402EB3397345E69677F29347 /* KeychainStorage.swift in Sources */,
 				402EB52D11504C419695D49F /* UserDefaultsStorage.swift in Sources */,
+				25347BE526BADBE800FDD1DA /* CardSettingsAssembly.swift in Sources */,
 				402EBFE2285B7B73BF2290ED /* WalletLoginServiceImpl.swift in Sources */,
 				782E75E1260CCF7500CF2BFD /* YKSdkService.swift in Sources */,
 				402EBDA16A62F97489BF95AC /* WalletLoginService.swift in Sources */,
@@ -2893,6 +2971,7 @@
 				402EB0D571A0BE68455B56D8 /* AnalyticsEvent.swift in Sources */,
 				402EBB302AB46E50088A5B40 /* AnalyticsServiceAssembly.swift in Sources */,
 				402EB52500117CC0F9F7337E /* AnalyticsService.swift in Sources */,
+				25347BED26BADC6800FDD1DA /* ActionTemplate.swift in Sources */,
 				402EB5609877054CD489DF14 /* AnalyticsTrack.swift in Sources */,
 				784A1AD925B9C57B00637CB5 /* PaymentUsageLimit.swift in Sources */,
 				402EBB04E607A7D25433D1A8 /* AnalyticsProvider.swift in Sources */,
@@ -2901,6 +2980,7 @@
 				402EB10E2B1F8A4E8BD2DEB8 /* BankSettingsService.swift in Sources */,
 				402EB324EC0352C1CF0A8A59 /* BankSettingsServiceImpl.swift in Sources */,
 				7860292C25CD406500B9E961 /* ImageCacheImpl.swift in Sources */,
+				25347BE426BADBE800FDD1DA /* CardSettingsInteractor.swift in Sources */,
 				78C1BD1B25EFA1090058080F /* SberpayModuleIO.swift in Sources */,
 				402EBF6F0AF3AB32E9C844AC /* TokenizationAssembly.swift in Sources */,
 				402EB337CF8A33565554E71D /* CardScanning.swift in Sources */,
@@ -2937,6 +3017,7 @@
 				402EB4040D6DB2DC51F53B51 /* SheetOptions.swift in Sources */,
 				402EBE4E6840A072C11BF813 /* SheetTransition.swift in Sources */,
 				402EB6F018F924AD0C929C0A /* UIColorExtension.swift in Sources */,
+				25347BE226BADBE800FDD1DA /* CardSettingsPresenter.swift in Sources */,
 				402EB74BD7755B9D8CA0202E /* SheetViewController.swift in Sources */,
 				402EB449E96F93EC94C40745 /* SheetContentViewDelegate.swift in Sources */,
 				402EB2E49C9F809B26838BF2 /* SheetContentViewController.swift in Sources */,
@@ -2956,6 +3037,7 @@
 				402EB3FDECF234568CC75455 /* UnderlinedTextField.swift in Sources */,
 				402EB4FEA877102C24D0AEE2 /* UnderlinedTextField+InputView.swift in Sources */,
 				402EB30D837F20F5E69E196C /* UnderlinedTextField+Styles.swift in Sources */,
+				25347BE326BADBE800FDD1DA /* CardSettingsViewController.swift in Sources */,
 				402EBF9EAC29349F6CD640C2 /* BankCardInteractorIO.swift in Sources */,
 				402EBCE0D0434D717711E283 /* BankCardViewIO.swift in Sources */,
 				402EBAAF81518608501DBE6D /* BankCardAssembly.swift in Sources */,
@@ -2981,8 +3063,10 @@
 				402EBC42507159E3CD4859EC /* BankCardDataInputRouterIO.swift in Sources */,
 				402EB3AB073F3C17EAE8919C /* BankCardDataInputViewModel.swift in Sources */,
 				402EBBDF51F6662CEE54298A /* Bundle+Tools.swift in Sources */,
+				25FD881526CD4B820032B5FD /* PaymentRecurrencyAndDataSavingSectionFactory.swift in Sources */,
 				78C1BD2325EFA1330058080F /* SberpayRouter.swift in Sources */,
 				402EB7392A73C3DE20A9581B /* PlaceholderView.swift in Sources */,
+				25347BE826BADBE800FDD1DA /* CardSettingsRouterIO.swift in Sources */,
 				402EBD76466A7E8153264B72 /* Identifier.swift in Sources */,
 				402EB4E93D7A00A973BB93FA /* UITableViewHeaderFooterView+Identifier.swift in Sources */,
 				402EBF5E02044CFB30A2A40A /* UITableViewCell+Identifier.swift in Sources */,

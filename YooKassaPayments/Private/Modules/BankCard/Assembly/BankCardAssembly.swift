@@ -43,15 +43,20 @@ enum BankCardAssembly {
         inputData: BankCardModuleInputData
     ) -> BankCardPresenter {
         let presenter = BankCardPresenter(
+            cardService: CardService(),
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
             priceViewModel: inputData.priceViewModel,
             feeViewModel: inputData.feeViewModel,
             termsOfService: inputData.termsOfService,
             cardScanning: inputData.cardScanning,
-            savePaymentMethodViewModel: inputData.savePaymentMethodViewModel,
-            initialSavePaymentMethod: inputData.initialSavePaymentMethod,
-            isBackBarButtonHidden: inputData.isBackBarButtonHidden
+            isBackBarButtonHidden: inputData.isBackBarButtonHidden,
+            instrument: inputData.instrument,
+            canSaveInstrument: inputData.canSaveInstrument,
+            apiSavePaymentMethod: inputData.apiSavePaymentMethod,
+            clientSavePaymentMethod: inputData.savePaymentMethod,
+            paymentMethodViewModelFactory: PaymentMethodViewModelFactoryAssembly.makeFactory(),
+            isSafeDeal: inputData.isSafeDeal
         )
         return presenter
     }
@@ -71,6 +76,7 @@ enum BankCardAssembly {
             testModeSettings: inputData.testModeSettings
         )
         let threatMetrixService = ThreatMetrixServiceFactory.makeService()
+
         let interactor = BankCardInteractor(
             paymentService: paymentService,
             analyticsService: analyticsService,
@@ -78,7 +84,8 @@ enum BankCardAssembly {
             threatMetrixService: threatMetrixService,
             clientApplicationKey: inputData.clientApplicationKey,
             amount: inputData.paymentOption.charge.plain,
-            returnUrl: inputData.returnUrl
+            returnUrl: inputData.returnUrl,
+            customerId: inputData.customerId
         )
         return interactor
     }

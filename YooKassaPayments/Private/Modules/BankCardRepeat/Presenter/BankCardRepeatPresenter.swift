@@ -25,6 +25,7 @@ final class BankCardRepeatPresenter {
     private let termsOfService: TermsOfService
     private let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     private var initialSavePaymentMethod: Bool
+    private let isSafeDeal: Bool
 
     // MARK: - Init
 
@@ -39,7 +40,8 @@ final class BankCardRepeatPresenter {
         purchaseDescription: String,
         termsOfService: TermsOfService,
         savePaymentMethodViewModel: SavePaymentMethodViewModel?,
-        initialSavePaymentMethod: Bool
+        initialSavePaymentMethod: Bool,
+        isSafeDeal: Bool
     ) {
         self.cardService = cardService
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
@@ -54,6 +56,7 @@ final class BankCardRepeatPresenter {
         self.termsOfService = termsOfService
         self.savePaymentMethodViewModel = savePaymentMethodViewModel
         self.initialSavePaymentMethod = initialSavePaymentMethod
+        self.isSafeDeal = isSafeDeal
     }
 
     // MARK: - Stored Data
@@ -97,6 +100,13 @@ extension BankCardRepeatPresenter: BankCardRepeatViewOutput {
 
     func didTapTermsOfService(_ url: URL) {
         router.presentTermsOfServiceModule(url)
+    }
+
+    func didTapSafeDealInfo(_ url: URL) {
+        router.presentSafeDealInfo(
+            title: PaymentMethodResources.Localized.safeDealInfoTitle,
+            body: PaymentMethodResources.Localized.safeDealInfoBody
+        )
     }
 
     func didTapOnSavePaymentMethod() {
@@ -193,7 +203,9 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
         }
 
         let cardMask = card.first6 + "••••••" + card.last4
-        let cardLogo = paymentMethodViewModelFactory.makeBankCardImage(card)
+        let cardLogo = paymentMethodViewModelFactory.makeBankCardImage(
+            first6Digits: card.first6, bankCardType: card.cardType
+        )
         let priceViewModel = priceViewModelFactory.makeAmountPriceViewModel(paymentOption)
         let feeViewModel = priceViewModelFactory.makeFeePriceViewModel(paymentOption)
 
@@ -204,7 +216,8 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
             fee: feeViewModel,
             cardMask: formattingCardMask(cardMask),
             cardLogo: cardLogo,
-            terms: termsOfService
+            terms: termsOfService,
+            safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil
         )
 
         DispatchQueue.main.async { [weak self] in

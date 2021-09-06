@@ -15,6 +15,7 @@ final class BankCardInteractor {
     private let clientApplicationKey: String
     private let amount: MonetaryAmount
     private let returnUrl: String
+    private let customerId: String?
 
     init(
         paymentService: PaymentService,
@@ -23,7 +24,8 @@ final class BankCardInteractor {
         threatMetrixService: ThreatMetrixService,
         clientApplicationKey: String,
         amount: MonetaryAmount,
-        returnUrl: String
+        returnUrl: String,
+        customerId: String?
     ) {
         self.paymentService = paymentService
         self.analyticsService = analyticsService
@@ -32,19 +34,47 @@ final class BankCardInteractor {
         self.clientApplicationKey = clientApplicationKey
         self.amount = amount
         self.returnUrl = returnUrl
+        self.customerId = customerId
     }
 }
 
 // MARK: - BankCardInteractorInput
 
 extension BankCardInteractor: BankCardInteractorInput {
-    func tokenizeBankCard(
-        cardData: CardData,
-        savePaymentMethod: Bool
-    ) {
+    func tokenizeInstrument(id: String, csc: String?, savePaymentMethod: Bool) {
         threatMetrixService.profileApp { [weak self] result in
-            guard let self = self,
-                  let output = self.output else { return }
+            guard let self = self, let output = self.output else { return }
+            switch result {
+            case .success(let tmxId):
+                self.paymentService.tokenizeCardInstrument(
+                    clientApplicationKey: self.clientApplicationKey,
+                    amount: self.amount,
+                    tmxSessionId: tmxId.value,
+                    confirmation: makeConfirmation(returnUrl: self.returnUrl),
+                    savePaymentMethod: savePaymentMethod,
+                    instrumentId: id,
+                    csc: csc
+                ) { tokenizeResult in
+                    switch tokenizeResult {
+                    case .success(let tokens):
+                        output.didTokenize(tokens)
+                    case .failure(let error):
+                        let mappedError = mapError(error)
+                        output.didFailTokenize(mappedError)
+                    }
+                }
+            case .failure(let error):
+                let mappedError = mapError(error)
+                output.didFailTokenize(mappedError)
+            }
+        }
+    }
+    func tokenizeBankCard(cardData: CardData, savePaymentMethod: Bool, savePaymentInstrument: Bool?) {
+        threatMetrixService.profileApp { [weak self] result in
+            guard
+                let self = self,
+                let output = self.output
+            else { return }
 
             switch result {
             case let .success(tmxSessionId):
@@ -60,7 +90,9 @@ extension BankCardInteractor: BankCardInteractorInput {
                     confirmation: confirmation,
                     savePaymentMethod: savePaymentMethod,
                     amount: self.amount,
-                    tmxSessionId: tmxSessionId.value
+                    tmxSessionId: tmxSessionId.value,
+                    customerId: self.customerId,
+                    savePaymentInstrument: savePaymentInstrument
                 ) { result in
                     switch result {
                     case .success(let data):
