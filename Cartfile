@@ -1,5 +1,5 @@
-github "yoomoney/functional-swift" ~> 1.6.7
-github "yoomoney/core-api-swift" ~> 1.11.4
+github "yoomoney/functional-swift" ~> 1.7.3
+github "yoomoney/core-api-swift" ~> 2.0.1
 github "yoomoney/yookassa-wallet-api-swift" ~> 2.3.1
 github "yoomoney/yookassa-payments-api-swift" ~> 2.11.0
 binary "https://raw.githubusercontent.com/yoomoney/yooid-sdk-ios/master/MoneyAuth.json" ~> 2.34.1

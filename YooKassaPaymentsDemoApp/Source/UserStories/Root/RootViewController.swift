@@ -347,10 +347,6 @@ final class RootViewController: UIViewController {
             oauthToken = "live_MTkzODU2VY5GiyQq2GMPsCQ0PW7f_RSLtJYOT-mp_CA"
         }
 
-        let cardScanning = settings.isBankCardScanEnabled
-            ? self
-            : nil
-
         let inputData: TokenizationFlow = .tokenization(TokenizationModuleInputData(
             clientApplicationKey: oauthToken,
             shopName: translate(Localized.name),
@@ -358,7 +354,7 @@ final class RootViewController: UIViewController {
             amount: amount,
             tokenizationSettings: makeTokenizationSettings(),
             testModeSettings: testSettings,
-            cardScanning: cardScanning,
+            cardScanning: nil,
             applePayMerchantIdentifier: "merchant.ru.yoo.sdk.kassa.payments",
             isLoggingEnabled: true,
             userPhoneNumber: "7",

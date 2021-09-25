@@ -1,3 +1,4 @@
+import UIKit
 import YooKassaPayments
 
 // MARK: - TokenizationModuleOutput

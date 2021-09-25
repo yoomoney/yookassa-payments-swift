@@ -18,6 +18,10 @@ final class SberpayPresenter {
     private let termsOfService: TermsOfService
     private let isBackBarButtonHidden: Bool
     private let isSafeDeal: Bool
+    private let clientSavePaymentMethod: SavePaymentMethod
+
+    private var recurrencySectionSwitchValue: Bool?
+    private let isSavePaymentMethodAllowed: Bool
 
     init(
         shopName: String,
@@ -26,7 +30,9 @@ final class SberpayPresenter {
         feeViewModel: PriceViewModel?,
         termsOfService: TermsOfService,
         isBackBarButtonHidden: Bool,
-        isSafeDeal: Bool
+        isSafeDeal: Bool,
+        clientSavePaymentMethod: SavePaymentMethod,
+        isSavePaymentMethodAllowed: Bool
     ) {
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -35,6 +41,8 @@ final class SberpayPresenter {
         self.termsOfService = termsOfService
         self.isBackBarButtonHidden = isBackBarButtonHidden
         self.isSafeDeal = isSafeDeal
+        self.clientSavePaymentMethod = clientSavePaymentMethod
+        self.isSavePaymentMethodAllowed = isSavePaymentMethodAllowed
     }
 }
 
@@ -55,13 +63,29 @@ extension SberpayPresenter: SberpayViewOutput {
             font: UIFont.dynamicCaption2,
             foregroundColor: UIColor.AdaptiveColors.secondary
         )
+
+        var section: PaymentRecurrencyAndDataSavingSection?
+        if isSavePaymentMethodAllowed {
+            switch clientSavePaymentMethod {
+            case .userSelects:
+                section = PaymentRecurrencyAndDataSavingSectionFactory.make(mode: .allowRecurring, output: self)
+                recurrencySectionSwitchValue = section?.switchValue
+            case .on:
+                section = PaymentRecurrencyAndDataSavingSectionFactory.make(mode: .requiredRecurring, output: self)
+                recurrencySectionSwitchValue = true
+            case .off:
+                section = nil
+            }
+        }
+
         let viewModel = SberpayViewModel(
             shopName: shopName,
             description: purchaseDescription,
             priceValue: priceValue,
             feeValue: feeValue,
             termsOfService: termsOfServiceValue,
-            safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil
+            safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil,
+            recurrencyAndDataSavingSection: section
         )
         view.setupViewModel(viewModel)
 
@@ -84,9 +108,8 @@ extension SberpayPresenter: SberpayViewOutput {
         guard let view = view else { return }
         view.showActivity()
         DispatchQueue.global().async { [weak self] in
-            guard let self = self,
-                  let interactor = self.interactor else { return }
-            interactor.tokenizeSberpay()
+            guard let self = self, let interactor = self.interactor else { return }
+            interactor.tokenizeSberpay(savePaymentMethod: self.recurrencySectionSwitchValue ?? false)
         }
     }
 
@@ -159,9 +182,37 @@ extension SberpayPresenter: ActionTitleTextDialogDelegate {
         view.hidePlaceholder()
         view.showActivity()
         DispatchQueue.global().async { [weak self] in
-            guard let self = self,
-                  let interactor = self.interactor else { return }
-            interactor.tokenizeSberpay()
+            guard let self = self, let interactor = self.interactor else { return }
+            interactor.tokenizeSberpay(savePaymentMethod: self.recurrencySectionSwitchValue ?? false)
+        }
+    }
+}
+
+// MARK: - PaymentRecurrencyAndDataSavingSectionOutput
+
+extension SberpayPresenter: PaymentRecurrencyAndDataSavingSectionOutput {
+    func didChangeSwitchValue(newValue: Bool, mode: PaymentRecurrencyAndDataSavingSection.Mode) {
+        recurrencySectionSwitchValue = newValue
+    }
+    func didTapInfoLink(mode: PaymentRecurrencyAndDataSavingSection.Mode) {
+        switch mode {
+        case .allowRecurring, .requiredRecurring:
+            router.presentSafeDealInfo(
+                title: CommonLocalized.CardSettingsDetails.autopayInfoTitle,
+                body: CommonLocalized.CardSettingsDetails.autopayInfoDetails
+            )
+        case .savePaymentData, .requiredSaveData:
+            router.presentSafeDealInfo(
+                title: CommonLocalized.RecurrencyAndSavePaymentData.saveDataInfoTitle,
+                body: CommonLocalized.RecurrencyAndSavePaymentData.saveDataInfoMessage
+            )
+        case .allowRecurringAndSaveData, .requiredRecurringAndSaveData:
+            router.presentSafeDealInfo(
+                title: CommonLocalized.RecurrencyAndSavePaymentData.saveDataAndAutopaymentsInfoTitle,
+                body: CommonLocalized.RecurrencyAndSavePaymentData.saveDataAndAutopaymentsInfoMessage
+            )
+        default:
+        break
         }
     }
 }

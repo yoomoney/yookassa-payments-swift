@@ -267,6 +267,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
                let returnUrl = makeSberpayReturnUrl() {
                 openSberpayModule(
                     paymentOption: paymentOption,
+                    clientSavePaymentMethod: savePaymentMethod,
                     isSafeDeal: isSafeDeal,
                     needReplace: needReplace,
                     returnUrl: returnUrl
@@ -496,7 +497,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             userPhoneNumber: userPhoneNumber,
             isBackBarButtonHidden: needReplace,
             customerId: customerId,
-            isSafeDeal: isSafeDeal
+            isSafeDeal: isSafeDeal,
+            clientSavePaymentMethod: savePaymentMethod
         )
         router.openSberbankModule(
             inputData: inputData,
@@ -506,6 +508,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
 
     private func openSberpayModule(
         paymentOption: PaymentOption,
+        clientSavePaymentMethod: SavePaymentMethod,
         isSafeDeal: Bool,
         needReplace: Bool,
         returnUrl: String
@@ -514,6 +517,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         let feeViewModel = priceViewModelFactory.makeFeePriceViewModel(paymentOption)
         let inputData = SberpayModuleInputData(
             paymentOption: paymentOption,
+            clientSavePaymentMethod: clientSavePaymentMethod,
             clientApplicationKey: clientApplicationKey,
             tokenizationSettings: tokenizationSettings,
             testModeSettings: testModeSettings,

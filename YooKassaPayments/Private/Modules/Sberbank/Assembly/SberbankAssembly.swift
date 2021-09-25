@@ -14,7 +14,9 @@ enum SberbankAssembly {
             termsOfService: inputData.termsOfService,
             userPhoneNumber: inputData.userPhoneNumber,
             isBackBarButtonHidden: inputData.isBackBarButtonHidden,
-            isSafeDeal: inputData.isSafeDeal
+            isSafeDeal: inputData.isSafeDeal,
+            clientSavePaymentMethod: inputData.clientSavePaymentMethod,
+            isSavePaymentMethodAllowed: inputData.paymentOption.savePaymentMethod == .allowed
         )
         let paymentService = PaymentServiceAssembly.makeService(
             tokenizationSettings: inputData.tokenizationSettings,

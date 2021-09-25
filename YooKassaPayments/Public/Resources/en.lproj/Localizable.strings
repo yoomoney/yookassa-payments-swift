@@ -200,7 +200,7 @@
 "RecurrencyAndSavePaymentData.info.saveDataAndAutopayments.title" = "Autopayments and saving payment details";
 
 /* Текст со ссылкой информации об опциональном подключении автоплатежа при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
-"RecurrencyAndSavePaymentData.link.autopayments.optional" = "After the payment, this card will be saved: the store will be able debiting money without your participation";
+"RecurrencyAndSavePaymentData.link.autopayments.optional" = "After the payment, this card will be saved: the store will be able to debit money without your participation";
 
 /* Текст со ссылкой информации об опциональном подключении автоплатежа при платеже https://disk.yandex.ru/i/dcZY0utIfx634w */
 "RecurrencyAndSavePaymentData.link.autopayments.required" = "By making this payment, you allow saving the card  and debiting money without your participation";

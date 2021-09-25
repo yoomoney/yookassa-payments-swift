@@ -41,7 +41,7 @@ final class SberpayInteractor {
 // MARK: - SberpayInteractorInput
 
 extension SberpayInteractor: SberpayInteractorInput {
-    func tokenizeSberpay() {
+    func tokenizeSberpay(savePaymentMethod: Bool) {
         threatMetrixService.profileApp { [weak self] result in
             guard let self = self,
                   let output = self.output else { return }
@@ -55,7 +55,7 @@ extension SberpayInteractor: SberpayInteractorInput {
                 self.paymentService.tokenizeSberpay(
                     clientApplicationKey: self.clientApplicationKey,
                     confirmation: confirmation,
-                    savePaymentMethod: false,
+                    savePaymentMethod: savePaymentMethod,
                     amount: self.amount,
                     tmxSessionId: tmxSessionId.value,
                     customerId: self.customerId

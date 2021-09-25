@@ -23,6 +23,10 @@ final class SberbankPresenter {
     private let userPhoneNumber: String?
     private let isBackBarButtonHidden: Bool
     private let isSafeDeal: Bool
+    private let clientSavePaymentMethod: SavePaymentMethod
+
+    private var recurrencySectionSwitchValue: Bool?
+    private let isSavePaymentMethodAllowed: Bool
 
     init(
         shopName: String,
@@ -32,7 +36,9 @@ final class SberbankPresenter {
         termsOfService: TermsOfService,
         userPhoneNumber: String?,
         isBackBarButtonHidden: Bool,
-        isSafeDeal: Bool
+        isSafeDeal: Bool,
+        clientSavePaymentMethod: SavePaymentMethod,
+        isSavePaymentMethodAllowed: Bool
     ) {
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -42,6 +48,8 @@ final class SberbankPresenter {
         self.userPhoneNumber = userPhoneNumber
         self.isBackBarButtonHidden = isBackBarButtonHidden
         self.isSafeDeal = isSafeDeal
+        self.clientSavePaymentMethod = clientSavePaymentMethod
+        self.isSavePaymentMethodAllowed = isSavePaymentMethodAllowed
     }
 
     // MARK: - Stored properties
@@ -66,13 +74,29 @@ extension SberbankPresenter: SberbankViewOutput {
             font: UIFont.dynamicCaption2,
             foregroundColor: UIColor.AdaptiveColors.secondary
         )
+
+        var section: PaymentRecurrencyAndDataSavingSection?
+        if isSavePaymentMethodAllowed {
+            switch clientSavePaymentMethod {
+            case .userSelects:
+                section = PaymentRecurrencyAndDataSavingSectionFactory.make(mode: .allowRecurring, output: self)
+                recurrencySectionSwitchValue = section?.switchValue
+            case .on:
+                section = PaymentRecurrencyAndDataSavingSectionFactory.make(mode: .requiredRecurring, output: self)
+                recurrencySectionSwitchValue = true
+            case .off:
+                section = nil
+            }
+        }
+
         let viewModel = SberbankViewModel(
             shopName: shopName,
             description: purchaseDescription,
             priceValue: priceValue,
             feeValue: feeValue,
             termsOfService: termsOfServiceValue,
-            safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil
+            safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil,
+            recurrencyAndDataSavingSection: section
         )
         view.setViewModel(viewModel)
 
@@ -107,7 +131,10 @@ extension SberbankPresenter: SberbankViewOutput {
         DispatchQueue.global().async { [weak self] in
             guard let self = self,
                   let interactor = self.interactor else { return }
-            interactor.tokenizeSberbank(phoneNumber: self.phoneNumber)
+            interactor.tokenizeSberbank(
+                phoneNumber: self.phoneNumber,
+                savePaymentMethod: self.recurrencySectionSwitchValue ?? false
+            )
         }
     }
 
@@ -176,7 +203,10 @@ extension SberbankPresenter: ActionTitleTextDialogDelegate {
         DispatchQueue.global().async { [weak self] in
             guard let self = self,
                   let interactor = self.interactor else { return }
-            interactor.tokenizeSberbank(phoneNumber: self.phoneNumber)
+            interactor.tokenizeSberbank(
+                phoneNumber: self.phoneNumber,
+                savePaymentMethod: self.recurrencySectionSwitchValue ?? false
+            )
         }
     }
 }
@@ -187,6 +217,35 @@ extension SberbankPresenter: PhoneNumberInputModuleOutput {
     func didChangePhoneNumber(_ phoneNumber: String) {
         self.phoneNumber = phoneNumber
         view?.setSubmitButtonEnabled(!phoneNumber.isEmpty)
+    }
+}
+
+// MARK: - PaymentRecurrencyAndDataSavingSectionOutput
+
+extension SberbankPresenter: PaymentRecurrencyAndDataSavingSectionOutput {
+    func didChangeSwitchValue(newValue: Bool, mode: PaymentRecurrencyAndDataSavingSection.Mode) {
+        recurrencySectionSwitchValue = newValue
+    }
+    func didTapInfoLink(mode: PaymentRecurrencyAndDataSavingSection.Mode) {
+        switch mode {
+        case .allowRecurring, .requiredRecurring:
+            router.presentSafeDealInfo(
+                title: CommonLocalized.CardSettingsDetails.autopayInfoTitle,
+                body: CommonLocalized.CardSettingsDetails.autopayInfoDetails
+            )
+        case .savePaymentData, .requiredSaveData:
+            router.presentSafeDealInfo(
+                title: CommonLocalized.RecurrencyAndSavePaymentData.saveDataInfoTitle,
+                body: CommonLocalized.RecurrencyAndSavePaymentData.saveDataInfoMessage
+            )
+        case .allowRecurringAndSaveData, .requiredRecurringAndSaveData:
+            router.presentSafeDealInfo(
+                title: CommonLocalized.RecurrencyAndSavePaymentData.saveDataAndAutopaymentsInfoTitle,
+                body: CommonLocalized.RecurrencyAndSavePaymentData.saveDataAndAutopaymentsInfoMessage
+            )
+        default:
+        break
+        }
     }
 }
 

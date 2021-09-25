@@ -284,6 +284,10 @@ extension SberbankViewController: SberbankViewInput {
         safeDealLinkedTextView.isHidden = viewModel.safeDealText?.string.isEmpty ?? true
         termsOfServiceLinkedTextView.textAlignment = .center
         safeDealLinkedTextView.textAlignment = .center
+
+        if let section = viewModel.recurrencyAndDataSavingSection {
+            contentStackView.addArrangedSubview(section)
+        }
     }
 
     func setSubmitButtonEnabled(_ isEnabled: Bool) {

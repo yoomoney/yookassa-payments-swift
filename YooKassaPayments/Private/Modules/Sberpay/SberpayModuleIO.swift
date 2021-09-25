@@ -2,6 +2,7 @@ import YooKassaPaymentsApi
 
 struct SberpayModuleInputData {
     let paymentOption: PaymentOption
+    let clientSavePaymentMethod: SavePaymentMethod
     let clientApplicationKey: String
     let tokenizationSettings: TokenizationSettings
     let testModeSettings: TestModeSettings?
