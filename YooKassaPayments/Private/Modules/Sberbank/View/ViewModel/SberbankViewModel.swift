@@ -1,3 +1,5 @@
+import UIKit
+
 struct SberbankViewModel {
     let shopName: String
     let description: String?
@@ -5,4 +7,5 @@ struct SberbankViewModel {
     let feeValue: String?
     let termsOfService: NSAttributedString
     let safeDealText: NSAttributedString?
+    let recurrencyAndDataSavingSection: UIView?
 }

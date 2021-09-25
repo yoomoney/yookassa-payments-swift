@@ -6,6 +6,7 @@ enum SberpayAssembly {
         moduleOutput: SberpayModuleOutput?
     ) -> UIViewController {
         let view = SberpayViewController()
+
         let presenter = SberpayPresenter(
             shopName: inputData.shopName,
             purchaseDescription: inputData.purchaseDescription,
@@ -13,7 +14,9 @@ enum SberpayAssembly {
             feeViewModel: inputData.feeViewModel,
             termsOfService: inputData.termsOfService,
             isBackBarButtonHidden: inputData.isBackBarButtonHidden,
-            isSafeDeal: inputData.isSafeDeal
+            isSafeDeal: inputData.isSafeDeal,
+            clientSavePaymentMethod: inputData.clientSavePaymentMethod,
+            isSavePaymentMethodAllowed: inputData.paymentOption.savePaymentMethod == .allowed
         )
         let paymentService = PaymentServiceAssembly.makeService(
             tokenizationSettings: inputData.tokenizationSettings,

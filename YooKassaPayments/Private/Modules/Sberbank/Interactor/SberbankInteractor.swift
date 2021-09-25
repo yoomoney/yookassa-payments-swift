@@ -38,9 +38,7 @@ final class SberbankInteractor {
 // MARK: - SberbankInteractorInput
 
 extension SberbankInteractor: SberbankInteractorInput {
-    func tokenizeSberbank(
-        phoneNumber: String
-    ) {
+    func tokenizeSberbank(phoneNumber: String, savePaymentMethod: Bool) {
         threatMetrixService.profileApp { [weak self] result in
             guard let self = self, let output = self.output else { return }
 
@@ -54,7 +52,7 @@ extension SberbankInteractor: SberbankInteractorInput {
                     clientApplicationKey: self.clientApplicationKey,
                     phoneNumber: phoneNumber,
                     confirmation: confirmation,
-                    savePaymentMethod: false,
+                    savePaymentMethod: savePaymentMethod,
                     amount: self.amount,
                     tmxSessionId: tmxSessionId.value,
                     customerId: self.customerId

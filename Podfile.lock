@@ -14,7 +14,7 @@ PODS:
   - YandexMobileMetrica/Dynamic/Core (3.17.0)
   - YandexMobileMetrica/Dynamic/Crashes (3.17.0):
     - YandexMobileMetrica/Dynamic/Core
-  - YooKassaPayments (6.3.0):
+  - YooKassaPayments (6.4.0):
     - MoneyAuth (~> 2.34.1)
     - ThreatMetrixAdapter (~> 3.3.0)
     - YandexMobileMetrica/Dynamic (~> 3.0)
@@ -63,7 +63,7 @@ SPEC CHECKSUMS:
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   ThreatMetrixAdapter: 309bc3d0afff4706c882844203df6d3f89a6bf0c
   YandexMobileMetrica: 9e713c16bb6aca0ba63b84c8d7b8b86d32f4ecc4
-  YooKassaPayments: 70de07ab77f1cd0ddb99bc3ba409f3c04bd65eb1
+  YooKassaPayments: 064980b962913fa3d73aaa26aa089d04df4e3e5d
   YooKassaPaymentsApi: e967fc3ffbb797e6412e077f0f896a1562c9bdc3
   YooKassaWalletApi: c1916b692ad842ae04917a10ce66d6d2f971c653
   YooMoneyCoreApi: d228ca30d6936bc81642988c93d26eba271261f8

@@ -16,6 +16,7 @@ struct SberbankModuleInputData {
     let isBackBarButtonHidden: Bool
     let customerId: String?
     let isSafeDeal: Bool
+    let clientSavePaymentMethod: SavePaymentMethod
 }
 
 protocol SberbankModuleOutput: AnyObject {

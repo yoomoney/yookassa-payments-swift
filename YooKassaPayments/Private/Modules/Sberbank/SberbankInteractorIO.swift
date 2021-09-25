@@ -1,7 +1,5 @@
 protocol SberbankInteractorInput: AnalyticsTrack {
-    func tokenizeSberbank(
-        phoneNumber: String
-    )
+    func tokenizeSberbank(phoneNumber: String, savePaymentMethod: Bool)
 
     func makeTypeAnalyticsParameters() -> (
         authType: AnalyticsEvent.AuthType,

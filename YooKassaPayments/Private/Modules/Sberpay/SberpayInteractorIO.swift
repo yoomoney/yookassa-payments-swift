@@ -1,5 +1,5 @@
 protocol SberpayInteractorInput: AnalyticsTrack {
-    func tokenizeSberpay()
+    func tokenizeSberpay(savePaymentMethod: Bool)
 
     func makeTypeAnalyticsParameters() -> (
         authType: AnalyticsEvent.AuthType,
