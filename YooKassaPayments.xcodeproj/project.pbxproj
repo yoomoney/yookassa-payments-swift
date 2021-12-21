@@ -29,6 +29,8 @@
 		25347BE926BADBE800FDD1DA /* CardSettingsInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25347BE026BADBE800FDD1DA /* CardSettingsInteractorIO.swift */; };
 		25347BEB26BADC2E00FDD1DA /* LargeActionInformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25347BEA26BADC2E00FDD1DA /* LargeActionInformer.swift */; };
 		25347BED26BADC6800FDD1DA /* ActionTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25347BEC26BADC6800FDD1DA /* ActionTemplate.swift */; };
+		254804A0272956280067777C /* TooManyRequestsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548049F272956280067777C /* TooManyRequestsError.swift */; };
+		25CA4F8F27635D71006C257E /* Hosts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25CA4F8E27635D70006C257E /* Hosts.plist */; };
 		25FD881326CD4AD70032B5FD /* PaymentRecurrencyAndDataSavingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FD881226CD4AD70032B5FD /* PaymentRecurrencyAndDataSavingSection.swift */; };
 		25FD881526CD4B820032B5FD /* PaymentRecurrencyAndDataSavingSectionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FD881426CD4B820032B5FD /* PaymentRecurrencyAndDataSavingSectionFactory.swift */; };
 		3089EF4923846F6300CB7319 /* SwitcherSavePaymentMethodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089EF4823846F6300CB7319 /* SwitcherSavePaymentMethodViewModel.swift */; };
@@ -126,7 +128,6 @@
 		402EB5D6E79FE22EFE162375 /* PaymentMethodsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB6F0F343B8BCBDECB5C7 /* PaymentMethodsViewController.swift */; };
 		402EB5EFF251B3E8A8C0C35B /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EBB761608F1C750B0D45F /* PriceView.swift */; };
 		402EB6121E6DE1E810A074A9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 402EB434B2C5611C56511AC1 /* Localizable.strings */; };
-		402EB62CDBDD5CBC28E68446 /* Hosts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 402EB1F6B2E1B5879D2BCCC8 /* Hosts.plist */; };
 		402EB636AA2031BCCDFB4139 /* SberbankInteractorIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB9A46DDCE237E4AB1B00 /* SberbankInteractorIO.swift */; };
 		402EB636FC3E40E0EDE5A096 /* LogoutConfirmationModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB021B3ABFDEC19285694 /* LogoutConfirmationModuleIO.swift */; };
 		402EB65A2699AF0F54E79C59 /* BankCardDataInputInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EB8AAAF53AE99712DC15E /* BankCardDataInputInteractor.swift */; };
@@ -424,6 +425,8 @@
 		25347BE026BADBE800FDD1DA /* CardSettingsInteractorIO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSettingsInteractorIO.swift; sourceTree = "<group>"; };
 		25347BEA26BADC2E00FDD1DA /* LargeActionInformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeActionInformer.swift; sourceTree = "<group>"; };
 		25347BEC26BADC6800FDD1DA /* ActionTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionTemplate.swift; sourceTree = "<group>"; };
+		2548049F272956280067777C /* TooManyRequestsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooManyRequestsError.swift; sourceTree = "<group>"; };
+		25CA4F8E27635D70006C257E /* Hosts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Hosts.plist; sourceTree = "<group>"; };
 		25CD87AF26B90641002F4769 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		25FD881226CD4AD70032B5FD /* PaymentRecurrencyAndDataSavingSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRecurrencyAndDataSavingSection.swift; sourceTree = "<group>"; };
 		25FD881426CD4B820032B5FD /* PaymentRecurrencyAndDataSavingSectionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRecurrencyAndDataSavingSectionFactory.swift; sourceTree = "<group>"; };
@@ -474,7 +477,6 @@
 		402EB1D0205199AC3C6DE886 /* StyleStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleStorage.swift; sourceTree = "<group>"; };
 		402EB1E94429DDB4E260133C /* YooKassaPaymentsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YooKassaPaymentsError.swift; sourceTree = "<group>"; };
 		402EB1EEE3DFE557080259B2 /* InternalStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalStyle.swift; sourceTree = "<group>"; };
-		402EB1F6B2E1B5879D2BCCC8 /* Hosts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Hosts.plist; sourceTree = "<group>"; };
 		402EB1FE652CC66389E53BE1 /* BankCardDataInputRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankCardDataInputRouter.swift; sourceTree = "<group>"; };
 		402EB21194794FB1D5FFEFF9 /* UIFont+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Style.swift"; sourceTree = "<group>"; };
 		402EB2267FCDA994A8449002 /* AuthTypeStatesProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthTypeStatesProvider.swift; sourceTree = "<group>"; };
@@ -1140,7 +1142,7 @@
 		402EB1C8E83F34A1D7D30CE0 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
-				402EB1F6B2E1B5879D2BCCC8 /* Hosts.plist */,
+				25CA4F8E27635D70006C257E /* Hosts.plist */,
 				402EB43CDEA9F5F132A2CF9A /* banks.json */,
 			);
 			path = Configurations;
@@ -1643,6 +1645,7 @@
 			isa = PBXGroup;
 			children = (
 				402EB7CFD97FD6FA875CB83F /* PaymentProcessingError.swift */,
+				2548049F272956280067777C /* TooManyRequestsError.swift */,
 				402EB9D50FF6F6597287AA66 /* PaymentService.swift */,
 				402EBB5972E9BA97E5350DCC /* PaymentServiceAssembly.swift */,
 				789C374025AF285C00BA94D1 /* PaymentServiceImpl.swift */,
@@ -2684,8 +2687,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25CA4F8F27635D71006C257E /* Hosts.plist in Resources */,
 				252982B026AE928C00174692 /* Cartfile in Resources */,
-				402EB62CDBDD5CBC28E68446 /* Hosts.plist in Resources */,
 				402EBE58A36A98F06C98DD57 /* banks.json in Resources */,
 				3093D831268475980048C8D9 /* LocalizedResources.strings in Resources */,
 				402EB20489B718B1F3042183 /* Media.xcassets in Resources */,
@@ -2700,6 +2703,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				254804A0272956280067777C /* TooManyRequestsError.swift in Sources */,
 				7811067A25C2D561004DB71D /* YooMoneyViewIO.swift in Sources */,
 				7811067F25C419D2004DB71D /* PaymentMethodsRouter.swift in Sources */,
 				781CDD7D25D408F600C34912 /* ApplePayContractInteractor.swift in Sources */,

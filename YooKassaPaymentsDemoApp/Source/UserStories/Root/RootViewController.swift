@@ -61,8 +61,6 @@ final class RootViewController: UIViewController {
     fileprivate lazy var nameLabel: UILabel = {
         if #available(iOS 11.0, *) {
             $0.setStyles(UILabel.DynamicStyle.title1)
-        } else if #available(iOS 9.0, *) {
-            $0.setStyles(UILabel.DynamicStyle.title2)
         } else {
             $0.setStyles(UILabel.DynamicStyle.headline1)
         }
@@ -96,7 +94,7 @@ final class RootViewController: UIViewController {
     fileprivate lazy var ratingImageView = UIImageView(image: #imageLiteral(resourceName: "Root.Rating"))
 
     fileprivate lazy var payButtonBottomConstraint: NSLayoutConstraint =
-        self.bottomLayoutGuide.top.constraint(equalTo: payButton.bottom)
+    self.view.layoutMarginsGuide.bottomAnchor.constraint(equalTo: payButton.bottomAnchor)
 
     fileprivate lazy var nameLabelTopConstraint: NSLayoutConstraint =
         nameLabel.top.constraint(equalTo: imageView.bottom)

@@ -72,10 +72,10 @@ final class ProcessViewController: UIViewController {
 
     private func loadConstraints() {
         let constraints = [
-            countPickerView.leading.constraint(equalTo: view.leading),
-            topLayoutGuide.bottom.constraint(equalTo: countPickerView.top),
-            countPickerView.trailing.constraint(equalTo: view.trailing),
-            countPickerView.height.constraint(equalToConstant: 154),
+            countPickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view.layoutMarginsGuide.topAnchor.constraint(equalTo: countPickerView.topAnchor),
+            countPickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            countPickerView.heightAnchor.constraint(equalToConstant: 154),
         ]
 
         NSLayoutConstraint.activate(constraints)

@@ -1321,8 +1321,7 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
         let inputData = CardSecModuleInputData(
             requestUrl: requestUrl,
             redirectUrl: GlobalConstants.returnUrl,
-            isLoggingEnabled: isLoggingEnabled,
-            isConfirmation: false
+            isLoggingEnabled: isLoggingEnabled
         )
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -1355,8 +1354,7 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
             let inputData = CardSecModuleInputData(
                 requestUrl: confirmationUrl,
                 redirectUrl: GlobalConstants.returnUrl,
-                isLoggingEnabled: isLoggingEnabled,
-                isConfirmation: true
+                isLoggingEnabled: isLoggingEnabled
             )
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
@@ -1372,20 +1370,9 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
 // MARK: - CardSecModuleOutput
 
 extension PaymentMethodsPresenter: CardSecModuleOutput {
-    func didSuccessfullyPassedCardSec(
-        on module: CardSecModuleInput,
-        isConfirmation: Bool
-    ) {
+    func didSuccessfullyPassedCardSec(on module: CardSecModuleInput) {
         interactor.stopAnalyticsService()
-        if isConfirmation {
-            tokenizationModuleOutput?.didSuccessfullyConfirmation(
-                paymentMethodType: .bankCard
-            )
-        } else {
-            tokenizationModuleOutput?.didSuccessfullyPassedCardSec(
-                on: self
-            )
-        }
+        tokenizationModuleOutput?.didSuccessfullyConfirmation(paymentMethodType: .bankCard)
     }
 
     func didPressCloseButton(

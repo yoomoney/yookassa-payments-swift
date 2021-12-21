@@ -28,6 +28,8 @@ extension ConfirmationType {
             self = .external
         case .mobileApplication:
             self = .mobileApplication
+        @unknown default:
+            fatalError("unsupported")
         }
     }
 

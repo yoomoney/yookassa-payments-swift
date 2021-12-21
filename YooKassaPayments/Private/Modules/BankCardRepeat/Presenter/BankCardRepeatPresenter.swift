@@ -375,8 +375,7 @@ extension BankCardRepeatPresenter: TokenizationModuleInput {
         let moduleInputData = CardSecModuleInputData(
             requestUrl: requestUrl,
             redirectUrl: returnUrl ?? GlobalConstants.returnUrl,
-            isLoggingEnabled: isLoggingEnabled,
-            isConfirmation: false
+            isLoggingEnabled: isLoggingEnabled
         )
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -394,8 +393,7 @@ extension BankCardRepeatPresenter: TokenizationModuleInput {
         let moduleInputData = CardSecModuleInputData(
             requestUrl: confirmationUrl,
             redirectUrl: returnUrl ?? GlobalConstants.returnUrl,
-            isLoggingEnabled: isLoggingEnabled,
-            isConfirmation: true
+            isLoggingEnabled: isLoggingEnabled
         )
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -410,19 +408,8 @@ extension BankCardRepeatPresenter: TokenizationModuleInput {
 // MARK: - CardSecModuleOutput
 
 extension BankCardRepeatPresenter: CardSecModuleOutput {
-    func didSuccessfullyPassedCardSec(
-        on module: CardSecModuleInput,
-        isConfirmation: Bool
-    ) {
-        if isConfirmation {
-            moduleOutput?.didSuccessfullyConfirmation(
-                paymentMethodType: .bankCard
-            )
-        } else {
-            moduleOutput?.didSuccessfullyPassedCardSec(
-                on: self
-            )
-        }
+    func didSuccessfullyPassedCardSec(on module: CardSecModuleInput) {
+        moduleOutput?.didSuccessfullyConfirmation(paymentMethodType: .bankCard)
     }
 
     func didPressCloseButton(on module: CardSecModuleInput) {

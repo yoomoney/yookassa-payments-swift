@@ -86,11 +86,12 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
             customerId: customerId
         ) { [weak self] result in
             guard let output = self?.output else { return }
+
             switch result {
             case let .success(data):
                 output.didFetchShop(data)
             case let .failure(error):
-                output.didFailFetchShop(error)
+                output.didFailFetchShop(mapError(error))
             }
         }
     }
@@ -276,6 +277,8 @@ private func mapError(_ error: Error) -> Error {
         return PaymentProcessingError.internetConnection
     case let error as NSError where error.domain == NSURLErrorDomain:
         return PaymentProcessingError.internetConnection
+    case let error as NSError where error.code == 429:
+        return TooManyRequestsError()
     default:
         return error
     }

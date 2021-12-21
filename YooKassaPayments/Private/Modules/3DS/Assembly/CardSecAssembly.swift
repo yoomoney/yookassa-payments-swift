@@ -5,9 +5,7 @@ enum CardSecAssembly {
         inputData: CardSecModuleInputData,
         moduleOutput: CardSecModuleOutput
     ) -> UIViewController {
-        let presenter = CardSecPresenter(
-            isConfirmation: inputData.isConfirmation
-        )
+        let presenter = CardSecPresenter()
 
         let analyticsService = AnalyticsServiceAssembly.makeService(
             isLoggingEnabled: inputData.isLoggingEnabled

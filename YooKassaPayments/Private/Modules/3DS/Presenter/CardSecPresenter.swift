@@ -9,16 +9,6 @@ final class CardSecPresenter: WebBrowserPresenter {
 
     private var shouldCallDidSuccessfullyPassedCardSec = true
 
-    // MARK: - Init data
-
-    private let isConfirmation: Bool
-
-    // MARK: - Init
-
-    init(isConfirmation: Bool) {
-        self.isConfirmation = isConfirmation
-    }
-
     // MARK: - Overridden funcs
 
     override func setupView() {
@@ -48,10 +38,7 @@ extension CardSecPresenter: CardSecInteractorOutput {
     func didSuccessfullyPassedCardSec() {
         guard shouldCallDidSuccessfullyPassedCardSec else { return }
         shouldCallDidSuccessfullyPassedCardSec = false
-        cardSecModuleOutput?.didSuccessfullyPassedCardSec(
-            on: self,
-            isConfirmation: isConfirmation
-        )
+        cardSecModuleOutput?.didSuccessfullyPassedCardSec(on: self)
     }
 }
 
