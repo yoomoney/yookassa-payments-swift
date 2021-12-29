@@ -6,13 +6,16 @@ final class PaymentMethodViewModelFactoryImpl {
     // MARK: - Init data
 
     private let bankSettingsService: BankSettingsService
+    private let configMediator: ConfigMediator
 
     // MARK: - Init
 
     init(
-        bankSettingsService: BankSettingsService
+        bankSettingsService: BankSettingsService,
+        configMediator: ConfigMediator
     ) {
         self.bankSettingsService = bankSettingsService
+        self.configMediator = configMediator
     }
 
     // MARK: - Stored properties
@@ -33,6 +36,9 @@ final class PaymentMethodViewModelFactoryImpl {
 // MARK: - PaymentMethodViewModelFactory
 
 extension PaymentMethodViewModelFactoryImpl: PaymentMethodViewModelFactory {
+    func yooLogoImage() -> UIImage {
+        configMediator.asset(for: .logo)
+    }
 
     // MARK: - Transform ViewModel from PaymentOption
 
@@ -169,7 +175,7 @@ private extension PaymentMethodViewModelFactoryImpl {
         return PaymentMethodViewModel(
             id: nil,
             isShopLinkedCard: false,
-            image: PaymentMethodResources.Image.yooMoney,
+            image: makePaymentMethodTypeImage(.yooMoney),
             title: walletDisplayName ?? paymentOption.accountId,
             subtitle: makeBalanceText(paymentOption.balance)
         )
@@ -217,24 +223,29 @@ private extension PaymentMethodViewModelFactoryImpl {
 // MARK: - Making ViewModel from PaymentMethodType
 
 private extension PaymentMethodViewModelFactoryImpl {
-    func makePaymentMethodTypeTitle(
-        _ paymentMethodType: YooKassaPaymentsApi.PaymentMethodType
-    ) -> String {
-        let name: String
+    func makePaymentMethodTypeTitle(_ paymentMethodType: YooKassaPaymentsApi.PaymentMethodType) -> String {
+        let kind: Config.PaymentMethod.Kind
         switch paymentMethodType {
-        case .bankCard:
-            name = PaymentMethodResources.Localized.bankCard
-        case .yooMoney:
-            name = PaymentMethodResources.Localized.wallet
-        case .applePay:
-            name = PaymentMethodResources.Localized.applePay
-        case .sberbank:
-            name = PaymentMethodResources.Localized.sberpay
+        case .bankCard: kind = .bankCard
+        case .yooMoney: kind = .yoomoney
+        case .applePay: kind = .applePay
+        case .sberbank: kind = .sberbank
         default:
             assertionFailure("Unsupported PaymentMethodType")
-            name = "Unsupported"
+            return "Unsupported"
         }
-        return name
+        let defaultTitle: String
+        switch kind {
+        case .bankCard: defaultTitle = PaymentMethodResources.Localized.bankCard
+        case .yoomoney: defaultTitle = PaymentMethodResources.Localized.wallet
+        case .applePay: defaultTitle = PaymentMethodResources.Localized.applePay
+        case .sberbank: defaultTitle = PaymentMethodResources.Localized.sberpay
+        case .unknown:
+            assertionFailure("Unsupported kind")
+            defaultTitle = "Unsupported"
+        }
+        return configMediator.storedConfig().paymentMethods.first { $0.kind == kind }?.title
+            ?? defaultTitle
     }
 }
 
@@ -248,13 +259,13 @@ private extension PaymentMethodViewModelFactoryImpl {
         let image: UIImage
         switch paymentMethodType {
         case .bankCard:
-            image = PaymentMethodResources.Image.unknown
+            image = configMediator.asset(for: .bankCard)
         case .yooMoney:
-            image = PaymentMethodResources.Image.yooMoney
+            image = configMediator.asset(for: .yoomoney)
         case .applePay:
-            image = PaymentMethodResources.Image.applePay
+            image = configMediator.asset(for: .applePay)
         case .sberbank:
-            image = PaymentMethodResources.Image.sberpay
+            image = configMediator.asset(for: .sberbank)
         default:
             assertionFailure("Unsupported PaymentMethodType")
             image = UIImage()

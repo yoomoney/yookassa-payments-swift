@@ -5,7 +5,9 @@ enum CardSettingsAssembly {
         let view = CardSettingsViewController(nibName: nil, bundle: nil)
         let presenter = CardSettingsPresenter(
             data: data,
-            paymentMethodViewModelFactory: PaymentMethodViewModelFactoryAssembly.makeFactory()
+            paymentMethodViewModelFactory: PaymentMethodViewModelFactoryAssembly.makeFactory(
+                isLoggingEnabled: data.isLoggingEnabled
+            )
         )
         let interactor = CardSettingsInteractor(
             clientId: data.clientId,
@@ -14,7 +16,7 @@ enum CardSettingsAssembly {
                 testModeSettings: data.testModeSettings,
                 isLoggingEnabled: data.isLoggingEnabled
             ),
-            analyticsService: AnalyticsServiceAssembly.makeService(isLoggingEnabled: data.isLoggingEnabled)
+            analyticsService: AnalyticsTrackingAssembly.make(isLoggingEnabled: data.isLoggingEnabled)
         )
         let router = CardSettingsRouter(transitionHandler: view)
 

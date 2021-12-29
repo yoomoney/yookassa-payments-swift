@@ -10,10 +10,12 @@ final class SheetContentViewController: UIViewController {
 
     lazy var contentView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.accessibilityIdentifier = "contentView"
         return $0
     }(UIView())
 
     private lazy var contentWrapperView: UIView = {
+        $0.accessibilityIdentifier = "contentWrapperView"
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.layer.masksToBounds = true
         if #available(iOS 11.0, *) {
@@ -40,13 +42,17 @@ final class SheetContentViewController: UIViewController {
         return $0
     }(UIView())
 
+    private lazy var backdropView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.setStyles(UIView.Styles.defaultBackground)
+        return view
+    }()
+
     private lazy var childContainerView: UIView = {
+        $0.accessibilityIdentifier = "childContainerView"
         $0.translatesAutoresizingMaskIntoConstraints = false
-        if #available(iOS 13.0, *) {
-            $0.backgroundColor = UIColor.systemBackground
-        } else {
-            $0.backgroundColor = UIColor.white
-        }
+        $0.setStyles(UIView.Styles.defaultBackground)
         $0.layer.masksToBounds = true
         if #available(iOS 11.0, *) {
             $0.layer.maskedCorners = [
@@ -60,7 +66,14 @@ final class SheetContentViewController: UIViewController {
     // MARK: - NSLayoutConstraint
 
     private lazy var contentTopConstraint: NSLayoutConstraint = {
-        return contentView.topAnchor.constraint(equalTo: view.topAnchor)
+        let constraint: NSLayoutConstraint
+        if #available(iOS 11.0, *) {
+            constraint = contentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        } else {
+            // Fallback on earlier versions
+            constraint = contentView.topAnchor.constraint(equalTo: view.topAnchor)
+        }
+        return constraint
     }()
 
     private lazy var contentBottomConstraint: NSLayoutConstraint = {
@@ -157,6 +170,8 @@ final class SheetContentViewController: UIViewController {
 
     private func setupContentView() {
         view.addSubview(contentView)
+        view.addSubview(backdropView)
+        view.sendSubviewToBack(backdropView)
         contentView.addSubview(contentWrapperView)
         contentView.addSubview(overflowView)
 
@@ -171,6 +186,11 @@ final class SheetContentViewController: UIViewController {
             contentWrapperView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             contentWrapperView.topAnchor.constraint(equalTo: contentView.topAnchor),
 
+            backdropView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            backdropView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            backdropView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            backdropView.topAnchor.constraint(equalTo: contentWrapperView.topAnchor, constant: Space.fivefold),
+
             overflowView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             overflowView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             overflowView.heightAnchor.constraint(equalToConstant: 200),
@@ -184,11 +204,12 @@ final class SheetContentViewController: UIViewController {
     private func setupChildContainerView() {
         contentWrapperView.addSubview(childContainerView)
 
+        let top = childContainerView.topAnchor.constraint(
+            equalTo: contentWrapperView.topAnchor,
+            constant: options.pullBarHeight
+        )
         NSLayoutConstraint.activate([
-            childContainerView.topAnchor.constraint(
-                equalTo: contentWrapperView.topAnchor,
-                constant: options.pullBarHeight
-            ),
+            top,
             childContainerView.leftAnchor.constraint(equalTo: contentWrapperView.leftAnchor),
             childContainerView.rightAnchor.constraint(equalTo: contentWrapperView.rightAnchor),
             childContainerView.bottomAnchor.constraint(equalTo: contentWrapperView.bottomAnchor),

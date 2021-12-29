@@ -42,7 +42,7 @@ extension PaymentMethodType {
         case .yooMoney:
             self = .yooMoney
         @unknown default:
-            fatalError("unsuported")
+            fatalError("unsupported paymentMethodType")
         }
     }
 

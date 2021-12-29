@@ -27,14 +27,14 @@ final class CardSettingsPresenter: CardSettingsViewOutput, CardSettingsInteracto
             canUnbind = false
             cardMaskHint = PaymentMethodResources.Localized.yooMoneyCard
             view.hideSubmit(true)
-            interactor.track(event: AnalyticsEvent.screenUnbindCard(cardType: .wallet))
+            interactor.track(event: .screenUnbindCard(cardType: .wallet))
         case .card(let name, _):
             displayName = name
             cardTitle = PaymentMethodResources.Localized.linkedCard
             canUnbind = true
             cardMaskHint = PaymentMethodResources.Localized.bankCard
             view.hideSubmit(false)
-            interactor.track(event: AnalyticsEvent.screenUnbindCard(cardType: .bankCard))
+            interactor.track(event: .screenUnbindCard(cardType: .bankCard))
         }
 
         view.set(
@@ -73,7 +73,7 @@ final class CardSettingsPresenter: CardSettingsViewOutput, CardSettingsInteracto
                 title: CommonLocalized.CardSettingsDetails.unbindInfoTitle,
                 details: CommonLocalized.CardSettingsDetails.unbindInfoDetails
             )
-            interactor.track(event: .screenDetailsUnbindWalletCard(sdkVersion: Bundle.frameworkVersion))
+            interactor.track(event: .screenDetailsUnbindWalletCard)
         case .card:
             router.openInfo(
                 title: CommonLocalized.CardSettingsDetails.autopayInfoTitle,
@@ -85,7 +85,7 @@ final class CardSettingsPresenter: CardSettingsViewOutput, CardSettingsInteracto
     // MARK: - CardSettingsInteractorOutput
 
     func didFailUnbind(error: Error, id: String) {
-        interactor.track(event: .actionUnbindBankCard(actionUnbindCardStatus: .fail))
+        interactor.track(event: .actionUnbindBankCard(success: false))
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.view.hideActivity()
@@ -97,7 +97,7 @@ final class CardSettingsPresenter: CardSettingsViewOutput, CardSettingsInteracto
     }
 
     func didUnbind(id: String) {
-        interactor.track(event: .actionUnbindBankCard(actionUnbindCardStatus: .success))
+        interactor.track(event: .actionUnbindBankCard(success: true))
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.view.enableSubmit()

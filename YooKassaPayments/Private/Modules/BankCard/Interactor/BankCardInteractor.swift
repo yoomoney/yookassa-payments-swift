@@ -8,9 +8,9 @@ final class BankCardInteractor {
 
     // MARK: - Initialization
 
+    private let authService: AuthorizationService
     private let paymentService: PaymentService
-    private let analyticsService: AnalyticsService
-    private let analyticsProvider: AnalyticsProvider
+    private let analyticsService: AnalyticsTracking
     private let threatMetrixService: ThreatMetrixService
     private let clientApplicationKey: String
     private let amount: MonetaryAmount
@@ -18,18 +18,18 @@ final class BankCardInteractor {
     private let customerId: String?
 
     init(
+        authService: AuthorizationService,
         paymentService: PaymentService,
-        analyticsService: AnalyticsService,
-        analyticsProvider: AnalyticsProvider,
+        analyticsService: AnalyticsTracking,
         threatMetrixService: ThreatMetrixService,
         clientApplicationKey: String,
         amount: MonetaryAmount,
         returnUrl: String,
         customerId: String?
     ) {
+        self.authService = authService
         self.paymentService = paymentService
         self.analyticsService = analyticsService
-        self.analyticsProvider = analyticsProvider
         self.threatMetrixService = threatMetrixService
         self.clientApplicationKey = clientApplicationKey
         self.amount = amount
@@ -110,17 +110,12 @@ extension BankCardInteractor: BankCardInteractorInput {
         }
     }
 
-    func makeTypeAnalyticsParameters() -> (
-        authType: AnalyticsEvent.AuthType,
-        tokenType: AnalyticsEvent.AuthTokenType?
-    ) {
-        analyticsProvider.makeTypeAnalyticsParameters()
+    func analyticsAuthType() -> AnalyticsEvent.AuthType {
+        authService.analyticsAuthType()
     }
 
-    func trackEvent(
-        _ event: AnalyticsEvent
-    ) {
-        analyticsService.trackEvent(event)
+    func track(event: AnalyticsEvent) {
+        analyticsService.track(event: event)
     }
 }
 

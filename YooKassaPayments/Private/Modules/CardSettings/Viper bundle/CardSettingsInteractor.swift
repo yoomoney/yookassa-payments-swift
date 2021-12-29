@@ -3,18 +3,18 @@ import Foundation
 class CardSettingsInteractor: CardSettingsInteractorInput {
     var output: CardSettingsInteractorOutput!
 
-    private let analyticsService: AnalyticsService
+    private let analyticsService: AnalyticsTracking
     private let paymentService: PaymentService
     private let clientId: String
 
-    init(clientId: String, paymentService: PaymentService, analyticsService: AnalyticsService) {
+    init(clientId: String, paymentService: PaymentService, analyticsService: AnalyticsTracking) {
         self.analyticsService = analyticsService
         self.clientId = clientId
         self.paymentService = paymentService
     }
 
     func track(event: AnalyticsEvent) {
-        analyticsService.trackEvent(event)
+        analyticsService.track(event: event)
     }
 
     func unbind(id: String) {

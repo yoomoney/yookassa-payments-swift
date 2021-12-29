@@ -1,82 +1,133 @@
 enum AnalyticsEvent {
-
-    // MARK: - Screen viewing events.
-
-    /// Open the payment method selection screen.
-    case screenPaymentOptions(authType: AuthType, sdkVersion: String)
-
-    /// The opening screen of the contract.
-    case screenPaymentContract(authType: AuthType, scheme: TokenizeScheme, sdkVersion: String)
-
-    /// Open the Linked Bank card for data entry screen.
-    case screenLinkedCardForm(sdkVersion: String)
-
-    /// Open the Bank card screen for entering Data.
-    case screenBankCardForm(authType: AuthType, sdkVersion: String)
-
-    /// The opening screen of the error.
-    case screenError(authType: AuthType, scheme: TokenizeScheme?, sdkVersion: String)
-
-    /// The opening pages 3DS.
-    case screen3ds(sdkVersion: String)
-
-    /// Open Bank Card screen with screen recurring
-    case screenRecurringCardForm(sdkVersion: String)
-
-    case screenDetailsUnbindWalletCard(sdkVersion: String)
+    case actionSDKInitialised
+    case screenPaymentOptions(currentAuthType: AuthType)
+    case screenPaymentContract(scheme: TokenizeScheme, currentAuthType: AuthType)
+    case screenErrorContract(scheme: TokenizeScheme, currentAuthType: AuthType)
+    case screenError(scheme: TokenizeScheme?, currentAuthType: AuthType)
+    case screen3ds
+    case screen3dsClose(success: Bool)
+    case screenDetailsUnbindWalletCard
     case screenUnbindCard(cardType: LinkedCardType)
+    case actionTryTokenize(scheme: TokenizeScheme, currentAuthType: AuthType)
+    case actionTokenize(scheme: TokenizeScheme, currentAuthType: AuthType)
+    case actionPaymentAuthorization(success: Bool)
+    case actionLogout
+    case actionAuthWithoutWallet
+    case actionBankCardForm(action: BankCardFormAction)
+    case userStartAuthorization
+    case userCancelAuthorization
+    case actionMoneyAuthLogin(scheme: MoneyAuthLoginScheme, status: MoneyAuthLoginStatus)
+    case actionSberPayConfirmation(success: Bool)
+    case actionUnbindBankCard(success: Bool)
+    case actionAuthFinished
 
-    // MARK: - Actions
-
-    /// Create a payment token with the payment method selected.
-    case actionTokenize(scheme: TokenizeScheme, authType: AuthType, tokenType: AuthTokenType?, sdkVersion: String)
-
-    /// Payment authorization.
-    case actionPaymentAuthorization(authPaymentStatus: AuthPaymentStatus, sdkVersion: String)
-
-    /// The user is logged out.
-    case actionLogout(sdkVersion: String)
-
-    /// Authorization without wallet.
-    case actionAuthWithoutWallet(sdkVersion: String)
-
-    /// BankCard form interactions.
-    case actionBankCardForm(action: BankCardFormAction, sdkVersion: String)
-
-    case userStartAuthorization(sdkVersion: String)
-    case userCancelAuthorization(sdkVersion: String)
-
-    case actionMoneyAuthLogin(
-        scheme: MoneyAuthLoginScheme,
-        status: MoneyAuthLoginStatus,
-        sdkVersion: String
-    )
-
-    /// SberPay confirmation
-    case actionSberPayConfirmation(sberPayConfirmationStatus: SberPayConfirmationStatus, sdkVersion: String)
-
-    case actionUnbindBankCard(actionUnbindCardStatus: ActionUnbindCardStatus)
-
-    // MARK: - Analytic parameters.
-
-    /// Current status of user authorization.
-    enum AuthType: String {
-
-        /// The user is not authorized.
-        case withoutAuth
-
-        /// Successfully completed authorization in Money center authorization
-        case moneyAuth
-
-        /// Successful payment authorization in the wallet.
-        case paymentAuth
-
-        var key: String {
-            return Key.authType.rawValue
+    var name: String {
+        switch self {
+        case .actionSDKInitialised: return "actionSDKInitialised"
+        case .screenPaymentOptions: return "screenPaymentOptions"
+        case .screenPaymentContract: return "screenPaymentContract"
+        case .screenError: return "screenError"
+        case .screen3ds: return "screen3ds"
+        case .screen3dsClose: return "screen3dsClose"
+        case .screenDetailsUnbindWalletCard: return "screenDetailsUnbindWalletCard"
+        case .screenUnbindCard: return "screenUnbindCard"
+        case .actionTryTokenize: return "actionTryTokenize"
+        case .actionTokenize: return "actionTokenize"
+        case .actionPaymentAuthorization: return "actionPaymentAuthorization"
+        case .actionLogout: return "actionLogout"
+        case .actionAuthWithoutWallet: return "actionAuthWithoutWallet"
+        case .actionBankCardForm: return "actionBankCardForm"
+        case .userStartAuthorization: return "userStartAuthorization"
+        case .userCancelAuthorization: return "userCancelAuthorization"
+        case .actionMoneyAuthLogin: return "actionMoneyAuthLogin"
+        case .actionSberPayConfirmation: return "actionSberPayConfirmation"
+        case .actionUnbindBankCard: return "actionUnbindBankCard"
+        case .actionAuthFinished: return "actionAuthFinished"
+        case .screenErrorContract: return "screenErrorContract"
         }
     }
+    // swiftlint:disable:next cyclomatic_complexity
+    func parameters(context: AnalyticsEventContext?) -> [String: String] {
+        var result: [String: String] = [:]
+        if let context = context {
+            result["msdkVersion"] = context.sdkVersion
 
-    /// Creating a payment token.
+            var attribution = context.isCustomerIdPresent ? "customerId;": ""
+            attribution += context.isWalletAuthPresent ? "yoomoney;" : ""
+            if !attribution.isEmpty {
+                result["userAttiributionOnInit"] = attribution
+            } else {
+                result["userAttiributionOnInit"] = "none"
+            }
+        }
+
+        switch self {
+        case .screen3ds, .screenDetailsUnbindWalletCard, .actionLogout,
+             .actionAuthWithoutWallet, .userStartAuthorization, .userCancelAuthorization, .actionAuthFinished:
+            break
+
+        case .actionSDKInitialised, .screenPaymentOptions:
+            if let context = context {
+                result["authType"] = context.initialAuthType.rawValue
+                result["customColor"] = String(context.usingCustomColor)
+                result["yookassaIcon"] = String(context.yookassaIconShown)
+                result["savePaymentMethod"] = context.savePaymentMethod.description
+            }
+        case .screenPaymentContract(let scheme, let currentAuthType),
+             .actionTokenize(let scheme, let currentAuthType), .actionTryTokenize(let scheme, let currentAuthType),
+             .screenErrorContract(let scheme, let currentAuthType):
+            result[TokenizeScheme.key] = scheme.rawValue
+            result["authType"] = currentAuthType.rawValue
+
+            if let context = context {
+                result["customColor"] = String(context.usingCustomColor)
+                result["yookassaIcon"] = String(context.yookassaIconShown)
+                result["savePaymentMethod"] = context.savePaymentMethod.description
+            }
+        case .screenError(let scheme, let currentAuthType):
+            result["authType"] = currentAuthType.rawValue
+            if let scheme = scheme {
+                result[TokenizeScheme.key] = scheme.rawValue
+            }
+
+            if let context = context {
+                result["savePaymentMethod"] = context.savePaymentMethod.description
+                result["customColor"] = String(context.usingCustomColor)
+                result["yookassaIcon"] = String(context.yookassaIconShown)
+            }
+
+        case .screen3dsClose(let success):
+            result["Success"] = String(success)
+
+        case .screenUnbindCard(let cardType):
+            result[LinkedCardType.key] = cardType.rawValue
+
+        case .actionPaymentAuthorization(let success):
+            result["authPaymentStatus"] = success ? "Success" : "Fail"
+
+        case .actionBankCardForm(let action):
+            result[BankCardFormAction.key] = action.rawValue
+
+        case .actionMoneyAuthLogin(let scheme, let status):
+            result[MoneyAuthLoginScheme.key] = scheme.rawValue
+            result[MoneyAuthLoginStatus.key] = status.description
+            if case .fail(let error) = status, !error.localizedDescription.isEmpty {
+                result["error"] = error.localizedDescription
+            }
+
+        case .actionSberPayConfirmation(let success):
+            result["actionSberPayConfirmation"] = success ? "Success" : "Fail"
+
+        case .actionUnbindBankCard(let success):
+            result["actionUnbindCardStatus"] = success ? "Success" : "Fail"
+        }
+
+        return result
+    }
+}
+
+// MARK: - Parameters
+extension AnalyticsEvent {
     enum TokenizeScheme: String {
         case wallet
         case linkedCard = "linked-card"
@@ -88,131 +139,68 @@ enum AnalyticsEvent {
         case customerIdLinkedCard = "customer-id-linked-card"
         case customerIdLinkedCardCvc = "customer-id-linked-card-cvc"
 
-        var key: String {
-            return Key.tokenizeScheme.rawValue
-        }
+        static let key = "tokenizeScheme"
     }
-
-    /// Token type.
-    enum AuthTokenType: String {
-
-        /// one-time authorization token.
-        case single
-
-        /// reusable authorization token.
-        case multiple
-
-        var key: String {
-            return Key.authTokenType.rawValue
-        }
-    }
-
-    /// Payment authorization status.
-    enum AuthPaymentStatus: String {
-        case success = "Success"
-        case fail = "Fail"
-
-        var key: String {
-            return Key.authPaymentStatus.rawValue
-        }
-    }
-
-    private enum Key: String {
-        case tokenizeScheme
-        case authType
-        case authTokenType
-        case authPaymentStatus
-        case action
-        case moneyAuthLoginScheme
-        case moneyAuthLoginStatus
-        case sberPayConfirmationStatus
-        case linkedCardType
-        case actionUnbindCardStatus
-    }
-
-    // MARK: - BankCardForm actions
-
-    enum BankCardFormAction: String {
-        /// The user clicked on the scan button;
-        case scanBankCardAction
-        /// The user entered the wrong card number;
-        case cardNumberInputError
-        /// The user entered the wrong card expiration date;
-        case cardExpiryInputError
-        /// The user entered an incorrect CVC;
-        case cardCvcInputError
-        /// The user erased the card number (tap on the cross);
-        case cardNumberClearAction
-        /// Successful entry of bank card information;
-        case cardNumberInputSuccess
-        /// The user clicked on the arrow and moved to the next field;
-        case cardNumberContinueAction
-        /// Returns to the card number input field.
-        case cardNumberReturnToEdit
-
-        var key: String {
-            Key.action.rawValue
-        }
-    }
-
     enum MoneyAuthLoginScheme: String {
         case moneyAuthSdk
         case yoomoneyApp
 
-        var key: String {
-            Key.moneyAuthLoginScheme.rawValue
-        }
+        static let key = "moneyAuthLoginScheme"
     }
 
-    enum MoneyAuthLoginStatus {
-        case success
-        case fail(String)
-        case canceled
-
-        var rawValue: String {
-            switch self {
-            case .success:
-                return "Success"
-            case .fail:
-                return "Fail"
-            case .canceled:
-                return "Canceled"
-            }
-        }
-
-        var key: String {
-            Key.moneyAuthLoginStatus.rawValue
-        }
+    enum AuthType: String {
+        case withoutAuth
+        case moneyAuth
+        case paymentAuth
     }
 
-    // MARK: - SberPayConfirmationStatus
+    enum AuthTokenType: String {
+        case single
+        case multiple
 
-    enum SberPayConfirmationStatus: String {
-        case success = "Success"
+        static let key = "authTokenType"
+    }
 
-        var key: String {
-            return Key.sberPayConfirmationStatus.rawValue
-        }
+    enum Form: String {
+        case bankCard
+        case recurring
+        case linkedCard
+        static let key = "Form"
+    }
+
+    enum BankCardFormAction: String {
+        case scanBankCardAction
+        case cardNumberInputError
+        case cardExpiryInputError
+        case cardCvcInputError
+        case cardNumberClearAction
+        case cardNumberInputSuccess
+        case cardNumberContinueAction
+        case cardNumberReturnToEdit
+
+        static let key = "bankCardFormAction"
     }
 
     enum LinkedCardType: String {
         case wallet = "Wallet"
         case bankCard = "BankCard"
-        var key: String { Key.linkedCardType.rawValue }
+
+        static let key = "linkedCardType"
     }
 
-    enum ActionUnbindCardStatus: String {
-        case fail = "Fail"
-        case success = "Success"
-        var key: String { Key.actionUnbindCardStatus.rawValue }
-    }
-}
+    enum MoneyAuthLoginStatus: CustomStringConvertible {
+        case success
+        case fail(Error)
+        case cancelled
 
-// MARK: - Primitive type keys
+        var description: String {
+            switch self {
+            case .success: return "Success"
+            case .fail: return "Fail"
+            case .cancelled: return "Cancelled"
+            }
+        }
 
-extension AnalyticsEvent {
-    enum Keys: String {
-        case error
-        case msdkVersion
+        static let key = "moneyAuthLoginStatus"
     }
 }

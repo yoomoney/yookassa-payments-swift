@@ -11,12 +11,13 @@ struct SberbankModuleInputData {
     let purchaseDescription: String
     let priceViewModel: PriceViewModel
     let feeViewModel: PriceViewModel?
-    let termsOfService: TermsOfService
+    let termsOfService: NSAttributedString
     let userPhoneNumber: String?
     let isBackBarButtonHidden: Bool
     let customerId: String?
     let isSafeDeal: Bool
     let clientSavePaymentMethod: SavePaymentMethod
+    let config: Config
 }
 
 protocol SberbankModuleOutput: AnyObject {

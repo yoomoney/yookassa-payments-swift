@@ -76,7 +76,6 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
         submitButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(submitButton)
         let defaultHeight = submitButton.heightAnchor.constraint(equalToConstant: Space.triple * 2)
-        defaultHeight.priority = .defaultLow + 1
         NSLayoutConstraint.activate([
             submitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             submitButton.topAnchor.constraint(equalTo: view.topAnchor),
@@ -90,6 +89,7 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
 
     private let termsOfServiceLinkedTextView: LinkedTextView = {
         let view = LinkedTextView()
+        view.setContentCompressionResistancePriority(.required, for: .vertical)
         view.tintColor = CustomizationStorage.shared.mainScheme
         view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
         return view
@@ -97,6 +97,7 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
 
     private let safeDealLinkedTextView: LinkedTextView = {
         let view = LinkedTextView()
+        view.setContentCompressionResistancePriority(.required, for: .vertical)
         view.tintColor = CustomizationStorage.shared.mainScheme
         view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
         return view
@@ -126,7 +127,7 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
 
     private lazy var scrollViewHeightConstraint: NSLayoutConstraint = {
         let constraint = scrollView.heightAnchor.constraint(equalToConstant: 0)
-        constraint.priority = .defaultLow
+        constraint.priority = .defaultHigh + 1
         return constraint
     }()
 
@@ -244,7 +245,7 @@ final class SberbankViewController: UIViewController, PlaceholderProvider {
     }
 
     private func updateContentHeight() {
-        scrollViewHeightConstraint.constant = contentStackView.bounds.height
+        scrollViewHeightConstraint.constant = ceil(scrollView.contentSize.height) + Space.triple * 2
     }
 }
 
@@ -284,6 +285,8 @@ extension SberbankViewController: SberbankViewInput {
         safeDealLinkedTextView.isHidden = viewModel.safeDealText?.string.isEmpty ?? true
         termsOfServiceLinkedTextView.textAlignment = .center
         safeDealLinkedTextView.textAlignment = .center
+
+        viewModel.paymentOptionTitle.map { navigationItem.title = $0 }
 
         if let section = viewModel.recurrencyAndDataSavingSection {
             contentStackView.addArrangedSubview(section)

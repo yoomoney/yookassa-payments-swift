@@ -8,6 +8,7 @@ final class BankCardRouter {
 
 extension BankCardRouter: BankCardRouterInput {
     func presentTermsOfServiceModule(_ url: URL) {
+        guard url.scheme == "http" || url.scheme == "https" else { return }
         let viewController = SFSafariViewController(url: url)
         viewController.modalPresentationStyle = .overFullScreen
         transitionHandler?.present(

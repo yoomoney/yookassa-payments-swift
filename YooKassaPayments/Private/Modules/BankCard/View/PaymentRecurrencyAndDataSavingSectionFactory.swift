@@ -6,6 +6,7 @@ enum PaymentRecurrencyAndDataSavingSectionFactory {
         clientSavePaymentMethod: SavePaymentMethod,
         apiSavePaymentMethod: YooKassaPaymentsApi.SavePaymentMethod,
         canSavePaymentInstrument: Bool,
+        texts: Config.SavePaymentMethodOptionTexts,
         output: PaymentRecurrencyAndDataSavingSectionOutput
     ) -> PaymentRecurrencyAndDataSavingSection? {
         let view: PaymentRecurrencyAndDataSavingSection?
@@ -15,22 +16,22 @@ enum PaymentRecurrencyAndDataSavingSectionFactory {
         view = nil
 
         case (.off, .forbidden, true), (.off, .allowed, true), (.userSelects, .forbidden, true):
-        view = PaymentRecurrencyAndDataSavingSection(mode: .savePaymentData)
+        view = PaymentRecurrencyAndDataSavingSection(mode: .savePaymentData, texts: texts)
 
         case (.userSelects, .allowed, false):
-        view = PaymentRecurrencyAndDataSavingSection(mode: .allowRecurring)
+        view = PaymentRecurrencyAndDataSavingSection(mode: .allowRecurring, texts: texts)
 
         case (.userSelects, .allowed, true):
-        view = PaymentRecurrencyAndDataSavingSection(mode: .allowRecurringAndSaveData)
+        view = PaymentRecurrencyAndDataSavingSection(mode: .allowRecurringAndSaveData, texts: texts)
 
         case (.on, .allowed, true):
-        view = PaymentRecurrencyAndDataSavingSection(mode: .requiredRecurringAndSaveData)
+        view = PaymentRecurrencyAndDataSavingSection(mode: .requiredRecurringAndSaveData, texts: texts)
 
         case (.on, .allowed, false):
-        view = PaymentRecurrencyAndDataSavingSection(mode: .requiredRecurring)
+        view = PaymentRecurrencyAndDataSavingSection(mode: .requiredRecurring, texts: texts)
 
         case (.on, .forbidden, true):
-        view = PaymentRecurrencyAndDataSavingSection(mode: .savePaymentData)
+        view = PaymentRecurrencyAndDataSavingSection(mode: .savePaymentData, texts: texts)
 
         default:
         view = nil
@@ -41,9 +42,10 @@ enum PaymentRecurrencyAndDataSavingSectionFactory {
 
     static func make(
         mode: PaymentRecurrencyAndDataSavingSection.Mode,
+        texts: Config.SavePaymentMethodOptionTexts,
         output: PaymentRecurrencyAndDataSavingSectionOutput
     ) -> PaymentRecurrencyAndDataSavingSection {
-        let view = PaymentRecurrencyAndDataSavingSection(mode: mode)
+        let view = PaymentRecurrencyAndDataSavingSection(mode: mode, texts: texts)
         view.output = output
         return view
     }

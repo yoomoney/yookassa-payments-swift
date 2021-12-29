@@ -1,15 +1,15 @@
 import MoneyAuth
 import YooKassaPaymentsApi
 
-protocol PaymentMethodsInteractorInput: AnalyticsTrack, AnalyticsProvider {
-    func fetchPaymentMethods()
+protocol PaymentMethodsInteractorInput {
+    func fetchShop()
     func fetchYooMoneyPaymentMethods(moneyCenterAuthToken: String)
     func fetchAccount(oauthToken: String)
     func decryptCryptogram(_ cryptogram: String)
     func getWalletDisplayName() -> String?
     func setAccount(_ account: UserAccount)
-    func startAnalyticsService()
-    func stopAnalyticsService()
+    func track(event: AnalyticsEvent)
+    func analyticsAuthType() -> AnalyticsEvent.AuthType
 
     // MARK: - Apple Pay Tokenize
 

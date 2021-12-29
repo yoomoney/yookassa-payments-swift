@@ -12,7 +12,7 @@ struct LinkedCardModuleInputData {
     let price: PriceViewModel
     let fee: PriceViewModel?
     let paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
-    let termsOfService: TermsOfService
+    let termsOfService: NSAttributedString
     let returnUrl: String
     let tmxSessionId: String?
     let initialSavePaymentMethod: Bool

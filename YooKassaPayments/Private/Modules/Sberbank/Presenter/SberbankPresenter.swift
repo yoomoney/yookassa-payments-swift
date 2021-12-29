@@ -19,7 +19,7 @@ final class SberbankPresenter {
     private let purchaseDescription: String
     private let priceViewModel: PriceViewModel
     private let feeViewModel: PriceViewModel?
-    private let termsOfService: TermsOfService
+    private let termsOfService: NSAttributedString
     private let userPhoneNumber: String?
     private let isBackBarButtonHidden: Bool
     private let isSafeDeal: Bool
@@ -27,18 +27,20 @@ final class SberbankPresenter {
 
     private var recurrencySectionSwitchValue: Bool?
     private let isSavePaymentMethodAllowed: Bool
+    private let config: Config
 
     init(
         shopName: String,
         purchaseDescription: String,
         priceViewModel: PriceViewModel,
         feeViewModel: PriceViewModel?,
-        termsOfService: TermsOfService,
+        termsOfService: NSAttributedString,
         userPhoneNumber: String?,
         isBackBarButtonHidden: Bool,
         isSafeDeal: Bool,
         clientSavePaymentMethod: SavePaymentMethod,
-        isSavePaymentMethodAllowed: Bool
+        isSavePaymentMethodAllowed: Bool,
+        config: Config
     ) {
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -50,6 +52,7 @@ final class SberbankPresenter {
         self.isSafeDeal = isSafeDeal
         self.clientSavePaymentMethod = clientSavePaymentMethod
         self.isSavePaymentMethodAllowed = isSavePaymentMethodAllowed
+        self.config = config
     }
 
     // MARK: - Stored properties
@@ -69,20 +72,24 @@ extension SberbankPresenter: SberbankViewOutput {
             feeValue = "\(CommonLocalized.Contract.fee) " + makePrice(feeViewModel)
         }
 
-        let termsOfServiceValue = makeTermsOfService(
-            termsOfService,
-            font: UIFont.dynamicCaption2,
-            foregroundColor: UIColor.AdaptiveColors.secondary
-        )
+        let termsOfServiceValue = termsOfService
 
         var section: PaymentRecurrencyAndDataSavingSection?
         if isSavePaymentMethodAllowed {
             switch clientSavePaymentMethod {
             case .userSelects:
-                section = PaymentRecurrencyAndDataSavingSectionFactory.make(mode: .allowRecurring, output: self)
+                section = PaymentRecurrencyAndDataSavingSectionFactory.make(
+                    mode: .allowRecurring,
+                    texts: config.savePaymentMethodOptionTexts,
+                    output: self
+                )
                 recurrencySectionSwitchValue = section?.switchValue
             case .on:
-                section = PaymentRecurrencyAndDataSavingSectionFactory.make(mode: .requiredRecurring, output: self)
+                section = PaymentRecurrencyAndDataSavingSectionFactory.make(
+                    mode: .requiredRecurring,
+                    texts: config.savePaymentMethodOptionTexts,
+                    output: self
+                )
                 recurrencySectionSwitchValue = true
             case .off:
                 section = nil
@@ -96,7 +103,8 @@ extension SberbankPresenter: SberbankViewOutput {
             feeValue: feeValue,
             termsOfService: termsOfServiceValue,
             safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil,
-            recurrencyAndDataSavingSection: section
+            recurrencyAndDataSavingSection: section,
+            paymentOptionTitle: config.paymentMethods.first { $0.kind == .sberbank }?.title
         )
         view.setViewModel(viewModel)
 
@@ -112,15 +120,13 @@ extension SberbankPresenter: SberbankViewOutput {
         view.setBackBarButtonHidden(isBackBarButtonHidden)
 
         DispatchQueue.global().async { [weak self] in
-            guard let self = self,
-                  let interactor = self.interactor else { return }
-            let (authType, _) = interactor.makeTypeAnalyticsParameters()
-            let event: AnalyticsEvent = .screenPaymentContract(
-                authType: authType,
-                scheme: .smsSbol,
-                sdkVersion: Bundle.frameworkVersion
+            guard let self = self else { return }
+            self.interactor.track(event:
+                .screenPaymentContract(
+                    scheme: .smsSbol,
+                    currentAuthType: self.interactor.analyticsAuthType()
+                )
             )
-            interactor.trackEvent(event)
         }
     }
 
@@ -153,33 +159,20 @@ extension SberbankPresenter: SberbankViewOutput {
 // MARK: - SberbankInteractorOutput
 
 extension SberbankPresenter: SberbankInteractorOutput {
-    func didTokenize(
-        _ data: Tokens
-    ) {
-        let analyticsParameters = interactor.makeTypeAnalyticsParameters()
-        let event: AnalyticsEvent = .actionTokenize(
-            scheme: .smsSbol,
-            authType: analyticsParameters.authType,
-            tokenType: analyticsParameters.tokenType,
-            sdkVersion: Bundle.frameworkVersion
+    func didTokenize(_ data: Tokens) {
+        interactor.track(event:
+            .actionTokenize(
+                scheme: .smsSbol,
+                currentAuthType: interactor.analyticsAuthType()
+            )
         )
-        interactor.trackEvent(event)
-        moduleOutput?.sberbankModule(
-            self, didTokenize: data,
-            paymentMethodType: .sberbank
-        )
+        moduleOutput?.sberbankModule(self, didTokenize: data, paymentMethodType: .sberbank)
     }
 
-    func didFailTokenize(
-        _ error: Error
-    ) {
-        let parameters = interactor.makeTypeAnalyticsParameters()
-        let event: AnalyticsEvent = .screenError(
-            authType: parameters.authType,
-            scheme: .smsSbol,
-            sdkVersion: Bundle.frameworkVersion
+    func didFailTokenize(_ error: Error) {
+        interactor.track(
+            event: .screenErrorContract(scheme: .smsSbol, currentAuthType: interactor.analyticsAuthType())
         )
-        interactor.trackEvent(event)
 
         let message = makeMessage(error)
 
@@ -201,8 +194,10 @@ extension SberbankPresenter: ActionTitleTextDialogDelegate {
         view.hidePlaceholder()
         view.showActivity()
         DispatchQueue.global().async { [weak self] in
-            guard let self = self,
-                  let interactor = self.interactor else { return }
+            guard let self = self, let interactor = self.interactor else { return }
+            interactor.track(
+                event: .actionTryTokenize(scheme: .smsSbol, currentAuthType: interactor.analyticsAuthType())
+            )
             interactor.tokenizeSberbank(
                 phoneNumber: self.phoneNumber,
                 savePaymentMethod: self.recurrencySectionSwitchValue ?? false
@@ -263,33 +258,6 @@ private extension SberbankPresenter {
             + priceViewModel.decimalSeparator
             + priceViewModel.fractionalPart
             + priceViewModel.currency
-    }
-
-    func makeTermsOfService(
-        _ terms: TermsOfService,
-        font: UIFont,
-        foregroundColor: UIColor
-    ) -> NSMutableAttributedString {
-        let attributedText: NSMutableAttributedString
-
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: font,
-            .foregroundColor: foregroundColor,
-        ]
-        attributedText = NSMutableAttributedString(
-            string: "\(terms.text) ",
-            attributes: attributes
-        )
-
-        let linkAttributedText = NSMutableAttributedString(
-            string: terms.hyperlink,
-            attributes: attributes
-        )
-        let linkRange = NSRange(location: 0, length: terms.hyperlink.count)
-        linkAttributedText.addAttribute(.link, value: terms.url, range: linkRange)
-        attributedText.append(linkAttributedText)
-
-        return attributedText
     }
 
     func makeMessage(

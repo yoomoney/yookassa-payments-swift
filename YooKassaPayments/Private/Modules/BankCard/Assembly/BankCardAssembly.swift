@@ -55,8 +55,11 @@ enum BankCardAssembly {
             canSaveInstrument: inputData.canSaveInstrument,
             apiSavePaymentMethod: inputData.apiSavePaymentMethod,
             clientSavePaymentMethod: inputData.savePaymentMethod,
-            paymentMethodViewModelFactory: PaymentMethodViewModelFactoryAssembly.makeFactory(),
-            isSafeDeal: inputData.isSafeDeal
+            paymentMethodViewModelFactory: PaymentMethodViewModelFactoryAssembly.makeFactory(
+                isLoggingEnabled: inputData.isLoggingEnabled
+            ),
+            isSafeDeal: inputData.isSafeDeal,
+            config: inputData.config
         )
         return presenter
     }
@@ -69,18 +72,18 @@ enum BankCardAssembly {
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled
         )
-        let analyticsService = AnalyticsServiceAssembly.makeService(
-            isLoggingEnabled: inputData.isLoggingEnabled
-        )
-        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
-            testModeSettings: inputData.testModeSettings
-        )
+        let analyticsService = AnalyticsTrackingAssembly.make(isLoggingEnabled: inputData.isLoggingEnabled)
         let threatMetrixService = ThreatMetrixServiceFactory.makeService()
+        let authService = AuthorizationServiceAssembly.makeService(
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            testModeSettings: inputData.testModeSettings,
+            moneyAuthClientId: nil
+        )
 
         let interactor = BankCardInteractor(
+            authService: authService,
             paymentService: paymentService,
             analyticsService: analyticsService,
-            analyticsProvider: analyticsProvider,
             threatMetrixService: threatMetrixService,
             clientApplicationKey: inputData.clientApplicationKey,
             amount: inputData.paymentOption.charge.plain,

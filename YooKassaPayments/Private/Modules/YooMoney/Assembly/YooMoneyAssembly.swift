@@ -24,7 +24,8 @@ enum YooMoneyAssembly {
             tmxSessionId: inputData.tmxSessionId,
             initialSavePaymentMethod: inputData.initialSavePaymentMethod,
             isBackBarButtonHidden: inputData.isBackBarButtonHidden,
-            isSafeDeal: inputData.isSafeDeal
+            isSafeDeal: inputData.isSafeDeal,
+            paymentOptionTitle: inputData.paymentOptionTitle
         )
 
         let authorizationService = AuthorizationServiceAssembly.makeService(
@@ -32,12 +33,10 @@ enum YooMoneyAssembly {
             testModeSettings: inputData.testModeSettings,
             moneyAuthClientId: inputData.moneyAuthClientId
         )
-        let analyticsService = AnalyticsServiceAssembly.makeService(
+        let analyticsService = AnalyticsTrackingAssembly.make(
             isLoggingEnabled: inputData.isLoggingEnabled
         )
-        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
-            testModeSettings: inputData.testModeSettings
-        )
+
         let paymentService = PaymentServiceAssembly.makeService(
             tokenizationSettings: inputData.tokenizationSettings,
             testModeSettings: inputData.testModeSettings,
@@ -48,7 +47,6 @@ enum YooMoneyAssembly {
         let interactor = YooMoneyInteractor(
             authorizationService: authorizationService,
             analyticsService: analyticsService,
-            analyticsProvider: analyticsProvider,
             paymentService: paymentService,
             imageDownloadService: imageDownloadService,
             threatMetrixService: threatMetrixService,

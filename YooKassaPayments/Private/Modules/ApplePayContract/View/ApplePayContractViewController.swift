@@ -72,7 +72,6 @@ final class ApplePayContractViewController: UIViewController {
         submitButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(submitButton)
         let defaultHeight = submitButton.heightAnchor.constraint(equalToConstant: Space.triple * 2)
-        defaultHeight.priority = .defaultLow + 1
         NSLayoutConstraint.activate([
             submitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             submitButton.topAnchor.constraint(equalTo: view.topAnchor),
@@ -86,6 +85,7 @@ final class ApplePayContractViewController: UIViewController {
 
     private let termsOfServiceLinkedTextView: LinkedTextView = {
         let view = LinkedTextView()
+        view.setContentCompressionResistancePriority(.required, for: .vertical)
         view.tintColor = CustomizationStorage.shared.mainScheme
         view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
         return view
@@ -93,6 +93,7 @@ final class ApplePayContractViewController: UIViewController {
 
     private let safeDealLinkedTextView: LinkedTextView = {
         let view = LinkedTextView()
+        view.setContentCompressionResistancePriority(.required, for: .vertical)
         view.tintColor = CustomizationStorage.shared.mainScheme
         view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
         return view
@@ -158,7 +159,7 @@ final class ApplePayContractViewController: UIViewController {
 
     private lazy var scrollViewHeightConstraint: NSLayoutConstraint = {
         let constraint = scrollView.heightAnchor.constraint(equalToConstant: 0)
-        constraint.priority = .defaultLow
+        constraint.priority = .defaultHigh + 1
         return constraint
     }()
 
@@ -274,7 +275,7 @@ final class ApplePayContractViewController: UIViewController {
     }
 
     private func fixTableViewHeight() {
-        scrollViewHeightConstraint.constant = contentStackView.bounds.height
+        scrollViewHeightConstraint.constant = ceil(scrollView.contentSize.height) + Space.triple * 2
     }
 
     // MARK: - Action
@@ -300,11 +301,7 @@ extension ApplePayContractViewController: ApplePayContractViewInput {
             orderView.subvalue = nil
         }
 
-        termsOfServiceLinkedTextView.attributedText = makeTermsOfService(
-            viewModel.terms,
-            font: UIFont.dynamicCaption2,
-            foregroundColor: UIColor.AdaptiveColors.secondary
-        )
+        termsOfServiceLinkedTextView.attributedText = viewModel.terms
         termsOfServiceLinkedTextView.textAlignment = .center
 
         safeDealLinkedTextView.attributedText = viewModel.safeDealText
@@ -312,6 +309,7 @@ extension ApplePayContractViewController: ApplePayContractViewInput {
 
         termsOfServiceLinkedTextView.textAlignment = .center
         safeDealLinkedTextView.textAlignment = .center
+        viewModel.paymentOptionTitle.map { navigationItem.title = $0 }
     }
 
     func setSavePaymentMethodViewModel(
@@ -358,33 +356,6 @@ extension ApplePayContractViewController: ApplePayContractViewInput {
              + price.decimalSeparator
              + price.fractionalPart
              + price.currency
-    }
-
-    private func makeTermsOfService(
-        _ terms: TermsOfService,
-        font: UIFont,
-        foregroundColor: UIColor
-    ) -> NSMutableAttributedString {
-        let attributedText: NSMutableAttributedString
-
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: font,
-            .foregroundColor: foregroundColor,
-        ]
-        attributedText = NSMutableAttributedString(
-            string: "\(terms.text) ",
-            attributes: attributes
-        )
-
-        let linkAttributedText = NSMutableAttributedString(
-            string: terms.hyperlink,
-            attributes: attributes
-        )
-        let linkRange = NSRange(location: 0, length: terms.hyperlink.count)
-        linkAttributedText.addAttribute(.link, value: terms.url, range: linkRange)
-        attributedText.append(linkAttributedText)
-
-        return attributedText
     }
 
     private func makeSavePaymentMethodAttributedString(

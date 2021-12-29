@@ -13,7 +13,7 @@ struct YooMoneyModuleInputData {
     let fee: PriceViewModel?
     let paymentMethod: PaymentMethodViewModel
     let paymentOption: PaymentInstrumentYooMoneyWallet
-    let termsOfService: TermsOfService
+    let termsOfService: NSAttributedString
     let returnUrl: String
     let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     let tmxSessionId: String?
@@ -21,6 +21,7 @@ struct YooMoneyModuleInputData {
     let isBackBarButtonHidden: Bool
     let customerId: String?
     let isSafeDeal: Bool
+    let paymentOptionTitle: String?
 }
 
 protocol YooMoneyModuleInput: AnyObject {}

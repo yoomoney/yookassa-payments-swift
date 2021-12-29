@@ -112,7 +112,6 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
         submitButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(submitButton)
         let defaultHeight = submitButton.heightAnchor.constraint(equalToConstant: Space.triple * 2)
-        defaultHeight.priority = .defaultLow + 1
         NSLayoutConstraint.activate([
             submitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             submitButton.topAnchor.constraint(equalTo: view.topAnchor),
@@ -324,7 +323,7 @@ final class BankCardRepeatViewController: UIViewController, PlaceholderProvider 
             )
         }
 
-        scrollViewHeightConstraint.priority = .defaultLow
+        scrollViewHeightConstraint.priority = .defaultHigh + 1
 
         let constraints = [
             scrollViewHeightConstraint,
@@ -451,11 +450,7 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
         maskedCardView.cardNumber = viewModel.cardMask
         maskedCardView.cardLogo = viewModel.cardLogo
 
-        termsOfServiceLinkedTextView.attributedText = makeTermsOfService(
-            viewModel.terms,
-            font: UIFont.dynamicCaption2,
-            foregroundColor: UIColor.AdaptiveColors.secondary
-        )
+        termsOfServiceLinkedTextView.attributedText = viewModel.terms
         safeDealLinkedTextView.attributedText = viewModel.safeDealText
         safeDealLinkedTextView.isHidden = viewModel.safeDealText?.string.isEmpty ?? true
         termsOfServiceLinkedTextView.textAlignment = .center
@@ -520,33 +515,6 @@ extension BankCardRepeatViewController: BankCardRepeatViewInput {
              + price.decimalSeparator
              + price.fractionalPart
              + price.currency
-    }
-
-    private func makeTermsOfService(
-        _ terms: TermsOfService,
-        font: UIFont,
-        foregroundColor: UIColor
-    ) -> NSMutableAttributedString {
-        let attributedText: NSMutableAttributedString
-
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: font,
-            .foregroundColor: foregroundColor,
-        ]
-        attributedText = NSMutableAttributedString(
-            string: "\(terms.text) ",
-            attributes: attributes
-        )
-
-        let linkAttributedText = NSMutableAttributedString(
-            string: terms.hyperlink,
-            attributes: attributes
-        )
-        let linkRange = NSRange(location: 0, length: terms.hyperlink.count)
-        linkAttributedText.addAttribute(.link, value: terms.url, range: linkRange)
-        attributedText.append(linkAttributedText)
-
-        return attributedText
     }
 
     private func makeSavePaymentMethodAttributedString(

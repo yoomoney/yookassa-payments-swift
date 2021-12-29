@@ -49,6 +49,7 @@ final class PaymentMethodsPresenter: NSObject {
     private let userPhoneNumber: String?
     private let cardScanning: CardScanning?
     private let customerId: String?
+    private let config: Config
 
     // MARK: - Init
 
@@ -71,7 +72,8 @@ final class PaymentMethodsPresenter: NSObject {
         savePaymentMethod: SavePaymentMethod,
         userPhoneNumber: String?,
         cardScanning: CardScanning?,
-        customerId: String?
+        customerId: String?,
+        config: Config
     ) {
         self.isLogoVisible = isLogoVisible
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
@@ -95,6 +97,7 @@ final class PaymentMethodsPresenter: NSObject {
         self.userPhoneNumber = userPhoneNumber
         self.cardScanning = cardScanning
         self.customerId = customerId
+        self.config = config
     }
 
     // MARK: - Stored properties
@@ -105,8 +108,9 @@ final class PaymentMethodsPresenter: NSObject {
     private var shop: Shop?
     private var viewModel: (models: [PaymentMethodViewModel], indexMap: ([Int: Int])) = ([], [:])
 
-    private lazy var termsOfService: TermsOfService = {
-        TermsOfServiceFactory.makeTermsOfService()
+    private lazy var termsOfService: NSAttributedString = {
+        let html = ConfigMediatorAssembly.make(isLoggingEnabled: isLoggingEnabled).storedConfig().userAgreementUrl
+        return HTMLUtils.highlightHyperlinks(html: html)
     }()
 
     private var shouldReloadOnViewDidAppear = false
@@ -128,11 +132,11 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
     func setupView() {
         guard let view = view else { return }
         view.showActivity()
-        view.setLogoVisible(isLogoVisible)
-        interactor.startAnalyticsService()
+        let logo = paymentMethodViewModelFactory.yooLogoImage()
+        view.setLogoVisible(image: logo, isVisible: isLogoVisible)
 
         DispatchQueue.global().async { [weak self] in
-            self?.interactor.fetchPaymentMethods()
+            self?.interactor.fetchShop()
         }
     }
 
@@ -141,7 +145,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
         shouldReloadOnViewDidAppear = false
         DispatchQueue.global().async { [weak self] in
             guard let interactor = self?.interactor else { return }
-            interactor.fetchPaymentMethods()
+            interactor.fetchShop()
         }
     }
 
@@ -263,8 +267,7 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             openYooMoneyAuthorization()
 
         case let paymentOption where paymentOption.paymentMethodType == .sberbank:
-            if shouldOpenSberpay(paymentOption),
-               let returnUrl = makeSberpayReturnUrl() {
+            if shouldOpenSberpay(paymentOption), let returnUrl = makeSberpayReturnUrl() {
                 openSberpayModule(
                     paymentOption: paymentOption,
                     clientSavePaymentMethod: savePaymentMethod,
@@ -318,23 +321,16 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
                 customization: moneyAuthCustomization,
                 output: self
             )
-            let event = AnalyticsEvent.userStartAuthorization(
-                sdkVersion: Bundle.frameworkVersion
-            )
-            interactor.trackEvent(event)
+            interactor.track(event: .userStartAuthorization)
         } catch {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.view?.showActivity()
                 DispatchQueue.global().async { [weak self] in
-                    self?.interactor.fetchPaymentMethods()
+                    self?.interactor.fetchShop()
                 }
             }
-
-            let event = AnalyticsEvent.userCancelAuthorization(
-                sdkVersion: Bundle.frameworkVersion
-            )
-            interactor.trackEvent(event)
+            interactor.track(event: .userCancelAuthorization)
         }
     }
 
@@ -375,7 +371,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             initialSavePaymentMethod: initialSavePaymentMethod,
             isBackBarButtonHidden: needReplace,
             customerId: customerId,
-            isSafeDeal: isSafeDeal
+            isSafeDeal: isSafeDeal,
+            paymentOptionTitle: config.paymentMethods.first { $0.kind == .yoomoney }?.title
         )
         router?.presentYooMoney(
             inputData: inputData,
@@ -452,7 +449,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
                 initialSavePaymentMethod: initialSavePaymentMethod,
                 isBackBarButtonHidden: needReplace,
                 customerId: customerId,
-                isSafeDeal: isSafeDeal
+                isSafeDeal: isSafeDeal,
+                paymentOptionTitle: config.paymentMethods.first { $0.kind == .applePay }?.title
             )
             router.presentApplePayContractModule(
                 inputData: inputData,
@@ -498,7 +496,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             isBackBarButtonHidden: needReplace,
             customerId: customerId,
             isSafeDeal: isSafeDeal,
-            clientSavePaymentMethod: savePaymentMethod
+            clientSavePaymentMethod: savePaymentMethod,
+            config: config
         )
         router.openSberbankModule(
             inputData: inputData,
@@ -530,7 +529,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             returnUrl: returnUrl,
             isBackBarButtonHidden: needReplace,
             customerId: customerId,
-            isSafeDeal: isSafeDeal
+            isSafeDeal: isSafeDeal,
+            config: config
         )
         router.openSberpayModule(
             inputData: inputData,
@@ -588,7 +588,8 @@ extension PaymentMethodsPresenter: PaymentMethodsViewOutput {
             isBackBarButtonHidden: needReplace,
             customerId: customerId,
             instrument: instrument,
-            isSafeDeal: isSafeDeal
+            isSafeDeal: isSafeDeal,
+            config: config
         )
         router.openBankCardModule(
             inputData: inputData,
@@ -689,7 +690,7 @@ extension PaymentMethodsPresenter: ActionTitleTextDialogDelegate {
 
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
-            self.interactor.fetchPaymentMethods()
+            self.interactor.fetchShop()
         }
     }
 }
@@ -729,7 +730,7 @@ extension PaymentMethodsPresenter: PaymentMethodsModuleInput {
 
 extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
     func didUnbindCard(id: String) {
-        interactor.fetchPaymentMethods()
+        interactor.fetchShop()
         DispatchQueue.main.async {
             self.unbindCompletion?(true)
             self.unbindCompletion = nil
@@ -746,12 +747,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
     }
 
     func didFetchShop(_ shop: Shop) {
-        let (authType, _) = interactor.makeTypeAnalyticsParameters()
-        let event: AnalyticsEvent = .screenPaymentOptions(
-            authType: authType,
-            sdkVersion: Bundle.frameworkVersion
-        )
-        interactor.trackEvent(event)
+        interactor.track(event: .screenPaymentOptions(currentAuthType: interactor.analyticsAuthType()))
 
         DispatchQueue.main.async { [weak self] in
             guard let self = self, let view = self.view else { return }
@@ -790,7 +786,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
     }
 
     func didFailFetchShop(_ error: Error) {
-        presentError(error)
+        presentError(error, savePaymentMethod: nil)
     }
 
     func didFetchYooMoneyPaymentMethods(_ paymentMethods: [PaymentOption], shopProperties: ShopProperties) {
@@ -808,22 +804,19 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
                 self.shouldReloadOnViewDidAppear = true
             }
         } else if paymentMethods.contains(where: condition) == false {
-            let event: AnalyticsEvent = .actionAuthWithoutWallet(
-                sdkVersion: Bundle.frameworkVersion
-            )
-            interactor.trackEvent(event)
-            interactor.fetchPaymentMethods()
+            interactor.track(event: .actionAuthWithoutWallet)
+            interactor.fetchShop()
             DispatchQueue.main.async { [weak self] in
                 guard let view = self?.view else { return }
                 view.presentError(with: Localized.Error.noWalletTitle)
             }
         } else {
-            interactor.fetchPaymentMethods()
+            interactor.fetchShop()
         }
     }
 
     func didFetchYooMoneyPaymentMethods(_ error: Error) {
-        presentError(error)
+        presentError(error, savePaymentMethod: nil)
     }
 
     func didFetchAccount(_ account: UserAccount) {
@@ -847,23 +840,13 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         moneyCenterAuthToken = token
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
-            let event: AnalyticsEvent = .actionMoneyAuthLogin(
-                scheme: .yoomoneyApp,
-                status: .success,
-                sdkVersion: Bundle.frameworkVersion
-            )
-            self.interactor.trackEvent(event)
+            self.interactor.track(event: .actionMoneyAuthLogin(scheme: .yoomoneyApp, status: .success))
             self.interactor.fetchAccount(oauthToken: token)
         }
     }
 
     func didFailDecryptCryptogram(_ error: Error) {
-        let event: AnalyticsEvent = .actionMoneyAuthLogin(
-            scheme: .yoomoneyApp,
-            status: .fail(error.localizedDescription),
-            sdkVersion: Bundle.frameworkVersion
-        )
-        interactor.trackEvent(event)
+        interactor.track(event: .actionMoneyAuthLogin(scheme: .yoomoneyApp, status: .fail(error)))
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
             view.hideActivity()
@@ -878,14 +861,11 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
 
         applePayCompletion?(.success)
 
-        let parameters = interactor.makeTypeAnalyticsParameters()
-        let event: AnalyticsEvent = .actionTokenize(
-            scheme: .applePay,
-            authType: parameters.authType,
-            tokenType: parameters.tokenType,
-            sdkVersion: Bundle.frameworkVersion
+        interactor.track(event:
+            .actionTokenize(
+                scheme: .applePay,
+                currentAuthType: interactor.analyticsAuthType())
         )
-        interactor.trackEvent(event)
 
         DispatchQueue.main.asyncAfter(
             deadline: .now() + Constants.dismissApplePayTimeout
@@ -902,11 +882,12 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
     }
 
     func failTokenizeApplePay(_ error: Error) {
-        guard applePayState == .success else {
-            return
-        }
+        guard applePayState == .success else { return }
 
-        trackScreenErrorAnalytics(scheme: .applePay)
+        let savePaymentMethod: Bool? = shop?.options
+            .first { $0.paymentMethodType == .applePay }
+            .map { $0.savePaymentMethod == .allowed }
+        trackScreenErrorAnalytics(scheme: .applePay, savePaymentMethod: savePaymentMethod)
         applePayCompletion?(.failure)
 
         DispatchQueue.main.asyncAfter(
@@ -927,7 +908,7 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
         }
     }
 
-    private func presentError(_ error: Error) {
+    private func presentError(_ error: Error, savePaymentMethod: Bool?) {
         let message: String
 
         switch error {
@@ -942,33 +923,37 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
             view.hideActivity()
             view.showPlaceholder(message: message)
 
-            self.trackScreenErrorAnalytics(scheme: nil)
+            self.trackScreenErrorAnalytics(scheme: nil, savePaymentMethod: savePaymentMethod)
         }
     }
 
-    private func trackScreenErrorAnalytics(scheme: AnalyticsEvent.TokenizeScheme?) {
+    private func trackScreenErrorAnalytics(
+        scheme: AnalyticsEvent.TokenizeScheme?,
+        savePaymentMethod: Bool?
+    ) {
         DispatchQueue.global().async { [weak self] in
             guard let interactor = self?.interactor else { return }
-            let (authType, _) = interactor.makeTypeAnalyticsParameters()
-            let event: AnalyticsEvent = .screenError(
-                authType: authType,
-                scheme: scheme,
-                sdkVersion: Bundle.frameworkVersion
+            interactor.track(event:
+                .screenError(
+                    scheme: scheme,
+                    currentAuthType: interactor.analyticsAuthType()
+                )
             )
-            interactor.trackEvent(event)
         }
     }
 
-    private func trackScreenPaymentAnalytics(scheme: AnalyticsEvent.TokenizeScheme) {
+    private func trackScreenPaymentAnalytics(
+        scheme: AnalyticsEvent.TokenizeScheme,
+        savePaymentMethod: Bool?
+    ) {
         DispatchQueue.global().async { [weak self] in
             guard let interactor = self?.interactor else { return }
-            let (authType, _) = interactor.makeTypeAnalyticsParameters()
-            let event: AnalyticsEvent = .screenPaymentContract(
-                authType: authType,
-                scheme: scheme,
-                sdkVersion: Bundle.frameworkVersion
+            interactor.track(event:
+                .screenPaymentContract(
+                    scheme: scheme,
+                    currentAuthType: interactor.analyticsAuthType()
+                )
             )
-            interactor.trackEvent(event)
         }
     }
 
@@ -984,27 +969,23 @@ extension PaymentMethodsPresenter: PaymentMethodsInteractorOutput {
             self.didTokenize(tokens: tokens, paymentMethodType: .bankCard, scheme: scheme)
 
             DispatchQueue.global().async { [weak self] in
-                guard let self = self, let interactor = self.interactor else { return }
-                let type = interactor.makeTypeAnalyticsParameters()
-                let event: AnalyticsEvent = .actionTokenize(
-                    scheme: scheme,
-                    authType: type.authType,
-                    tokenType: type.tokenType,
-                    sdkVersion: Bundle.frameworkVersion
+                guard let self = self else { return }
+                self.interactor.track(event:
+                    .actionTokenize(
+                        scheme: scheme,
+                        currentAuthType: self.interactor.analyticsAuthType())
                 )
-                interactor.trackEvent(event)
             }
         }
     }
 
     func didFailTokenizeInstrument(error: Error) {
-        let parameters = interactor.makeTypeAnalyticsParameters()
-        let event: AnalyticsEvent = .screenError(
-            authType: parameters.authType,
-            scheme: .bankCard,
-            sdkVersion: Bundle.frameworkVersion
+        interactor.track(
+            event: .screenError(
+                scheme: .bankCard,
+                currentAuthType: interactor.analyticsAuthType()
+            )
         )
-        interactor.trackEvent(event)
 
         let message: String
         switch error {
@@ -1054,23 +1035,14 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
                     moneyCenterAuthToken: token
                 )
 
-                let event: AnalyticsEvent = .actionMoneyAuthLogin(
-                    scheme: .moneyAuthSdk,
-                    status: .success,
-                    sdkVersion: Bundle.frameworkVersion
-                )
-                self.interactor.trackEvent(event)
+                self.interactor.track(event: .actionMoneyAuthLogin(scheme: .moneyAuthSdk, status: .success))
             }
         }
     }
 
     func authorizationCoordinatorDidCancel(_ coordinator: AuthorizationCoordinator) {
         self.moneyAuthCoordinator = nil
-
-        let event = AnalyticsEvent.userCancelAuthorization(
-            sdkVersion: Bundle.frameworkVersion
-        )
-        interactor.trackEvent(event)
+        interactor.track(event: .userCancelAuthorization)
 
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -1085,20 +1057,14 @@ extension PaymentMethodsPresenter: AuthorizationCoordinatorDelegate {
 
     func authorizationCoordinator(_ coordinator: AuthorizationCoordinator, didFailureWith error: Error) {
         self.moneyAuthCoordinator = nil
-
-        let event: AnalyticsEvent = .actionMoneyAuthLogin(
-            scheme: .moneyAuthSdk,
-            status: .fail(error.localizedDescription),
-            sdkVersion: Bundle.frameworkVersion
-        )
-        interactor.trackEvent(event)
+        interactor.track(event: .actionMoneyAuthLogin(scheme: .moneyAuthSdk, status: .fail(error)))
 
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.router.closeAuthorizationModule()
             self.view?.showActivity()
             DispatchQueue.global().async { [weak self] in
-                self?.interactor.fetchPaymentMethods()
+                self?.interactor.fetchShop()
             }
         }
     }
@@ -1136,7 +1102,7 @@ extension PaymentMethodsPresenter: YooMoneyModuleOutput {
                 self.router.closeYooMoneyModule()
                 self.view?.showActivity()
                 DispatchQueue.global().async { [weak self] in
-                    self?.interactor.fetchPaymentMethods()
+                    self?.interactor.fetchShop()
                 }
             }
         }
@@ -1177,12 +1143,18 @@ extension PaymentMethodsPresenter: LinkedCardModuleOutput {
 extension PaymentMethodsPresenter: ApplePayModuleOutput {
     func didPresentApplePayModule() {
         applePayState = .idle
-        trackScreenPaymentAnalytics(scheme: .applePay)
+        let savePaymentMethod = shop?.options
+            .first { $0.paymentMethodType == .applePay }
+            .map { $0.savePaymentMethod == .allowed }
+        trackScreenPaymentAnalytics(scheme: .applePay, savePaymentMethod: savePaymentMethod)
     }
 
     func didFailPresentApplePayModule() {
         applePayState = .idle
-        trackScreenErrorAnalytics(scheme: .applePay)
+        let savePaymentMethod = shop?.options
+            .first { $0.paymentMethodType == .applePay }
+            .map { $0.savePaymentMethod == .allowed }
+        trackScreenErrorAnalytics(scheme: .applePay, savePaymentMethod: savePaymentMethod)
 
         DispatchQueue.main.async { [weak self] in
             guard let self = self,
@@ -1371,7 +1343,6 @@ extension PaymentMethodsPresenter: TokenizationModuleInput {
 
 extension PaymentMethodsPresenter: CardSecModuleOutput {
     func didSuccessfullyPassedCardSec(on module: CardSecModuleInput) {
-        interactor.stopAnalyticsService()
         tokenizationModuleOutput?.didSuccessfullyConfirmation(paymentMethodType: .bankCard)
     }
 
@@ -1409,12 +1380,13 @@ extension PaymentMethodsPresenter: CardSettingsModuleOutput {
         DispatchQueue.main.async {
             self.view?.present(notification)
             self.view?.showActivity()
-            self.view?.setLogoVisible(self.isLogoVisible)
+            let logo = self.paymentMethodViewModelFactory.yooLogoImage()
+            self.view?.setLogoVisible(image: logo, isVisible: self.isLogoVisible)
             self.router.closeCardSettingsModule()
         }
 
         DispatchQueue.global().async { [weak self] in
-            self?.interactor.fetchPaymentMethods()
+            self?.interactor.fetchShop()
         }
     }
 }
@@ -1427,7 +1399,6 @@ private extension PaymentMethodsPresenter {
         paymentMethodType: PaymentMethodType,
         scheme: AnalyticsEvent.TokenizeScheme
     ) {
-        interactor.stopAnalyticsService()
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.tokenizationModuleOutput?.tokenizationModule(
@@ -1438,15 +1409,8 @@ private extension PaymentMethodsPresenter {
         }
     }
 
-    func didFinish(
-        module: TokenizationModuleInput,
-        error: YooKassaPaymentsError?
-    ) {
-        interactor.stopAnalyticsService()
-        tokenizationModuleOutput?.didFinish(
-            on: module,
-            with: error
-        )
+    func didFinish(module: TokenizationModuleInput, error: YooKassaPaymentsError?) {
+        tokenizationModuleOutput?.didFinish(on: module, with: error)
     }
 }
 

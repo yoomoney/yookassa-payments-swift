@@ -12,7 +12,7 @@ enum BankCardDataInputAssembly {
         let view = makeView(inputData: inputData)
         let presenter = makePresenter(inputData: inputData)
         let interactor = makeInteractor(inputData: inputData)
-        let router = makeRouter(inputData: inputData)
+        let router = BankCardDataInputRouter(cardScanner: inputData.cardScanner)
 
         view.output = presenter
 
@@ -62,23 +62,12 @@ enum BankCardDataInputAssembly {
     ) -> BankCardDataInputInteractor {
         let cardService = CardService()
         let bankSettingsService = BankSettingsServiceAssembly.makeService()
-        let analyticsService = AnalyticsServiceAssembly.makeService(
-            isLoggingEnabled: inputData.isLoggingEnabled
-        )
+        let analyticsService = AnalyticsTrackingAssembly.make(isLoggingEnabled: inputData.isLoggingEnabled)
         let interactor = BankCardDataInputInteractor(
             cardService: cardService,
             bankSettingsService: bankSettingsService,
             analyticsService: analyticsService
         )
         return interactor
-    }
-
-    private static func makeRouter(
-        inputData: BankCardDataInputModuleInputData
-    ) -> BankCardDataInputRouter {
-        let router = BankCardDataInputRouter(
-            cardScanner: inputData.cardScanner
-        )
-        return router
     }
 }

@@ -1,5 +1,7 @@
 import UIKit
 
+private var configPreloader: ConfigMediator?
+
 /// Tokenization module builder.
 public enum TokenizationAssembly {
 
@@ -10,7 +12,6 @@ public enum TokenizationAssembly {
         inputData: TokenizationFlow,
         moduleOutput: TokenizationModuleOutput
     ) -> UIViewController & TokenizationModuleInput {
-
         switch inputData {
         case .tokenization(let tokenizationModuleInputData):
             CustomizationStorage.shared.mainScheme
@@ -49,59 +50,94 @@ public enum TokenizationAssembly {
         _ inputData: TokenizationModuleInputData,
         moduleOutput: TokenizationModuleOutput
     ) -> UIViewController & TokenizationModuleInput {
-        YKSdk.shared.moduleOutput = moduleOutput
-        YKSdk.shared.applicationScheme = inputData.applicationScheme
-        YKSdk.shared.analyticsService = AnalyticsServiceAssembly.makeService(
-            isLoggingEnabled: inputData.isLoggingEnabled
-        )
 
-        let paymentMethodsModuleInputData = PaymentMethodsModuleInputData(
-            applicationScheme: inputData.applicationScheme,
-            clientApplicationKey: inputData.clientApplicationKey,
-            applePayMerchantIdentifier: inputData.applePayMerchantIdentifier,
-            gatewayId: inputData.gatewayId,
-            shopName: inputData.shopName,
-            purchaseDescription: inputData.purchaseDescription,
-            amount: inputData.amount,
-            tokenizationSettings: inputData.tokenizationSettings,
-            testModeSettings: inputData.testModeSettings,
-            isLoggingEnabled: inputData.isLoggingEnabled,
-            getSavePaymentMethod: inputData.boolFromSavePaymentMethod,
-            moneyAuthClientId: inputData.moneyAuthClientId,
-            returnUrl: inputData.returnUrl,
-            savePaymentMethod: inputData.savePaymentMethod,
-            userPhoneNumber: inputData.userPhoneNumber,
-            cardScanning: inputData.cardScanning,
-            customerId: inputData.customerId
-        )
+        PrintLogger.forceSilence = !inputData.isLoggingEnabled
 
-        let (viewController, moduleInput) = PaymentMethodsAssembly.makeModule(
-            inputData: paymentMethodsModuleInputData,
-            tokenizationModuleOutput: moduleOutput
-        )
+        func paymentMethodsModule(config: Config) -> (view: UIViewController, moduleInput: PaymentMethodsModuleInput) {
+            let paymentMethodsModuleInputData = PaymentMethodsModuleInputData(
+                applicationScheme: inputData.applicationScheme,
+                clientApplicationKey: inputData.clientApplicationKey,
+                applePayMerchantIdentifier: inputData.applePayMerchantIdentifier,
+                gatewayId: inputData.gatewayId,
+                shopName: inputData.shopName,
+                purchaseDescription: inputData.purchaseDescription,
+                amount: inputData.amount,
+                tokenizationSettings: inputData.tokenizationSettings,
+                testModeSettings: inputData.testModeSettings,
+                isLoggingEnabled: inputData.isLoggingEnabled,
+                getSavePaymentMethod: inputData.boolFromSavePaymentMethod,
+                moneyAuthClientId: inputData.moneyAuthClientId,
+                returnUrl: inputData.returnUrl,
+                savePaymentMethod: inputData.savePaymentMethod,
+                userPhoneNumber: inputData.userPhoneNumber,
+                cardScanning: inputData.cardScanning,
+                customerId: inputData.customerId,
+                config: config
+            )
 
-        let navigationController = NavigationController(
-            rootViewController: viewController
-        )
+            return PaymentMethodsAssembly.makeModule(
+                inputData: paymentMethodsModuleInputData,
+                tokenizationModuleOutput: moduleOutput
+            )
+        }
+
+        let loading = LoadingViewController()
+        let navigationController = NavigationController(rootViewController: loading)
+        loading.showActivity()
 
         let viewControllerToReturn: UIViewController & TokenizationModuleInput
+        var resultingNavigationController: NavigationController?
+        var resultingSheetViewController: SheetViewController?
         switch UIScreen.main.traitCollection.userInterfaceIdiom {
         case .pad:
-            navigationController.moduleOutput = moduleInput
             navigationController.modalPresentationStyle = .formSheet
             viewControllerToReturn = navigationController
+            resultingNavigationController = navigationController
         default:
             let sheetViewController = SheetViewController(
                 contentViewController: navigationController
             )
-            sheetViewController.moduleOutput = moduleInput
             viewControllerToReturn = sheetViewController
-
+            resultingSheetViewController = sheetViewController
         }
+
+        let authService = AuthorizationServiceAssembly.makeService(
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            testModeSettings: inputData.testModeSettings,
+            moneyAuthClientId: inputData.moneyAuthClientId
+        )
 
         YKSdk.shared.moduleOutput = moduleOutput
         YKSdk.shared.applicationScheme = inputData.applicationScheme
-        YKSdk.shared.paymentMethodsModuleInput = moduleInput
+
+        let preloader = ConfigMediatorAssembly.make(isLoggingEnabled: inputData.isLoggingEnabled)
+        configPreloader = preloader
+        preloader.getConfig(token: inputData.clientApplicationKey) { config in
+            DispatchQueue.main.async {
+                let (viewController, moduleInput) = paymentMethodsModule(config: config)
+                resultingNavigationController?.moduleOutput = moduleInput
+                resultingSheetViewController?.moduleOutput = moduleInput
+                YKSdk.shared.paymentMethodsModuleInput = moduleInput
+
+                loading.hideActivity()
+                navigationController.setViewControllers([viewController], animated: true)
+            }
+
+            configPreloader = nil
+        }
+
+        YKSdk.shared.analyticsTracking = AnalyticsTrackingAssembly.make(isLoggingEnabled: inputData.isLoggingEnabled)
+        YKSdk.shared.analyticsContext = AnalyticsEventContext(
+            sdkVersion: Bundle.frameworkVersion,
+            initialAuthType: authService.analyticsAuthType(),
+            isCustomerIdPresent: inputData.customerId != nil,
+            isWalletAuthPresent: authService.getWalletToken() != nil,
+            usingCustomColor: inputData.customizationSettings.mainScheme != CustomizationColors.blueRibbon,
+            yookassaIconShown: inputData.tokenizationSettings.showYooKassaLogo,
+            savePaymentMethod: inputData.savePaymentMethod
+        )
+
+        YKSdk.shared.analyticsTracking.track(event: .actionSDKInitialised)
 
         return viewControllerToReturn
     }

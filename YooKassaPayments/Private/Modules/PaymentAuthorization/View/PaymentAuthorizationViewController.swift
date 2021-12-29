@@ -13,6 +13,7 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
     }()
 
     private lazy var titleLabel: UILabel = {
+        $0.setContentCompressionResistancePriority(.required, for: .vertical)
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.styledText = Localized.smsCodePlaceholder
         $0.setStyles(
@@ -30,6 +31,7 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
 
     private lazy var codeErrorLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setContentCompressionResistancePriority(.required, for: .vertical)
         $0.setStyles(
             UILabel.DynamicStyle.caption2,
             UILabel.ColorStyle.alert,
@@ -41,6 +43,7 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
 
     private lazy var descriptionLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setContentCompressionResistancePriority(.required, for: .vertical)
         $0.setStyles(
             UILabel.DynamicStyle.body,
             UILabel.ColorStyle.secondary,
@@ -85,24 +88,30 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
     // MARK: - Constraints
 
     private lazy var descriptionLabelTopConstraint = descriptionLabel.topAnchor.constraint(
-        equalTo: codeControl.bottomAnchor,
-        constant: Space.quadruple
+        equalTo: codeErrorLabel.bottomAnchor,
+        constant: Space.double
     )
 
-    private lazy var resendButtonBottomConstraint = resendCodeButton.bottomAnchor.constraint(
-        equalTo: bottomLayoutGuide.topAnchor,
-        constant: -Space.double
+    private lazy var resendButtonBottomConstraint = view.layoutMarginsGuide.bottomAnchor.constraint(
+        equalTo: resendCodeButton.bottomAnchor,
+        constant: Space.triple * 2
     )
 
     private lazy var placeholderViewBottomConstraint = placeholderView.bottomAnchor.constraint(
-        equalTo: bottomLayoutGuide.topAnchor
+        equalTo: view.layoutMarginsGuide.topAnchor,
+        constant: -Space.fivefold
     )
 
     // MARK: - Managing the View
 
+    private lazy var defaultViewHeight = view.heightAnchor.constraint(equalToConstant: 320)
+
     override func loadView() {
         view = UIView()
         view.setStyles(UIView.Styles.grayBackground)
+
+        defaultViewHeight.priority = .defaultHigh + 1
+        defaultViewHeight.isActive = true
 
         setupView()
         setupConstraints()
@@ -124,7 +133,9 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        _ = codeControl.becomeFirstResponder()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
+            _ = self?.codeControl.becomeFirstResponder()
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -150,22 +161,30 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
 
     private func setupConstraints() {
         let topConstraint: NSLayoutConstraint
+        if shouldShowTitleOnNavBar {
+            defaultViewHeight.constant = 220
+        }
         if #available(iOS 11.0, *) {
             if shouldShowTitleOnNavBar {
                 topConstraint = codeControl.topAnchor.constraint(
                     equalTo: view.safeAreaLayoutGuide.topAnchor,
-                    constant: 2 * Space.triple
+                    constant: Space.double
                 )
             } else {
                 topConstraint = titleLabel.topAnchor.constraint(
                     equalTo: view.safeAreaLayoutGuide.topAnchor,
                     constant: Space.single / 4
                 )
+
+                codeControl.topAnchor.constraint(
+                    equalTo: titleLabel.bottomAnchor,
+                    constant: Space.quadruple
+                ).isActive = true
             }
 
             resendButtonBottomConstraint = resendCodeButton.bottomAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                constant: -Space.double
+                constant: -Space.quadruple
             )
             placeholderViewBottomConstraint = placeholderView.bottomAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.bottomAnchor
@@ -173,22 +192,26 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
         } else {
             if shouldShowTitleOnNavBar {
                 topConstraint = codeControl.topAnchor.constraint(
-                    equalTo: topLayoutGuide.bottomAnchor,
-                    constant: 2 * Space.triple
+                    equalTo: view.layoutMarginsGuide.topAnchor,
+                    constant: Space.double
                 )
             } else {
                 topConstraint = titleLabel.topAnchor.constraint(
-                    equalTo: topLayoutGuide.bottomAnchor,
+                    equalTo: view.layoutMarginsGuide.topAnchor,
                     constant: Space.single / 4
                 )
+                codeControl.topAnchor.constraint(
+                    equalTo: titleLabel.bottomAnchor,
+                    constant: Space.quadruple
+                ).isActive = true
             }
 
             resendButtonBottomConstraint = resendCodeButton.bottomAnchor.constraint(
-                equalTo: bottomLayoutGuide.topAnchor,
-                constant: -Space.double
+                equalTo: view.layoutMarginsGuide.bottomAnchor,
+                constant: -Space.quadruple
             )
             placeholderViewBottomConstraint = placeholderView.bottomAnchor.constraint(
-                equalTo: bottomLayoutGuide.topAnchor
+                equalTo: view.layoutMarginsGuide.bottomAnchor
             )
         }
 
@@ -198,7 +221,7 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
 
             codeErrorLabel.topAnchor.constraint(
                 equalTo: codeControl.bottomAnchor,
-                constant: Space.double
+                constant: Space.single
             ),
             codeErrorLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
@@ -228,6 +251,7 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
                 constant: -Space.double
             ),
             resendButtonBottomConstraint,
+            resendCodeButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: Space.single),
 
             placeholderView.topAnchor.constraint(equalTo: view.topAnchor),
             placeholderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -244,11 +268,6 @@ final class PaymentAuthorizationViewController: UIViewController, PlaceholderPro
                 titleLabel.trailingAnchor.constraint(
                     equalTo: view.trailingAnchor,
                     constant: -Space.double
-                ),
-
-                codeControl.topAnchor.constraint(
-                    equalTo: titleLabel.bottomAnchor,
-                    constant: 2 * Space.triple
                 ),
             ]
         }
@@ -275,17 +294,15 @@ extension PaymentAuthorizationViewController: KeyboardObserver {
         updateBottomConstraint(keyboardInfo)
     }
 
-    func keyboardDidShow(with keyboardInfo: KeyboardNotificationInfo) {}
+    func keyboardDidShow(with keyboardInfo: KeyboardNotificationInfo) {
+        view.setNeedsUpdateConstraints()
+    }
     func keyboardDidHide(with keyboardInfo: KeyboardNotificationInfo) {}
     func keyboardDidUpdateFrame(_ keyboardFrame: CGRect) {}
 
     private func updateBottomConstraint(
         _ keyboardInfo: KeyboardNotificationInfo
     ) {
-        guard let keyboardOffset = keyboardYOffset(from: keyboardInfo.endKeyboardFrame) else {
-            return
-        }
-
         let duration = keyboardInfo.animationDuration ?? 0.3
 
         var options: UIView.AnimationOptions = []
@@ -297,10 +314,7 @@ extension PaymentAuthorizationViewController: KeyboardObserver {
             withDuration: duration,
             delay: 0,
             options: options,
-            animations: { [weak self] in
-                guard let self = self else { return }
-                self.resendButtonBottomConstraint.constant = -keyboardOffset - Space.double
-                self.placeholderViewBottomConstraint.constant = -keyboardOffset - Space.double
+            animations: {
                 self.view.layoutIfNeeded()
             },
             completion: nil
@@ -330,18 +344,16 @@ extension PaymentAuthorizationViewController: PaymentAuthorizationViewInput {
 
     func setCodeLength(_ length: Int) {
         codeControl.setLength(length)
-        _ = codeControl.becomeFirstResponder()
     }
 
     func clearCode() {
         codeControl.clear()
+        codeControl.setIsEditable(true)
+        _ = codeControl.becomeFirstResponder()
     }
 
     func setCodeError(_ error: String?) {
         codeErrorLabel.styledText = error
-        descriptionLabelTopConstraint.constant = error == nil
-            ? Space.quadruple
-            : Space.triple * 2
     }
 
     func setDescription(_ description: String) {
@@ -397,12 +409,14 @@ extension PaymentAuthorizationViewController: FixedLengthCodeControlDelegate {
 extension PaymentAuthorizationViewController {
     func showActivity() {
         codeControl.setIsEditable(false)
-        showFullViewActivity(style: ActivityIndicatorView.Styles.cloudy)
+        showFullViewActivity(style: ActivityIndicatorView.Styles.heavyLight)
     }
 
     func hideActivity() {
         hideFullViewActivity()
-        codeControl.setIsEditable(true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) { [weak self] in
+            self?.codeControl.clear()
+        }
     }
 }
 

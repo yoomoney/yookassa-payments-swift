@@ -5,7 +5,7 @@ enum MoneyAuthAssembly {
         moneyAuthClientId: String,
         loggingEnabled: Bool
     ) -> MoneyAuth.Config {
-        let keyValueStorage = KeyValueStoringAssembly.makeSettingsStorage()
+        let keyValueStorage = KeyValueStoringAssembly.makeUserDefaultsStorage()
         let isDevHost = keyValueStorage.getBool(for: Settings.Keys.devHost) ?? false
         let authenticationChallengeHandler = makeAuthenticationChallengeHandler(
             isDevHost: isDevHost
@@ -35,9 +35,13 @@ enum MoneyAuthAssembly {
     }
 
     static func makeMoneyAuthCustomization() -> MoneyAuth.Customization {
+        let configStorage = KeyValueStoringAssembly.makeSettingsStorage()
+        let config: Config = (try? configStorage.readValue(for: StorageKeys.configKey))
+            ?? ConfigMediatorImpl.defaultConfig
+
         let customization = MoneyAuth.Customization(
             restorePasswordEnabled: Constants.restorePasswordEnabled,
-            userAgreementTitle: Localized.userAgreementTitle,
+            userAgreementTitle: config.userAgreementUrl,
             userWithEmailAgreementTitle: Localized.userWithEmailAgreementTitle,
             emailCheckboxVisible: Constants.emailCheckboxVisible,
             emailCheckboxTitle: Localized.emailCheckboxTitle,

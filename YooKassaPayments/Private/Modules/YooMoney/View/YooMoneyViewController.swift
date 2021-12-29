@@ -80,7 +80,6 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
         submitButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(submitButton)
         let defaultHeight = submitButton.heightAnchor.constraint(equalToConstant: Space.triple * 2)
-        defaultHeight.priority = .defaultLow + 1
         NSLayoutConstraint.activate([
             submitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             submitButton.topAnchor.constraint(equalTo: view.topAnchor),
@@ -94,6 +93,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
 
     private let termsOfServiceLinkedTextView: LinkedTextView = {
         let view = LinkedTextView()
+        view.setContentCompressionResistancePriority(.required, for: .vertical)
         view.tintColor = CustomizationStorage.shared.mainScheme
         view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
         return view
@@ -101,6 +101,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
 
     private let safeDealLinkedTextView: LinkedTextView = {
         let view = LinkedTextView()
+        view.setContentCompressionResistancePriority(.required, for: .vertical)
         view.tintColor = CustomizationStorage.shared.mainScheme
         view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
         return view
@@ -225,7 +226,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
 
     private lazy var scrollViewHeightConstraint: NSLayoutConstraint = {
         let constraint = scrollView.heightAnchor.constraint(equalToConstant: 0)
-        constraint.priority = .defaultLow
+        constraint.priority = .defaultHigh + 1
         return constraint
     }()
 
@@ -350,7 +351,7 @@ final class YooMoneyViewController: UIViewController, PlaceholderProvider {
     }
 
     private func fixTableViewHeight() {
-        scrollViewHeightConstraint.constant = contentStackView.bounds.height
+        scrollViewHeightConstraint.constant = ceil(scrollView.contentSize.height) + Space.triple * 2
     }
 
     // MARK: - Action
@@ -384,6 +385,8 @@ extension YooMoneyViewController: YooMoneyViewInput {
             orderView.subvalue = nil
         }
 
+        viewModel.paymentOptionTitle.map { navigationItem.title = $0 }
+
         paymentMethodView.title = viewModel.paymentMethod.title
         paymentMethodView.subtitle = viewModel.paymentMethod.subtitle ?? ""
         paymentMethodView.image = UIImage.avatar
@@ -391,11 +394,7 @@ extension YooMoneyViewController: YooMoneyViewInput {
         paymentMethodView.rightButtonTitle = Localized.logout
         paymentMethodView.output = self
 
-        termsOfServiceLinkedTextView.attributedText = makeTermsOfService(
-            viewModel.terms,
-            font: UIFont.dynamicCaption2,
-            foregroundColor: UIColor.AdaptiveColors.secondary
-        )
+        termsOfServiceLinkedTextView.attributedText = viewModel.terms
         safeDealLinkedTextView.attributedText = viewModel.safeDealText
         safeDealLinkedTextView.isHidden = viewModel.safeDealText?.string.isEmpty ?? true
         termsOfServiceLinkedTextView.textAlignment = .center
@@ -466,33 +465,6 @@ extension YooMoneyViewController: YooMoneyViewInput {
              + price.decimalSeparator
              + price.fractionalPart
              + price.currency
-    }
-
-    private func makeTermsOfService(
-        _ terms: TermsOfService,
-        font: UIFont,
-        foregroundColor: UIColor
-    ) -> NSMutableAttributedString {
-        let attributedText: NSMutableAttributedString
-
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: font,
-            .foregroundColor: foregroundColor,
-        ]
-        attributedText = NSMutableAttributedString(
-            string: "\(terms.text) ",
-            attributes: attributes
-        )
-
-        let linkAttributedText = NSMutableAttributedString(
-            string: terms.hyperlink,
-            attributes: attributes
-        )
-        let linkRange = NSRange(location: 0, length: terms.hyperlink.count)
-        linkAttributedText.addAttribute(.link, value: terms.url, range: linkRange)
-        attributedText.append(linkAttributedText)
-
-        return attributedText
     }
 
     private func makeSavePaymentMethodAttributedString(

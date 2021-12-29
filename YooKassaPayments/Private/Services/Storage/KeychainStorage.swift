@@ -1,7 +1,6 @@
 import Security
 
 final class KeychainStorage {
-
     // MARK: - Init data
 
     private let service: String
@@ -127,29 +126,35 @@ extension KeychainStorage {
 // MARK: - KeyValueStoring
 
 extension KeychainStorage: KeyValueStoring {
-
-    func getString(for key: String) -> String? {
-        return getValue(for: key)
-    }
-
-    func set(string: String?, for key: String) {
-        setValue(string, for: key)
-    }
-
-    func getBool(for key: String) -> Bool? {
-        guard let value = getValue(for: key) else { return nil }
-        return ["YES", "1"].contains(value)
-    }
-
-    func set(bool: Bool?, for key: String) {
-        switch bool {
-        case true?:
-            setValue("YES", for: key)
-        case false?:
-            setValue("NO", for: key)
-        case nil:
-            removeValue(for: key)
+    func write<T>(value: T?, for key: String) throws where T: Encodable {
+        switch value {
+        case let string as String?:
+            return setValue(string, for: key)
+        case let bool as Bool?:
+            switch bool {
+            case true?:
+                setValue("YES", for: key)
+            case false?:
+                setValue("NO", for: key)
+            case nil:
+                removeValue(for: key)
+            }
+        default:
+            PrintLogger.debugWarn("Attempt to write unsuported value")
         }
+    }
+
+    func readValue<T>(for key: String) throws -> T? where T: Decodable {
+        if T.self == String.self {
+            let value = getValue(for: key)
+            let casted = value as? T
+            return casted
+        } else if T.self == Bool.self {
+            let value = getValue(for: key).map { ["YES", "1"].contains($0) }
+            return value as? T
+        }
+        PrintLogger.debugWarn("Attempt to read unsuported value type")
+        return nil
     }
 }
 

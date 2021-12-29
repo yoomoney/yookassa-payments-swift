@@ -395,73 +395,40 @@ private extension BankCardDataInputPresenter {
 private extension BankCardDataInputPresenter {
 
     func trackScanBankCardAction() {
-        let event: AnalyticsEvent = .actionBankCardForm(
-            action: .scanBankCardAction,
-            sdkVersion: Bundle.frameworkVersion
-        )
-        trackEvent(event)
+        track(event: .actionBankCardForm(action: .scanBankCardAction))
     }
 
     func trackCardNumberInputError() {
-        let event: AnalyticsEvent = .actionBankCardForm(
-            action: .cardNumberInputError,
-            sdkVersion: Bundle.frameworkVersion
-        )
-        trackEvent(event)
+        track(event: .actionBankCardForm(action: .cardNumberInputError))
     }
 
     func trackCardExpiryInputError() {
-        let event: AnalyticsEvent = .actionBankCardForm(
-            action: .cardExpiryInputError,
-            sdkVersion: Bundle.frameworkVersion
-        )
-        trackEvent(event)
+        track(event: .actionBankCardForm(action: .cardExpiryInputError))
     }
 
     func trackCardCvcInputError() {
-        let event: AnalyticsEvent = .actionBankCardForm(
-            action: .cardCvcInputError,
-            sdkVersion: Bundle.frameworkVersion
-        )
-        trackEvent(event)
+        track(event: .actionBankCardForm(action: .cardCvcInputError))
     }
 
     func trackCardNumberClearAction() {
-        let event: AnalyticsEvent = .actionBankCardForm(
-            action: .cardNumberClearAction,
-            sdkVersion: Bundle.frameworkVersion
-        )
-        trackEvent(event)
+        track(event: .actionBankCardForm(action: .cardNumberClearAction))
     }
 
     func trackCardNumberInputSuccess() {
-        let event: AnalyticsEvent = .actionBankCardForm(
-            action: .cardNumberInputSuccess,
-            sdkVersion: Bundle.frameworkVersion
-        )
-        trackEvent(event)
+        track(event: .actionBankCardForm(action: .cardNumberInputSuccess))
     }
 
     func trackCardNumberContinueAction() {
-        let event: AnalyticsEvent = .actionBankCardForm(
-            action: .cardNumberContinueAction,
-            sdkVersion: Bundle.frameworkVersion
-        )
-        trackEvent(event)
+        track(event: .actionBankCardForm(action: .cardNumberContinueAction))
     }
 
     func trackCardNumberReturnToEdit() {
-        let event: AnalyticsEvent = .actionBankCardForm(
-            action: .cardNumberReturnToEdit,
-            sdkVersion: Bundle.frameworkVersion
-        )
-        trackEvent(event)
+        track(event: .actionBankCardForm(action: .cardNumberReturnToEdit))
     }
 
-    func trackEvent(_ event: AnalyticsEvent) {
+    func track(event: AnalyticsEvent) {
         DispatchQueue.global().async { [weak self] in
-            guard let self = self else { return }
-            self.interactor.trackEvent(event)
+            self?.interactor.track(event: event)
         }
     }
 }

@@ -9,8 +9,7 @@ final class LinkedCardInteractor {
     // MARK: - Init data
 
     private let authorizationService: AuthorizationService
-    private let analyticsService: AnalyticsService
-    private let analyticsProvider: AnalyticsProvider
+    private let analyticsService: AnalyticsTracking
     private let paymentService: PaymentService
     private let threatMetrixService: ThreatMetrixService
 
@@ -21,8 +20,7 @@ final class LinkedCardInteractor {
 
     init(
         authorizationService: AuthorizationService,
-        analyticsService: AnalyticsService,
-        analyticsProvider: AnalyticsProvider,
+        analyticsService: AnalyticsTracking,
         paymentService: PaymentService,
         threatMetrixService: ThreatMetrixService,
         clientApplicationKey: String,
@@ -30,7 +28,6 @@ final class LinkedCardInteractor {
     ) {
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
-        self.analyticsProvider = analyticsProvider
         self.paymentService = paymentService
         self.threatMetrixService = threatMetrixService
 
@@ -42,6 +39,14 @@ final class LinkedCardInteractor {
 // MARK: - LinkedCardInteractorInput
 
 extension LinkedCardInteractor: LinkedCardInteractorInput {
+    func track(event: AnalyticsEvent) {
+        analyticsService.track(event: event)
+    }
+
+    func analyticsAuthType() -> AnalyticsEvent.AuthType {
+        authorizationService.analyticsAuthType()
+    }
+
     func loginInWallet(
         amount: MonetaryAmount,
         reusableToken: Bool,
@@ -110,17 +115,6 @@ extension LinkedCardInteractor: LinkedCardInteractorInput {
 
     func hasReusableWalletToken() -> Bool {
         return authorizationService.hasReusableWalletToken()
-    }
-
-    func trackEvent(_ event: AnalyticsEvent) {
-        analyticsService.trackEvent(event)
-    }
-
-    func makeTypeAnalyticsParameters() -> (
-        authType: AnalyticsEvent.AuthType,
-        tokenType: AnalyticsEvent.AuthTokenType?
-    ) {
-        return analyticsProvider.makeTypeAnalyticsParameters()
     }
 
     private func tokenizeWithTMXSessionId(

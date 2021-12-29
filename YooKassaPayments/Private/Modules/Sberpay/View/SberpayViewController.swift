@@ -15,12 +15,6 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
         return $0
     }(UIScrollView())
 
-    private lazy var contentView: UIView = {
-        $0.setStyles(UIView.Styles.grayBackground)
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(UIView())
-
     private lazy var contentStackView: UIStackView = {
         $0.setStyles(UIView.Styles.grayBackground)
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -29,11 +23,13 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
     }(UIStackView())
 
     private lazy var orderView: OrderView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setStyles(UIView.Styles.grayBackground)
         return $0
     }(OrderView())
 
     private lazy var sberpayMethodView: LargeIconView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setStyles(
             UIView.Styles.grayBackground
         )
@@ -52,6 +48,7 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
 
     private lazy var submitButton: Button = {
         $0.tintColor = CustomizationStorage.shared.mainScheme
+        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setStyles(
             UIButton.DynamicStyle.primary,
             UIView.Styles.heightAsContent
@@ -71,7 +68,6 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
         submitButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(submitButton)
         let defaultHeight = submitButton.heightAnchor.constraint(equalToConstant: Space.triple * 2)
-        defaultHeight.priority = .defaultLow + 1
         NSLayoutConstraint.activate([
             submitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             submitButton.topAnchor.constraint(equalTo: view.topAnchor),
@@ -85,6 +81,8 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
 
     private let termsOfServiceLinkedTextView: LinkedTextView = {
         let view = LinkedTextView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.setContentCompressionResistancePriority(.required, for: .vertical)
         view.tintColor = CustomizationStorage.shared.mainScheme
         view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
         return view
@@ -92,6 +90,8 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
 
     private let safeDealLinkedTextView: LinkedTextView = {
         let view = LinkedTextView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.setContentCompressionResistancePriority(.required, for: .vertical)
         view.tintColor = CustomizationStorage.shared.mainScheme
         view.setStyles(UIView.Styles.grayBackground, UITextView.Styles.linked)
         return view
@@ -150,11 +150,7 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
             actionButtonStackView,
         ].forEach(view.addSubview)
 
-        scrollView.addSubview(contentView)
-
-        [
-            contentStackView,
-        ].forEach(contentView.addSubview)
+        scrollView.addSubview(contentStackView)
 
         [
             orderView,
@@ -169,12 +165,13 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
     }
 
     private func setupConstraints() {
+        scrollViewHeightConstraint.priority = .defaultHigh + 1
         let bottomConstraint: NSLayoutConstraint
         let topConstraint: NSLayoutConstraint
         if #available(iOS 11.0, *) {
-            bottomConstraint = actionButtonStackView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                constant: -Space.double
+            bottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(
+                equalTo: actionButtonStackView.bottomAnchor,
+                constant: Space.double
             )
             topConstraint = scrollView.topAnchor.constraint(
                 equalTo: view.safeAreaLayoutGuide.topAnchor
@@ -193,33 +190,19 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
             scrollViewHeightConstraint,
 
             topConstraint,
+            bottomConstraint,
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(
-                equalTo: actionButtonStackView.topAnchor,
-                constant: -Space.double
-            ),
+            actionButtonStackView.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: Space.double),
 
-            actionButtonStackView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
-                constant: Space.double
-            ),
-            actionButtonStackView.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
-                constant: -Space.double
-            ),
-            bottomConstraint,
+            actionButtonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Space.double),
+            actionButtonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Space.double),
 
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-
-            contentStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            contentStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            contentStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
         ]
         NSLayoutConstraint.activate(constraints)
     }
@@ -234,7 +217,7 @@ final class SberpayViewController: UIViewController, PlaceholderProvider {
     }
 
     private func fixTableViewHeight() {
-        scrollViewHeightConstraint.constant = contentStackView.bounds.height
+        scrollViewHeightConstraint.constant = ceil(scrollView.contentSize.height) + Space.triple * 2
     }
 
     // MARK: - Action
@@ -260,6 +243,8 @@ extension SberpayViewController: SberpayViewInput {
         safeDealLinkedTextView.isHidden = viewModel.safeDealText?.string.isEmpty ?? true
         termsOfServiceLinkedTextView.textAlignment = .center
         safeDealLinkedTextView.textAlignment = .center
+
+        viewModel.paymentOptionTitle.map { navigationItem.title = $0 }
 
         if let section = viewModel.recurrencyAndDataSavingSection {
             contentStackView.addArrangedSubview(section)

@@ -1,3 +1,4 @@
+import Foundation
 import YooKassaPaymentsApi
 
 final class LinkedCardPresenter {
@@ -25,7 +26,7 @@ final class LinkedCardPresenter {
     private let price: PriceViewModel
     private let fee: PriceViewModel?
     private let paymentOption: PaymentInstrumentYooMoneyLinkedBankCard
-    private let termsOfService: TermsOfService
+    private let termsOfService: NSAttributedString
     private let returnUrl: String?
     private let tmxSessionId: String?
     private var initialSavePaymentMethod: Bool
@@ -46,7 +47,7 @@ final class LinkedCardPresenter {
         price: PriceViewModel,
         fee: PriceViewModel?,
         paymentOption: PaymentInstrumentYooMoneyLinkedBankCard,
-        termsOfService: TermsOfService,
+        termsOfService: NSAttributedString,
         returnUrl: String?,
         tmxSessionId: String?,
         initialSavePaymentMethod: Bool,
@@ -115,15 +116,13 @@ extension LinkedCardPresenter: LinkedCardViewOutput {
 
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
-            let form: AnalyticsEvent = .screenLinkedCardForm(sdkVersion: Bundle.frameworkVersion)
-            self.interactor.trackEvent(form)
 
-            let contract = AnalyticsEvent.screenPaymentContract(
-                authType: self.interactor.makeTypeAnalyticsParameters().authType,
-                scheme: .bankCard,
-                sdkVersion: Bundle.frameworkVersion
+            self.interactor.track(event:
+                .screenPaymentContract(
+                    scheme: .linkedCard,
+                    currentAuthType: self.interactor.analyticsAuthType()
+                )
             )
-            self.interactor.trackEvent(contract)
         }
     }
 
@@ -237,6 +236,7 @@ extension LinkedCardPresenter: LinkedCardInteractorOutput {
     ) {
         switch response {
         case .authorized:
+            interactor.track(event: .actionAuthFinished)
             tokenize()
         case let .notAuthorized(
                 authTypeState: authTypeState,
@@ -277,13 +277,9 @@ extension LinkedCardPresenter: LinkedCardInteractorOutput {
 
             DispatchQueue.global().async { [weak self] in
                 guard let self = self, let interactor = self.interactor else { return }
-                let (authType, _) = interactor.makeTypeAnalyticsParameters()
-                let event: AnalyticsEvent = .screenError(
-                    authType: authType,
-                    scheme: .linkedCard,
-                    sdkVersion: Bundle.frameworkVersion
+                interactor.track(
+                    event: .screenErrorContract(scheme: .linkedCard, currentAuthType: interactor.analyticsAuthType())
                 )
-                interactor.trackEvent(event)
             }
         }
     }
@@ -297,20 +293,19 @@ extension LinkedCardPresenter: LinkedCardInteractorOutput {
 
         DispatchQueue.global().async { [weak self] in
             guard let self = self, let interactor = self.interactor else { return }
-            let type = interactor.makeTypeAnalyticsParameters()
-            let event: AnalyticsEvent = .actionTokenize(
-                scheme: .linkedCard,
-                authType: type.authType,
-                tokenType: type.tokenType,
-                sdkVersion: Bundle.frameworkVersion
+            interactor.track(
+                event: .actionTokenize(
+                    scheme: .linkedCard,
+                    currentAuthType: self.interactor.analyticsAuthType())
             )
-            interactor.trackEvent(event)
         }
     }
 
     func failTokenizeData(_ error: Error) {
         let message = makeMessage(error)
-
+        interactor.track(
+            event: .screenErrorContract(scheme: .linkedCard, currentAuthType: interactor.analyticsAuthType())
+        )
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
             view.hideActivity()
@@ -321,6 +316,9 @@ extension LinkedCardPresenter: LinkedCardInteractorOutput {
     private func tokenize() {
         guard let csc = csc else { return }
 
+        interactor.track(
+            event: .actionTryTokenize(scheme: .linkedCard, currentAuthType: interactor.analyticsAuthType())
+        )
         interactor.tokenize(
             id: paymentOption.cardId,
             csc: csc,

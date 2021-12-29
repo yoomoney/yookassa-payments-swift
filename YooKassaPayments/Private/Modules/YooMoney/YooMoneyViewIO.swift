@@ -1,4 +1,4 @@
-import UIKit.UIImage
+import UIKit
 
 struct YooMoneyViewModel {
     let shopName: String
@@ -6,8 +6,9 @@ struct YooMoneyViewModel {
     let price: PriceViewModel
     let fee: PriceViewModel?
     let paymentMethod: PaymentMethodViewModel
-    let terms: TermsOfService
+    let terms: NSAttributedString
     let safeDealText: NSAttributedString?
+    let paymentOptionTitle: String?
 }
 
 protocol YooMoneyViewInput: ActivityIndicatorFullViewPresenting, PlaceholderPresenting, NotificationPresenting {

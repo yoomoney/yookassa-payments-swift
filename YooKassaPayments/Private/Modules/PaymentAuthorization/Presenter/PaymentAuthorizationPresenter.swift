@@ -188,14 +188,13 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
         authTypeState: AuthTypeState
     ) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self,
-                  let view = self.view else { return }
-            view.clearCode()
-            view.setCodeError(nil)
-            self.setupDescription()
+            guard let self = self, let view = self.view else { return }
             view.hideActivity()
-            self.authTypeState = authTypeState
+            view.setCodeError(nil)
             self.restartTimer(authTypeState: authTypeState)
+            self.setupDescription()
+            view.clearCode()
+            self.authTypeState = authTypeState
         }
     }
 
@@ -216,40 +215,28 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
 
             DispatchQueue.global().async { [weak self] in
                 guard let self = self, let interactor = self.interactor else { return }
-                let (authType, _) = interactor.makeTypeAnalyticsParameters()
-                let event: AnalyticsEvent = .screenError(
-                    authType: authType,
-                    scheme: self.tokenizeScheme,
-                    sdkVersion: Bundle.frameworkVersion
+                interactor.track(event:
+                    .screenError(
+                        scheme: self.tokenizeScheme,
+                        currentAuthType: interactor.analyticsAuthType()
+                    )
                 )
-                interactor.trackEvent(event)
             }
         }
     }
 
-    func didCheckUserAnswer(
-        _ response: WalletLoginResponse
-    ) {
-        moduleOutput?.didCheckUserAnswer(
-            self,
-            response: response
-        )
+    func didCheckUserAnswer(_ response: WalletLoginResponse) {
+        moduleOutput?.didCheckUserAnswer(self, response: response)
 
         if case .authorized = response {
             DispatchQueue.global().async { [weak self] in
                 guard let interactor = self?.interactor else { return }
-                let event: AnalyticsEvent = .actionPaymentAuthorization(
-                    authPaymentStatus: .success,
-                    sdkVersion: Bundle.frameworkVersion
-                )
-                interactor.trackEvent(event)
+                interactor.track(event: .actionPaymentAuthorization(success: true))
             }
         }
     }
 
-    func didFailCheckUserAnswer(
-        _ error: Error
-    ) {
+    func didFailCheckUserAnswer(_ error: Error) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.view?.clearCode()
@@ -258,11 +245,7 @@ extension PaymentAuthorizationPresenter: PaymentAuthorizationInteractorOutput {
 
             DispatchQueue.global().async { [weak self] in
                 guard let interactor = self?.interactor else { return }
-                let event: AnalyticsEvent = .actionPaymentAuthorization(
-                    authPaymentStatus: .fail,
-                    sdkVersion: Bundle.frameworkVersion
-                )
-                interactor.trackEvent(event)
+                interactor.track(event: .actionPaymentAuthorization(success: false))
             }
         }
     }

@@ -11,9 +11,12 @@ enum BankCardRepeatAssembly {
         let view = BankCardRepeatViewController()
 
         let cardService = CardService()
-        let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()
+        let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory(
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
+        let configMediator = ConfigMediatorAssembly.make(isLoggingEnabled: inputData.isLoggingEnabled)
         let priceViewModelFactory = PriceViewModelFactoryAssembly.makeFactory()
-        let termsOfService = TermsOfServiceFactory.makeTermsOfService()
+        let termsOfService = HTMLUtils.highlightHyperlinks(html: configMediator.storedConfig().userAgreementUrl)
         let initialSavePaymentMethod = makeInitialSavePaymentMethod(inputData.savePaymentMethod)
         let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
             inputData.savePaymentMethod,
@@ -34,22 +37,23 @@ enum BankCardRepeatAssembly {
             isSafeDeal: inputData.isSafeDeal
         )
 
-        let analyticsService = AnalyticsServiceAssembly.makeService(
-            isLoggingEnabled: inputData.isLoggingEnabled
-        )
+        let analyticsService = AnalyticsTrackingAssembly.make(isLoggingEnabled: inputData.isLoggingEnabled)
         let paymentService = PaymentServiceAssembly.makeService(
             tokenizationSettings: TokenizationSettings(),
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled
         )
-        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
-            testModeSettings: inputData.testModeSettings
+        let authService = AuthorizationServiceAssembly.makeService(
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            testModeSettings: inputData.testModeSettings,
+            moneyAuthClientId: nil
         )
+
         let threatMetrixService = ThreatMetrixServiceFactory.makeService()
         let amountNumberFormatter = AmountNumberFormatterAssembly.makeAmountNumberFormatter()
         let interactor = BankCardRepeatInteractor(
+            authService: authService,
             analyticsService: analyticsService,
-            analyticsProvider: analyticsProvider,
             paymentService: paymentService,
             threatMetrixService: threatMetrixService,
             amountNumberFormatter: amountNumberFormatter,

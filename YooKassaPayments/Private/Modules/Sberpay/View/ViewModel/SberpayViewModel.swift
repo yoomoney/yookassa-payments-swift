@@ -8,4 +8,5 @@ struct SberpayViewModel {
     let termsOfService: NSAttributedString
     let safeDealText: NSAttributedString?
     let recurrencyAndDataSavingSection: UIView?
+    let paymentOptionTitle: String?
 }

@@ -15,24 +15,26 @@ final class SberpayPresenter {
     private let purchaseDescription: String
     private let priceViewModel: PriceViewModel
     private let feeViewModel: PriceViewModel?
-    private let termsOfService: TermsOfService
+    private let termsOfService: NSAttributedString
     private let isBackBarButtonHidden: Bool
     private let isSafeDeal: Bool
     private let clientSavePaymentMethod: SavePaymentMethod
 
     private var recurrencySectionSwitchValue: Bool?
     private let isSavePaymentMethodAllowed: Bool
+    private let config: Config
 
     init(
         shopName: String,
         purchaseDescription: String,
         priceViewModel: PriceViewModel,
         feeViewModel: PriceViewModel?,
-        termsOfService: TermsOfService,
+        termsOfService: NSAttributedString,
         isBackBarButtonHidden: Bool,
         isSafeDeal: Bool,
         clientSavePaymentMethod: SavePaymentMethod,
-        isSavePaymentMethodAllowed: Bool
+        isSavePaymentMethodAllowed: Bool,
+        config: Config
     ) {
         self.shopName = shopName
         self.purchaseDescription = purchaseDescription
@@ -43,6 +45,7 @@ final class SberpayPresenter {
         self.isSafeDeal = isSafeDeal
         self.clientSavePaymentMethod = clientSavePaymentMethod
         self.isSavePaymentMethodAllowed = isSavePaymentMethodAllowed
+        self.config = config
     }
 }
 
@@ -58,20 +61,22 @@ extension SberpayPresenter: SberpayViewOutput {
             feeValue = "\(CommonLocalized.Contract.fee) " + makePrice(feeViewModel)
         }
 
-        let termsOfServiceValue = makeTermsOfService(
-            termsOfService,
-            font: UIFont.dynamicCaption2,
-            foregroundColor: UIColor.AdaptiveColors.secondary
-        )
-
         var section: PaymentRecurrencyAndDataSavingSection?
         if isSavePaymentMethodAllowed {
             switch clientSavePaymentMethod {
             case .userSelects:
-                section = PaymentRecurrencyAndDataSavingSectionFactory.make(mode: .allowRecurring, output: self)
+                section = PaymentRecurrencyAndDataSavingSectionFactory.make(
+                    mode: .allowRecurring,
+                    texts: config.savePaymentMethodOptionTexts,
+                    output: self
+                )
                 recurrencySectionSwitchValue = section?.switchValue
             case .on:
-                section = PaymentRecurrencyAndDataSavingSectionFactory.make(mode: .requiredRecurring, output: self)
+                section = PaymentRecurrencyAndDataSavingSectionFactory.make(
+                    mode: .requiredRecurring,
+                    texts: config.savePaymentMethodOptionTexts,
+                    output: self
+                )
                 recurrencySectionSwitchValue = true
             case .off:
                 section = nil
@@ -83,24 +88,23 @@ extension SberpayPresenter: SberpayViewOutput {
             description: purchaseDescription,
             priceValue: priceValue,
             feeValue: feeValue,
-            termsOfService: termsOfServiceValue,
+            termsOfService: termsOfService,
             safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil,
-            recurrencyAndDataSavingSection: section
+            recurrencyAndDataSavingSection: section,
+            paymentOptionTitle: config.paymentMethods.first { $0.kind == .sberbank }?.title
         )
         view.setupViewModel(viewModel)
 
         view.setBackBarButtonHidden(isBackBarButtonHidden)
 
         DispatchQueue.global().async { [weak self] in
-            guard let self = self,
-                  let interactor = self.interactor else { return }
-            let (authType, _) = interactor.makeTypeAnalyticsParameters()
-            let event: AnalyticsEvent = .screenPaymentContract(
-                authType: authType,
-                scheme: .sberpay,
-                sdkVersion: Bundle.frameworkVersion
+            guard let self = self else { return }
+            self.interactor.track(event:
+                .screenPaymentContract(
+                    scheme: .sberpay,
+                    currentAuthType: self.interactor.analyticsAuthType()
+                )
             )
-            interactor.trackEvent(event)
         }
     }
 
@@ -128,22 +132,14 @@ extension SberpayPresenter: SberpayViewOutput {
 // MARK: - SberpayInteractorOutput
 
 extension SberpayPresenter: SberpayInteractorOutput {
-    func didTokenize(
-        _ data: Tokens
-    ) {
-        let analyticsParameters = interactor.makeTypeAnalyticsParameters()
-        let event: AnalyticsEvent = .actionTokenize(
-            scheme: .sberpay,
-            authType: analyticsParameters.authType,
-            tokenType: analyticsParameters.tokenType,
-            sdkVersion: Bundle.frameworkVersion
+    func didTokenize(_ data: Tokens) {
+        interactor.track(event:
+            .actionTokenize(
+                scheme: .sberpay,
+                currentAuthType: interactor.analyticsAuthType()
+            )
         )
-        interactor.trackEvent(event)
-        moduleOutput?.sberpayModule(
-            self,
-            didTokenize: data,
-            paymentMethodType: .sberbank
-        )
+        moduleOutput?.sberpayModule(self, didTokenize: data, paymentMethodType: .sberbank)
 
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
@@ -151,16 +147,10 @@ extension SberpayPresenter: SberpayInteractorOutput {
         }
     }
 
-    func didFailTokenize(
-        _ error: Error
-    ) {
-        let parameters = interactor.makeTypeAnalyticsParameters()
-        let event: AnalyticsEvent = .screenError(
-            authType: parameters.authType,
-            scheme: .smsSbol,
-            sdkVersion: Bundle.frameworkVersion
+    func didFailTokenize(_ error: Error) {
+        interactor.track(
+            event: .screenErrorContract(scheme: .sberpay, currentAuthType: interactor.analyticsAuthType())
         )
-        interactor.trackEvent(event)
 
         let message = makeMessage(error)
 
@@ -183,6 +173,9 @@ extension SberpayPresenter: ActionTitleTextDialogDelegate {
         view.showActivity()
         DispatchQueue.global().async { [weak self] in
             guard let self = self, let interactor = self.interactor else { return }
+            interactor.track(
+                event: .actionTryTokenize(scheme: .sberpay, currentAuthType: interactor.analyticsAuthType())
+            )
             interactor.tokenizeSberpay(savePaymentMethod: self.recurrencySectionSwitchValue ?? false)
         }
     }
@@ -198,21 +191,36 @@ extension SberpayPresenter: PaymentRecurrencyAndDataSavingSectionOutput {
         switch mode {
         case .allowRecurring, .requiredRecurring:
             router.presentSafeDealInfo(
-                title: CommonLocalized.CardSettingsDetails.autopayInfoTitle,
-                body: CommonLocalized.CardSettingsDetails.autopayInfoDetails
+                title: htmlOut(source: config.savePaymentMethodOptionTexts.screenRecurrentOnBindOffTitle),
+                body: htmlOut(source: config.savePaymentMethodOptionTexts.screenRecurrentOnBindOffText)
             )
         case .savePaymentData, .requiredSaveData:
             router.presentSafeDealInfo(
-                title: CommonLocalized.RecurrencyAndSavePaymentData.saveDataInfoTitle,
-                body: CommonLocalized.RecurrencyAndSavePaymentData.saveDataInfoMessage
+                title: htmlOut(source: config.savePaymentMethodOptionTexts.screenRecurrentOffBindOnTitle),
+                body: htmlOut(source: config.savePaymentMethodOptionTexts.screenRecurrentOffBindOnText)
             )
         case .allowRecurringAndSaveData, .requiredRecurringAndSaveData:
             router.presentSafeDealInfo(
-                title: CommonLocalized.RecurrencyAndSavePaymentData.saveDataAndAutopaymentsInfoTitle,
-                body: CommonLocalized.RecurrencyAndSavePaymentData.saveDataAndAutopaymentsInfoMessage
+                title: htmlOut(source: config.savePaymentMethodOptionTexts.screenRecurrentOnBindOnTitle),
+                body: htmlOut(source: config.savePaymentMethodOptionTexts.screenRecurrentOnBindOnText)
             )
         default:
         break
+        }
+    }
+
+    /// Convert <br> -> \n and other html text formatting to native `String`
+    private func htmlOut(source: String) -> String {
+        guard let data = source.data(using: .utf16) else { return source }
+        do {
+            let html = try NSAttributedString(
+                data: data,
+                options: [.documentType: NSAttributedString.DocumentType.html],
+                documentAttributes: nil
+            )
+            return html.string
+        } catch {
+            return source
         }
     }
 }
@@ -231,33 +239,6 @@ private extension SberpayPresenter {
             + priceViewModel.decimalSeparator
             + priceViewModel.fractionalPart
             + priceViewModel.currency
-    }
-
-    func makeTermsOfService(
-        _ terms: TermsOfService,
-        font: UIFont,
-        foregroundColor: UIColor
-    ) -> NSMutableAttributedString {
-        let attributedText: NSMutableAttributedString
-
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: font,
-            .foregroundColor: foregroundColor,
-        ]
-        attributedText = NSMutableAttributedString(
-            string: "\(terms.text) ",
-            attributes: attributes
-        )
-
-        let linkAttributedText = NSMutableAttributedString(
-            string: terms.hyperlink,
-            attributes: attributes
-        )
-        let linkRange = NSRange(location: 0, length: terms.hyperlink.count)
-        linkAttributedText.addAttribute(.link, value: terms.url, range: linkRange)
-        attributedText.append(linkAttributedText)
-
-        return attributedText
     }
 
     func makeMessage(

@@ -10,7 +10,7 @@ struct BankCardModuleInputData {
     let priceViewModel: PriceViewModel
     let feeViewModel: PriceViewModel?
     let paymentOption: PaymentOption
-    let termsOfService: TermsOfService
+    let termsOfService: NSAttributedString
     let cardScanning: CardScanning?
     let returnUrl: String
     let savePaymentMethod: SavePaymentMethod
@@ -20,6 +20,7 @@ struct BankCardModuleInputData {
     let customerId: String?
     let instrument: PaymentInstrumentBankCard?
     let isSafeDeal: Bool
+    let config: Config
 }
 
 protocol BankCardModuleOutput: AnyObject {

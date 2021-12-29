@@ -9,7 +9,7 @@ enum LinkedCardAssembly {
 
         let cardService = CardService()
         let paymentMethodViewModelFactory =
-            PaymentMethodViewModelFactoryAssembly.makeFactory()
+            PaymentMethodViewModelFactoryAssembly.makeFactory(isLoggingEnabled: inputData.isLoggingEnabled)
         let presenter = LinkedCardPresenter(
             cardService: cardService,
             paymentMethodViewModelFactory: paymentMethodViewModelFactory,
@@ -35,22 +35,16 @@ enum LinkedCardAssembly {
             testModeSettings: inputData.testModeSettings,
             moneyAuthClientId: inputData.moneyAuthClientId
         )
-        let analyticsService = AnalyticsServiceAssembly.makeService(
-            isLoggingEnabled: inputData.isLoggingEnabled
-        )
+        let analyticsService = AnalyticsTrackingAssembly.make(isLoggingEnabled: inputData.isLoggingEnabled)
         let paymentService = PaymentServiceAssembly.makeService(
             tokenizationSettings: inputData.tokenizationSettings,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled
         )
-        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
-            testModeSettings: inputData.testModeSettings
-        )
         let threatMetrixService = ThreatMetrixServiceFactory.makeService()
         let interactor = LinkedCardInteractor(
             authorizationService: authorizationService,
             analyticsService: analyticsService,
-            analyticsProvider: analyticsProvider,
             paymentService: paymentService,
             threatMetrixService: threatMetrixService,
             clientApplicationKey: inputData.clientApplicationKey,

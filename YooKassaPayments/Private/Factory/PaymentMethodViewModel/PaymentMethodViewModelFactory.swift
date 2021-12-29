@@ -31,4 +31,6 @@ protocol PaymentMethodViewModelFactory {
     func replaceBullets(_ pan: String) -> String
 
     func makeMaskedPan(_ cardMask: String) -> String
+
+    func yooLogoImage() -> UIImage
 }

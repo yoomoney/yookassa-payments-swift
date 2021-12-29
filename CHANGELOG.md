@@ -5,6 +5,10 @@
 ### NEXT_VERSION_DESCRIPTION_BEGIN
 ### NEXT_VERSION_DESCRIPTION_END
 
+## [6.6.0] (29-12-2021)
+
+* Обновление метрик. Использование удалённого файла конфигурации.
+
 ## [6.5.0] (21-12-2021)
 
 * Обновлены зависимости, убраны ворнинги. Убраны deprecated методы для CardSecModuleOutput.
