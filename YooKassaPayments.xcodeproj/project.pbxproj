@@ -893,8 +893,6 @@
 				2519BAD326FAF78A0013DEFD /* ConfigService.swift */,
 				255F2A9A27032EE500BF4354 /* ConfigServiceImpl.swift */,
 				255F2A962701D99F00BF4354 /* ConfigServiceAssembly.swift */,
-				255F2A9226FC5C2500BF4354 /* defaultConfig_en.json */,
-				2519BACB26F878520013DEFD /* defaultConfig_ru.json */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -1351,6 +1349,8 @@
 		402EB412B667877AE545EBD1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				255F2A9226FC5C2500BF4354 /* defaultConfig_en.json */,
+				2519BACB26F878520013DEFD /* defaultConfig_ru.json */,
 				402EBC9ABFBF24C573DC88A4 /* Media.xcassets */,
 				402EB1C8E83F34A1D7D30CE0 /* Configurations */,
 				402EB8D687A8CDBF62ECC5E9 /* Entitlements */,

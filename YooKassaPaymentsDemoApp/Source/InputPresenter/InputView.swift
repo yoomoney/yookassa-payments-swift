@@ -1,5 +1,4 @@
-import class UIKit.UITextPosition
-import class UIKit.UITextRange
+import UIKit
 
 protocol InputView: AnyObject {
     var inputText: String? { get set }

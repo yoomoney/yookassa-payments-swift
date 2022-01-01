@@ -345,18 +345,14 @@ final class RootViewController: UIViewController {
             oauthToken = "live_MTkzODU2VY5GiyQq2GMPsCQ0PW7f_RSLtJYOT-mp_CA"
         }
 
-        let cardScanning = settings.isBankCardScanEnabled
-            ? self
-            : nil
-
-        let inputData: TokenizationFlow = .tokenization(TokenizationModuleInputData(
+        let data = TokenizationModuleInputData(
             clientApplicationKey: oauthToken,
             shopName: translate(Localized.name),
             purchaseDescription: translate(Localized.description),
             amount: amount,
             tokenizationSettings: makeTokenizationSettings(),
             testModeSettings: testSettings,
-            cardScanning: cardScanning,
+            cardScanning: nil,
             applePayMerchantIdentifier: "merchant.ru.yoo.sdk.kassa.payments",
             isLoggingEnabled: true,
             userPhoneNumber: "7",
@@ -365,7 +361,8 @@ final class RootViewController: UIViewController {
             moneyAuthClientId: "hitm6hg51j1d3g1u3ln040bajiol903b",
             applicationScheme: "yookassapaymentsexample://",
             customerId: "app.example.demo.payments.yookassa"
-        ))
+        )
+        let inputData = TokenizationFlow.tokenization(data)
 
 //        let inputData: TokenizationFlow = .bankCardRepeat(BankCardRepeatModuleInputData(
 //            clientApplicationKey: oauthToken,

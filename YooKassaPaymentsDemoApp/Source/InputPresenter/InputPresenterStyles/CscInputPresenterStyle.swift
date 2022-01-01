@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
+import Foundation
 struct CscInputPresenterStyle: InputPresenterStyle {
 
     func removedFormatting(from string: String) -> String {

@@ -10,7 +10,6 @@
 		309BD41A265CE9FA00D4804D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BD419265CE9FA00D4804D /* AppDelegate.swift */; };
 		309BD423265CE9FC00D4804D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 309BD422265CE9FC00D4804D /* Assets.xcassets */; };
 		309BD426265CE9FC00D4804D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 309BD424265CE9FC00D4804D /* LaunchScreen.storyboard */; };
-		309BD437265CED7700D4804D /* RootViewController+CardScanning+Pods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BD434265CED7700D4804D /* RootViewController+CardScanning+Pods.swift */; };
 		309BD438265CED7700D4804D /* RootViewController+TokenizationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BD435265CED7700D4804D /* RootViewController+TokenizationModuleOutput.swift */; };
 		309BD47C265CED9300D4804D /* TestSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BD43B265CED9200D4804D /* TestSettings.swift */; };
 		309BD47D265CED9300D4804D /* ProcessConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BD43C265CED9200D4804D /* ProcessConfirmation.swift */; };
@@ -127,7 +126,6 @@
 		309BD430265CEBAA00D4804D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		309BD432265CECA000D4804D /* YooKassaPaymentsDemoApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YooKassaPaymentsDemoApp.entitlements; sourceTree = "<group>"; };
 		309BD433265CED7700D4804D /* RootViewController+CardScanning+Carthage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RootViewController+CardScanning+Carthage.swift"; sourceTree = "<group>"; };
-		309BD434265CED7700D4804D /* RootViewController+CardScanning+Pods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RootViewController+CardScanning+Pods.swift"; sourceTree = "<group>"; };
 		309BD435265CED7700D4804D /* RootViewController+TokenizationModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RootViewController+TokenizationModuleOutput.swift"; sourceTree = "<group>"; };
 		309BD43B265CED9200D4804D /* TestSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSettings.swift; sourceTree = "<group>"; };
 		309BD43C265CED9200D4804D /* ProcessConfirmation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessConfirmation.swift; sourceTree = "<group>"; };
@@ -261,7 +259,6 @@
 			children = (
 				309BD419265CE9FA00D4804D /* AppDelegate.swift */,
 				309BD433265CED7700D4804D /* RootViewController+CardScanning+Carthage.swift */,
-				309BD434265CED7700D4804D /* RootViewController+CardScanning+Pods.swift */,
 				309BD435265CED7700D4804D /* RootViewController+TokenizationModuleOutput.swift */,
 				309BD431265CEC2600D4804D /* Resources */,
 				309BD439265CED9200D4804D /* Source */,
@@ -790,7 +787,6 @@
 				309BD4BB265CF0E600D4804D /* StyleStorage.swift in Sources */,
 				309BD4D2265CF11200D4804D /* UILabel+Style.swift in Sources */,
 				309BD491265CED9300D4804D /* UIImage+Style.swift in Sources */,
-				309BD437265CED7700D4804D /* RootViewController+CardScanning+Pods.swift in Sources */,
 				309BD4F9265CF4F700D4804D /* UILayoutPriority+Constants.swift in Sources */,
 				309BD490265CED9300D4804D /* PriceInputPresenterStyle.swift in Sources */,
 				309BD4A0265CED9300D4804D /* TextControl+PlaceholderMode.swift in Sources */,
@@ -989,7 +985,6 @@
 				MARKETING_VERSION = 6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yoo.sdk.kassa.payments.example.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "YooKassaPaymentsDemoApp/Source/Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1016,7 +1011,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "YooKassa SDK Payments Example AdHoc";
-				SWIFT_OBJC_BRIDGING_HEADER = "YooKassaPaymentsDemoApp/Source/Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1098,7 +1092,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.yoo.sdk.kassa.payments.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "YooKassaPaymentsDemoApp/Source/Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -8,7 +8,6 @@ project 'YooKassaPaymentsDemoApp.xcodeproj'
 workspace 'YooKassaPayments.xcworkspace'
 
 target 'YooKassaPaymentsDemoApp' do
-  pod 'CardIO'
   pod 'SwiftLint'
   pod 'Reveal-SDK', :configurations => ['Debug']
 

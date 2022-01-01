@@ -22,6 +22,8 @@
  * THE SOFTWARE.
  */
 
+import Foundation
+
 struct PanInputPresenterStyle: InputPresenterStyle {
 
     func removedFormatting(from string: String) -> String {
