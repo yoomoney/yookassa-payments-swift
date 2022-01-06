@@ -1,9 +1,7 @@
 protocol AuthorizationService {
     func getMoneyCenterAuthToken() -> String?
 
-    func setMoneyCenterAuthToken(
-        _ token: String
-    )
+    func setMoneyCenterAuthToken(_ token: String)
 
     func getWalletToken() -> String?
 
@@ -11,23 +9,19 @@ protocol AuthorizationService {
 
     func logout()
 
-    func setWalletDisplayName(
-        _ walletDisplayName: String?
-    )
+    func setWalletDisplayName(_ walletDisplayName: String?)
 
     func getWalletDisplayName() -> String?
 
-    func setWalletPhoneTitle(
-        _ walletPhoneTitle: String?
-    )
+    func setWalletPhoneTitle(_ walletPhoneTitle: String?)
 
     func getWalletPhoneTitle() -> String?
 
-    func setWalletAvatarURL(
-        _ walletAvatarURL: String?
-    )
+    func setWalletAvatarURL(_ walletAvatarURL: String?)
 
     func getWalletAvatarURL() -> String?
+
+    func analyticsAuthType() -> AnalyticsEvent.AuthType
 
     // MARK: - Wallet 2FA
 

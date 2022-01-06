@@ -9,21 +9,18 @@ final class PaymentAuthorizationInteractor {
     // MARK: - Init data
 
     private let authorizationService: AuthorizationService
-    private let analyticsService: AnalyticsService
-    private let analyticsProvider: AnalyticsProvider
+    private let analyticsService: AnalyticsTracking
     private let clientApplicationKey: String
 
     // MARK: - Init
 
     init(
         authorizationService: AuthorizationService,
-        analyticsService: AnalyticsService,
-        analyticsProvider: AnalyticsProvider,
+        analyticsService: AnalyticsTracking,
         clientApplicationKey: String
     ) {
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
-        self.analyticsProvider = analyticsProvider
         self.clientApplicationKey = clientApplicationKey
     }
 }
@@ -78,13 +75,12 @@ extension PaymentAuthorizationInteractor: PaymentAuthorizationInteractorInput {
         return authorizationService.getWalletPhoneTitle()
     }
 
-    func trackEvent(_ event: AnalyticsEvent) {
-        analyticsService.trackEvent(event)
+    func track(event: AnalyticsEvent) {
+        analyticsService.track(event: event)
     }
 
-    func makeTypeAnalyticsParameters() -> (authType: AnalyticsEvent.AuthType,
-                                           tokenType: AnalyticsEvent.AuthTokenType?) {
-        return analyticsProvider.makeTypeAnalyticsParameters()
+    func analyticsAuthType() -> AnalyticsEvent.AuthType {
+        authorizationService.analyticsAuthType()
     }
 }
 

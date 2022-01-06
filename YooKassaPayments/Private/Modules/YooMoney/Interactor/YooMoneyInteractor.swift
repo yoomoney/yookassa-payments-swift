@@ -10,9 +10,8 @@ final class YooMoneyInteractor {
     // MARK: - Init data
 
     private let authorizationService: AuthorizationService
-    private let analyticsService: AnalyticsService
+    private let analyticsService: AnalyticsTracking
     private let paymentService: PaymentService
-    private let analyticsProvider: AnalyticsProvider
     private let imageDownloadService: ImageDownloadService
     private let threatMetrixService: ThreatMetrixService
 
@@ -23,8 +22,7 @@ final class YooMoneyInteractor {
 
     init(
         authorizationService: AuthorizationService,
-        analyticsService: AnalyticsService,
-        analyticsProvider: AnalyticsProvider,
+        analyticsService: AnalyticsTracking,
         paymentService: PaymentService,
         imageDownloadService: ImageDownloadService,
         threatMetrixService: ThreatMetrixService,
@@ -33,7 +31,6 @@ final class YooMoneyInteractor {
     ) {
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
-        self.analyticsProvider = analyticsProvider
         self.paymentService = paymentService
         self.imageDownloadService = imageDownloadService
         self.threatMetrixService = threatMetrixService
@@ -128,15 +125,12 @@ extension YooMoneyInteractor: YooMoneyInteractorInput {
         return authorizationService.hasReusableWalletToken()
     }
 
-    func trackEvent(_ event: AnalyticsEvent) {
-        analyticsService.trackEvent(event)
+    func track(event: AnalyticsEvent) {
+        analyticsService.track(event: event)
     }
 
-    func makeTypeAnalyticsParameters() -> (
-        authType: AnalyticsEvent.AuthType,
-        tokenType: AnalyticsEvent.AuthTokenType?
-    ) {
-        return analyticsProvider.makeTypeAnalyticsParameters()
+    func analyticsAuthType() -> AnalyticsEvent.AuthType {
+        authorizationService.analyticsAuthType()
     }
 
     func getWalletDisplayName() -> String? {

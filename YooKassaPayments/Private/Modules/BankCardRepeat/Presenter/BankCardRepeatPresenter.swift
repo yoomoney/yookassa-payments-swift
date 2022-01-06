@@ -22,7 +22,7 @@ final class BankCardRepeatPresenter {
     private let paymentMethodId: String
     private let shopName: String
     private let purchaseDescription: String
-    private let termsOfService: TermsOfService
+    private let termsOfService: NSAttributedString
     private let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     private var initialSavePaymentMethod: Bool
     private let isSafeDeal: Bool
@@ -38,7 +38,7 @@ final class BankCardRepeatPresenter {
         paymentMethodId: String,
         shopName: String,
         purchaseDescription: String,
-        termsOfService: TermsOfService,
+        termsOfService: NSAttributedString,
         savePaymentMethodViewModel: SavePaymentMethodViewModel?,
         initialSavePaymentMethod: Bool,
         isSafeDeal: Bool
@@ -73,19 +73,17 @@ extension BankCardRepeatPresenter: BankCardRepeatViewOutput {
         guard let view = view else { return }
 
         view.showActivity()
-        interactor.startAnalyticsService()
 
         DispatchQueue.global().async { [weak self] in
-            guard let self = self,
-                  let interactor = self.interactor else { return }
-            let (authType, _) = interactor.makeTypeAnalyticsParameters()
-            let event: AnalyticsEvent = .screenPaymentContract(
-                authType: authType,
-                scheme: .recurringCard,
-                sdkVersion: Bundle.frameworkVersion
+            guard let self = self else { return }
+
+            self.interactor.track(event:
+                .screenPaymentContract(
+                    scheme: .recurringCard,
+                    currentAuthType: self.interactor.analyticsAuthType()
+                )
             )
-            interactor.trackEvent(event)
-            interactor.fetchPaymentMethods()
+            self.interactor.fetchPaymentMethods()
         }
     }
 
@@ -232,23 +230,13 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
             if let savePaymentMethodViewModel = self.savePaymentMethodViewModel {
                 view.setSavePaymentMethodViewModel(savePaymentMethodViewModel)
             }
-
-            DispatchQueue.global().async { [weak self] in
-                let event: AnalyticsEvent = .screenRecurringCardForm(
-                    sdkVersion: Bundle.frameworkVersion
-                )
-                self?.interactor.trackEvent(event)
-            }
         }
     }
 
     func didFailFetchPaymentMethod(_ error: Error) {
-        let event = AnalyticsEvent.screenError(
-            authType: .withoutAuth,
-            scheme: .recurringCard,
-            sdkVersion: Bundle.frameworkVersion
+        interactor.track(
+            event: .screenErrorContract(scheme: .recurringCard, currentAuthType: interactor.analyticsAuthType())
         )
-        interactor.trackEvent(event)
 
         let message = makeMessage(error)
 
@@ -260,28 +248,25 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
     }
 
     func didTokenize(_ tokens: Tokens) {
-        interactor.stopAnalyticsService()
-        moduleOutput?.tokenizationModule(
-            self,
-            didTokenize: tokens,
-            paymentMethodType: .bankCard
-        )
+        moduleOutput?.tokenizationModule(self, didTokenize: tokens, paymentMethodType: .bankCard)
 
         DispatchQueue.global().async { [weak self] in
-            guard let self = self, let interactor = self.interactor else { return }
-            let type = interactor.makeTypeAnalyticsParameters()
-            let event: AnalyticsEvent = .actionTokenize(
-                scheme: .recurringCard,
-                authType: type.authType,
-                tokenType: type.tokenType,
-                sdkVersion: Bundle.frameworkVersion
+            guard let self = self else { return }
+            self.interactor.track(event:
+                .actionTokenize(
+                    scheme: .recurringCard,
+                    currentAuthType: self.interactor.analyticsAuthType()
+                )
             )
-            interactor.trackEvent(event)
         }
     }
 
     func didFailTokenize(_ error: Error) {
         let message = makeMessage(error)
+
+        interactor.track(
+            event: .screenErrorContract(scheme: .recurringCard, currentAuthType: interactor.analyticsAuthType())
+        )
 
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
@@ -311,6 +296,10 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
     func didFetchPaymentMethods(_ error: Error) {
         let message = makeMessage(error)
 
+        interactor.track(
+            event: .screenErrorContract(scheme: .recurringCard, currentAuthType: interactor.analyticsAuthType())
+        )
+
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
             view.hideActivity()
@@ -331,6 +320,9 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
             return
         }
 
+        interactor.track(
+            event: .actionTryTokenize(scheme: .recurringCard, currentAuthType: interactor.analyticsAuthType())
+        )
         interactor.tokenize(
             amount: paymentOption.charge.plain,
             confirmation: confirmation,
@@ -375,8 +367,7 @@ extension BankCardRepeatPresenter: TokenizationModuleInput {
         let moduleInputData = CardSecModuleInputData(
             requestUrl: requestUrl,
             redirectUrl: returnUrl ?? GlobalConstants.returnUrl,
-            isLoggingEnabled: isLoggingEnabled,
-            isConfirmation: false
+            isLoggingEnabled: isLoggingEnabled
         )
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -394,8 +385,7 @@ extension BankCardRepeatPresenter: TokenizationModuleInput {
         let moduleInputData = CardSecModuleInputData(
             requestUrl: confirmationUrl,
             redirectUrl: returnUrl ?? GlobalConstants.returnUrl,
-            isLoggingEnabled: isLoggingEnabled,
-            isConfirmation: true
+            isLoggingEnabled: isLoggingEnabled
         )
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -410,19 +400,8 @@ extension BankCardRepeatPresenter: TokenizationModuleInput {
 // MARK: - CardSecModuleOutput
 
 extension BankCardRepeatPresenter: CardSecModuleOutput {
-    func didSuccessfullyPassedCardSec(
-        on module: CardSecModuleInput,
-        isConfirmation: Bool
-    ) {
-        if isConfirmation {
-            moduleOutput?.didSuccessfullyConfirmation(
-                paymentMethodType: .bankCard
-            )
-        } else {
-            moduleOutput?.didSuccessfullyPassedCardSec(
-                on: self
-            )
-        }
+    func didSuccessfullyPassedCardSec(on module: CardSecModuleInput) {
+        moduleOutput?.didSuccessfullyConfirmation(paymentMethodType: .bankCard)
     }
 
     func didPressCloseButton(on module: CardSecModuleInput) {

@@ -210,7 +210,8 @@ class IconButtonItemView: UIView {
         }
 
         activeConstraints += [
-            imageView.width.constraint(equalTo: imageView.height),
+            imageView.heightAnchor.constraint(equalToConstant: Space.fivefold),
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
         ]
 
         activeConstraints += [

@@ -18,6 +18,7 @@ struct PaymentMethodsModuleInputData {
     let userPhoneNumber: String?
     let cardScanning: CardScanning?
     let customerId: String?
+    let config: Config
 }
 
 protocol PaymentMethodsModuleInput: SheetViewModuleOutput {

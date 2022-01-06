@@ -3,5 +3,6 @@ enum GlobalConstants {
 
     enum Hosts {
         static let moneyAuth = "moneyAuth"
+        static let config = "config"
     }
 }

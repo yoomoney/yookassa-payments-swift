@@ -5,30 +5,24 @@ struct CardSecModuleInputData {
     let requestUrl: String
     let redirectUrl: String
     let isLoggingEnabled: Bool
-    let isConfirmation: Bool
 
     // MARK: - Init
 
     init(
         requestUrl: String,
         redirectUrl: String,
-        isLoggingEnabled: Bool,
-        isConfirmation: Bool
+        isLoggingEnabled: Bool
     ) {
         self.requestUrl = requestUrl
         self.redirectUrl = redirectUrl
         self.isLoggingEnabled = isLoggingEnabled
-        self.isConfirmation = isConfirmation
     }
 }
 
 protocol CardSecModuleInput: AnyObject {}
 
 protocol CardSecModuleOutput: AnyObject {
-    func didSuccessfullyPassedCardSec(
-        on module: CardSecModuleInput,
-        isConfirmation: Bool
-    )
+    func didSuccessfullyPassedCardSec(on module: CardSecModuleInput)
     func didPressCloseButton(on module: CardSecModuleInput)
     func viewWillDisappear()
 }

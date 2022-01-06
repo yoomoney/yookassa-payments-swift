@@ -35,6 +35,19 @@ final class AuthorizationServiceImpl {
 // MARK: - AuthorizationService
 
 extension AuthorizationServiceImpl: AuthorizationService {
+    func analyticsAuthType() -> AnalyticsEvent.AuthType {
+        let walletTokenPresent = tokenStorage.getString(for: KeyValueStoringKeys.walletToken) != nil
+        let isReusableWalletTokenPresent = tokenStorage.getBool(for: KeyValueStoringKeys.isReusableWalletToken) == true
+
+        if walletTokenPresent && isReusableWalletTokenPresent {
+            return .paymentAuth
+        } else if tokenStorage.getString(for: KeyValueStoringKeys.moneyCenterAuthToken) != nil {
+            return .moneyAuth
+        } else {
+            return .withoutAuth
+        }
+    }
+
     func getMoneyCenterAuthToken() -> String? {
         return tokenStorage.getString(
             for: KeyValueStoringKeys.moneyCenterAuthToken

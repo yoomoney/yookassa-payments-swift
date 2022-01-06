@@ -26,8 +26,11 @@ class PaymentRecurrencyAndDataSavingSection: UIView, SwitchItemViewOutput, Linke
 
     var switchValue: Bool { switchSection.state }
 
-    init(mode: Mode, frame: CGRect = .zero) {
+    private let texts: Config.SavePaymentMethodOptionTexts
+
+    init(mode: Mode, texts: Config.SavePaymentMethodOptionTexts, frame: CGRect = .zero) {
         self.mode = mode
+        self.texts = texts
         super.init(frame: frame)
 
         accessibilityIdentifier = "PaymentRecurrencyAndDataSavingSection"
@@ -88,58 +91,29 @@ class PaymentRecurrencyAndDataSavingSection: UIView, SwitchItemViewOutput, Linke
             innerContainer.arrangedSubviews.forEach { $0.isHidden = true }
         case .savePaymentData:
             headerSection.isHidden = true
-            switchSection.title = HeaderText.optionalSaveDataHeader
+            switchSection.title = texts.switchRecurrentOffBindOnTitle
             switchSection.state = true
-            linkSection.attributedString = makeLink(
-                text: LinkText.Optional.saveDataLink,
-                interactive: LinkText.Optional.saveDataLinkInteractive
-            )
+            linkSection.attributedString = HTMLUtils.highlightHyperlinks(html: texts.switchRecurrentOffBindOnSubtitle)
         case .allowRecurring:
             headerSection.isHidden = true
-            switchSection.title = HeaderText.optionalAutopaymentsHeader
-            linkSection.attributedString = makeLink(
-                text: LinkText.Optional.autopaymentsLink,
-                interactive: LinkText.Optional.autopaymentsInteractive
-            )
+            switchSection.title = texts.switchRecurrentOnBindOffTitle
+            linkSection.attributedString = HTMLUtils.highlightHyperlinks(html: texts.switchRecurrentOnBindOffSubtitle)
         case .allowRecurringAndSaveData:
             headerSection.isHidden = true
-            switchSection.title = HeaderText.optionalSaveDataAndAutopaymentsHeader
-            linkSection.attributedString = makeLink(
-                text: LinkText.Optional.autopaymentsAndSaveDataLink,
-                interactive: LinkText.Optional.autopaymentsAndSaveDataInteractive
-            )
+            switchSection.title = texts.switchRecurrentOnBindOnTitle
+            linkSection.attributedString = HTMLUtils.highlightHyperlinks(html: texts.switchRecurrentOnBindOnSubtitle)
         case .requiredRecurringAndSaveData:
             switchSection.isHidden = true
-            headerSection.title = HeaderText.requiredSaveDataAndAutopaymentsHeader
-            linkSection.attributedString = makeLink(
-                text: LinkText.Required.autopaymentsAndSaveDataLink,
-                interactive: LinkText.Required.autopaymentsAndSaveDataInteractive
-            )
+            headerSection.title = texts.messageRecurrentOnBindOnTitle
+            linkSection.attributedString = HTMLUtils.highlightHyperlinks(html: texts.messageRecurrentOnBindOnSubtitle)
         case .requiredRecurring:
             switchSection.isHidden = true
-            headerSection.title = HeaderText.requiredAutopaymentsHeader
-            linkSection.attributedString = makeLink(
-                text: LinkText.Required.autopaymentsLink,
-                interactive: LinkText.Required.autopaymentsInteractive
-            )
+            headerSection.title = texts.messageRecurrentOnBindOffTitle
+            linkSection.attributedString = HTMLUtils.highlightHyperlinks(html: texts.messageRecurrentOnBindOffSubtitle)
         case .requiredSaveData:
             switchSection.isHidden = true
-            headerSection.title = HeaderText.requiredSaveDataHeader
-            linkSection.attributedString = makeLink(
-                text: LinkText.Required.saveDataLink,
-                interactive: LinkText.Required.saveDataLinkInteractive
-            )
+            headerSection.title = texts.messageRecurrentOffBindOnTitle
+            linkSection.attributedString = HTMLUtils.highlightHyperlinks(html: texts.messageRecurrentOffBindOnSubtitle)
         }
-    }
-
-    private func makeLink(text: String, interactive: String) -> NSAttributedString {
-        let range = (text as NSString).range(of: interactive)
-        let result = NSMutableAttributedString(string: text)
-        result.setAttributes(
-            [.foregroundColor: UIColor.AdaptiveColors.secondary],
-            range: NSRange(location: 0, length: (result.string as NSString).length)
-        )
-        result.addAttribute(.link, value: "yookassapayments://", range: range)
-        return result
     }
 }

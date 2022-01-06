@@ -1,7 +1,7 @@
 import class YooKassaPaymentsApi.PaymentOption
 import UIKit
 
-protocol YooMoneyInteractorInput: AnyObject, AnalyticsTrack {
+protocol YooMoneyInteractorInput: AnyObject {
     func loginInWallet(
         amount: MonetaryAmount,
         reusableToken: Bool,
@@ -20,10 +20,8 @@ protocol YooMoneyInteractorInput: AnyObject, AnalyticsTrack {
 
     func hasReusableWalletToken() -> Bool
 
-    func makeTypeAnalyticsParameters() -> (
-        authType: AnalyticsEvent.AuthType,
-        tokenType: AnalyticsEvent.AuthTokenType?
-    )
+    func track(event: AnalyticsEvent)
+    func analyticsAuthType() -> AnalyticsEvent.AuthType
 
     func getWalletDisplayName() -> String?
     func logout()

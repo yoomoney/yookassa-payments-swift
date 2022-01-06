@@ -9,6 +9,7 @@ final class SberpayRouter {
 
 extension SberpayRouter: SberpayRouterInput {
     func presentTermsOfServiceModule(_ url: URL) {
+        guard url.scheme == "http" || url.scheme == "https" else { return }
         let viewController = SFSafariViewController(url: url)
         viewController.modalPresentationStyle = .overFullScreen
         transitionHandler?.present(

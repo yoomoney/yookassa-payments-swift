@@ -9,9 +9,9 @@ final class ApplePayContractInteractor {
     // MARK: - Init data
 
     private let paymentService: PaymentService
-    private let analyticsService: AnalyticsService
-    private let analyticsProvider: AnalyticsProvider
+    private let analyticsService: AnalyticsTracking
     private let threatMetrixService: ThreatMetrixService
+    private let authorizationService: AuthorizationService
 
     private let clientApplicationKey: String
     private let customerId: String?
@@ -20,15 +20,15 @@ final class ApplePayContractInteractor {
 
     init(
         paymentService: PaymentService,
-        analyticsService: AnalyticsService,
-        analyticsProvider: AnalyticsProvider,
+        analyticsService: AnalyticsTracking,
+        authorizationService: AuthorizationService,
         threatMetrixService: ThreatMetrixService,
         clientApplicationKey: String,
         customerId: String?
     ) {
         self.paymentService = paymentService
         self.analyticsService = analyticsService
-        self.analyticsProvider = analyticsProvider
+        self.authorizationService = authorizationService
         self.threatMetrixService = threatMetrixService
 
         self.clientApplicationKey = clientApplicationKey
@@ -39,13 +39,12 @@ final class ApplePayContractInteractor {
 // MARK: - ApplePayContractInteractorInput
 
 extension ApplePayContractInteractor: ApplePayContractInteractorInput {
-    func trackEvent(_ event: AnalyticsEvent) {
-        analyticsService.trackEvent(event)
+    func track(event: AnalyticsEvent) {
+        analyticsService.track(event: event)
     }
 
-    func makeTypeAnalyticsParameters() -> (authType: AnalyticsEvent.AuthType,
-                                           tokenType: AnalyticsEvent.AuthTokenType?) {
-        return analyticsProvider.makeTypeAnalyticsParameters()
+    func analyticsAuthType() -> AnalyticsEvent.AuthType {
+        authorizationService.analyticsAuthType()
     }
 
     func tokenize(

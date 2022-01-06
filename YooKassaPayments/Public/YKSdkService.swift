@@ -10,7 +10,8 @@ public final class YKSdk {
     /// Application scheme for returning after opening a deeplink.
     var applicationScheme: String?
 
-    var analyticsService: AnalyticsService?
+    var analyticsTracking: AnalyticsTracking!
+    var analyticsContext: AnalyticsEventContext!
 
     private init() {}
 
@@ -31,11 +32,7 @@ public final class YKSdk {
 
         switch deeplink {
         case .invoicingSberpay:
-            let event: AnalyticsEvent = .actionSberPayConfirmation(
-                sberPayConfirmationStatus: .success,
-                sdkVersion: Bundle.frameworkVersion
-            )
-            analyticsService?.trackEvent(event)
+            analyticsTracking.track(event: .actionSberPayConfirmation(success: true))
             moduleOutput?.didSuccessfullyConfirmation(paymentMethodType: .sberbank)
 
         case .yooMoneyExchange(let cryptogram):

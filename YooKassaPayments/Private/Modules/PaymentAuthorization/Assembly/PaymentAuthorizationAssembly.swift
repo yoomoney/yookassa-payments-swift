@@ -19,16 +19,10 @@ enum PaymentAuthorizationAssembly {
             testModeSettings: inputData.testModeSettings,
             moneyAuthClientId: inputData.moneyAuthClientId
         )
-        let analyticsService = AnalyticsServiceAssembly.makeService(
-            isLoggingEnabled: inputData.isLoggingEnabled
-        )
-        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
-            testModeSettings: inputData.testModeSettings
-        )
+        let analyticsService = AnalyticsTrackingAssembly.make(isLoggingEnabled: inputData.isLoggingEnabled)
         let interactor = PaymentAuthorizationInteractor(
             authorizationService: authorizationService,
             analyticsService: analyticsService,
-            analyticsProvider: analyticsProvider,
             clientApplicationKey: inputData.clientApplicationKey
         )
 

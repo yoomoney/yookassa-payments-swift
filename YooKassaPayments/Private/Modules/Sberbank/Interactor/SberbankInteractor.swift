@@ -8,25 +8,25 @@ final class SberbankInteractor {
 
     // MARK: - Init
 
+    private let authService: AuthorizationService
     private let paymentService: PaymentService
-    private let analyticsProvider: AnalyticsProvider
-    private let analyticsService: AnalyticsService
+    private let analyticsService: AnalyticsTracking
     private let threatMetrixService: ThreatMetrixService
     private let clientApplicationKey: String
     private let amount: MonetaryAmount
     private let customerId: String?
 
     init(
+        authService: AuthorizationService,
         paymentService: PaymentService,
-        analyticsProvider: AnalyticsProvider,
-        analyticsService: AnalyticsService,
+        analyticsService: AnalyticsTracking,
         threatMetrixService: ThreatMetrixService,
         clientApplicationKey: String,
         amount: MonetaryAmount,
         customerId: String?
     ) {
+        self.authService = authService
         self.paymentService = paymentService
-        self.analyticsProvider = analyticsProvider
         self.analyticsService = analyticsService
         self.threatMetrixService = threatMetrixService
         self.clientApplicationKey = clientApplicationKey
@@ -73,15 +73,12 @@ extension SberbankInteractor: SberbankInteractorInput {
         }
     }
 
-    func makeTypeAnalyticsParameters() -> (
-        authType: AnalyticsEvent.AuthType,
-        tokenType: AnalyticsEvent.AuthTokenType?
-    ) {
-        analyticsProvider.makeTypeAnalyticsParameters()
+    func analyticsAuthType() -> AnalyticsEvent.AuthType {
+        authService.analyticsAuthType()
     }
 
-    func trackEvent(_ event: AnalyticsEvent) {
-        analyticsService.trackEvent(event)
+    func track(event: AnalyticsEvent) {
+        analyticsService.track(event: event)
     }
 }
 

@@ -61,8 +61,6 @@ final class RootViewController: UIViewController {
     fileprivate lazy var nameLabel: UILabel = {
         if #available(iOS 11.0, *) {
             $0.setStyles(UILabel.DynamicStyle.title1)
-        } else if #available(iOS 9.0, *) {
-            $0.setStyles(UILabel.DynamicStyle.title2)
         } else {
             $0.setStyles(UILabel.DynamicStyle.headline1)
         }
@@ -96,7 +94,7 @@ final class RootViewController: UIViewController {
     fileprivate lazy var ratingImageView = UIImageView(image: #imageLiteral(resourceName: "Root.Rating"))
 
     fileprivate lazy var payButtonBottomConstraint: NSLayoutConstraint =
-        self.bottomLayoutGuide.top.constraint(equalTo: payButton.bottom)
+    self.view.layoutMarginsGuide.bottomAnchor.constraint(equalTo: payButton.bottomAnchor)
 
     fileprivate lazy var nameLabelTopConstraint: NSLayoutConstraint =
         nameLabel.top.constraint(equalTo: imageView.bottom)
@@ -347,7 +345,7 @@ final class RootViewController: UIViewController {
             oauthToken = "live_MTkzODU2VY5GiyQq2GMPsCQ0PW7f_RSLtJYOT-mp_CA"
         }
 
-        let inputData: TokenizationFlow = .tokenization(TokenizationModuleInputData(
+        let data = TokenizationModuleInputData(
             clientApplicationKey: oauthToken,
             shopName: translate(Localized.name),
             purchaseDescription: translate(Localized.description),
@@ -363,7 +361,8 @@ final class RootViewController: UIViewController {
             moneyAuthClientId: "hitm6hg51j1d3g1u3ln040bajiol903b",
             applicationScheme: "yookassapaymentsexample://",
             customerId: "app.example.demo.payments.yookassa"
-        ))
+        )
+        let inputData = TokenizationFlow.tokenization(data)
 
 //        let inputData: TokenizationFlow = .bankCardRepeat(BankCardRepeatModuleInputData(
 //            clientApplicationKey: oauthToken,

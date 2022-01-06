@@ -35,6 +35,7 @@ class IconButtonItemTableViewCell: UITableViewCell {
     private lazy var itemView: IconButtonItemView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.output = self
+        $0.imageView.contentMode = .scaleAspectFit
         return $0
     }(IconButtonItemView())
 

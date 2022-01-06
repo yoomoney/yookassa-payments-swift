@@ -18,25 +18,27 @@ enum ApplePayContractAssembly {
             savePaymentMethodViewModel: inputData.savePaymentMethodViewModel,
             initialSavePaymentMethod: inputData.initialSavePaymentMethod,
             isBackBarButtonHidden: inputData.isBackBarButtonHidden,
-            isSafeDeal: inputData.isSafeDeal
+            isSafeDeal: inputData.isSafeDeal,
+            paymentOptionTitle: inputData.paymentOptionTitle
         )
 
-        let analyticsService = AnalyticsServiceAssembly.makeService(
-            isLoggingEnabled: inputData.isLoggingEnabled
-        )
+        let analyticsService = AnalyticsTrackingAssembly.make(isLoggingEnabled: inputData.isLoggingEnabled)
         let paymentService = PaymentServiceAssembly.makeService(
             tokenizationSettings: inputData.tokenizationSettings,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled
         )
-        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
-            testModeSettings: inputData.testModeSettings
-        )
         let threatMetrixService = ThreatMetrixServiceFactory.makeService()
+        let authService = AuthorizationServiceAssembly.makeService(
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            testModeSettings: inputData.testModeSettings,
+            moneyAuthClientId: nil
+        )
+
         let interactor = ApplePayContractInteractor(
             paymentService: paymentService,
             analyticsService: analyticsService,
-            analyticsProvider: analyticsProvider,
+            authorizationService: authService,
             threatMetrixService: threatMetrixService,
             clientApplicationKey: inputData.clientApplicationKey,
             customerId: inputData.customerId

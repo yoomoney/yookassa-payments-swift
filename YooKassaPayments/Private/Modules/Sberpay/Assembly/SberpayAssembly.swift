@@ -16,23 +16,25 @@ enum SberpayAssembly {
             isBackBarButtonHidden: inputData.isBackBarButtonHidden,
             isSafeDeal: inputData.isSafeDeal,
             clientSavePaymentMethod: inputData.clientSavePaymentMethod,
-            isSavePaymentMethodAllowed: inputData.paymentOption.savePaymentMethod == .allowed
+            isSavePaymentMethodAllowed: inputData.paymentOption.savePaymentMethod == .allowed,
+            config: inputData.config
         )
         let paymentService = PaymentServiceAssembly.makeService(
             tokenizationSettings: inputData.tokenizationSettings,
             testModeSettings: inputData.testModeSettings,
             isLoggingEnabled: inputData.isLoggingEnabled
         )
-        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
-            testModeSettings: inputData.testModeSettings
-        )
-        let analyticsService = AnalyticsServiceAssembly.makeService(
-            isLoggingEnabled: inputData.isLoggingEnabled
-        )
+        let analyticsService = AnalyticsTrackingAssembly.make(isLoggingEnabled: inputData.isLoggingEnabled)
         let threatMetrixService = ThreatMetrixServiceFactory.makeService()
+        let authorizationService = AuthorizationServiceAssembly.makeService(
+            isLoggingEnabled: inputData.isLoggingEnabled,
+            testModeSettings: inputData.testModeSettings,
+            moneyAuthClientId: nil
+        )
+
         let interactor = SberpayInteractor(
+            authService: authorizationService,
             paymentService: paymentService,
-            analyticsProvider: analyticsProvider,
             analyticsService: analyticsService,
             threatMetrixService: threatMetrixService,
             clientApplicationKey: inputData.clientApplicationKey,

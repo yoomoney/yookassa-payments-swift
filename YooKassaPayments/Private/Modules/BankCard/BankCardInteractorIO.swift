@@ -1,7 +1,8 @@
-protocol BankCardInteractorInput: AnalyticsTrack {
+protocol BankCardInteractorInput {
     func tokenizeInstrument(id: String, csc: String?, savePaymentMethod: Bool)
     func tokenizeBankCard(cardData: CardData, savePaymentMethod: Bool, savePaymentInstrument: Bool?)
-    func makeTypeAnalyticsParameters() -> (authType: AnalyticsEvent.AuthType, tokenType: AnalyticsEvent.AuthTokenType?)
+    func track(event: AnalyticsEvent)
+    func analyticsAuthType() -> AnalyticsEvent.AuthType
 }
 
 protocol BankCardInteractorOutput: AnyObject {

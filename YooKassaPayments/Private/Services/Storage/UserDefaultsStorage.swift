@@ -1,5 +1,4 @@
 final class UserDefaultsStorage {
-
     // MARK: - Init data
 
     let userDefaults: UserDefaults
@@ -40,19 +39,11 @@ extension UserDefaultsStorage {
 // MARK: - KeyValueStoring
 
 extension UserDefaultsStorage: KeyValueStoring {
-    func getString(for key: String) -> String? {
-        return userDefaults.string(forKey: key)
+    func write<T>(value: T?, for key: String) throws where T: Encodable {
+        userDefaults.setValue(value, forKey: key)
     }
 
-    func set(string: String?, for key: String) {
-        userDefaults.set(string, forKey: key)
-    }
-
-    func getBool(for key: String) -> Bool? {
-        return userDefaults.bool(forKey: key)
-    }
-
-    func set(bool: Bool?, for key: String) {
-        userDefaults.set(bool, forKey: key)
+    func readValue<T>(for key: String) throws -> T? where T: Decodable {
+        userDefaults.value(forKey: key) as? T
     }
 }

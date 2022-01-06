@@ -1,7 +1,11 @@
 enum PaymentMethodViewModelFactoryAssembly {
-    static func makeFactory() -> PaymentMethodViewModelFactory {
+    static func makeFactory(isLoggingEnabled: Bool) -> PaymentMethodViewModelFactory {
         return PaymentMethodViewModelFactoryImpl(
-            bankSettingsService: BankServiceSettingsImpl.shared
+            bankSettingsService: BankServiceSettingsImpl.shared,
+            configMediator: ConfigMediatorImpl(
+                service: ConfigServiceAssembly.make(isLoggingEnabled: isLoggingEnabled),
+                storage: KeyValueStoringAssembly.makeSettingsStorage()
+            )
         )
     }
 }

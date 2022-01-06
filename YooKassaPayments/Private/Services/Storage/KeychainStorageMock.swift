@@ -1,29 +1,16 @@
 final class KeychainStorageMock {
+    let writeQueue = DispatchQueue(label: "com.msdk.KeychainStorageMock.writeQueue")
     private var data: [String: Any] = [:]
 }
 
 // MARK: - KeyValueStoring
 
 extension KeychainStorageMock: KeyValueStoring {
-    func getString(for key: String) -> String? {
-        guard let value = data[key] as? String else {
-            return nil
-        }
-        return value
+    func readValue<T>(for key: String) throws -> T? where T: Decodable {
+        data[key] as? T
     }
 
-    func set(string: String?, for key: String) {
-        data[key] = string
-    }
-
-    func getBool(for key: String) -> Bool? {
-        guard let value = data[key] as? Bool else {
-            return nil
-        }
-        return value
-    }
-
-    func set(bool: Bool?, for key: String) {
-        data[key] = bool
+    func write<T>(value: T?, for key: String) throws where T: Encodable {
+        data[key] = value
     }
 }

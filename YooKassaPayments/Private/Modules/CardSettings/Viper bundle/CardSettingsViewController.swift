@@ -70,8 +70,13 @@ final class CardSettingsViewController: UIViewController, CardSettingsViewInput 
         output.setupView()
     }
 
+    // TODO: - fix layout race condition; remove this constraint
+    private lazy var contentHeight = self.view.heightAnchor.constraint(equalToConstant: 400)
+
     private func setupConstraints() {
+
         NSLayoutConstraint.activate([
+            contentHeight,
             contentContainer.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             contentContainer.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             view.layoutMarginsGuide.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor),
@@ -127,6 +132,8 @@ final class CardSettingsViewController: UIViewController, CardSettingsViewInput 
 
     func hideSubmit(_ hide: Bool) {
         submitButton.isHidden = hide
+        // TODO: - fix layout race condition; remove this constraint
+        contentHeight.constant = hide ? 300 : 400
     }
 }
 

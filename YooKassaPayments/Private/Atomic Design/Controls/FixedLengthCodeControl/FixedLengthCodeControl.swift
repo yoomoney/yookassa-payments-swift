@@ -26,7 +26,7 @@ final class FixedLengthCodeControl: UIView {
         return view
     }()
 
-    private var singleCharacterViews: [SingleCharacterView] = []
+    private(set) var singleCharacterViews: [SingleCharacterView] = []
 
     // MARK: - Initializers
 
@@ -52,8 +52,7 @@ final class FixedLengthCodeControl: UIView {
     }
 
     override func becomeFirstResponder() -> Bool {
-        guard let newFirstResponder = singleCharacterViews.first(where: { $0.character == nil }) else { return false }
-        return newFirstResponder.becomeFirstResponder()
+        return singleCharacterViews.first?.becomeFirstResponder() ?? false
     }
 }
 

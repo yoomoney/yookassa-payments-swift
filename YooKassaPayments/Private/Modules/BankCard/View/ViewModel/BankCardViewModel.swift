@@ -11,4 +11,5 @@ struct BankCardViewModel {
     let cardLogo: UIImage
     let safeDealText: NSAttributedString?
     let recurrencyAndDataSavingSection: UIView?
+    let paymentOptionTitle: String?
 }

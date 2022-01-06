@@ -11,13 +11,14 @@ struct ApplePayContractModuleInputData {
     let price: PriceViewModel
     let fee: PriceViewModel?
     let paymentOption: PaymentOption
-    let termsOfService: TermsOfService
+    let termsOfService: NSAttributedString
     let merchantIdentifier: String?
     let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     let initialSavePaymentMethod: Bool
     let isBackBarButtonHidden: Bool
     let customerId: String?
     let isSafeDeal: Bool
+    let paymentOptionTitle: String?
 }
 
 protocol ApplePayContractModuleInput: AnyObject {}

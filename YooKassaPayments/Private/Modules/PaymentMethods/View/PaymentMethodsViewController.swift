@@ -108,6 +108,7 @@ final class PaymentMethodsViewController: UIViewController, PlaceholderProvider 
     private func setupNavigationBar() {
         guard let navigationBar = navigationController?.navigationBar else { return }
         navigationBar.shadowImage = UIImage()
+        navigationBar.isTranslucent = false
         navigationBar.barTintColor = UIColor.AdaptiveColors.systemBackground
         navigationBar.tintColor = CustomizationStorage.shared.mainScheme
 
@@ -250,13 +251,18 @@ extension PaymentMethodsViewController: PaymentMethodsViewInput {
         tableView.reloadData()
     }
 
-    func setLogoVisible(_ isVisible: Bool) {
+    func setLogoVisible(image: UIImage, isVisible: Bool) {
         guard isVisible else {
             navigationItem.rightBarButtonItem = nil
             return
         }
-        let image = UIImageView(image: Resources.kassaLogo)
-        let rightItem = UIBarButtonItem(customView: image)
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
+        NSLayoutConstraint.activate([
+            imageView.heightAnchor.constraint(equalToConstant: Space.double),
+            imageView.widthAnchor.constraint(lessThanOrEqualToConstant: 104),
+        ])
+        let rightItem = UIBarButtonItem(customView: imageView)
         navigationItem.rightBarButtonItem = rightItem
     }
 
@@ -353,10 +359,6 @@ private extension PaymentMethodsViewController {
             value: "Отвязать",
             comment: "Текст кнопки отвязать <screenshot>"
         )
-    }
-
-    enum Resources {
-        static let kassaLogo = UIImage.localizedImage("image.logo")
     }
 }
 

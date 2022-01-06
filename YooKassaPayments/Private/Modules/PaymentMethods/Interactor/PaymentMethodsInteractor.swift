@@ -12,12 +12,12 @@ class PaymentMethodsInteractor {
 
     private let paymentService: PaymentService
     private let authorizationService: AuthorizationService
-    private let analyticsService: AnalyticsService
+    private let analyticsService: AnalyticsTracking
     private let accountService: AccountService
-    private let analyticsProvider: AnalyticsProvider
     private let threatMetrixService: ThreatMetrixService
     private let amountNumberFormatter: AmountNumberFormatter
     private let appDataTransferMediator: AppDataTransferMediator
+    private let configMediator: ConfigMediator
 
     private let clientApplicationKey: String
     private let gatewayId: String?
@@ -30,12 +30,12 @@ class PaymentMethodsInteractor {
     init(
         paymentService: PaymentService,
         authorizationService: AuthorizationService,
-        analyticsService: AnalyticsService,
+        analyticsService: AnalyticsTracking,
         accountService: AccountService,
-        analyticsProvider: AnalyticsProvider,
         threatMetrixService: ThreatMetrixService,
         amountNumberFormatter: AmountNumberFormatter,
         appDataTransferMediator: AppDataTransferMediator,
+        configMediator: ConfigMediator,
         clientApplicationKey: String,
         gatewayId: String?,
         amount: Amount,
@@ -46,10 +46,10 @@ class PaymentMethodsInteractor {
         self.authorizationService = authorizationService
         self.analyticsService = analyticsService
         self.accountService = accountService
-        self.analyticsProvider = analyticsProvider
         self.threatMetrixService = threatMetrixService
         self.amountNumberFormatter = amountNumberFormatter
         self.appDataTransferMediator = appDataTransferMediator
+        self.configMediator = configMediator
 
         self.clientApplicationKey = clientApplicationKey
         self.gatewayId = gatewayId
@@ -73,8 +73,8 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
         }
     }
 
-    func fetchPaymentMethods() {
-        let authorizationToken = authorizationService.getMoneyCenterAuthToken()
+    func fetchShop() {
+        let authorizationToken = self.authorizationService.getMoneyCenterAuthToken()
 
         paymentService.fetchPaymentOptions(
             clientApplicationKey: clientApplicationKey,
@@ -86,11 +86,12 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
             customerId: customerId
         ) { [weak self] result in
             guard let output = self?.output else { return }
+
             switch result {
             case let .success(data):
                 output.didFetchShop(data)
             case let .failure(error):
-                output.didFailFetchShop(error)
+                output.didFailFetchShop(mapError(error))
             }
         }
     }
@@ -160,21 +161,12 @@ extension PaymentMethodsInteractor: PaymentMethodsInteractorInput {
         authorizationService.setWalletAvatarURL(account.avatar.url?.absoluteString)
     }
 
-    func trackEvent(_ event: AnalyticsEvent) {
-        analyticsService.trackEvent(event)
+    func track(event: AnalyticsEvent) {
+        analyticsService.track(event: event)
     }
 
-    func makeTypeAnalyticsParameters() -> (authType: AnalyticsEvent.AuthType,
-                                           tokenType: AnalyticsEvent.AuthTokenType?) {
-        return analyticsProvider.makeTypeAnalyticsParameters()
-    }
-
-    func startAnalyticsService() {
-        analyticsService.start()
-    }
-
-    func stopAnalyticsService() {
-        analyticsService.stop()
+    func analyticsAuthType() -> AnalyticsEvent.AuthType {
+        authorizationService.analyticsAuthType()
     }
 }
 
@@ -276,6 +268,8 @@ private func mapError(_ error: Error) -> Error {
         return PaymentProcessingError.internetConnection
     case let error as NSError where error.domain == NSURLErrorDomain:
         return PaymentProcessingError.internetConnection
+    case let error as NSError where error.code == 429:
+        return TooManyRequestsError()
     default:
         return error
     }

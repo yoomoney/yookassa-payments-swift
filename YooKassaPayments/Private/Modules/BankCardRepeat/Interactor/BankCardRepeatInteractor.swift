@@ -8,8 +8,8 @@ final class BankCardRepeatInteractor {
 
     // MARK: - Init data
 
-    private let analyticsService: AnalyticsService
-    private let analyticsProvider: AnalyticsProvider
+    private let authService: AuthorizationService
+    private let analyticsService: AnalyticsTracking
     private let paymentService: PaymentService
     private let threatMetrixService: ThreatMetrixService
     private let amountNumberFormatter: AmountNumberFormatter
@@ -22,8 +22,8 @@ final class BankCardRepeatInteractor {
     // MARK: - Init
 
     init(
-        analyticsService: AnalyticsService,
-        analyticsProvider: AnalyticsProvider,
+        authService: AuthorizationService,
+        analyticsService: AnalyticsTracking,
         paymentService: PaymentService,
         threatMetrixService: ThreatMetrixService,
         amountNumberFormatter: AmountNumberFormatter,
@@ -32,8 +32,8 @@ final class BankCardRepeatInteractor {
         amount: Amount,
         customerId: String?
     ) {
+        self.authService = authService
         self.analyticsService = analyticsService
-        self.analyticsProvider = analyticsProvider
         self.paymentService = paymentService
         self.threatMetrixService = threatMetrixService
         self.amountNumberFormatter = amountNumberFormatter
@@ -123,23 +123,12 @@ extension BankCardRepeatInteractor: BankCardRepeatInteractorInput {
         }
     }
 
-    func trackEvent(_ event: AnalyticsEvent) {
-        analyticsService.trackEvent(event)
+    func track(event: AnalyticsEvent) {
+        analyticsService.track(event: event)
     }
 
-    func makeTypeAnalyticsParameters() -> (
-        authType: AnalyticsEvent.AuthType,
-        tokenType: AnalyticsEvent.AuthTokenType?
-    ) {
-        return analyticsProvider.makeTypeAnalyticsParameters()
-    }
-
-    func startAnalyticsService() {
-        analyticsService.start()
-    }
-
-    func stopAnalyticsService() {
-        analyticsService.stop()
+    func analyticsAuthType() -> AnalyticsEvent.AuthType {
+        authService.analyticsAuthType()
     }
 }
 

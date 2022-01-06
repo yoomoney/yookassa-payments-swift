@@ -12,11 +12,12 @@ struct SberpayModuleInputData {
     let purchaseDescription: String
     let priceViewModel: PriceViewModel
     let feeViewModel: PriceViewModel?
-    let termsOfService: TermsOfService
+    let termsOfService: NSAttributedString
     let returnUrl: String
     let isBackBarButtonHidden: Bool
     let customerId: String?
     let isSafeDeal: Bool
+    let config: Config
 }
 
 protocol SberpayModuleOutput: AnyObject {

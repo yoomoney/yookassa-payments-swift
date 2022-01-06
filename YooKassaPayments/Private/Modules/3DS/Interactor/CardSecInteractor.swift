@@ -9,7 +9,7 @@ class CardSecInteractor {
 
     // MARK: - Init data
 
-    private let analyticsService: AnalyticsService
+    private let analyticsService: AnalyticsTracking
     private let requestUrl: String
     private let redirectUrl: String
     private let logger: WebLoggerService
@@ -17,7 +17,7 @@ class CardSecInteractor {
     // MARK: - Init
 
     init(
-        analyticsService: AnalyticsService,
+        analyticsService: AnalyticsTracking,
         requestUrl: String,
         redirectUrl: String,
         logger: WebLoggerService
@@ -62,7 +62,7 @@ extension CardSecInteractor: WebBrowserInteractorInput {
 // MARK: - CardSecInteractorInput
 
 extension CardSecInteractor: CardSecInteractorInput {
-    func trackEvent(_ event: AnalyticsEvent) {
-        analyticsService.trackEvent(event)
+    func track(event: AnalyticsEvent) {
+        analyticsService.track(event: event)
     }
 }

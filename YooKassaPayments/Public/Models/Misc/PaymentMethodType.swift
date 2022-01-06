@@ -41,6 +41,8 @@ extension PaymentMethodType {
             self = .applePay
         case .yooMoney:
             self = .yooMoney
+        @unknown default:
+            fatalError("unsupported paymentMethodType")
         }
     }
 

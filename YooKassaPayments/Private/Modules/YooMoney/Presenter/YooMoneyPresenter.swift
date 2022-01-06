@@ -23,13 +23,14 @@ final class YooMoneyPresenter {
     private let fee: PriceViewModel?
     private let paymentMethod: PaymentMethodViewModel
     private let paymentOption: PaymentInstrumentYooMoneyWallet
-    private let termsOfService: TermsOfService
+    private let termsOfService: NSAttributedString
     private let returnUrl: String?
     private let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     private let tmxSessionId: String?
     private var initialSavePaymentMethod: Bool
     private let isBackBarButtonHidden: Bool
     private let isSafeDeal: Bool
+    private let paymentOptionTitle: String?
 
     // MARK: - Init
 
@@ -44,13 +45,14 @@ final class YooMoneyPresenter {
         fee: PriceViewModel?,
         paymentMethod: PaymentMethodViewModel,
         paymentOption: PaymentInstrumentYooMoneyWallet,
-        termsOfService: TermsOfService,
+        termsOfService: NSAttributedString,
         returnUrl: String?,
         savePaymentMethodViewModel: SavePaymentMethodViewModel?,
         tmxSessionId: String?,
         initialSavePaymentMethod: Bool,
         isBackBarButtonHidden: Bool,
-        isSafeDeal: Bool
+        isSafeDeal: Bool,
+        paymentOptionTitle: String?
     ) {
         self.clientApplicationKey = clientApplicationKey
         self.testModeSettings = testModeSettings
@@ -70,6 +72,7 @@ final class YooMoneyPresenter {
         self.initialSavePaymentMethod = initialSavePaymentMethod
         self.isBackBarButtonHidden = isBackBarButtonHidden
         self.isSafeDeal = isSafeDeal
+        self.paymentOptionTitle = paymentOptionTitle
     }
 
     // MARK: - Properties
@@ -90,7 +93,8 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
             fee: fee,
             paymentMethod: paymentMethod,
             terms: termsOfService,
-            safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil
+            safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil,
+            paymentOptionTitle: paymentOptionTitle
         )
         view.setupViewModel(viewModel)
 
@@ -107,17 +111,15 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
         view.setBackBarButtonHidden(isBackBarButtonHidden)
 
         DispatchQueue.global().async { [weak self] in
-            guard let self = self,
-                  let interactor = self.interactor else { return }
+            guard let self = self, let interactor = self.interactor else { return }
             interactor.loadAvatar()
 
-            let (authType, _) = interactor.makeTypeAnalyticsParameters()
-            let event: AnalyticsEvent = .screenPaymentContract(
-                authType: authType,
-                scheme: .wallet,
-                sdkVersion: Bundle.frameworkVersion
+            interactor.track(event:
+                .screenPaymentContract(
+                    scheme: .wallet,
+                    currentAuthType: self.interactor.analyticsAuthType()
+                )
             )
-            interactor.trackEvent(event)
         }
     }
 
@@ -169,15 +171,11 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
         )
     }
 
-    func didChangeSavePaymentMethodState(
-        _ state: Bool
-    ) {
+    func didChangeSavePaymentMethodState(_ state: Bool) {
         initialSavePaymentMethod = state
     }
 
-    func didChangeSaveAuthInAppState(
-        _ state: Bool
-    ) {
+    func didChangeSaveAuthInAppState(_ state: Bool) {
         isReusableToken = state
     }
 }
@@ -185,9 +183,7 @@ extension YooMoneyPresenter: YooMoneyViewOutput {
 // MARK: - ActionTitleTextDialogDelegate
 
 extension YooMoneyPresenter: ActionTitleTextDialogDelegate {
-    func didPressButton(
-        in actionTitleTextDialog: ActionTitleTextDialog
-    ) {
+    func didPressButton(in actionTitleTextDialog: ActionTitleTextDialog) {
         guard let view = view else { return }
         view.hidePlaceholder()
         view.showActivity()
@@ -202,12 +198,11 @@ extension YooMoneyPresenter: ActionTitleTextDialogDelegate {
 // MARK: - YooMoneyInteractorOutput
 
 extension YooMoneyPresenter: YooMoneyInteractorOutput {
-    func didLoginInWallet(
-        _ response: WalletLoginResponse
-    ) {
+    func didLoginInWallet(_ response: WalletLoginResponse) {
         switch response {
         case .authorized:
             tokenize()
+            interactor.track(event: .actionAuthFinished)
         case let .notAuthorized(
                 authTypeState: authTypeState,
                 processId: processId,
@@ -235,34 +230,30 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
         }
     }
 
-    func failLoginInWallet(
-        _ error: Error
-    ) {
+    func failLoginInWallet(_ error: Error) {
         DispatchQueue.main.async { [weak self] in
-            guard let view = self?.view else { return }
-            view.hideActivity()
+            guard let self = self else { return }
+            self.view?.hideActivity()
 
             let message = makeMessage(error)
-            view.presentError(with: message)
+            self.view?.presentError(with: message)
 
             DispatchQueue.global().async { [weak self] in
-                guard let self = self, let interactor = self.interactor else { return }
-                let (authType, _) = interactor.makeTypeAnalyticsParameters()
-                let event: AnalyticsEvent = .screenError(
-                    authType: authType,
-                    scheme: .wallet,
-                    sdkVersion: Bundle.frameworkVersion
+                guard let self = self else { return }
+                self.interactor.track(event:
+                    .screenErrorContract(
+                        scheme: .wallet,
+                        currentAuthType: self.interactor.analyticsAuthType()
+                    )
                 )
-                interactor.trackEvent(event)
             }
         }
     }
 
     func didTokenizeData(_ token: Tokens) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self,
-                  let view = self.view else { return }
-            view.hideActivity()
+            guard let self = self else { return }
+            self.view?.hideActivity()
             self.moduleOutput?.tokenizationModule(
                 self,
                 didTokenize: token,
@@ -270,15 +261,14 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
             )
 
             DispatchQueue.global().async { [weak self] in
-                guard let self = self, let interactor = self.interactor else { return }
-                let type = interactor.makeTypeAnalyticsParameters()
-                let event: AnalyticsEvent = .actionTokenize(
-                    scheme: .wallet,
-                    authType: type.authType,
-                    tokenType: type.tokenType,
-                    sdkVersion: Bundle.frameworkVersion
+                guard let self = self else { return }
+
+                self.interactor.track(event:
+                    .actionTokenize(
+                        scheme: .wallet,
+                        currentAuthType: self.interactor.analyticsAuthType()
+                    )
                 )
-                interactor.trackEvent(event)
             }
         }
     }
@@ -286,6 +276,9 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
     func failTokenizeData(_ error: Error) {
         let message = makeMessage(error)
 
+        interactor.track(
+            event: .screenErrorContract(scheme: .wallet, currentAuthType: interactor.analyticsAuthType())
+        )
         DispatchQueue.main.async { [weak self] in
             guard let view = self?.view else { return }
             view.hideActivity()
@@ -293,19 +286,16 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
         }
     }
 
-    func didLoadAvatar(
-        _ avatar: UIImage
-    ) {
+    func didLoadAvatar(_ avatar: UIImage) {
         DispatchQueue.main.async { [weak self] in
             self?.view?.setupAvatar(avatar)
         }
     }
 
-    func didFailLoadAvatar(
-        _ error: Error
-    ) {}
+    func didFailLoadAvatar(_ error: Error) {}
 
     private func tokenize() {
+        interactor.track(event: .actionTryTokenize(scheme: .wallet, currentAuthType: interactor.analyticsAuthType()))
         interactor.tokenize(
             confirmation: Confirmation(type: .redirect, returnUrl: returnUrl),
             savePaymentMethod: initialSavePaymentMethod,
@@ -319,10 +309,7 @@ extension YooMoneyPresenter: YooMoneyInteractorOutput {
 // MARK: - PaymentAuthorizationModuleOutput
 
 extension YooMoneyPresenter: PaymentAuthorizationModuleOutput {
-    func didCheckUserAnswer(
-        _ module: PaymentAuthorizationModuleInput,
-        response: WalletLoginResponse
-    ) {
+    func didCheckUserAnswer(_ module: PaymentAuthorizationModuleInput, response: WalletLoginResponse) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.router.closePaymentAuthorization()
@@ -337,13 +324,9 @@ extension YooMoneyPresenter: PaymentAuthorizationModuleOutput {
 extension YooMoneyPresenter: LogoutConfirmationModuleOutput {
     func logoutDidConfirm(on module: LogoutConfirmationModuleInput) {
         DispatchQueue.global().async { [weak self] in
-            guard let self = self,
-                  let interactor = self.interactor else { return }
-            interactor.logout()
-            let event: AnalyticsEvent = .actionLogout(
-                sdkVersion: Bundle.frameworkVersion
-            )
-            interactor.trackEvent(event)
+            guard let self = self else { return }
+            self.interactor.logout()
+            self.interactor.track(event: .actionLogout)
             self.moduleOutput?.didLogout(self)
         }
     }

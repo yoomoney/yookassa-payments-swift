@@ -1,7 +1,6 @@
 PODS:
-  - CardIO (5.4.1)
   - FunctionalSwift (1.7.3)
-  - MoneyAuth (2.34.1):
+  - MoneyAuth (3.3.0):
     - FunctionalSwift
     - ThreatMetrixAdapter
     - YooMoneyCoreApi
@@ -14,9 +13,9 @@ PODS:
   - YandexMobileMetrica/Dynamic/Core (3.17.0)
   - YandexMobileMetrica/Dynamic/Crashes (3.17.0):
     - YandexMobileMetrica/Dynamic/Core
-  - YooKassaPayments (6.4.0):
-    - MoneyAuth (~> 2.34.1)
-    - ThreatMetrixAdapter (~> 3.3.0)
+  - YooKassaPayments (6.6.0):
+    - MoneyAuth (~> 3.3.0)
+    - ThreatMetrixAdapter (~> 3.3.3)
     - YandexMobileMetrica/Dynamic (~> 3.0)
     - YooKassaPaymentsApi (~> 2.11.0)
     - YooKassaWalletApi (~> 2.3.1)
@@ -31,7 +30,6 @@ PODS:
     - FunctionalSwift (~> 1.7.3)
 
 DEPENDENCIES:
-  - CardIO
   - Reveal-SDK
   - SwiftLint
   - YooKassaPayments (from `./`)
@@ -46,7 +44,6 @@ SPEC REPOS:
     - YooKassaWalletApi
     - YooMoneyCoreApi
   https://github.com/CocoaPods/Specs.git:
-    - CardIO
     - Reveal-SDK
     - SwiftLint
     - YandexMobileMetrica
@@ -56,18 +53,17 @@ EXTERNAL SOURCES:
     :path: "./"
 
 SPEC CHECKSUMS:
-  CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   FunctionalSwift: 856da67cf3fb812341445d4e28f05875904d8da0
-  MoneyAuth: 6a008f183c29d195704053ff2f98fc181f905074
+  MoneyAuth: 74ba8e8fadbdabe2be706dcad1d0b9de96152897
   Reveal-SDK: effba1c940b8337195563c425a6b5862ec875caa
   SwiftLint: 06ac37e4d38c7068e0935bb30cda95f093bec761
   ThreatMetrixAdapter: 1b31f0afe02eb68be52945e160cc9c0fd117b06c
   YandexMobileMetrica: 9e713c16bb6aca0ba63b84c8d7b8b86d32f4ecc4
-  YooKassaPayments: 41e95ab8d3297816189ba7c64869325df79dc6a6
+  YooKassaPayments: a682124f853fce382ae3b4e2a115cd6e79500c06
   YooKassaPaymentsApi: f76c84ec94ace98e8babc6996cf804840d93f8d8
   YooKassaWalletApi: 817d511330332aaec84490f8335ab8c94285d9be
   YooMoneyCoreApi: 80f30f988f1dc19a397baf246db64cbbca077fd6
 
-PODFILE CHECKSUM: e3d8979584d168459cceff74a485647132ad28ae
+PODFILE CHECKSUM: 09cf283b8b86edb3f9c9eb3e422765473b150274
 
 COCOAPODS: 1.11.2

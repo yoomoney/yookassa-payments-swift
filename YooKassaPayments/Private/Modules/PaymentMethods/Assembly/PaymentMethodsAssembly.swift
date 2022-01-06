@@ -19,7 +19,9 @@ enum PaymentMethodsAssembly {
 
         let moneyAuthCustomization = MoneyAuthAssembly.makeMoneyAuthCustomization()
 
-        let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory()
+        let paymentMethodViewModelFactory = PaymentMethodViewModelFactoryAssembly.makeFactory(
+            isLoggingEnabled: inputData.isLoggingEnabled
+        )
         let priceViewModelFactory = PriceViewModelFactoryAssembly.makeFactory()
         let presenter = PaymentMethodsPresenter(
             isLogoVisible: inputData.tokenizationSettings.showYooKassaLogo,
@@ -40,7 +42,8 @@ enum PaymentMethodsAssembly {
             savePaymentMethod: inputData.savePaymentMethod,
             userPhoneNumber: inputData.userPhoneNumber,
             cardScanning: inputData.cardScanning,
-            customerId: inputData.customerId
+            customerId: inputData.customerId,
+            config: inputData.config
         )
 
         let paymentService = PaymentServiceAssembly.makeService(
@@ -53,14 +56,9 @@ enum PaymentMethodsAssembly {
             testModeSettings: inputData.testModeSettings,
             moneyAuthClientId: inputData.moneyAuthClientId
         )
-        let analyticsService = AnalyticsServiceAssembly.makeService(
-            isLoggingEnabled: inputData.isLoggingEnabled
-        )
+        let analyticsService = AnalyticsTrackingAssembly.make(isLoggingEnabled: inputData.isLoggingEnabled)
         let accountService = AccountServiceFactory.makeService(
             config: moneyAuthConfig
-        )
-        let analyticsProvider = AnalyticsProviderAssembly.makeProvider(
-            testModeSettings: inputData.testModeSettings
         )
         let threatMetrixService = ThreatMetrixServiceFactory.makeService()
         let amountNumberFormatter = AmountNumberFormatterAssembly.makeAmountNumberFormatter()
@@ -73,10 +71,10 @@ enum PaymentMethodsAssembly {
             authorizationService: authorizationService,
             analyticsService: analyticsService,
             accountService: accountService,
-            analyticsProvider: analyticsProvider,
             threatMetrixService: threatMetrixService,
             amountNumberFormatter: amountNumberFormatter,
             appDataTransferMediator: appDataTransferMediator,
+            configMediator: ConfigMediatorAssembly.make(isLoggingEnabled: inputData.isLoggingEnabled),
             clientApplicationKey: inputData.clientApplicationKey,
             gatewayId: inputData.gatewayId,
             amount: inputData.amount,

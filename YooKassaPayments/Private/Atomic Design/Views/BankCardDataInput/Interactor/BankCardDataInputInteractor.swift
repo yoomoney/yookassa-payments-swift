@@ -8,12 +8,12 @@ final class BankCardDataInputInteractor {
 
     private let cardService: CardService
     private let bankSettingsService: BankSettingsService
-    private let analyticsService: AnalyticsService
+    private let analyticsService: AnalyticsTracking
 
     init(
         cardService: CardService,
         bankSettingsService: BankSettingsService,
-        analyticsService: AnalyticsService
+        analyticsService: AnalyticsTracking
     ) {
         self.cardService = cardService
         self.bankSettingsService = bankSettingsService
@@ -52,9 +52,7 @@ extension BankCardDataInputInteractor: BankCardDataInputInteractorInput {
         output?.didFetchBankSettings(bankSettings)
     }
 
-    func trackEvent(
-        _ event: AnalyticsEvent
-    ) {
-        analyticsService.trackEvent(event)
+    func track(event: AnalyticsEvent) {
+        analyticsService.track(event: event)
     }
 }

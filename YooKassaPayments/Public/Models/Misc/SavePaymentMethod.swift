@@ -19,3 +19,13 @@ public enum SavePaymentMethod {
     /// if payment method can be saved).
     case userSelects
 }
+
+extension SavePaymentMethod: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .on: return "on"
+        case .off: return "off"
+        case .userSelects: return "userSelects"
+        }
+    }
+}

@@ -183,6 +183,7 @@ final class SheetViewController: UIViewController {
         contentViewHeightConstraint = contentViewController.view.heightAnchor.constraint(
             equalToConstant: height(for: .intrinsic)
         )
+        contentViewHeightConstraint.priority = .highest
         let leftLowPriorityConstraint = contentViewController.view.leadingAnchor.constraint(
             equalTo: view.leadingAnchor
         )
@@ -194,7 +195,6 @@ final class SheetViewController: UIViewController {
         let topConstraint = contentViewController.view.topAnchor.constraint(
             greaterThanOrEqualTo: view.topAnchor
         )
-        topConstraint.priority = .highest
         var constraints = [
             leftLowPriorityConstraint,
             leftGreaterThanOrEqualToConstraint,

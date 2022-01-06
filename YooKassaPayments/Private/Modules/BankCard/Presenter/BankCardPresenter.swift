@@ -22,7 +22,7 @@ final class BankCardPresenter {
     private let purchaseDescription: String
     private let priceViewModel: PriceViewModel
     private let feeViewModel: PriceViewModel?
-    private let termsOfService: TermsOfService
+    private let termsOfService: NSAttributedString
     private let cardScanning: CardScanning?
     private let clientSavePaymentMethod: SavePaymentMethod
     private let isBackBarButtonHidden: Bool
@@ -31,6 +31,7 @@ final class BankCardPresenter {
     private let apiSavePaymentMethod: YooKassaPaymentsApi.SavePaymentMethod
     private let paymentMethodViewModelFactory: PaymentMethodViewModelFactory
     private let isSafeDeal: Bool
+    private let config: Config
 
     init(
         cardService: CardService,
@@ -38,7 +39,7 @@ final class BankCardPresenter {
         purchaseDescription: String,
         priceViewModel: PriceViewModel,
         feeViewModel: PriceViewModel?,
-        termsOfService: TermsOfService,
+        termsOfService: NSAttributedString,
         cardScanning: CardScanning?,
         isBackBarButtonHidden: Bool,
         instrument: PaymentInstrumentBankCard?,
@@ -46,7 +47,8 @@ final class BankCardPresenter {
         apiSavePaymentMethod: YooKassaPaymentsApi.SavePaymentMethod,
         clientSavePaymentMethod: SavePaymentMethod,
         paymentMethodViewModelFactory: PaymentMethodViewModelFactory,
-        isSafeDeal: Bool
+        isSafeDeal: Bool,
+        config: Config
     ) {
         self.cardService = cardService
         self.shopName = shopName
@@ -62,6 +64,7 @@ final class BankCardPresenter {
         self.clientSavePaymentMethod = clientSavePaymentMethod
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
         self.isSafeDeal = isSafeDeal
+        self.config = config
     }
 
     // MARK: - Stored properties
@@ -81,12 +84,6 @@ extension BankCardPresenter: BankCardViewOutput {
         if let feeViewModel = feeViewModel {
             feeValue = "\(CommonLocalized.Contract.fee) " + makePrice(feeViewModel)
         }
-
-        let termsOfServiceValue = makeTermsOfService(
-            termsOfService,
-            font: UIFont.dynamicCaption2,
-            foregroundColor: UIColor.AdaptiveColors.secondary
-        )
 
         let maskedNumber = instrument
             .map { ($0.first6 ?? "") + "******" + $0.last4 }
@@ -111,11 +108,13 @@ extension BankCardPresenter: BankCardViewOutput {
             case .on:
                 section = PaymentRecurrencyAndDataSavingSectionFactory.make(
                     mode: .requiredRecurring,
+                    texts: config.savePaymentMethodOptionTexts,
                     output: self
                 )
             case .userSelects:
                 section = PaymentRecurrencyAndDataSavingSectionFactory.make(
                     mode: .allowRecurring,
+                    texts: config.savePaymentMethodOptionTexts,
                     output: self
                 )
             case .off:
@@ -126,6 +125,7 @@ extension BankCardPresenter: BankCardViewOutput {
                 clientSavePaymentMethod: clientSavePaymentMethod,
                 apiSavePaymentMethod: apiSavePaymentMethod,
                 canSavePaymentInstrument: canSaveInstrument,
+                texts: config.savePaymentMethodOptionTexts,
                 output: self
             )
         }
@@ -135,12 +135,13 @@ extension BankCardPresenter: BankCardViewOutput {
             description: purchaseDescription,
             priceValue: priceValue,
             feeValue: feeValue,
-            termsOfService: termsOfServiceValue,
+            termsOfService: termsOfService,
             instrumentMode: instrument != nil,
             maskedNumber: maskedNumber.splitEvery(4, separator: " "),
             cardLogo: logo,
             safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil,
-            recurrencyAndDataSavingSection: section
+            recurrencyAndDataSavingSection: section,
+            paymentOptionTitle: config.paymentMethods.first { $0.kind == .bankCard }?.title
         )
 
         if let section = section {
@@ -163,18 +164,12 @@ extension BankCardPresenter: BankCardViewOutput {
 
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
-            let parameters = self.interactor.makeTypeAnalyticsParameters()
-            let form: AnalyticsEvent = .screenBankCardForm(
-                authType: parameters.authType,
-                sdkVersion: Bundle.frameworkVersion
+            self.interactor.track(event:
+                .screenPaymentContract(
+                    scheme: .bankCard,
+                    currentAuthType: self.interactor.analyticsAuthType()
+                )
             )
-            self.interactor.trackEvent(form)
-            let contract = AnalyticsEvent.screenPaymentContract(
-                authType: parameters.authType,
-                scheme: .bankCard,
-                sdkVersion: Bundle.frameworkVersion
-            )
-            self.interactor.trackEvent(contract)
         }
     }
 
@@ -191,12 +186,11 @@ extension BankCardPresenter: BankCardViewOutput {
             saveMethod = true
         case (.userSelects, .allowed):
             saveMethod = saveInstrument ?? false
-        case (_, .unknown(_)):
-            saveMethod = false
-        default:
+        case (_, _):
             saveMethod = false
         }
         let savePaymentInstrument = canSaveInstrument ? saveInstrument : false
+        interactor.track(event: .actionTryTokenize(scheme: .bankCard, currentAuthType: interactor.analyticsAuthType()))
 
         DispatchQueue.global().async { [weak self] in
             guard let self = self, let interactor = self.interactor else { return }
@@ -308,29 +302,21 @@ extension BankCardPresenter: BankCardInteractorOutput {
             }
 
             DispatchQueue.global().async { [weak self] in
-                guard let self = self, let interactor = self.interactor else { return }
-                let type = interactor.makeTypeAnalyticsParameters()
-                let event: AnalyticsEvent = .actionTokenize(
-                    scheme: scheme,
-                    authType: type.authType,
-                    tokenType: type.tokenType,
-                    sdkVersion: Bundle.frameworkVersion
+                guard let self = self else { return }
+                self.interactor.track(event:
+                    .actionTokenize(
+                        scheme: scheme,
+                        currentAuthType: self.interactor.analyticsAuthType()
+                    )
                 )
-                interactor.trackEvent(event)
             }
         }
     }
 
-    func didFailTokenize(
-        _ error: Error
-    ) {
-        let parameters = interactor.makeTypeAnalyticsParameters()
-        let event: AnalyticsEvent = .screenError(
-            authType: parameters.authType,
-            scheme: .bankCard,
-            sdkVersion: Bundle.frameworkVersion
+    func didFailTokenize(_ error: Error) {
+        interactor.track(
+            event: .screenErrorContract(scheme: .bankCard, currentAuthType: interactor.analyticsAuthType())
         )
-        interactor.trackEvent(event)
 
         let message = makeMessage(error)
 
@@ -387,21 +373,36 @@ extension BankCardPresenter: PaymentRecurrencyAndDataSavingSectionOutput {
         switch mode {
         case .allowRecurring, .requiredRecurring:
             router.presentSafeDealInfo(
-                title: CommonLocalized.CardSettingsDetails.autopayInfoTitle,
-                body: CommonLocalized.CardSettingsDetails.autopayInfoDetails
+                title: htmlOut(source: config.savePaymentMethodOptionTexts.screenRecurrentOnBindOffTitle),
+                body: htmlOut(source: config.savePaymentMethodOptionTexts.screenRecurrentOnBindOffText)
             )
         case .savePaymentData, .requiredSaveData:
             router.presentSafeDealInfo(
-                title: CommonLocalized.RecurrencyAndSavePaymentData.saveDataInfoTitle,
-                body: CommonLocalized.RecurrencyAndSavePaymentData.saveDataInfoMessage
+                title: htmlOut(source: config.savePaymentMethodOptionTexts.screenRecurrentOffBindOnTitle),
+                body: htmlOut(source: config.savePaymentMethodOptionTexts.screenRecurrentOffBindOnText)
             )
         case .allowRecurringAndSaveData, .requiredRecurringAndSaveData:
             router.presentSafeDealInfo(
-                title: CommonLocalized.RecurrencyAndSavePaymentData.saveDataAndAutopaymentsInfoTitle,
-                body: CommonLocalized.RecurrencyAndSavePaymentData.saveDataAndAutopaymentsInfoMessage
+                title: htmlOut(source: config.savePaymentMethodOptionTexts.screenRecurrentOnBindOnTitle),
+                body: htmlOut(source: config.savePaymentMethodOptionTexts.screenRecurrentOnBindOnText)
             )
         default:
         break
+        }
+    }
+
+    /// Convert <br> -> \n and other html text formatting to native `String`
+    private func htmlOut(source: String) -> String {
+        guard let data = source.data(using: .utf16) else { return source }
+        do {
+            let html = try NSAttributedString(
+                data: data,
+                options: [.documentType: NSAttributedString.DocumentType.html],
+                documentAttributes: nil
+            )
+            return html.string
+        } catch {
+            return source
         }
     }
 }
@@ -430,31 +431,4 @@ private func makePrice(
         + priceViewModel.decimalSeparator
         + priceViewModel.fractionalPart
         + priceViewModel.currency
-}
-
-private func makeTermsOfService(
-    _ terms: TermsOfService,
-    font: UIFont,
-    foregroundColor: UIColor
-) -> NSMutableAttributedString {
-    let attributedText: NSMutableAttributedString
-
-    let attributes: [NSAttributedString.Key: Any] = [
-        .font: font,
-        .foregroundColor: foregroundColor,
-    ]
-    attributedText = NSMutableAttributedString(
-        string: "\(terms.text) ",
-        attributes: attributes
-    )
-
-    let linkAttributedText = NSMutableAttributedString(
-        string: terms.hyperlink,
-        attributes: attributes
-    )
-    let linkRange = NSRange(location: 0, length: terms.hyperlink.count)
-    linkAttributedText.addAttribute(.link, value: terms.url, range: linkRange)
-    attributedText.append(linkAttributedText)
-
-    return attributedText
 }
