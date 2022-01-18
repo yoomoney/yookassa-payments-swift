@@ -469,7 +469,7 @@ In order to do it:
 - Create a certificate in Apple Developer Tools (use `.csr`).
 - Download the certificate you created and send it to your manager.
 
-[Full manual](https://yookassa.ru/files/manual_connection_Apple_Pay(website).pdf) (see Section 2. Exchanging certificates with Apple)
+[Full manual](https://yookassa.ru/docs/manual_connection_Apple_Pay_EN.pdf) (see Section 2. Exchanging certificates with Apple)
 
 2. Enable Apple Pay in Xcode.
 
