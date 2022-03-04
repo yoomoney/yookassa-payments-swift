@@ -31,23 +31,38 @@ extension UINavigationBar {
         // MARK: - Main styles
 
         static let `default` = InternalStyle(name: "default") { (view: UINavigationBar) in
+            update(view: view)
+        }
 
-            let barTintColor: UIColor
+        static func update(view: UINavigationBar) {
+            if #available(iOS 13.0, *) {
+                let appearance = UINavigationBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.backgroundColor = .systemBackground
+                appearance.titleTextAttributes = [
+                    NSAttributedString.Key.foregroundColor: UIColor.AdaptiveColors.primary,
+                ]
+                appearance.shadowImage = UIImage()
+
+                view.standardAppearance = appearance
+                view.scrollEdgeAppearance = appearance
+                if #available(iOS 15.0, *) {
+                    view.compactScrollEdgeAppearance = appearance
+                }
+            } else {
+                view.isTranslucent = false
+                view.barTintColor = .cararra
+                view.titleTextAttributes = [
+                    NSAttributedString.Key.foregroundColor: UIColor.AdaptiveColors.primary,
+                ]
+                view.shadowImage = UIImage()
+
+            }
+
             if #available(iOS 11, *) {
                 view.prefersLargeTitles = false
             }
-            if #available(iOS 13, *) {
-                barTintColor = .systemBackground
-            } else {
-                barTintColor = .cararra
-            }
 
-            view.isTranslucent = false
-            view.barTintColor = barTintColor
-            view.titleTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor.AdaptiveColors.primary,
-            ]
-            view.shadowImage = UIImage()
             view.clipsToBounds = true
             view.layoutMargins = UIEdgeInsets(top: 0, left: Space.double, bottom: 0, right: Space.double)
             view.preservesSuperviewLayoutMargins = true

@@ -1,3 +1,4 @@
+import CardIO
 import MessageUI
 import SafariServices
 import UIKit
@@ -5,7 +6,6 @@ import WebKit
 import YooKassaPayments
 
 final class RootViewController: UIViewController {
-
     public static func makeModule() -> UIViewController {
         return RootViewController(nibName: nil, bundle: nil)
     }
@@ -352,7 +352,7 @@ final class RootViewController: UIViewController {
             amount: amount,
             tokenizationSettings: makeTokenizationSettings(),
             testModeSettings: testSettings,
-            cardScanning: nil,
+            cardScanning: self,
             applePayMerchantIdentifier: "merchant.ru.yoo.sdk.kassa.payments",
             isLoggingEnabled: true,
             userPhoneNumber: "7",
@@ -668,5 +668,40 @@ private extension RootViewController {
         static let russianLanguageCode = "ru"
         static let documentationPathRu = "https://yookassa.ru/developers/using-api/using-sdks"
         static let documentationPathEn = "https://yookassa.ru/en/developers/using-api/using-sdks"
+    }
+}
+
+// MARK: - CardIOPaymentViewControllerDelegate
+
+extension RootViewController: CardIOPaymentViewControllerDelegate {
+    public func userDidProvide(
+        _ cardInfo: CardIOCreditCardInfo!,
+        in paymentViewController: CardIOPaymentViewController!
+    ) {
+        let scannedCardInfo = ScannedCardInfo(
+            number: cardInfo.cardNumber,
+            expiryMonth: "\(cardInfo.expiryMonth)",
+            expiryYear: "\(cardInfo.expiryYear)"
+        )
+        cardScanningDelegate?.cardScannerDidFinish(scannedCardInfo)
+    }
+
+    public func userDidCancel(_ paymentViewController: CardIOPaymentViewController!) {
+        cardScanningDelegate?.cardScannerDidFinish(nil)
+    }
+}
+
+extension RootViewController: CardScanning {
+    var cardScanningViewController: UIViewController? {
+        guard let controller = CardIOPaymentViewController(paymentDelegate: self) else {
+            return nil
+        }
+
+        controller.suppressScanConfirmation = true
+        controller.hideCardIOLogo = true
+        controller.disableManualEntryButtons = true
+        controller.collectCVV = false
+
+        return controller
     }
 }

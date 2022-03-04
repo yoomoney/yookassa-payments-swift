@@ -29,7 +29,7 @@ extension BankCardDataInputRouter: BankCardDataInputRouterInput {
         else { return }
         cardScanner.cardScanningDelegate = self
         if let navigationController = viewController as? UINavigationController {
-            navigationController.navigationBar.setStyles(UINavigationBar.Styles.default)
+            UINavigationBar.Styles.update(view: navigationController.navigationBar)
         }
         transitionHandler.present(viewController, animated: true, completion: nil)
     }

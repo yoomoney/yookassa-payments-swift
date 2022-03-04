@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		25513834279F376A00BDE805 /* SuperLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 25513833279F376A00BDE805 /* SuperLibrary */; };
+		25513835279F376A00BDE805 /* SuperLibrary in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 25513833279F376A00BDE805 /* SuperLibrary */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		25E11B36278CAB4300B35ED6 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25E11B35278CAB4300B35ED6 /* Accelerate.framework */; };
+		25E11B38278CAB4A00B35ED6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25E11B37278CAB4A00B35ED6 /* AVFoundation.framework */; };
+		25E11B3A278CAB7E00B35ED6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25E11B39278CAB7E00B35ED6 /* AudioToolbox.framework */; };
+		25E11B3C278CAB8900B35ED6 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25E11B3B278CAB8900B35ED6 /* CoreMedia.framework */; };
+		25E11B3E278CAB8E00B35ED6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25E11B3D278CAB8E00B35ED6 /* MobileCoreServices.framework */; };
+		25E11BE2278F519D00B35ED6 /* CardIO Integration as Development Pod.md in Resources */ = {isa = PBXBuildFile; fileRef = 25E11BE1278F519D00B35ED6 /* CardIO Integration as Development Pod.md */; };
 		309BD41A265CE9FA00D4804D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BD419265CE9FA00D4804D /* AppDelegate.swift */; };
 		309BD423265CE9FC00D4804D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 309BD422265CE9FC00D4804D /* Assets.xcassets */; };
 		309BD426265CE9FC00D4804D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 309BD424265CE9FC00D4804D /* LaunchScreen.storyboard */; };
@@ -99,7 +107,7 @@
 		309BD509265CF7EA00D4804D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 309BD4B1265CEED300D4804D /* Localizable.strings */; };
 		309BD50A265CF7ED00D4804D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 309BD4AE265CEED300D4804D /* InfoPlist.strings */; };
 		309BD50E265CF8F900D4804D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 309BD50D265CF8F900D4804D /* Settings.bundle */; };
-		ED73462EE4D8338D36FFAF97 /* Pods_YooKassaPaymentsDemoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96C8285F8FF84882B87AA7D0 /* Pods_YooKassaPaymentsDemoApp.framework */; };
+		5BE893CD9ED1FE41EFF5E4D0 /* Pods_YooKassaPaymentsDemoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7572A89120D8E94C7AA3C387 /* Pods_YooKassaPaymentsDemoApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -111,6 +119,7 @@
 			files = (
 				309BD507265CF67500D4804D /* TMXProfiling.xcframework in Embed Frameworks */,
 				309BD505265CF67500D4804D /* TMXProfilingConnections.xcframework in Embed Frameworks */,
+				25513835279F376A00BDE805 /* SuperLibrary in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,6 +127,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		25513832279F24B900BDE805 /* SuperLibrary */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SuperLibrary; sourceTree = "<group>"; };
+		25E11B35278CAB4300B35ED6 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		25E11B37278CAB4A00B35ED6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		25E11B39278CAB7E00B35ED6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		25E11B3B278CAB8900B35ED6 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		25E11B3D278CAB8E00B35ED6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		25E11BE1278F519D00B35ED6 /* CardIO Integration as Development Pod.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "CardIO Integration as Development Pod.md"; sourceTree = SOURCE_ROOT; };
 		309BD416265CE9FA00D4804D /* YooKassaPaymentsDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YooKassaPaymentsDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		309BD419265CE9FA00D4804D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		309BD422265CE9FC00D4804D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -125,7 +141,6 @@
 		309BD427265CE9FC00D4804D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		309BD430265CEBAA00D4804D /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		309BD432265CECA000D4804D /* YooKassaPaymentsDemoApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YooKassaPaymentsDemoApp.entitlements; sourceTree = "<group>"; };
-		309BD433265CED7700D4804D /* RootViewController+CardScanning+Carthage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RootViewController+CardScanning+Carthage.swift"; sourceTree = "<group>"; };
 		309BD435265CED7700D4804D /* RootViewController+TokenizationModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RootViewController+TokenizationModuleOutput.swift"; sourceTree = "<group>"; };
 		309BD43B265CED9200D4804D /* TestSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSettings.swift; sourceTree = "<group>"; };
 		309BD43C265CED9200D4804D /* ProcessConfirmation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessConfirmation.swift; sourceTree = "<group>"; };
@@ -169,7 +184,6 @@
 		309BD472265CED9300D4804D /* TextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
 		309BD473265CED9300D4804D /* ContainerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerTableViewCell.swift; sourceTree = "<group>"; };
 		309BD474265CED9300D4804D /* TitledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledSwitchView.swift; sourceTree = "<group>"; };
-		309BD475265CED9300D4804D /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		309BD477265CED9300D4804D /* DevHostService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevHostService.swift; sourceTree = "<group>"; };
 		309BD479265CED9300D4804D /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		309BD47A265CED9300D4804D /* KeyValueStoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStoring.swift; sourceTree = "<group>"; };
@@ -216,8 +230,8 @@
 		309BD502265CF67500D4804D /* TMXProfilingConnections.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TMXProfilingConnections.xcframework; path = Frameworks/TMXProfilingConnections.xcframework; sourceTree = "<group>"; };
 		309BD503265CF67500D4804D /* TMXProfiling.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TMXProfiling.xcframework; path = Frameworks/TMXProfiling.xcframework; sourceTree = "<group>"; };
 		309BD50D265CF8F900D4804D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		7572A89120D8E94C7AA3C387 /* Pods_YooKassaPaymentsDemoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YooKassaPaymentsDemoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F8158AE15EC622D52168F1B /* Pods-YooKassaPaymentsDemoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YooKassaPaymentsDemoApp.debug.xcconfig"; path = "Target Support Files/Pods-YooKassaPaymentsDemoApp/Pods-YooKassaPaymentsDemoApp.debug.xcconfig"; sourceTree = "<group>"; };
-		96C8285F8FF84882B87AA7D0 /* Pods_YooKassaPaymentsDemoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YooKassaPaymentsDemoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B49D3919C08A0F73B99DDF1F /* Pods-YooKassaPaymentsDemoApp.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YooKassaPaymentsDemoApp.adhoc.xcconfig"; path = "Target Support Files/Pods-YooKassaPaymentsDemoApp/Pods-YooKassaPaymentsDemoApp.adhoc.xcconfig"; sourceTree = "<group>"; };
 		BBD7622FB34E579612CE1FE8 /* Pods-YooKassaPaymentsDemoApp.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YooKassaPaymentsDemoApp.appstore.xcconfig"; path = "Target Support Files/Pods-YooKassaPaymentsDemoApp/Pods-YooKassaPaymentsDemoApp.appstore.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -227,18 +241,33 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25E11B38278CAB4A00B35ED6 /* AVFoundation.framework in Frameworks */,
 				309BD504265CF67500D4804D /* TMXProfilingConnections.xcframework in Frameworks */,
-				ED73462EE4D8338D36FFAF97 /* Pods_YooKassaPaymentsDemoApp.framework in Frameworks */,
+				25513834279F376A00BDE805 /* SuperLibrary in Frameworks */,
+				25E11B36278CAB4300B35ED6 /* Accelerate.framework in Frameworks */,
+				25E11B3C278CAB8900B35ED6 /* CoreMedia.framework in Frameworks */,
+				25E11B3A278CAB7E00B35ED6 /* AudioToolbox.framework in Frameworks */,
 				309BD506265CF67500D4804D /* TMXProfiling.xcframework in Frameworks */,
+				25E11B3E278CAB8E00B35ED6 /* MobileCoreServices.framework in Frameworks */,
+				5BE893CD9ED1FE41EFF5E4D0 /* Pods_YooKassaPaymentsDemoApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		25513831279F24B900BDE805 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				25513832279F24B900BDE805 /* SuperLibrary */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		309BD40D265CE9FA00D4804D = {
 			isa = PBXGroup;
 			children = (
+				25513831279F24B900BDE805 /* Packages */,
 				B8050DD2E7DA581F680CB9F3 /* Frameworks */,
 				F5CE47463A88A1107A58ED24 /* Pods */,
 				309BD417265CE9FA00D4804D /* Products */,
@@ -257,8 +286,8 @@
 		309BD418265CE9FA00D4804D /* YooKassaPaymentsDemoApp */ = {
 			isa = PBXGroup;
 			children = (
+				25E11BE1278F519D00B35ED6 /* CardIO Integration as Development Pod.md */,
 				309BD419265CE9FA00D4804D /* AppDelegate.swift */,
-				309BD433265CED7700D4804D /* RootViewController+CardScanning+Carthage.swift */,
 				309BD435265CED7700D4804D /* RootViewController+TokenizationModuleOutput.swift */,
 				309BD431265CEC2600D4804D /* Resources */,
 				309BD439265CED9200D4804D /* Source */,
@@ -283,7 +312,6 @@
 		309BD439265CED9200D4804D /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				309BD475265CED9300D4804D /* Bridging-Header.h */,
 				309BD4D8265CF2CB00D4804D /* Identifier.swift */,
 				309BD4DC265CF31700D4804D /* ActionTextDialog */,
 				309BD457265CED9300D4804D /* AtomicDesign */,
@@ -572,9 +600,14 @@
 		B8050DD2E7DA581F680CB9F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				25E11B3D278CAB8E00B35ED6 /* MobileCoreServices.framework */,
+				25E11B3B278CAB8900B35ED6 /* CoreMedia.framework */,
+				25E11B39278CAB7E00B35ED6 /* AudioToolbox.framework */,
+				25E11B37278CAB4A00B35ED6 /* AVFoundation.framework */,
+				25E11B35278CAB4300B35ED6 /* Accelerate.framework */,
 				309BD503265CF67500D4804D /* TMXProfiling.xcframework */,
 				309BD502265CF67500D4804D /* TMXProfilingConnections.xcframework */,
-				96C8285F8FF84882B87AA7D0 /* Pods_YooKassaPaymentsDemoApp.framework */,
+				7572A89120D8E94C7AA3C387 /* Pods_YooKassaPaymentsDemoApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -609,6 +642,9 @@
 			dependencies = (
 			);
 			name = YooKassaPaymentsDemoApp;
+			packageProductDependencies = (
+				25513833279F376A00BDE805 /* SuperLibrary */,
+			);
 			productName = YooKassaPaymentsDemoApp;
 			productReference = 309BD416265CE9FA00D4804D /* YooKassaPaymentsDemoApp.app */;
 			productType = "com.apple.product-type.application";
@@ -624,8 +660,6 @@
 				TargetAttributes = {
 					309BD415265CE9FA00D4804D = {
 						CreatedOnToolsVersion = 12.5;
-						DevelopmentTeam = 2752592HU5;
-						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -654,6 +688,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				309BD426265CE9FC00D4804D /* LaunchScreen.storyboard in Resources */,
+				25E11BE2278F519D00B35ED6 /* CardIO Integration as Development Pod.md in Resources */,
 				309BD509265CF7EA00D4804D /* Localizable.strings in Resources */,
 				309BD50E265CF8F900D4804D /* Settings.bundle in Resources */,
 				309BD423265CE9FC00D4804D /* Assets.xcassets in Resources */,
@@ -997,9 +1032,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = YooKassaPaymentsDemoApp/Resources/YooKassaPaymentsDemoApp.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 2752592HU5;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = YooKassaPaymentsDemoApp/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1121,6 +1155,13 @@
 			defaultConfigurationName = AppStore;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		25513833279F376A00BDE805 /* SuperLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SuperLibrary;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 309BD40E265CE9FA00D4804D /* Project object */;
 }
