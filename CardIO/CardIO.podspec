@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
   spec.name             = 'CardIO'
   spec.version          = '5.4.1'
-  spec.license          = { type: 'MIT', file: 'CardIO/LICENSE.md' }
+  spec.license          = { type: 'MIT', file: 'LICENSE.md' }
   spec.homepage         = 'https://www.card.io'
   spec.authors          = { 'CardIO' => 'support@paypal.com' }
   spec.summary          = 'Credit card scanning for mobile apps'
@@ -11,7 +11,7 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = '6.1'
   spec.requires_arc     = true
   spec.source_files     = 'CardIO/*.{h,m}'
-  spec.frameworks       = 'Accelerate', 'AVFoundation', 'AudioToolbox', 'CoreGraphics', 'CoreMedia', 'CoreVideo', 'CoreServices', 'OpenGLES', 'QuartzCore', 'Security', 'UIKit'
+  spec.frameworks       = 'Accelerate', 'AVFoundation', 'AudioToolbox', 'CoreMedia', 'CoreVideo', 'MobileCoreServices', 'OpenGLES', 'QuartzCore', 'Security', 'UIKit'
   spec.libraries        = 'c++'
   spec.vendored_libraries = 'CardIO/libCardIOCore.a', 'CardIO/libopencv_core.a', 'CardIO/libopencv_imgproc.a'
   spec.pod_target_xcconfig = { 'OTHER_LDFLAGS' => '-ObjC' }

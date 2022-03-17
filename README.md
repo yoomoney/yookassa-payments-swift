@@ -21,7 +21,6 @@ Using the SDK, you can receive tokens for processing payments via bank cards, Ap
   - [Adding dependencies](#adding-dependencies)
     - [CocoaPods](#cocoapods)
     - [Carthage](#carthage)
-  - [Implementing TMXProfiling and TMXProfilingConnections](#implementing-tmxprofiling-and-tmxprofilingconnections)
   - [Quick integration](#quick-integration)
   - [Available payment methods](#available-payment-methods)
   - [Setting up payment methods](#setting-up-payment-methods)
@@ -121,17 +120,6 @@ end
 ### Carthage
 
 At the moment, Carthage is not supported.
-
-## Implementing TMXProfiling and TMXProfilingConnections
-
-To get the `.xcframework` file, [sign up for YooMoney](https://yookassa.ru/joinups)
-and tell your manager that you'd like to implement the mobile SDK.
-
-1. Using Finder or a different file manager, add the `TMXProfiling.xcframework` and `TMXProfilingConnections.xcframework` libraries to the project folder.
-
-2. Add `TMXProfiling.xcframework` and `TMXProfilingConnections.xcframework` in `Frameworks, Libraries, and Embedded Content` for the main target of the project under the `General` section.
-
-3. `TMXProfiling.xcframework` and `TMXProfilingConnections.xcframework` must be added with `Embed & Sign`
 
 ## Quick integration
 
@@ -745,8 +733,6 @@ To launch the Example app, you need to:
 git clone https://github.com/yoomoney/yookassa-payments-swift.git
 ```
 
-2. Create a `Frameworks` folder in the project root directory.
-3. Add `TMXProfiling.xcframework` and `TMXProfilingConnections.xcframework` to the `Frameworks` folder
 4. Go to the project folder and run the following commands in console:
 
 ```shell
@@ -756,7 +742,7 @@ pod install
 ```
 
 4. Open `YooKassaPayments.xcworkspace`.
-5. Select and launch the `ExamplePods` scheme.
+5. Select and launch the `YooKassaPaymentsDemoApp` scheme.
 
 ## Interface customization
 

@@ -21,7 +21,6 @@
   - [Подключение зависимостей](#подключение-зависимостей)
     - [CocoaPods](#cocoapods)
     - [Carthage](#carthage)
-  - [Подключение TMXProfiling и TMXProfilingConnections](#подключение-tmxprofiling-и-tmxprofilingconnections)
   - [Быстрая интеграция](#быстрая-интеграция)
   - [Доступные способы оплаты](#доступные-способы-оплаты)
   - [Настройка способов оплаты](#настройка-способов-оплаты)
@@ -121,17 +120,6 @@ end
 ### Carthage
 
 На текущий момент Carthage не поддерживается.
-
-## Подключение TMXProfiling и TMXProfilingConnections
-
-Чтобы получить файл `.xcframework`,  [зарегистрируйтесь в ЮKassa](https://yookassa.ru/joinups)
-и сообщите вашему менеджеру, что хотите подключить мобильный SDK.
-
-1. Используя Finder или другой файловый менеджер добавьте библиотеки `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework` в папку c вашим проектом.
-
-2. В разделе `General` у основного таргета проекта добавьте `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework` в `Frameworks, Libraries, and Embedded Content`.
-
-3. `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework` должны быть добавлены как `Embed & Sign`
 
 ## Быстрая интеграция
 
@@ -744,10 +732,7 @@ let moduleData = TokenizationModuleInputData(
 ```shell
 git clone https://github.com/yoomoney/yookassa-payments-swift.git
 ```
-
-2. Создайте папку `Frameworks` в корне проекта.
-3. Добавьте `TMXProfiling.xcframework` и `TMXProfilingConnections.xcframework` в папку `Frameworks`
-4. В консоли перейти в папку с проектом и выполнить следующие команды:
+2. В консоли перейти в папку с проектом и выполнить следующие команды:
 
 ```shell
 gem install bundler
@@ -756,7 +741,7 @@ pod install
 ```
 
 4. Открыть `YooKassaPayments.xcworkspace`.
-5. Выбрать и запустить схему `ExamplePods`.
+5. Выбрать и запустить схему `YooKassaPaymentsDemoApp`.
 
 ## Кастомизация интерфейса
 

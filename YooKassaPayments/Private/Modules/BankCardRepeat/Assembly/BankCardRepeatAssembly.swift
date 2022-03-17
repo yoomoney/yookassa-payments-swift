@@ -20,7 +20,7 @@ enum BankCardRepeatAssembly {
         let initialSavePaymentMethod = makeInitialSavePaymentMethod(inputData.savePaymentMethod)
         let savePaymentMethodViewModel = SavePaymentMethodViewModelFactory.makeSavePaymentMethodViewModel(
             inputData.savePaymentMethod,
-            initialState: initialSavePaymentMethod
+            initialState: true
         )
         let presenter = BankCardRepeatPresenter(
             cardService: cardService,
@@ -33,8 +33,7 @@ enum BankCardRepeatAssembly {
             purchaseDescription: inputData.purchaseDescription,
             termsOfService: termsOfService,
             savePaymentMethodViewModel: savePaymentMethodViewModel,
-            initialSavePaymentMethod: initialSavePaymentMethod,
-            isSafeDeal: inputData.isSafeDeal
+            initialSavePaymentMethod: initialSavePaymentMethod
         )
 
         let analyticsService = AnalyticsTrackingAssembly.make(isLoggingEnabled: inputData.isLoggingEnabled)
@@ -59,8 +58,7 @@ enum BankCardRepeatAssembly {
             amountNumberFormatter: amountNumberFormatter,
             clientApplicationKey: inputData.clientApplicationKey,
             gatewayId: inputData.gatewayId,
-            amount: inputData.amount,
-            customerId: inputData.customerId
+            amount: inputData.amount
         )
 
         let router = BankCardRepeatRouter()

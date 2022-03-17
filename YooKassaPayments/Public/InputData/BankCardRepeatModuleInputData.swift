@@ -35,13 +35,6 @@ public struct BankCardRepeatModuleInputData {
     /// The cashier at the division of payment flows within a single account.
     let gatewayId: String?
 
-    /// Unique customer identifier by which you exclusively identify the custormer.
-    /// Can be represented by phone, email or any other id which uniquely identifies the customer.
-    let customerId: String?
-
-    /// Is this shop a safe deal shop
-    let isSafeDeal: Bool
-
     /// Creates instance of `BankCardRepeatModuleInputData`.
     ///
     /// - Parameters:
@@ -70,9 +63,7 @@ public struct BankCardRepeatModuleInputData {
         isLoggingEnabled: Bool = false,
         customizationSettings: CustomizationSettings = CustomizationSettings(),
         savePaymentMethod: SavePaymentMethod,
-        gatewayId: String? = nil,
-        customerId: String?,
-        isSafeDeal: Bool
+        gatewayId: String? = nil
     ) {
         self.clientApplicationKey = (clientApplicationKey + ":").base64Encoded()
         self.shopName = shopName
@@ -85,7 +76,5 @@ public struct BankCardRepeatModuleInputData {
         self.customizationSettings = customizationSettings
         self.savePaymentMethod = savePaymentMethod
         self.gatewayId = gatewayId
-        self.customerId = customerId
-        self.isSafeDeal = isSafeDeal
     }
 }

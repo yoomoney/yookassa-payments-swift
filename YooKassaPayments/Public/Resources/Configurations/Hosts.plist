@@ -2,5 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>wallet</key>
+    <string>//front-main.appb2b1.cloud.yoomoney.ru</string>
+    <key>payments</key>
+    <string>//sdk.front-pcidss.appb2b1.cloud.yookassa.ru:9491/</string>
+    <key>moneyAuth</key>
+    <string>//front-main.appb2b1.cloud.yoomoney.ru/</string>
+    <key>config</key>
+    <string>//front-main.appb2b1.cloud.yookassa.ru/</string>
 </dict>
 </plist>

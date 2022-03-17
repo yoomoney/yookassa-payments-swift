@@ -3,6 +3,7 @@ import MessageUI
 import SafariServices
 import UIKit
 import WebKit
+import YandexMobileMetrica
 import YooKassaPayments
 
 final class RootViewController: UIViewController {

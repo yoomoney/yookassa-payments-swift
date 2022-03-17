@@ -25,7 +25,6 @@ final class BankCardRepeatPresenter {
     private let termsOfService: NSAttributedString
     private let savePaymentMethodViewModel: SavePaymentMethodViewModel?
     private var initialSavePaymentMethod: Bool
-    private let isSafeDeal: Bool
 
     // MARK: - Init
 
@@ -40,8 +39,7 @@ final class BankCardRepeatPresenter {
         purchaseDescription: String,
         termsOfService: NSAttributedString,
         savePaymentMethodViewModel: SavePaymentMethodViewModel?,
-        initialSavePaymentMethod: Bool,
-        isSafeDeal: Bool
+        initialSavePaymentMethod: Bool
     ) {
         self.cardService = cardService
         self.paymentMethodViewModelFactory = paymentMethodViewModelFactory
@@ -56,7 +54,6 @@ final class BankCardRepeatPresenter {
         self.termsOfService = termsOfService
         self.savePaymentMethodViewModel = savePaymentMethodViewModel
         self.initialSavePaymentMethod = initialSavePaymentMethod
-        self.isSafeDeal = isSafeDeal
     }
 
     // MARK: - Stored Data
@@ -215,7 +212,7 @@ extension BankCardRepeatPresenter: BankCardRepeatInteractorOutput {
             cardMask: formattingCardMask(cardMask),
             cardLogo: cardLogo,
             terms: termsOfService,
-            safeDealText: isSafeDeal ? PaymentMethodResources.Localized.safeDealInfoLink : nil
+            safeDealText: nil
         )
 
         DispatchQueue.main.async { [weak self] in

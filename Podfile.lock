@@ -8,15 +8,19 @@ PODS:
   - Reveal-SDK (33)
   - SwiftLint (0.45.1)
   - ThreatMetrixAdapter (3.3.3)
+  - TMXProfiling (1.0.1)
+  - TMXProfilingConnections (1.0.1)
   - YandexMobileMetrica/Dynamic (3.17.0):
     - YandexMobileMetrica/Dynamic/Core (= 3.17.0)
     - YandexMobileMetrica/Dynamic/Crashes (= 3.17.0)
   - YandexMobileMetrica/Dynamic/Core (3.17.0)
   - YandexMobileMetrica/Dynamic/Crashes (3.17.0):
     - YandexMobileMetrica/Dynamic/Core
-  - YooKassaPayments (6.6.2):
+  - YooKassaPayments (6.7.0):
     - MoneyAuth (~> 3.3.0)
     - ThreatMetrixAdapter (~> 3.3.3)
+    - TMXProfiling (= 1.0.1)
+    - TMXProfilingConnections (= 1.0.1)
     - YandexMobileMetrica/Dynamic (~> 3.0)
     - YooKassaPaymentsApi (~> 2.11.0)
     - YooKassaWalletApi (~> 2.3.1)
@@ -42,6 +46,8 @@ SPEC REPOS:
     - FunctionalSwift
     - MoneyAuth
     - ThreatMetrixAdapter
+    - TMXProfiling
+    - TMXProfilingConnections
     - YooKassaPaymentsApi
     - YooKassaWalletApi
     - YooMoneyCoreApi
@@ -57,14 +63,16 @@ EXTERNAL SOURCES:
     :path: "./"
 
 SPEC CHECKSUMS:
-  CardIO: 3d68b6cf6f821a63c3a08cb08083c1a6702ce67d
+  CardIO: 69b4821c414157debbf1e3dc30e20c9507757a44
   FunctionalSwift: 856da67cf3fb812341445d4e28f05875904d8da0
   MoneyAuth: 74ba8e8fadbdabe2be706dcad1d0b9de96152897
   Reveal-SDK: effba1c940b8337195563c425a6b5862ec875caa
   SwiftLint: 06ac37e4d38c7068e0935bb30cda95f093bec761
   ThreatMetrixAdapter: 1b31f0afe02eb68be52945e160cc9c0fd117b06c
+  TMXProfiling: feb7377f8053983ffca628ad6648a3c319629ae5
+  TMXProfilingConnections: ab80677b078b86560457b6bc60546bced75d2ddd
   YandexMobileMetrica: 9e713c16bb6aca0ba63b84c8d7b8b86d32f4ecc4
-  YooKassaPayments: 93039e3a4b08a44ac8c901d20fbb9151673ffa47
+  YooKassaPayments: 606ed4b70d4ebf7682963018f2cb2a0eb3e567b8
   YooKassaPaymentsApi: f76c84ec94ace98e8babc6996cf804840d93f8d8
   YooKassaWalletApi: 817d511330332aaec84490f8335ab8c94285d9be
   YooMoneyCoreApi: d16cbc3e816c89b7cca957090d7c290b9eb6ddf1

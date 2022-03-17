@@ -100,13 +100,8 @@
 		309BD4FE265CF55D00D4804D /* UITableView+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BD4FB265CF55D00D4804D /* UITableView+Identifier.swift */; };
 		309BD4FF265CF55D00D4804D /* UITableViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BD4FC265CF55D00D4804D /* UITableViewCell+Identifier.swift */; };
 		309BD501265CF5A200D4804D /* UIImage+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BD500265CF5A200D4804D /* UIImage+Tools.swift */; };
-		309BD504265CF67500D4804D /* TMXProfilingConnections.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309BD502265CF67500D4804D /* TMXProfilingConnections.xcframework */; };
-		309BD505265CF67500D4804D /* TMXProfilingConnections.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 309BD502265CF67500D4804D /* TMXProfilingConnections.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		309BD506265CF67500D4804D /* TMXProfiling.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309BD503265CF67500D4804D /* TMXProfiling.xcframework */; };
-		309BD507265CF67500D4804D /* TMXProfiling.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 309BD503265CF67500D4804D /* TMXProfiling.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		309BD509265CF7EA00D4804D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 309BD4B1265CEED300D4804D /* Localizable.strings */; };
 		309BD50A265CF7ED00D4804D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 309BD4AE265CEED300D4804D /* InfoPlist.strings */; };
-		309BD50E265CF8F900D4804D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 309BD50D265CF8F900D4804D /* Settings.bundle */; };
 		5BE893CD9ED1FE41EFF5E4D0 /* Pods_YooKassaPaymentsDemoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7572A89120D8E94C7AA3C387 /* Pods_YooKassaPaymentsDemoApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -117,8 +112,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				309BD507265CF67500D4804D /* TMXProfiling.xcframework in Embed Frameworks */,
-				309BD505265CF67500D4804D /* TMXProfilingConnections.xcframework in Embed Frameworks */,
 				25513835279F376A00BDE805 /* SuperLibrary in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -227,8 +220,6 @@
 		309BD4FB265CF55D00D4804D /* UITableView+Identifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Identifier.swift"; sourceTree = "<group>"; };
 		309BD4FC265CF55D00D4804D /* UITableViewCell+Identifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Identifier.swift"; sourceTree = "<group>"; };
 		309BD500265CF5A200D4804D /* UIImage+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Tools.swift"; sourceTree = "<group>"; };
-		309BD502265CF67500D4804D /* TMXProfilingConnections.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TMXProfilingConnections.xcframework; path = Frameworks/TMXProfilingConnections.xcframework; sourceTree = "<group>"; };
-		309BD503265CF67500D4804D /* TMXProfiling.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TMXProfiling.xcframework; path = Frameworks/TMXProfiling.xcframework; sourceTree = "<group>"; };
 		309BD50D265CF8F900D4804D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		7572A89120D8E94C7AA3C387 /* Pods_YooKassaPaymentsDemoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YooKassaPaymentsDemoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F8158AE15EC622D52168F1B /* Pods-YooKassaPaymentsDemoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YooKassaPaymentsDemoApp.debug.xcconfig"; path = "Target Support Files/Pods-YooKassaPaymentsDemoApp/Pods-YooKassaPaymentsDemoApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -242,12 +233,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				25E11B38278CAB4A00B35ED6 /* AVFoundation.framework in Frameworks */,
-				309BD504265CF67500D4804D /* TMXProfilingConnections.xcframework in Frameworks */,
 				25513834279F376A00BDE805 /* SuperLibrary in Frameworks */,
 				25E11B36278CAB4300B35ED6 /* Accelerate.framework in Frameworks */,
 				25E11B3C278CAB8900B35ED6 /* CoreMedia.framework in Frameworks */,
 				25E11B3A278CAB7E00B35ED6 /* AudioToolbox.framework in Frameworks */,
-				309BD506265CF67500D4804D /* TMXProfiling.xcframework in Frameworks */,
 				25E11B3E278CAB8E00B35ED6 /* MobileCoreServices.framework in Frameworks */,
 				5BE893CD9ED1FE41EFF5E4D0 /* Pods_YooKassaPaymentsDemoApp.framework in Frameworks */,
 			);
@@ -605,8 +594,6 @@
 				25E11B39278CAB7E00B35ED6 /* AudioToolbox.framework */,
 				25E11B37278CAB4A00B35ED6 /* AVFoundation.framework */,
 				25E11B35278CAB4300B35ED6 /* Accelerate.framework */,
-				309BD503265CF67500D4804D /* TMXProfiling.xcframework */,
-				309BD502265CF67500D4804D /* TMXProfilingConnections.xcframework */,
 				7572A89120D8E94C7AA3C387 /* Pods_YooKassaPaymentsDemoApp.framework */,
 			);
 			name = Frameworks;
@@ -636,6 +623,7 @@
 				309BD414265CE9FA00D4804D /* Resources */,
 				D3C0E205AD648DF915E718BE /* [CP] Embed Pods Frameworks */,
 				309BD508265CF67500D4804D /* Embed Frameworks */,
+				E60EF5C727D1081800E7EE82 /* Exclude private part from build */,
 			);
 			buildRules = (
 			);
@@ -660,6 +648,8 @@
 				TargetAttributes = {
 					309BD415265CE9FA00D4804D = {
 						CreatedOnToolsVersion = 12.5;
+						DevelopmentTeam = 2752592HU5;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -690,7 +680,6 @@
 				309BD426265CE9FC00D4804D /* LaunchScreen.storyboard in Resources */,
 				25E11BE2278F519D00B35ED6 /* CardIO Integration as Development Pod.md in Resources */,
 				309BD509265CF7EA00D4804D /* Localizable.strings in Resources */,
-				309BD50E265CF8F900D4804D /* Settings.bundle in Resources */,
 				309BD423265CE9FC00D4804D /* Assets.xcassets in Resources */,
 				309BD50A265CF7ED00D4804D /* InfoPlist.strings in Resources */,
 			);
@@ -733,6 +722,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YooKassaPaymentsDemoApp/Pods-YooKassaPaymentsDemoApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		E60EF5C727D1081800E7EE82 /* Exclude private part from build */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Exclude private part from build";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "HOSTS_FILENAME=\"Hosts.plist\"\n\nif [ ${CONFIGURATION} != \"AppStore\" ]; then\n    cp -r ${PROJECT_DIR}/YooKassaPaymentsDemoApp/Resources/Settings.bundle ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\n    cp ${PROJECT_DIR}/YooKassaPayments/Public/Resources/Configurations/${HOSTS_FILENAME} ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/${HOSTS_FILENAME}\nfi\n";
 		};
 		F3D25A615B818B4BE7FC6DF7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1032,8 +1039,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = YooKassaPaymentsDemoApp/Resources/YooKassaPaymentsDemoApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2752592HU5;
 				INFOPLIST_FILE = YooKassaPaymentsDemoApp/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
