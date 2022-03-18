@@ -1,5 +1,7 @@
 binary "https://raw.githubusercontent.com/yandexmobile/metrica-sdk-ios/master/YandexMobileMetrica.json" "3.17.0"
 binary "https://raw.githubusercontent.com/yoomoney/yooid-sdk-ios/master/MoneyAuth.json" "3.3.0"
+binary "https://raw.githubusercontent.com/yoomoney/yooid-sdk-ios/master/TMXProfiling.json" "1.0.1"
+binary "https://raw.githubusercontent.com/yoomoney/yooid-sdk-ios/master/TMXProfilingConnections.json" "1.0.1"
 binary "https://raw.githubusercontent.com/yoomoney/yookassa-threat-metrix-adapter-ios/main/ThreatMetrixAdapter.json" "3.3.3"
 github "AliSoftware/OHHTTPStubs" "8.0.0"
 github "yoomoney/core-api-swift" "2.0.1"
