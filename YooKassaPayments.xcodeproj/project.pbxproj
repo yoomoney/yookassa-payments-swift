@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2460CA7127E4F8B70098CBCF /* TMXProfilingConnections.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2460CA6F27E4F8B70098CBCF /* TMXProfilingConnections.xcframework */; };
+		2460CA7227E4F8B70098CBCF /* TMXProfiling.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2460CA7027E4F8B70098CBCF /* TMXProfiling.xcframework */; };
 		2519BAC926F35BBA0013DEFD /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519BAC826F35BBA0013DEFD /* Config.swift */; };
 		2519BACC26F878520013DEFD /* defaultConfig_ru.json in Resources */ = {isa = PBXBuildFile; fileRef = 2519BACB26F878520013DEFD /* defaultConfig_ru.json */; };
 		2519BAD226FAF7630013DEFD /* ConfigMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519BAD126FAF7630013DEFD /* ConfigMediator.swift */; };
@@ -441,6 +443,8 @@
 		244F7D88849ACD598FFD45ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		244F7DBBF9F3523FC00B2357 /* YooKassaPayments.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YooKassaPayments.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		244F7F4FDAEC4CA756655499 /* YooKassaPayments.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = YooKassaPayments.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		2460CA6F27E4F8B70098CBCF /* TMXProfilingConnections.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TMXProfilingConnections.xcframework; path = Carthage/Build/TMXProfilingConnections.xcframework; sourceTree = "<group>"; };
+		2460CA7027E4F8B70098CBCF /* TMXProfiling.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TMXProfiling.xcframework; path = Carthage/Build/TMXProfiling.xcframework; sourceTree = "<group>"; };
 		2519BAC826F35BBA0013DEFD /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		2519BACB26F878520013DEFD /* defaultConfig_ru.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = defaultConfig_ru.json; sourceTree = "<group>"; };
 		2519BAD126FAF7630013DEFD /* ConfigMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigMediator.swift; sourceTree = "<group>"; };
@@ -866,7 +870,9 @@
 				25DFA44627DA24C90031CA59 /* MoneyAuth.xcframework in Frameworks */,
 				25DFA45627DA24D20031CA59 /* YooMoneyCoreApi.xcframework in Frameworks */,
 				25DFA44E27DA24CE0031CA59 /* YandexMobileMetrica.xcframework in Frameworks */,
+				2460CA7127E4F8B70098CBCF /* TMXProfilingConnections.xcframework in Frameworks */,
 				25DFA45227DA24D00031CA59 /* YooKassaPaymentsApi.xcframework in Frameworks */,
+				2460CA7227E4F8B70098CBCF /* TMXProfiling.xcframework in Frameworks */,
 				25DFA45427DA24D10031CA59 /* YooKassaWalletApi.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2647,6 +2653,8 @@
 			isa = PBXGroup;
 			children = (
 				252982C826AEB70300174692 /* UIKit.framework */,
+				2460CA7027E4F8B70098CBCF /* TMXProfiling.xcframework */,
+				2460CA6F27E4F8B70098CBCF /* TMXProfilingConnections.xcframework */,
 				252982C626AEB6A800174692 /* ThreatMetrixAdapter.xcframework */,
 				252982C226AEB3B500174692 /* YandexMobileMetrica.xcframework */,
 				252982C326AEB3B500174692 /* YandexMobileMetricaCrashes.xcframework */,

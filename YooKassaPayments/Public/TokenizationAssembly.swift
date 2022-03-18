@@ -1,3 +1,5 @@
+import TMXProfiling
+import TMXProfilingConnections
 import UIKit
 
 private var configPreloader: ConfigMediator?
