@@ -457,7 +457,7 @@ func application(
 - Создайте сертификат в панели разработчика Apple (используйте `.csr`).
 - Скачайте получившийся сертификат и пришлите менеджеру.
 
-[Подробная инструкция](https://yookassa.ru/files/manual_connection_Apple_Pay(website).pdf) (см. раздел 2 «Обмен сертификатами с Apple»)
+[Подробная инструкция](https://yookassa.ru/docs/manual_connection_Apple_Pay.pdf) (см. раздел 2 «Обмен сертификатами с Apple»)
 
 2. Включите Apple Pay в Xcode.
 
